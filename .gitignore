@@ -1,0 +1,7 @@
+#comment
+*.user
+*.suo
+*.orig
+bin/
+obj/
+*.sln.cache

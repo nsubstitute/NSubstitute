@@ -1,0 +1,2 @@
+*.exe -crlf -diff -merge
+*.dll -crlf -diff -merge
