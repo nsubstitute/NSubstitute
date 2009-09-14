@@ -7,7 +7,6 @@ namespace NSubstituteSpike
     [TestFixture]
     public class Spike
     {
-
         [Test]
         public void NoStubbedReturn()
         {
@@ -32,6 +31,14 @@ namespace NSubstituteSpike
 
             Assert.That(subFoo.Calculate(), Is.EqualTo(10));
             Assert.That(subFoo.Concat("a", "b"), Is.EqualTo("hello"));
+        }
+
+        [Test]
+        public void DynamicProxyGeneration()
+        {
+            var factory = new SubstitutionFactory();
+            var subFoo = factory.Create<IFoo>();
+            Assert.That(subFoo.Calculate(), Is.EqualTo(0));
         }
     }
 
