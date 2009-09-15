@@ -1,0 +1,163 @@
+Unreleased Changes
+==================
+- N/A
+
+2.1.0 (2009-05-04)
+==================
+- Fixed DYNPROXY-87: "Mixin takes precedence over target object"
+  changed DP to throw exceptions when two mixins implement the same interface or a mixin implements the same interface as its target class/object
+
+- Applied Krzysztof Kozmic's patch improving the XML documentation of IInterceptorSelector
+  and IProxyGenerationHook.
+
+2.1.0 RC1 (2009-03-10)
+======================
+- Applied Krzysztof Kozmic's patch improving the XML documentation and parameter names of IProxyBuilder, DefaultProxyBuilder and ProxyGenerator.
+
+- Applied Krzysztof Kozmic's patch heavily improving the XML documentation of ProxyGenerator.
+
+- Fixed DYNPROXY-ISSUE-84: "UseSingleInterfaceProxy on ProxyGenerationOptions is never used and should be removed"
+
+- Fixed DYNPROXY-ISSUE-58/DYNPROXY-ISSUE-77: "Inherited interface seems not to work"
+  using Dimitri Goethals' test case and Ayende Rahien/Andrey Shchekin's patch.
+
+- Fixed DYNPROXY-ISSUE-52: "DynamicProxy 1.1.5 doesn't work on Medium Trust"
+  uses the assembly's fullname instead of calling GetName()
+
+- Fixed DYNPROXY-ISSUE-82: "Not allow generics & NoGeneric methods with same signature"
+  using Fabio Maulo's test case and Krzysztof Kozmic patch.
+
+- Applied Neil Bourgeois's patch fixing DYNPROXY-ISSUE-78
+  "Custom attributes of virtual properties absent on proxy"
+
+- Applied Craig Vermeer's patch fixing an issue with generating default constructors for DYNPROXY-ISSUE-81
+  "No Default Constructor in generated Class Proxy"
+
+- Added support for IInterceptorSelector (patch provided by Krzysztof Kozmic).
+- Removed ProxyGenerationOptions.UseSelector.
+
+- Added support for generic methods when specifying additional interfaces to CreateInterfaceProxyWithoutTarget (reported by Craig Neuwirth, cause
+  found by Krzysztof Kozmic)
+
+- Added support for provide additional interfaces for target interface proxies.
+
+- Added workarounds for dictionary deserialization scenarios (reported by Grégory Célet)
+
+- Fixed mixin-related bug with serialization (per Rogelio again)
+- Made interface proxies without target and with target interface support mixins
+
+- Fixed ProxyGenerationOptions equality issues with ordering and different instances of the same mixin types (thanks for finding
+  the bug, Rogelio)
+
+- Readded mixin support (via Rogelio J. Baucells)
+
+- ClassEmitter now supports emitting fields with specific attributes
+
+- Added a load API to ModuleScope
+- SaveAssembly now serializes the cache keys together with the generated types
+
+- Fixed test issue - PEVerify is now called with a quoted assembly path (to allow for spaces in the path)
+- Fixed test annoyance - PEVerify is now not called in a separate window
+- Changed PersistentProxyBuilder behavior - SaveAssembly is not called by the class generators any more, instead PersistentProxyBuilder.SaveAssemblies
+  must be used. This allows the proxy builder to save multiple proxies at the same time. Test cases have been adapted.
+
+- Fixed issues with CacheKey.Equals and ProxyGenerationOptions.Equals/GetHashCode
+- Added a way to set and retrieve the ModuleScope used by ProxyObjectReference for proxy deserialization; proxies can now be deserialized with
+  the same ModuleScope used by the application (DYNPROXY-71)
+
+- Made BasePEVerifyTestCase only check those assemblies that were actually generated in the test case, see DYNPROXY-68
+- Fixed bug with protected internal constructors, see DYNPROXY-66/DYNPROXY-67
+- Fixed test cases not using the ProxyGenerator supplied by BasePEVerifyTestCase, see DYNPROXY-69
+
+- Added StrongNameUtil, which provides methods for checking whether an assembly is signed/a type comes from a signed assembly
+- Added an additional constructor overload to ClassEmitter, allowing to force it to use an unsigned assembly
+
+- Fixed a bug in ModuleScope: SaveAssembly tried to delete from the current directory if a file with a matching name existed, not from the target
+  directory
+
+- Applied Pawel Pabich's suggestion fixing DYNPROXY-65 
+  "OpCodeUtil.GetUnderlyingTypeOfEnum doesn't handle unsigned integers"
+
+- Fixed bug in ArgumentReference occurring when emitting static methods
+
+- Removed ClsCompliant(false) from all the public types in DynamicProxy
+
+- Added constructors to ClassEmitter, removed "serializable" ctor parameter, it wasn't used
+
+- Fixed bug in ModuleScope, see DYNPROXY-64
+
+- Fixed bug in LoadArrayElementExpression, see DYNPROXY-57
+
+- Changed signing behavior for generated assembly, assembly is now only signed if all involved types (base type, interfaces) are also signed
+
+- Documented ModuleScope, added friendlier API for saving assemblies, added tests for ModuleScope, see DYNPROXY-55
+
+- Applied Adam Tybor's patch fixing DYNPROXY-63
+  "ProxyType not included in CacheKey"
+
+- Reimplemented serialization of ProxyGenerationOptions, see revision 3803, DYNPROXY-59
+
+- Added method signature filtering to MethodFinder (see MethodSignatureComparer) because there were
+  still cases triggering duplicate methods
+
+- Reimplemented serialization without default constructors, see revision 3725, DYNPROXY-53
+- Reimplemented serialization with delegates/events, see revision 3751, DYNPROXY-56
+
+- Renamed InterfaceProxyGeneratorWithoutTarget to InterfaceProxyWithoutTargetGenerator
+
+- Fixed DYNPROXY-62
+  "Some tests in MethodFinderTestCase failed because of culture specific exception messages"
+
+- Implemented cache for System.Type.GetMethods() in order to avoid triggering the duplicate methods bug
+
+- Applied Adam Tybor's patch fixing DYNPROXY-61 
+  "Need GetInterceptors from IProxyTargetAccessor back for NHibernate Trunk"
+
+- Disabled replication of internal constructors on class proxies.
+
+- Moved the UseSingleInterfaceProxy from Core.ComponentModel to ProxyGeneratorOptions. 
+
+- Applied Lee Henson's patch fixing generic parameter definitions
+
+- Applied Jacob Lewallen's patch that introduces ProxyInterfaceWithTargetInterface
+  Quoting
+
+  "I've introduced a new "mode" that is
+   ProxyInterfaceWithTargetInterface, that uses the given interface as
+   the target type, rather than the type of the target (it asserts the
+   target implements the interface) All other modes should remain the
+   same.
+
+  "In this scenario, the IInvocation will also implement
+   IChangeProxyTarget, which can then be used to change the proxy target
+   to another implementation of the target interface."
+
+- Added support for events
+
+- Fixed DYNPROXY-43
+  "DP2 : Missing ParameterInfo 'Name' for Proxied methods"
+
+- Fixed DYNPROXY-41
+  "Invalid state exception on DP2"
+
+- Fixed DYNPROXY-39
+  "Deadlock in DynamicProxy2"
+
+- Fixed DYNPROXY-28
+  "Virtual methods calls from constructors are not working"
+
+- Fixed DYNPROXY-27
+  "Support for non-parameterless constructors"
+
+- Fixed DYNPROXY-25
+  "Chars returns are not properly configured"
+
+- Fixed DYNPROXY-24
+  "DynamicProxy2: missing locks"
+
+- Fixed DYNPROXY-34
+  "Cant proxy generic interfaces"
+
+Alpha Version 1.0.0.0
+=====================
+- First release

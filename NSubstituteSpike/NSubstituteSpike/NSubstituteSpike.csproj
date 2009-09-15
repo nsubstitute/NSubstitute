@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThirdParty\CastleDynamicProxy-2.1\net-3.5\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThirdParty\CastleDynamicProxy-2.1\net-3.5\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
     <Reference Include="LinFu.Core, Version=2.2.0.19938, Culture=neutral, PublicKeyToken=a4c63a184389506f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ThirdParty\LinFu.Core-2.2.0.0\LinFu.Core.dll</HintPath>
@@ -53,14 +61,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CastleSubstituteInterceptor.cs" />
+    <Compile Include="CastleSubstitutionFactory.cs" />
     <Compile Include="ISubstitute.cs" />
+    <Compile Include="LinFuSubstitutionFactory.cs" />
     <Compile Include="Spike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="SubstituteFoo.cs" />
-    <Compile Include="SubstituteInterceptor.cs" />
-    <Compile Include="SubstitutionFactory.cs" />
+    <Compile Include="LinFuSubstituteInterceptor.cs" />
+    <Compile Include="ISubstitutionFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
