@@ -8,9 +8,7 @@ namespace NSubstituteSpike
         public T Create<T>()
         {
             var proxyFactory = new ProxyFactory();
-            var proxy = proxyFactory.CreateDuck<T>();
-            ((IProxy) proxy).Interceptor = new LinFuSubstituteInterceptor();
-            return proxy;
+            return proxyFactory.CreateProxy<T>(new LinFuSubstituteInterceptor());
         }
     }
 }
