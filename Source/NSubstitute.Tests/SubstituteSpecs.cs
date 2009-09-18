@@ -5,7 +5,7 @@ namespace NSubstitute.Tests
 {
     public class SubstituteSpecs
     {
-        public class Concern : ConcernFor<Substitute>
+        public abstract class Concern : ConcernFor<Substitute>
         {
             public int valueToReturn;
             public ISubstitutionContext context;

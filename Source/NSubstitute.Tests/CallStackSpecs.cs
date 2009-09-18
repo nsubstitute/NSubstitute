@@ -6,7 +6,7 @@ namespace NSubstitute.Tests
 {
     public class CallStackSpecs
     {
-        public class Concern : ConcernFor<CallStack>
+        public abstract class Concern : ConcernFor<CallStack>
         {
             public override CallStack CreateSubjectUnderTest()
             {
@@ -26,13 +26,11 @@ namespace NSubstitute.Tests
 
             public override void Because()
             {
-                base.Because();
                 sut.Push(invocation);
             }
 
             public override void Context()
             {
-                base.Context();
                 invocation = mock<IInvocation>();
             }
         }
