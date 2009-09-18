@@ -58,6 +58,7 @@
     <Compile Include="SubstituteSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="TestInfrastructure\BaseConcern.cs" />
+    <Compile Include="CallStackSpecs.cs" />
     <Compile Include="TestInfrastructure\ConcernFor.cs" />
     <Compile Include="TestInfrastructure\MockingAdaptor.cs" />
     <Compile Include="TestInfrastructure\StaticConcern.cs" />

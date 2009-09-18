@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CallStack.cs" />
     <Compile Include="ICallResults.cs" />
     <Compile Include="ICallStack.cs" />
     <Compile Include="IInvocation.cs" />
