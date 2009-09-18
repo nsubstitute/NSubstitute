@@ -7,6 +7,7 @@ namespace NSubstitute.Tests
     {
         public class Concern : ConcernFor<Substitute>
         {
+            public int valueToReturn;
             public ISubstitutionContext context;
             public IInvocation invocation;
             public ICallStack callStack;
@@ -14,6 +15,7 @@ namespace NSubstitute.Tests
 
             public override void Context()
             {
+                valueToReturn = 7;
                 context = mock<ISubstitutionContext>();
                 callStack = mock<ICallStack>();
                 configuredResults = mock<ICallResults>();
@@ -40,15 +42,26 @@ namespace NSubstitute.Tests
                 context.received(x => x.LastSubstituteCalled(sut));
             }
 
+            [Test]
+            public void Should_set_value_to_return_from_configured_results()
+            {
+                invocation.received(x => x.SetReturn(valueToReturn));
+            }
+
             public override void Because()
             {
                 sut.MemberInvoked(invocation);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                configuredResults.stub(x => x.GetResult(invocation)).Return(valueToReturn);
             }
         }
 
         public class When_the_return_value_for_the_last_call_is_set : Concern
         {
-            int valueToReturn;
             
             [Test]
             public void Should_remove_the_invocation_from_the_recorded_calls_and_add_it_to_configured_results()
@@ -64,7 +77,6 @@ namespace NSubstitute.Tests
             public override void Context()
             {
                 base.Context();
-                valueToReturn = 7;
                 callStack.stub(x => x.Pop()).Return(invocation);
             }
         }

@@ -23,6 +23,8 @@ namespace NSubstitute
         {
             _callStack.Push(invocation);
             _context.LastSubstituteCalled(this);
+            var valueToReturn = _callResults.GetResult(invocation);
+            invocation.SetReturn(valueToReturn);
         }
 
     }
