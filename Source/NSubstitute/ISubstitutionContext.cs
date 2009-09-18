@@ -2,6 +2,6 @@ namespace NSubstitute
 {
     public interface ISubstitutionContext
     {
-        void LastCallShouldReturn(object value);
+        void LastCallShouldReturn<T>(T value);
     }
 }
