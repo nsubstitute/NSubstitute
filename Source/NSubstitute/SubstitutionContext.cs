@@ -12,13 +12,15 @@ namespace NSubstitute
         public static ISubstitutionContext Current { get; private set; }
         
         public void LastCallShouldReturn<T>(T value)
-        {
+        {            
+            if (lastSubstitute == null) throw new SubstitutionException();
             lastSubstitute.LastCallShouldReturn(value);
         }
 
-        public void LastSubstitute(ISubstitute substitute)
+        public void LastSubstituteCalled(ISubstitute substitute)
         {
             lastSubstitute = substitute;
         }
+
     }
 }

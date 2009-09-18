@@ -6,7 +6,15 @@ namespace NSubstitute.Tests
 {
     public class SubstitutionContextSpecs
     {
-        public class When_setting_the_return_value_of_the_last_call : ConcernFor<SubstitutionContext>
+        public abstract class Concern : ConcernFor<SubstitutionContext>
+        {
+            public override SubstitutionContext CreateSubjectUnderTest()
+            {
+                return new SubstitutionContext();
+            }            
+        }
+        
+        public class When_setting_the_return_value_of_the_last_call : Concern
         {
             private ISubstitute substitute;
             private int valueToReturn;
@@ -19,7 +27,7 @@ namespace NSubstitute.Tests
             
             public override void Because()
             {
-                sut.LastSubstitute(substitute);
+                sut.LastSubstituteCalled(substitute);
                 sut.LastCallShouldReturn(valueToReturn);
             }
 
@@ -29,9 +37,14 @@ namespace NSubstitute.Tests
                 valueToReturn = 42;
             }
 
-            public override SubstitutionContext CreateSubjectUnderTest()
+        }
+
+        public class When_trying_to_set_a_return_value_when_no_previous_call_has_been_made : Concern
+        {
+            [Test]
+            public void Should_throw_a_substitution_exception()
             {
-                return new SubstitutionContext();
+                Assert.Throws<SubstitutionException>(() => sut.LastCallShouldReturn(5));
             }
         }
     }
