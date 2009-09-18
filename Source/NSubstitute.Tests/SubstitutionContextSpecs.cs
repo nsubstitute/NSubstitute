@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.Tests.TestInfrastructure;
 using NUnit.Framework;
 

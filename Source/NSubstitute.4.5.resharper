@@ -5,6 +5,7 @@
     <Sharing>SOLUTION</Sharing>
     <CSharp>
       <FormatSettings>
+        <EXPLICIT_PRIVATE_MODIFIER>False</EXPLICIT_PRIVATE_MODIFIER>
         <INDENT_SIZE>4</INDENT_SIZE>
         <MODIFIERS_ORDER IsNull="False">
           <Item>public</Item>
@@ -52,7 +53,9 @@
       <ImportsSettings />
       <Naming2 />
     </VB>
-    <GenerateMemberBody />
+    <GenerateMemberBody>
+      <MethodImplementationKind>ReturnDefaultValue</MethodImplementationKind>
+    </GenerateMemberBody>
     <Naming2>
       <ExceptionName IsNull="False">
       </ExceptionName>

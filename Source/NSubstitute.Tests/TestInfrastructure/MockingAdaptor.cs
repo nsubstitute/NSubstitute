@@ -1,5 +1,6 @@
 using System;
 using Rhino.Mocks;
+using Rhino.Mocks.Interfaces;
 
 namespace NSubstitute.Tests.TestInfrastructure
 {
@@ -13,6 +14,11 @@ namespace NSubstitute.Tests.TestInfrastructure
         public static void received<T>(this T mock, Action<T> callReceived)
         {
             mock.AssertWasCalled(callReceived);
+        }
+
+        public static IMethodOptions<object> stub<T>(this T mock, Action<T> call) where T : class
+        {
+            return mock.Stub(call);
         }
     }
 }
