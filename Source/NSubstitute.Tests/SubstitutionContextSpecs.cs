@@ -46,5 +46,16 @@ namespace NSubstitute.Tests
                 Assert.Throws<SubstitutionException>(() => sut.LastCallShouldReturn(5));
             }
         }
+
+        public class When_accessing_current_instance : StaticConcern
+        {
+            [Test]
+            public void Should_return_same_instance_of_SubstitutionContext()
+            {
+                var firstInstance = SubstitutionContext.Current;
+                var secondInstance = SubstitutionContext.Current;
+                Assert.That(firstInstance, Is.SameAs(secondInstance) | Is.Not.Null);                
+            }
+        }
     }
 }

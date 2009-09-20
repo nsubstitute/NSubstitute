@@ -2,6 +2,11 @@ namespace NSubstitute
 {
     public class SubstitutionContext : ISubstitutionContext
     {
+        static SubstitutionContext()
+        {
+            Current = new SubstitutionContext();
+        }
+
         private ISubstitute lastSubstitute;
 
         public static void SetCurrent(ISubstitutionContext context)

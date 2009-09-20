@@ -61,8 +61,13 @@
     <Compile Include="TestInfrastructure\BaseConcern.cs" />
     <Compile Include="CallStackSpecs.cs" />
     <Compile Include="TestInfrastructure\ConcernFor.cs" />
+    <Compile Include="TestInfrastructure\ITemporaryChange.cs" />
     <Compile Include="TestInfrastructure\MockingAdaptor.cs" />
     <Compile Include="TestInfrastructure\StaticConcern.cs" />
+    <Compile Include="TestInfrastructure\TemporaryChange.cs" />
+    <Compile Include="TestInfrastructure\TemporaryChangeToBuilder.cs" />
+    <Compile Include="TestInfrastructure\TemporaryChangeViaBuilder.cs" />
+    <Compile Include="TestInfrastructure\Tests\BaseConcernSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSubstitute\NSubstitute.csproj">
