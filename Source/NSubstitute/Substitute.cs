@@ -19,12 +19,11 @@ namespace NSubstitute
             _callResults.SetResult(lastCall, valueToReturn);
         }
 
-        public void MemberInvoked(IInvocation invocation)
+        public object MemberInvoked(IInvocation invocation)
         {
             _callStack.Push(invocation);
             _context.LastSubstituteCalled(this);
-            var valueToReturn = _callResults.GetResult(invocation);
-            invocation.SetReturn(valueToReturn);
+            return _callResults.GetResult(invocation);
         }
 
     }

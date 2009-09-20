@@ -30,6 +30,8 @@ namespace NSubstitute.Tests
 
         public class When_a_member_is_invoked : Concern
         {
+            object result;
+
             [Test]
             public void Should_record_invocation()
             {
@@ -43,14 +45,14 @@ namespace NSubstitute.Tests
             }
 
             [Test]
-            public void Should_set_value_to_return_from_configured_results()
+            public void Should_return_value_from_configured_results()
             {
-                invocation.received(x => x.SetReturn(valueToReturn));
+                Assert.That(result, Is.EqualTo(valueToReturn));
             }
 
             public override void Because()
             {
-                sut.MemberInvoked(invocation);
+                result = sut.MemberInvoked(invocation);
             }
 
             public override void Context()
