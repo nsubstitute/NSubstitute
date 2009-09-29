@@ -8,13 +8,11 @@ namespace NSubstitute.Tests
         public abstract class Concern : ConcernFor<CallResults>
         {
             protected object actualResult;
-            protected object originalResult;
             protected IInvocation invocation;
 
             public override void Context()
             {
                 invocation = mock<IInvocation>();
-                originalResult = new object();
             }
 
             public override CallResults CreateSubjectUnderTest()
@@ -25,6 +23,8 @@ namespace NSubstitute.Tests
 
         public class When_getting_a_result_that_has_been_set : Concern
         {
+            protected object originalResult;
+
             [Test]
             public void Should_get_the_result_that_was_set()
             {
@@ -36,6 +36,12 @@ namespace NSubstitute.Tests
                 sut.SetResult(invocation, originalResult);
                 actualResult = sut.GetResult(invocation);
             }
+
+            public override void Context()
+            {
+                base.Context();
+                originalResult = new object();            
+            }
         }
 
         public class When_getting_a_reference_type_result_that_has_not_been_set : Concern
@@ -46,6 +52,11 @@ namespace NSubstitute.Tests
             public void Should_use_the_default_value_for_the_result_type()
             {
                 Assert.That(result, Is.Null);
+            }
+
+            public override void Because()
+            {
+                result = sut.GetResult(invocation);
             }
 
             public override void Context()

@@ -26,5 +26,9 @@ namespace NSubstitute
             return _callResults.GetResult(invocation);
         }
 
+        public static T For<T>()
+        {
+            return SubstitutionFactory.Current.Create<T>();
+        }
     }
 }
