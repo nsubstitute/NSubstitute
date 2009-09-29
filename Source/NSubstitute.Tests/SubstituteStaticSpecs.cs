@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace NSubstitute.Tests
 {
-    public class SubstituteStaticSpec
+    public class SubstituteStaticSpecs
     {
         public class When_substituting_for_a_type : StaticConcern
         {
