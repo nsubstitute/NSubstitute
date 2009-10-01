@@ -19,7 +19,7 @@ namespace NSubstitute
 
         public void LastInvocationShouldReturn<T>(T value)
         {            
-            if (_lastInvocationHandler == null) throw new SubstitutionException();
+            if (_lastInvocationHandler == null) throw new SubstituteException();
             _lastInvocationHandler.LastInvocationShouldReturn(value);
         }
 

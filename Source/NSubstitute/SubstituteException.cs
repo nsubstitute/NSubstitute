@@ -2,7 +2,7 @@ using System;
 
 namespace NSubstitute
 {
-    public class SubstitutionException : Exception
+    public class SubstituteException : Exception
     {        
     }
 }

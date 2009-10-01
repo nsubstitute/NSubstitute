@@ -70,7 +70,7 @@
     <Compile Include="IInvocationResults.cs" />
     <Compile Include="IInvocationStack.cs" />
     <Compile Include="IInvocation.cs" />
-    <Compile Include="ISubstitute.cs" />
+    <Compile Include="IInvocationHandler.cs" />
     <Compile Include="ISubstituteBuilder.cs" />
     <Compile Include="ISubstitutionContext.cs" />
     <Compile Include="ISubstituteFactory.cs" />
@@ -80,8 +80,8 @@
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="SubstitutionContext.cs" />
-    <Compile Include="SubstitutionException.cs" />
-    <Compile Include="SubstitutionFactory.cs" />
+    <Compile Include="SubstituteException.cs" />
+    <Compile Include="SubstituteFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -40,9 +40,9 @@ namespace NSubstitute.Tests
         public class When_trying_to_set_a_return_value_when_no_previous_invocation_has_been_made : Concern
         {
             [Test]
-            public void Should_throw_a_substitution_exception()
+            public void Should_throw_a_substitute_exception()
             {
-                Assert.Throws<SubstitutionException>(() => sut.LastInvocationShouldReturn(5));
+                Assert.Throws<SubstituteException>(() => sut.LastInvocationShouldReturn(5));
             }
         }
 
