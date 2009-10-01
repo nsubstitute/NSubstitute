@@ -72,14 +72,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CallResultsSpecs.cs" />
+    <Compile Include="InvocationResultsSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReturnExtensionSpec.cs" />
+    <Compile Include="InvocationHandlerSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />
-    <Compile Include="SubstituteStaticSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="TestInfrastructure\BaseConcern.cs" />
-    <Compile Include="CallStackSpecs.cs" />
+    <Compile Include="InvocationStackSpecs.cs" />
     <Compile Include="TestInfrastructure\ConcernFor.cs" />
     <Compile Include="TestInfrastructure\ITemporaryChange.cs" />
     <Compile Include="TestInfrastructure\MockingAdaptor.cs" />

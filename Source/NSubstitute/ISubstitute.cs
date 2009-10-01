@@ -1,7 +1,7 @@
 namespace NSubstitute
 {
-    public interface ISubstitute
+    public interface IInvocationHandler
     {
-        void LastCallShouldReturn<T>(T valueToReturn);
+        void LastInvocationShouldReturn<T>(T valueToReturn);
     }
 }

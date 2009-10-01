@@ -4,17 +4,17 @@ using NUnit.Framework;
 
 namespace NSubstitute.Tests
 {
-    public class CallStackSpecs
+    public class InvocationStackSpecs
     {
-        public abstract class Concern : ConcernFor<CallStack>
+        public abstract class Concern : ConcernFor<InvocationStack>
         {
-            public override CallStack CreateSubjectUnderTest()
+            public override InvocationStack CreateSubjectUnderTest()
             {
-                return new CallStack();
+                return new InvocationStack();
             }
         }
 
-        public class When_a_call_has_been_pushed : Concern
+        public class When_an_invocation_has_been_pushed : Concern
         {
             IInvocation invocation;
 
@@ -35,7 +35,7 @@ namespace NSubstitute.Tests
             }
         }
 
-        public class When_the_call_stack_is_empty : Concern
+        public class When_the_invocation_stack_is_empty : Concern
         {
             [Test]
             public void Should_get_a_stack_empty_exception()

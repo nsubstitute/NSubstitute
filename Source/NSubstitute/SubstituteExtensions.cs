@@ -4,7 +4,7 @@ namespace NSubstitute
     {
         public static void Return<T>(this T valueBeingExtended, T returnThis)
         {
-            SubstitutionContext.Current.LastCallShouldReturn(returnThis);
+            SubstitutionContext.Current.LastInvocationShouldReturn(returnThis);
         }
     }
 }

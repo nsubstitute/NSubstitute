@@ -3,9 +3,9 @@ using NUnit.Framework;
 
 namespace NSubstitute.Tests
 {
-    public class CallResultsSpecs
+    public class InvocationResultsSpecs
     {
-        public abstract class Concern : ConcernFor<CallResults>
+        public abstract class Concern : ConcernFor<InvocationResults>
         {
             protected object actualResult;
             protected IInvocation invocation;
@@ -15,9 +15,9 @@ namespace NSubstitute.Tests
                 invocation = mock<IInvocation>();
             }
 
-            public override CallResults CreateSubjectUnderTest()
+            public override InvocationResults CreateSubjectUnderTest()
             {
-                return new CallResults();
+                return new InvocationResults();
             }
         }
 

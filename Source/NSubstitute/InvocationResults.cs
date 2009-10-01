@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace NSubstitute
 {
-    public class CallResults : ICallResults
+    public class InvocationResults : IInvocationResults
     {
         Dictionary<IInvocation, object> _results;
 
-        public CallResults()
+        public InvocationResults()
         {
             _results = new Dictionary<IInvocation, object>();
         }

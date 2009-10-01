@@ -1,6 +1,6 @@
 namespace NSubstitute
 {
-    public interface ICallStack
+    public interface IInvocationStack
     {
         void Push(IInvocation invocation);
         IInvocation Pop();

@@ -7,7 +7,7 @@ namespace NSubstitute
             Current = new SubstitutionContext();
         }
 
-        private ISubstitute lastSubstitute;
+        private IInvocationHandler _lastInvocationHandler;
 
         public static void SetCurrent(ISubstitutionContext context)
         {
@@ -16,15 +16,15 @@ namespace NSubstitute
 
         public static ISubstitutionContext Current { get; private set; }
         
-        public void LastCallShouldReturn<T>(T value)
+        public void LastInvocationShouldReturn<T>(T value)
         {            
-            if (lastSubstitute == null) throw new SubstitutionException();
-            lastSubstitute.LastCallShouldReturn(value);
+            if (_lastInvocationHandler == null) throw new SubstitutionException();
+            _lastInvocationHandler.LastInvocationShouldReturn(value);
         }
 
-        public void LastSubstituteCalled(ISubstitute substitute)
+        public void LastInvocationHandlerInvoked(IInvocationHandler _invocationHandler)
         {
-            lastSubstitute = substitute;
+            _lastInvocationHandler = _invocationHandler;
         }
 
     }

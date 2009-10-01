@@ -1,8 +1,8 @@
 namespace NSubstitute
 {
-    public class SubstitutionFactory : ISubstitutionFactory
+    public class SubstitutionFactory : ISubstituteFactory
     {
-        public static ISubstitutionFactory Current { get; set; }
+        public static ISubstituteFactory Current { get; set; }
         public T Create<T>()
         {
             return default(T);

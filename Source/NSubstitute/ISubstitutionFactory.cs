@@ -1,6 +1,6 @@
 namespace NSubstitute
 {
-    public interface ISubstitutionFactory
+    public interface ISubstituteFactory
     {
         T Create<T>();
     }

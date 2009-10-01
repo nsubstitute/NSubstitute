@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace NSubstitute
 {
-    public class CallStack : ICallStack
+    public class InvocationStack : IInvocationStack
     {
         Stack<IInvocation> _stack;
 
-        public CallStack()
+        public InvocationStack()
         {
             _stack = new Stack<IInvocation>();
         }

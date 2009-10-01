@@ -13,44 +13,43 @@ namespace NSubstitute.Tests
             }            
         }
         
-        public class When_setting_the_return_value_of_the_last_call : Concern
+        public class When_setting_the_return_value_of_the_last_invocation : Concern
         {
-            private ISubstitute substitute;
+            private IInvocationHandler _invocationHandler;
             private int valueToReturn;
 
             [Test]
-            public void Should_tell_the_last_called_substitue_to_set_the_return_value_of_its_last_call()
+            public void Should_tell_the_last_invocation_handler_to_set_the_return_value_of_its_last_invocation()
             {
-                substitute.received(x => x.LastCallShouldReturn(valueToReturn));
+                _invocationHandler.received(x => x.LastInvocationShouldReturn(valueToReturn));
             }
             
             public override void Because()
             {
-                sut.LastSubstituteCalled(substitute);
-                sut.LastCallShouldReturn(valueToReturn);
+                sut.LastInvocationHandlerInvoked(_invocationHandler);
+                sut.LastInvocationShouldReturn(valueToReturn);
             }
 
             public override void Context()
             {
-                substitute = mock<ISubstitute>();
+                _invocationHandler = mock<IInvocationHandler>();
                 valueToReturn = 42;
             }
-
         }
 
-        public class When_trying_to_set_a_return_value_when_no_previous_call_has_been_made : Concern
+        public class When_trying_to_set_a_return_value_when_no_previous_invocation_has_been_made : Concern
         {
             [Test]
             public void Should_throw_a_substitution_exception()
             {
-                Assert.Throws<SubstitutionException>(() => sut.LastCallShouldReturn(5));
+                Assert.Throws<SubstitutionException>(() => sut.LastInvocationShouldReturn(5));
             }
         }
 
         public class When_accessing_current_instance : StaticConcern
         {
             [Test]
-            public void Should_return_same_instance_of_SubstitutionContext()
+            public void Should_return_same_instance_of_substitution_context()
             {
                 var firstInstance = SubstitutionContext.Current;
                 var secondInstance = SubstitutionContext.Current;
