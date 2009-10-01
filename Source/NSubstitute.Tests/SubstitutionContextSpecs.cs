@@ -7,32 +7,40 @@ namespace NSubstitute.Tests
     {
         public abstract class Concern : ConcernFor<SubstitutionContext>
         {
+            protected ISubstituteFactory substituteFactory;
+
+            public override void Context()
+            {
+                substituteFactory = mock<ISubstituteFactory>();
+            }
+
             public override SubstitutionContext CreateSubjectUnderTest()
             {
-                return new SubstitutionContext();
+                return new SubstitutionContext(substituteFactory);
             }            
         }
         
         public class When_setting_the_return_value_of_the_last_invocation : Concern
         {
-            private IInvocationHandler _invocationHandler;
+            private IInvocationHandler invocationHandler;
             private int valueToReturn;
 
             [Test]
             public void Should_tell_the_last_invocation_handler_to_set_the_return_value_of_its_last_invocation()
             {
-                _invocationHandler.received(x => x.LastInvocationShouldReturn(valueToReturn));
+                invocationHandler.received(x => x.LastInvocationShouldReturn(valueToReturn));
             }
             
             public override void Because()
             {
-                sut.LastInvocationHandlerInvoked(_invocationHandler);
+                sut.LastInvocationHandlerInvoked(invocationHandler);
                 sut.LastInvocationShouldReturn(valueToReturn);
             }
 
             public override void Context()
             {
-                _invocationHandler = mock<IInvocationHandler>();
+                base.Context();
+                invocationHandler = mock<IInvocationHandler>();
                 valueToReturn = 42;
             }
         }
@@ -43,6 +51,15 @@ namespace NSubstitute.Tests
             public void Should_throw_a_substitute_exception()
             {
                 Assert.Throws<SubstituteException>(() => sut.LastInvocationShouldReturn(5));
+            }
+        }
+
+        public class When_getting_the_subsitutite_factory_for_the_context:Concern
+        {
+            [Test]
+            public void Should_return_the_factory_the_context_was_created_with()
+            {
+                Assert.That(sut.GetSubstituteFactory(), Is.SameAs(substituteFactory));
             }
         }
 
