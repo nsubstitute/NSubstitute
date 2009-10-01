@@ -7,15 +7,16 @@ namespace NSubstitute
             Current = new SubstitutionContext();
         }
 
-        private IInvocationHandler _lastInvocationHandler;
+        public static ISubstitutionContext Current { get; set; }
 
-        public static void SetCurrent(ISubstitutionContext context)
+        IInvocationHandler _lastInvocationHandler;
+        ISubstituteFactory _substituteFactory;
+
+        public SubstitutionContext()
         {
-            Current = context;
+            _substituteFactory = new SubstituteFactory(this, null, null);
         }
 
-        public static ISubstitutionContext Current { get; private set; }
-        
         public void LastInvocationShouldReturn<T>(T value)
         {            
             if (_lastInvocationHandler == null) throw new SubstitutionException();
@@ -27,5 +28,9 @@ namespace NSubstitute
             _lastInvocationHandler = _invocationHandler;
         }
 
+        public ISubstituteFactory GetSubstituteFactory()
+        {
+            return _substituteFactory;
+        }
     }
 }

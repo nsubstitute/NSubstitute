@@ -4,7 +4,8 @@ namespace NSubstitute
     {
         public static T For<T>()
         {
-            return SubstitutionFactory.Current.Create<T>();
-        }        
+            var substituteFactory = SubstitutionContext.Current.GetSubstituteFactory();
+            return substituteFactory.Create<T>();
+        }
     }
 }

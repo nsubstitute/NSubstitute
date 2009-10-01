@@ -78,6 +78,7 @@
     <Compile Include="InvocationHandlerSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
+    <Compile Include="SubstituteFactorySpecs.cs" />
     <Compile Include="TestInfrastructure\BaseConcern.cs" />
     <Compile Include="InvocationStackSpecs.cs" />
     <Compile Include="TestInfrastructure\ConcernFor.cs" />

@@ -10,7 +10,8 @@ namespace NSubstitute.Tests
         {
             Foo result;
             Foo substitute;
-            ISubstituteFactory _substituteFactory;
+            ISubstituteFactory substituteFactory;
+            ISubstitutionContext context;
 
             [Test]
             public void Should_return_a_substitute_from_factory()
@@ -26,11 +27,13 @@ namespace NSubstitute.Tests
             public override void Context()
             {
                 substitute = mock<Foo>();
-                _substituteFactory = mock<ISubstituteFactory>();
-                _substituteFactory.stub(x => x.Create<Foo>()).Return(substitute);
-                temporarilyChange(SubstitutionFactory.Current)
-                    .to(_substituteFactory)
-                    .via(x => SubstitutionFactory.Current = x);
+                substituteFactory = mock<ISubstituteFactory>();
+                substituteFactory.stub(x => x.Create<Foo>()).Return(substitute);
+                context = mock<ISubstitutionContext>();
+                context.stub(x => x.GetSubstituteFactory()).Return(substituteFactory);
+                temporarilyChange(SubstitutionContext.Current)
+                    .to(context)
+                    .via(x => SubstitutionContext.Current = x);
             }
         }
     }

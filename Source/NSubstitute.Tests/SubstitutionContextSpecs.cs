@@ -55,6 +55,13 @@ namespace NSubstitute.Tests
                 var secondInstance = SubstitutionContext.Current;
                 Assert.That(firstInstance, Is.SameAs(secondInstance) | Is.Not.Null);                
             }
+
+            [Test]
+            public void Should_have_a_substitute_factory()
+            {
+                var context = SubstitutionContext.Current;
+                Assert.That(context.GetSubstituteFactory(), Is.TypeOf<SubstituteFactory>());
+            }
         }
     }
 }

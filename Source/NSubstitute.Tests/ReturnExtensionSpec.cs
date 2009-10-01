@@ -27,7 +27,7 @@ namespace NSubstitute.Tests
                 substitutionContext = mock<ISubstitutionContext>();
                 temporarilyChange(SubstitutionContext.Current)
                     .to(substitutionContext)
-                    .via(SubstitutionContext.SetCurrent);
+                    .via(x => SubstitutionContext.Current = x);
             }
         }
         

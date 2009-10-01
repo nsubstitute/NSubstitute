@@ -1,11 +1,25 @@
 namespace NSubstitute
 {
-    public class SubstitutionFactory : ISubstituteFactory
+    public class SubstituteFactory : ISubstituteFactory
     {
-        public static ISubstituteFactory Current { get; set; }
+        readonly ISubstitutionContext _context;
+        readonly IInvocationHandlerFactory _invocationHandlerFactory;
+        readonly ISubstituteBuilder _substituteBuilder;
+        
+        public SubstituteFactory(ISubstitutionContext context, 
+                                    IInvocationHandlerFactory invocationHandlerFactory, 
+                                    ISubstituteBuilder substituteBuilder)
+        {
+            _context = context;
+            _invocationHandlerFactory = invocationHandlerFactory;
+            _substituteBuilder = substituteBuilder;
+        }
+
         public T Create<T>()
         {
-            return default(T);
+            var invocationHandler = _invocationHandlerFactory.CreateInvocationHandler(_context);
+            var interceptor = _substituteBuilder.CreateInterceptor(invocationHandler);
+            return _substituteBuilder.GenerateProxy<T>(interceptor);
         }
     }
 }

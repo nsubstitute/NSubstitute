@@ -64,14 +64,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IInvocationHandlerFactory.cs" />
     <Compile Include="InvocationResults.cs" />
     <Compile Include="InvocationStack.cs" />
     <Compile Include="IInvocationResults.cs" />
     <Compile Include="IInvocationStack.cs" />
     <Compile Include="IInvocation.cs" />
     <Compile Include="ISubstitute.cs" />
+    <Compile Include="ISubstituteBuilder.cs" />
     <Compile Include="ISubstitutionContext.cs" />
-    <Compile Include="ISubstitutionFactory.cs" />
+    <Compile Include="ISubstituteFactory.cs" />
+    <Compile Include="ISubstituteInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InvocationHandler.cs" />
     <Compile Include="Substitute.cs" />
