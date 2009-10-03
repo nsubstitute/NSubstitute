@@ -1,6 +1,6 @@
 namespace NSubstitute
 {
-    public interface IProxyGenerator
+    public interface IProxyFactory
     {
         T GenerateProxy<T>(IInvocationHandler invocationHandler);
     }

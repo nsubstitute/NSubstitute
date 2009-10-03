@@ -80,11 +80,14 @@
     <Compile Include="IInvocationStack.cs" />
     <Compile Include="IInvocation.cs" />
     <Compile Include="IInvocationHandler.cs" />
-    <Compile Include="IProxyGenerator.cs" />
+    <Compile Include="IProxyFactory.cs" />
     <Compile Include="ISubstitutionContext.cs" />
     <Compile Include="ISubstituteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InvocationHandler.cs" />
+    <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs" />
+    <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />
+    <Compile Include="Proxies\CastleDynamicProxy\CastleProxyGeneratorWrapper.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="SubstitutionContext.cs" />

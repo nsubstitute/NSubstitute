@@ -12,7 +12,7 @@ namespace NSubstitute.Tests
             Foo result;
             IInvocationHandlerFactory invocationHandlerFactory;
             ISubstitutionContext context;
-            IProxyGenerator proxyGenerator;
+            IProxyFactory _proxyFactory;
 
             [Test]
             public void Should_return_a_proxy_for_that_type()
@@ -30,16 +30,16 @@ namespace NSubstitute.Tests
                 proxy = new Foo();
                 context = mock<ISubstitutionContext>();
                 invocationHandlerFactory = mock<IInvocationHandlerFactory>();
-                proxyGenerator = mock<IProxyGenerator>();
+                _proxyFactory = mock<IProxyFactory>();
                 var invocationHandler = mock<IInvocationHandler>();
 
                 invocationHandlerFactory.stub(x => x.CreateInvocationHandler(context)).Return(invocationHandler);
-                proxyGenerator.stub(x => x.GenerateProxy<Foo>(invocationHandler)).Return(proxy);
+                _proxyFactory.stub(x => x.GenerateProxy<Foo>(invocationHandler)).Return(proxy);
             }
 
             public override SubstituteFactory CreateSubjectUnderTest()
             {
-                return new SubstituteFactory(context, invocationHandlerFactory, proxyGenerator);
+                return new SubstituteFactory(context, invocationHandlerFactory, _proxyFactory);
             }
         }
     }

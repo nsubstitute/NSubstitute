@@ -1,6 +1,7 @@
 namespace NSubstitute.Tests.TestStructures
 {
-    public class Foo : IFoo
+    public interface IFoo
     {
+        
     }
 }
