@@ -6,7 +6,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
     {
         public virtual IInterceptor CreateForwardingInterceptor(IInvocationHandler forwardToInvocationHandler)
         {
-            return default(IInterceptor);
+            return new CastleForwardingInterceptor(new CastleInvocationMapper(), forwardToInvocationHandler);
         }
     }
 }
