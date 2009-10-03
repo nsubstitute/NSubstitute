@@ -4,22 +4,21 @@ namespace NSubstitute
     {
         readonly ISubstitutionContext _context;
         readonly IInvocationHandlerFactory _invocationHandlerFactory;
-        readonly ISubstituteBuilder _substituteBuilder;
+        readonly IProxyGenerator _proxyGenerator;
         
         public SubstituteFactory(ISubstitutionContext context, 
                                     IInvocationHandlerFactory invocationHandlerFactory, 
-                                    ISubstituteBuilder substituteBuilder)
+                                    IProxyGenerator proxyGenerator)
         {
             _context = context;
             _invocationHandlerFactory = invocationHandlerFactory;
-            _substituteBuilder = substituteBuilder;
+            _proxyGenerator = proxyGenerator;
         }
 
         public T Create<T>()
         {
             var invocationHandler = _invocationHandlerFactory.CreateInvocationHandler(_context);
-            var interceptor = _substituteBuilder.CreateInterceptor(invocationHandler);
-            return _substituteBuilder.GenerateProxy<T>(interceptor);
+            return _proxyGenerator.GenerateProxy<T>(invocationHandler);
         }
     }
 }

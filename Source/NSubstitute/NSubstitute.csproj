@@ -50,6 +50,14 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\CastleDynamicProxy-2.1\net-3.5\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\CastleDynamicProxy-2.1\net-3.5\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -65,16 +73,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IInvocationHandlerFactory.cs" />
+    <Compile Include="InvocationHandlerFactory.cs" />
     <Compile Include="InvocationResults.cs" />
     <Compile Include="InvocationStack.cs" />
     <Compile Include="IInvocationResults.cs" />
     <Compile Include="IInvocationStack.cs" />
     <Compile Include="IInvocation.cs" />
     <Compile Include="IInvocationHandler.cs" />
-    <Compile Include="ISubstituteBuilder.cs" />
+    <Compile Include="IProxyGenerator.cs" />
     <Compile Include="ISubstitutionContext.cs" />
     <Compile Include="ISubstituteFactory.cs" />
-    <Compile Include="ISubstituteInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InvocationHandler.cs" />
     <Compile Include="Substitute.cs" />
