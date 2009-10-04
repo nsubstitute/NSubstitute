@@ -16,5 +16,10 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         {
             return _proxyGenerator.CreateInterfaceProxyWithoutTarget<T>(interceptor);
         }
+
+        public virtual T CreateProxyForClass<T>(IInterceptor interceptor)
+        {
+            return (T) _proxyGenerator.CreateClassProxy(typeof(T), interceptor);
+        }
     }
 }

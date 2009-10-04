@@ -14,7 +14,11 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         public T GenerateProxy<T>(IInvocationHandler invocationHandler)
         {
             var interceptor = _interceptorFactory.CreateForwardingInterceptor(invocationHandler);
-            return _proxyGeneratorWrapper.CreateProxyForInterface<T>(interceptor);
+            if (typeof(T).IsInterface)
+            {
+                return _proxyGeneratorWrapper.CreateProxyForInterface<T>(interceptor);
+            }
+            return _proxyGeneratorWrapper.CreateProxyForClass<T>(interceptor);
         }
     }
 }

@@ -9,17 +9,35 @@ namespace NSubstitute.Tests.Proxies.CastleDynamicProxy
 {
     public class CastleDynamicProxyFactorySpecs
     {
-        public class When_creating_a_proxy : ConcernFor<CastleDynamicProxyFactory>
+        public abstract class Concern : ConcernFor<CastleDynamicProxyFactory>
         {
-            IInterceptor interceptor;
-            IInvocationHandler invocationHandler;
-            CastleInterceptorFactory interceptorFactory;
-            CastleProxyGeneratorWrapper proxyGeneratorWrapper;
+            protected IInterceptor interceptor;
+            protected IInvocationHandler invocationHandler;
+            protected CastleProxyGeneratorWrapper proxyGeneratorWrapper;
+            protected CastleInterceptorFactory interceptorFactory;
+
+            public override void Context()
+            {
+                proxyGeneratorWrapper = mock<CastleProxyGeneratorWrapper>();
+                invocationHandler = mock<IInvocationHandler>();
+                interceptor = mock<IInterceptor>();
+                interceptorFactory = mock<CastleInterceptorFactory>();
+                interceptorFactory.stub(x => x.CreateForwardingInterceptor(invocationHandler)).Return(interceptor);
+            }
+
+            public override CastleDynamicProxyFactory CreateSubjectUnderTest()
+            {
+                return new CastleDynamicProxyFactory(proxyGeneratorWrapper, interceptorFactory);
+            }
+        }
+
+        public class When_creating_a_proxy_for_an_interface : Concern
+        {
             IFoo proxy;
             IFoo result;
 
             [Test]
-            public void Should_generate_a_proxy_using_an_interceptor_that_forwards_to_the_given_invocation_handler()
+            public void Should_generate_a_proxy_for_that_interface()
             {
                 Assert.That(result, Is.SameAs(proxy));
             }
@@ -31,21 +49,36 @@ namespace NSubstitute.Tests.Proxies.CastleDynamicProxy
 
             public override void Context()
             {
-                invocationHandler = mock<IInvocationHandler>();
-                interceptor = mock<IInterceptor>();
-                proxy = mock<IFoo>();                
-                
-                interceptorFactory = mock<CastleInterceptorFactory>();
-                interceptorFactory.stub(x => x.CreateForwardingInterceptor(invocationHandler)).Return(interceptor);
-                
-                proxyGeneratorWrapper = mock<CastleProxyGeneratorWrapper>();
+                base.Context();
+                proxy = mock<IFoo>();                                
                 proxyGeneratorWrapper.stub(x => x.CreateProxyForInterface<IFoo>(interceptor)).Return(proxy);
+            }            
+        }
+
+        public class When_creating_a_proxy_for_a_class : Concern
+        {
+            Foo proxy;
+            Foo result;
+
+            [Test]
+            public void Should_generate_a_proxy_for_that_class()
+            {
+                Assert.That(result, Is.SameAs(proxy));
             }
 
-            public override CastleDynamicProxyFactory CreateSubjectUnderTest()
+            public override void Because()
             {
-                return new CastleDynamicProxyFactory(proxyGeneratorWrapper, interceptorFactory);
+                result = sut.GenerateProxy<Foo>(invocationHandler);
             }
+
+            public override void Context()
+            {
+                base.Context();
+                proxy = mock<Foo>();
+                proxyGeneratorWrapper.stub(x => x.CreateProxyForClass<Foo>(interceptor)).Return(proxy);
+            }            
+
+            
         }
     }
 }
