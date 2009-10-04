@@ -16,7 +16,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         public void Intercept(Castle.Core.Interceptor.IInvocation invocation)
         {
             var mappedInvocation = _invocationMapper.Map(invocation);
-            _invocationHandler.HandleInvocation(mappedInvocation);
+            invocation.ReturnValue = _invocationHandler.HandleInvocation(mappedInvocation);
         }
     }
 }

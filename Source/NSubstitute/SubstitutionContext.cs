@@ -1,3 +1,5 @@
+using NSubstitute.Proxies.CastleDynamicProxy;
+
 namespace NSubstitute
 {
     public class SubstitutionContext : ISubstitutionContext
@@ -13,7 +15,11 @@ namespace NSubstitute
 
         SubstitutionContext()
         {
-            _substituteFactory = new SubstituteFactory(this, null, null);
+            var invocationHandlerFactory = new InvocationHandlerFactory();
+            var proxyGenerator = new CastleProxyGeneratorWrapper();
+            var interceptorFactory = new CastleInterceptorFactory();
+            var proxyFactory = new CastleDynamicProxyFactory(proxyGenerator, interceptorFactory);
+            _substituteFactory = new SubstituteFactory(this, invocationHandlerFactory, proxyFactory);
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory)

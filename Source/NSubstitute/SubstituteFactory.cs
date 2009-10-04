@@ -8,11 +8,11 @@ namespace NSubstitute
         
         public SubstituteFactory(ISubstitutionContext context, 
                                     IInvocationHandlerFactory invocationHandlerFactory, 
-                                    IProxyFactory _proxyFactory)
+                                    IProxyFactory proxyFactory)
         {
             _context = context;
             _invocationHandlerFactory = invocationHandlerFactory;
-            this._proxyFactory = _proxyFactory;
+            _proxyFactory = proxyFactory;
         }
 
         public T Create<T>()
