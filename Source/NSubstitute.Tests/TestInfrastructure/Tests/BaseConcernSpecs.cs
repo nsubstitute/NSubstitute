@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace NSubstitute.Tests.TestInfrastructure.Tests
+namespace NSubstitute.Specs.TestInfrastructure.Tests
 {
     public class BaseConcernSpecs
     {

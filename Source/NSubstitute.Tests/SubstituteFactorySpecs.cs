@@ -1,8 +1,8 @@
-using NSubstitute.Tests.TestInfrastructure;
-using NSubstitute.Tests.TestStructures;
+using NSubstitute.Specs.TestInfrastructure;
+using NSubstitute.Specs.TestStructures;
 using NUnit.Framework;
 
-namespace NSubstitute.Tests
+namespace NSubstitute.Specs
 {
     public class SubstituteFactorySpecs
     {

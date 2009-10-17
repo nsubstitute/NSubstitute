@@ -24,7 +24,7 @@ namespace :build do
    
   desc "Runs tests with NUnit"
   task :test => [:compile] do
-    tests = FileList["#{OUTPUT_PATH}/**/*.Tests.dll"].exclude(/obj\//)
+    tests = FileList["#{OUTPUT_PATH}/**/*.Specs.dll"].exclude(/obj\//)
     sh "#{NUNIT_EXE} #{tests} /nologo /xml=#{OUTPUT_PATH}/TestResults.xml"
   end
   

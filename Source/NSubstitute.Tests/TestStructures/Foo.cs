@@ -1,4 +1,4 @@
-namespace NSubstitute.Tests.TestStructures
+namespace NSubstitute.Specs.TestStructures
 {
     public class Foo : IFoo
     {

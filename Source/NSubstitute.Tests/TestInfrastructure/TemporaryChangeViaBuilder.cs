@@ -1,6 +1,6 @@
 using System;
 
-namespace NSubstitute.Tests.TestInfrastructure
+namespace NSubstitute.Specs.TestInfrastructure
 {
     public class TemporaryChangeViaBuilder<T>
     {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute.Tests", "NSubstitute.Tests\NSubstitute.Tests.csproj", "{8EAB429F-B67B-43A0-86D7-4BAFCE0AC0A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute.Specs", "NSubstitute.Tests\NSubstitute.Specs.csproj", "{8EAB429F-B67B-43A0-86D7-4BAFCE0AC0A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute", "NSubstitute\NSubstitute.csproj", "{CC6C16CC-053D-4A67-B48F-7FF4304F2896}"
 EndProject

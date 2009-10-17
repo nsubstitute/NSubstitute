@@ -1,8 +1,8 @@
 using System;
-using NSubstitute.Tests.TestInfrastructure;
+using NSubstitute.Specs.TestInfrastructure;
 using NUnit.Framework;
 
-namespace NSubstitute.Tests
+namespace NSubstitute.Specs
 {
     public class InvocationStackSpecs
     {

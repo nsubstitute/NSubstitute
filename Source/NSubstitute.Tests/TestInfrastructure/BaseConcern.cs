@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace NSubstitute.Tests.TestInfrastructure
+namespace NSubstitute.Specs.TestInfrastructure
 {
     public abstract class BaseConcern
     {
