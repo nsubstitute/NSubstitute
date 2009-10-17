@@ -87,18 +87,18 @@
     <Compile Include="SubstituteSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="SubstituteFactorySpecs.cs" />
-    <Compile Include="TestInfrastructure\BaseConcern.cs" />
+    <Compile Include="Infrastructure\BaseConcern.cs" />
     <Compile Include="InvocationStackSpecs.cs" />
-    <Compile Include="TestInfrastructure\ConcernFor.cs" />
-    <Compile Include="TestInfrastructure\ITemporaryChange.cs" />
-    <Compile Include="TestInfrastructure\MockingAdaptor.cs" />
-    <Compile Include="TestInfrastructure\StaticConcern.cs" />
-    <Compile Include="TestInfrastructure\TemporaryChange.cs" />
-    <Compile Include="TestInfrastructure\TemporaryChangeToBuilder.cs" />
-    <Compile Include="TestInfrastructure\TemporaryChangeViaBuilder.cs" />
-    <Compile Include="TestInfrastructure\Tests\BaseConcernSpecs.cs" />
-    <Compile Include="TestStructures\Foo.cs" />
-    <Compile Include="TestStructures\IFoo.cs" />
+    <Compile Include="Infrastructure\ConcernFor.cs" />
+    <Compile Include="Infrastructure\ITemporaryChange.cs" />
+    <Compile Include="Infrastructure\MockingAdaptor.cs" />
+    <Compile Include="Infrastructure\StaticConcern.cs" />
+    <Compile Include="Infrastructure\TemporaryChange.cs" />
+    <Compile Include="Infrastructure\TemporaryChangeToBuilder.cs" />
+    <Compile Include="Infrastructure\TemporaryChangeViaBuilder.cs" />
+    <Compile Include="Infrastructure\Tests\BaseConcernSpecs.cs" />
+    <Compile Include="SampleStructures\Foo.cs" />
+    <Compile Include="SampleStructures\IFoo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSubstitute\NSubstitute.csproj">
