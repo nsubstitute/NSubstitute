@@ -75,6 +75,7 @@
     <Compile Include="IInvocationHandlerFactory.cs" />
     <Compile Include="IInvocationMatcher.cs" />
     <Compile Include="InvocationHandlerFactory.cs" />
+    <Compile Include="AllInvocationMatcher.cs" />
     <Compile Include="InvocationResults.cs" />
     <Compile Include="InvocationStack.cs" />
     <Compile Include="IInvocationResults.cs" />

@@ -1,6 +1,5 @@
 using NSubstitute.Specs.TestInfrastructure;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace NSubstitute.Specs
 {
@@ -12,7 +11,7 @@ namespace NSubstitute.Specs
 
             public override void Context()
             {
-                invocationMatcher = MockRepository.GenerateStub<IInvocationMatcher>();
+                invocationMatcher = mock<IInvocationMatcher>();
             }
 
             public override InvocationResults CreateSubjectUnderTest()
@@ -46,7 +45,7 @@ namespace NSubstitute.Specs
                 originalResult = new object();
                 originalInvocation = mock<IInvocation>();
                 secondInvocation = mock<IInvocation>();
-                invocationMatcher.Stub(x => x.IsMatch(originalInvocation, secondInvocation)).Return(true);
+                invocationMatcher.stub(x => x.IsMatch(originalInvocation, secondInvocation)).Return(true);
             }
         }
 
