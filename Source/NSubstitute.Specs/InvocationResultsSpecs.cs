@@ -96,5 +96,29 @@ namespace NSubstitute.Specs
                 invocation.stub(x => x.GetReturnType()).Return(typeof(int));
             }
         }
+
+        public class When_getting_a_void_type_result : Concern
+        {
+            object result;
+            IInvocation invocation;
+
+            [Test]
+            public void Should_return_null_because_there_is_no_void_instance()
+            {
+                Assert.That(result, Is.Null);
+            }
+
+            public override void Because()
+            {
+                result = sut.GetResult(invocation);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                invocation = mock<IInvocation>();
+                invocation.stub(x => x.GetReturnType()).Return(typeof (void));
+            }
+        }
     }
 }

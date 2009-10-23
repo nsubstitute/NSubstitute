@@ -20,7 +20,8 @@ namespace NSubstitute
         }
 
         public object GetResult(IInvocation invocation)
-        {            
+        {
+            if (DoesInvocationReturnVoid(invocation)) return null;
             foreach (var invocationResult in _results)
             {
                 if (_invocationMatcher.IsMatch(invocationResult.Key, invocation))
@@ -42,6 +43,9 @@ namespace NSubstitute
             return Activator.CreateInstance(type);
         }
 
-        
+        bool DoesInvocationReturnVoid(IInvocation invocation)
+        {
+            return invocation.GetReturnType() == typeof (void);
+        }
     }
 }

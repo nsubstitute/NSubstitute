@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy
 {
@@ -19,7 +20,12 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
             public Type GetReturnType()
             {
-                return _castleInvocation.Method.ReturnType;
+                return MethodInfo.ReturnType;
+            }
+
+            public MethodInfo MethodInfo
+            {
+                get { return _castleInvocation.Method; }
             }
         }
     }
