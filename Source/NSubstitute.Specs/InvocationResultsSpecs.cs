@@ -1,5 +1,6 @@
 using NSubstitute.Specs.TestInfrastructure;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace NSubstitute.Specs
 {
@@ -7,46 +8,52 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<InvocationResults>
         {
-            protected object actualResult;
-            protected IInvocation invocation;
+            protected IInvocationMatcher invocationMatcher;
 
             public override void Context()
             {
-                invocation = mock<IInvocation>();
+                invocationMatcher = MockRepository.GenerateStub<IInvocationMatcher>();
             }
 
             public override InvocationResults CreateSubjectUnderTest()
             {
-                return new InvocationResults();
+                return new InvocationResults(invocationMatcher);
             }
         }
 
         public class When_getting_a_result_that_has_been_set : Concern
         {
-            protected object originalResult;
+            object result;
+            object originalResult;
+            IInvocation originalInvocation;
+            IInvocation secondInvocation;
 
             [Test]
             public void Should_get_the_result_that_was_set()
             {
-                Assert.That(actualResult, Is.SameAs(originalResult));
+                Assert.That(result, Is.SameAs(originalResult));
             }
 
             public override void Because()
             {
-                sut.SetResult(invocation, originalResult);
-                actualResult = sut.GetResult(invocation);
+                sut.SetResult(originalInvocation, originalResult);
+                result = sut.GetResult(secondInvocation);
             }
 
             public override void Context()
             {
                 base.Context();
-                originalResult = new object();            
+                originalResult = new object();
+                originalInvocation = mock<IInvocation>();
+                secondInvocation = mock<IInvocation>();
+                invocationMatcher.Stub(x => x.IsMatch(originalInvocation, secondInvocation)).Return(true);
             }
         }
 
         public class When_getting_a_reference_type_result_that_has_not_been_set : Concern
         {
             object result;
+            IInvocation invocation;
 
             [Test]
             public void Should_use_the_default_value_for_the_result_type()
@@ -62,6 +69,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
+                invocation = mock<IInvocation>();
                 invocation.stub(x => x.GetReturnType()).Return(typeof(List));
             }
         }
@@ -69,11 +77,12 @@ namespace NSubstitute.Specs
         public class When_getting_a_value_type_result_that_has_not_been_set : Concern
         {
             object result;
+            IInvocation invocation;
 
             [Test]
             public void Should_use_the_default_value_for_the_result_type()
             {
-                Assert.That(result, Is.EqualTo(0));
+                Assert.That(result, Is.EqualTo(default(int)));
             }
 
             public override void Because()
@@ -84,6 +93,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
+                invocation = mock<IInvocation>();
                 invocation.stub(x => x.GetReturnType()).Return(typeof(int));
             }
         }

@@ -5,10 +5,12 @@ namespace NSubstitute
 {
     public class InvocationResults : IInvocationResults
     {
+        IInvocationMatcher _invocationMatcher;
         Dictionary<IInvocation, object> _results;
 
-        public InvocationResults()
+        public InvocationResults(IInvocationMatcher invocationMatcher)
         {
+            _invocationMatcher = invocationMatcher;
             _results = new Dictionary<IInvocation, object>();
         }
 
@@ -18,9 +20,14 @@ namespace NSubstitute
         }
 
         public object GetResult(IInvocation invocation)
-        {
-            object result;
-            if (_results.TryGetValue(invocation, out result)) return result;
+        {            
+            foreach (var invocationResult in _results)
+            {
+                if (_invocationMatcher.IsMatch(invocationResult.Key, invocation))
+                {
+                    return invocationResult.Value;
+                }
+            }            
             return GetDefaultInstanceOf(invocation.GetReturnType());
         }
 

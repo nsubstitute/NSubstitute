@@ -4,7 +4,7 @@ namespace NSubstitute
     {
         public IInvocationHandler CreateInvocationHandler(ISubstitutionContext substitutionContext)
         {
-            return new InvocationHandler(new InvocationStack(), new InvocationResults(), substitutionContext);
+            return new InvocationHandler(new InvocationStack(), new InvocationResults(null), substitutionContext);
         }
     }
 }
