@@ -76,6 +76,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgumentEqualityComparer.cs" />
+    <Compile Include="ArgumentsEqualMatcher.cs" />
+    <Compile Include="IArgumentEqualityComparer.cs" />
     <Compile Include="IInvocationHandlerFactory.cs" />
     <Compile Include="IInvocationMatcher.cs" />
     <Compile Include="InvocationHandlerFactory.cs" />

@@ -4,7 +4,7 @@ namespace NSubstitute
     {
         public bool IsMatch(IInvocation first, IInvocation second)
         {
-            return first.MethodInfo == second.MethodInfo;
+            return first.GetMethodInfo() == second.GetMethodInfo();
         }
     }
 }

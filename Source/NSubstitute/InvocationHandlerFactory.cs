@@ -4,8 +4,18 @@ namespace NSubstitute
     {
         public IInvocationHandler CreateInvocationHandler(ISubstitutionContext substitutionContext)
         {
-            var matcher = new AllInvocationMatcher(new[] {new MethodInfoMatcher()});
+            var matcher = new AllInvocationMatcher(new IInvocationMatcher[] {CreateMethodInfoMatcher(), CreateArgumentsEqualMatcher()});
             return new InvocationHandler(new InvocationStack(), new InvocationResults(matcher), substitutionContext);
+        }
+
+        private MethodInfoMatcher CreateMethodInfoMatcher()
+        {
+            return new MethodInfoMatcher();
+        }
+
+        private ArgumentsEqualMatcher CreateArgumentsEqualMatcher()
+        {
+            return new ArgumentsEqualMatcher(new ArgumentEqualityComparer());
         }
     }
 }

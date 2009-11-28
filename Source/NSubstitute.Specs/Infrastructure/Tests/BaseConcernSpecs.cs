@@ -17,7 +17,6 @@ namespace NSubstitute.Specs.TestInfrastructure.Tests
                 concern.TearDown();
                 Assert.That(StaticClassWithPersistentProperty.APersistentProperty, Is.EqualTo(StaticClassWithPersistentProperty.InitialPropertyValue));
             }
-
             
             private class TestConcern : StaticConcern
             {
@@ -29,7 +28,6 @@ namespace NSubstitute.Specs.TestInfrastructure.Tests
                         .to(NewPropertyValue)
                         .via(x => StaticClassWithPersistentProperty.APersistentProperty = x);
                 }
-    
             }
 
             private class StaticClassWithPersistentProperty
@@ -38,8 +36,5 @@ namespace NSubstitute.Specs.TestInfrastructure.Tests
                 public static int APersistentProperty = InitialPropertyValue;
             }
         }
-
-        
-
     }
 }

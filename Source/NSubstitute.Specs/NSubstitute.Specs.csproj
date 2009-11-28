@@ -81,6 +81,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgumentsEqualMatcherSpecs.cs" />
+    <Compile Include="ArgumentEqualityComparerSpecs.cs" />
     <Compile Include="Integration\SimpleSubstituteExamples.cs" />
     <Compile Include="InvocationHandlerFactorySpecs.cs" />
     <Compile Include="AllInvocationMatcherSpecs.cs" />

@@ -21,6 +21,16 @@ namespace NSubstitute.Specs.Integration
             calculator.Add(1, 2).Return(3);
             Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
         }
+
+        [Test]
+        public void Return_different_values_for_different_arguments()
+        {
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Add(1, 2).Return(3);
+            calculator.Add(20, 30).Return(50);
+            Assert.That(calculator.Add(20, 30), Is.EqualTo(50));
+            Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
+        }
     }
 
     public interface ICalculator

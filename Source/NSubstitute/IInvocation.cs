@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Reflection;
 
 namespace NSubstitute
@@ -6,6 +7,7 @@ namespace NSubstitute
     public interface IInvocation
     {
         Type GetReturnType();
-        MethodInfo MethodInfo { get; }
+        MethodInfo GetMethodInfo();
+        object[] GetArguments();
     }
 }
