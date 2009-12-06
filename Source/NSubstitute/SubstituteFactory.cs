@@ -15,7 +15,7 @@ namespace NSubstitute
             _proxyFactory = proxyFactory;
         }
 
-        public T Create<T>()
+        public T Create<T>() where T : class
         {
             var invocationHandler = _invocationHandlerFactory.CreateInvocationHandler(_context);
             return _proxyFactory.GenerateProxy<T>(invocationHandler);

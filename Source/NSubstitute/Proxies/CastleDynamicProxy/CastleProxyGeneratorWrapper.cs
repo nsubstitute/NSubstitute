@@ -12,14 +12,14 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             _proxyGenerator = new ProxyGenerator();
         }
 
-        public virtual T CreateProxyForInterface<T>(IInterceptor interceptor)
+        public virtual T CreateProxyForInterface<T>(IInterceptor interceptor) where T : class
         {
-            return (T) _proxyGenerator.CreateInterfaceProxyWithoutTarget(typeof(T), interceptor);
+            return _proxyGenerator.CreateInterfaceProxyWithoutTarget<T>(interceptor);
         }
 
-        public virtual T CreateProxyForClass<T>(IInterceptor interceptor)
+        public virtual T CreateProxyForClass<T>(IInterceptor interceptor) where T : class
         {
-            return (T) _proxyGenerator.CreateClassProxy(typeof(T), interceptor);
+            return _proxyGenerator.CreateClassProxy<T>(interceptor);
         }
     }
 }
