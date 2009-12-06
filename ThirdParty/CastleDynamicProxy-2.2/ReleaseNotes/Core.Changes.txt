@@ -1,3 +1,18 @@
+Unreleased Changes
+==================
+
+- none
+
+1.2.0 beta (2009-12-04)
+==================
+
+- BREAKING CHANGE - added ChangeProxyTarget method to IChangeProxyTarget interface
+- added docs to IChangeProxyTarget methods
+- Fixed DYNPROXY-ISSUE-108 - Obtaining replicated custom attributes on proxy may fail when property setter throws exception on default value
+- Moved custom attribute replication from CustomAttributeUtil to new interface - IAttributeDisassembler
+- Exposed IAttributeDisassembler via ProxyGenerationOptions, so that users can plug their implementation for some convoluted scenarios. (for Silverlight)
+- Moved IInterceptorSelector from Dynamic Proxy to Core (IOC-ISSUE-156)
+
 1.1.0 (2009-05-04)
 ==================
 
