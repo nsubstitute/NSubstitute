@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace NSubstitute.Acceptance.Specs
 {
     [TestFixture]
-    public class SubstitureReturnValues
+    public class SubstituteReturnValues
     {
         private ISomething _something;
 
@@ -36,10 +36,5 @@ namespace NSubstitute.Acceptance.Specs
         {
             _something = Substitute.For<ISomething>();
         }
-    }
-
-    public interface ISomething
-    {
-        int Count();
     }
 }
