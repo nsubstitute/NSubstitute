@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute.Specs", "NSubst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute", "NSubstitute\NSubstitute.csproj", "{CC6C16CC-053D-4A67-B48F-7FF4304F2896}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute.Acceptance.Specs", "NSubstitute.Acceptance.Specs\NSubstitute.Acceptance.Specs.csproj", "{F78923F8-6B25-495F-B251-5773D0C2D1D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,6 +21,10 @@ Global
 		{CC6C16CC-053D-4A67-B48F-7FF4304F2896}.Debug|x86.Build.0 = Debug|x86
 		{CC6C16CC-053D-4A67-B48F-7FF4304F2896}.Release|x86.ActiveCfg = Release|x86
 		{CC6C16CC-053D-4A67-B48F-7FF4304F2896}.Release|x86.Build.0 = Release|x86
+		{F78923F8-6B25-495F-B251-5773D0C2D1D2}.Debug|x86.ActiveCfg = Debug|x86
+		{F78923F8-6B25-495F-B251-5773D0C2D1D2}.Debug|x86.Build.0 = Debug|x86
+		{F78923F8-6B25-495F-B251-5773D0C2D1D2}.Release|x86.ActiveCfg = Release|x86
+		{F78923F8-6B25-495F-B251-5773D0C2D1D2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
