@@ -26,7 +26,7 @@ task :test => [:compile] do
 end
 
 desc "Runs acceptance tests with NUnit"
-task :acceptance => [:compile] do
+task :acceptance => [:test] do
     acceptance_tests = FileList["#{OUTPUT_PATH}/**/NSubstitute.Acceptance.Specs.dll"].exclude(/obj\//)
     sh "#{NUNIT_EXE} #{acceptance_tests} /nologo /xml=#{OUTPUT_PATH}/AcceptanceTestResults.xml"
 end
