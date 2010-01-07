@@ -3,5 +3,6 @@
     public interface ISomething
     {
         int Count();
+        string Echo(int i);
     }
 }

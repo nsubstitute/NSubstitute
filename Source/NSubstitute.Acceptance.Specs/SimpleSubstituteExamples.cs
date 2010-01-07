@@ -3,7 +3,6 @@ using NUnit.Framework;
 namespace NSubstitute.Specs.Integration
 {
     [TestFixture]
-    [Category("Integration")]
     public class SimpleSubstituteExamples
     {
         [Test]

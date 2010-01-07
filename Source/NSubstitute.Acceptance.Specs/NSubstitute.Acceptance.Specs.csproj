@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="IIgnition.cs" />
     <Compile Include="PendingAttribute.cs" />
+    <Compile Include="SimpleSubstituteExamples.cs" />
     <Compile Include="SubstituteReturnValues.cs" />
     <Compile Include="IEngine.cs" />
     <Compile Include="ISomething.cs" />

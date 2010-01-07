@@ -8,7 +8,7 @@ namespace NSubstitute.Acceptance.Specs
         private ISomething _something;
 
         [Test]
-        public void ShouldReturnSingleValue()
+        public void Return_a_single_value()
         {
             _something.Count().Return(3);
 
@@ -17,8 +17,18 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Return_multiple_values_from_different_calls()
+        {
+            _something.Echo(1).Return("one");
+            _something.Echo(2).Return("two");
+
+            Assert.That(_something.Echo(1), Is.EqualTo("one"), "First return");
+            Assert.That(_something.Echo(2), Is.EqualTo("two"), "Second return");
+        }
+
+        [Test]
         [Pending]
-        public void ShouldReturnMultipleValues()
+        public void Return_multiple_values_from_the_same_call()
         {
             _something.Count().Return(1, 2, 3);
 

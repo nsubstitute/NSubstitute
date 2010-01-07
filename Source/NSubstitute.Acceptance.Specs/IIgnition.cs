@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Acceptance.Specs
 {
-    internal interface IIgnition
+    public interface IIgnition
     {
         void TurnRight();
         void TurnLeft();
