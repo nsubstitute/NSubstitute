@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
 {
@@ -21,6 +17,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        [Pending]
         public void ShouldReturnMultipleValues()
         {
             _something.Count().Return(1, 2, 3);

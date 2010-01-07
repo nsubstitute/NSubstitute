@@ -10,6 +10,7 @@ namespace NSubstitute.Acceptance.Specs
         private IIgnition _ignition;
 
         [Test]
+        [Pending]
         public void ShouldCheckSequenceWithOneSubstitute()
         {
             _engine.Start();
@@ -22,6 +23,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        [Pending]
         public void ShouldCheckSequenceWithMultipleSubstitutes()
         {
             _ignition.TurnRight();
@@ -41,6 +43,7 @@ namespace NSubstitute.Acceptance.Specs
         public void SetUp()
         {
             _engine = Substitute.For<IEngine>();
+            _ignition = Substitute.For<IIgnition>();
         }
     }
 
