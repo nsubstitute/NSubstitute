@@ -69,7 +69,8 @@
     <Compile Include="IIgnition.cs" />
     <Compile Include="PendingAttribute.cs" />
     <Compile Include="SimpleSubstituteExamples.cs" />
-    <Compile Include="SubstituteReturnValues.cs" />
+    <Compile Include="SubstituteReceivedCalls.cs" />
+    <Compile Include="SubstituteReturnResults.cs" />
     <Compile Include="IEngine.cs" />
     <Compile Include="ISomething.cs" />
     <Compile Include="SequenceChecking.cs" />

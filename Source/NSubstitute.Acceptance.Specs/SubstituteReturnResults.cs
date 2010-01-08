@@ -3,12 +3,12 @@
 namespace NSubstitute.Acceptance.Specs
 {
     [TestFixture]
-    public class SubstituteReturnValues
+    public class SubstituteReturnResults
     {
         private ISomething _something;
 
         [Test]
-        public void Return_a_single_value()
+        public void Return_a_single_result()
         {
             _something.Count().Return(3);
 
@@ -17,7 +17,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Return_multiple_values_from_different_calls()
+        public void Return_multiple_results_from_different_calls()
         {
             _something.Echo(1).Return("one");
             _something.Echo(2).Return("two");
@@ -28,7 +28,7 @@ namespace NSubstitute.Acceptance.Specs
 
         [Test]
         [Pending]
-        public void Return_multiple_values_from_the_same_call()
+        public void Return_multiple_results_from_the_same_call()
         {
             _something.Count().Return(1, 2, 3);
 
