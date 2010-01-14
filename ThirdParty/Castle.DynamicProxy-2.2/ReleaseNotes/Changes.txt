@@ -1,6 +1,7 @@
-Unreleased Changes
+2.2.0 (2010-01-11)
 ==================
-N/A
+- Fixed medium trust issue introduced in 2.2.0 Beta 1 where it would try to create a trace logger.
+- Some changes to the way explicit interface methods are implemented to support WPF databinding.
 
 2.2.0 Beta 1 (2009-12-04)
 =========================
