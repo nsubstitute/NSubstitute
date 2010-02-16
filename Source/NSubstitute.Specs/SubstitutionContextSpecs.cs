@@ -1,3 +1,4 @@
+using NSubstitute.Exceptions;
 using NSubstitute.Specs.TestInfrastructure;
 using NUnit.Framework;
 

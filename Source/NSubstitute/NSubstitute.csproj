@@ -16,6 +16,8 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,6 +78,7 @@
   <ItemGroup>
     <Compile Include="ArgumentEqualityComparer.cs" />
     <Compile Include="ArgumentsEqualMatcher.cs" />
+    <Compile Include="CallNotReceivedException.cs" />
     <Compile Include="IArgumentEqualityComparer.cs" />
     <Compile Include="IInvocationHandlerFactory.cs" />
     <Compile Include="IInvocationMatcher.cs" />
@@ -101,7 +104,7 @@
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="SubstitutionContext.cs" />
-    <Compile Include="SubstituteException.cs" />
+    <Compile Include="Exceptions\SubstituteException.cs" />
     <Compile Include="SubstituteFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

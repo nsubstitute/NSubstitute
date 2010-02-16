@@ -5,5 +5,6 @@ namespace NSubstitute
         void LastInvocationShouldReturn<T>(T value);
         void LastInvocationHandlerInvoked(IInvocationHandler invocationHandler);
         ISubstituteFactory GetSubstituteFactory();
+        IInvocationHandler GetInvocationHandlerFor(object substitute);
     }
 }

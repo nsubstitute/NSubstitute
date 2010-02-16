@@ -1,3 +1,5 @@
+using System;
+using NSubstitute.Exceptions;
 using NSubstitute.Proxies.CastleDynamicProxy;
 
 namespace NSubstitute
@@ -41,6 +43,11 @@ namespace NSubstitute
         public ISubstituteFactory GetSubstituteFactory()
         {
             return _substituteFactory;
+        }
+
+        public IInvocationHandler GetInvocationHandlerFor(object substitute)
+        {
+            throw new NotImplementedException();
         }
     }
 }

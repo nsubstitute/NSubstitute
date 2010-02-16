@@ -1,3 +1,5 @@
+using System;
+
 namespace NSubstitute
 {
     public class InvocationHandler : IInvocationHandler
@@ -24,6 +26,10 @@ namespace NSubstitute
             _invocationStack.Push(invocation);
             _context.LastInvocationHandlerInvoked(this);
             return _invocationResults.GetResult(invocation);
+        }
+
+        public void AssertNextCallHasBeenReceived()
+        {            
         }
     }
 }

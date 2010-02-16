@@ -52,15 +52,4 @@ namespace NSubstitute.Acceptance.Specs
 
     }
 
-    public class CallNotReceivedException : Exception
-    {
-    }
-
-    public static class ReceivedExtenion
-    {
-        public static T Received<T>(this T substitute)
-        {
-            return substitute;
-        }
-    }
 }

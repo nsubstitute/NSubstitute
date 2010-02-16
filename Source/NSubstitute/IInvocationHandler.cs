@@ -4,5 +4,6 @@ namespace NSubstitute
     {
         void LastInvocationShouldReturn<T>(T valueToReturn);
         object HandleInvocation(IInvocation invocation);
+        void AssertNextCallHasBeenReceived();
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace NSubstitute
+namespace NSubstitute.Exceptions
 {
     public class SubstituteException : Exception
     {        
