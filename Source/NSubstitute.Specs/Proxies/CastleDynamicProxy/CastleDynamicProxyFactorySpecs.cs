@@ -1,7 +1,10 @@
 extern alias CastleCore;
+using Castle.DynamicProxy;
 using NSubstitute.Specs.TestInfrastructure;
 using NSubstitute.Specs.TestStructures;
-using IInterceptor = CastleCore::Castle.Core.Interceptor.IInterceptor;
+using Rhino.Mocks;
+using CastleIInterceptor = CastleCore::Castle.Core.Interceptor.IInterceptor;
+using CastleIInvocation = CastleCore::Castle.Core.Interceptor.IInvocation;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NUnit.Framework;
 
@@ -11,74 +14,77 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
     {
         public abstract class Concern : ConcernFor<CastleDynamicProxyFactory>
         {
-            protected IInterceptor interceptor;
+            protected CastleIInterceptor interceptor;
             protected IInvocationHandler invocationHandler;
-            protected CastleProxyGeneratorWrapper proxyGeneratorWrapper;
             protected CastleInterceptorFactory interceptorFactory;
 
             public override void Context()
             {
-                proxyGeneratorWrapper = mock<CastleProxyGeneratorWrapper>();
                 invocationHandler = mock<IInvocationHandler>();
-                interceptor = mock<IInterceptor>();
+                interceptor = mock<CastleIInterceptor>();
                 interceptorFactory = mock<CastleInterceptorFactory>();
                 interceptorFactory.stub(x => x.CreateForwardingInterceptor(invocationHandler)).Return(interceptor);
             }
 
             public override CastleDynamicProxyFactory CreateSubjectUnderTest()
             {
-                return new CastleDynamicProxyFactory(proxyGeneratorWrapper, interceptorFactory);
+                return new CastleDynamicProxyFactory(new ProxyGenerator(), interceptorFactory);
+            }
+
+            protected void AssertCallsMadeToResultsInvocationHandlerAreForwardedToOriginalHandler(object result)
+            {
+                var resultsInvocationHandler = (IInvocationHandler) result;
+                resultsInvocationHandler.AssertNextCallHasBeenReceived();
+                invocationHandler.received(x => x.AssertNextCallHasBeenReceived());
             }
         }
 
         public class When_creating_a_proxy_for_an_interface : Concern
         {
-            IFoo proxy;
             IFoo result;
 
             [Test]
-            public void Should_generate_a_proxy_for_that_interface()
+            public void Should_generate_a_proxy_that_forwards_to_interceptor()
             {
-                Assert.That(result, Is.SameAs(proxy));
+                result.Goo();
+                interceptor.AssertWasCalled(x => x.Intercept(Arg<CastleIInvocation>.Is.Anything));
+            }
+
+            [Test]
+            public void Should_be_able_to_cast_proxy_to_its_invocation_handler()
+            {
+                Assert.That(result, Is.InstanceOf<IInvocationHandler>());
+                AssertCallsMadeToResultsInvocationHandlerAreForwardedToOriginalHandler(result);
             }
 
             public override void Because()
             {
                 result = sut.GenerateProxy<IFoo>(invocationHandler);
             }
-
-            public override void Context()
-            {
-                base.Context();
-                proxy = mock<IFoo>();                                
-                proxyGeneratorWrapper.stub(x => x.CreateProxyForInterface<IFoo>(interceptor)).Return(proxy);
-            }            
         }
 
         public class When_creating_a_proxy_for_a_class : Concern
         {
-            Foo proxy;
             Foo result;
 
             [Test]
-            public void Should_generate_a_proxy_for_that_class()
+            public void Should_generate_a_proxy_that_forwards_to_interceptor()
             {
-                Assert.That(result, Is.SameAs(proxy));
+                result.Goo();
+                interceptor.AssertWasCalled(x => x.Intercept(Arg<CastleIInvocation>.Is.Anything));
+            }
+
+            [Test]
+            public void Should_be_able_to_cast_proxy_to_its_invocation_handler()
+            {
+                Assert.That(result, Is.InstanceOf<IInvocationHandler>());
+                AssertCallsMadeToResultsInvocationHandlerAreForwardedToOriginalHandler(result);
             }
 
             public override void Because()
             {
                 result = sut.GenerateProxy<Foo>(invocationHandler);
             }
-
-            public override void Context()
-            {
-                base.Context();
-                proxy = mock<Foo>();
-                proxyGeneratorWrapper.stub(x => x.CreateProxyForClass<Foo>(interceptor)).Return(proxy);
-            }            
-
-            
         }
     }
 }

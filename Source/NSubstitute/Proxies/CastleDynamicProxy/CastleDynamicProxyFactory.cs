@@ -1,24 +1,50 @@
+using System;
+using System.Reflection;
+using Castle.DynamicProxy;
+
 namespace NSubstitute.Proxies.CastleDynamicProxy
 {
     public class CastleDynamicProxyFactory : IProxyFactory
     {
-        readonly CastleProxyGeneratorWrapper _proxyGeneratorWrapper;
+        readonly ProxyGenerator _proxyGenerator;
         readonly CastleInterceptorFactory _interceptorFactory;
-        
-        public CastleDynamicProxyFactory(CastleProxyGeneratorWrapper proxyGeneratorWrapper, CastleInterceptorFactory interceptorFactory)
+        readonly IgnoreInvocationHandlerCallsHook _ignoreInvocationHandlerCallsHook;
+
+        public CastleDynamicProxyFactory(ProxyGenerator proxyGenerator, CastleInterceptorFactory interceptorFactory)
         {
-            _proxyGeneratorWrapper = proxyGeneratorWrapper;
-            _interceptorFactory = interceptorFactory;
+            _proxyGenerator = proxyGenerator;
+            _interceptorFactory = interceptorFactory;            
+            _ignoreInvocationHandlerCallsHook = new IgnoreInvocationHandlerCallsHook();
         }
 
         public T GenerateProxy<T>(IInvocationHandler invocationHandler) where T : class
         {
             var interceptor = _interceptorFactory.CreateForwardingInterceptor(invocationHandler);
+            var proxyGenerationOptions = GetOptionsToMixinInvocationHandler(invocationHandler);
             if (typeof(T).IsInterface)
             {
-                return _proxyGeneratorWrapper.CreateProxyForInterface<T>(interceptor);
+                return _proxyGenerator.CreateInterfaceProxyWithoutTarget<T>(proxyGenerationOptions, interceptor);
             }
-            return _proxyGeneratorWrapper.CreateProxyForClass<T>(interceptor);
+            return _proxyGenerator.CreateClassProxy<T>(proxyGenerationOptions, interceptor);
+        }
+
+        private ProxyGenerationOptions GetOptionsToMixinInvocationHandler(IInvocationHandler invocationHandler)
+        {
+            var options = new ProxyGenerationOptions(_ignoreInvocationHandlerCallsHook);
+            options.AddMixinInstance(invocationHandler);
+            return options;
+        }
+
+        private class IgnoreInvocationHandlerCallsHook : IProxyGenerationHook
+        {
+            public bool ShouldInterceptMethod(Type type, MethodInfo methodInfo)
+            {
+                return type != typeof (IInvocationHandler);
+            }
+
+            public void NonVirtualMemberNotification(Type type, MemberInfo memberInfo) {}
+
+            public void MethodsInspected() {}
         }
     }
 }

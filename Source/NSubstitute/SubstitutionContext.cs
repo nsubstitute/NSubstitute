@@ -1,4 +1,5 @@
 using System;
+using Castle.DynamicProxy;
 using NSubstitute.Exceptions;
 using NSubstitute.Proxies.CastleDynamicProxy;
 
@@ -18,9 +19,8 @@ namespace NSubstitute
         SubstitutionContext()
         {
             var invocationHandlerFactory = new InvocationHandlerFactory();
-            var proxyGenerator = new CastleProxyGeneratorWrapper();
             var interceptorFactory = new CastleInterceptorFactory();
-            var proxyFactory = new CastleDynamicProxyFactory(proxyGenerator, interceptorFactory);
+            var proxyFactory = new CastleDynamicProxyFactory(new ProxyGenerator(), interceptorFactory);
             _substituteFactory = new SubstituteFactory(this, invocationHandlerFactory, proxyFactory);
         }
 
