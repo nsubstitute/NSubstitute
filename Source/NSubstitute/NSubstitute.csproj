@@ -79,6 +79,7 @@
     <Compile Include="ArgumentEqualityComparer.cs" />
     <Compile Include="ArgumentsEqualMatcher.cs" />
     <Compile Include="CallNotReceivedException.cs" />
+    <Compile Include="Exceptions\NotASubstituteException.cs" />
     <Compile Include="IArgumentEqualityComparer.cs" />
     <Compile Include="IInvocationHandlerFactory.cs" />
     <Compile Include="IInvocationMatcher.cs" />

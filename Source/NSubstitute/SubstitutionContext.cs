@@ -47,7 +47,9 @@ namespace NSubstitute
 
         public IInvocationHandler GetInvocationHandlerFor(object substitute)
         {
-            throw new NotImplementedException();
+            var isHandler = substitute is IInvocationHandler;
+            if (!isHandler) throw new NotASubstituteException();
+            return (IInvocationHandler) substitute;
         }
     }
 }
