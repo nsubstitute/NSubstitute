@@ -32,6 +32,11 @@ namespace NSubstitute
             return GetDefaultInstanceOf(invocation.GetReturnType());
         }
 
+        public object GetDefaultResultFor(IInvocation invocation)
+        {
+            return null;
+        }
+
         object GetDefaultInstanceOf(Type type)
         {
             if (type.IsValueType) return CreateInstanceOfTypeWithNoConstructorArgs(type);

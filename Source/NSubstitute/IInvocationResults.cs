@@ -4,5 +4,6 @@ namespace NSubstitute
     {
         void SetResult<T>(IInvocation invocation, T valueToReturn);
         object GetResult(IInvocation invocation);
+        object GetDefaultResultFor(IInvocation invocation);
     }
 }

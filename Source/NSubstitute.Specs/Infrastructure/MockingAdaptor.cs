@@ -16,6 +16,11 @@ namespace NSubstitute.Specs.TestInfrastructure
             mock.AssertWasCalled(callReceived);
         }
 
+        public static void did_not_receive<T>(this T mock, Action<T> call)
+        {
+            mock.AssertWasNotCalled(call);    
+        }
+
         public static IMethodOptions<object> stub<T>(this T mock, Action<T> call) where T : class
         {
             return mock.Stub(call);

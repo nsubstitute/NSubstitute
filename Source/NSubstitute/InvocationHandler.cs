@@ -7,6 +7,7 @@ namespace NSubstitute
         readonly IInvocationStack _invocationStack;
         readonly IInvocationResults _invocationResults;
         readonly ISubstitutionContext _context;
+        bool _assertNextCallReceived;
 
         public InvocationHandler(IInvocationStack invocationStack, IInvocationResults invocationResults, ISubstitutionContext context)
         {
@@ -23,13 +24,20 @@ namespace NSubstitute
 
         public object HandleInvocation(IInvocation invocation)
         {
+            if (_assertNextCallReceived)
+            {
+                _assertNextCallReceived = false;
+                _invocationStack.ThrowIfCallNotFound(invocation);
+                return _invocationResults.GetDefaultResultFor(invocation);
+            }
             _invocationStack.Push(invocation);
             _context.LastInvocationHandlerInvoked(this);
             return _invocationResults.GetResult(invocation);
         }
 
         public void AssertNextCallHasBeenReceived()
-        {            
+        {
+            _assertNextCallReceived = true;
         }
     }
 }

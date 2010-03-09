@@ -1,4 +1,3 @@
-using System;
 using Castle.DynamicProxy;
 using NSubstitute.Exceptions;
 using NSubstitute.Proxies.CastleDynamicProxy;

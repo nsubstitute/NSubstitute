@@ -4,5 +4,6 @@ namespace NSubstitute
     {
         void Push(IInvocation invocation);
         IInvocation Pop();
+        void ThrowIfCallNotFound(IInvocation invocation);
     }
 }

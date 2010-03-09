@@ -5,7 +5,7 @@ namespace NSubstitute
         public IInvocationHandler CreateInvocationHandler(ISubstitutionContext substitutionContext)
         {
             var matcher = new AllInvocationMatcher(new IInvocationMatcher[] {CreateMethodInfoMatcher(), CreateArgumentsEqualMatcher()});
-            return new InvocationHandler(new InvocationStack(), new InvocationResults(matcher), substitutionContext);
+            return new InvocationHandler(new InvocationStack(matcher), new InvocationResults(matcher), substitutionContext);
         }
 
         private MethodInfoMatcher CreateMethodInfoMatcher()
