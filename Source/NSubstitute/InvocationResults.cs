@@ -29,16 +29,17 @@ namespace NSubstitute
                     return invocationResult.Value;
                 }
             }            
-            return GetDefaultInstanceOf(invocation.GetReturnType());
+            return GetDefaultResultFor(invocation);
         }
 
         public object GetDefaultResultFor(IInvocation invocation)
         {
-            return null;
+            return GetDefaultInstanceOf(invocation.GetReturnType());
         }
 
         object GetDefaultInstanceOf(Type type)
-        {
+        {            
+            if (IsVoid(type)) return null;
             if (type.IsValueType) return CreateInstanceOfTypeWithNoConstructorArgs(type);
             return null;
         }
@@ -50,7 +51,12 @@ namespace NSubstitute
 
         bool DoesInvocationReturnVoid(IInvocation invocation)
         {
-            return invocation.GetReturnType() == typeof (void);
+            return IsVoid(invocation.GetReturnType());
+        }
+
+        bool IsVoid(Type type)
+        {
+            return type == typeof (void);
         }
     }
 }

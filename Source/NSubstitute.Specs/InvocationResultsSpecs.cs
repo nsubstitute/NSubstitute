@@ -1,3 +1,4 @@
+using System;
 using NSubstitute.Specs.TestInfrastructure;
 using NUnit.Framework;
 
@@ -118,6 +119,40 @@ namespace NSubstitute.Specs
                 base.Context();
                 invocation = mock<IInvocation>();
                 invocation.stub(x => x.GetReturnType()).Return(typeof (void));
+            }
+        }
+
+        public class When_getting_default_results : Concern
+        {
+            [Test]
+            public void Should_return_null_for_reference_types()
+            {
+                var invocationThatReturnsReferenceType = CreateInvocationWithReturnType(typeof(string));
+                var result = sut.GetDefaultResultFor(invocationThatReturnsReferenceType);
+                Assert.That(result, Is.Null);
+            }
+
+            [Test]
+            public void Should_return_default_for_value_types()
+            {
+                var invocationThatReturnsValueType = CreateInvocationWithReturnType(typeof(int));
+                var result = sut.GetDefaultResultFor(invocationThatReturnsValueType);
+                Assert.That(result, Is.EqualTo(default(int)));
+            }
+
+            [Test]
+            public void Should_return_null_for_void_type()
+            {
+                var invocationThatReturnsVoidType = CreateInvocationWithReturnType(typeof (void));
+                var result = sut.GetDefaultResultFor(invocationThatReturnsVoidType);
+                Assert.That(result, Is.Null);
+            }
+
+            IInvocation CreateInvocationWithReturnType(Type type)
+            {
+                var invocation = mock<IInvocation>();
+                invocation.stub(x => x.GetReturnType()).Return(type);
+                return invocation;
             }
         }
     }
