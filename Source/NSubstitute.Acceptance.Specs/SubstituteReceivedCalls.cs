@@ -7,7 +7,7 @@ namespace NSubstitute.Acceptance.Specs
     public class SubstituteReceivedCalls
     {
         private IEngine _engine;
-        private int rpm;
+        private int _rpm;
 
         [Test]
         public void Pass_when_call_was_received()
@@ -26,24 +26,24 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Pass_when_call_was_received_with_correct_argument()
         {
-            _engine.Received().RevAt(rpm);
+            _engine.Received().RevAt(_rpm);
         }
 
         [Test]
         public void Fail_when_call_was_received_with_different_argument()
         {
             Assert.Throws<CallNotReceivedException>(() =>
-                    _engine.Received().RevAt(rpm + 2)
+                    _engine.Received().RevAt(_rpm + 2)
                 );
         }
 
         [SetUp]
         public void SetUp()
         {
-            rpm = 7000;
+            _rpm = 7000;
             _engine = Substitute.For<IEngine>();
             _engine.Rev();
-            _engine.RevAt(rpm);
+            _engine.RevAt(_rpm);
         }
 
     }
