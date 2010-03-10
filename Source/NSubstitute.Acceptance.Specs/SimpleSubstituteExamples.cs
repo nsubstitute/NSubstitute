@@ -30,6 +30,14 @@ namespace NSubstitute.Specs.Integration
             Assert.That(calculator.Add(20, 30), Is.EqualTo(50));
             Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
         }
+
+        [Test]
+        public void Check_a_call_was_received()
+        {
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Add(1, 2);
+            calculator.Received().Add(1, 2);            
+        }
     }
 
     public interface ICalculator
