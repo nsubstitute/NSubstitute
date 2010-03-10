@@ -3,10 +3,14 @@ NSubstitute
 
 ### What is it?
 
-It's like a stub with property behaviour.
-With nice semantics for setting return values.
-It only has one mode - loose semantics, which you can query afterwards.
-It's meant to be simple, succinct and pleasant to use.
+NSubstitute is a friendly substitute for .NET mocking frameworks.
+
+It's like a stub with property behaviour.  
+With nice semantics for setting return values.  
+It only has one mode - loose semantics, which you can query afterwards.  
+It's meant to be simple, succinct and pleasant to use.  
+
+It's also a work in progress (and in the early stages of progress at that).
 
 ### Basic use
 
