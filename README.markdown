@@ -1,58 +1,60 @@
-h2. What is it?
+NSubstitute
+========
+
+### What is it?
 
 It's like a stub with property behaviour.
 With nice semantics for setting return values.
 It only has one mode - loose semantics, which you can query afterwards.
 It's meant to be simple, succinct and pleasant to use.
 
-h2. Basic use
+### Basic use
 
 Let's say we have a basic calculator interface:
 
-pre. public interface ICalculator
-{
-    void SwitchOn();
-    int Add(int a, int b);
-    int Subtract(int a, int b);
-}
+	public interface ICalculator
+	{
+		void SwitchOn();
+		int Add(int a, int b);
+		int Subtract(int a, int b);
+	}
 
 We can ask NSubstitute to create a substitute instance for this type (you could call it a stub, mock, or fake, but why bother when we just want to substitute in an instance we have some control over?).
 
-pre. [Test]
-public void Use_a_shiny_new_substitute()
-{
-    var calculator = Substitute.For<ICalculator>();
-    calculator.SwitchOn();
-    Assert.That(calculator.Add(1,2), Is.EqualTo(default(int)));
-}
+	[Test]
+	public void Use_a_shiny_new_substitute()
+	{
+		var calculator = Substitute.For<ICalculator>();
+		calculator.SwitchOn();
+		Assert.That(calculator.Add(1,2), Is.EqualTo(default(int)));
+	}
 
 Now we can tell our substitute to return different values for different calls:
 
-pre. [Test]
-public void Return_different_values_for_different_arguments()
-{
-    var calculator = Substitute.For<ICalculator>();
-    calculator.Add(1, 2).Return(3);
-    calculator.Add(20, 30).Return(50);
-    Assert.That(calculator.Add(20, 30), Is.EqualTo(50));
-    Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
-}
+	[Test]
+	public void Return_different_values_for_different_arguments()
+	{
+		var calculator = Substitute.For<ICalculator>();
+		calculator.Add(1, 2).Return(3);
+		calculator.Add(20, 30).Return(50);
+		Assert.That(calculator.Add(20, 30), Is.EqualTo(50));
+		Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
+	}
 
 And we can check that our substitute received a call:
 
-pre. [Test]
-public void Check_a_call_was_received()
-{
-    var calculator = Substitute.For<ICalculator>();
-    calculator.Add(1, 2);
-    calculator.Received().Add(1, 2);            
-}
+	public void Check_a_call_was_received()
+	{
+		var calculator = Substitute.For<ICalculator>();
+		calculator.Add(1, 2);
+		calculator.Received().Add(1, 2);            
+	}
 
-h2. Limitations
+### Limitations
 
 Lots. It only has very basic functionality at the moment. Don't call it from multiple threads. And if you're looking to ignore arguments or provide specific argument matchers, or specify multiple return values, then you're out of luck for now.
 
-h2. Building
+### Building
 
 You need Ruby, rake, and .NET Framework 3.5 compilers and so forth.
 
