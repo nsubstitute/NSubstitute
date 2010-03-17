@@ -7,7 +7,7 @@ namespace NSubstitute
     public class SubstitutionContext : ISubstitutionContext
     {
         public static ISubstitutionContext Current { get; set; }
-        IInvocationHandler _lastInvocationHandler;
+        ICallHandler _lastCallHandler;
         ISubstituteFactory _substituteFactory;
 
         static SubstitutionContext()
@@ -17,10 +17,10 @@ namespace NSubstitute
 
         SubstitutionContext()
         {
-            var invocationHandlerFactory = new InvocationHandlerFactory();
+            var callHandlerFactory = new CallHandlerFactory();
             var interceptorFactory = new CastleInterceptorFactory();
             var proxyFactory = new CastleDynamicProxyFactory(new ProxyGenerator(), interceptorFactory);
-            _substituteFactory = new SubstituteFactory(this, invocationHandlerFactory, proxyFactory);
+            _substituteFactory = new SubstituteFactory(this, callHandlerFactory, proxyFactory);
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory)
@@ -28,15 +28,15 @@ namespace NSubstitute
             _substituteFactory = substituteFactory;
         }
 
-        public void LastInvocationShouldReturn<T>(T value)
+        public void LastCallShouldReturn<T>(T value)
         {            
-            if (_lastInvocationHandler == null) throw new SubstituteException();
-            _lastInvocationHandler.LastInvocationShouldReturn(value);
+            if (_lastCallHandler == null) throw new SubstituteException();
+            _lastCallHandler.LastCallShouldReturn(value);
         }
 
-        public void LastInvocationHandlerInvoked(IInvocationHandler _invocationHandler)
+        public void LastCallHandler(ICallHandler callHandler)
         {
-            _lastInvocationHandler = _invocationHandler;
+            _lastCallHandler = callHandler;
         }
 
         public ISubstituteFactory GetSubstituteFactory()
@@ -44,11 +44,11 @@ namespace NSubstitute
             return _substituteFactory;
         }
 
-        public IInvocationHandler GetInvocationHandlerFor(object substitute)
+        public ICallHandler GetCallHandlerFor(object substitute)
         {
-            var isHandler = substitute is IInvocationHandler;
+            var isHandler = substitute is ICallHandler;
             if (!isHandler) throw new NotASubstituteException();
-            return (IInvocationHandler) substitute;
+            return (ICallHandler) substitute;
         }
     }
 }

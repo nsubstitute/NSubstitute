@@ -22,73 +22,73 @@ namespace NSubstitute.Specs
             }            
         }
         
-        public class When_setting_the_return_value_of_the_last_invocation : Concern
+        public class When_setting_the_return_value_of_the_last_call : Concern
         {
-            private IInvocationHandler invocationHandler;
+            private ICallHandler callHandler;
             private int valueToReturn;
 
             [Test]
-            public void Should_tell_the_last_invocation_handler_to_set_the_return_value_of_its_last_invocation()
+            public void Should_tell_the_last_call_handler_to_set_the_return_value_of_its_last_call()
             {
-                invocationHandler.received(x => x.LastInvocationShouldReturn(valueToReturn));
+                callHandler.received(x => x.LastCallShouldReturn(valueToReturn));
             }
             
             public override void Because()
             {
-                sut.LastInvocationHandlerInvoked(invocationHandler);
-                sut.LastInvocationShouldReturn(valueToReturn);
+                sut.LastCallHandler(callHandler);
+                sut.LastCallShouldReturn(valueToReturn);
             }
 
             public override void Context()
             {
                 base.Context();
-                invocationHandler = mock<IInvocationHandler>();
+                callHandler = mock<ICallHandler>();
                 valueToReturn = 42;
             }
         }
 
-        public class When_trying_to_set_a_return_value_when_no_previous_invocation_has_been_made : Concern
+        public class When_trying_to_set_a_return_value_when_no_previous_call_has_been_made : Concern
         {
             [Test]
             public void Should_throw_a_substitute_exception()
             {
-                Assert.Throws<SubstituteException>(() => sut.LastInvocationShouldReturn(5));
+                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(5));
             }
         }
 
-        public class When_getting_invocation_handler_for_a_substitute : Concern
+        public class When_getting_call_handler_for_a_substitute : Concern
         {
-            private IInvocationHandler _handlerForSubstitute;
+            private ICallHandler _handlerForSubstitute;
             private object _substituteCastableAsHandler;
-            private IInvocationHandler result;
+            private ICallHandler result;
 
             [Test]
-            public void Should_cast_substitute_to_invocation_handler()
+            public void Should_cast_substitute_to_call_handler()
             {
                 Assert.That(result, Is.SameAs(_handlerForSubstitute));               
             }
 
             public override void Because()
             {
-                result = sut.GetInvocationHandlerFor(_substituteCastableAsHandler);
+                result = sut.GetCallHandlerFor(_substituteCastableAsHandler);
             }
 
             public override void Context()
             {
                 base.Context();                
-                _handlerForSubstitute = mock<IInvocationHandler>();
+                _handlerForSubstitute = mock<ICallHandler>();
                 _substituteCastableAsHandler = _handlerForSubstitute;
             }
         }
 
-        public class When_getting_invocation_handler_for_an_instance_that_is_not_a_substitute : Concern
+        public class When_getting_call_handler_for_an_instance_that_is_not_a_substitute : Concern
         {
             private object _notASubstitute;
 
             [Test]
             public void Should_throw_an_exception()
             {
-                Assert.Throws<NotASubstituteException>(() => sut.GetInvocationHandlerFor(_notASubstitute));
+                Assert.Throws<NotASubstituteException>(() => sut.GetCallHandlerFor(_notASubstitute));
             }
 
             public override void Context()

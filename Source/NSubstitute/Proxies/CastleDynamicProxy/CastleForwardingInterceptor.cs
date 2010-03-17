@@ -5,18 +5,18 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
     public class CastleForwardingInterceptor : IInterceptor
     {
         readonly CastleInvocationMapper _invocationMapper;
-        readonly IInvocationHandler _invocationHandler;
+        readonly ICallHandler callHandler;
 
-        public CastleForwardingInterceptor(CastleInvocationMapper invocationMapper, IInvocationHandler invocationHandler)
+        public CastleForwardingInterceptor(CastleInvocationMapper invocationMapper, ICallHandler callHandler)
         {
             _invocationMapper = invocationMapper;
-            _invocationHandler = invocationHandler;
+            this.callHandler = callHandler;
         }
 
         public void Intercept(Castle.Core.Interceptor.IInvocation invocation)
         {
             var mappedInvocation = _invocationMapper.Map(invocation);
-            invocation.ReturnValue = _invocationHandler.HandleInvocation(mappedInvocation);
+            invocation.ReturnValue = callHandler.Handle(mappedInvocation);
         }
     }
 }

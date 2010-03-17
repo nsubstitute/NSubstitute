@@ -4,9 +4,9 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 {
     public class CastleInterceptorFactory
     {
-        public virtual IInterceptor CreateForwardingInterceptor(IInvocationHandler forwardToInvocationHandler)
+        public virtual IInterceptor CreateForwardingInterceptor(ICallHandler forwardToCallHandler)
         {
-            return new CastleForwardingInterceptor(new CastleInvocationMapper(), forwardToInvocationHandler);
+            return new CastleForwardingInterceptor(new CastleInvocationMapper(), forwardToCallHandler);
         }
     }
 }

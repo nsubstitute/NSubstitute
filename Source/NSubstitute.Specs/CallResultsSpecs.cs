@@ -4,20 +4,20 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs
 {
-    public class InvocationResultsSpecs
+    public class CallResultsSpecs
     {
-        public abstract class Concern : ConcernFor<InvocationResults>
+        public abstract class Concern : ConcernFor<CallResults>
         {
-            protected IInvocationMatcher invocationMatcher;
+            protected ICallMatcher CallMatcher;
 
             public override void Context()
             {
-                invocationMatcher = mock<IInvocationMatcher>();
+                CallMatcher = mock<ICallMatcher>();
             }
 
-            public override InvocationResults CreateSubjectUnderTest()
+            public override CallResults CreateSubjectUnderTest()
             {
-                return new InvocationResults(invocationMatcher);
+                return new CallResults(CallMatcher);
             }
         }
 
@@ -25,8 +25,8 @@ namespace NSubstitute.Specs
         {
             object result;
             object originalResult;
-            IInvocation originalInvocation;
-            IInvocation secondInvocation;
+            ICall _originalCall;
+            ICall _secondCall;
 
             [Test]
             public void Should_get_the_result_that_was_set()
@@ -36,24 +36,24 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResult(originalInvocation, originalResult);
-                result = sut.GetResult(secondInvocation);
+                sut.SetResult(_originalCall, originalResult);
+                result = sut.GetResult(_secondCall);
             }
 
             public override void Context()
             {
                 base.Context();
                 originalResult = new object();
-                originalInvocation = mock<IInvocation>();
-                secondInvocation = mock<IInvocation>();
-                invocationMatcher.stub(x => x.IsMatch(originalInvocation, secondInvocation)).Return(true);
+                _originalCall = mock<ICall>();
+                _secondCall = mock<ICall>();
+                CallMatcher.stub(x => x.IsMatch(_originalCall, _secondCall)).Return(true);
             }
         }
 
         public class When_getting_a_reference_type_result_that_has_not_been_set : Concern
         {
             object result;
-            IInvocation invocation;
+            ICall call;
 
             [Test]
             public void Should_use_the_default_value_for_the_result_type()
@@ -63,21 +63,21 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                result = sut.GetResult(invocation);
+                result = sut.GetResult(call);
             }
 
             public override void Context()
             {
                 base.Context();
-                invocation = mock<IInvocation>();
-                invocation.stub(x => x.GetReturnType()).Return(typeof(List));
+                call = mock<ICall>();
+                call.stub(x => x.GetReturnType()).Return(typeof(List));
             }
         }
         
         public class When_getting_a_value_type_result_that_has_not_been_set : Concern
         {
             object result;
-            IInvocation invocation;
+            ICall call;
 
             [Test]
             public void Should_use_the_default_value_for_the_result_type()
@@ -87,21 +87,21 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                result = sut.GetResult(invocation);
+                result = sut.GetResult(call);
             }
 
             public override void Context()
             {
                 base.Context();
-                invocation = mock<IInvocation>();
-                invocation.stub(x => x.GetReturnType()).Return(typeof(int));
+                call = mock<ICall>();
+                call.stub(x => x.GetReturnType()).Return(typeof(int));
             }
         }
 
         public class When_getting_a_void_type_result : Concern
         {
             object result;
-            IInvocation invocation;
+            ICall call;
 
             [Test]
             public void Should_return_null_because_there_is_no_void_instance()
@@ -111,14 +111,14 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                result = sut.GetResult(invocation);
+                result = sut.GetResult(call);
             }
 
             public override void Context()
             {
                 base.Context();
-                invocation = mock<IInvocation>();
-                invocation.stub(x => x.GetReturnType()).Return(typeof (void));
+                call = mock<ICall>();
+                call.stub(x => x.GetReturnType()).Return(typeof (void));
             }
         }
 
@@ -127,32 +127,32 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_return_null_for_reference_types()
             {
-                var invocationThatReturnsReferenceType = CreateInvocationWithReturnType(typeof(string));
-                var result = sut.GetDefaultResultFor(invocationThatReturnsReferenceType);
+                var callThatReturnsReferenceType = CreateCallWithReturnType(typeof(string));
+                var result = sut.GetDefaultResultFor(callThatReturnsReferenceType);
                 Assert.That(result, Is.Null);
             }
 
             [Test]
             public void Should_return_default_for_value_types()
             {
-                var invocationThatReturnsValueType = CreateInvocationWithReturnType(typeof(int));
-                var result = sut.GetDefaultResultFor(invocationThatReturnsValueType);
+                var callThatReturnsValueType = CreateCallWithReturnType(typeof(int));
+                var result = sut.GetDefaultResultFor(callThatReturnsValueType);
                 Assert.That(result, Is.EqualTo(default(int)));
             }
 
             [Test]
             public void Should_return_null_for_void_type()
             {
-                var invocationThatReturnsVoidType = CreateInvocationWithReturnType(typeof (void));
-                var result = sut.GetDefaultResultFor(invocationThatReturnsVoidType);
+                var callThatReturnsVoidType = CreateCallWithReturnType(typeof (void));
+                var result = sut.GetDefaultResultFor(callThatReturnsVoidType);
                 Assert.That(result, Is.Null);
             }
 
-            IInvocation CreateInvocationWithReturnType(Type type)
+            ICall CreateCallWithReturnType(Type type)
             {
-                var invocation = mock<IInvocation>();
-                invocation.stub(x => x.GetReturnType()).Return(type);
-                return invocation;
+                var call = mock<ICall>();
+                call.stub(x => x.GetReturnType()).Return(type);
+                return call;
             }
         }
     }

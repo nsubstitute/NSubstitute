@@ -3,22 +3,22 @@ namespace NSubstitute
     public class SubstituteFactory : ISubstituteFactory
     {
         readonly ISubstitutionContext _context;
-        readonly IInvocationHandlerFactory _invocationHandlerFactory;
+        readonly ICallHandlerFactory _callHandlerFactory;
         readonly IProxyFactory _proxyFactory;
         
         public SubstituteFactory(ISubstitutionContext context, 
-                                    IInvocationHandlerFactory invocationHandlerFactory, 
+                                    ICallHandlerFactory _callHandlerFactory, 
                                     IProxyFactory proxyFactory)
         {
             _context = context;
-            _invocationHandlerFactory = invocationHandlerFactory;
+            this._callHandlerFactory = _callHandlerFactory;
             _proxyFactory = proxyFactory;
         }
 
         public T Create<T>() where T : class
         {
-            var invocationHandler = _invocationHandlerFactory.CreateInvocationHandler(_context);
-            return _proxyFactory.GenerateProxy<T>(invocationHandler);
+            var callHandler = _callHandlerFactory.CreateCallHandler(_context);
+            return _proxyFactory.GenerateProxy<T>(callHandler);
         }
     }
 }

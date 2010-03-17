@@ -2,7 +2,7 @@ using System.Collections;
 using System.Linq;
 namespace NSubstitute
 {
-    public class ArgumentsEqualMatcher : IInvocationMatcher
+    public class ArgumentsEqualMatcher : ICallMatcher
     {
         private readonly IArgumentEqualityComparer _equalityComparer;
 
@@ -11,7 +11,7 @@ namespace NSubstitute
             _equalityComparer = equalityComparer;
         }
 
-        public bool IsMatch(IInvocation first, IInvocation second)
+        public bool IsMatch(ICall first, ICall second)
         {
             var firstCallArguments = first.GetArguments();
             var secondCallArguments = second.GetArguments();

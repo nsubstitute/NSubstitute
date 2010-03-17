@@ -2,9 +2,9 @@ namespace NSubstitute
 {
     public interface ISubstitutionContext
     {
-        void LastInvocationShouldReturn<T>(T value);
-        void LastInvocationHandlerInvoked(IInvocationHandler invocationHandler);
+        void LastCallShouldReturn<T>(T value);
+        void LastCallHandler(ICallHandler callHandler);
         ISubstituteFactory GetSubstituteFactory();
-        IInvocationHandler GetInvocationHandlerFor(object substitute);
+        ICallHandler GetCallHandlerFor(object substitute);
     }
 }

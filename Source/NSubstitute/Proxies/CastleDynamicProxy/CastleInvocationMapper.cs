@@ -1,19 +1,20 @@
 using System;
 using System.Reflection;
+using Castle.Core.Interceptor;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy
 {
     public class CastleInvocationMapper
     {
-        public virtual IInvocation Map(Castle.Core.Interceptor.IInvocation castleInvocation)
+        public virtual ICall Map(IInvocation castleInvocation)
         {
-            return new CastleBasedInvocation(castleInvocation);            
+            return new CastleBasedCall(castleInvocation);            
         }
 
-        private class CastleBasedInvocation : IInvocation {
-            readonly Castle.Core.Interceptor.IInvocation _castleInvocation;
+        private class CastleBasedCall : ICall {
+            readonly IInvocation _castleInvocation;
 
-            public CastleBasedInvocation(Castle.Core.Interceptor.IInvocation castleInvocation)
+            public CastleBasedCall(IInvocation castleInvocation)
             {
                 _castleInvocation = castleInvocation;
             }

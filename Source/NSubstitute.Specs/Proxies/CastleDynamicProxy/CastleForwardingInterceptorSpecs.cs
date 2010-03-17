@@ -10,20 +10,20 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
     {
         public class When_intercepting_a_castle_invocation : ConcernFor<CastleForwardingInterceptor>
         {
-            IInvocationHandler invocationHandler;
-            IInvocation mappedInvocation;
+            ICallHandler callHandler;
+            ICall _mappedCall;
             CastleInvocation castleInvocation;
             CastleInvocationMapper invocationMapper;
             object returnValue;
 
             [Test]
-            public void Should_forward_mapped_invocation_to_invocation_handler()
+            public void Should_forward_mapped_call_to_call_handler()
             {
-                invocationHandler.received(x => x.HandleInvocation(mappedInvocation));
+                callHandler.received(x => x.Handle(_mappedCall));
             }
 
             [Test]
-            public void Should_set_return_value_from_invocation_handler()
+            public void Should_set_return_value_from_call_handler()
             {
                 Assert.That(castleInvocation.ReturnValue, Is.SameAs(returnValue));
             }
@@ -36,17 +36,17 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             public override void Context()
             {
                 returnValue = new object();
-                invocationHandler = mock<IInvocationHandler>();
+                callHandler = mock<ICallHandler>();
                 castleInvocation = mock<CastleInvocation>();
-                mappedInvocation = mock<IInvocation>();
+                _mappedCall = mock<ICall>();
                 invocationMapper = mock<CastleInvocationMapper>();
-                invocationMapper.stub(x => x.Map(castleInvocation)).Return(mappedInvocation);
-                invocationHandler.stub(x => x.HandleInvocation(mappedInvocation)).Return(returnValue);
+                invocationMapper.stub(x => x.Map(castleInvocation)).Return(_mappedCall);
+                callHandler.stub(x => x.Handle(_mappedCall)).Return(returnValue);
             }
 
             public override CastleForwardingInterceptor CreateSubjectUnderTest()
             {
-                return new CastleForwardingInterceptor(invocationMapper, invocationHandler);
+                return new CastleForwardingInterceptor(invocationMapper, callHandler);
             }
         }
     }

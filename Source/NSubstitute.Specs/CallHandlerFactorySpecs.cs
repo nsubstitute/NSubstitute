@@ -3,22 +3,22 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs
 {
-    public class InvocationHandlerFactorySpecs
+    public class CallHandlerFactorySpecs
     {
-        public class When_creating_invocation_handler : ConcernFor<InvocationHandlerFactory>
+        public class When_creating_call_handler : ConcernFor<CallHandlerFactory>
         {
-            IInvocationHandler result;
+            ICallHandler result;
             ISubstitutionContext context;
 
             [Test]
             public void Should_create_an_instance_of_a_handler_using_the_given_context()
             {
-                Assert.That(result, Is.TypeOf<InvocationHandler>());
+                Assert.That(result, Is.TypeOf<CallHandler>());
             }
 
             public override void Because()
             {
-                result = sut.CreateInvocationHandler(context);
+                result = sut.CreateCallHandler(context);
             }
 
             public override void Context()
@@ -26,9 +26,9 @@ namespace NSubstitute.Specs
                 context = mock<ISubstitutionContext>();
             }
 
-            public override InvocationHandlerFactory CreateSubjectUnderTest()
+            public override CallHandlerFactory CreateSubjectUnderTest()
             {
-                return new InvocationHandlerFactory();
+                return new CallHandlerFactory();
             }
         }
     }

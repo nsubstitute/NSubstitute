@@ -4,12 +4,12 @@ namespace NSubstitute
     {
         public static void Return<T>(this T value, T returnThis, params T[] returnThese)
         {
-            SubstitutionContext.Current.LastInvocationShouldReturn(returnThis);
+            SubstitutionContext.Current.LastCallShouldReturn(returnThis);
         }
 
         public static T Received<T>(this T substitute)
         {
-            var handler = SubstitutionContext.Current.GetInvocationHandlerFor(substitute);            
+            var handler = SubstitutionContext.Current.GetCallHandlerFor(substitute);            
             handler.AssertNextCallHasBeenReceived();
             return substitute;
         }

@@ -5,15 +5,15 @@ namespace NSubstitute.Specs
 {
     public class ReturnExtensionSpecs
     {
-        public class When_setting_a_return_value_for_the_previous_invocation : StaticConcern
+        public class When_setting_a_return_value_for_the_previous_call : StaticConcern
         {
             private object value;
             private ISubstitutionContext substitutionContext;
 
             [Test]
-            public void Should_tell_the_substitution_context_to_return_the_value_from_the_last_invocation()
+            public void Should_tell_the_substitution_context_to_return_the_value_from_the_last_call()
             {
-                substitutionContext.received(x => x.LastInvocationShouldReturn(value));
+                substitutionContext.received(x => x.LastCallShouldReturn(value));
             }
 
             public override void Because()

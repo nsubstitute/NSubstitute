@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace NSubstitute
 {
-    public interface IInvocation
+    public interface ICall
     {
         Type GetReturnType();
         MethodInfo GetMethodInfo();

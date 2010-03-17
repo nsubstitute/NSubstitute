@@ -1,8 +1,8 @@
 namespace NSubstitute
 {
-    public class MethodInfoMatcher : IInvocationMatcher
+    public class MethodInfoMatcher : ICallMatcher
     {
-        public bool IsMatch(IInvocation first, IInvocation second)
+        public bool IsMatch(ICall first, ICall second)
         {
             return first.GetMethodInfo() == second.GetMethodInfo();
         }

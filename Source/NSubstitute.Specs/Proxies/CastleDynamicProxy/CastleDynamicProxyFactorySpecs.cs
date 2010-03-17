@@ -15,15 +15,15 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
         public abstract class Concern : ConcernFor<CastleDynamicProxyFactory>
         {
             protected CastleIInterceptor interceptor;
-            protected IInvocationHandler invocationHandler;
+            protected ICallHandler callHandler;
             protected CastleInterceptorFactory interceptorFactory;
 
             public override void Context()
             {
-                invocationHandler = mock<IInvocationHandler>();
+                callHandler = mock<ICallHandler>();
                 interceptor = mock<CastleIInterceptor>();
                 interceptorFactory = mock<CastleInterceptorFactory>();
-                interceptorFactory.stub(x => x.CreateForwardingInterceptor(invocationHandler)).Return(interceptor);
+                interceptorFactory.stub(x => x.CreateForwardingInterceptor(callHandler)).Return(interceptor);
             }
 
             public override CastleDynamicProxyFactory CreateSubjectUnderTest()
@@ -31,11 +31,11 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
                 return new CastleDynamicProxyFactory(new ProxyGenerator(), interceptorFactory);
             }
 
-            protected void AssertCallsMadeToResultsInvocationHandlerAreForwardedToOriginalHandler(object result)
+            protected void AssertCallsMadeToResultsCallHandlerAreForwardedToOriginalHandler(object result)
             {
-                var resultsInvocationHandler = (IInvocationHandler) result;
-                resultsInvocationHandler.AssertNextCallHasBeenReceived();
-                invocationHandler.received(x => x.AssertNextCallHasBeenReceived());
+                var resultsCallHandler = (ICallHandler) result;
+                resultsCallHandler.AssertNextCallHasBeenReceived();
+                callHandler.received(x => x.AssertNextCallHasBeenReceived());
             }
         }
 
@@ -51,15 +51,15 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             }
 
             [Test]
-            public void Should_be_able_to_cast_proxy_to_its_invocation_handler()
+            public void Should_be_able_to_cast_proxy_to_its_call_handler()
             {
-                Assert.That(result, Is.InstanceOf<IInvocationHandler>());
-                AssertCallsMadeToResultsInvocationHandlerAreForwardedToOriginalHandler(result);
+                Assert.That(result, Is.InstanceOf<ICallHandler>());
+                AssertCallsMadeToResultsCallHandlerAreForwardedToOriginalHandler(result);
             }
 
             public override void Because()
             {
-                result = sut.GenerateProxy<IFoo>(invocationHandler);
+                result = sut.GenerateProxy<IFoo>(callHandler);
             }
         }
 
@@ -75,15 +75,15 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             }
 
             [Test]
-            public void Should_be_able_to_cast_proxy_to_its_invocation_handler()
+            public void Should_be_able_to_cast_proxy_to_its_call_handler()
             {
-                Assert.That(result, Is.InstanceOf<IInvocationHandler>());
-                AssertCallsMadeToResultsInvocationHandlerAreForwardedToOriginalHandler(result);
+                Assert.That(result, Is.InstanceOf<ICallHandler>());
+                AssertCallsMadeToResultsCallHandlerAreForwardedToOriginalHandler(result);
             }
 
             public override void Because()
             {
-                result = sut.GenerateProxy<Foo>(invocationHandler);
+                result = sut.GenerateProxy<Foo>(callHandler);
             }
         }
     }

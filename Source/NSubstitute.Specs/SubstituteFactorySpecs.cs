@@ -10,7 +10,7 @@ namespace NSubstitute.Specs
         {
             Foo proxy;
             Foo result;
-            IInvocationHandlerFactory invocationHandlerFactory;
+            ICallHandlerFactory _callHandlerFactory;
             ISubstitutionContext context;
             IProxyFactory _proxyFactory;
 
@@ -29,17 +29,17 @@ namespace NSubstitute.Specs
             {
                 proxy = new Foo();
                 context = mock<ISubstitutionContext>();
-                invocationHandlerFactory = mock<IInvocationHandlerFactory>();
+                _callHandlerFactory = mock<ICallHandlerFactory>();
                 _proxyFactory = mock<IProxyFactory>();
-                var invocationHandler = mock<IInvocationHandler>();
+                var callHandler = mock<ICallHandler>();
 
-                invocationHandlerFactory.stub(x => x.CreateInvocationHandler(context)).Return(invocationHandler);
-                _proxyFactory.stub(x => x.GenerateProxy<Foo>(invocationHandler)).Return(proxy);
+                _callHandlerFactory.stub(x => x.CreateCallHandler(context)).Return(callHandler);
+                _proxyFactory.stub(x => x.GenerateProxy<Foo>(callHandler)).Return(proxy);
             }
 
             public override SubstituteFactory CreateSubjectUnderTest()
             {
-                return new SubstituteFactory(context, invocationHandlerFactory, _proxyFactory);
+                return new SubstituteFactory(context, _callHandlerFactory, _proxyFactory);
             }
         }
     }
