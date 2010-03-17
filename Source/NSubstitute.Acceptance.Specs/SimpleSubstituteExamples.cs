@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace NSubstitute.Specs.Integration
+namespace NSubstitute.Acceptance.Specs
 {
     [TestFixture]
     public class SimpleSubstituteExamples
@@ -38,12 +38,5 @@ namespace NSubstitute.Specs.Integration
             calculator.Add(1, 2);
             calculator.Received().Add(1, 2);            
         }
-    }
-
-    public interface ICalculator
-    {
-        void SwitchOn();
-        int Add(int a, int b);
-        int Subtract(int a, int b);
     }
 }

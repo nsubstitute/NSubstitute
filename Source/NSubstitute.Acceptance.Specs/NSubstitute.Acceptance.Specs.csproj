@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICalculator.cs" />
+    <Compile Include="PropertyBehaviour.cs" />
     <Compile Include="SubstituteParameterMatching.cs" />
     <Compile Include="IIgnition.cs" />
     <Compile Include="PendingAttribute.cs" />
