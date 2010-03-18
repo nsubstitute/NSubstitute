@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F78923F8-6B25-495F-B251-5773D0C2D1D2}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -57,6 +57,10 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\ThirdParty\NUnit-2.5.0.9122\bin\net-2.0\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\RhinoMocks\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -77,6 +81,7 @@
     <Compile Include="ISomething.cs" />
     <Compile Include="SequenceChecking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubstituteWhenCalledDo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSubstitute\NSubstitute.csproj">
