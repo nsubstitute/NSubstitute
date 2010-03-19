@@ -4,23 +4,23 @@ namespace NSubstitute
 {
     public class CallHandler : ICallHandler
     {
-        readonly ICallStack _callStack;
+        readonly ICallStack _recordedCallsStack;
         readonly ICallResults _callResults;
         readonly IPropertyHelper _propertyHelper;
         readonly ISubstitutionContext _context;
         bool _assertNextCallReceived;
 
-        public CallHandler(ICallStack CallStack, ICallResults callResults, IPropertyHelper PropertyHelper, ISubstitutionContext context)
+        public CallHandler(ICallStack callStack, ICallResults callResults, IPropertyHelper propertyHelper, ISubstitutionContext context)
         {
-            _callStack = CallStack;
+            _recordedCallsStack = callStack;
             _callResults = callResults;
-            _propertyHelper = PropertyHelper;
+            _propertyHelper = propertyHelper;
             _context = context;
         }
 
         public void LastCallShouldReturn<T>(T valueToReturn)
         {
-            var lastCall = _callStack.Pop();
+            var lastCall = _recordedCallsStack.Pop();
             _callResults.SetResult(lastCall, valueToReturn);
         }
 
@@ -29,7 +29,7 @@ namespace NSubstitute
             if (_assertNextCallReceived)
             {
                 _assertNextCallReceived = false;
-                _callStack.ThrowIfCallNotFound(call);
+                _recordedCallsStack.ThrowIfCallNotFound(call);
                 return _callResults.GetDefaultResultFor(call);
             }
             if (_propertyHelper.IsCallToSetAReadWriteProperty(call))
@@ -38,7 +38,7 @@ namespace NSubstitute
                 var valueBeingSetOnProperty = call.GetArguments().First();
                 _callResults.SetResult(callToPropertyGetter, valueBeingSetOnProperty);
             }
-            _callStack.Push(call);
+            _recordedCallsStack.Push(call);
             _context.LastCallHandler(this);
             return _callResults.GetResult(call);
         }
