@@ -60,5 +60,6 @@ Lots. It only has very basic functionality at the moment. Don't call it from mul
 
 ### Building
 
-You need Ruby, rake, and .NET Framework 3.5 compilers and so forth.
+If you have Visual Studio 2008 or 2010 you should be able to compile NSubstitute and run the unit tests using the NUnit GUI or console test runner (see the ThirdParty directory).
+To do full builds you'll also need Ruby and rake to run the rakefile.
 
