@@ -89,6 +89,7 @@
     <Compile Include="AllCallMatcherSpecs.cs" />
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyHelperSpecs.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptorSpecs.cs" />
     <Compile Include="ReceivedExtensionSpec.cs" />

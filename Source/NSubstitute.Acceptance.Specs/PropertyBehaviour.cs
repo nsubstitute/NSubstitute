@@ -5,7 +5,6 @@ namespace NSubstitute.Acceptance.Specs
 {
     public class PropertyBehaviour
     {
-        [Pending]
         [Test]
         public void Properties_just_work()
         {
@@ -39,8 +38,16 @@ namespace NSubstitute.Acceptance.Specs
             var theName = calculator.Name;
             var name = calculator.Received().Name;
             Assert.Throws<CallNotReceivedException>(() => { var x = calculator.Received().Now; });
-
         }
 
+        [Test]
+        public void Can_set_a_value_on_a_write_only_property()
+        {
+            const string fancyFirmwareCode = "high falutin' firmware code. Yeehaw!";
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Firmware = fancyFirmwareCode;
+            calculator.Received().Firmware = fancyFirmwareCode;
+            Assert.Throws<CallNotReceivedException>(() => calculator.Received().Firmware = "non-fancy firmware");
+        }
     }
 }

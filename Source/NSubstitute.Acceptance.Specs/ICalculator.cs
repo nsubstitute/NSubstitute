@@ -9,5 +9,6 @@ namespace NSubstitute.Acceptance.Specs
         int Subtract(int a, int b);
         string Name { get; set; }
         DateTime Now { get; }
+        string Firmware { set; }
     }
 }

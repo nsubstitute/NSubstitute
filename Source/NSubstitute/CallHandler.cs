@@ -1,16 +1,20 @@
+using System.Linq;
+
 namespace NSubstitute
 {
     public class CallHandler : ICallHandler
     {
         readonly ICallStack _callStack;
         readonly ICallResults _callResults;
+        readonly IPropertyHelper _propertyHelper;
         readonly ISubstitutionContext _context;
         bool _assertNextCallReceived;
 
-        public CallHandler(ICallStack CallStack, ICallResults callResults, ISubstitutionContext context)
+        public CallHandler(ICallStack CallStack, ICallResults callResults, IPropertyHelper PropertyHelper, ISubstitutionContext context)
         {
             _callStack = CallStack;
             _callResults = callResults;
+            _propertyHelper = PropertyHelper;
             _context = context;
         }
 
@@ -27,6 +31,12 @@ namespace NSubstitute
                 _assertNextCallReceived = false;
                 _callStack.ThrowIfCallNotFound(call);
                 return _callResults.GetDefaultResultFor(call);
+            }
+            if (_propertyHelper.IsCallToSetAReadWriteProperty(call))
+            {
+                var callToPropertyGetter = _propertyHelper.CreateCallToPropertyGetterFromSetterCall(call);
+                var valueBeingSetOnProperty = call.GetArguments().First();
+                _callResults.SetResult(callToPropertyGetter, valueBeingSetOnProperty);
             }
             _callStack.Push(call);
             _context.LastCallHandler(this);

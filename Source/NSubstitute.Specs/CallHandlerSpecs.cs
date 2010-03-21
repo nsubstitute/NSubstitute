@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.Specs.TestInfrastructure;
 using NUnit.Framework;
 
@@ -13,6 +12,7 @@ namespace NSubstitute.Specs
             protected ICall call;
             protected ICallStack CallStack;
             protected ICallResults configuredResults;
+            protected IPropertyHelper PropertyHelper;
 
             public override void Context()
             {
@@ -20,12 +20,13 @@ namespace NSubstitute.Specs
                 context = mock<ISubstitutionContext>();
                 CallStack = mock<ICallStack>();
                 configuredResults = mock<ICallResults>();
+                PropertyHelper = mock<IPropertyHelper>();
                 call = mock<ICall>();
             }
 
             public override CallHandler CreateSubjectUnderTest()
             {
-                return new CallHandler(CallStack, configuredResults, context);
+                return new CallHandler(CallStack, configuredResults, PropertyHelper, context);
             } 
         }
 
@@ -124,6 +125,33 @@ namespace NSubstitute.Specs
                 base.Context();
                 defaultForCall = new object();
                 configuredResults.stub(x => x.GetDefaultResultFor(call)).Return(defaultForCall);
+            }
+        }
+
+        public class When_call_is_a_property_setter : Concern
+        {
+            private object setValue;
+            private ICall propertyGetter;
+
+            [Test]
+            public void Should_add_set_value_to_configured_results()
+            {
+                configuredResults.received(x => x.SetResult(propertyGetter, setValue));
+            }
+
+            public override void Because()
+            {
+                sut.Handle(call);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                setValue = new object();
+                propertyGetter = mock<ICall>();
+                call.stub(x => x.GetArguments()).Return(new[] { setValue });
+                PropertyHelper.stub(x => x.IsCallToSetAReadWriteProperty(call)).Return(true);
+                PropertyHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(call)).Return(propertyGetter);
             }
         }
     }
