@@ -25,7 +25,7 @@ namespace NSubstitute.Specs
         {
             object result;
             object originalResult;
-            ICall _originalCall;
+            ICallSpecification _originalCallSpecification;
             ICall _secondCall;
 
             [Test]
@@ -36,7 +36,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResult(_originalCall, originalResult);
+                sut.SetResult(_originalCallSpecification, originalResult);
                 result = sut.GetResult(_secondCall);
             }
 
@@ -44,9 +44,9 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 originalResult = new object();
-                _originalCall = mock<ICall>();
+                _originalCallSpecification = mock<ICallSpecification>();
                 _secondCall = mock<ICall>();
-                CallMatcher.stub(x => x.IsMatch(_originalCall, _secondCall)).Return(true);
+                CallMatcher.stub(x => x.IsMatch(_secondCall, _originalCallSpecification)).Return(true);
             }
         }
 

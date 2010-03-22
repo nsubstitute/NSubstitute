@@ -23,7 +23,8 @@ namespace NSubstitute
         public void LastCallShouldReturn<T>(T valueToReturn)
         {
             var lastCall = _recordedCallsStack.Pop();
-            _callResults.SetResult(lastCall, valueToReturn);
+            var lastCallSpecification = CallSpecificationFrom(lastCall);
+            _callResults.SetResult(lastCallSpecification, valueToReturn);
         }
 
         public object Handle(ICall call)
@@ -39,7 +40,8 @@ namespace NSubstitute
             {
                 var callToPropertyGetter = _propertyHelper.CreateCallToPropertyGetterFromSetterCall(call);
                 var valueBeingSetOnProperty = call.GetArguments().First();
-                _callResults.SetResult(callToPropertyGetter, valueBeingSetOnProperty);
+                var callToPropertyGetterSpecification = CallSpecificationFrom(callToPropertyGetter);
+                _callResults.SetResult(callToPropertyGetterSpecification, valueBeingSetOnProperty);
             }
             _recordedCallsStack.Push(call);
             _context.LastCallHandler(this);

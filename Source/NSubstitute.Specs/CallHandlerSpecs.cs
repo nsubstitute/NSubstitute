@@ -14,7 +14,7 @@ namespace NSubstitute.Specs
             protected ICallResults configuredResults;
             protected IPropertyHelper PropertyHelper;
             protected ICallSpecification callSpecification;
-            ICallSpecificationFactory callSpecificationFactory;
+            protected ICallSpecificationFactory callSpecificationFactory;
 
             public override void Context()
             {
@@ -74,7 +74,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_remove_the_call_from_those_recorded_and_add_it_to_configured_results()
             {
-                configuredResults.received(x => x.SetResult(call, valueToReturn));
+                configuredResults.received(x => x.SetResult(callSpecification, valueToReturn));
             }
 
             public override void Because()
@@ -137,11 +137,12 @@ namespace NSubstitute.Specs
         {
             private object setValue;
             private ICall propertyGetter;
+            private ICallSpecification propertyGetterSpecification;
 
             [Test]
             public void Should_add_set_value_to_configured_results()
             {
-                configuredResults.received(x => x.SetResult(propertyGetter, setValue));
+                configuredResults.received(x => x.SetResult(propertyGetterSpecification, setValue));
             }
 
             public override void Because()
@@ -154,9 +155,11 @@ namespace NSubstitute.Specs
                 base.Context();
                 setValue = new object();
                 propertyGetter = mock<ICall>();
+                propertyGetterSpecification = mock<ICallSpecification>();
                 call.stub(x => x.GetArguments()).Return(new[] { setValue });
                 PropertyHelper.stub(x => x.IsCallToSetAReadWriteProperty(call)).Return(true);
                 PropertyHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(call)).Return(propertyGetter);
+                callSpecificationFactory.stub(x => x.Create(propertyGetter)).Return(propertyGetterSpecification);
             }
         }
     }

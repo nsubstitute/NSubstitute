@@ -6,17 +6,17 @@ namespace NSubstitute
     public class CallResults : ICallResults
     {
         ICallMatcher _callMatcher;
-        Dictionary<ICall, object> _results;
+        Dictionary<ICallSpecification, object> _results;
 
         public CallResults(ICallMatcher callMatcher)
         {
             _callMatcher = callMatcher;
-            _results = new Dictionary<ICall, object>();
+            _results = new Dictionary<ICallSpecification, object>();
         }
 
-        public void SetResult<T>(ICall call, T valueToReturn)
+        public void SetResult<T>(ICallSpecification callSpecification, T valueToReturn)
         {
-            _results.Add(call, valueToReturn);
+            _results.Add(callSpecification, valueToReturn);
         }
 
         public object GetResult(ICall call)
@@ -24,7 +24,7 @@ namespace NSubstitute
             if (DoesCallReturnVoid(call)) return null;
             foreach (var callResult in _results)
             {
-                if (_callMatcher.IsMatch(callResult.Key, call))
+                if (_callMatcher.IsMatch(call, callResult.Key))
                 {
                     return callResult.Value;
                 }
