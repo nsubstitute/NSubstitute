@@ -12,15 +12,6 @@ namespace NSubstitute
             _equalityComparer = equalityComparer;
         }
 
-        public bool IsMatch(ICall first, ICall second)
-        {
-            var firstCallArguments = first.GetArguments();
-            var secondCallArguments = second.GetArguments();
-            if (DifferentNumberOfArguments(firstCallArguments, secondCallArguments)) return false;
-            var numberOfArguments = firstCallArguments.Length;
-            return Enumerable.Range(0, numberOfArguments).All(index => AreArgumentsEqual(firstCallArguments[index], secondCallArguments[index]));
-        }
-
         public bool IsMatch(ICall call, ICallSpecification callSpecification)
         {
             var callArguments = call.GetArguments();

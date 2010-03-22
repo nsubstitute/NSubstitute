@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace NSubstitute.Specs
 {
@@ -7,31 +9,41 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<ArgumentsEqualMatcher>
         {
-            protected ICall _first;
-            protected ICall _second;
-            protected IArgumentEqualityComparer _equalityComparer;
+            protected ICall _call;
+            protected ICallSpecification _callSpecification;
             protected bool _result;
 
             public override void Because()
             {
-                _result = sut.IsMatch(_first, _second);
+                _result = sut.IsMatch(_call, _callSpecification);
             }
 
             public override void Context()
             {
-                _first = mock<ICall>();
-                _second = mock<ICall>();
-                _equalityComparer = mock<IArgumentEqualityComparer>();
+                _call = mock<ICall>();
+                _callSpecification = mock<ICallSpecification>();
             }
 
             public override ArgumentsEqualMatcher CreateSubjectUnderTest()
             {
-                return new ArgumentsEqualMatcher(_equalityComparer);
+                return new ArgumentsEqualMatcher(mock<IArgumentEqualityComparer>());
             }
 
             protected void SetupCallArguments(ICall call, object[] arguments)
             {
                 call.stub(x => x.GetArguments()).Return(arguments);
+            }
+
+            protected void SetupArgumentMatchers(ICallSpecification specification, params bool[] matches)
+            {
+                var argumentMatchers = new List<IArgumentMatcher>();
+                foreach (var match in matches)
+                {
+                    var argumentMatcher = MockRepository.GenerateStub<IArgumentMatcher>();
+                    argumentMatcher.Stub(x => x.Matches(Arg<object>.Is.Anything)).Return(match);
+                    argumentMatchers.Add(argumentMatcher);
+                }
+                specification.Stub(x => x.ArgumentMatchers).Return(argumentMatchers);
             }
         }
 
@@ -40,10 +52,10 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _equalityComparer.stub(x => x.Equals(null, null)).IgnoreArguments().Return(true);
-                SetupCallArguments(_first, new object[2]);
-                SetupCallArguments(_second, new object[2]);
+                SetupCallArguments(_call, new object[2]);
+                SetupArgumentMatchers(_callSpecification, true, true);
             }
+
 
             [Test]
             public void Should_match()
@@ -57,9 +69,8 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _equalityComparer.stub(x => x.Equals(null, null)).IgnoreArguments().Return(true);
-                SetupCallArguments(_first, new object[2]);
-                SetupCallArguments(_second, new object[3]);
+                SetupCallArguments(_call, new object[2]);
+                SetupArgumentMatchers(_callSpecification, true, true, true);
             }
 
             [Test]
@@ -74,9 +85,8 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _equalityComparer.stub(x => x.Equals(null, null)).IgnoreArguments().Return(false);
-                SetupCallArguments(_first, new object[2]);
-                SetupCallArguments(_second, new object[2]);
+                SetupCallArguments(_call, new object[2]);
+                SetupArgumentMatchers(_callSpecification, true, false);
             }
 
             [Test]

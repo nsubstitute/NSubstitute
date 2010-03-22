@@ -10,18 +10,18 @@ namespace NSubstitute.Specs
         {
             protected bool callsMatch;
             protected ICall _firstCall;
-            protected ICall _secondCall;
+            protected ICallSpecification _callSpecification;
             protected IEnumerable<ICallMatcher> matchers;
 
             public override void Because()
             {
-                callsMatch = sut.IsMatch(_firstCall, _secondCall);
+                callsMatch = sut.IsMatch(_firstCall, _callSpecification);
             }
 
             public override void Context()
             {
                 _firstCall = mock<ICall>();
-                _secondCall = mock<ICall>();
+                _callSpecification = mock<ICallSpecification>();
             }
 
             public override AllCallMatcher CreateSubjectUnderTest()
@@ -32,7 +32,7 @@ namespace NSubstitute.Specs
             protected ICallMatcher CreateAlwaysMatchingMatcher()
             {
                 var matcher = mock<ICallMatcher>();
-                matcher.stub(x => x.IsMatch(_firstCall, _secondCall)).Return(true);
+                matcher.stub(x => x.IsMatch(_firstCall, _callSpecification)).Return(true);
                 return matcher;
             }
 
