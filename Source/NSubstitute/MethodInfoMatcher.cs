@@ -6,5 +6,10 @@ namespace NSubstitute
         {
             return first.GetMethodInfo() == second.GetMethodInfo();
         }
+
+        public bool IsMatch(ICall call, ICallSpecification callSpecification)
+        {
+            return call.GetMethodInfo() == callSpecification.MethodInfo;
+        }
     }
 }

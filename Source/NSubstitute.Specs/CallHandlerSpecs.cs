@@ -13,6 +13,8 @@ namespace NSubstitute.Specs
             protected ICallStack CallStack;
             protected ICallResults configuredResults;
             protected IPropertyHelper PropertyHelper;
+            protected ICallSpecification callSpecification;
+            ICallSpecificationFactory callSpecificationFactory;
 
             public override void Context()
             {
@@ -22,11 +24,14 @@ namespace NSubstitute.Specs
                 configuredResults = mock<ICallResults>();
                 PropertyHelper = mock<IPropertyHelper>();
                 call = mock<ICall>();
+                callSpecification = mock<ICallSpecification>();
+                callSpecificationFactory = mock<ICallSpecificationFactory>();
+                callSpecificationFactory.stub(x => x.Create(call)).Return(callSpecification);
             }
 
             public override CallHandler CreateSubjectUnderTest()
             {
-                return new CallHandler(CallStack, configuredResults, PropertyHelper, context);
+                return new CallHandler(CallStack, configuredResults, PropertyHelper, context, callSpecificationFactory);
             } 
         }
 
@@ -92,7 +97,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw_exception_if_call_has_not_been_received()
             {
-                CallStack.received(x => x.ThrowIfCallNotFound(call));                
+                CallStack.received(x => x.ThrowIfCallNotFound(callSpecification));                
             }
 
             [Test]

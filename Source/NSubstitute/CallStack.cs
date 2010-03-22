@@ -25,9 +25,9 @@ namespace NSubstitute
             return _stack.Pop();
         }
 
-        public void ThrowIfCallNotFound(ICall call)
+        public void ThrowIfCallNotFound(ICallSpecification callSpecification)
         {
-            if (_stack.Any(receivedCall => _callMatcher.IsMatch(receivedCall, call))) return;
+            if (_stack.Any(receivedCall => _callMatcher.IsMatch(receivedCall, callSpecification))) return;
             throw new CallNotReceivedException();
         }
     }

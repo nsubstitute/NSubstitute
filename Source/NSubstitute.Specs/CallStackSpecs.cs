@@ -55,32 +55,32 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw_when_checking_if_a_call_is_found()
             {
-                Assert.Throws<CallNotReceivedException>(() => sut.ThrowIfCallNotFound(mock<ICall>()));
+                Assert.Throws<CallNotReceivedException>(() => sut.ThrowIfCallNotFound(mock<ICallSpecification>()));
             }
         }
 
         public class When_checking_multiple_calls_received_and_checking_for_a_specific_call : Concern
         {
-            private ICall _callToCheck;
+            private ICallSpecification _callSpecificationToCheck;
             private ICall _firstCall;
             private ICall _secondCall;
 
             [Test]
             public void Should_throw_if_no_matches_for_call_are_found()
             {
-                Assert.Throws<CallNotReceivedException>(() => sut.ThrowIfCallNotFound(mock<ICall>()));                
+                Assert.Throws<CallNotReceivedException>(() => sut.ThrowIfCallNotFound(mock<ICallSpecification>()));                
             }
 
             [Test]
             public void Should_not_throw_is_a_matching_call_is_found()
             {
-                sut.ThrowIfCallNotFound(_callToCheck);
+                sut.ThrowIfCallNotFound(_callSpecificationToCheck);
                 Assert.Pass();
             }
 
             public override void Because()
             {
-                CallMatcher.stub(x => x.IsMatch(_secondCall, _callToCheck)).Return(true);
+                CallMatcher.stub(x => x.IsMatch(_secondCall, _callSpecificationToCheck)).Return(true);
                 sut.Push(_firstCall);
                 sut.Push(_secondCall);
             }
@@ -90,7 +90,7 @@ namespace NSubstitute.Specs
                 base.Context();
                 _firstCall = mock<ICall>();
                 _secondCall = mock<ICall>();
-                _callToCheck = mock<ICall>();
+                _callSpecificationToCheck = mock<ICallSpecification>();
             }
         }
     }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -77,10 +77,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentEqualityComparer.cs" />
+    <Compile Include="ArgumentMatcher.cs" />
     <Compile Include="ArgumentsEqualMatcher.cs" />
     <Compile Include="CallNotReceivedException.cs" />
+    <Compile Include="CallSpecification.cs" />
+    <Compile Include="CallSpecificationFactory.cs" />
     <Compile Include="Exceptions\NotASubstituteException.cs" />
     <Compile Include="IArgumentEqualityComparer.cs" />
+    <Compile Include="IArgumentMatcher.cs" />
     <Compile Include="ICallHandlerFactory.cs" />
     <Compile Include="ICallMatcher.cs" />
     <Compile Include="CallHandlerFactory.cs" />
@@ -88,6 +92,8 @@
     <Compile Include="CallResults.cs" />
     <Compile Include="CallStack.cs" />
     <Compile Include="ICallResults.cs" />
+    <Compile Include="ICallSpecification.cs" />
+    <Compile Include="ICallSpecificationFactory.cs" />
     <Compile Include="ICallStack.cs" />
     <Compile Include="ICall.cs" />
     <Compile Include="ICallHandler.cs" />

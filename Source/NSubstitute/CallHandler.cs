@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace NSubstitute
@@ -9,13 +10,15 @@ namespace NSubstitute
         readonly IPropertyHelper _propertyHelper;
         readonly ISubstitutionContext _context;
         bool _assertNextCallReceived;
+        ICallSpecificationFactory _callSpecificationFactory;
 
-        public CallHandler(ICallStack callStack, ICallResults callResults, IPropertyHelper propertyHelper, ISubstitutionContext context)
+        public CallHandler(ICallStack callStack, ICallResults callResults, IPropertyHelper propertyHelper, ISubstitutionContext context, ICallSpecificationFactory callSpecificationFactory)
         {
             _recordedCallsStack = callStack;
             _callResults = callResults;
             _propertyHelper = propertyHelper;
             _context = context;
+            _callSpecificationFactory = callSpecificationFactory;
         }
 
         public void LastCallShouldReturn<T>(T valueToReturn)
@@ -26,10 +29,11 @@ namespace NSubstitute
 
         public object Handle(ICall call)
         {
+            var callSpecification = CallSpecificationFrom(call);
             if (_assertNextCallReceived)
             {
                 _assertNextCallReceived = false;
-                _recordedCallsStack.ThrowIfCallNotFound(call);
+                _recordedCallsStack.ThrowIfCallNotFound(callSpecification);
                 return _callResults.GetDefaultResultFor(call);
             }
             if (_propertyHelper.IsCallToSetAReadWriteProperty(call))
@@ -41,6 +45,11 @@ namespace NSubstitute
             _recordedCallsStack.Push(call);
             _context.LastCallHandler(this);
             return _callResults.GetResult(call);
+        }
+
+        ICallSpecification CallSpecificationFrom(ICall call)
+        {
+            return _callSpecificationFactory.Create(call);
         }
 
         public void AssertNextCallHasBeenReceived()

@@ -16,5 +16,10 @@ namespace NSubstitute
         {
             return _callMatchers.All(x => x.IsMatch(first, second));
         }
+
+        public bool IsMatch(ICall call, ICallSpecification callSpecification)
+        {
+            return _callMatchers.All(x => x.IsMatch(call, callSpecification));
+        }
     }
 }
