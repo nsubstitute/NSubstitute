@@ -2,7 +2,7 @@ using System;
 using Rhino.Mocks;
 using Rhino.Mocks.Interfaces;
 
-namespace NSubstitute.Specs.TestInfrastructure
+namespace NSubstitute.Specs.Infrastructure
 {
     public static class MockingAdaptor
     {

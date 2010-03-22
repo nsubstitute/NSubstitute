@@ -1,4 +1,4 @@
-namespace NSubstitute.Specs.TestInfrastructure
+namespace NSubstitute.Specs.Infrastructure
 {
     public class TemporaryChangeToBuilder<T>
     {

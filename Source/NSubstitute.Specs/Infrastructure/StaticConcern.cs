@@ -1,8 +1,5 @@
-using NUnit.Framework;
-
-namespace NSubstitute.Specs.TestInfrastructure
+namespace NSubstitute.Specs.Infrastructure
 {
-    [TestFixture]
     public abstract class StaticConcern : BaseConcern
     {
     }

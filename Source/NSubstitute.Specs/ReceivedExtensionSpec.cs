@@ -1,5 +1,5 @@
-using NSubstitute.Specs.TestInfrastructure;
-using NSubstitute.Specs.TestStructures;
+using NSubstitute.Specs.Infrastructure;
+using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs

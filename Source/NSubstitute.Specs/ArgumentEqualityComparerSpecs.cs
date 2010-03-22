@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using NSubstitute.Specs.TestInfrastructure;
+using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs

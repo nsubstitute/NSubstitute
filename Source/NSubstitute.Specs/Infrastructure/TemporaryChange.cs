@@ -1,6 +1,6 @@
 using System;
 
-namespace NSubstitute.Specs.TestInfrastructure
+namespace NSubstitute.Specs.Infrastructure
 {
     public class TemporaryChange<T> : ITemporaryChange
     {

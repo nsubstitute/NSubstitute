@@ -1,4 +1,4 @@
-using NSubstitute.Specs.TestInfrastructure;
+using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs

@@ -1,5 +1,5 @@
 extern alias CastleCore;
-using NSubstitute.Specs.TestInfrastructure;
+using NSubstitute.Specs.Infrastructure;
 using CastleInvocation = CastleCore::Castle.Core.Interceptor.IInvocation;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NUnit.Framework;

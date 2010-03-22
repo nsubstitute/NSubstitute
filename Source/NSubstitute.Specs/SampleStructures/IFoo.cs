@@ -1,4 +1,4 @@
-namespace NSubstitute.Specs.TestStructures
+namespace NSubstitute.Specs.SampleStructures
 {
     public interface IFoo
     {

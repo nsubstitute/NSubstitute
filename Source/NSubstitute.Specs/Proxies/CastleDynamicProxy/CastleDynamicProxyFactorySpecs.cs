@@ -1,7 +1,7 @@
 extern alias CastleCore;
 using Castle.DynamicProxy;
-using NSubstitute.Specs.TestInfrastructure;
-using NSubstitute.Specs.TestStructures;
+using NSubstitute.Specs.Infrastructure;
+using NSubstitute.Specs.SampleStructures;
 using Rhino.Mocks;
 using CastleIInterceptor = CastleCore::Castle.Core.Interceptor.IInterceptor;
 using CastleIInvocation = CastleCore::Castle.Core.Interceptor.IInvocation;
