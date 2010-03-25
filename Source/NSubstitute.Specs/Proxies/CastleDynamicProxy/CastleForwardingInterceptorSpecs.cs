@@ -1,4 +1,5 @@
 extern alias CastleCore;
+using System.Collections.Generic;
 using NSubstitute.Specs.Infrastructure;
 using CastleInvocation = CastleCore::Castle.Core.Interceptor.IInvocation;
 using NSubstitute.Proxies.CastleDynamicProxy;
@@ -19,7 +20,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             [Test]
             public void Should_forward_mapped_call_to_call_handler()
             {
-                callHandler.received(x => x.Handle(_mappedCall));
+                callHandler.received(x => x.Handle(_mappedCall, new List<IArgumentMatcher>()));
             }
 
             [Test]
@@ -41,7 +42,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
                 _mappedCall = mock<ICall>();
                 invocationMapper = mock<CastleInvocationMapper>();
                 invocationMapper.stub(x => x.Map(castleInvocation)).Return(_mappedCall);
-                callHandler.stub(x => x.Handle(_mappedCall)).Return(returnValue);
+                callHandler.stub(x => x.Handle(_mappedCall, new List<IArgumentMatcher>())).Return(returnValue);
             }
 
             public override CastleForwardingInterceptor CreateSubjectUnderTest()

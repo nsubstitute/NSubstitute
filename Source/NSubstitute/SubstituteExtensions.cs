@@ -1,15 +1,19 @@
+using System.Collections.Generic;
+
 namespace NSubstitute
 {
     public static class SubstituteExtensions
     {
         public static void Return<T>(this T value, T returnThis, params T[] returnThese)
         {
-            SubstitutionContext.Current.LastCallShouldReturn(returnThis);
+            ISubstitutionContext context = SubstitutionContext.Current;
+            context.LastCallShouldReturn(returnThis, context.RetrieveArgumentMatchers());
         }
 
         public static T Received<T>(this T substitute)
         {
-            var handler = SubstitutionContext.Current.GetCallHandlerFor(substitute);            
+            ISubstitutionContext context = SubstitutionContext.Current;
+            var handler = context.GetCallHandlerFor(substitute);            
             handler.AssertNextCallHasBeenReceived();
             return substitute;
         }

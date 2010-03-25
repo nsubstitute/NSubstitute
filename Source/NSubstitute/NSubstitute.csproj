@@ -76,12 +76,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arg.cs" />
     <Compile Include="ArgumentEqualityComparer.cs" />
     <Compile Include="ArgumentMatcher.cs" />
     <Compile Include="ArgumentsEqualMatcher.cs" />
     <Compile Include="CallNotReceivedException.cs" />
     <Compile Include="CallSpecification.cs" />
     <Compile Include="CallSpecificationFactory.cs" />
+    <Compile Include="Exceptions\AmbiguousParametersException.cs" />
     <Compile Include="Exceptions\NotASubstituteException.cs" />
     <Compile Include="IArgumentEqualityComparer.cs" />
     <Compile Include="IArgumentMatcher.cs" />

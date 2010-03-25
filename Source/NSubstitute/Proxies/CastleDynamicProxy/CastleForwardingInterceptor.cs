@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Castle.Core.Interceptor;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy
@@ -16,7 +17,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         public void Intercept(Castle.Core.Interceptor.IInvocation invocation)
         {
             var mappedInvocation = _invocationMapper.Map(invocation);
-            invocation.ReturnValue = callHandler.Handle(mappedInvocation);
+            invocation.ReturnValue = callHandler.Handle(mappedInvocation, new List<IArgumentMatcher>());
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -29,13 +30,13 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_tell_the_last_call_handler_to_set_the_return_value_of_its_last_call()
             {
-                callHandler.received(x => x.LastCallShouldReturn(valueToReturn));
+                callHandler.received(x => x.LastCallShouldReturn(valueToReturn, new List<IArgumentMatcher>()));
             }
             
             public override void Because()
             {
                 sut.LastCallHandler(callHandler);
-                sut.LastCallShouldReturn(valueToReturn);
+                sut.LastCallShouldReturn(valueToReturn, new List<IArgumentMatcher>());
             }
 
             public override void Context()
@@ -51,7 +52,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw_a_substitute_exception()
             {
-                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(5));
+                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(5, new List<IArgumentMatcher>()));
             }
         }
 

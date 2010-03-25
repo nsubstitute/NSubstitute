@@ -9,7 +9,6 @@ namespace NSubstitute.Acceptance.Specs
         private ISomething _something;
 
         [Test]
-        [Pending]
         public void Return_result_for_any_parameter()
         {
             _something.Echo(Arg.Any<int>()).Return("anything");
@@ -19,7 +18,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Return_result_for_specific_parameter()
         {
             _something.Echo(Arg.Is(3)).Return("three");
@@ -30,7 +28,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Return_result_for_parameter_matching_predicate()
         {
             _something.Echo(Arg.Is<int>(x => x <= 3)).Return("small");
@@ -40,27 +37,37 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Echo(4), Is.EqualTo("big"), "Second return");
         }
 
+        [Test]
+        [Pending]
+        public void Received_for_any_parameter()
+        {
+            _something.Echo(7);
+
+            _something.Received().Echo(Arg.Any<int>());
+        }
+
+        [Test]
+        [Pending]
+        public void Recieved_for_specific_parameter()
+        {
+            _something.Echo(3);
+            
+            _something.Received().Echo(Arg.Is(3));
+        }
+
+        [Test]
+        [Pending]
+        public void Recieved_for_parameter_matching_predicate()
+        {
+            _something.Echo(7);
+
+            _something.Received().Echo(Arg.Is<int>(x => x > 3));
+        }
+
         [SetUp]
         public void SetUp()
         {
             _something = Substitute.For<ISomething>();
-        }
-    }
-
-    public class Arg{
-        public static T Any<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static T Is<T>(T i)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static T Is<T>(Predicate<T> predicate)
-        {
-            throw new NotImplementedException();
         }
     }
 }

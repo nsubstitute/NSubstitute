@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NSubstitute
@@ -20,16 +21,16 @@ namespace NSubstitute
             _callSpecificationFactory = callSpecificationFactory;
         }
 
-        public void LastCallShouldReturn<T>(T valueToReturn)
+        public void LastCallShouldReturn<T>(T valueToReturn, IList<IArgumentMatcher> argumentMatchers)
         {
             var lastCall = _recordedCallsStack.Pop();
-            var lastCallSpecification = CallSpecificationFrom(lastCall);
+            var lastCallSpecification = CallSpecificationFrom(lastCall, argumentMatchers);
             _callResults.SetResult(lastCallSpecification, valueToReturn);
         }
 
-        public object Handle(ICall call)
+        public object Handle(ICall call, IList<IArgumentMatcher> argumentMatchers)
         {
-            var callSpecification = CallSpecificationFrom(call);
+            var callSpecification = CallSpecificationFrom(call, argumentMatchers);
             if (_assertNextCallReceived)
             {
                 _assertNextCallReceived = false;
@@ -40,7 +41,7 @@ namespace NSubstitute
             {
                 var callToPropertyGetter = _propertyHelper.CreateCallToPropertyGetterFromSetterCall(call);
                 var valueBeingSetOnProperty = call.GetArguments().First();
-                var callToPropertyGetterSpecification = CallSpecificationFrom(callToPropertyGetter);
+                var callToPropertyGetterSpecification = CallSpecificationFrom(callToPropertyGetter, argumentMatchers);
                 _callResults.SetResult(callToPropertyGetterSpecification, valueBeingSetOnProperty);
             }
             _recordedCallsStack.Push(call);
@@ -48,9 +49,9 @@ namespace NSubstitute
             return _callResults.GetResult(call);
         }
 
-        ICallSpecification CallSpecificationFrom(ICall call)
+        ICallSpecification CallSpecificationFrom(ICall call, IList<IArgumentMatcher> argumentMatchers)
         {
-            return _callSpecificationFactory.Create(call);
+            return _callSpecificationFactory.Create(call, argumentMatchers);
         }
 
         public void AssertNextCallHasBeenReceived()
