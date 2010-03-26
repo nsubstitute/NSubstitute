@@ -36,7 +36,7 @@ namespace NSubstitute.Specs
             }
 
             [Test]
-            public void Should_invoke_event_reference()
+            public void Should_invoke_event_reference_so_call_handler_can_raise_the_event()
             {
                 _eventReference.received(x => x(_substitute));
             }

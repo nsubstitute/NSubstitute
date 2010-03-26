@@ -7,7 +7,6 @@ namespace NSubstitute.Specs
 {
     public class ArgumentEqualityComparerSpecs : ConcernFor<IEqualityComparer>
     {
-
         [Test]
         public void Should_match_when_arguments_have_same_reference()
         {
