@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 
 namespace NSubstitute
 {
@@ -16,6 +16,10 @@ namespace NSubstitute
             var handler = context.GetCallHandlerFor(substitute);            
             handler.AssertNextCallHasBeenReceived();
             return substitute;
+        }
+
+        public static void Raise<T>(this T substitute, Action<T> eventReference, params object[] eventArguments)
+        {
         }
     }
 }

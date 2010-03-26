@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventRaising.cs" />
     <Compile Include="ICalculator.cs" />
     <Compile Include="PropertyBehaviour.cs" />
     <Compile Include="SubstituteParameterMatching.cs" />

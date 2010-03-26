@@ -1,4 +1,6 @@
-﻿namespace NSubstitute.Acceptance.Specs
+﻿using System;
+
+namespace NSubstitute.Acceptance.Specs
 {
     public interface IEngine
     {
@@ -7,5 +9,13 @@
         void Stop();
         void Idle();
         void RevAt(int rpm);
+        event Action Started;
+        event EventHandler<IdlingEventArgs> Idling;
+
+    }
+
+    public class IdlingEventArgs : EventArgs
+    {
+        public int Rpm;
     }
 }
