@@ -7,5 +7,6 @@ namespace NSubstitute
         void LastCallShouldReturn<T>(T valueToReturn, IList<IArgumentMatcher> argumentMatchers);
         object Handle(ICall call, IList<IArgumentMatcher> argumentMatchers);
         void AssertNextCallHasBeenReceived();
+        void RaiseEventFromNextCall(params object[] argumentsToRaiseEventWith);
     }
 }

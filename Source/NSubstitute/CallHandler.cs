@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -57,6 +58,10 @@ namespace NSubstitute
         public void AssertNextCallHasBeenReceived()
         {
             _assertNextCallReceived = true;
+        }
+
+        public void RaiseEventFromNextCall(params object[] argumentsToRaiseEventWith)
+        {            
         }
     }
 }

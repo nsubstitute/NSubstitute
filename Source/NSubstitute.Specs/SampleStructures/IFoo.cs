@@ -1,7 +1,10 @@
+using System;
+
 namespace NSubstitute.Specs.SampleStructures
 {
     public interface IFoo
     {
-        void Goo();        
+        void Goo();
+        event EventHandler Boo;
     }
 }
