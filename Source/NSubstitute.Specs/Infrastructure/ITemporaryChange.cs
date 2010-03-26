@@ -4,5 +4,7 @@ namespace NSubstitute.Specs.Infrastructure
     {
         void SetNewValue();
         void RestoreOriginalValue();
+        string MemberName { get; }
+        bool IsConfigured { get; set; }
     }
 }

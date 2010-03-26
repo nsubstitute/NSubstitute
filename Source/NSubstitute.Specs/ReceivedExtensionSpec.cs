@@ -31,9 +31,7 @@ namespace NSubstitute.Specs
 
                 _context.stub(x => x.GetCallHandlerFor(_substitute)).Return(_handlerForSubstitute);
 
-                temporarilyChange(SubstitutionContext.Current)
-                    .to(_context)
-                    .via(x => SubstitutionContext.Current = x);                    
+                temporarilyChange(() => SubstitutionContext.Current).to(_context);        
             }
         }        
     }

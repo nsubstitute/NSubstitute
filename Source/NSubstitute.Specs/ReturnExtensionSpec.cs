@@ -29,9 +29,7 @@ namespace NSubstitute.Specs
                 _argumentMatchers = new List<IArgumentMatcher>();
                 substitutionContext = mock<ISubstitutionContext>();
                 substitutionContext.stub(x => x.RetrieveArgumentMatchers()).Return(_argumentMatchers);
-                temporarilyChange(SubstitutionContext.Current)
-                    .to(substitutionContext)
-                    .via(x => SubstitutionContext.Current = x);
+                temporarilyChange(() => SubstitutionContext.Current).to(substitutionContext);
             }
         }
         

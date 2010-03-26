@@ -15,7 +15,7 @@ namespace NSubstitute.Acceptance.Specs
             var engine = Substitute.For<IEngine>();
             var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
             engine.Idling += idlingHandler.Record;
-            engine.Raise(x => x.Revved += null, sender, arguments);
+            engine.Raise(x => x.Idling += null, sender, arguments);
 
             Assert.That(idlingHandler.Sender, Is.SameAs(sender));
             Assert.That(idlingHandler.EventArgs, Is.SameAs(arguments));            
@@ -27,7 +27,7 @@ namespace NSubstitute.Acceptance.Specs
             var engine = Substitute.For<IEngine>();
             var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
             engine.Idling += idlingHandler.Record;
-            engine.Raise(x => x.Revved += null);
+            engine.Raise(x => x.Idling += null);
 
             Assert.That(idlingHandler.Sender, Is.SameAs(this));
             Assert.That(idlingHandler.EventArgs, Is.Not.Null);

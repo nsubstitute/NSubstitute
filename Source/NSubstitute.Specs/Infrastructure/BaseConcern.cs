@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs.Infrastructure
@@ -16,6 +18,7 @@ namespace NSubstitute.Specs.Infrastructure
         {
             _temporaryChanges = new List<ITemporaryChange>();
             Context();
+            ThrowIfAnyTemporaryChangesNotConfigured();
             AfterContextEstablished();
             Because();
         }
@@ -31,11 +34,33 @@ namespace NSubstitute.Specs.Infrastructure
             return MockingAdaptor.Create<T>();
         }
 
-        protected TemporaryChangeToBuilder<T> temporarilyChange<T>(T value)
+        protected TemporaryChangeToBuilder<T> temporarilyChange<T>(Expression<Func<T>> property)
         {
-            var temporaryChange = new TemporaryChange<T>(value);
+            var memberExpression = (MemberExpression) property.Body;
+            var member = memberExpression.Member;
+            var originalValue = property.Compile().Invoke();
+                        
+            var temporaryChange = new TemporaryChange<T>(member, originalValue);
             _temporaryChanges.Add(temporaryChange);
             return new TemporaryChangeToBuilder<T>(temporaryChange);
         }
+
+        void ThrowIfAnyTemporaryChangesNotConfigured()
+        {
+            foreach (var temporaryChange in _temporaryChanges)
+            {
+                if (!temporaryChange.IsConfigured)
+                {
+                    throw new TemporaryChangeNotConfiguredProperlyException(
+                        "You tried to temporarily change the value of " + temporaryChange.MemberName +
+                        " but did not say what you wanted to change it to.\n" +
+                        "The required syntax is:\n\t" +
+                        "temporarilyChange(SomeClass.SomeStaticMember).to(someTemporaryValue);"
+                        );
+                }
+            }
+        }
+
+
     }
 }

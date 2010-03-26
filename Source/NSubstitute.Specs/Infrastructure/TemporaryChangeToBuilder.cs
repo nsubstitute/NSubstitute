@@ -9,10 +9,11 @@ namespace NSubstitute.Specs.Infrastructure
             _change = change;
         }
 
-        public TemporaryChangeViaBuilder<T> to(T value)
+        public void to(T value)
         {
             _change.TemporaryValue = value;
-            return new TemporaryChangeViaBuilder<T>(_change);
+            _change.SetNewValue();
+            _change.IsConfigured = true;
         }
     }
 }

@@ -31,9 +31,7 @@ namespace NSubstitute.Specs
                 substituteFactory.stub(x => x.Create<Foo>()).Return(substitute);
                 context = mock<ISubstitutionContext>();
                 context.stub(x => x.GetSubstituteFactory()).Return(substituteFactory);
-                temporarilyChange(SubstitutionContext.Current)
-                    .to(context)
-                    .via(x => SubstitutionContext.Current = x);
+                temporarilyChange(() => SubstitutionContext.Current).to(context);
             }
         }
     }
