@@ -1,6 +1,5 @@
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace NSubstitute.Acceptance.Specs
 {

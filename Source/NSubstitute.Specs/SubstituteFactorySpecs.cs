@@ -8,38 +8,38 @@ namespace NSubstitute.Specs
     {
         public class When_creating_a_substitute_for_a_type : ConcernFor<SubstituteFactory>
         {
-            Foo proxy;
-            Foo result;
+            Foo _proxy;
+            Foo _result;
             ICallHandlerFactory _callHandlerFactory;
-            ISubstitutionContext context;
+            ISubstitutionContext _context;
             IProxyFactory _proxyFactory;
 
             [Test]
             public void Should_return_a_proxy_for_that_type()
             {
-                Assert.That(result, Is.SameAs(proxy));
+                Assert.That(_result, Is.SameAs(_proxy));
             }
 
             public override void Because()
             {
-                result = sut.Create<Foo>();
+                _result = sut.Create<Foo>();
             }
 
             public override void Context()
             {
-                proxy = new Foo();
-                context = mock<ISubstitutionContext>();
+                _proxy = new Foo();
+                _context = mock<ISubstitutionContext>();
                 _callHandlerFactory = mock<ICallHandlerFactory>();
                 _proxyFactory = mock<IProxyFactory>();
                 var callHandler = mock<ICallHandler>();
 
-                _callHandlerFactory.stub(x => x.CreateCallHandler(context)).Return(callHandler);
-                _proxyFactory.stub(x => x.GenerateProxy<Foo>(callHandler)).Return(proxy);
+                _callHandlerFactory.stub(x => x.CreateCallHandler(_context)).Return(callHandler);
+                _proxyFactory.stub(x => x.GenerateProxy<Foo>(callHandler)).Return(_proxy);
             }
 
             public override SubstituteFactory CreateSubjectUnderTest()
             {
-                return new SubstituteFactory(context, _callHandlerFactory, _proxyFactory);
+                return new SubstituteFactory(_context, _callHandlerFactory, _proxyFactory);
             }
         }
     }

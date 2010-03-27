@@ -8,14 +8,14 @@ namespace NSubstitute.Specs
     {
         public class Concern : ConcernFor<AllCallMatcher>
         {
-            protected bool callsMatch;
+            protected bool _callsMatch;
             protected ICall _firstCall;
             protected ICallSpecification _callSpecification;
-            protected IEnumerable<ICallMatcher> matchers;
+            protected IEnumerable<ICallMatcher> _matchers;
 
             public override void Because()
             {
-                callsMatch = sut.IsMatch(_firstCall, _callSpecification);
+                _callsMatch = sut.IsMatch(_firstCall, _callSpecification);
             }
 
             public override void Context()
@@ -26,7 +26,7 @@ namespace NSubstitute.Specs
 
             public override AllCallMatcher CreateSubjectUnderTest()
             {
-                return new AllCallMatcher(matchers);
+                return new AllCallMatcher(_matchers);
             }
 
             protected ICallMatcher CreateAlwaysMatchingMatcher()
@@ -47,13 +47,13 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_return_that_calls_match()
             {
-                Assert.That(callsMatch);
+                Assert.That(_callsMatch);
             }
 
             public override void Context()
             {
                 base.Context();
-                matchers = new[] {CreateAlwaysMatchingMatcher(), CreateAlwaysMatchingMatcher()};
+                _matchers = new[] {CreateAlwaysMatchingMatcher(), CreateAlwaysMatchingMatcher()};
             }
 
         }
@@ -63,13 +63,13 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_not_match_calls()
             {
-                Assert.That(callsMatch, Is.False);
+                Assert.That(_callsMatch, Is.False);
             }
 
             public override void Context()
             {
                 base.Context();
-                matchers = new[] { CreateAlwaysMatchingMatcher(), CreateNonMatchingMatcher(), CreateAlwaysMatchingMatcher()};
+                _matchers = new[] { CreateAlwaysMatchingMatcher(), CreateNonMatchingMatcher(), CreateAlwaysMatchingMatcher()};
             }
         }
     }

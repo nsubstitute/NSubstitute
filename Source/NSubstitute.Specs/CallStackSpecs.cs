@@ -8,38 +8,38 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<CallStack>
         {
-            protected ICallMatcher CallMatcher;
+            protected ICallMatcher _callMatcher;
 
             public override void Context()
             {
-                CallMatcher = mock<ICallMatcher>();
+                _callMatcher = mock<ICallMatcher>();
             }
 
             public override CallStack CreateSubjectUnderTest()
             {
-                return new CallStack(CallMatcher);
+                return new CallStack(_callMatcher);
             }
         }
 
         public class When_a_call_has_been_pushed : Concern
         {
-            ICall call;
+            ICall _call;
 
             [Test]
             public void Should_pop_to_get_that_call_back()
             {
-                Assert.That(sut.Pop(), Is.SameAs(call));   
+                Assert.That(sut.Pop(), Is.SameAs(_call));   
             }
 
             public override void Because()
             {
-                sut.Push(call);
+                sut.Push(_call);
             }
 
             public override void Context()
             {
                 base.Context();
-                call = mock<ICall>();
+                _call = mock<ICall>();
             }
         }
 
@@ -80,7 +80,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                CallMatcher.stub(x => x.IsMatch(_secondCall, _callSpecificationToCheck)).Return(true);
+                _callMatcher.stub(x => x.IsMatch(_secondCall, _callSpecificationToCheck)).Return(true);
                 sut.Push(_firstCall);
                 sut.Push(_secondCall);
             }

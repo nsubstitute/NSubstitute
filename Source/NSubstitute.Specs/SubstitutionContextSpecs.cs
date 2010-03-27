@@ -9,41 +9,41 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<SubstitutionContext>
         {
-            protected ISubstituteFactory substituteFactory;
+            protected ISubstituteFactory _substituteFactory;
 
             public override void Context()
             {
-                substituteFactory = mock<ISubstituteFactory>();
+                _substituteFactory = mock<ISubstituteFactory>();
             }
 
             public override SubstitutionContext CreateSubjectUnderTest()
             {
-                return new SubstitutionContext(substituteFactory);
+                return new SubstitutionContext(_substituteFactory);
             }            
         }
         
         public class When_setting_the_return_value_of_the_last_call : Concern
         {
-            private ICallHandler callHandler;
-            private int valueToReturn;
+            private ICallHandler _callHandler;
+            private int _valueToReturn;
 
             [Test]
             public void Should_tell_the_last_call_handler_to_set_the_return_value_of_its_last_call()
             {
-                callHandler.received(x => x.LastCallShouldReturn(valueToReturn, new List<IArgumentMatcher>()));
+                _callHandler.received(x => x.LastCallShouldReturn(_valueToReturn, new List<IArgumentMatcher>()));
             }
             
             public override void Because()
             {
-                sut.LastCallHandler(callHandler);
-                sut.LastCallShouldReturn(valueToReturn, new List<IArgumentMatcher>());
+                sut.LastCallHandler(_callHandler);
+                sut.LastCallShouldReturn(_valueToReturn, new List<IArgumentMatcher>());
             }
 
             public override void Context()
             {
                 base.Context();
-                callHandler = mock<ICallHandler>();
-                valueToReturn = 42;
+                _callHandler = mock<ICallHandler>();
+                _valueToReturn = 42;
             }
         }
 
@@ -60,17 +60,17 @@ namespace NSubstitute.Specs
         {
             private ICallHandler _handlerForSubstitute;
             private object _substituteCastableAsHandler;
-            private ICallHandler result;
+            private ICallHandler _result;
 
             [Test]
             public void Should_cast_substitute_to_call_handler()
             {
-                Assert.That(result, Is.SameAs(_handlerForSubstitute));               
+                Assert.That(_result, Is.SameAs(_handlerForSubstitute));               
             }
 
             public override void Because()
             {
-                result = sut.GetCallHandlerFor(_substituteCastableAsHandler);
+                _result = sut.GetCallHandlerFor(_substituteCastableAsHandler);
             }
 
             public override void Context()
@@ -104,7 +104,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_return_the_factory_the_context_was_created_with()
             {
-                Assert.That(sut.GetSubstituteFactory(), Is.SameAs(substituteFactory));
+                Assert.That(sut.GetSubstituteFactory(), Is.SameAs(_substituteFactory));
             }
         }
 

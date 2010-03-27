@@ -7,7 +7,7 @@ namespace NSubstitute.Acceptance.Specs
     public class EventRaising
     {
         [Test]
-        public void RaiseEvent()
+        public void Raise_event()
         {
             var sender = new object();
             var arguments = new EventArgs();
@@ -22,7 +22,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void RaiseEventWithSensibleDefaultArguments()
+        public void Raise_event_with_sensible_default_arguments()
         {
             var engine = Substitute.For<IEngine>();
             var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
@@ -34,7 +34,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void RaiseEventDeclaredAsAction()
+        public void Raise_event_declared_as_action()
         {
             var wasStarted = false;
             var engine = Substitute.For<IEngine>();

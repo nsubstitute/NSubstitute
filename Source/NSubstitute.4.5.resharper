@@ -75,6 +75,18 @@
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateStaticReadonly" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
+      <UserRule Inspect="True" Prefix="" Suffix="" Style="AaBb" StaticnessKind="Static, Instance" AccessRight="Public" Description="Public Fields">
+        <ElementKinds>
+          <Kind Name="FIELD" />
+        </ElementKinds>
+      </UserRule>
+      <UserRule Inspect="True" Prefix="" Suffix="" Style="AaBb" StaticnessKind="Static, Instance" AccessRight="Public" Description="Test classes &amp; methods">
+        <ElementKinds>
+          <Kind Name="CLASS" />
+          <Kind Name="METHOD" />
+        </ElementKinds>
+        <ExtraRule Prefix="" Suffix="" Style="Aa_bb" />
+      </UserRule>
     </Naming2>
   </CodeStyleSettings>
 </Configuration>

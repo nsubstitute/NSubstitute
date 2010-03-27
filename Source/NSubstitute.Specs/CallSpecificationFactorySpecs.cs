@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using NSubstitute.Exceptions;
@@ -36,7 +35,7 @@ namespace NSubstitute.Specs
             protected ICallSpecification _result;
 
             [Test]
-            public void Should_set_methodInfo_on_result()
+            public void Should_set_method_info_on_result()
             {
                 Assert.That(_result.MethodInfo, Is.SameAs(_call.GetMethodInfo()));
             }

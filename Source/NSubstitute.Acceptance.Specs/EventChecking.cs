@@ -6,7 +6,7 @@ namespace NSubstitute.Acceptance.Specs
     public class EventChecking
     {
         [Test]
-        public void CheckIfEventWasSubscribedTo()
+        public void Check_if_event_was_subscribed_to()
         {
             var engine = Substitute.For<IEngine>();
             Action handler = () => { };

@@ -8,117 +8,117 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<CallResults>
         {
-            protected ICallMatcher CallMatcher;
+            protected ICallMatcher _callMatcher;
 
             public override void Context()
             {
-                CallMatcher = mock<ICallMatcher>();
+                _callMatcher = mock<ICallMatcher>();
             }
 
             public override CallResults CreateSubjectUnderTest()
             {
-                return new CallResults(CallMatcher);
+                return new CallResults(_callMatcher);
             }
         }
 
         public class When_getting_a_result_that_has_been_set : Concern
         {
-            object result;
-            object originalResult;
+            object _result;
+            object _originalResult;
             ICallSpecification _originalCallSpecification;
             ICall _secondCall;
 
             [Test]
             public void Should_get_the_result_that_was_set()
             {
-                Assert.That(result, Is.SameAs(originalResult));
+                Assert.That(_result, Is.SameAs(_originalResult));
             }
 
             public override void Because()
             {
-                sut.SetResult(_originalCallSpecification, originalResult);
-                result = sut.GetResult(_secondCall);
+                sut.SetResult(_originalCallSpecification, _originalResult);
+                _result = sut.GetResult(_secondCall);
             }
 
             public override void Context()
             {
                 base.Context();
-                originalResult = new object();
+                _originalResult = new object();
                 _originalCallSpecification = mock<ICallSpecification>();
                 _secondCall = mock<ICall>();
-                CallMatcher.stub(x => x.IsMatch(_secondCall, _originalCallSpecification)).Return(true);
+                _callMatcher.stub(x => x.IsMatch(_secondCall, _originalCallSpecification)).Return(true);
             }
         }
 
         public class When_getting_a_reference_type_result_that_has_not_been_set : Concern
         {
-            object result;
-            ICall call;
+            object _result;
+            ICall _call;
 
             [Test]
             public void Should_use_the_default_value_for_the_result_type()
             {
-                Assert.That(result, Is.Null);
+                Assert.That(_result, Is.Null);
             }
 
             public override void Because()
             {
-                result = sut.GetResult(call);
+                _result = sut.GetResult(_call);
             }
 
             public override void Context()
             {
                 base.Context();
-                call = mock<ICall>();
-                call.stub(x => x.GetReturnType()).Return(typeof(List));
+                _call = mock<ICall>();
+                _call.stub(x => x.GetReturnType()).Return(typeof(List));
             }
         }
         
         public class When_getting_a_value_type_result_that_has_not_been_set : Concern
         {
-            object result;
-            ICall call;
+            object _result;
+            ICall _call;
 
             [Test]
             public void Should_use_the_default_value_for_the_result_type()
             {
-                Assert.That(result, Is.EqualTo(default(int)));
+                Assert.That(_result, Is.EqualTo(default(int)));
             }
 
             public override void Because()
             {
-                result = sut.GetResult(call);
+                _result = sut.GetResult(_call);
             }
 
             public override void Context()
             {
                 base.Context();
-                call = mock<ICall>();
-                call.stub(x => x.GetReturnType()).Return(typeof(int));
+                _call = mock<ICall>();
+                _call.stub(x => x.GetReturnType()).Return(typeof(int));
             }
         }
 
         public class When_getting_a_void_type_result : Concern
         {
-            object result;
-            ICall call;
+            object _result;
+            ICall _call;
 
             [Test]
             public void Should_return_null_because_there_is_no_void_instance()
             {
-                Assert.That(result, Is.Null);
+                Assert.That(_result, Is.Null);
             }
 
             public override void Because()
             {
-                result = sut.GetResult(call);
+                _result = sut.GetResult(_call);
             }
 
             public override void Context()
             {
                 base.Context();
-                call = mock<ICall>();
-                call.stub(x => x.GetReturnType()).Return(typeof (void));
+                _call = mock<ICall>();
+                _call.stub(x => x.GetReturnType()).Return(typeof (void));
             }
         }
 
