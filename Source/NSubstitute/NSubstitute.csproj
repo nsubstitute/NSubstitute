@@ -100,7 +100,7 @@
     <Compile Include="ICall.cs" />
     <Compile Include="ICallHandler.cs" />
     <Compile Include="IProxyFactory.cs" />
-    <Compile Include="IPropertyHelper.cs" />
+    <Compile Include="IReflectionHelper.cs" />
     <Compile Include="ISubstitutionContext.cs" />
     <Compile Include="ISubstituteFactory.cs" />
     <Compile Include="MethodInfoMatcher.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleInvocationMapper.cs" />
-    <Compile Include="PropertyHelper.cs" />
+    <Compile Include="ReflectionHelper.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="SubstitutionContext.cs" />

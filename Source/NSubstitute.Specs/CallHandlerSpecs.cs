@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -13,7 +14,7 @@ namespace NSubstitute.Specs
             protected ICall _call;
             protected ICallStack _callStack;
             protected ICallResults _configuredResults;
-            protected IPropertyHelper _propertyHelper;
+            protected IReflectionHelper _reflectionHelper;
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
             protected IList<IArgumentMatcher> _argumentMatchers;
@@ -24,7 +25,7 @@ namespace NSubstitute.Specs
                 _context = mock<ISubstitutionContext>();
                 _callStack = mock<ICallStack>();
                 _configuredResults = mock<ICallResults>();
-                _propertyHelper = mock<IPropertyHelper>();
+                _reflectionHelper = mock<IReflectionHelper>();
                 _call = mock<ICall>();
                 _argumentMatchers = mock<IList<IArgumentMatcher>>();
                 _callSpecification = mock<ICallSpecification>();
@@ -34,13 +35,13 @@ namespace NSubstitute.Specs
 
             public override CallHandler CreateSubjectUnderTest()
             {
-                return new CallHandler(_callStack, _configuredResults, _propertyHelper, _context, _callSpecificationFactory);
+                return new CallHandler(_callStack, _configuredResults, _reflectionHelper, _context, _callSpecificationFactory);
             } 
         }
 
         public class When_a_member_is_called : Concern
         {
-            object result;
+            object _result;
 
             [Test]
             public void Should_record_call()
@@ -57,12 +58,12 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_return_value_from_configured_results()
             {
-                Assert.That(result, Is.EqualTo(_valueToReturn));
+                Assert.That(_result, Is.EqualTo(_valueToReturn));
             }
 
             public override void Because()
             {
-                result = sut.Handle(_call, _argumentMatchers);
+                _result = sut.Handle(_call, _argumentMatchers);
             }
 
             public override void Context()
@@ -94,8 +95,8 @@ namespace NSubstitute.Specs
 
         public class When_told_to_assert_the_next_call_has_been_received : Concern
         {
-            object result;
-            object defaultForCall;
+            object _result;
+            object _defaultForCall;
 
             [Test]
             public void Should_throw_exception_if_call_has_not_been_received()
@@ -112,7 +113,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_return_default_for_call()
             {
-                Assert.That(result, Is.EqualTo(defaultForCall));
+                Assert.That(_result, Is.EqualTo(_defaultForCall));
             }
 
             [Test]
@@ -125,27 +126,27 @@ namespace NSubstitute.Specs
             public override void Because()
             {
                 sut.AssertNextCallHasBeenReceived();
-                result = sut.Handle(_call, _argumentMatchers);
+                _result = sut.Handle(_call, _argumentMatchers);
             }
 
             public override void Context()
             {
                 base.Context();
-                defaultForCall = new object();
-                _configuredResults.stub(x => x.GetDefaultResultFor(_call)).Return(defaultForCall);
+                _defaultForCall = new object();
+                _configuredResults.stub(x => x.GetDefaultResultFor(_call)).Return(_defaultForCall);
             }
         }
 
         public class When_call_is_a_property_setter : Concern
         {
-            private object setValue;
-            private ICall propertyGetter;
-            private ICallSpecification propertyGetterSpecification;
+            private object _setValue;
+            private ICall _propertyGetter;
+            private ICallSpecification _propertyGetterSpecification;
 
             [Test]
             public void Should_add_set_value_to_configured_results()
             {
-                _configuredResults.received(x => x.SetResult(propertyGetterSpecification, setValue));
+                _configuredResults.received(x => x.SetResult(_propertyGetterSpecification, _setValue));
             }
 
             public override void Because()
@@ -156,13 +157,52 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                setValue = new object();
-                propertyGetter = mock<ICall>();
-                propertyGetterSpecification = mock<ICallSpecification>();
-                _call.stub(x => x.GetArguments()).Return(new[] { setValue });
-                _propertyHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
-                _propertyHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(_call)).Return(propertyGetter);
-                _callSpecificationFactory.stub(x => x.Create(propertyGetter, _argumentMatchers)).Return(propertyGetterSpecification);
+                _setValue = new object();
+                _propertyGetter = mock<ICall>();
+                _propertyGetterSpecification = mock<ICallSpecification>();
+                _call.stub(x => x.GetArguments()).Return(new[] { _setValue });
+                _reflectionHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
+                _reflectionHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(_call)).Return(_propertyGetter);
+                _callSpecificationFactory.stub(x => x.Create(_propertyGetter, _argumentMatchers)).Return(_propertyGetterSpecification);
+            }
+        }
+
+        public class When_told_to_raise_when_from_next_call :Concern
+        {
+            private ICall _eventAssignment;
+            private object[] _arguments;
+
+            [Test]
+            public void Should_raise_event_from_reference_using_reflection()
+            {
+                _reflectionHelper.received(x => x.RaiseEventFromEventAssignment(_eventAssignment, _arguments));
+            }
+
+            [Test]
+            public void Should_not_record_call()
+            {
+                _callStack.did_not_receive(x => x.Push(_eventAssignment));
+            }
+
+            [Test]
+            public void Should_not_raise_event_on_subsequent_calls()
+            {
+                var newAssignment = mock<ICall>();
+                sut.Handle(newAssignment, null);
+                _reflectionHelper.did_not_receive(x => x.RaiseEventFromEventAssignment(newAssignment, _arguments));
+
+            }
+            public override void Because()
+            {
+                sut.RaiseEventFromNextCall(_arguments);
+                sut.Handle(_eventAssignment, null);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _arguments = new object[0];
+                _eventAssignment = mock<ICall>();
             }
         }
     }

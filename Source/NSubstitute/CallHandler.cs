@@ -7,16 +7,18 @@ namespace NSubstitute
     {
         readonly ICallStack _recordedCallsStack;
         readonly ICallResults _callResults;
-        readonly IPropertyHelper _propertyHelper;
+        readonly IReflectionHelper _reflectionHelper;
         readonly ISubstitutionContext _context;
         bool _assertNextCallReceived;
         ICallSpecificationFactory _callSpecificationFactory;
+        private object[] _eventArgumentsForNextCall;
+        private bool _raiseEventFromNextCall;
 
-        public CallHandler(ICallStack callStack, ICallResults callResults, IPropertyHelper propertyHelper, ISubstitutionContext context, ICallSpecificationFactory callSpecificationFactory)
+        public CallHandler(ICallStack callStack, ICallResults callResults, IReflectionHelper reflectionHelper, ISubstitutionContext context, ICallSpecificationFactory callSpecificationFactory)
         {
             _recordedCallsStack = callStack;
             _callResults = callResults;
-            _propertyHelper = propertyHelper;
+            _reflectionHelper = reflectionHelper;
             _context = context;
             _callSpecificationFactory = callSpecificationFactory;
         }
@@ -30,16 +32,22 @@ namespace NSubstitute
 
         public object Handle(ICall call, IList<IArgumentMatcher> argumentMatchers)
         {
-            var callSpecification = CallSpecificationFrom(call, argumentMatchers);
             if (_assertNextCallReceived)
             {
                 _assertNextCallReceived = false;
-                _recordedCallsStack.ThrowIfCallNotFound(callSpecification);
+                _recordedCallsStack.ThrowIfCallNotFound(CallSpecificationFrom(call, argumentMatchers));
                 return _callResults.GetDefaultResultFor(call);
             }
-            if (_propertyHelper.IsCallToSetAReadWriteProperty(call))
+            if (_raiseEventFromNextCall)
             {
-                var callToPropertyGetter = _propertyHelper.CreateCallToPropertyGetterFromSetterCall(call);
+                _reflectionHelper.RaiseEventFromEventAssignment(call, _eventArgumentsForNextCall);
+                _raiseEventFromNextCall = false;
+                _eventArgumentsForNextCall = null;
+                return null;
+            }
+            if (_reflectionHelper.IsCallToSetAReadWriteProperty(call))
+            {
+                var callToPropertyGetter = _reflectionHelper.CreateCallToPropertyGetterFromSetterCall(call);
                 var valueBeingSetOnProperty = call.GetArguments().First();
                 var callToPropertyGetterSpecification = CallSpecificationFrom(callToPropertyGetter, argumentMatchers);
                 _callResults.SetResult(callToPropertyGetterSpecification, valueBeingSetOnProperty);
@@ -60,7 +68,9 @@ namespace NSubstitute
         }
 
         public void RaiseEventFromNextCall(params object[] argumentsToRaiseEventWith)
-        {            
+        {
+            _raiseEventFromNextCall = true;
+            _eventArgumentsForNextCall = argumentsToRaiseEventWith;
         }
     }
 }

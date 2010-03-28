@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace NSubstitute
 {
-    public class PropertyHelper : IPropertyHelper
+    public class ReflectionHelper : IReflectionHelper
     {
         public bool IsCallToSetAReadWriteProperty(ICall call)
         {
@@ -33,6 +33,11 @@ namespace NSubstitute
             }
             var getter = propertyInfo.GetGetMethod();
             return new CallToPropertyGetter(getter);
+        }
+
+        public void RaiseEventFromEventAssignment(ICall eventAssignment, object[] arguments)
+        {
+            
         }
 
         class CallToPropertyGetter : ICall

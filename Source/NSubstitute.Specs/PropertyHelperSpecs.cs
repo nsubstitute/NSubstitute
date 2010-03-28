@@ -5,11 +5,11 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs
 {
-    public class PropertyHelperSpecs : ConcernFor<PropertyHelper>
+    public class PropertyHelperSpecs : ConcernFor<ReflectionHelper>
     {
-        public override PropertyHelper CreateSubjectUnderTest()
+        public override ReflectionHelper CreateSubjectUnderTest()
         {
-            return new PropertyHelper();
+            return new ReflectionHelper();
         }
 
         [Test]
