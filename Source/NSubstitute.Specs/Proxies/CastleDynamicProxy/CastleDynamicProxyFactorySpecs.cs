@@ -1,10 +1,9 @@
 extern alias CastleCore;
+using System.Collections.Generic;
 using Castle.DynamicProxy;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
 using Rhino.Mocks;
-using CastleIInterceptor = CastleCore::Castle.Core.Interceptor.IInterceptor;
-using CastleIInvocation = CastleCore::Castle.Core.Interceptor.IInvocation;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NUnit.Framework;
 
@@ -14,21 +13,16 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
     {
         public abstract class Concern : ConcernFor<CastleDynamicProxyFactory>
         {
-            protected CastleIInterceptor interceptor;
             protected ICallHandler callHandler;
-            protected CastleInterceptorFactory interceptorFactory;
 
             public override void Context()
             {
                 callHandler = mock<ICallHandler>();
-                interceptor = mock<CastleIInterceptor>();
-                interceptorFactory = mock<CastleInterceptorFactory>();
-                interceptorFactory.stub(x => x.CreateForwardingInterceptor(callHandler)).Return(interceptor);
             }
 
             public override CastleDynamicProxyFactory CreateSubjectUnderTest()
             {
-                return new CastleDynamicProxyFactory(new ProxyGenerator(), interceptorFactory);
+                return new CastleDynamicProxyFactory(new ProxyGenerator(), new CastleInterceptorFactory());
             }
 
             protected void AssertCallsMadeToResultsCallHandlerAreForwardedToOriginalHandler(object result)
@@ -44,10 +38,10 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             IFoo result;
 
             [Test]
-            public void Should_generate_a_proxy_that_forwards_to_interceptor()
+            public void Should_generate_a_proxy_that_forwards_to_call_handler()
             {
                 result.Goo();
-                interceptor.AssertWasCalled(x => x.Intercept(Arg<CastleIInvocation>.Is.Anything));
+                callHandler.AssertWasCalled(x => x.Handle(Arg<ICall>.Matches(arg => arg.GetMethodInfo().Name == "Goo"), Arg<IList<IArgumentMatcher>>.Is.Anything));
             }
 
             [Test]
@@ -68,10 +62,10 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             Foo result;
 
             [Test]
-            public void Should_generate_a_proxy_that_forwards_to_interceptor()
+            public void Should_generate_a_proxy_that_forwards_to_call_handler()
             {
                 result.Goo();
-                interceptor.AssertWasCalled(x => x.Intercept(Arg<CastleIInvocation>.Is.Anything));
+                callHandler.AssertWasCalled(x => x.Handle(Arg<ICall>.Matches(arg => arg.GetMethodInfo().Name == "Goo"), Arg<IList<IArgumentMatcher>>.Is.Anything));
             }
 
             [Test]
