@@ -5,12 +5,10 @@ namespace NSubstitute
 {
     public class CallStack : ICallStack
     {
-        private readonly ICallMatcher _callMatcher;
         Stack<ICall> _stack;
 
-        public CallStack(ICallMatcher callMatcher)
+        public CallStack()
         {
-            _callMatcher = callMatcher;
             _stack = new Stack<ICall>();
         }
 
@@ -26,7 +24,7 @@ namespace NSubstitute
 
         public void ThrowIfCallNotFound(ICallSpecification callSpecification)
         {
-            if (_stack.Any(receivedCall => _callMatcher.IsMatch(receivedCall, callSpecification))) return;
+            if (_stack.Any(receivedCall => callSpecification.IsSatisfiedBy(receivedCall))) return;
             throw new CallNotReceivedException();
         }
     }

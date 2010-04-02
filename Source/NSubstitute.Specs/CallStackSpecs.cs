@@ -8,16 +8,9 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<CallStack>
         {
-            protected ICallMatcher _callMatcher;
-
-            public override void Context()
-            {
-                _callMatcher = mock<ICallMatcher>();
-            }
-
             public override CallStack CreateSubjectUnderTest()
             {
-                return new CallStack(_callMatcher);
+                return new CallStack();
             }
         }
 
@@ -80,7 +73,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _callMatcher.stub(x => x.IsMatch(_secondCall, _callSpecificationToCheck)).Return(true);
+                _callSpecificationToCheck.stub(x => x.IsSatisfiedBy(_secondCall)).Return(true);
                 sut.Push(_firstCall);
                 sut.Push(_secondCall);
             }
