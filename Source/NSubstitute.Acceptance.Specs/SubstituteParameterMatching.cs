@@ -37,7 +37,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Received_for_any_parameter()
         {
             _something.Echo(7);
@@ -46,7 +45,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Recieved_for_specific_parameter()
         {
             _something.Echo(3);
@@ -55,7 +53,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Recieved_for_parameter_matching_predicate()
         {
             _something.Echo(7);
