@@ -5,7 +5,7 @@ namespace NSubstitute
 {
     public interface ICallSpecification
     {
-        IList<IArgumentMatcher> ArgumentMatchers { get; }
+        IList<IArgumentSpecification> ArgumentSpecifications { get; }
         MethodInfo MethodInfo { get; }
     }
 }

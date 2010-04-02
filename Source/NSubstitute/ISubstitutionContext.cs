@@ -5,11 +5,11 @@ namespace NSubstitute
 {
     public interface ISubstitutionContext
     {
-        void LastCallShouldReturn<T>(T value, IList<IArgumentMatcher> argumentMatchers);
+        void LastCallShouldReturn<T>(T value);
         void LastCallHandler(ICallHandler callHandler);
         ISubstituteFactory GetSubstituteFactory();
         ICallHandler GetCallHandlerFor(object substitute);
-        void AddArgument<T>(Predicate<T> predicate);
-        IList<IArgumentMatcher> RetrieveArgumentMatchers();
+        void EnqueueArgumentSpecification(IArgumentSpecification spec);
+        IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
     }
 }

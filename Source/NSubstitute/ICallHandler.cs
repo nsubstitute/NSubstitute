@@ -4,8 +4,8 @@ namespace NSubstitute
 {
     public interface ICallHandler
     {
-        void LastCallShouldReturn<T>(T valueToReturn, IList<IArgumentMatcher> argumentMatchers);
-        object Handle(ICall call, IList<IArgumentMatcher> argumentMatchers);
+        void LastCallShouldReturn<T>(T valueToReturn);
+        object Handle(ICall call);
         void AssertNextCallHasBeenReceived();
         void RaiseEventFromNextCall(params object[] argumentsToRaiseEventWith);
     }

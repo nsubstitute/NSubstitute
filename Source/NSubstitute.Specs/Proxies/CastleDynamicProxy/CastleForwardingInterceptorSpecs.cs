@@ -20,7 +20,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             [Test]
             public void Should_forward_mapped_call_to_call_handler()
             {
-                callHandler.received(x => x.Handle(_mappedCall, new List<IArgumentMatcher>()));
+                callHandler.received(x => x.Handle(_mappedCall));
             }
 
             [Test]
@@ -42,7 +42,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
                 _mappedCall = mock<ICall>();
                 invocationMapper = mock<CastleInvocationMapper>();
                 invocationMapper.stub(x => x.Map(castleInvocation)).Return(_mappedCall);
-                callHandler.stub(x => x.Handle(_mappedCall, new List<IArgumentMatcher>())).Return(returnValue);
+                callHandler.stub(x => x.Handle(_mappedCall)).Return(returnValue);
             }
 
             public override CastleForwardingInterceptor CreateSubjectUnderTest()

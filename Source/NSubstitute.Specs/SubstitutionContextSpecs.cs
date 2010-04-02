@@ -30,13 +30,13 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_tell_the_last_call_handler_to_set_the_return_value_of_its_last_call()
             {
-                _callHandler.received(x => x.LastCallShouldReturn(_valueToReturn, new List<IArgumentMatcher>()));
+                _callHandler.received(x => x.LastCallShouldReturn(_valueToReturn));
             }
             
             public override void Because()
             {
                 sut.LastCallHandler(_callHandler);
-                sut.LastCallShouldReturn(_valueToReturn, new List<IArgumentMatcher>());
+                sut.LastCallShouldReturn(_valueToReturn);
             }
 
             public override void Context()
@@ -52,7 +52,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw_a_substitute_exception()
             {
-                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(5, new List<IArgumentMatcher>()));
+                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(5));
             }
         }
 

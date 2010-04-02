@@ -41,7 +41,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             public void Should_generate_a_proxy_that_forwards_to_call_handler()
             {
                 result.Goo();
-                callHandler.AssertWasCalled(x => x.Handle(Arg<ICall>.Matches(arg => arg.GetMethodInfo().Name == "Goo"), Arg<IList<IArgumentMatcher>>.Is.Anything));
+                callHandler.AssertWasCalled(x => x.Handle(Arg<ICall>.Matches(arg => arg.GetMethodInfo().Name == "Goo")));
             }
 
             [Test]
@@ -65,7 +65,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             public void Should_generate_a_proxy_that_forwards_to_call_handler()
             {
                 result.Goo();
-                callHandler.AssertWasCalled(x => x.Handle(Arg<ICall>.Matches(arg => arg.GetMethodInfo().Name == "Goo"), Arg<IList<IArgumentMatcher>>.Is.Anything));
+                callHandler.AssertWasCalled(x => x.Handle(Arg<ICall>.Matches(arg => arg.GetMethodInfo().Name == "Goo")));
             }
 
             [Test]

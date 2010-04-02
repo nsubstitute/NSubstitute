@@ -1,36 +1,45 @@
 using System.Collections.Generic;
+using System.Linq;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute
 {
     public class CallSpecificationFactory : ICallSpecificationFactory
     {
-        public ICallSpecification Create(ICall call, IList<IArgumentMatcher> argumentMatchers)
+        private readonly ISubstitutionContext _context;
+
+        public CallSpecificationFactory(ISubstitutionContext context)
+        {
+            _context = context;
+        }
+
+        public ICallSpecification Create(ICall call)
         {
             var result = new CallSpecification(call.GetMethodInfo());
-
+            var argumentSpecs = _context.DequeueAllArgumentSpecifications();
             var arguments = call.GetArguments();
-            if (argumentMatchers.Count == 0)
+            if (argumentSpecs.Count == 0)
             {
-                foreach (var argument in arguments)
-                {
-                    var specifiedArgument = argument;
-                    result.ArgumentMatchers.Add(new ArgumentMatcher(o => EqualityComparer<object>.Default.Equals(o, specifiedArgument)));
-                }
+                AddArgumentSpecsToCallSpec(result, arguments.Select(x => (IArgumentSpecification) new ArgumentEqualsSpecification(x)));
             }
-            else if (arguments.Length == argumentMatchers.Count)
+            else if (argumentSpecs.Count == arguments.Length)
             {
-                foreach (var argumentMatcher in argumentMatchers)
-                {
-                    result.ArgumentMatchers.Add(argumentMatcher);
-                }
+                AddArgumentSpecsToCallSpec(result, argumentSpecs);
             }
             else
             {
-                throw new AmbiguousParametersException("Cannot determine parameter specifications to use. Please use specifications for all arguments.");
+                throw new AmbiguousParametersException(
+                    "Cannot determine parameter specifications to use. Please use specifications for all arguments.");
             }
-
             return result;
+        }
+
+        private void AddArgumentSpecsToCallSpec(ICallSpecification callSpec, IEnumerable<IArgumentSpecification> argSpecs)
+        {
+            foreach (var spec in argSpecs)
+            {
+                callSpec.ArgumentSpecifications.Add(spec);
+            }   
         }
     }
 }

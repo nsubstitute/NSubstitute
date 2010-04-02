@@ -6,17 +6,22 @@ namespace NSubstitute
     {
         public static T Any<T>()
         {
-            return Is<T>(argument => true);
+            return EnqueueArgumentSpec<T>(new ArgumentIsAnythingSpecification());
         }
 
         public static T Is<T>(T value)
         {
-            return Is<T>(argument => argument.Equals(value));
+            return EnqueueArgumentSpec<T>(new ArgumentEqualsSpecification(value));
         }
 
         public static T Is<T>(Predicate<T> predicate)
         {
-            SubstitutionContext.Current.AddArgument(predicate);
+            return EnqueueArgumentSpec<T>(new ArgumentMatchesSpecification(arg => predicate((T) arg)));
+        }
+
+        private static T EnqueueArgumentSpec<T>(IArgumentSpecification argumentSpec)
+        {
+            SubstitutionContext.Current.EnqueueArgumentSpecification(argumentSpec);
             return default(T);
         }
     }

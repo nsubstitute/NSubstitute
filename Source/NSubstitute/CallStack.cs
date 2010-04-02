@@ -8,9 +8,9 @@ namespace NSubstitute
         private readonly ICallMatcher _callMatcher;
         Stack<ICall> _stack;
 
-        public CallStack(ICallMatcher CallMatcher)
+        public CallStack(ICallMatcher callMatcher)
         {
-            _callMatcher = CallMatcher;
+            _callMatcher = callMatcher;
             _stack = new Stack<ICall>();
         }
 

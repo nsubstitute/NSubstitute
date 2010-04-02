@@ -36,14 +36,14 @@ namespace NSubstitute.Specs
 
             protected void SetupArgumentMatchers(ICallSpecification specification, params bool[] matches)
             {
-                var argumentMatchers = new List<IArgumentMatcher>();
+                var argumentMatchers = new List<IArgumentSpecification>();
                 foreach (var match in matches)
                 {
-                    var argumentMatcher = MockRepository.GenerateStub<IArgumentMatcher>();
-                    argumentMatcher.Stub(x => x.Matches(Arg<object>.Is.Anything)).Return(match);
+                    var argumentMatcher = MockRepository.GenerateStub<IArgumentSpecification>();
+                    argumentMatcher.Stub(x => x.IsSatisfiedBy(Arg<object>.Is.Anything)).Return(match);
                     argumentMatchers.Add(argumentMatcher);
                 }
-                specification.Stub(x => x.ArgumentMatchers).Return(argumentMatchers);
+                specification.Stub(x => x.ArgumentSpecifications).Return(argumentMatchers);
             }
         }
 

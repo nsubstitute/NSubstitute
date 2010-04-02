@@ -11,7 +11,7 @@ namespace NSubstitute
         public static ISubstitutionContext Current { get; set; }
         ICallHandler _lastCallHandler;
         ISubstituteFactory _substituteFactory;
-        IList<IArgumentMatcher> _argumentMatchers;
+        IList<IArgumentSpecification> _argumentMatchers;
 
         static SubstitutionContext()
         {
@@ -24,7 +24,7 @@ namespace NSubstitute
             var interceptorFactory = new CastleInterceptorFactory();
             var proxyFactory = new CastleDynamicProxyFactory(new ProxyGenerator(), interceptorFactory);
             _substituteFactory = new SubstituteFactory(this, callHandlerFactory, proxyFactory);
-            _argumentMatchers = new List<IArgumentMatcher>();
+            _argumentMatchers = new List<IArgumentSpecification>();
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory)
@@ -32,10 +32,10 @@ namespace NSubstitute
             _substituteFactory = substituteFactory;
         }
 
-        public void LastCallShouldReturn<T>(T value, IList<IArgumentMatcher> argumentMatchers)
+        public void LastCallShouldReturn<T>(T value)
         {            
             if (_lastCallHandler == null) throw new SubstituteException();
-            _lastCallHandler.LastCallShouldReturn(value, argumentMatchers);
+            _lastCallHandler.LastCallShouldReturn(value);
         }
 
         public void LastCallHandler(ICallHandler callHandler)
@@ -55,15 +55,15 @@ namespace NSubstitute
             return (ICallHandler) substitute;
         }
 
-        public void AddArgument<T>(Predicate<T> argumentMatching)
+        public void EnqueueArgumentSpecification(IArgumentSpecification spec)
         {
-            _argumentMatchers.Add(new ArgumentMatcher(argument => argumentMatching((T)argument)));
+            _argumentMatchers.Add(spec);
         }
 
-        public IList<IArgumentMatcher> RetrieveArgumentMatchers()
+        public IList<IArgumentSpecification> DequeueAllArgumentSpecifications()
         {
             var result = _argumentMatchers;
-            _argumentMatchers = new List<IArgumentMatcher>();
+            _argumentMatchers = new List<IArgumentSpecification>();
             return result;
         }
     }

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
@@ -17,7 +15,6 @@ namespace NSubstitute.Specs
             protected IReflectionHelper _reflectionHelper;
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
-            protected IList<IArgumentMatcher> _argumentMatchers;
 
             public override void Context()
             {
@@ -27,10 +24,9 @@ namespace NSubstitute.Specs
                 _configuredResults = mock<ICallResults>();
                 _reflectionHelper = mock<IReflectionHelper>();
                 _call = mock<ICall>();
-                _argumentMatchers = mock<IList<IArgumentMatcher>>();
                 _callSpecification = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
-                _callSpecificationFactory.stub(x => x.Create(_call, _argumentMatchers)).Return(_callSpecification);
+                _callSpecificationFactory.stub(x => x.Create(_call)).Return(_callSpecification);
             }
 
             public override CallHandler CreateSubjectUnderTest()
@@ -63,7 +59,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Handle(_call, _argumentMatchers);
+                _result = sut.Handle(_call);
             }
 
             public override void Context()
@@ -83,7 +79,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.LastCallShouldReturn(_valueToReturn, _argumentMatchers);
+                sut.LastCallShouldReturn(_valueToReturn);
             }
 
             public override void Context()
@@ -119,14 +115,14 @@ namespace NSubstitute.Specs
             [Test]
             public void Next_call_should_go_on_stack()
             {
-                sut.Handle(_call, new List<IArgumentMatcher>());
+                sut.Handle(_call);
                 _callStack.received(x => x.Push(_call));
             }
 
             public override void Because()
             {
                 sut.AssertNextCallHasBeenReceived();
-                _result = sut.Handle(_call, _argumentMatchers);
+                _result = sut.Handle(_call);
             }
 
             public override void Context()
@@ -151,7 +147,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.Handle(_call, _argumentMatchers);
+                sut.Handle(_call);
             }
 
             public override void Context()
@@ -163,7 +159,7 @@ namespace NSubstitute.Specs
                 _call.stub(x => x.GetArguments()).Return(new[] { _setValue });
                 _reflectionHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
                 _reflectionHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(_call)).Return(_propertyGetter);
-                _callSpecificationFactory.stub(x => x.Create(_propertyGetter, _argumentMatchers)).Return(_propertyGetterSpecification);
+                _callSpecificationFactory.stub(x => x.Create(_propertyGetter)).Return(_propertyGetterSpecification);
             }
         }
 
@@ -188,14 +184,14 @@ namespace NSubstitute.Specs
             public void Should_not_raise_event_on_subsequent_calls()
             {
                 var newAssignment = mock<ICall>();
-                sut.Handle(newAssignment, null);
+                sut.Handle(newAssignment);
                 _reflectionHelper.did_not_receive(x => x.RaiseEventFromEventAssignment(newAssignment, _arguments));
 
             }
             public override void Because()
             {
                 sut.RaiseEventFromNextCall(_arguments);
-                sut.Handle(_eventAssignment, null);
+                sut.Handle(_eventAssignment);
             }
 
             public override void Context()

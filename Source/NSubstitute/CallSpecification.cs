@@ -5,18 +5,18 @@ namespace NSubstitute
 {
     public class CallSpecification: ICallSpecification
     {
-        readonly List<IArgumentMatcher> _argumentMatchers;
+        readonly List<IArgumentSpecification> _argumentSpecifications;
         public MethodInfo MethodInfo { get; private set; }
 
         public CallSpecification(MethodInfo methodInfo)
         {
             MethodInfo = methodInfo;
-            _argumentMatchers = new List<IArgumentMatcher>();
+            _argumentSpecifications = new List<IArgumentSpecification>();
         }
 
-        public IList<IArgumentMatcher> ArgumentMatchers
+        public IList<IArgumentSpecification> ArgumentSpecifications
         {
-            get { return _argumentMatchers; }
+            get { return _argumentSpecifications; }
         }
     }
 }

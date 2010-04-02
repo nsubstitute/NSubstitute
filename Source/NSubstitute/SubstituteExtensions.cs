@@ -7,7 +7,7 @@ namespace NSubstitute
         public static void Return<T>(this T value, T returnThis, params T[] returnThese)
         {
             var context = SubstitutionContext.Current;
-            context.LastCallShouldReturn(returnThis, context.RetrieveArgumentMatchers());
+            context.LastCallShouldReturn(returnThis);
         }
 
         public static T Received<T>(this T substitute)

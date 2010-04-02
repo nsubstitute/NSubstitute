@@ -15,11 +15,11 @@ namespace NSubstitute
         public bool IsMatch(ICall call, ICallSpecification callSpecification)
         {
             var callArguments = call.GetArguments();
-            var argumentMatchers = callSpecification.ArgumentMatchers;
+            var argumentMatchers = callSpecification.ArgumentSpecifications;
             if (DifferentNumberOfArguments(callArguments, argumentMatchers)) return false;
             var numberOfArguments = callArguments.Length;
 
-            return Enumerable.Range(0, numberOfArguments).All(index => argumentMatchers[index].Matches(callArguments[index]));
+            return Enumerable.Range(0, numberOfArguments).All(index => argumentMatchers[index].IsSatisfiedBy(callArguments[index]));
         }
 
         private bool AreArgumentsEqual(object firstCallArgument, object secondCallArgument)
@@ -32,7 +32,7 @@ namespace NSubstitute
             return firstCallArguments.Length != secondCallArguments.Length;
         }
 
-        private bool DifferentNumberOfArguments(ICollection<object> callArguments, ICollection<IArgumentMatcher> argumentMatchers)
+        private bool DifferentNumberOfArguments(ICollection<object> callArguments, ICollection<IArgumentSpecification> argumentMatchers)
         {
             return callArguments.Count != argumentMatchers.Count;
         }

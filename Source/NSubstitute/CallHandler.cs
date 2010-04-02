@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 
 namespace NSubstitute
@@ -9,8 +8,8 @@ namespace NSubstitute
         readonly ICallResults _callResults;
         readonly IReflectionHelper _reflectionHelper;
         readonly ISubstitutionContext _context;
+        readonly ICallSpecificationFactory _callSpecificationFactory;
         bool _assertNextCallReceived;
-        ICallSpecificationFactory _callSpecificationFactory;
         private object[] _eventArgumentsForNextCall;
         private bool _raiseEventFromNextCall;
 
@@ -23,19 +22,19 @@ namespace NSubstitute
             _callSpecificationFactory = callSpecificationFactory;
         }
 
-        public void LastCallShouldReturn<T>(T valueToReturn, IList<IArgumentMatcher> argumentMatchers)
+        public void LastCallShouldReturn<T>(T valueToReturn)
         {
             var lastCall = _recordedCallsStack.Pop();
-            var lastCallSpecification = CallSpecificationFrom(lastCall, argumentMatchers);
+            var lastCallSpecification = CallSpecificationFrom(lastCall);
             _callResults.SetResult(lastCallSpecification, valueToReturn);
         }
 
-        public object Handle(ICall call, IList<IArgumentMatcher> argumentMatchers)
+        public object Handle(ICall call)
         {
             if (_assertNextCallReceived)
             {
                 _assertNextCallReceived = false;
-                _recordedCallsStack.ThrowIfCallNotFound(CallSpecificationFrom(call, argumentMatchers));
+                _recordedCallsStack.ThrowIfCallNotFound(CallSpecificationFrom(call));
                 return _callResults.GetDefaultResultFor(call);
             }
             if (_raiseEventFromNextCall)
@@ -49,7 +48,7 @@ namespace NSubstitute
             {
                 var callToPropertyGetter = _reflectionHelper.CreateCallToPropertyGetterFromSetterCall(call);
                 var valueBeingSetOnProperty = call.GetArguments().First();
-                var callToPropertyGetterSpecification = CallSpecificationFrom(callToPropertyGetter, argumentMatchers);
+                var callToPropertyGetterSpecification = CallSpecificationFrom(callToPropertyGetter);
                 _callResults.SetResult(callToPropertyGetterSpecification, valueBeingSetOnProperty);
             }
             _recordedCallsStack.Push(call);
@@ -57,9 +56,9 @@ namespace NSubstitute
             return _callResults.GetResult(call);
         }
 
-        ICallSpecification CallSpecificationFrom(ICall call, IList<IArgumentMatcher> argumentMatchers)
+        ICallSpecification CallSpecificationFrom(ICall call)
         {
-            return _callSpecificationFactory.Create(call, argumentMatchers);
+            return _callSpecificationFactory.Create(call);
         }
 
         public void AssertNextCallHasBeenReceived()

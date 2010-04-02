@@ -7,11 +7,11 @@ namespace NSubstitute
         readonly IProxyFactory _proxyFactory;
         
         public SubstituteFactory(ISubstitutionContext context, 
-                                    ICallHandlerFactory _callHandlerFactory, 
+                                    ICallHandlerFactory callHandlerFactory, 
                                     IProxyFactory proxyFactory)
         {
             _context = context;
-            this._callHandlerFactory = _callHandlerFactory;
+            _callHandlerFactory = callHandlerFactory;
             _proxyFactory = proxyFactory;
         }
 
