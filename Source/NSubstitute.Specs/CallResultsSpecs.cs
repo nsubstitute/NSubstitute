@@ -8,13 +8,6 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<CallResults>
         {
-            protected ICallMatcher _callMatcher;
-
-            public override void Context()
-            {
-                _callMatcher = mock<ICallMatcher>();
-            }
-
             public override CallResults CreateSubjectUnderTest()
             {
                 return new CallResults();

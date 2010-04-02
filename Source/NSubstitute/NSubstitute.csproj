@@ -79,7 +79,6 @@
     <Compile Include="Arg.cs" />
     <Compile Include="ArgumentEqualityComparer.cs" />
     <Compile Include="ArgumentSpecification.cs" />
-    <Compile Include="ArgumentsEqualMatcher.cs" />
     <Compile Include="CallNotReceivedException.cs" />
     <Compile Include="CallSpecification.cs" />
     <Compile Include="CallSpecificationFactory.cs" />
@@ -88,9 +87,7 @@
     <Compile Include="IArgumentEqualityComparer.cs" />
     <Compile Include="IArgumentSpecification.cs" />
     <Compile Include="ICallHandlerFactory.cs" />
-    <Compile Include="ICallMatcher.cs" />
     <Compile Include="CallHandlerFactory.cs" />
-    <Compile Include="AllCallMatcher.cs" />
     <Compile Include="CallResults.cs" />
     <Compile Include="CallStack.cs" />
     <Compile Include="ICallResults.cs" />
@@ -103,7 +100,6 @@
     <Compile Include="IReflectionHelper.cs" />
     <Compile Include="ISubstitutionContext.cs" />
     <Compile Include="ISubstituteFactory.cs" />
-    <Compile Include="MethodInfoMatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CallHandler.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs" />
