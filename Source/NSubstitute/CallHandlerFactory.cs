@@ -5,7 +5,7 @@ namespace NSubstitute
         public ICallHandler CreateCallHandler(ISubstitutionContext substitutionContext)
         {
             var matcher = new AllCallMatcher(new ICallMatcher[] {CreateMethodInfoMatcher(), CreateArgumentsEqualMatcher()});
-            return new CallHandler(new CallStack(), new CallResults(matcher), new ReflectionHelper(), substitutionContext, new CallSpecificationFactory(substitutionContext));
+            return new CallHandler(new CallStack(), new CallResults(), new ReflectionHelper(), substitutionContext, new CallSpecificationFactory(substitutionContext));
         }
 
         private MethodInfoMatcher CreateMethodInfoMatcher()

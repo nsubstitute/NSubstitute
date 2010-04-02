@@ -5,12 +5,10 @@ namespace NSubstitute
 {
     public class CallResults : ICallResults
     {
-        ICallMatcher _callMatcher;
         Dictionary<ICallSpecification, object> _results;
 
-        public CallResults(ICallMatcher callMatcher)
+        public CallResults()
         {
-            _callMatcher = callMatcher;
             _results = new Dictionary<ICallSpecification, object>();
         }
 
@@ -24,7 +22,8 @@ namespace NSubstitute
             if (DoesCallReturnVoid(call)) return null;
             foreach (var callResult in _results)
             {
-                if (_callMatcher.IsMatch(call, callResult.Key))
+                var specifiedCallResult = callResult.Key;
+                if (specifiedCallResult.IsSatisfiedBy(call))
                 {
                     return callResult.Value;
                 }

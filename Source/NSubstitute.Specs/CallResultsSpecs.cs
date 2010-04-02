@@ -17,7 +17,7 @@ namespace NSubstitute.Specs
 
             public override CallResults CreateSubjectUnderTest()
             {
-                return new CallResults(_callMatcher);
+                return new CallResults();
             }
         }
 
@@ -46,7 +46,7 @@ namespace NSubstitute.Specs
                 _originalResult = new object();
                 _originalCallSpecification = mock<ICallSpecification>();
                 _secondCall = mock<ICall>();
-                _callMatcher.stub(x => x.IsMatch(_secondCall, _originalCallSpecification)).Return(true);
+                _originalCallSpecification.stub(x => x.IsSatisfiedBy(_secondCall)).Return(true);
             }
         }
 
