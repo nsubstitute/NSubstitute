@@ -7,5 +7,6 @@ namespace NSubstitute
     {
         IList<IArgumentSpecification> ArgumentSpecifications { get; }
         MethodInfo MethodInfo { get; }
+        bool IsSatisfiedBy(ICall call);
     }
 }
