@@ -5,26 +5,26 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs
 {
-    public class ArgumentEqualityComparerSpecs : ConcernFor<IEqualityComparer>
+    public class ArgumentEqualsSpecificationSpecs : StaticConcern
     {
         [Test]
         public void Should_match_when_arguments_have_same_reference()
         {
             var list = new List<int>();
             var list2 = (IList)list;
-            Assert.That(sut.Equals(list, list2));
+            Assert.That(CreateSubjectUnderTest(list).IsSatisfiedBy(list2));
         }
 
         [Test]
         public void Should_match_when_value_type_arguments_have_same_value()
         {            
-            Assert.That(sut.Equals(1, 1));
+            Assert.That(CreateSubjectUnderTest(1).IsSatisfiedBy(1));
         }
 
         [Test]
         public void Should_not_match_when_reference_type_arguments_have_different_references()
         {
-            Assert.False(sut.Equals(new object(), new object()));
+            Assert.False(CreateSubjectUnderTest(new object()).IsSatisfiedBy(new object()));
         }
 
         [Test]
@@ -32,12 +32,12 @@ namespace NSubstitute.Specs
         {
             string x = null;
             List<int> y = null;
-            Assert.That(sut.Equals(x, y));
+            Assert.That(CreateSubjectUnderTest(x).IsSatisfiedBy(y));
         }
 
-        public override IEqualityComparer CreateSubjectUnderTest()
+        public ArgumentEqualsSpecification CreateSubjectUnderTest(object value)
         {
-            return new ArgumentEqualityComparer();
+            return new ArgumentEqualsSpecification(value);
         }
     }
 }

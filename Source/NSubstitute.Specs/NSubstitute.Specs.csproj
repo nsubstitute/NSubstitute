@@ -83,7 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArgumentEqualityComparerSpecs.cs" />
+    <Compile Include="ArgumentEqualsSpecificationSpecs.cs" />
     <Compile Include="CallHandlerFactorySpecs.cs" />
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />

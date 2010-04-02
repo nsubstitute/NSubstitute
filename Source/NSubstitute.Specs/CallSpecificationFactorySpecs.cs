@@ -61,7 +61,7 @@ namespace NSubstitute.Specs
             public void Should_use_basic_equality_specifications_for_all_arguments()
             {
                 Assert.That(_result.ArgumentSpecifications.Count, Is.EqualTo(_callArguments.Length));
-                Assert.That(_result.ArgumentSpecifications.All(spec => spec is ArgumentEqualsSpecification));
+                Assert.That(_result.ArgumentSpecifications.All(spec => spec is NSubstitute.ArgumentEqualsSpecification));
             }
 
             [Test]
