@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace NSubstitute
@@ -9,9 +10,7 @@ namespace NSubstitute
         readonly IReflectionHelper _reflectionHelper;
         readonly ISubstitutionContext _context;
         readonly ICallSpecificationFactory _callSpecificationFactory;
-        bool _assertNextCallReceived;
-        private object[] _eventArgumentsForNextCall;
-        private bool _raiseEventFromNextCall;
+        Func<ICall, object> _handleCall;
 
         public CallHandler(ICallStack callStack, ICallResults callResults, IReflectionHelper reflectionHelper, ISubstitutionContext context, ICallSpecificationFactory callSpecificationFactory)
         {
@@ -20,6 +19,7 @@ namespace NSubstitute
             _reflectionHelper = reflectionHelper;
             _context = context;
             _callSpecificationFactory = callSpecificationFactory;
+            _handleCall = RecordCall;
         }
 
         public void LastCallShouldReturn<T>(T valueToReturn)
@@ -31,19 +31,21 @@ namespace NSubstitute
 
         public object Handle(ICall call)
         {
-            if (_assertNextCallReceived)
-            {
-                _assertNextCallReceived = false;
-                _recordedCallsStack.ThrowIfCallNotFound(CallSpecificationFrom(call));
-                return _callResults.GetDefaultResultFor(call);
-            }
-            if (_raiseEventFromNextCall)
-            {
-                _reflectionHelper.RaiseEventFromEventAssignment(call, _eventArgumentsForNextCall);
-                _raiseEventFromNextCall = false;
-                _eventArgumentsForNextCall = null;
-                return null;
-            }
+            var result = _handleCall(call);
+            _handleCall = RecordCall;
+            return result;
+        }
+
+        object RecordCall(ICall call)
+        {
+            SetResultForProperty(call);
+            _recordedCallsStack.Push(call);
+            _context.LastCallHandler(this);
+            return _callResults.GetResult(call);
+        }
+
+        void SetResultForProperty(ICall call)
+        {
             if (_reflectionHelper.IsCallToSetAReadWriteProperty(call))
             {
                 var callToPropertyGetter = _reflectionHelper.CreateCallToPropertyGetterFromSetterCall(call);
@@ -51,9 +53,18 @@ namespace NSubstitute
                 var callToPropertyGetterSpecification = CallSpecificationFrom(callToPropertyGetter);
                 _callResults.SetResult(callToPropertyGetterSpecification, valueBeingSetOnProperty);
             }
-            _recordedCallsStack.Push(call);
-            _context.LastCallHandler(this);
-            return _callResults.GetResult(call);
+        }
+
+        object RaiseEvent(ICall call, object[] eventArguments)
+        {
+            _reflectionHelper.RaiseEventFromEventAssignment(call, eventArguments);
+            return null;
+        }
+
+        object CheckCallReceived(ICall call)
+        {
+            _recordedCallsStack.ThrowIfCallNotFound(CallSpecificationFrom(call));
+            return _callResults.GetDefaultResultFor(call);
         }
 
         ICallSpecification CallSpecificationFrom(ICall call)
@@ -63,13 +74,12 @@ namespace NSubstitute
 
         public void AssertNextCallHasBeenReceived()
         {
-            _assertNextCallReceived = true;
+            _handleCall = CheckCallReceived;
         }
 
         public void RaiseEventFromNextCall(params object[] argumentsToRaiseEventWith)
         {
-            _raiseEventFromNextCall = true;
-            _eventArgumentsForNextCall = argumentsToRaiseEventWith;
+            _handleCall = call => RaiseEvent(call, argumentsToRaiseEventWith);
         }
     }
 }

@@ -19,11 +19,11 @@ namespace NSubstitute
 
         public object GetResult(ICall call)
         {
-            if (DoesCallReturnVoid(call)) return null;
+            if (ReturnsVoidFrom(call)) return null;
             foreach (var callResult in _results)
             {
-                var specifiedCallResult = callResult.Key;
-                if (specifiedCallResult.IsSatisfiedBy(call))
+                var callSpecification = callResult.Key;
+                if (callSpecification.IsSatisfiedBy(call))
                 {
                     return callResult.Value;
                 }
@@ -48,7 +48,7 @@ namespace NSubstitute
             return Activator.CreateInstance(type);
         }
 
-        bool DoesCallReturnVoid(ICall call)
+        bool ReturnsVoidFrom(ICall call)
         {
             return IsVoid(call.GetReturnType());
         }
