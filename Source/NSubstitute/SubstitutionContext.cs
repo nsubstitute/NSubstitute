@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Castle.DynamicProxy;
 using NSubstitute.Exceptions;
@@ -11,7 +10,7 @@ namespace NSubstitute
         public static ISubstitutionContext Current { get; set; }
         ICallHandler _lastCallHandler;
         ISubstituteFactory _substituteFactory;
-        IList<IArgumentSpecification> _argumentMatchers;
+        IList<IArgumentSpecification> _argumentSpecifications;
 
         static SubstitutionContext()
         {
@@ -24,7 +23,7 @@ namespace NSubstitute
             var interceptorFactory = new CastleInterceptorFactory();
             var proxyFactory = new CastleDynamicProxyFactory(new ProxyGenerator(), interceptorFactory);
             _substituteFactory = new SubstituteFactory(this, callHandlerFactory, proxyFactory);
-            _argumentMatchers = new List<IArgumentSpecification>();
+            _argumentSpecifications = new List<IArgumentSpecification>();
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory)
@@ -57,13 +56,13 @@ namespace NSubstitute
 
         public void EnqueueArgumentSpecification(IArgumentSpecification spec)
         {
-            _argumentMatchers.Add(spec);
+            _argumentSpecifications.Add(spec);
         }
 
         public IList<IArgumentSpecification> DequeueAllArgumentSpecifications()
         {
-            var result = _argumentMatchers;
-            _argumentMatchers = new List<IArgumentSpecification>();
+            var result = _argumentSpecifications;
+            _argumentSpecifications = new List<IArgumentSpecification>();
             return result;
         }
     }

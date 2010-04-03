@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -61,23 +60,23 @@ namespace NSubstitute.Specs
             public void Should_use_basic_equality_specifications_for_all_arguments()
             {
                 Assert.That(_result.ArgumentSpecifications.Count, Is.EqualTo(_callArguments.Length));
-                Assert.That(_result.ArgumentSpecifications.All(spec => spec is NSubstitute.ArgumentEqualsSpecification));
+                Assert.That(_result.ArgumentSpecifications.All(spec => spec is ArgumentEqualsSpecification));
             }
 
             [Test]
-            public void Should_set_first_argument_matcher_on_result()
+            public void Should_set_first_argument_specification_on_result()
             {
-                var firstArgumentMatcher = _result.ArgumentSpecifications[0];
-                Assert.That(firstArgumentMatcher.IsSatisfiedBy(_callArguments[0]));
-                Assert.That(firstArgumentMatcher.IsSatisfiedBy("some other argument"), Is.False);
+                var firstArgumentSpecification = _result.ArgumentSpecifications[0];
+                Assert.That(firstArgumentSpecification.IsSatisfiedBy(_callArguments[0]));
+                Assert.That(firstArgumentSpecification.IsSatisfiedBy("some other argument"), Is.False);
             }
 
             [Test]
-            public void Should_set_second_argument_matcher_on_result()
+            public void Should_set_second_argument_specification_on_result()
             {
-                var secondArgumentMatcher = _result.ArgumentSpecifications[1];
-                Assert.That(secondArgumentMatcher.IsSatisfiedBy(_callArguments[1]));
-                Assert.That(secondArgumentMatcher.IsSatisfiedBy("some other argument"), Is.False);
+                var secondArgumentSpecification = _result.ArgumentSpecifications[1];
+                Assert.That(secondArgumentSpecification.IsSatisfiedBy(_callArguments[1]));
+                Assert.That(secondArgumentSpecification.IsSatisfiedBy("some other argument"), Is.False);
             }
         }
 
