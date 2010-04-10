@@ -20,7 +20,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         public T GenerateProxy<T>(ICallHandler callHandler) where T : class
         {
             var interceptor = _interceptorFactory.CreateForwardingInterceptor(callHandler);
-            var proxyGenerationOptions = GetOptionsToMixinInvocationHandler(callHandler);
+            var proxyGenerationOptions = GetOptionsToMixinCallHandler(callHandler);
             if (typeof(T).IsInterface)
             {
                 return _proxyGenerator.CreateInterfaceProxyWithoutTarget<T>(proxyGenerationOptions, interceptor);
@@ -28,7 +28,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             return _proxyGenerator.CreateClassProxy<T>(proxyGenerationOptions, interceptor);
         }
 
-        private ProxyGenerationOptions GetOptionsToMixinInvocationHandler(ICallHandler callHandler)
+        private ProxyGenerationOptions GetOptionsToMixinCallHandler(ICallHandler callHandler)
         {
             var options = new ProxyGenerationOptions(_ignoreCallHandlerCallsHook);
             options.AddMixinInstance(callHandler);
