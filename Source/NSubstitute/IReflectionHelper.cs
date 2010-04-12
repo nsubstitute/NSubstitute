@@ -4,6 +4,5 @@ namespace NSubstitute
     {
         bool IsCallToSetAReadWriteProperty(ICall call);
         ICall CreateCallToPropertyGetterFromSetterCall(ICall callToSetter);
-        void RaiseEventFromEventAssignment(ICall eventAssignment, object[] arguments);
     }
 }

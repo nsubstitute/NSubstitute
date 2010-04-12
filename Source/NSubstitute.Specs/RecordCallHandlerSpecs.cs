@@ -92,6 +92,5 @@ namespace NSubstitute.Specs
                 _callSpecificationFactory.stub(x => x.CreateFrom(_propertyGetter)).Return(_propertyGetterSpecification);
             }
         }
-
     }
 }

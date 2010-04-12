@@ -35,11 +35,6 @@ namespace NSubstitute
             return new CallToPropertyGetter(getter);
         }
 
-        public void RaiseEventFromEventAssignment(ICall eventAssignment, object[] arguments)
-        {
-            
-        }
-
         class CallToPropertyGetter : ICall
         {
             private readonly MethodInfo _methodInfo;
