@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentEqualsSpecificationSpecs.cs" />
-    <Compile Include="CallHandlerFactorySpecs.cs" />
+    <Compile Include="CallRouterFactorySpecs.cs" />
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />
     <Compile Include="CallSpecificationSpecs.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="RaiseExtensionSpec.cs" />
     <Compile Include="ReceivedExtensionSpec.cs" />
     <Compile Include="ReturnExtensionSpec.cs" />
-    <Compile Include="CallHandlerSpecs.cs" />
+    <Compile Include="CallRouterSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="SubstituteFactorySpecs.cs" />

@@ -24,25 +24,25 @@ namespace NSubstitute.Specs
         
         public class When_setting_the_return_value_of_the_last_call : Concern
         {
-            private ICallHandler _callHandler;
+            private ICallRouter _callRouter;
             private int _valueToReturn;
 
             [Test]
-            public void Should_tell_the_last_call_handler_to_set_the_return_value_of_its_last_call()
+            public void Should_tell_the_last_call_router_to_set_the_return_value_of_its_last_call()
             {
-                _callHandler.received(x => x.LastCallShouldReturn(_valueToReturn));
+                _callRouter.received(x => x.LastCallShouldReturn(_valueToReturn));
             }
             
             public override void Because()
             {
-                sut.LastCallHandler(_callHandler);
+                sut.LastCallRouter(_callRouter);
                 sut.LastCallShouldReturn(_valueToReturn);
             }
 
             public override void Context()
             {
                 base.Context();
-                _callHandler = mock<ICallHandler>();
+                _callRouter = mock<ICallRouter>();
                 _valueToReturn = 42;
             }
         }
@@ -56,39 +56,39 @@ namespace NSubstitute.Specs
             }
         }
 
-        public class When_getting_call_handler_for_a_substitute : Concern
+        public class When_getting_call_router_for_a_substitute : Concern
         {
-            private ICallHandler _handlerForSubstitute;
-            private object _substituteCastableAsHandler;
-            private ICallHandler _result;
+            private ICallRouter _routerForSubstitute;
+            private object _substituteCastableAsRouter;
+            private ICallRouter _result;
 
             [Test]
-            public void Should_cast_substitute_to_call_handler()
+            public void Should_cast_substitute_to_call_router()
             {
-                Assert.That(_result, Is.SameAs(_handlerForSubstitute));               
+                Assert.That(_result, Is.SameAs(_routerForSubstitute));               
             }
 
             public override void Because()
             {
-                _result = sut.GetCallHandlerFor(_substituteCastableAsHandler);
+                _result = sut.GetCallRouterFor(_substituteCastableAsRouter);
             }
 
             public override void Context()
             {
                 base.Context();                
-                _handlerForSubstitute = mock<ICallHandler>();
-                _substituteCastableAsHandler = _handlerForSubstitute;
+                _routerForSubstitute = mock<ICallRouter>();
+                _substituteCastableAsRouter = _routerForSubstitute;
             }
         }
 
-        public class When_getting_call_handler_for_an_instance_that_is_not_a_substitute : Concern
+        public class When_getting_call_router_for_an_instance_that_is_not_a_substitute : Concern
         {
             private object _notASubstitute;
 
             [Test]
             public void Should_throw_an_exception()
             {
-                Assert.Throws<NotASubstituteException>(() => sut.GetCallHandlerFor(_notASubstitute));
+                Assert.Throws<NotASubstituteException>(() => sut.GetCallRouterFor(_notASubstitute));
             }
 
             public override void Context()

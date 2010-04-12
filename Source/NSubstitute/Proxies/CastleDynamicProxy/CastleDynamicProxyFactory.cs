@@ -8,19 +8,19 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
     {
         readonly ProxyGenerator _proxyGenerator;
         readonly CastleInterceptorFactory _interceptorFactory;
-        readonly IgnoreCallHandlerCallsHook _ignoreCallHandlerCallsHook;
+        readonly IgnoreCallRouterCallsHook _ignoreCallRouterCallsHook;
 
         public CastleDynamicProxyFactory(ProxyGenerator proxyGenerator, CastleInterceptorFactory interceptorFactory)
         {
             _proxyGenerator = proxyGenerator;
             _interceptorFactory = interceptorFactory;            
-            _ignoreCallHandlerCallsHook = new IgnoreCallHandlerCallsHook();
+            _ignoreCallRouterCallsHook = new IgnoreCallRouterCallsHook();
         }
 
-        public T GenerateProxy<T>(ICallHandler callHandler) where T : class
+        public T GenerateProxy<T>(ICallRouter callRouter) where T : class
         {
-            var interceptor = _interceptorFactory.CreateForwardingInterceptor(callHandler);
-            var proxyGenerationOptions = GetOptionsToMixinCallHandler(callHandler);
+            var interceptor = _interceptorFactory.CreateForwardingInterceptor(callRouter);
+            var proxyGenerationOptions = GetOptionsToMixinCallRouter(callRouter);
             if (typeof(T).IsInterface)
             {
                 return _proxyGenerator.CreateInterfaceProxyWithoutTarget<T>(proxyGenerationOptions, interceptor);
@@ -28,18 +28,18 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             return _proxyGenerator.CreateClassProxy<T>(proxyGenerationOptions, interceptor);
         }
 
-        private ProxyGenerationOptions GetOptionsToMixinCallHandler(ICallHandler callHandler)
+        private ProxyGenerationOptions GetOptionsToMixinCallRouter(ICallRouter callRouter)
         {
-            var options = new ProxyGenerationOptions(_ignoreCallHandlerCallsHook);
-            options.AddMixinInstance(callHandler);
+            var options = new ProxyGenerationOptions(_ignoreCallRouterCallsHook);
+            options.AddMixinInstance(callRouter);
             return options;
         }
 
-        private class IgnoreCallHandlerCallsHook : IProxyGenerationHook
+        private class IgnoreCallRouterCallsHook : IProxyGenerationHook
         {
             public bool ShouldInterceptMethod(Type type, MethodInfo methodInfo)
             {
-                return type != typeof (ICallHandler);
+                return type != typeof (ICallRouter);
             }
 
             public void NonVirtualMemberNotification(Type type, MemberInfo memberInfo) {}

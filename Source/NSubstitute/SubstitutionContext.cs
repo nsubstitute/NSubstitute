@@ -8,7 +8,7 @@ namespace NSubstitute
     public class SubstitutionContext : ISubstitutionContext
     {
         public static ISubstitutionContext Current { get; set; }
-        ICallHandler _lastCallHandler;
+        ICallRouter _lastCallRouter;
         ISubstituteFactory _substituteFactory;
         IList<IArgumentSpecification> _argumentSpecifications;
 
@@ -19,10 +19,10 @@ namespace NSubstitute
 
         SubstitutionContext()
         {
-            var callHandlerFactory = new CallHandlerFactory();
+            var callRouterFactory = new CallRouterFactory();
             var interceptorFactory = new CastleInterceptorFactory();
             var proxyFactory = new CastleDynamicProxyFactory(new ProxyGenerator(), interceptorFactory);
-            _substituteFactory = new SubstituteFactory(this, callHandlerFactory, proxyFactory);
+            _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory);
             _argumentSpecifications = new List<IArgumentSpecification>();
         }
 
@@ -33,13 +33,13 @@ namespace NSubstitute
 
         public void LastCallShouldReturn<T>(T value)
         {            
-            if (_lastCallHandler == null) throw new SubstituteException();
-            _lastCallHandler.LastCallShouldReturn(value);
+            if (_lastCallRouter == null) throw new SubstituteException();
+            _lastCallRouter.LastCallShouldReturn(value);
         }
 
-        public void LastCallHandler(ICallHandler callHandler)
+        public void LastCallRouter(ICallRouter callRouter)
         {
-            _lastCallHandler = callHandler;
+            _lastCallRouter = callRouter;
         }
 
         public ISubstituteFactory GetSubstituteFactory()
@@ -47,11 +47,11 @@ namespace NSubstitute
             return _substituteFactory;
         }
 
-        public ICallHandler GetCallHandlerFor(object substitute)
+        public ICallRouter GetCallRouterFor(object substitute)
         {
-            var isHandler = substitute is ICallHandler;
-            if (!isHandler) throw new NotASubstituteException();
-            return (ICallHandler) substitute;
+            var isCallRouter = substitute is ICallRouter;
+            if (!isCallRouter) throw new NotASubstituteException();
+            return (ICallRouter) substitute;
         }
 
         public void EnqueueArgumentSpecification(IArgumentSpecification spec)

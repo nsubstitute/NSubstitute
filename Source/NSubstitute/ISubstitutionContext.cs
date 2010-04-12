@@ -6,9 +6,9 @@ namespace NSubstitute
     public interface ISubstitutionContext
     {
         void LastCallShouldReturn<T>(T value);
-        void LastCallHandler(ICallHandler callHandler);
+        void LastCallRouter(ICallRouter callRouter);
         ISubstituteFactory GetSubstituteFactory();
-        ICallHandler GetCallHandlerFor(object substitute);
+        ICallRouter GetCallRouterFor(object substitute);
         void EnqueueArgumentSpecification(IArgumentSpecification spec);
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
     }

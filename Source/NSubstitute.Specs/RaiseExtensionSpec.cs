@@ -11,7 +11,7 @@ namespace NSubstitute.Specs
         {
             readonly object[] _arguments = new[] {new object(), new object()};
             private IFoo _substitute;
-            private ICallHandler _callHandler;
+            private ICallRouter _callRouter;
             private Action<IFoo> _eventReference;
 
             public override void Context()
@@ -19,8 +19,8 @@ namespace NSubstitute.Specs
                 _eventReference = mock<Action<IFoo>>();
                 var context = mock<ISubstitutionContext>();
                 _substitute = mock<IFoo>();
-                _callHandler = mock<ICallHandler>();
-                context.stub(x => x.GetCallHandlerFor(_substitute)).Return(_callHandler);
+                _callRouter = mock<ICallRouter>();
+                context.stub(x => x.GetCallRouterFor(_substitute)).Return(_callRouter);
                 temporarilyChange(() => SubstitutionContext.Current).to(context);
             }
 
@@ -30,13 +30,13 @@ namespace NSubstitute.Specs
             }
 
             [Test]
-            public void Should_tell_call_handler_for_substitute_to_raise_event()
+            public void Should_tell_call_router_for_substitute_to_raise_event()
             {
-                _callHandler.received(x => x.RaiseEventFromNextCall(_arguments));
+                _callRouter.received(x => x.RaiseEventFromNextCall(_arguments));
             }
 
             [Test]
-            public void Should_invoke_event_reference_so_call_handler_can_raise_the_event()
+            public void Should_invoke_event_reference_so_call_router_can_raise_the_event()
             {
                 _eventReference.received(x => x(_substitute));
             }

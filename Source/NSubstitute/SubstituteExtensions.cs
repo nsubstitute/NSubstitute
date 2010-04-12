@@ -13,16 +13,16 @@ namespace NSubstitute
         public static T Received<T>(this T substitute)
         {
             var context = SubstitutionContext.Current;
-            var handler = context.GetCallHandlerFor(substitute);            
-            handler.AssertNextCallHasBeenReceived();
+            var router = context.GetCallRouterFor(substitute);            
+            router.AssertNextCallHasBeenReceived();
             return substitute;
         }
 
         public static void Raise<T>(this T substitute, Action<T> eventReference, params object[] eventArguments)
         {
             var context = SubstitutionContext.Current;
-            var handler = context.GetCallHandlerFor(substitute);
-            handler.RaiseEventFromNextCall(eventArguments);
+            var router = context.GetCallRouterFor(substitute);
+            router.RaiseEventFromNextCall(eventArguments);
             eventReference(substitute);
         }
     }

@@ -3,9 +3,9 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs
 {
-    public class CallHandlerSpecs
+    public class CallRouterSpecs
     {
-        public abstract class Concern : ConcernFor<CallHandler>
+        public abstract class Concern : ConcernFor<CallRouter>
         {
             protected int _valueToReturn;
             protected ISubstitutionContext _context;
@@ -29,9 +29,9 @@ namespace NSubstitute.Specs
                 _callSpecificationFactory.stub(x => x.Create(_call)).Return(_callSpecification);
             }
 
-            public override CallHandler CreateSubjectUnderTest()
+            public override CallRouter CreateSubjectUnderTest()
             {
-                return new CallHandler(_callStack, _configuredResults, _reflectionHelper, _context, _callSpecificationFactory);
+                return new CallRouter(_callStack, _configuredResults, _reflectionHelper, _context, _callSpecificationFactory);
             } 
         }
 
@@ -46,9 +46,9 @@ namespace NSubstitute.Specs
             }
 
             [Test]
-            public void Should_update_last_call_handler_on_substitution_context()
+            public void Should_update_last_call_router_on_substitution_context()
             {
-                _context.received(x => x.LastCallHandler(sut));
+                _context.received(x => x.LastCallRouter(sut));
             }
 
             [Test]
@@ -59,7 +59,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Handle(_call);
+                _result = sut.Route(_call);
             }
 
             public override void Context()
@@ -115,14 +115,14 @@ namespace NSubstitute.Specs
             [Test]
             public void Next_call_should_go_on_stack()
             {
-                sut.Handle(_call);
+                sut.Route(_call);
                 _callStack.received(x => x.Push(_call));
             }
 
             public override void Because()
             {
                 sut.AssertNextCallHasBeenReceived();
-                _result = sut.Handle(_call);
+                _result = sut.Route(_call);
             }
 
             public override void Context()
@@ -147,7 +147,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.Handle(_call);
+                sut.Route(_call);
             }
 
             public override void Context()
@@ -184,14 +184,14 @@ namespace NSubstitute.Specs
             public void Should_not_raise_event_on_subsequent_calls()
             {
                 var newAssignment = mock<ICall>();
-                sut.Handle(newAssignment);
+                sut.Route(newAssignment);
                 _reflectionHelper.did_not_receive(x => x.RaiseEventFromEventAssignment(newAssignment, _arguments));
 
             }
             public override void Because()
             {
                 sut.RaiseEventFromNextCall(_arguments);
-                sut.Handle(_eventAssignment);
+                sut.Route(_eventAssignment);
             }
 
             public override void Context()

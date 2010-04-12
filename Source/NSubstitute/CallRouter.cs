@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NSubstitute
 {
-    public class CallHandler : ICallHandler
+    public class CallRouter : ICallRouter
     {
         readonly ICallStack _recordedCallsStack;
         readonly ICallResults _callResults;
@@ -12,7 +12,7 @@ namespace NSubstitute
         readonly ICallSpecificationFactory _callSpecificationFactory;
         Func<ICall, object> _handleCall;
 
-        public CallHandler(ICallStack callStack, ICallResults callResults, IReflectionHelper reflectionHelper, ISubstitutionContext context, ICallSpecificationFactory callSpecificationFactory)
+        public CallRouter(ICallStack callStack, ICallResults callResults, IReflectionHelper reflectionHelper, ISubstitutionContext context, ICallSpecificationFactory callSpecificationFactory)
         {
             _recordedCallsStack = callStack;
             _callResults = callResults;
@@ -29,7 +29,7 @@ namespace NSubstitute
             _callResults.SetResult(lastCallSpecification, valueToReturn);
         }
 
-        public object Handle(ICall call)
+        public object Route(ICall call)
         {
             var result = _handleCall(call);
             _handleCall = RecordCall;
@@ -40,7 +40,7 @@ namespace NSubstitute
         {
             SetResultForProperty(call);
             _recordedCallsStack.Push(call);
-            _context.LastCallHandler(this);
+            _context.LastCallRouter(this);
             return _callResults.GetResult(call);
         }
 

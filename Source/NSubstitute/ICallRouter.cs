@@ -2,10 +2,10 @@ using System.Collections.Generic;
 
 namespace NSubstitute
 {
-    public interface ICallHandler
+    public interface ICallRouter
     {
         void LastCallShouldReturn<T>(T valueToReturn);
-        object Handle(ICall call);
+        object Route(ICall call);
         void AssertNextCallHasBeenReceived();
         void RaiseEventFromNextCall(params object[] argumentsToRaiseEventWith);
     }
