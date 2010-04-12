@@ -12,7 +12,7 @@ namespace NSubstitute
             var checkReceivedCallHandler = new CheckReceivedCallHandler(callStack, callResults, callSpecificationFactory);
             var resultSetter = new ResultSetter(callStack, callResults, callSpecificationFactory);
             
-            return new CallRouter(reflectionHelper, substitutionContext, recordingCallHandler, checkReceivedCallHandler, resultSetter);
+            return new CallRouter(substitutionContext, recordingCallHandler, checkReceivedCallHandler, resultSetter);
         }
     }
 }

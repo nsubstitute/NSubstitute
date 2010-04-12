@@ -9,7 +9,6 @@ namespace NSubstitute.Specs
         {
             protected ISubstitutionContext _context;
             protected ICall _call;
-            protected IReflectionHelper _reflectionHelper;
             protected ICallHandler _recordingCallHandler;
             protected ICallHandler _checkReceivedCallHandler;
             protected IResultSetter _resultSetter;
@@ -17,7 +16,6 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 _context = mock<ISubstitutionContext>();
-                _reflectionHelper = mock<IReflectionHelper>();
                 _recordingCallHandler = mock<ICallHandler>();
                 _checkReceivedCallHandler = mock<ICallHandler>();
                 _call = mock<ICall>();
@@ -26,7 +24,7 @@ namespace NSubstitute.Specs
 
             public override CallRouter CreateSubjectUnderTest()
             {
-                return new CallRouter(_reflectionHelper, _context, _recordingCallHandler, _checkReceivedCallHandler, _resultSetter);
+                return new CallRouter(_context, _recordingCallHandler, _checkReceivedCallHandler, _resultSetter);
             } 
         }
 
@@ -105,45 +103,6 @@ namespace NSubstitute.Specs
                 base.Context();
                 _valueFromCheckReceivedHandler = new object();
                 _checkReceivedCallHandler.stub(x => x.Handle(_call)).Return(_valueFromCheckReceivedHandler);
-            }
-        }
-
-        public class When_told_to_raise_event_from_next_call :Concern
-        {
-            private ICall _eventAssignment;
-            private object[] _arguments;
-
-            [Test]
-            public void Should_raise_event_from_reference_using_reflection()
-            {
-                _reflectionHelper.received(x => x.RaiseEventFromEventAssignment(_eventAssignment, _arguments));
-            }
-
-            [Test]
-            public void Should_not_record_call()
-            {
-                _recordingCallHandler.did_not_receive(x => x.Handle(_eventAssignment));
-            }
-
-            [Test]
-            public void Should_not_raise_event_on_subsequent_calls()
-            {
-                var newAssignment = mock<ICall>();
-                sut.Route(newAssignment);
-                _reflectionHelper.did_not_receive(x => x.RaiseEventFromEventAssignment(newAssignment, _arguments));
-
-            }
-            public override void Because()
-            {
-                sut.RaiseEventFromNextCall(_arguments);
-                sut.Route(_eventAssignment);
-            }
-
-            public override void Context()
-            {
-                base.Context();
-                _arguments = new object[0];
-                _eventAssignment = mock<ICall>();
             }
         }
     }
