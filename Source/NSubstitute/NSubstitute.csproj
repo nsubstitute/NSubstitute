@@ -81,9 +81,11 @@
     <Compile Include="CallNotReceivedException.cs" />
     <Compile Include="CallSpecification.cs" />
     <Compile Include="CallSpecificationFactory.cs" />
+    <Compile Include="CheckReceivedCallHandler.cs" />
     <Compile Include="Exceptions\AmbiguousParametersException.cs" />
     <Compile Include="Exceptions\NotASubstituteException.cs" />
     <Compile Include="IArgumentSpecification.cs" />
+    <Compile Include="ICallHandler.cs" />
     <Compile Include="ICallRouterFactory.cs" />
     <Compile Include="CallRouterFactory.cs" />
     <Compile Include="CallResults.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="ICallRouter.cs" />
     <Compile Include="IProxyFactory.cs" />
     <Compile Include="IReflectionHelper.cs" />
+    <Compile Include="IResultSetter.cs" />
     <Compile Include="ISubstitutionContext.cs" />
     <Compile Include="ISubstituteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,7 +107,9 @@
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleInvocationMapper.cs" />
+    <Compile Include="RecordCallHandler.cs" />
     <Compile Include="ReflectionHelper.cs" />
+    <Compile Include="ResultSetter.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="SubstitutionContext.cs" />

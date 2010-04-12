@@ -88,6 +88,7 @@
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />
     <Compile Include="CallSpecificationSpecs.cs" />
+    <Compile Include="CheckReceivedCallHandlerSpecs.cs" />
     <Compile Include="FakeCall.cs" />
     <Compile Include="Infrastructure\TemporaryChangeNotConfiguredProperlyException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,8 +97,10 @@
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptorSpecs.cs" />
     <Compile Include="RaiseExtensionSpec.cs" />
     <Compile Include="ReceivedExtensionSpec.cs" />
+    <Compile Include="RecordCallHandlerSpecs.cs" />
     <Compile Include="ReturnExtensionSpec.cs" />
     <Compile Include="CallRouterSpecs.cs" />
+    <Compile Include="ResultSetterSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="SubstituteFactorySpecs.cs" />

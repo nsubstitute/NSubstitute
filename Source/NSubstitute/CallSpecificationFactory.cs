@@ -13,7 +13,7 @@ namespace NSubstitute
             _context = context;
         }
 
-        public ICallSpecification Create(ICall call)
+        public ICallSpecification CreateFrom(ICall call)
         {
             var result = new CallSpecification(call.GetMethodInfo());
             var argumentSpecs = _context.DequeueAllArgumentSpecifications();

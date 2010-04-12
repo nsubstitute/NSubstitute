@@ -7,43 +7,33 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<CallRouter>
         {
-            protected int _valueToReturn;
             protected ISubstitutionContext _context;
             protected ICall _call;
-            protected ICallStack _callStack;
-            protected ICallResults _configuredResults;
             protected IReflectionHelper _reflectionHelper;
-            protected ICallSpecification _callSpecification;
-            protected ICallSpecificationFactory _callSpecificationFactory;
+            protected ICallHandler _recordingCallHandler;
+            protected ICallHandler _checkReceivedCallHandler;
+            protected IResultSetter _resultSetter;
 
             public override void Context()
             {
-                _valueToReturn = 7;
                 _context = mock<ISubstitutionContext>();
-                _callStack = mock<ICallStack>();
-                _configuredResults = mock<ICallResults>();
                 _reflectionHelper = mock<IReflectionHelper>();
+                _recordingCallHandler = mock<ICallHandler>();
+                _checkReceivedCallHandler = mock<ICallHandler>();
                 _call = mock<ICall>();
-                _callSpecification = mock<ICallSpecification>();
-                _callSpecificationFactory = mock<ICallSpecificationFactory>();
-                _callSpecificationFactory.stub(x => x.Create(_call)).Return(_callSpecification);
+                _resultSetter = mock<IResultSetter>();
             }
 
             public override CallRouter CreateSubjectUnderTest()
             {
-                return new CallRouter(_callStack, _configuredResults, _reflectionHelper, _context, _callSpecificationFactory);
+                return new CallRouter(_reflectionHelper, _context, _recordingCallHandler, _checkReceivedCallHandler, _resultSetter);
             } 
         }
 
         public class When_a_member_is_called : Concern
         {
             object _result;
-
-            [Test]
-            public void Should_record_call()
-            {
-                _callStack.received(x => x.Push(_call));
-            }
+            int _returnValueFromRecordingHandler;
 
             [Test]
             public void Should_update_last_call_router_on_substitution_context()
@@ -52,9 +42,9 @@ namespace NSubstitute.Specs
             }
 
             [Test]
-            public void Should_return_value_from_configured_results()
+            public void Should_record_call_and_return_value_from_handler()
             {
-                Assert.That(_result, Is.EqualTo(_valueToReturn));
+                Assert.That(_result, Is.EqualTo(_returnValueFromRecordingHandler));
             }
 
             public override void Because()
@@ -65,58 +55,43 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _configuredResults.stub(x => x.GetResult(_call)).Return(_valueToReturn);
+                _returnValueFromRecordingHandler = 12;
+                _recordingCallHandler.stub(x => x.Handle(_call)).Return(_returnValueFromRecordingHandler);
             }
         }
 
-        public class When_the_return_value_for_the_last_call_is_set : Concern
-        {            
+        public class When_setting_result_of_last_call : Concern
+        {
+            const int _valueToReturn = 7;
+
             [Test]
-            public void Should_remove_the_call_from_those_recorded_and_add_it_to_configured_results()
+            public void Should_set_result()
             {
-                _configuredResults.received(x => x.SetResult(_callSpecification, _valueToReturn));
+                _resultSetter.received(x => x.SetResultForLastCall(_valueToReturn));
             }
 
             public override void Because()
             {
                 sut.LastCallShouldReturn(_valueToReturn);
             }
-
-            public override void Context()
-            {
-                base.Context();
-                _callStack.stub(x => x.Pop()).Return(_call);
-            }
         }
 
         public class When_told_to_assert_the_next_call_has_been_received : Concern
         {
             object _result;
-            object _defaultForCall;
+            object _valueFromCheckReceivedHandler;
 
             [Test]
-            public void Should_throw_exception_if_call_has_not_been_received()
+            public void Should_check_call_was_received_and_return_value_from_handler()
             {
-                _callStack.received(x => x.ThrowIfCallNotFound(_callSpecification));                
+                Assert.That(_result, Is.EqualTo(_valueFromCheckReceivedHandler));
             }
 
             [Test]
-            public void Should_not_add_call_to_stack()
-            {
-                _callStack.did_not_receive(x => x.Push(_call));
-            }
-
-            [Test]
-            public void Should_return_default_for_call()
-            {
-                Assert.That(_result, Is.EqualTo(_defaultForCall));
-            }
-
-            [Test]
-            public void Next_call_should_go_on_stack()
+            public void Next_call_should_be_recorded()
             {
                 sut.Route(_call);
-                _callStack.received(x => x.Push(_call));
+                _recordingCallHandler.received(x => x.Handle(_call));
             }
 
             public override void Because()
@@ -128,42 +103,12 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _defaultForCall = new object();
-                _configuredResults.stub(x => x.GetDefaultResultFor(_call)).Return(_defaultForCall);
+                _valueFromCheckReceivedHandler = new object();
+                _checkReceivedCallHandler.stub(x => x.Handle(_call)).Return(_valueFromCheckReceivedHandler);
             }
         }
 
-        public class When_call_is_a_property_setter : Concern
-        {
-            private object _setValue;
-            private ICall _propertyGetter;
-            private ICallSpecification _propertyGetterSpecification;
-
-            [Test]
-            public void Should_add_set_value_to_configured_results()
-            {
-                _configuredResults.received(x => x.SetResult(_propertyGetterSpecification, _setValue));
-            }
-
-            public override void Because()
-            {
-                sut.Route(_call);
-            }
-
-            public override void Context()
-            {
-                base.Context();
-                _setValue = new object();
-                _propertyGetter = mock<ICall>();
-                _propertyGetterSpecification = mock<ICallSpecification>();
-                _call.stub(x => x.GetArguments()).Return(new[] { _setValue });
-                _reflectionHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
-                _reflectionHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(_call)).Return(_propertyGetter);
-                _callSpecificationFactory.stub(x => x.Create(_propertyGetter)).Return(_propertyGetterSpecification);
-            }
-        }
-
-        public class When_told_to_raise_when_from_next_call :Concern
+        public class When_told_to_raise_event_from_next_call :Concern
         {
             private ICall _eventAssignment;
             private object[] _arguments;
@@ -177,7 +122,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_not_record_call()
             {
-                _callStack.did_not_receive(x => x.Push(_eventAssignment));
+                _recordingCallHandler.did_not_receive(x => x.Handle(_eventAssignment));
             }
 
             [Test]

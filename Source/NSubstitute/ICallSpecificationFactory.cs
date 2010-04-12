@@ -4,6 +4,6 @@ namespace NSubstitute
 {
     public interface ICallSpecificationFactory
     {
-        ICallSpecification Create(ICall call);
+        ICallSpecification CreateFrom(ICall call);
     }
 }

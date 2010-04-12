@@ -44,7 +44,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Create(_call);
+                _result = sut.CreateFrom(_call);
             }
         }
 
@@ -114,7 +114,7 @@ namespace NSubstitute.Specs
             public void Should_throw()
             {
                 Assert.Throws<AmbiguousParametersException>(
-                        () => sut.Create(_call)
+                        () => sut.CreateFrom(_call)
                     );
             }
         }
