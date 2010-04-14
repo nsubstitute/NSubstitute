@@ -18,7 +18,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             var calculator = Substitute.For<ICalculator>();
             var specificDate = new DateTime(2010, 1, 2, 3, 4, 5);
-            calculator.Now.Return(specificDate);
+            calculator.Now.Returns(specificDate);
             Assert.That(calculator.Now, Is.EqualTo(specificDate));
         }
 

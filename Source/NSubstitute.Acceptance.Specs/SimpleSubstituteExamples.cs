@@ -17,7 +17,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Tell_a_substitute_to_return_a_value()
         {
             var calculator = Substitute.For<ICalculator>();
-            calculator.Add(1, 2).Return(3);
+            calculator.Add(1, 2).Returns(3);
             Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
         }
 
@@ -25,8 +25,8 @@ namespace NSubstitute.Acceptance.Specs
         public void Return_different_values_for_different_arguments()
         {
             var calculator = Substitute.For<ICalculator>();
-            calculator.Add(1, 2).Return(3);
-            calculator.Add(20, 30).Return(50);
+            calculator.Add(1, 2).Returns(3);
+            calculator.Add(20, 30).Returns(50);
             Assert.That(calculator.Add(20, 30), Is.EqualTo(50));
             Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
         }

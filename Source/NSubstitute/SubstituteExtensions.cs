@@ -2,7 +2,7 @@ namespace NSubstitute
 {
     public static class SubstituteExtensions
     {
-        public static void Return<T>(this T value, T returnThis, params T[] returnThese)
+        public static void Returns<T>(this T value, T returnThis, params T[] returnThese)
         {
             var context = SubstitutionContext.Current;
             context.LastCallShouldReturn(returnThis);

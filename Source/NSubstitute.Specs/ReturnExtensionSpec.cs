@@ -18,7 +18,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                new object().Return(_value);
+                new object().Returns(_value);
             }
 
             public override void Context()

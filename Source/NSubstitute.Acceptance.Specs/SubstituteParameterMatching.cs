@@ -10,7 +10,7 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Return_result_for_any_parameter()
         {
-            _something.Echo(Arg.Any<int>()).Return("anything");
+            _something.Echo(Arg.Any<int>()).Returns("anything");
 
             Assert.That(_something.Echo(1), Is.EqualTo("anything"), "First return");
             Assert.That(_something.Echo(2), Is.EqualTo("anything"), "Second return");
@@ -19,8 +19,8 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Return_result_for_specific_parameter()
         {
-            _something.Echo(Arg.Is(3)).Return("three");
-            _something.Echo(4).Return("four");
+            _something.Echo(Arg.Is(3)).Returns("three");
+            _something.Echo(4).Returns("four");
 
             Assert.That(_something.Echo(3), Is.EqualTo("three"), "First return");
             Assert.That(_something.Echo(4), Is.EqualTo("four"), "Second return");
@@ -29,8 +29,8 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Return_result_for_parameter_matching_predicate()
         {
-            _something.Echo(Arg.Is<int>(x => x <= 3)).Return("small");
-            _something.Echo(Arg.Is<int>(x => x > 3)).Return("big");
+            _something.Echo(Arg.Is<int>(x => x <= 3)).Returns("small");
+            _something.Echo(Arg.Is<int>(x => x > 3)).Returns("big");
 
             Assert.That(_something.Echo(1), Is.EqualTo("small"), "First return");
             Assert.That(_something.Echo(4), Is.EqualTo("big"), "Second return");
