@@ -72,6 +72,7 @@
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />
     <Compile Include="Infrastructure\ICalculator.cs" />
+    <Compile Include="SubbingForEventHandler.cs" />
     <Compile Include="PropertyBehaviour.cs" />
     <Compile Include="SubstituteParameterMatching.cs" />
     <Compile Include="Infrastructure\IIgnition.cs" />
