@@ -10,12 +10,12 @@ namespace NSubstitute.Acceptance.Specs
         public void Raise_event()
         {
             var sender = new object();
-            var arguments = new EventArgs();
+            var arguments = new IdlingEventArgs();
 
             var engine = Substitute.For<IEngine>();
             var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
             engine.Idling += idlingHandler.Record;
-            engine.Raise(x => x.Idling += null, sender, arguments);
+            engine.Idling += Raise.EventWith(sender, arguments);
 
             Assert.That(idlingHandler.Sender, Is.SameAs(sender));
             Assert.That(idlingHandler.EventArgs, Is.SameAs(arguments));            
@@ -27,7 +27,7 @@ namespace NSubstitute.Acceptance.Specs
             var engine = Substitute.For<IEngine>();
             var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
             engine.Idling += idlingHandler.Record;
-            engine.Raise(x => x.Idling += null);
+            engine.Idling += Raise.Event;
 
             Assert.That(idlingHandler.Sender, Is.SameAs(this));
             Assert.That(idlingHandler.EventArgs, Is.Not.Null);
@@ -41,7 +41,7 @@ namespace NSubstitute.Acceptance.Specs
             engine.Started += () => wasStarted = true;
             
             Assert.That(wasStarted, Is.False, "Why is this started before event was raised? Something has gone wrong!");            
-            engine.Raise(x => x.Started += null);            
+            engine.Started += Raise.Event;
             Assert.That(wasStarted);
         }
 
@@ -55,6 +55,39 @@ namespace NSubstitute.Acceptance.Specs
                 Sender = sender;
                 EventArgs = eventArgs;
             }
+        }
+    }
+
+    public static class Raise
+    {
+        public static EventHandler<TEventArgs> EventWith<TEventArgs>(object sender, TEventArgs arguments) where TEventArgs:EventArgs
+        {
+            throw new NotImplementedException();
+        }
+
+        public static EventHandler<TEventArgs> EventWith<TEventArgs>(TEventArgs arguments) where TEventArgs:EventArgs
+        {
+            throw new NotImplementedException();
+        }
+
+        public static EventHandler EventWith(object sender, EventArgs arguments)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static EventHandler EventWith(EventArgs arguments)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void Event<TEventArgs>(object sender, TEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void Event()
+        {
+            throw new NotImplementedException();
         }
     }
 }

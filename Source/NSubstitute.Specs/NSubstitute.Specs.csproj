@@ -95,7 +95,6 @@
     <Compile Include="PropertyHelperSpecs.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptorSpecs.cs" />
-    <Compile Include="RaiseExtensionSpec.cs" />
     <Compile Include="ReceivedExtensionSpec.cs" />
     <Compile Include="RecordCallHandlerSpecs.cs" />
     <Compile Include="ReturnExtensionSpec.cs" />
