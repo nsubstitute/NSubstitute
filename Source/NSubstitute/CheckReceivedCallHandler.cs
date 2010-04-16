@@ -1,5 +1,3 @@
-using System;
-
 namespace NSubstitute
 {
     public class CheckReceivedCallHandler : ICallHandler

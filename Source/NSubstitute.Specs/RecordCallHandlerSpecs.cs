@@ -14,7 +14,7 @@ namespace NSubstitute.Specs
             protected ICallResults _configuredResults;
             protected IReflectionHelper _reflectionHelper;
             protected ICallSpecification _callSpecification;
-            protected ICallSpecificationFactory _callSpecificationFactory;
+            protected IResultSetter _resultSetter;
 
             public override void Context()
             {
@@ -23,15 +23,14 @@ namespace NSubstitute.Specs
                 _callStack = mock<ICallStack>();
                 _configuredResults = mock<ICallResults>();
                 _reflectionHelper = mock<IReflectionHelper>();
+                _resultSetter = mock<IResultSetter>();
                 _call = mock<ICall>();
                 _callSpecification = mock<ICallSpecification>();
-                _callSpecificationFactory = mock<ICallSpecificationFactory>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call)).Return(_callSpecification);
             }
 
             public override RecordCallHandler CreateSubjectUnderTest()
             {
-                return new RecordCallHandler(_callStack, _configuredResults, _reflectionHelper, _callSpecificationFactory);
+                return new RecordCallHandler(_callStack, _configuredResults);
             } 
         }
 
@@ -60,36 +59,6 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _configuredResults.stub(x => x.GetResult(_call)).Return(_valueToReturn);
-            }
-        }
-
-        public class When_call_is_a_property_setter : Concern
-        {
-            private object _setValue;
-            private ICall _propertyGetter;
-            private ICallSpecification _propertyGetterSpecification;
-
-            [Test]
-            public void Should_add_set_value_to_configured_results()
-            {
-                _configuredResults.received(x => x.SetResult(_propertyGetterSpecification, _setValue));
-            }
-
-            public override void Because()
-            {
-                sut.Handle(_call);
-            }
-
-            public override void Context()
-            {
-                base.Context();
-                _setValue = new object();
-                _propertyGetter = mock<ICall>();
-                _propertyGetterSpecification = mock<ICallSpecification>();
-                _call.stub(x => x.GetArguments()).Return(new[] { _setValue });
-                _reflectionHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
-                _reflectionHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(_call)).Return(_propertyGetter);
-                _callSpecificationFactory.stub(x => x.CreateFrom(_propertyGetter)).Return(_propertyGetterSpecification);
             }
         }
     }

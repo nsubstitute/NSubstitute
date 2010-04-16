@@ -1,5 +1,3 @@
-using System;
-
 namespace NSubstitute
 {
     public class ResultSetter : IResultSetter
@@ -18,7 +16,12 @@ namespace NSubstitute
         public void SetResultForLastCall<T>(T valueToReturn)
         {
             var lastCall = _callStack.Pop();
-            var callSpecification = _callSpecificationFactory.CreateFrom(lastCall);
+            SetResultForCall(lastCall, valueToReturn);
+        }
+
+        public void SetResultForCall<T>(ICall call, T valueToReturn)
+        {
+            var callSpecification = _callSpecificationFactory.CreateFrom(call);
             _configuredResults.SetResult(callSpecification, valueToReturn);
         }
     }

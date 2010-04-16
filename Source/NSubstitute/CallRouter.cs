@@ -7,14 +7,18 @@ namespace NSubstitute
         readonly ISubstitutionContext _context;
         readonly ICallHandler _recordingCallHandler;
         readonly ICallHandler _checkReceivedCallHandler;
-        private readonly IResultSetter _resultSetter;
+        readonly ICallHandler _propertySetterHandler;
+        readonly ICallHandler _eventSubscriptionHandler;
+        readonly IResultSetter _resultSetter;
         Func<ICall, object> _handleCall;
 
-        public CallRouter(ISubstitutionContext context, ICallHandler recordingCallHandler, ICallHandler checkReceivedCallHandler, IResultSetter resultSetter)
+        public CallRouter(ISubstitutionContext context, ICallHandler recordingCallHandler, ICallHandler propertySetterHandler, ICallHandler eventSubscriptionHandler, ICallHandler checkReceivedCallHandler, IResultSetter resultSetter)
         {
             _context = context;
             _recordingCallHandler = recordingCallHandler;
             _checkReceivedCallHandler = checkReceivedCallHandler;
+            _propertySetterHandler = propertySetterHandler;
+            _eventSubscriptionHandler = eventSubscriptionHandler;
             _resultSetter = resultSetter;
             RecordNextCall();
         }
@@ -29,7 +33,12 @@ namespace NSubstitute
 
         private void RecordNextCall()
         {
-            _handleCall = _recordingCallHandler.Handle;
+            _handleCall = delegate(ICall call)
+                              {
+                                  _eventSubscriptionHandler.Handle(call);
+                                  _propertySetterHandler.Handle(call);
+                                  return _recordingCallHandler.Handle(call);
+                              };
         }
 
         public void AssertNextCallHasBeenReceived()

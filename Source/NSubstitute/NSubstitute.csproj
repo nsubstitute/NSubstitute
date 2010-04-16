@@ -82,6 +82,7 @@
     <Compile Include="CallSpecification.cs" />
     <Compile Include="CallSpecificationFactory.cs" />
     <Compile Include="CheckReceivedCallHandler.cs" />
+    <Compile Include="EventSubscriptionHandler.cs" />
     <Compile Include="Exceptions\AmbiguousParametersException.cs" />
     <Compile Include="Exceptions\NotASubstituteException.cs" />
     <Compile Include="IArgumentSpecification.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="ISubstituteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CallRouter.cs" />
+    <Compile Include="PropertySetterHandler.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />

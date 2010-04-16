@@ -10,7 +10,9 @@ namespace NSubstitute.Specs
             protected ISubstitutionContext _context;
             protected ICall _call;
             protected ICallHandler _recordingCallHandler;
+            protected ICallHandler _propertySetterHandler;
             protected ICallHandler _checkReceivedCallHandler;
+            protected ICallHandler _eventSubscriptionHandler;
             protected IResultSetter _resultSetter;
 
             public override void Context()
@@ -18,13 +20,15 @@ namespace NSubstitute.Specs
                 _context = mock<ISubstitutionContext>();
                 _recordingCallHandler = mock<ICallHandler>();
                 _checkReceivedCallHandler = mock<ICallHandler>();
+                _propertySetterHandler = mock<ICallHandler>();
+                _eventSubscriptionHandler = mock<ICallHandler>();
                 _call = mock<ICall>();
                 _resultSetter = mock<IResultSetter>();
             }
 
             public override CallRouter CreateSubjectUnderTest()
             {
-                return new CallRouter(_context, _recordingCallHandler, _checkReceivedCallHandler, _resultSetter);
+                return new CallRouter(_context, _recordingCallHandler, _propertySetterHandler, _eventSubscriptionHandler, _checkReceivedCallHandler, _resultSetter);
             } 
         }
 
@@ -37,6 +41,18 @@ namespace NSubstitute.Specs
             public void Should_update_last_call_router_on_substitution_context()
             {
                 _context.received(x => x.LastCallRouter(sut));
+            }
+
+            [Test]
+            public void Should_send_call_to_property_setter()
+            {
+                _propertySetterHandler.received(x => x.Handle(_call));
+            }
+
+            [Test]
+            public void Should_send_call_to_event_subscription()
+            {
+                _eventSubscriptionHandler.received(x => x.Handle(_call));
             }
 
             [Test]
