@@ -82,6 +82,7 @@
     <Compile Include="CallSpecification.cs" />
     <Compile Include="CallSpecificationFactory.cs" />
     <Compile Include="CheckReceivedCallHandler.cs" />
+    <Compile Include="EventHandlerRegistry.cs" />
     <Compile Include="EventSubscriptionHandler.cs" />
     <Compile Include="Exceptions\AmbiguousParametersException.cs" />
     <Compile Include="Exceptions\NotASubstituteException.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="ICallStack.cs" />
     <Compile Include="ICall.cs" />
     <Compile Include="ICallRouter.cs" />
+    <Compile Include="IEventHandlerRegistry.cs" />
     <Compile Include="IProxyFactory.cs" />
     <Compile Include="IReflectionHelper.cs" />
     <Compile Include="IResultSetter.cs" />

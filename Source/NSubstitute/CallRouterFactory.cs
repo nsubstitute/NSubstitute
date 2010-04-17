@@ -12,7 +12,7 @@ namespace NSubstitute
             var recordingCallHandler = new RecordCallHandler(callStack, callResults);
             var checkReceivedCallHandler = new CheckReceivedCallHandler(callStack, callResults, callSpecificationFactory);
             var propertySetterHandler = new PropertySetterHandler(reflectionHelper, resultSetter);
-            var eventSubscriptionHandler = new EventSubscriptionHandler();
+            var eventSubscriptionHandler = new EventSubscriptionHandler(new EventHandlerRegistry());
             
             return new CallRouter(substitutionContext, recordingCallHandler, 
                                     propertySetterHandler, eventSubscriptionHandler, 
