@@ -84,7 +84,7 @@ namespace NSubstitute.Specs
             }                
         }
 
-        public class When_call_is_an_event_subscription_or_removal :Concern
+        public class When_call_is_not_an_event_subscription_or_removal :Concern
         {
             private ICall _nonEventCall;
 
