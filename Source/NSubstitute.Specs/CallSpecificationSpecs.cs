@@ -24,7 +24,7 @@ namespace NSubstitute.Specs
                 _methodInfo = typeof(IAmForTesting).GetMethod("TestMethod");
                 firstArg = "something";
                 secondArg = 123;
-                _call = new FakeCall(typeof(int), _methodInfo, new object[] { firstArg, secondArg });
+                _call = new FakeCall(typeof(int), _methodInfo, null, new object[] { firstArg, secondArg });
             }
 
             public override void Because()
@@ -102,7 +102,7 @@ namespace NSubstitute.Specs
                 base.Context();
                 _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
                 _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
-                _call = new FakeCall(typeof(int), _methodInfo, new object[] { firstArg });
+                _call = new FakeCall(typeof(int), _methodInfo, null, new object[] { firstArg });
             }
 
             [Test]

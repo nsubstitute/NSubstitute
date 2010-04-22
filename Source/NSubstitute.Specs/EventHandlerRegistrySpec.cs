@@ -1,9 +1,5 @@
-using System;
-using System.Linq;
-using System.Reflection;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace NSubstitute.Specs
 {

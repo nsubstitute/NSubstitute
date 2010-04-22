@@ -8,5 +8,6 @@ namespace NSubstitute
         Type GetReturnType();
         MethodInfo GetMethodInfo();
         object[] GetArguments();
+        object Target();
     }
 }

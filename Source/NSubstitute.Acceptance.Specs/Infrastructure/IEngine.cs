@@ -11,6 +11,7 @@ namespace NSubstitute.Acceptance.Specs
         void RevAt(int rpm);
         event Action Started;
         event EventHandler<IdlingEventArgs> Idling;
+        event EventHandler Stopped;
 
     }
 

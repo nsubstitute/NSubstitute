@@ -11,5 +11,6 @@ namespace NSubstitute
         ICallRouter GetCallRouterFor(object substitute);
         void EnqueueArgumentSpecification(IArgumentSpecification spec);
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
+        void RaiseEventForNextCall(Func<ICall, object[]> getArguments);
     }
 }

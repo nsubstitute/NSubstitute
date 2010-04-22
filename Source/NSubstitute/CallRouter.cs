@@ -10,9 +10,13 @@ namespace NSubstitute
         readonly ICallHandler _propertySetterHandler;
         readonly ICallHandler _eventSubscriptionHandler;
         readonly IResultSetter _resultSetter;
+        readonly IEventRaiser _eventRaiser;
         Func<ICall, object> _handleCall;
 
-        public CallRouter(ISubstitutionContext context, ICallHandler recordingCallHandler, ICallHandler propertySetterHandler, ICallHandler eventSubscriptionHandler, ICallHandler checkReceivedCallHandler, IResultSetter resultSetter)
+        public CallRouter(ISubstitutionContext context, ICallHandler recordingCallHandler, 
+                            ICallHandler propertySetterHandler, ICallHandler eventSubscriptionHandler, 
+                            ICallHandler checkReceivedCallHandler, IResultSetter resultSetter, 
+                            IEventRaiser eventRaiser)
         {
             _context = context;
             _recordingCallHandler = recordingCallHandler;
@@ -20,6 +24,7 @@ namespace NSubstitute
             _propertySetterHandler = propertySetterHandler;
             _eventSubscriptionHandler = eventSubscriptionHandler;
             _resultSetter = resultSetter;
+            _eventRaiser = eventRaiser;
             RecordNextCall();
         }
 
@@ -46,8 +51,13 @@ namespace NSubstitute
             _handleCall = _checkReceivedCallHandler.Handle;
         }
 
-        public void RaiseEventFromNextCall(params object[] argumentsToRaiseEventWith)
-        {            
+        public void RaiseEventFromNextCall(Func<ICall, object[]> argumentsToRaiseEventWith)
+        {
+            _handleCall = delegate(ICall call)
+                              {
+                                  _eventRaiser.Raise(call, argumentsToRaiseEventWith(call));
+                                  return null;
+                              }; 
         }
 
         public void LastCallShouldReturn<T>(T valueToReturn)

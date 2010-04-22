@@ -32,22 +32,25 @@ namespace NSubstitute
                 throw new InvalidOperationException("Could not find a GetMethod for \"" + callToSetter.GetMethodInfo() + "\"");
             }
             var getter = propertyInfo.GetGetMethod();
-            return new CallToPropertyGetter(getter);
+            return new CallToPropertyGetter(getter, callToSetter.Target());
         }
 
         class CallToPropertyGetter : ICall
         {
             private readonly MethodInfo _methodInfo;
+            readonly object _target;
             private readonly object[] _arguments = new object[0];
 
-            public CallToPropertyGetter(MethodInfo methodInfo)
+            public CallToPropertyGetter(MethodInfo methodInfo, object target)
             {
                 _methodInfo = methodInfo;
+                _target = target;
             }
 
             public Type GetReturnType() { return _methodInfo.ReturnType; }
             public MethodInfo GetMethodInfo() { return _methodInfo; }
             public object[] GetArguments() { return _arguments; }
+            public object Target() { return _target; }
         }
     }
 }

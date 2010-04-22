@@ -14,6 +14,7 @@ namespace NSubstitute.Specs
             protected ICallHandler _checkReceivedCallHandler;
             protected ICallHandler _eventSubscriptionHandler;
             protected IResultSetter _resultSetter;
+            protected IEventRaiser _eventRaiser;
 
             public override void Context()
             {
@@ -22,13 +23,17 @@ namespace NSubstitute.Specs
                 _checkReceivedCallHandler = mock<ICallHandler>();
                 _propertySetterHandler = mock<ICallHandler>();
                 _eventSubscriptionHandler = mock<ICallHandler>();
+                _eventRaiser = mock<IEventRaiser>();
                 _call = mock<ICall>();
                 _resultSetter = mock<IResultSetter>();
             }
 
             public override CallRouter CreateSubjectUnderTest()
             {
-                return new CallRouter(_context, _recordingCallHandler, _propertySetterHandler, _eventSubscriptionHandler, _checkReceivedCallHandler, _resultSetter);
+                return new CallRouter(_context, _recordingCallHandler, 
+                                        _propertySetterHandler, _eventSubscriptionHandler, 
+                                        _checkReceivedCallHandler, _resultSetter, 
+                                        _eventRaiser);
             } 
         }
 
@@ -119,6 +124,30 @@ namespace NSubstitute.Specs
                 base.Context();
                 _valueFromCheckReceivedHandler = new object();
                 _checkReceivedCallHandler.stub(x => x.Handle(_call)).Return(_valueFromCheckReceivedHandler);
+            }
+        }
+
+        public class When_told_to_raise_event_for_the_next_call: Concern
+        {
+            object _result;
+            readonly object[] _eventArguments = {new object(), new object()};
+
+            [Test]
+            public void Should_return_null()
+            {
+                Assert.That(_result, Is.Null);
+            }
+
+            [Test]
+            public void Should_raise_event_with_arguments()
+            {
+                _eventRaiser.received(x => x.Raise(_call, _eventArguments));
+            }
+
+            public override void Because()
+            {
+                sut.RaiseEventFromNextCall(x => _eventArguments);
+                _result = sut.Route(_call);
             }
         }
     }

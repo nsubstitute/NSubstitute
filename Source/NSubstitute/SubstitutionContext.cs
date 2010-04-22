@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Castle.DynamicProxy;
 using NSubstitute.Exceptions;
@@ -11,6 +12,7 @@ namespace NSubstitute
         ICallRouter _lastCallRouter;
         ISubstituteFactory _substituteFactory;
         IList<IArgumentSpecification> _argumentSpecifications;
+        Func<ICall, object[]> _getArgumentsForRaisingEvent;
 
         static SubstitutionContext()
         {
@@ -40,6 +42,16 @@ namespace NSubstitute
         public void LastCallRouter(ICallRouter callRouter)
         {
             _lastCallRouter = callRouter;
+            RaiseEventIfSet(callRouter);
+        }
+
+        void RaiseEventIfSet(ICallRouter callRouter)
+        {
+            if (_getArgumentsForRaisingEvent != null)
+            {
+                callRouter.RaiseEventFromNextCall(_getArgumentsForRaisingEvent);
+                _getArgumentsForRaisingEvent = null;
+            }
         }
 
         public ISubstituteFactory GetSubstituteFactory()
@@ -64,6 +76,11 @@ namespace NSubstitute
             var result = _argumentSpecifications;
             _argumentSpecifications = new List<IArgumentSpecification>();
             return result;
+        }
+
+        public void RaiseEventForNextCall(Func<ICall, object[]> getArguments)
+        {
+            _getArgumentsForRaisingEvent = getArguments;
         }
     }
 }

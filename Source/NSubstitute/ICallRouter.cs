@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace NSubstitute
@@ -7,6 +8,6 @@ namespace NSubstitute
         void LastCallShouldReturn<T>(T valueToReturn);
         object Route(ICall call);
         void AssertNextCallHasBeenReceived();
-        void RaiseEventFromNextCall(params object[] argumentsToRaiseEventWith);
+        void RaiseEventFromNextCall(Func<ICall, object[]> argumentsToRaiseEventWith);
     }
 }

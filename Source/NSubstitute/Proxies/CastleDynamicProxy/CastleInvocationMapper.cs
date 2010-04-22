@@ -33,6 +33,11 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             {
                 return _castleInvocation.Arguments;
             }
+
+            public object Target()
+            {
+                return _castleInvocation.Proxy;
+            }
         }
     }
 }
