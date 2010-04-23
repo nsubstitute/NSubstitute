@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace NSubstitute
 {
     public class EventSubscriptionHandler: ICallHandler
     {
-        private const string MethodNamePrefixForAdd = "add_";
-        private const string MethodNamePrefixForRemove = "remove_";
         private readonly IEventHandlerRegistry _eventHandlerRegistry;
 
         public EventSubscriptionHandler(IEventHandlerRegistry eventHandlerRegistry)
@@ -15,28 +16,34 @@ namespace NSubstitute
 
         public object Handle(ICall call)
         {
-            var methodInfo = call.GetMethodInfo();
-            if (IsEventSubscription(call))
-            {
-                var eventName = methodInfo.Name.Substring(MethodNamePrefixForAdd.Length);
-                _eventHandlerRegistry.Add(eventName, call.GetArguments()[0]);
-            }
-            if (IsEventUnsubscription(call))
-            {
-                var eventName = methodInfo.Name.Substring(MethodNamePrefixForRemove.Length);
-                _eventHandlerRegistry.Remove(eventName, call.GetArguments()[0]);            
-            }
+            If(call, IsEventSubscription, _eventHandlerRegistry.Add);
+            If(call, IsEventUnsubscription, _eventHandlerRegistry.Remove);
             return null;
         }
 
-        private bool IsEventUnsubscription(ICall call)
+        private void If(ICall call, Func<ICall, Predicate<EventInfo>> meetsThisSpecification, Action<string, object> takeThisAction)
         {
-            return call.GetMethodInfo().Name.StartsWith(MethodNamePrefixForRemove);
+            var events = GetEvents(call, meetsThisSpecification);
+            if (events.Any())
+            {
+                takeThisAction(events.First().Name, call.GetArguments()[0]);
+            }            
         }
 
-        private bool IsEventSubscription(ICall call)
+        private Predicate<EventInfo> IsEventSubscription(ICall call)
         {
-            return call.GetMethodInfo().Name.StartsWith(MethodNamePrefixForAdd);
+            return x => call.GetMethodInfo() == x.GetAddMethod();
+        }
+
+        private Predicate<EventInfo> IsEventUnsubscription(ICall call)
+        {
+            return x => call.GetMethodInfo() == x.GetRemoveMethod();
+        }
+
+        private IEnumerable<EventInfo> GetEvents(ICall call, Func<ICall, Predicate<EventInfo>> createPredicate)
+        {
+            var predicate = createPredicate(call);
+            return call.GetMethodInfo().DeclaringType.GetEvents().Where(x => predicate(x));
         }
     }
 }
