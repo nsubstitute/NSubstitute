@@ -44,13 +44,6 @@ namespace NSubstitute
             return new EventHandlerWrapper<EventHandler<TEventArgs>>();
         }
 
-/*
-        public static EventHandlerWrapper<EventHandler> Event()
-        {
-            return new EventHandlerWrapper<EventHandler>();
-        }
-
-  */
         public static EventHandlerWrapper<object> Event()
         {
             return new EventHandlerWrapper<object>();
@@ -102,7 +95,7 @@ namespace NSubstitute
             context.RaiseEventForNextCall(delegate (ICall call)
                                               {
                                                   if (sender == null)
-                                                      sender = call;
+                                                      sender = call.Target();
                                                   if (eventArgs == null)
                                                       eventArgs = EventArgs.Empty;
                                                   return new[]{sender, eventArgs};

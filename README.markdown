@@ -56,7 +56,7 @@ And we can check that our substitute received a call:
 
 ### Limitations
 
-Lots. It only has very basic functionality at the moment. Don't call it from multiple threads. And if you're looking to raise events or specify multiple return values then you're out of luck (for now...).
+Lots. It only has very basic functionality at the moment. Don't call it from multiple threads. And if you're looking to get a callback when a method is called or to specify multiple return values then you're out of luck (for now...).
 
 ### Building
 

@@ -20,7 +20,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(idlingHandler.EventArgs, Is.SameAs(arguments));
         }
 
-        [Pending]
         [Test]
         public void Raise_event_with_sensible_default_arguments()
         {
