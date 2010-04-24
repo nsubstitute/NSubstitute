@@ -122,6 +122,7 @@
     <Compile Include="SubstitutionContext.cs" />
     <Compile Include="Exceptions\SubstituteException.cs" />
     <Compile Include="SubstituteFactory.cs" />
+    <Compile Include="WhenCalled.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

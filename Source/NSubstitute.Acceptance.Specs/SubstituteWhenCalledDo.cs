@@ -38,29 +38,4 @@ namespace NSubstitute.Acceptance.Specs
             _something = Substitute.For<ISomething>();
         }
     }
-
-    public class Arguments
-    {
-        public object this[int i]
-        {
-            get { throw new NotImplementedException(); }
-        }
-    }
-
-    public class When
-    {
-        public void Do(Action<Arguments> callbackWithArguments)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public static class WhenExtensions
-    {
-        public static When When<T>(this T substitute, Action<T> substituteCall)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
 }

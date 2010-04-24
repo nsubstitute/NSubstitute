@@ -60,6 +60,10 @@ namespace NSubstitute
                               }; 
         }
 
+        public void AddCallbackForNextCall(Action<object[]> callbackWithArguments)
+        {
+        }
+
         public void LastCallShouldReturn<T>(T valueToReturn)
         {
             _resultSetter.SetResultForLastCall(valueToReturn);

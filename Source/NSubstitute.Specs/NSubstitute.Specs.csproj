@@ -118,6 +118,7 @@
     <Compile Include="Infrastructure\Tests\BaseConcernSpecs.cs" />
     <Compile Include="SampleStructures\Foo.cs" />
     <Compile Include="SampleStructures\IFoo.cs" />
+    <Compile Include="WhenCalledSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSubstitute\NSubstitute.csproj">

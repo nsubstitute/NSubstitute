@@ -1,3 +1,5 @@
+using System;
+
 namespace NSubstitute
 {
     public static class SubstituteExtensions
@@ -14,6 +16,12 @@ namespace NSubstitute
             var router = context.GetCallRouterFor(substitute);            
             router.AssertNextCallHasBeenReceived();
             return substitute;
+        }
+        
+        public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall)
+        {
+            var context = SubstitutionContext.Current;
+            return new WhenCalled<T>(context, substitute, substituteCall);            
         }
     }
 }
