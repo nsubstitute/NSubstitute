@@ -11,11 +11,11 @@ namespace NSubstitute
         private ICallHandler _checkReceivedCallHandler;
         private IEventRaiser _eventRaiser;
 
-        public RouteFactory(CallStack callStack, CallResults callResults, ReflectionHelper reflectionHelper, CallSpecificationFactory callSpecificationFactory, ResultSetter resultSetter)
+        public RouteFactory(SubstituteState substituteState)
         {
-            _recordingCallHandler = new RecordCallHandler(callStack, callResults);
-            _checkReceivedCallHandler = new CheckReceivedCallHandler(callStack, callResults, callSpecificationFactory);
-            _propertySetterHandler = new PropertySetterHandler(reflectionHelper, resultSetter);
+            _recordingCallHandler = new RecordCallHandler(substituteState.CallStack, substituteState.CallResults);
+            _checkReceivedCallHandler = new CheckReceivedCallHandler(substituteState.CallStack, substituteState.CallResults, substituteState.CallSpecificationFactory);
+            _propertySetterHandler = new PropertySetterHandler(substituteState.ReflectionHelper, substituteState.ResultSetter);
             var eventHandlerRegistry = new EventHandlerRegistry();
             _eventSubscriptionHandler = new EventSubscriptionHandler(eventHandlerRegistry);
             _eventRaiser = new EventRaiser(eventHandlerRegistry);

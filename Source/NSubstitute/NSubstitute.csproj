@@ -126,6 +126,7 @@
     <Compile Include="RouteFactory.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
+    <Compile Include="SubstituteState.cs" />
     <Compile Include="SubstitutionContext.cs" />
     <Compile Include="Exceptions\SubstituteException.cs" />
     <Compile Include="SubstituteFactory.cs" />
