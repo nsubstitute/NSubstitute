@@ -17,7 +17,7 @@ namespace NSubstitute
 
         public void Do(Action<object[]> callbackWithArguments)
         {
-            _callRouter.AddCallbackForNextCall(callbackWithArguments);
+            _callRouter.SetRoute<DoWhenCalledRoute>(callbackWithArguments);
             _call(_substitute);
         }
 

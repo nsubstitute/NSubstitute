@@ -17,7 +17,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_tell_substitute_to_add_callback_for_next_call_then_invoke_call()
             {
-                _callRouter.received(x => x.AddCallbackForNextCall(_callbackWithArguments));
+                _callRouter.received(x => x.SetRoute<DoWhenCalledRoute>(_callbackWithArguments));
                 _call.received(x => x(_substitute));
             }
 

@@ -7,7 +7,7 @@ namespace NSubstitute
         readonly ISubstitutionContext _context;
         readonly IResultSetter _resultSetter;
         IRoute _currentRoute;
-        private IRouteFactory _routeFactory;
+        IRouteFactory _routeFactory;
 
         public CallRouter(ISubstitutionContext context, IResultSetter resultSetter, IRouteFactory routeFactory)
         {
@@ -15,7 +15,7 @@ namespace NSubstitute
             _resultSetter = resultSetter;
             _routeFactory = routeFactory;
 
-            RecordAndReplayOnNextCall();
+            SetRoute<RecordReplayRoute>();
         }
 
         public void SetRoute<TRoute>(params object[] routeArguments) where TRoute : IRoute
@@ -27,27 +27,8 @@ namespace NSubstitute
         {
             _context.LastCallRouter(this);
             var result = _currentRoute.Handle(call);
-            RecordAndReplayOnNextCall();
-            return result;
-        }
-
-        private void RecordAndReplayOnNextCall()
-        {
             SetRoute<RecordReplayRoute>();
-        }
-
-        public void AssertNextCallHasBeenReceived()
-        {
-            SetRoute<CheckCallReceivedRoute>();
-        }
-
-        public void RaiseEventFromNextCall(Func<ICall, object[]> argumentsToRaiseEventWith)
-        {
-            SetRoute<RaiseEventRoute>(argumentsToRaiseEventWith);
-        }
-
-        public void AddCallbackForNextCall(Action<object[]> callbackWithArguments)
-        {
+            return result;
         }
 
         public void LastCallShouldReturn<T>(T valueToReturn)

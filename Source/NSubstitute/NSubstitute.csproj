@@ -83,6 +83,7 @@
     <Compile Include="CallSpecificationFactory.cs" />
     <Compile Include="CheckCallReceivedRoute.cs" />
     <Compile Include="CheckReceivedCallHandler.cs" />
+    <Compile Include="DoWhenCalledRoute.cs" />
     <Compile Include="EventHandlerRegistry.cs" />
     <Compile Include="EventRaiser.cs" />
     <Compile Include="EventSubscriptionHandler.cs" />

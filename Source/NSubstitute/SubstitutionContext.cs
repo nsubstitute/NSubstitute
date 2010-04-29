@@ -49,7 +49,7 @@ namespace NSubstitute
         {
             if (_getArgumentsForRaisingEvent != null)
             {
-                callRouter.RaiseEventFromNextCall(_getArgumentsForRaisingEvent);
+                callRouter.SetRoute<RaiseEventRoute>(_getArgumentsForRaisingEvent);
                 _getArgumentsForRaisingEvent = null;
             }
         }

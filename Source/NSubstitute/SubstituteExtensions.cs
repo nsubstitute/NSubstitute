@@ -13,8 +13,8 @@ namespace NSubstitute
         public static T Received<T>(this T substitute)
         {
             var context = SubstitutionContext.Current;
-            var router = context.GetCallRouterFor(substitute);            
-            router.AssertNextCallHasBeenReceived();
+            var router = context.GetCallRouterFor(substitute);
+            router.SetRoute<CheckCallReceivedRoute>();
             return substitute;
         }
         
