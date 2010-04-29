@@ -81,6 +81,7 @@
     <Compile Include="CallNotReceivedException.cs" />
     <Compile Include="CallSpecification.cs" />
     <Compile Include="CallSpecificationFactory.cs" />
+    <Compile Include="CheckCallReceivedRoute.cs" />
     <Compile Include="CheckReceivedCallHandler.cs" />
     <Compile Include="EventHandlerRegistry.cs" />
     <Compile Include="EventRaiser.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="IProxyFactory.cs" />
     <Compile Include="IReflectionHelper.cs" />
     <Compile Include="IResultSetter.cs" />
+    <Compile Include="IRoute.cs" />
     <Compile Include="ISubstitutionContext.cs" />
     <Compile Include="ISubstituteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,7 +116,9 @@
     <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleInvocationMapper.cs" />
     <Compile Include="Raise.cs" />
+    <Compile Include="RaiseEventRoute.cs" />
     <Compile Include="RecordCallHandler.cs" />
+    <Compile Include="RecordReplayRoute.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="ResultSetter.cs" />
     <Compile Include="Substitute.cs" />

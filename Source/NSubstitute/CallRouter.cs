@@ -11,7 +11,7 @@ namespace NSubstitute
         readonly ICallHandler _eventSubscriptionHandler;
         readonly IResultSetter _resultSetter;
         readonly IEventRaiser _eventRaiser;
-        Func<ICall, object> _handleCall;
+        IRoute _currentRoute;
 
         public CallRouter(ISubstitutionContext context, ICallHandler recordingCallHandler, 
                             ICallHandler propertySetterHandler, ICallHandler eventSubscriptionHandler, 
@@ -25,39 +25,30 @@ namespace NSubstitute
             _eventSubscriptionHandler = eventSubscriptionHandler;
             _resultSetter = resultSetter;
             _eventRaiser = eventRaiser;
-            RecordNextCall();
+            RecordAndReplayOnNextCall();
         }
 
         public object Route(ICall call)
         {
             _context.LastCallRouter(this);
-            var result = _handleCall(call);
-            RecordNextCall();
+            var result = _currentRoute.Handle(call);
+            RecordAndReplayOnNextCall();
             return result;
         }
 
-        private void RecordNextCall()
+        private void RecordAndReplayOnNextCall()
         {
-            _handleCall = delegate(ICall call)
-                              {
-                                  _eventSubscriptionHandler.Handle(call);
-                                  _propertySetterHandler.Handle(call);
-                                  return _recordingCallHandler.Handle(call);
-                              };
+            _currentRoute = new RecordReplayRoute(_eventSubscriptionHandler, _propertySetterHandler, _recordingCallHandler);
         }
 
         public void AssertNextCallHasBeenReceived()
         {
-            _handleCall = _checkReceivedCallHandler.Handle;
+            _currentRoute = new CheckCallReceivedRoute(_checkReceivedCallHandler);
         }
 
         public void RaiseEventFromNextCall(Func<ICall, object[]> argumentsToRaiseEventWith)
         {
-            _handleCall = delegate(ICall call)
-                              {
-                                  _eventRaiser.Raise(call, argumentsToRaiseEventWith(call));
-                                  return null;
-                              }; 
+            _currentRoute = new RaiseEventRoute(_eventRaiser, argumentsToRaiseEventWith);
         }
 
         public void AddCallbackForNextCall(Action<object[]> callbackWithArguments)
