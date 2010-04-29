@@ -121,6 +121,7 @@
     <Compile Include="RecordReplayRoute.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="ResultSetter.cs" />
+    <Compile Include="RouteFactory.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="SubstitutionContext.cs" />

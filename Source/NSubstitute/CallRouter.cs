@@ -12,6 +12,7 @@ namespace NSubstitute
         readonly IResultSetter _resultSetter;
         readonly IEventRaiser _eventRaiser;
         IRoute _currentRoute;
+        private RouteFactory _routeFactory;
 
         public CallRouter(ISubstitutionContext context, ICallHandler recordingCallHandler, 
                             ICallHandler propertySetterHandler, ICallHandler eventSubscriptionHandler, 
@@ -25,6 +26,8 @@ namespace NSubstitute
             _eventSubscriptionHandler = eventSubscriptionHandler;
             _resultSetter = resultSetter;
             _eventRaiser = eventRaiser;
+            _routeFactory = new RouteFactory(_eventSubscriptionHandler, _propertySetterHandler, _recordingCallHandler, _checkReceivedCallHandler, _eventRaiser);
+
             RecordAndReplayOnNextCall();
         }
 
@@ -38,17 +41,17 @@ namespace NSubstitute
 
         private void RecordAndReplayOnNextCall()
         {
-            _currentRoute = new RecordReplayRoute(_eventSubscriptionHandler, _propertySetterHandler, _recordingCallHandler);
+            _currentRoute = _routeFactory.Create<RecordReplayRoute>();
         }
 
         public void AssertNextCallHasBeenReceived()
         {
-            _currentRoute = new CheckCallReceivedRoute(_checkReceivedCallHandler);
+            _currentRoute = _routeFactory.Create<CheckCallReceivedRoute>();
         }
 
         public void RaiseEventFromNextCall(Func<ICall, object[]> argumentsToRaiseEventWith)
         {
-            _currentRoute = new RaiseEventRoute(_eventRaiser, argumentsToRaiseEventWith);
+            _currentRoute = _routeFactory.Create<RaiseEventRoute>(argumentsToRaiseEventWith);
         }
 
         public void AddCallbackForNextCall(Action<object[]> callbackWithArguments)
