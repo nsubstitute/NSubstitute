@@ -11,13 +11,14 @@ namespace NSubstitute
         private ICallHandler _checkReceivedCallHandler;
         private IEventRaiser _eventRaiser;
 
-        public RouteFactory(ICallHandler eventSubscriptionHandler, ICallHandler propertySetterHandler, ICallHandler recordingCallHandler, ICallHandler checkReceivedCallHandler, IEventRaiser eventRaiser)
+        public RouteFactory(CallStack callStack, CallResults callResults, ReflectionHelper reflectionHelper, CallSpecificationFactory callSpecificationFactory, ResultSetter resultSetter)
         {
-            _eventSubscriptionHandler = eventSubscriptionHandler;
-            _propertySetterHandler = propertySetterHandler;
-            _recordingCallHandler = recordingCallHandler;
-            _checkReceivedCallHandler = checkReceivedCallHandler;
-            _eventRaiser = eventRaiser;
+            _recordingCallHandler = new RecordCallHandler(callStack, callResults);
+            _checkReceivedCallHandler = new CheckReceivedCallHandler(callStack, callResults, callSpecificationFactory);
+            _propertySetterHandler = new PropertySetterHandler(reflectionHelper, resultSetter);
+            var eventHandlerRegistry = new EventHandlerRegistry();
+            _eventSubscriptionHandler = new EventSubscriptionHandler(eventHandlerRegistry);
+            _eventRaiser = new EventRaiser(eventHandlerRegistry);
         }
 
         public IRoute Create<TRoute>(params object[] routeArguments) where TRoute : IRoute
