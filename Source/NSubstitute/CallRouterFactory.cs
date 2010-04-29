@@ -16,9 +16,8 @@ namespace NSubstitute
             var eventSubscriptionHandler = new EventSubscriptionHandler(eventHandlerRegistry);
             var eventRaiser = new EventRaiser(eventHandlerRegistry);
 
-            return new CallRouter(substitutionContext, recordingCallHandler, 
-                                    propertySetterHandler, eventSubscriptionHandler, 
-                                    checkReceivedCallHandler, resultSetter, eventRaiser);
+            return new CallRouter(substitutionContext, resultSetter, 
+                                    new RouteFactory(eventSubscriptionHandler, propertySetterHandler, recordingCallHandler, checkReceivedCallHandler, eventRaiser));
         }
     }
 }

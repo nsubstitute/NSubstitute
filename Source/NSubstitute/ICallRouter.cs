@@ -10,5 +10,6 @@ namespace NSubstitute
         void AssertNextCallHasBeenReceived();
         void RaiseEventFromNextCall(Func<ICall, object[]> argumentsToRaiseEventWith);
         void AddCallbackForNextCall(Action<object[]> callbackWithArguments);
+        void SetRoute<TRoute>(params object[] routeArguments) where TRoute : IRoute;
     }
 }

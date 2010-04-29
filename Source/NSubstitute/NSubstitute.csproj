@@ -106,6 +106,7 @@
     <Compile Include="IReflectionHelper.cs" />
     <Compile Include="IResultSetter.cs" />
     <Compile Include="IRoute.cs" />
+    <Compile Include="IRouteFactory.cs" />
     <Compile Include="ISubstitutionContext.cs" />
     <Compile Include="ISubstituteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

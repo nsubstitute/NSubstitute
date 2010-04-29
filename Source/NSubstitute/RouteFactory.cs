@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NSubstitute
 {
-    public class RouteFactory
+    public class RouteFactory : IRouteFactory
     {
         private ICallHandler _eventSubscriptionHandler;
         private ICallHandler _propertySetterHandler;

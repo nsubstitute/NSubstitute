@@ -5,30 +5,22 @@ namespace NSubstitute
     public class CallRouter : ICallRouter
     {
         readonly ISubstitutionContext _context;
-        readonly ICallHandler _recordingCallHandler;
-        readonly ICallHandler _checkReceivedCallHandler;
-        readonly ICallHandler _propertySetterHandler;
-        readonly ICallHandler _eventSubscriptionHandler;
         readonly IResultSetter _resultSetter;
-        readonly IEventRaiser _eventRaiser;
         IRoute _currentRoute;
-        private RouteFactory _routeFactory;
+        private IRouteFactory _routeFactory;
 
-        public CallRouter(ISubstitutionContext context, ICallHandler recordingCallHandler, 
-                            ICallHandler propertySetterHandler, ICallHandler eventSubscriptionHandler, 
-                            ICallHandler checkReceivedCallHandler, IResultSetter resultSetter, 
-                            IEventRaiser eventRaiser)
+        public CallRouter(ISubstitutionContext context, IResultSetter resultSetter, IRouteFactory routeFactory)
         {
             _context = context;
-            _recordingCallHandler = recordingCallHandler;
-            _checkReceivedCallHandler = checkReceivedCallHandler;
-            _propertySetterHandler = propertySetterHandler;
-            _eventSubscriptionHandler = eventSubscriptionHandler;
             _resultSetter = resultSetter;
-            _eventRaiser = eventRaiser;
-            _routeFactory = new RouteFactory(_eventSubscriptionHandler, _propertySetterHandler, _recordingCallHandler, _checkReceivedCallHandler, _eventRaiser);
+            _routeFactory = routeFactory;
 
             RecordAndReplayOnNextCall();
+        }
+
+        public void SetRoute<TRoute>(params object[] routeArguments) where TRoute : IRoute
+        {
+            _currentRoute = _routeFactory.Create<TRoute>(routeArguments);
         }
 
         public object Route(ICall call)
@@ -41,17 +33,17 @@ namespace NSubstitute
 
         private void RecordAndReplayOnNextCall()
         {
-            _currentRoute = _routeFactory.Create<RecordReplayRoute>();
+            SetRoute<RecordReplayRoute>();
         }
 
         public void AssertNextCallHasBeenReceived()
         {
-            _currentRoute = _routeFactory.Create<CheckCallReceivedRoute>();
+            SetRoute<CheckCallReceivedRoute>();
         }
 
         public void RaiseEventFromNextCall(Func<ICall, object[]> argumentsToRaiseEventWith)
         {
-            _currentRoute = _routeFactory.Create<RaiseEventRoute>(argumentsToRaiseEventWith);
+            SetRoute<RaiseEventRoute>(argumentsToRaiseEventWith);
         }
 
         public void AddCallbackForNextCall(Action<object[]> callbackWithArguments)

@@ -9,38 +9,37 @@ namespace NSubstitute.Specs
         {
             protected ISubstitutionContext _context;
             protected ICall _call;
-            protected ICallHandler _recordingCallHandler;
-            protected ICallHandler _propertySetterHandler;
-            protected ICallHandler _checkReceivedCallHandler;
-            protected ICallHandler _eventSubscriptionHandler;
             protected IResultSetter _resultSetter;
-            protected IEventRaiser _eventRaiser;
+            protected IRouteFactory _routeFactory;
 
             public override void Context()
             {
                 _context = mock<ISubstitutionContext>();
-                _recordingCallHandler = mock<ICallHandler>();
-                _checkReceivedCallHandler = mock<ICallHandler>();
-                _propertySetterHandler = mock<ICallHandler>();
-                _eventSubscriptionHandler = mock<ICallHandler>();
-                _eventRaiser = mock<IEventRaiser>();
                 _call = mock<ICall>();
                 _resultSetter = mock<IResultSetter>();
+                _routeFactory = mock<IRouteFactory>();
             }
 
             public override CallRouter CreateSubjectUnderTest()
             {
-                return new CallRouter(_context, _recordingCallHandler, 
-                                        _propertySetterHandler, _eventSubscriptionHandler, 
-                                        _checkReceivedCallHandler, _resultSetter, 
-                                        _eventRaiser);
-            } 
+                return new CallRouter(_context, _resultSetter, _routeFactory);
+            }
+
+            protected IRoute CreateRouteThatReturns(object returnValue)
+            {
+                var route = mock<IRoute>();
+                route.stub(x => x.Handle(_call)).Return(returnValue);
+                return route;
+            }
         }
 
-        public class When_a_member_is_called : Concern
+        public class When_a_route_is_set_and_a_member_is_called : Concern
         {
+            readonly object _returnValueFromRoute = new object();
+            readonly object _returnValueFromRecordReplayRoute = new object();
             object _result;
-            int _returnValueFromRecordingHandler;
+            IRoute _route;
+            IRoute _recordReplayRoute;
 
             [Test]
             public void Should_update_last_call_router_on_substitution_context()
@@ -49,34 +48,35 @@ namespace NSubstitute.Specs
             }
 
             [Test]
-            public void Should_send_call_to_property_setter()
+            public void Should_send_call_to_route_and_return_response()
             {
-                _propertySetterHandler.received(x => x.Handle(_call));
+                Assert.That(_result, Is.SameAs(_returnValueFromRoute));
             }
 
             [Test]
-            public void Should_send_call_to_event_subscription()
+            public void Should_send_next_call_to_record_replay_route_by_default()
             {
-                _eventSubscriptionHandler.received(x => x.Handle(_call));
-            }
-
-            [Test]
-            public void Should_record_call_and_return_value_from_handler()
-            {
-                Assert.That(_result, Is.EqualTo(_returnValueFromRecordingHandler));
+                var nextResult = sut.Route(_call);
+                Assert.That(nextResult, Is.EqualTo(_returnValueFromRecordReplayRoute));
             }
 
             public override void Because()
             {
+                sut.SetRoute<SampleRoute>();
                 _result = sut.Route(_call);
             }
 
             public override void Context()
             {
                 base.Context();
-                _returnValueFromRecordingHandler = 12;
-                _recordingCallHandler.stub(x => x.Handle(_call)).Return(_returnValueFromRecordingHandler);
+                _recordReplayRoute = CreateRouteThatReturns(_returnValueFromRecordReplayRoute);
+                _route = CreateRouteThatReturns(_returnValueFromRoute);
+                
+                _routeFactory.stub(x => x.Create<SampleRoute>()).Return(_route);
+                _routeFactory.stub(x => x.Create<RecordReplayRoute>()).Return(_recordReplayRoute);
             }
+
+            abstract class SampleRoute : IRoute { public abstract object Handle(ICall call); }
         }
 
         public class When_setting_result_of_last_call : Concern
@@ -92,62 +92,6 @@ namespace NSubstitute.Specs
             public override void Because()
             {
                 sut.LastCallShouldReturn(_valueToReturn);
-            }
-        }
-
-        public class When_told_to_assert_the_next_call_has_been_received : Concern
-        {
-            object _result;
-            object _valueFromCheckReceivedHandler;
-
-            [Test]
-            public void Should_check_call_was_received_and_return_value_from_handler()
-            {
-                Assert.That(_result, Is.EqualTo(_valueFromCheckReceivedHandler));
-            }
-
-            [Test]
-            public void Next_call_should_be_recorded()
-            {
-                sut.Route(_call);
-                _recordingCallHandler.received(x => x.Handle(_call));
-            }
-
-            public override void Because()
-            {
-                sut.AssertNextCallHasBeenReceived();
-                _result = sut.Route(_call);
-            }
-
-            public override void Context()
-            {
-                base.Context();
-                _valueFromCheckReceivedHandler = new object();
-                _checkReceivedCallHandler.stub(x => x.Handle(_call)).Return(_valueFromCheckReceivedHandler);
-            }
-        }
-
-        public class When_told_to_raise_event_for_the_next_call: Concern
-        {
-            object _result;
-            readonly object[] _eventArguments = {new object(), new object()};
-
-            [Test]
-            public void Should_return_null()
-            {
-                Assert.That(_result, Is.Null);
-            }
-
-            [Test]
-            public void Should_raise_event_with_arguments()
-            {
-                _eventRaiser.received(x => x.Raise(_call, _eventArguments));
-            }
-
-            public override void Because()
-            {
-                sut.RaiseEventFromNextCall(x => _eventArguments);
-                _result = sut.Route(_call);
             }
         }
     }
