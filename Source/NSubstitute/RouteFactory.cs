@@ -9,16 +9,15 @@ namespace NSubstitute
         private ICallHandler _propertySetterHandler;
         private ICallHandler _recordingCallHandler;
         private ICallHandler _checkReceivedCallHandler;
-        private IEventRaiser _eventRaiser;
+        private EventHandlerRegistry _eventHandlerRegistry;
 
         public RouteFactory(SubstituteState substituteState)
         {
             _recordingCallHandler = new RecordCallHandler(substituteState.CallStack, substituteState.CallResults);
             _checkReceivedCallHandler = new CheckReceivedCallHandler(substituteState.CallStack, substituteState.CallResults, substituteState.CallSpecificationFactory);
             _propertySetterHandler = new PropertySetterHandler(substituteState.ReflectionHelper, substituteState.ResultSetter);
-            var eventHandlerRegistry = new EventHandlerRegistry();
-            _eventSubscriptionHandler = new EventSubscriptionHandler(eventHandlerRegistry);
-            _eventRaiser = new EventRaiser(eventHandlerRegistry);
+            _eventHandlerRegistry = new EventHandlerRegistry();
+            _eventSubscriptionHandler = new EventSubscriptionHandler(_eventHandlerRegistry);
         }
 
         public IRoute Create<TRoute>(params object[] routeArguments) where TRoute : IRoute
@@ -42,7 +41,8 @@ namespace NSubstitute
 
         public IRoute RaiseEventFromNextCall(Func<ICall, object[]> argumentsToRaiseEventWith)
         {
-            return new RaiseEventRoute(_eventRaiser, argumentsToRaiseEventWith);
+            var raiseEventHandler = new RaiseEventHandler(_eventHandlerRegistry, argumentsToRaiseEventWith);
+            return new RaiseEventRoute(raiseEventHandler);
         }
     }
 }

@@ -90,7 +90,7 @@
     <Compile Include="CallSpecificationSpecs.cs" />
     <Compile Include="CheckReceivedCallHandlerSpecs.cs" />
     <Compile Include="EventHandlerRegistrySpec.cs" />
-    <Compile Include="EventRaiserSpec.cs" />
+    <Compile Include="RaiseEventHandlerSpec.cs" />
     <Compile Include="EventSubscriptionHandlerSpec.cs" />
     <Compile Include="PropertySetterHandlerSpecs.cs" />
     <Compile Include="FakeCall.cs" />

@@ -4,18 +4,16 @@ namespace NSubstitute
 {
     public class RaiseEventRoute : IRoute
     {
-        private readonly IEventRaiser _eventRaiser;
-        private readonly Func<ICall, object[]> _argumentsToRaiseEventWith;
+        private readonly ICallHandler _raiseEventHandler;
 
-        public RaiseEventRoute(IEventRaiser eventRaiser, Func<ICall, object[]> argumentsToRaiseEventWith)
+        public RaiseEventRoute(ICallHandler raiseEventHandler)
         {
-            _eventRaiser = eventRaiser;
-            _argumentsToRaiseEventWith = argumentsToRaiseEventWith;
+            _raiseEventHandler = raiseEventHandler;
         }
 
         public object Handle(ICall call)
         {
-            _eventRaiser.Raise(call, _argumentsToRaiseEventWith(call));
+            _raiseEventHandler.Handle(call);
             return null;
         }
     }

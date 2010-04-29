@@ -7,53 +7,47 @@ using Rhino.Mocks;
 
 namespace NSubstitute.Specs
 {
-    public class EventRaiserSpec
+    public class RaiseEventHandlerSpec
     {
-        public class Concern : ConcernFor<EventRaiser>
-        {
-            protected IEventHandlerRegistry _eventHandlerRegistry;
-
-            public override void Context()
-            {
-                _eventHandlerRegistry = mock<IEventHandlerRegistry>();
-            }
-
-            public override EventRaiser CreateSubjectUnderTest()
-            {
-                return new EventRaiser(_eventHandlerRegistry);
-            }
-        }
-
-        public class When_raising_an_event : Concern
+        public class When_raising_an_event_from_a_call : ConcernFor<RaiseEventHandler>
         {
             private const string SampleEventName = "Sample";
+            IEventHandlerRegistry _eventHandlerRegistry;
             EventHandler<EventArgs> _eventHandler;
             ICall _call;
             object[] _eventArguments;
+            Func<ICall, object[]> _getEventArguments;
             IEnumerable<object> _handlers;
 
-            public override void Context()
+            [Test]
+            public void Should_raise_event_with_arguments()
             {
-                base.Context();
-                var subscribeMethodInfo = typeof(SampleClassWithEvent).GetEvent(SampleEventName).GetAddMethod();
-                _call = CreateCall(subscribeMethodInfo, new object[0]);
-
-                _eventArguments = new[] { new object(), EventArgs.Empty };
-
-                _eventHandler = mock<EventHandler<EventArgs>>();
-                _handlers = new object[] { _eventHandler };
-                _eventHandlerRegistry.Stub(x => x.GetHandlers(SampleEventName)).Return(_handlers);
+                _eventHandler.AssertWasCalled(x => x.Invoke(_eventArguments[0], (EventArgs) _eventArguments[1]));
             }
 
             public override void Because()
             {
-                sut.Raise(_call, _eventArguments);
+                sut.Handle(_call);
             }
 
-            [Test]
-            public void Should_call_event_with_arguments()
+            public override void Context()
             {
-                _eventHandler.AssertWasCalled(x => x.Invoke(_eventArguments[0], (EventArgs) _eventArguments[1]));
+                var subscribeMethodInfo = typeof(SampleClassWithEvent).GetEvent(SampleEventName).GetAddMethod();
+                _call = CreateCall(subscribeMethodInfo, new object[0]);
+
+                _eventArguments = new[] { new object(), EventArgs.Empty };
+                _getEventArguments = mock <Func<ICall, object[]>>();
+                _getEventArguments.stub(x => x(_call)).Return(_eventArguments);
+
+                _eventHandler = mock<EventHandler<EventArgs>>();
+                _handlers = new object[] { _eventHandler };
+                _eventHandlerRegistry = mock<IEventHandlerRegistry>();
+                _eventHandlerRegistry.Stub(x => x.GetHandlers(SampleEventName)).Return(_handlers);
+            }
+
+            public override RaiseEventHandler CreateSubjectUnderTest()
+            {
+                return new RaiseEventHandler(_eventHandlerRegistry, _getEventArguments);
             }
 
             protected ICall CreateCall(MethodInfo subscribeMethodInfo, object[] arguments)

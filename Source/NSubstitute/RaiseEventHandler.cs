@@ -3,25 +3,29 @@ using System.Linq;
 
 namespace NSubstitute
 {
-    public class EventRaiser : IEventRaiser
+    public class RaiseEventHandler : ICallHandler
     {
         readonly IEventHandlerRegistry _eventHandlerRegistry;
+        readonly Func<ICall, object[]> _getEventArguments;
 
-        public EventRaiser(IEventHandlerRegistry eventHandlerRegistry)
+        public RaiseEventHandler(IEventHandlerRegistry eventHandlerRegistry, Func<ICall, object[]> getEventArguments)
         {
             _eventHandlerRegistry = eventHandlerRegistry;
+            _getEventArguments = getEventArguments;
         }
 
-        public void Raise(ICall call, object[] argumentsToRaiseEventWith)
+        public object Handle(ICall call)
         {
             var methodInfo = call.GetMethodInfo();
             var eventInfo = methodInfo.DeclaringType.GetEvents().First(
                 x => (x.GetAddMethod() == methodInfo) || (x.GetRemoveMethod() == methodInfo));
             var handlers = _eventHandlerRegistry.GetHandlers(eventInfo.Name);
+            var eventArguments = _getEventArguments(call);
             foreach (Delegate handler in handlers)
             {
-                handler.DynamicInvoke(argumentsToRaiseEventWith);
+                handler.DynamicInvoke(eventArguments);
             }
+            return null;
         }
     }
 }

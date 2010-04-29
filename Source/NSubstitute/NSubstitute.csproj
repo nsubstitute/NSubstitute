@@ -85,7 +85,7 @@
     <Compile Include="CheckReceivedCallHandler.cs" />
     <Compile Include="DoWhenCalledRoute.cs" />
     <Compile Include="EventHandlerRegistry.cs" />
-    <Compile Include="EventRaiser.cs" />
+    <Compile Include="RaiseEventHandler.cs" />
     <Compile Include="EventSubscriptionHandler.cs" />
     <Compile Include="Exceptions\AmbiguousParametersException.cs" />
     <Compile Include="Exceptions\NotASubstituteException.cs" />
