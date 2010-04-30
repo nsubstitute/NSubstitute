@@ -85,6 +85,8 @@
     <Compile Include="CheckReceivedCallHandler.cs" />
     <Compile Include="DoWhenCalledRoute.cs" />
     <Compile Include="EventHandlerRegistry.cs" />
+    <Compile Include="IRouteParts.cs" />
+    <Compile Include="IRoutePartsFactory.cs" />
     <Compile Include="RaiseEventHandler.cs" />
     <Compile Include="EventSubscriptionHandler.cs" />
     <Compile Include="Exceptions\AmbiguousParametersException.cs" />
@@ -123,7 +125,10 @@
     <Compile Include="RecordReplayRoute.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="ResultSetter.cs" />
+    <Compile Include="ReturnDefaultForCallHandler.cs" />
     <Compile Include="RouteFactory.cs" />
+    <Compile Include="RouteParts.cs" />
+    <Compile Include="RoutePartsFactory.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="SubstituteState.cs" />

@@ -101,9 +101,13 @@
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptorSpecs.cs" />
     <Compile Include="ReceivedExtensionSpec.cs" />
     <Compile Include="RecordCallHandlerSpecs.cs" />
+    <Compile Include="ReturnDefaultForCallHandlerSpecs.cs" />
     <Compile Include="ReturnExtensionSpec.cs" />
     <Compile Include="CallRouterSpecs.cs" />
     <Compile Include="ResultSetterSpecs.cs" />
+    <Compile Include="RouteFactorySpecs.cs" />
+    <Compile Include="RoutePartsSpec.cs" />
+    <Compile Include="RouteSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="SubstituteFactorySpecs.cs" />

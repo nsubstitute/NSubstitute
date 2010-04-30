@@ -2,22 +2,18 @@
 {
     public class RecordReplayRoute : IRoute
     {
-        private readonly ICallHandler _eventSubscriptionHandler;
-        private readonly ICallHandler _propertySetterHandler;
-        private readonly ICallHandler _recordingCallHandler;
+        private readonly IRouteParts _routeParts;
 
-        public RecordReplayRoute(ICallHandler eventSubscriptionHandler, ICallHandler propertySetterHandler, ICallHandler recordingCallHandler)
+        public RecordReplayRoute(IRouteParts routeParts)
         {
-            _eventSubscriptionHandler = eventSubscriptionHandler;
-            _propertySetterHandler = propertySetterHandler;
-            _recordingCallHandler = recordingCallHandler;
+            _routeParts = routeParts;
         }
 
         public object Handle(ICall call)
         {
-            _eventSubscriptionHandler.Handle(call);
-            _propertySetterHandler.Handle(call);
-            return _recordingCallHandler.Handle(call); 
+            _routeParts.GetPart<EventSubscriptionHandler>().Handle(call);
+            _routeParts.GetPart<PropertySetterHandler>().Handle(call);
+            return _routeParts.GetPart<RecordCallHandler>().Handle(call); 
         }
     }
 }

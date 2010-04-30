@@ -4,17 +4,17 @@ namespace NSubstitute
 {
     public class RaiseEventRoute : IRoute
     {
-        private readonly ICallHandler _raiseEventHandler;
+        private readonly IRouteParts _routeParts;
 
-        public RaiseEventRoute(ICallHandler raiseEventHandler)
+        public RaiseEventRoute(IRouteParts routeParts)
         {
-            _raiseEventHandler = raiseEventHandler;
+            _routeParts = routeParts;
         }
 
         public object Handle(ICall call)
         {
-            _raiseEventHandler.Handle(call);
-            return null;
+            _routeParts.GetPart<RaiseEventHandler>().Handle(call);
+            return _routeParts.GetPart<ReturnDefaultForCallHandler>().Handle(call);            
         }
     }
 }

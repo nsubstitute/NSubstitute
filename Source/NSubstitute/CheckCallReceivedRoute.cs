@@ -4,16 +4,17 @@ namespace NSubstitute
 {
     public class CheckCallReceivedRoute : IRoute
     {
-        private readonly ICallHandler _checkReceivedCallHandler;
+        private readonly IRouteParts _routeParts;
 
-        public CheckCallReceivedRoute(ICallHandler checkReceivedCallHandler)
+        public CheckCallReceivedRoute(IRouteParts routeParts)
         {
-            _checkReceivedCallHandler = checkReceivedCallHandler;
+            _routeParts = routeParts;
         }
 
         public object Handle(ICall call)
         {
-            return _checkReceivedCallHandler.Handle(call);
+            _routeParts.GetPart<CheckReceivedCallHandler>().Handle(call);
+            return _routeParts.GetPart<ReturnDefaultForCallHandler>().Handle(call);
         }
     }
 }
