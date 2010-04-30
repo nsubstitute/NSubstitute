@@ -84,11 +84,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentEqualsSpecificationSpecs.cs" />
+    <Compile Include="CallActionsSpecs.cs" />
     <Compile Include="CallRouterFactorySpecs.cs" />
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />
     <Compile Include="CallSpecificationSpecs.cs" />
     <Compile Include="CheckReceivedCallHandlerSpecs.cs" />
+    <Compile Include="DoActionsCallHandlerSpecs.cs" />
     <Compile Include="EventHandlerRegistrySpec.cs" />
     <Compile Include="RaiseEventHandlerSpec.cs" />
     <Compile Include="EventSubscriptionHandlerSpec.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="RouteFactorySpecs.cs" />
     <Compile Include="RoutePartsSpec.cs" />
     <Compile Include="RouteSpecs.cs" />
+    <Compile Include="SetActionsForCallHandlerSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="SubstituteFactorySpecs.cs" />

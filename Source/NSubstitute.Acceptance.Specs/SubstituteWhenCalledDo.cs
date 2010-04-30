@@ -9,7 +9,6 @@ namespace NSubstitute.Acceptance.Specs
         private ISomething _something;
 
         [Test]
-        [Pending]
         public void Execute_when_called()
         {
             var called = false;
@@ -21,7 +20,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Capture_arguments_when_called()
         {
             int firstArgument = 0;

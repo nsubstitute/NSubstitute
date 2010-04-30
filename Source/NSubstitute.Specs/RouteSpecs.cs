@@ -25,14 +25,14 @@ namespace NSubstitute.Specs
 
             public override void Context()
             {
-                var assemblyContainingRoutes = Assembly.GetAssembly(typeof (IRoute));
+                var assemblyContainingRoutes = Assembly.GetAssembly(typeof(IRoute));
                 _allRouteTypes = assemblyContainingRoutes.GetTypes().Where(x => ImplementsRouteInterface(x));
             }
 
             private bool ImplementsRouteInterface(Type type)
             {
                 if (type == typeof(IRoute)) return false;
-                return typeof (IRoute).IsAssignableFrom(type);
+                return typeof(IRoute).IsAssignableFrom(type);
             }
 
             private void AssertHasOneConstructor(Type type)
@@ -46,7 +46,7 @@ namespace NSubstitute.Specs
                 var constructor = type.GetConstructors().First();
                 var constructorParameters = constructor.GetParameters();
                 Assert.That(constructorParameters.Length, Is.EqualTo(1), type.Name);
-                Assert.That(constructorParameters.First().ParameterType, Is.EqualTo(typeof (IRouteParts)), type.Name);
+                Assert.That(constructorParameters.First().ParameterType, Is.EqualTo(typeof(IRouteParts)), type.Name);
             }
         }
 
@@ -76,7 +76,7 @@ namespace NSubstitute.Specs
 
             public override IRoute CreateSubjectUnderTest()
             {
-                return (IRoute) Activator.CreateInstance(typeof (TRoute), _routeParts);
+                return (IRoute)Activator.CreateInstance(typeof(TRoute), _routeParts);
             }
 
             protected void AssertPartHandledCall<TPart>() where TPart : ICallHandler
@@ -128,6 +128,12 @@ namespace NSubstitute.Specs
                 AssertPartHandledCall<RecordCallHandler>();
             }
 
+            [Test]
+            public void Should_do_matching_call_actions()
+            {
+                AssertPartHandledCall<DoActionsCallHandler>();
+            }
+
             public override void Context()
             {
                 base.Context();
@@ -165,5 +171,20 @@ namespace NSubstitute.Specs
             }
         }
 
+
+        public class When_requesting_to_do_an_action_on_a_call : WithRoute<DoWhenCalledRoute>
+        {
+            [Test]
+            public void Should_add_action_for_call_specification()
+            {
+                AssertPartHandledCall<SetActionForCallHandler>();
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                ExpectReturnValueToComeFromPart<ReturnDefaultForCallHandler>();
+            }
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace NSubstitute
+﻿using System;
+
+namespace NSubstitute
 {
     public class SubstituteState
     {
@@ -6,6 +8,7 @@
         {
             CallStack = new CallStack();
             CallResults = new CallResults();
+            CallActions = new CallActions();
             ReflectionHelper = new ReflectionHelper();
             CallSpecificationFactory = new CallSpecificationFactory(substitutionContext);
             ResultSetter = new ResultSetter(CallStack, CallResults, CallSpecificationFactory);
@@ -18,5 +21,6 @@
         public ICallSpecificationFactory CallSpecificationFactory { get; private set; }
         public IResultSetter ResultSetter { get; private set; }
         public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
+        public ICallActions CallActions { get; private set; }
     }
 }

@@ -78,13 +78,16 @@
   <ItemGroup>
     <Compile Include="Arg.cs" />
     <Compile Include="ArgumentSpecification.cs" />
+    <Compile Include="CallActions.cs" />
     <Compile Include="CallNotReceivedException.cs" />
     <Compile Include="CallSpecification.cs" />
     <Compile Include="CallSpecificationFactory.cs" />
     <Compile Include="CheckCallReceivedRoute.cs" />
     <Compile Include="CheckReceivedCallHandler.cs" />
+    <Compile Include="DoActionsCallHandler.cs" />
     <Compile Include="DoWhenCalledRoute.cs" />
     <Compile Include="EventHandlerRegistry.cs" />
+    <Compile Include="ICallActions.cs" />
     <Compile Include="IRouteParts.cs" />
     <Compile Include="IRoutePartsFactory.cs" />
     <Compile Include="RaiseEventHandler.cs" />
@@ -129,6 +132,7 @@
     <Compile Include="RouteFactory.cs" />
     <Compile Include="RouteParts.cs" />
     <Compile Include="RoutePartsFactory.cs" />
+    <Compile Include="SetActionForCallHandler.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="SubstituteState.cs" />
