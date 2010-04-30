@@ -9,7 +9,7 @@ CONFIG = "Debug"
 CLEAN.include(OUTPUT_PATH)
 
 task :default => ["clean", "all"]
-task :all => [:compile, :test]
+task :all => [:compile, :test, :specs]
   
 desc "Build solutions using MSBuild"
 task :compile do
@@ -21,13 +21,19 @@ end
 
 desc "Runs tests with NUnit"
 task :test => [:compile] do
-    tests = FileList["#{OUTPUT_PATH}/**/*.Specs.dll"].exclude(/obj\//)
-    sh "#{NUNIT_EXE} #{tests} /nologo /exclude=Pending /xml=#{OUTPUT_PATH}/TestResults.xml"
+    tests = FileList["#{OUTPUT_PATH}/**/NSubstitute.Specs.dll"].exclude(/obj\//)
+    sh "#{NUNIT_EXE} #{tests} /nologo /exclude=Pending /xml=#{OUTPUT_PATH}/UnitTestResults.xml"
 end
 
-desc "Runs pending acceptance tests with NUnit"
+desc "Run acceptance specs with NUnit"
+task :specs => [:compile] do
+    tests = FileList["#{OUTPUT_PATH}/**/NSubstitute.Acceptance.Specs.dll"].exclude(/obj\//)
+    sh "#{NUNIT_EXE} #{tests} /nologo /exclude=Pending /xml=#{OUTPUT_PATH}/SpecResults.xml"
+end
+
+desc "Runs pending acceptance specs with NUnit"
 task :pending => [:compile] do
     acceptance_tests = FileList["#{OUTPUT_PATH}/**/NSubstitute.Acceptance.Specs.dll"].exclude(/obj\//)
-    sh "#{NUNIT_EXE} #{acceptance_tests} /nologo /include=Pending /xml=#{OUTPUT_PATH}/PendingAcceptanceTestResults.xml"
+    sh "#{NUNIT_EXE} #{acceptance_tests} /nologo /include=Pending /xml=#{OUTPUT_PATH}/PendingSpecResults.xml"
 end
 

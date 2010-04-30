@@ -1,0 +1,3 @@
+cd Build
+rake $*
+cd ..
