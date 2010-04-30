@@ -30,6 +30,30 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(firstArgument, Is.EqualTo(1), "firstArgument");
         }
 
+        [Test]
+        public void Run_multiple_actions_when_called()
+        {
+            int called = 0;
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(x => called++);
+            _something.When(x => x.Echo(4)).Do(x => called++);
+
+            Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
+            _something.Echo(4);
+            Assert.That(called, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Only_do_matching_actions()
+        {
+            int called = 0;
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(x => called++);
+            _something.When(x => x.Echo(4)).Do(x => called++);
+
+            Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
+            _something.Echo(1);
+            Assert.That(called, Is.EqualTo(1));
+        }
+
         [SetUp]
         public void SetUp()
         {
