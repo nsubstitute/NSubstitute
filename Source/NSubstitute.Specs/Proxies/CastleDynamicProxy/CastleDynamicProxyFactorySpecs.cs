@@ -1,5 +1,6 @@
 extern alias CastleCore;
 using Castle.DynamicProxy;
+using NSubstitute.Routes;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
 using Rhino.Mocks;

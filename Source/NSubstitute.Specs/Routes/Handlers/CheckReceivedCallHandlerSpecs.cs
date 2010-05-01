@@ -1,7 +1,8 @@
+using NSubstitute.Routes.Handlers;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
-namespace NSubstitute.Specs
+namespace NSubstitute.Specs.Routes.Handlers
 {
     public class CheckReceivedCallHandlerSpecs
     {
@@ -12,7 +13,7 @@ namespace NSubstitute.Specs
             protected ICall _call;
             protected ICallStack _callStack;
             protected ICallResults _configuredResults;
-            protected IReflectionHelper _reflectionHelper;
+            protected IPropertyHelper _propertyHelper;
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
             protected ICallHandler _recordingCallHandler;
@@ -23,7 +24,7 @@ namespace NSubstitute.Specs
                 _context = mock<ISubstitutionContext>();
                 _callStack = mock<ICallStack>();
                 _configuredResults = mock<ICallResults>();
-                _reflectionHelper = mock<IReflectionHelper>();
+                _propertyHelper = mock<IPropertyHelper>();
                 _recordingCallHandler = mock<ICallHandler>();
                 _call = mock<ICall>();
                 _callSpecification = mock<ICallSpecification>();

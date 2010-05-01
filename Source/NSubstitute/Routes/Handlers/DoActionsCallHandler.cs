@@ -1,6 +1,4 @@
-using System;
-
-namespace NSubstitute
+namespace NSubstitute.Routes.Handlers
 {
     public class DoActionsCallHandler :ICallHandler
     {

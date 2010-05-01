@@ -1,8 +1,9 @@
 using System;
+using NSubstitute.Routes.Handlers;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
-namespace NSubstitute.Specs
+namespace NSubstitute.Specs.Routes.Handlers
 {
     public class SetActionsForCallHandlerSpecs
     {

@@ -1,32 +1,32 @@
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
-namespace NSubstitute.Specs
+namespace NSubstitute.Specs.Routes.Handlers
 {
     public class PropertySetterHandlerSpecs
     {
         public abstract class Concern : ConcernFor<PropertySetterHandler>
         {
             protected ICall _call;
-            protected IReflectionHelper _reflectionHelper;
+            protected IPropertyHelper _propertyHelper;
             protected IResultSetter _resultSetter;
             protected object _setValue;
             protected ICall _propertyGetter;
 
             public override void Context()
             {
-                _reflectionHelper = mock<IReflectionHelper>();
+                _propertyHelper = mock<IPropertyHelper>();
                 _resultSetter = mock<IResultSetter>();
                 _call = mock<ICall>();
                 _setValue = new object();
                 _propertyGetter = mock<ICall>();
                 _call.stub(x => x.GetArguments()).Return(new[] { _setValue });
-                _reflectionHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(_call)).Return(_propertyGetter);
+                _propertyHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(_call)).Return(_propertyGetter);
             }
 
             public override PropertySetterHandler CreateSubjectUnderTest()
             {
-                return new PropertySetterHandler(_reflectionHelper, _resultSetter);
+                return new PropertySetterHandler(_propertyHelper, _resultSetter);
             } 
         }
 
@@ -46,7 +46,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _reflectionHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
+                _propertyHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
             }
         }
 
@@ -66,7 +66,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _reflectionHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(false);
+                _propertyHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(false);
             }
         }
     }

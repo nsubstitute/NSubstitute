@@ -1,4 +1,5 @@
 using System;
+using NSubstitute.Routes;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;

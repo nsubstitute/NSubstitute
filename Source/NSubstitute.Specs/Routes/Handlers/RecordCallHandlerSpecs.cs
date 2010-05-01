@@ -1,7 +1,8 @@
+using NSubstitute.Routes.Handlers;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
-namespace NSubstitute.Specs
+namespace NSubstitute.Specs.Routes.Handlers
 {
     public class RecordCallHandlerSpecs
     {
@@ -12,7 +13,7 @@ namespace NSubstitute.Specs
             protected ICall _call;
             protected ICallStack _callStack;
             protected ICallResults _configuredResults;
-            protected IReflectionHelper _reflectionHelper;
+            protected IPropertyHelper _propertyHelper;
             protected ICallSpecification _callSpecification;
             protected IResultSetter _resultSetter;
 
@@ -22,7 +23,7 @@ namespace NSubstitute.Specs
                 _context = mock<ISubstitutionContext>();
                 _callStack = mock<ICallStack>();
                 _configuredResults = mock<ICallResults>();
-                _reflectionHelper = mock<IReflectionHelper>();
+                _propertyHelper = mock<IPropertyHelper>();
                 _resultSetter = mock<IResultSetter>();
                 _call = mock<ICall>();
                 _callSpecification = mock<ICallSpecification>();

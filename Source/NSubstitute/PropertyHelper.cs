@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace NSubstitute
 {
-    public class ReflectionHelper : IReflectionHelper
+    public class PropertyHelper : IPropertyHelper
     {
         public bool IsCallToSetAReadWriteProperty(ICall call)
         {

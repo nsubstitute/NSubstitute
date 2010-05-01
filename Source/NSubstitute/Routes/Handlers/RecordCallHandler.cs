@@ -1,6 +1,4 @@
-using System.Linq;
-
-namespace NSubstitute
+namespace NSubstitute.Routes.Handlers
 {
     public class RecordCallHandler : ICallHandler
     {

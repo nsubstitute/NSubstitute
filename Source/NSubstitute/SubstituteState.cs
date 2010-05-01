@@ -9,7 +9,7 @@ namespace NSubstitute
             CallStack = new CallStack();
             CallResults = new CallResults();
             CallActions = new CallActions();
-            ReflectionHelper = new ReflectionHelper();
+            PropertyHelper = new PropertyHelper();
             CallSpecificationFactory = new CallSpecificationFactory(substitutionContext);
             ResultSetter = new ResultSetter(CallStack, CallResults, CallSpecificationFactory);
             EventHandlerRegistry = new EventHandlerRegistry();
@@ -17,7 +17,7 @@ namespace NSubstitute
 
         public ICallStack CallStack { get; private set; }
         public ICallResults CallResults { get; private set; }
-        public IReflectionHelper ReflectionHelper { get; private set; }
+        public IPropertyHelper PropertyHelper { get; private set; }
         public ICallSpecificationFactory CallSpecificationFactory { get; private set; }
         public IResultSetter ResultSetter { get; private set; }
         public IEventHandlerRegistry EventHandlerRegistry { get; private set; }

@@ -1,4 +1,6 @@
-﻿namespace NSubstitute
+﻿using NSubstitute.Routes.Handlers;
+
+namespace NSubstitute.Routes
 {
     public class RecordReplayRoute : IRoute
     {

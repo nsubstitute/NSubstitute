@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace NSubstitute
+namespace NSubstitute.Routes.Handlers
 {
     public class EventSubscriptionHandler: ICallHandler
     {

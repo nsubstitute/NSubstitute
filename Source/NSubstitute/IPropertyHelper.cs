@@ -1,6 +1,6 @@
 namespace NSubstitute
 {
-    public interface IReflectionHelper
+    public interface IPropertyHelper
     {
         bool IsCallToSetAReadWriteProperty(ICall call);
         ICall CreateCallToPropertyGetterFromSetterCall(ICall callToSetter);

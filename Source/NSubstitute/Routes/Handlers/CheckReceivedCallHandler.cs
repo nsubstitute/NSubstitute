@@ -1,4 +1,4 @@
-namespace NSubstitute
+namespace NSubstitute.Routes.Handlers
 {
     public class CheckReceivedCallHandler : ICallHandler
     {

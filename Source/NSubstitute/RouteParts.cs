@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NSubstitute.Routes.Handlers;
 
 namespace NSubstitute
 {
@@ -24,7 +25,7 @@ namespace NSubstitute
             _routeArguments = routeArguments;
             _recordingCallHandler = new RecordCallHandler(substituteState.CallStack, substituteState.CallResults);
             _checkReceivedCallHandler = new CheckReceivedCallHandler(substituteState.CallStack, substituteState.CallResults, _callSpecificationFactory);
-            _propertySetterHandler = new PropertySetterHandler(substituteState.ReflectionHelper, substituteState.ResultSetter);
+            _propertySetterHandler = new PropertySetterHandler(substituteState.PropertyHelper, substituteState.ResultSetter);
             _eventSubscriptionHandler = new EventSubscriptionHandler(_eventHandlerRegistry);
             _returnDefaultHandler = new ReturnDefaultForCallHandler(substituteState.CallResults);
             _doActionsCallHandler = new DoActionsCallHandler(_callActions);

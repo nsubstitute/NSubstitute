@@ -1,6 +1,6 @@
-using System;
+using NSubstitute.Routes.Handlers;
 
-namespace NSubstitute
+namespace NSubstitute.Routes
 {
     public class RaiseEventRoute : IRoute
     {

@@ -4,20 +4,20 @@ namespace NSubstitute
 {
     public class PropertySetterHandler : ICallHandler
     {
-        private readonly IReflectionHelper _reflectionHelper;
+        private readonly IPropertyHelper _propertyHelper;
         readonly IResultSetter _resultSetter;
 
-        public PropertySetterHandler(IReflectionHelper reflectionHelper, IResultSetter resultSetter)
+        public PropertySetterHandler(IPropertyHelper propertyHelper, IResultSetter resultSetter)
         {
-            _reflectionHelper = reflectionHelper;
+            _propertyHelper = propertyHelper;
             _resultSetter = resultSetter;
         }
 
         public object Handle(ICall call)
         {
-            if (_reflectionHelper.IsCallToSetAReadWriteProperty(call))
+            if (_propertyHelper.IsCallToSetAReadWriteProperty(call))
             {
-                var callToPropertyGetter = _reflectionHelper.CreateCallToPropertyGetterFromSetterCall(call);
+                var callToPropertyGetter = _propertyHelper.CreateCallToPropertyGetterFromSetterCall(call);
                 var valueBeingSetOnProperty = call.GetArguments().First();
                 _resultSetter.SetResultForCall(callToPropertyGetter, valueBeingSetOnProperty);
             }

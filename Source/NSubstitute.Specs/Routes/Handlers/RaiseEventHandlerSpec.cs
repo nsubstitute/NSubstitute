@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using NSubstitute.Routes.Handlers;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace NSubstitute.Specs
+namespace NSubstitute.Specs.Routes.Handlers
 {
     public class RaiseEventHandlerSpec
     {

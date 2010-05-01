@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Castle.DynamicProxy;
 using NSubstitute.Exceptions;
 using NSubstitute.Proxies.CastleDynamicProxy;
+using NSubstitute.Routes;
 
 namespace NSubstitute
 {
