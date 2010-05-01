@@ -33,7 +33,7 @@ namespace NSubstitute.Specs.Routes
         public override void Context()
         {
             base.Context();
-            ExpectReturnValueToComeFromPart<RecordCallHandler>();
+            ExpectReturnValueToComeFromPart<ReturnConfiguredResultHandler>();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace NSubstitute.Specs.Routes
         public override void Context()
         {
             base.Context();
-            ExpectReturnValueToComeFromPart<ReturnDefaultForCallHandler>();
+            ExpectReturnValueToComeFromPart<ReturnDefaultResultHandler>();
         }
     }
 }

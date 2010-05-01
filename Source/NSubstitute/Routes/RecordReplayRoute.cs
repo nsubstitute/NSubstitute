@@ -16,7 +16,8 @@ namespace NSubstitute.Routes
             _routeParts.GetPart<EventSubscriptionHandler>().Handle(call);
             _routeParts.GetPart<PropertySetterHandler>().Handle(call);
             _routeParts.GetPart<DoActionsCallHandler>().Handle(call);
-            return _routeParts.GetPart<RecordCallHandler>().Handle(call); 
+            _routeParts.GetPart<RecordCallHandler>().Handle(call);
+            return _routeParts.GetPart<ReturnConfiguredResultHandler>().Handle(call);
         }
     }
 }

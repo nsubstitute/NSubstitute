@@ -4,9 +4,9 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs.Routes.Handlers
 {
-    public class ReturnDefaultForCallHandlerSpecs
+    public class ReturnDefaultResultHandlerSpecs
     {
-        public class When_handling_a_call : ConcernFor<ReturnDefaultForCallHandler>
+        public class When_handling_a_call : ConcernFor<ReturnDefaultResultHandler>
         {
             readonly object _defaultReturnForCall = new object();
             ICallResults _callResults;
@@ -31,9 +31,9 @@ namespace NSubstitute.Specs.Routes.Handlers
                 _callResults.stub(x => x.GetDefaultResultFor(_call)).Return(_defaultReturnForCall);
             }
 
-            public override ReturnDefaultForCallHandler CreateSubjectUnderTest()
+            public override ReturnDefaultResultHandler CreateSubjectUnderTest()
             {
-                return new ReturnDefaultForCallHandler(_callResults);
+                return new ReturnDefaultResultHandler(_callResults);
             }
         }
     }

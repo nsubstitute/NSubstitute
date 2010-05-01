@@ -1,10 +1,10 @@
 namespace NSubstitute.Routes.Handlers
 {
-    public class ReturnDefaultForCallHandler : ICallHandler
+    public class ReturnDefaultResultHandler : ICallHandler
     {
         private readonly ICallResults _callResults;
 
-        public ReturnDefaultForCallHandler(ICallResults callResults)
+        public ReturnDefaultResultHandler(ICallResults callResults)
         {
             _callResults = callResults;
         }

@@ -14,7 +14,7 @@ namespace NSubstitute.Routes
         public object Handle(ICall call)
         {
             _routeParts.GetPart<RaiseEventHandler>().Handle(call);
-            return _routeParts.GetPart<ReturnDefaultForCallHandler>().Handle(call);            
+            return _routeParts.GetPart<ReturnDefaultResultHandler>().Handle(call);            
         }
     }
 }
