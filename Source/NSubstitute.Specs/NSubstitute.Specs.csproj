@@ -89,6 +89,7 @@
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />
     <Compile Include="CallSpecificationSpecs.cs" />
+    <Compile Include="RoutePartsSpecs.cs" />
     <Compile Include="Routes\CheckCallReceivedRouteSpecs.cs" />
     <Compile Include="Routes\ConcernForRoute.cs" />
     <Compile Include="Routes\DoWhenCalledRouteSpecs.cs" />

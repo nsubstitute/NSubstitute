@@ -1,51 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using NSubstitute.Exceptions;
 using NSubstitute.Routes.Handlers;
 
 namespace NSubstitute
 {
     public class RouteParts : IRouteParts
     {
-        private IEventHandlerRegistry _eventHandlerRegistry;
+        private readonly SubstituteState _substituteState;
         private readonly object[] _routeArguments;
-        private RecordCallHandler _recordingCallHandler;
-        private CheckReceivedCallHandler _checkReceivedCallHandler;
-        private PropertySetterHandler _propertySetterHandler;
-        private EventSubscriptionHandler _eventSubscriptionHandler;
-        private ReturnDefaultResultHandler _returnDefaultHandler;
-        private ICallActions _callActions;
-        private ICallSpecificationFactory _callSpecificationFactory;
-        private ICallHandler _doActionsCallHandler;
-        private ReturnConfiguredResultHandler _returnConfiguredHandler;
 
         public RouteParts(SubstituteState substituteState, object[] routeArguments)
         {
-            _eventHandlerRegistry = substituteState.EventHandlerRegistry;
-            _callSpecificationFactory = substituteState.CallSpecificationFactory;
-            _callActions = substituteState.CallActions;
+            _substituteState = substituteState;
             _routeArguments = routeArguments;
-            _recordingCallHandler = new RecordCallHandler(substituteState.CallStack);
-            _checkReceivedCallHandler = new CheckReceivedCallHandler(substituteState.CallStack, substituteState.CallResults, _callSpecificationFactory);
-            _propertySetterHandler = new PropertySetterHandler(substituteState.PropertyHelper, substituteState.ResultSetter);
-            _eventSubscriptionHandler = new EventSubscriptionHandler(_eventHandlerRegistry);
-            _returnDefaultHandler = new ReturnDefaultResultHandler(substituteState.CallResults);
-            _doActionsCallHandler = new DoActionsCallHandler(_callActions);
-            _returnConfiguredHandler = new ReturnConfiguredResultHandler(substituteState.CallResults);
         }
 
         public ICallHandler GetPart<TPart>() where TPart : ICallHandler
         {
-            var partType = typeof(TPart);
-            if (partType == typeof(RecordCallHandler)) return _recordingCallHandler;
-            if (partType == typeof(CheckReceivedCallHandler)) return _checkReceivedCallHandler;
-            if (partType == typeof(PropertySetterHandler)) return _propertySetterHandler;
-            if (partType == typeof(EventSubscriptionHandler)) return _eventSubscriptionHandler;
-            if (partType == typeof(RaiseEventHandler)) return new RaiseEventHandler(_eventHandlerRegistry, (Func<ICall, object[]>)_routeArguments[0]);
-            if (partType == typeof(ReturnDefaultResultHandler)) return _returnDefaultHandler;
-            if (partType == typeof(SetActionForCallHandler)) return new SetActionForCallHandler(_callSpecificationFactory, _callActions, (Action<object[]>)_routeArguments[0]);
-            if (partType == typeof(DoActionsCallHandler)) return _doActionsCallHandler;
-            if (partType == typeof(ReturnConfiguredResultHandler)) return _returnConfiguredHandler;
-            throw new KeyNotFoundException("Could not find part for " + partType.FullName);
+            return CreatePart(typeof (TPart));
+        }
+
+        private ICallHandler CreatePart(Type partType)
+        {
+            var constructor = GetConstructorFor(partType);
+            var parameterTypes = constructor.GetParameters().Select(x => x.ParameterType);
+            var parameters = GetParameters(parameterTypes);
+            return (ICallHandler) constructor.Invoke(parameters);
+        }
+
+        private object[] GetParameters(IEnumerable<Type> parameterTypes)
+        {
+            return parameterTypes.Select(x => GetParameter(x)).ToArray();
+        }
+
+        private object GetParameter(Type type)
+        {
+            var stateProperties = typeof(SubstituteState).GetProperties();
+            foreach (var property in stateProperties)
+            {
+                if (type.IsAssignableFrom(property.PropertyType))
+                    return property.GetValue(_substituteState, null);
+            }
+            foreach (var argument in _routeArguments)
+            {
+                if (type.IsAssignableFrom(argument.GetType())) return argument;
+            }
+            throw new SubstituteException("Cannot create part. Cannot find an instance of " + type.FullName);
+        }
+        
+        private ConstructorInfo GetConstructorFor(Type partType)
+        {
+            var constructors = partType.GetConstructors();
+            if (constructors.Length != 1) throw new SubstituteException("Cannot create part of type " + partType.FullName + ". Make sure it only has one constructor.");
+            return constructors[0];
         }
     }
 }
