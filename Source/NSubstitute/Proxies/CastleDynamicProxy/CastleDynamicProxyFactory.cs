@@ -10,9 +10,9 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         readonly CastleInterceptorFactory _interceptorFactory;
         readonly IgnoreCallRouterCallsHook _ignoreCallRouterCallsHook;
 
-        public CastleDynamicProxyFactory(ProxyGenerator proxyGenerator, CastleInterceptorFactory interceptorFactory)
+        public CastleDynamicProxyFactory(CastleInterceptorFactory interceptorFactory)
         {
-            _proxyGenerator = proxyGenerator;
+            _proxyGenerator = new ProxyGenerator();
             _interceptorFactory = interceptorFactory;            
             _ignoreCallRouterCallsHook = new IgnoreCallRouterCallsHook();
         }

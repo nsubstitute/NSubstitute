@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Castle.DynamicProxy;
 using NSubstitute.Exceptions;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NSubstitute.Routes;
@@ -24,7 +23,7 @@ namespace NSubstitute
         {
             var callRouterFactory = new CallRouterFactory();
             var interceptorFactory = new CastleInterceptorFactory();
-            var proxyFactory = new CastleDynamicProxyFactory(new ProxyGenerator(), interceptorFactory);
+            var proxyFactory = new CastleDynamicProxyFactory(interceptorFactory);
             _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory);
             _argumentSpecifications = new List<IArgumentSpecification>();
         }

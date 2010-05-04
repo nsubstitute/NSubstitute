@@ -60,13 +60,6 @@
     <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\..\ThirdParty\Castle.DynamicProxy-2.2\bin\net-35\Castle.Core.dll</HintPath>
-      <Aliases>CastleCore</Aliases>
-    </Reference>
-    <Reference Include="Castle.DynamicProxy2">
-      <HintPath>..\..\ThirdParty\Castle.DynamicProxy-2.2\bin\net-35\Castle.DynamicProxy2.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.5.0.9122, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ThirdParty\NUnit-2.5.0.9122\bin\net-2.0\nunit.framework.dll</HintPath>
@@ -95,6 +88,7 @@
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />
     <Compile Include="CallSpecificationSpecs.cs" />
+    <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="RoutePartsSpecs.cs" />
     <Compile Include="Routes\CheckCallReceivedRouteSpecs.cs" />
     <Compile Include="Routes\ConcernForRoute.cs" />
@@ -109,8 +103,6 @@
     <Compile Include="Infrastructure\TemporaryChangeNotConfiguredProperlyException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyHelperSpecs.cs" />
-    <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
-    <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptorSpecs.cs" />
     <Compile Include="ReceivedExtensionSpec.cs" />
     <Compile Include="Routes\Handlers\RecordCallHandlerSpecs.cs" />
     <Compile Include="Routes\Handlers\ReturnConfiguredResultHandlerSpecs.cs" />
@@ -149,6 +141,7 @@
   <ItemGroup>
     <None Include="..\nsubstitute.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
