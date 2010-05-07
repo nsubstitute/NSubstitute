@@ -28,8 +28,8 @@ namespace NSubstitute.Core
             }
             else
             {
-                throw new AmbiguousParametersException(
-                    "Cannot determine parameter specifications to use. Please use specifications for all arguments.");
+                throw new AmbiguousArgumentsException(
+                    "Cannot determine argument specifications to use. Please use specifications for all arguments.");
             }
             return result;
         }

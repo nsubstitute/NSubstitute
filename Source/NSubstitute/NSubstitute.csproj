@@ -88,6 +88,7 @@
     <Compile Include="Core\CallInfo.cs" />
     <Compile Include="Core\CallInfoFactory.cs" />
     <Compile Include="Core\ICallInfoFactory.cs" />
+    <Compile Include="Exceptions\ArgumentNotFoundException.cs" />
     <Compile Include="Exceptions\CallNotReceivedException.cs" />
     <Compile Include="Core\CallSpecification.cs" />
     <Compile Include="Core\CallSpecificationFactory.cs" />
@@ -101,7 +102,7 @@
     <Compile Include="Core\IRoutePartsFactory.cs" />
     <Compile Include="Routes\Handlers\RaiseEventHandler.cs" />
     <Compile Include="Routes\Handlers\EventSubscriptionHandler.cs" />
-    <Compile Include="Exceptions\AmbiguousParametersException.cs" />
+    <Compile Include="Exceptions\AmbiguousArgumentsException.cs" />
     <Compile Include="Exceptions\NotASubstituteException.cs" />
     <Compile Include="Core\IArgumentSpecification.cs" />
     <Compile Include="Core\ICallHandler.cs" />

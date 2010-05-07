@@ -26,7 +26,7 @@ namespace NSubstitute.Specs
         [Test]
         public void Should_create_info_with_arguments_from_call()
         {
-            Assert.That(_result.GetArguments(), Is.SameAs(_callArguments));
+            Assert.That(_result.Args(), Is.SameAs(_callArguments));
         }
 
         public override CallInfoFactory CreateSubjectUnderTest()

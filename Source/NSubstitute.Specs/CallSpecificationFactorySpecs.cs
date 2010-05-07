@@ -114,7 +114,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw()
             {
-                Assert.Throws<AmbiguousParametersException>(
+                Assert.Throws<AmbiguousArgumentsException>(
                         () => sut.CreateFrom(_call)
                     );
             }
