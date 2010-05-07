@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using NSubstitute.Core;
 
 namespace NSubstitute.Specs
 {

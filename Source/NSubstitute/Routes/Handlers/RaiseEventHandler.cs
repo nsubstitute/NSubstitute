@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using NSubstitute.Core;
 
 namespace NSubstitute.Routes.Handlers
 {

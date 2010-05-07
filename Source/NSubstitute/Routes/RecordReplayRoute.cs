@@ -1,4 +1,5 @@
-﻿using NSubstitute.Routes.Handlers;
+﻿using NSubstitute.Core;
+using NSubstitute.Routes.Handlers;
 
 namespace NSubstitute.Routes
 {

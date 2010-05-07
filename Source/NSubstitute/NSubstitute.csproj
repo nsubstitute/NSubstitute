@@ -83,47 +83,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arg.cs" />
-    <Compile Include="ArgumentSpecification.cs" />
-    <Compile Include="CallActions.cs" />
-    <Compile Include="CallNotReceivedException.cs" />
-    <Compile Include="CallSpecification.cs" />
-    <Compile Include="CallSpecificationFactory.cs" />
+    <Compile Include="Core\ArgumentSpecification.cs" />
+    <Compile Include="Core\CallActions.cs" />
+    <Compile Include="Exceptions\CallNotReceivedException.cs" />
+    <Compile Include="Core\CallSpecification.cs" />
+    <Compile Include="Core\CallSpecificationFactory.cs" />
     <Compile Include="Routes\CheckCallReceivedRoute.cs" />
     <Compile Include="Routes\Handlers\CheckReceivedCallHandler.cs" />
     <Compile Include="Routes\Handlers\DoActionsCallHandler.cs" />
     <Compile Include="Routes\DoWhenCalledRoute.cs" />
-    <Compile Include="EventHandlerRegistry.cs" />
-    <Compile Include="ICallActions.cs" />
-    <Compile Include="IRouteParts.cs" />
-    <Compile Include="IRoutePartsFactory.cs" />
+    <Compile Include="Core\EventHandlerRegistry.cs" />
+    <Compile Include="Core\ICallActions.cs" />
+    <Compile Include="Core\IRouteParts.cs" />
+    <Compile Include="Core\IRoutePartsFactory.cs" />
     <Compile Include="Routes\Handlers\RaiseEventHandler.cs" />
     <Compile Include="Routes\Handlers\EventSubscriptionHandler.cs" />
     <Compile Include="Exceptions\AmbiguousParametersException.cs" />
     <Compile Include="Exceptions\NotASubstituteException.cs" />
-    <Compile Include="IArgumentSpecification.cs" />
-    <Compile Include="ICallHandler.cs" />
-    <Compile Include="ICallRouterFactory.cs" />
-    <Compile Include="CallRouterFactory.cs" />
-    <Compile Include="CallResults.cs" />
-    <Compile Include="CallStack.cs" />
-    <Compile Include="ICallResults.cs" />
-    <Compile Include="ICallSpecification.cs" />
-    <Compile Include="ICallSpecificationFactory.cs" />
-    <Compile Include="ICallStack.cs" />
-    <Compile Include="ICall.cs" />
-    <Compile Include="ICallRouter.cs" />
-    <Compile Include="IEventHandlerRegistry.cs" />
-    <Compile Include="IEventRaiser.cs" />
-    <Compile Include="IProxyFactory.cs" />
-    <Compile Include="IPropertyHelper.cs" />
-    <Compile Include="IResultSetter.cs" />
-    <Compile Include="IRoute.cs" />
-    <Compile Include="IRouteFactory.cs" />
-    <Compile Include="ISubstitutionContext.cs" />
-    <Compile Include="ISubstituteFactory.cs" />
+    <Compile Include="Core\IArgumentSpecification.cs" />
+    <Compile Include="Core\ICallHandler.cs" />
+    <Compile Include="Core\ICallRouterFactory.cs" />
+    <Compile Include="Core\CallRouterFactory.cs" />
+    <Compile Include="Core\CallResults.cs" />
+    <Compile Include="Core\CallStack.cs" />
+    <Compile Include="Core\ICallResults.cs" />
+    <Compile Include="Core\ICallSpecification.cs" />
+    <Compile Include="Core\ICallSpecificationFactory.cs" />
+    <Compile Include="Core\ICallStack.cs" />
+    <Compile Include="Core\ICall.cs" />
+    <Compile Include="Core\ICallRouter.cs" />
+    <Compile Include="Core\IEventHandlerRegistry.cs" />
+    <Compile Include="Core\IEventRaiser.cs" />
+    <Compile Include="Core\IProxyFactory.cs" />
+    <Compile Include="Core\IPropertyHelper.cs" />
+    <Compile Include="Core\IResultSetter.cs" />
+    <Compile Include="Core\IRoute.cs" />
+    <Compile Include="Core\IRouteFactory.cs" />
+    <Compile Include="Core\ISubstitutionContext.cs" />
+    <Compile Include="Core\ISubstituteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CallRouter.cs" />
-    <Compile Include="PropertySetterHandler.cs" />
+    <Compile Include="Core\CallRouter.cs" />
+    <Compile Include="Core\PropertySetterHandler.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />
@@ -133,23 +133,26 @@
     <Compile Include="Routes\RaiseEventRoute.cs" />
     <Compile Include="Routes\Handlers\RecordCallHandler.cs" />
     <Compile Include="Routes\RecordReplayRoute.cs" />
-    <Compile Include="PropertyHelper.cs" />
-    <Compile Include="ResultSetter.cs" />
+    <Compile Include="Core\PropertyHelper.cs" />
+    <Compile Include="Core\ResultSetter.cs" />
     <Compile Include="Routes\Handlers\ReturnDefaultResultHandler.cs" />
-    <Compile Include="RouteFactory.cs" />
-    <Compile Include="RouteParts.cs" />
-    <Compile Include="RoutePartsFactory.cs" />
+    <Compile Include="Core\RouteFactory.cs" />
+    <Compile Include="Core\RouteParts.cs" />
+    <Compile Include="Core\RoutePartsFactory.cs" />
     <Compile Include="Routes\Handlers\SetActionForCallHandler.cs" />
+    <Compile Include="Core\Substitute.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
-    <Compile Include="SubstituteState.cs" />
-    <Compile Include="SubstitutionContext.cs" />
+    <Compile Include="Core\SubstituteState.cs" />
+    <Compile Include="Core\SubstitutionContext.cs" />
     <Compile Include="Exceptions\SubstituteException.cs" />
-    <Compile Include="SubstituteFactory.cs" />
-    <Compile Include="WhenCalled.cs" />
+    <Compile Include="Core\SubstituteFactory.cs" />
+    <Compile Include="Core\WhenCalled.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\nsubstitute.snk" />
+    <None Include="..\nsubstitute.snk">
+      <Link>Core\nsubstitute.snk</Link>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -158,10 +161,10 @@
   </Target>
   -->
   <Target Name="AfterBuild">
-        <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
-                <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
-        </CreateItem>
-        <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /ndebug /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" />
-        <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+    <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
+      <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
+    </CreateItem>
+    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /ndebug /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" />
+    <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
   </Target>
 </Project>

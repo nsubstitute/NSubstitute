@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using Castle.Core.Interceptor;
+using NSubstitute.Core;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy
 {

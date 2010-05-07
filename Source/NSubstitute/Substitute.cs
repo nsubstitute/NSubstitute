@@ -1,3 +1,5 @@
+using NSubstitute.Core;
+
 namespace NSubstitute
 {
     public class Substitute

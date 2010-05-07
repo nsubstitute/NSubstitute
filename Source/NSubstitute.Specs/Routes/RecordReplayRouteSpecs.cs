@@ -1,4 +1,5 @@
-﻿using NSubstitute.Routes;
+﻿using NSubstitute.Core;
+using NSubstitute.Routes;
 using NSubstitute.Routes.Handlers;
 using NUnit.Framework;
 

@@ -1,5 +1,5 @@
-using System;
 using System.Reflection;
+using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 

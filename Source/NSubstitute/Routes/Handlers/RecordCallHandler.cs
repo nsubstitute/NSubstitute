@@ -1,3 +1,5 @@
+using NSubstitute.Core;
+
 namespace NSubstitute.Routes.Handlers
 {
     public class RecordCallHandler : ICallHandler

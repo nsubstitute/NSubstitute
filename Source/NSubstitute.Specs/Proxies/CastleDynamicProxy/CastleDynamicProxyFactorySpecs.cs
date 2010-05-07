@@ -1,8 +1,9 @@
+using NSubstitute.Core;
+using NSubstitute.Proxies.CastleDynamicProxy;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
-using Rhino.Mocks;
-using NSubstitute.Proxies.CastleDynamicProxy;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
 {

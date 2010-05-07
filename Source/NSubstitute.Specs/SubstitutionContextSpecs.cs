@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;

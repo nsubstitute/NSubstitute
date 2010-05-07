@@ -1,4 +1,5 @@
 using System;
+using NSubstitute.Core;
 using NSubstitute.Routes;
 
 namespace NSubstitute
