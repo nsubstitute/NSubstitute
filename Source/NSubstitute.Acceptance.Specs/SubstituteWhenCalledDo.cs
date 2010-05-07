@@ -11,7 +11,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Execute_when_called()
         {
             var called = false;
-            _something.When(substitute => substitute.Echo(1)).Do(args => called = true);
+            _something.When(substitute => substitute.Echo(1)).Do(info => called = true);
 
             Assert.That(called, Is.False, "Called");
             _something.Echo(1);
@@ -22,7 +22,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Capture_arguments_when_called()
         {
             int firstArgument = 0;
-            _something.When(substitute => substitute.Echo(1)).Do(args => firstArgument = (int)args[0]);
+            _something.When(substitute => substitute.Echo(1)).Do(info => firstArgument = (int)info[0]);
 
             Assert.That(firstArgument, Is.EqualTo(0), "firstArgument");
             _something.Echo(1);

@@ -8,12 +8,12 @@ namespace NSubstitute.Core
     {
         readonly IList<CallAction> _actions = new List<CallAction>();
 
-        public void Add(ICallSpecification callSpecification, Action<object[]> action)
+        public void Add(ICallSpecification callSpecification, Action<CallInfo> action)
         {
             _actions.Add(new CallAction(callSpecification, action));
         }
 
-        public IEnumerable<Action<object[]>> MatchingActions(ICall call)
+        public IEnumerable<Action<CallInfo>> MatchingActions(ICall call)
         {
             return _actions
                 .Where(x => x.CallSpecification.IsSatisfiedBy(call))
@@ -22,14 +22,14 @@ namespace NSubstitute.Core
 
         class CallAction
         {
-            public CallAction(ICallSpecification callSpecification, Action<object[]> action)
+            public CallAction(ICallSpecification callSpecification, Action<CallInfo> action)
             {
                 CallSpecification = callSpecification;
                 Action = action;
             }
 
             public ICallSpecification CallSpecification;
-            public Action<object[]> Action;
+            public Action<CallInfo> Action;
         }
     }
 }

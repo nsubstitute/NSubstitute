@@ -11,7 +11,7 @@ namespace NSubstitute.Specs.Routes.Handlers
         public class When_handling_a_call : ConcernFor<SetActionForCallHandler>
         {
             private ICallActions _callActions;
-            private Action<object[]> _action;
+            private Action<CallInfo> _action;
             private ICall _call;
             private ICallSpecificationFactory _callSpecificationFactory;
             private ICallSpecification _callSpec;

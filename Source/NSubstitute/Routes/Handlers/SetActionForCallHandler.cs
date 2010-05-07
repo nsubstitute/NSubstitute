@@ -7,9 +7,9 @@ namespace NSubstitute.Routes.Handlers
     {
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly ICallActions _callActions;
-        private readonly Action<object[]> _action;
+        private readonly Action<CallInfo> _action;
 
-        public SetActionForCallHandler(ICallSpecificationFactory callSpecificationFactory, ICallActions callActions, Action<object[]> action)
+        public SetActionForCallHandler(ICallSpecificationFactory callSpecificationFactory, ICallActions callActions, Action<CallInfo> action)
         {
             _callSpecificationFactory = callSpecificationFactory;
             _callActions = callActions;

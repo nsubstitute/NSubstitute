@@ -11,13 +11,13 @@ namespace NSubstitute.Specs
     {
         public class When_finding_matching_actions_for_a_call : ConcernFor<CallActions>
         {
-            private Action<object[]> _firstMatchingAction;
-            private Action<object[]> _secondMatchingAction;
-            private Action<object[]> _nonMatchingAction;
+            private Action<CallInfo> _firstMatchingAction;
+            private Action<CallInfo> _secondMatchingAction;
+            private Action<CallInfo> _nonMatchingAction;
             private ICallSpecification _matchingCallSpec;
             private ICallSpecification _nonMatchingCallSpec;
             private ICall _call;
-            private IEnumerable<Action<object[]>> _result;
+            private IEnumerable<Action<CallInfo>> _result;
 
             [Test]
             public void Should_return_all_actions_that_match_call_specification()

@@ -16,7 +16,7 @@ namespace NSubstitute.Core
             _callRouter = context.GetCallRouterFor(substitute);
         }
 
-        public void Do(Action<object[]> callbackWithArguments)
+        public void Do(Action<CallInfo> callbackWithArguments)
         {
             _callRouter.SetRoute<DoWhenCalledRoute>(callbackWithArguments);
             _call(_substitute);

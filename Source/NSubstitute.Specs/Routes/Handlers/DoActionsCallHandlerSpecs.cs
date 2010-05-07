@@ -10,17 +10,18 @@ namespace NSubstitute.Specs.Routes.Handlers
     {
         public class When_handling_a_call : ConcernFor<DoActionsCallHandler>
         {
-            private ICall _call;
+            private CallInfo _callInfo;
+            private ICall _call;            
             private ICallActions _callActions;
-            private Action<object[]>[] _matchingActions;
-            private object[] _callArguments;
+            private Action<CallInfo>[] _matchingActions;
+            private ICallInfoFactory _callInfoFactory;
 
             [Test]
-            public void Should_invoke_all_actions_for_call()
+            public void Should_invoke_all_actions_for_call_with_call_information()
             {
                 foreach (var matchingAction in _matchingActions)
                 {
-                    matchingAction.received(x => x(_callArguments));
+                    matchingAction.received(x => x(_callInfo));
                 }
             }
 
@@ -31,19 +32,20 @@ namespace NSubstitute.Specs.Routes.Handlers
 
             public override void Context()
             {
-                _matchingActions = new[] { mock<Action<object[]>>(), mock<Action<object[]>>() };
-                _callArguments = new[] {new object(), new object()};
-                
+                _matchingActions = new[] { mock<Action<CallInfo>>(), mock<Action<CallInfo>>() };
+                _callInfo = new CallInfo(new object[0]);
+
                 _call = mock<ICall>();
                 _callActions = mock<ICallActions>();
+                _callInfoFactory = mock<ICallInfoFactory>();
 
-                _call.stub(x => x.GetArguments()).Return(_callArguments);
                 _callActions.stub(x => x.MatchingActions(_call)).Return(_matchingActions);
+                _callInfoFactory.stub(x => x.Create(_call)).Return(_callInfo);
             }
 
             public override DoActionsCallHandler CreateSubjectUnderTest()
             {
-                return new DoActionsCallHandler(_callActions);
+                return new DoActionsCallHandler(_callActions, _callInfoFactory);
             }
         }
     }

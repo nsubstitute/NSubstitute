@@ -5,7 +5,7 @@ namespace NSubstitute.Core
 {
     public interface ICallActions
     {
-        void Add(ICallSpecification callSpecification, Action<object[]> action);
-        IEnumerable<Action<object[]>> MatchingActions(ICall call);
+        void Add(ICallSpecification callSpecification, Action<CallInfo> action);
+        IEnumerable<Action<CallInfo>> MatchingActions(ICall call);
     }
 }

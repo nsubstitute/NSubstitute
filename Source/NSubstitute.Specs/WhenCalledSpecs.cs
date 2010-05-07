@@ -10,7 +10,7 @@ namespace NSubstitute.Specs
     public class WhenCalledSpecs
     {
         public class When_a_callback_is_given_to_run_for_a_call : ConcernFor<WhenCalled<IFoo>> {
-            private Action<object[]> _callbackWithArguments;
+            private Action<CallInfo> _callbackWithArguments;
             private ISubstitutionContext _context;
             private IFoo _substitute;
             private Action<IFoo> _call;

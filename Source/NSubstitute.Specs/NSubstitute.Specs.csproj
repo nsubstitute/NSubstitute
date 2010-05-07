@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="ArgumentEqualsSpecificationSpecs.cs" />
     <Compile Include="CallActionsSpecs.cs" />
+    <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallRouterFactorySpecs.cs" />
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />
