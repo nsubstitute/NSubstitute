@@ -144,7 +144,6 @@
     <Compile Include="Core\RouteParts.cs" />
     <Compile Include="Core\RoutePartsFactory.cs" />
     <Compile Include="Routes\Handlers\SetActionForCallHandler.cs" />
-    <Compile Include="Core\Substitute.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="Core\SubstituteState.cs" />
