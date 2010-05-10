@@ -18,30 +18,60 @@ namespace NSubstitute.Specs
         public class When_getting_a_result_that_has_been_set : Concern
         {
             object _result;
-            object _originalResult;
-            ICallSpecification _originalCallSpecification;
-            ICall _secondCall;
+            readonly object _expectedResult = new object();
+            ICallSpecification _callSpecification;
+            ICall _call;
 
             [Test]
             public void Should_get_the_result_that_was_set()
             {
-                Assert.That(_result, Is.SameAs(_originalResult));
+                Assert.That(_result, Is.SameAs(_expectedResult));
             }
 
             public override void Because()
             {
-                sut.SetResult(_originalCallSpecification, _originalResult);
-                _result = sut.GetResult(_secondCall);
+                sut.SetResult(_callSpecification, _expectedResult);
+                _result = sut.GetResult(_call);
             }
 
             public override void Context()
             {
                 base.Context();
-                _originalResult = new object();
-                _originalCallSpecification = mock<ICallSpecification>();
-                _secondCall = mock<ICall>();
-                _originalCallSpecification.stub(x => x.IsSatisfiedBy(_secondCall)).Return(true);
+                _callSpecification = mock<ICallSpecification>();
+                _call = mock<ICall>();
+                _callSpecification.stub(x => x.IsSatisfiedBy(_call)).Return(true);
             }
+        }
+
+        public class When_getting_a_result_that_has_been_set_multiple_times : Concern
+        {
+            object _result;
+            readonly object _originalResult = new object();
+            readonly object _overriddenResult = new object();
+            ICallSpecification _callSpecification;
+            ICall _call;
+
+            [Test]
+            public void Should_get_the_last_result_that_was_set()
+            {
+                Assert.That(_result, Is.SameAs(_overriddenResult));
+            }
+
+            public override void Because()
+            {
+                sut.SetResult(_callSpecification, _originalResult);
+                sut.SetResult(_callSpecification, _overriddenResult);
+                _result = sut.GetResult(_call);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _callSpecification = mock<ICallSpecification>();
+                _call = mock<ICall>();
+                _callSpecification.stub(x => x.IsSatisfiedBy(_call)).Return(true);
+            }
+            
         }
 
         public class When_getting_a_reference_type_result_that_has_not_been_set : Concern

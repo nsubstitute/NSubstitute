@@ -38,5 +38,15 @@ namespace NSubstitute.Acceptance.Specs
             calculator.Add(1, 2);
             calculator.Received().Add(1, 2);            
         }
+
+        [Test]
+        public void Override_a_previously_set_value()
+        {
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Add(1, 2).Returns(3);
+            Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
+            calculator.Add(1, 2).Returns(3000);
+            Assert.That(calculator.Add(1, 2), Is.EqualTo(3000));
+        }
     }
 }
