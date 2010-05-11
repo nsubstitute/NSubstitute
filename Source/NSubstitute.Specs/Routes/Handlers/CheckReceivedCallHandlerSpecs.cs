@@ -14,10 +14,8 @@ namespace NSubstitute.Specs.Routes.Handlers
             protected ICall _call;
             protected ICallStack _callStack;
             protected ICallResults _configuredResults;
-            protected IPropertyHelper _propertyHelper;
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
-            protected ICallHandler _recordingCallHandler;
 
             public override void Context()
             {
@@ -25,8 +23,6 @@ namespace NSubstitute.Specs.Routes.Handlers
                 _context = mock<ISubstitutionContext>();
                 _callStack = mock<ICallStack>();
                 _configuredResults = mock<ICallResults>();
-                _propertyHelper = mock<IPropertyHelper>();
-                _recordingCallHandler = mock<ICallHandler>();
                 _call = mock<ICall>();
                 _callSpecification = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
