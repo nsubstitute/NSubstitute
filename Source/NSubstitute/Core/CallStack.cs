@@ -4,7 +4,7 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
-    public class CallStack : ICallStack
+    public class CallStack : ICallStack, IReceivedCalls
     {
         Stack<ICall> _stack;
 

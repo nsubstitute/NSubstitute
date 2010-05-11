@@ -16,7 +16,7 @@ namespace NSubstitute.Core
             CallInfoFactory = new CallInfoFactory();
         }
 
-        public ICallStack CallStack { get; private set; }
+        public CallStack CallStack { get; private set; }
         public ICallResults CallResults { get; private set; }
         public IPropertyHelper PropertyHelper { get; private set; }
         public ICallSpecificationFactory CallSpecificationFactory { get; private set; }

@@ -4,6 +4,5 @@ namespace NSubstitute.Core
     {
         void Push(ICall call);
         ICall Pop();
-        void ThrowIfCallNotFound(ICallSpecification callSpecification);
     }
 }

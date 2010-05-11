@@ -12,7 +12,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             protected int _valueToReturn;
             protected ISubstitutionContext _context;
             protected ICall _call;
-            protected ICallStack _callStack;
+            protected IReceivedCalls _receivedCalls;
             protected ICallResults _configuredResults;
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
@@ -21,7 +21,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             {
                 _valueToReturn = 7;
                 _context = mock<ISubstitutionContext>();
-                _callStack = mock<ICallStack>();
+                _receivedCalls = mock<IReceivedCalls>();
                 _configuredResults = mock<ICallResults>();
                 _call = mock<ICall>();
                 _callSpecification = mock<ICallSpecification>();
@@ -31,7 +31,7 @@ namespace NSubstitute.Specs.Routes.Handlers
 
             public override CheckReceivedCallHandler CreateSubjectUnderTest()
             {
-                return new CheckReceivedCallHandler(_callStack, _configuredResults, _callSpecificationFactory);
+                return new CheckReceivedCallHandler(_receivedCalls, _configuredResults, _callSpecificationFactory);
             } 
         }
 
@@ -43,13 +43,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             [Test]
             public void Should_throw_exception_if_call_has_not_been_received()
             {
-                _callStack.received(x => x.ThrowIfCallNotFound(_callSpecification));
-            }
-
-            [Test]
-            public void Should_not_add_call_to_stack()
-            {
-                _callStack.did_not_receive(x => x.Push(_call));
+                _receivedCalls.received(x => x.ThrowIfCallNotFound(_callSpecification));
             }
 
             [Test]

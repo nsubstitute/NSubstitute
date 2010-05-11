@@ -4,13 +4,13 @@ namespace NSubstitute.Routes.Handlers
 {
     public class CheckReceivedCallHandler : ICallHandler
     {
-        private readonly ICallStack _callStack;
+        private readonly IReceivedCalls _receivedCalls;
         private readonly ICallResults _configuredResults;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
 
-        public CheckReceivedCallHandler(ICallStack callStack, ICallResults configuredResults, ICallSpecificationFactory callSpecificationFactory)
+        public CheckReceivedCallHandler(IReceivedCalls receivedCalls, ICallResults configuredResults, ICallSpecificationFactory callSpecificationFactory)
         {
-            _callStack = callStack;
+            _receivedCalls = receivedCalls;
             _configuredResults = configuredResults;
             _callSpecificationFactory = callSpecificationFactory;
         }
@@ -18,7 +18,7 @@ namespace NSubstitute.Routes.Handlers
         public object Handle(ICall call)
         {
             var callSpecification = _callSpecificationFactory.CreateFrom(call);
-            _callStack.ThrowIfCallNotFound(callSpecification);
+            _receivedCalls.ThrowIfCallNotFound(callSpecification);
             return _configuredResults.GetDefaultResultFor(call);
         }
     }
