@@ -9,9 +9,23 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<CallResults>
         {
+            private ICallInfoFactory _callInfoFactory;
+
+            public override void Context()
+            {
+                _callInfoFactory = mock<ICallInfoFactory>();
+            }
+
             public override CallResults CreateSubjectUnderTest()
             {
-                return new CallResults();
+                return new CallResults(_callInfoFactory);
+            }
+
+            protected CallInfo StubCallInfoForCall(ICall call)
+            {
+                var callInfo = new CallInfo(new object[0]);
+                _callInfoFactory.stub(x => x.Create(call)).Return(callInfo);
+                return callInfo;
             }
         }
 
@@ -21,6 +35,7 @@ namespace NSubstitute.Specs
             readonly object _expectedResult = new object();
             ICallSpecification _callSpecification;
             ICall _call;
+            Func<CallInfo, object> _funcToGetResult;
 
             [Test]
             public void Should_get_the_result_that_was_set()
@@ -30,7 +45,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResult(_callSpecification, _expectedResult);
+                sut.SetResult(_callSpecification, _funcToGetResult);
                 _result = sut.GetResult(_call);
             }
 
@@ -40,6 +55,9 @@ namespace NSubstitute.Specs
                 _callSpecification = mock<ICallSpecification>();
                 _call = mock<ICall>();
                 _callSpecification.stub(x => x.IsSatisfiedBy(_call)).Return(true);
+                var callInfo = StubCallInfoForCall(_call);
+                _funcToGetResult = mock<Func<CallInfo, object>>();
+                _funcToGetResult.stub(x => x(callInfo)).Return(_expectedResult);
             }
         }
 
@@ -48,6 +66,8 @@ namespace NSubstitute.Specs
             object _result;
             readonly object _originalResult = new object();
             readonly object _overriddenResult = new object();
+            Func<CallInfo, object> _funcToGetOriginalResult;
+            Func<CallInfo, object> _funcToGetOverriddenResult;
             ICallSpecification _callSpecification;
             ICall _call;
 
@@ -59,8 +79,8 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResult(_callSpecification, _originalResult);
-                sut.SetResult(_callSpecification, _overriddenResult);
+                sut.SetResult(_callSpecification, _funcToGetOriginalResult);
+                sut.SetResult(_callSpecification, _funcToGetOverriddenResult);
                 _result = sut.GetResult(_call);
             }
 
@@ -70,6 +90,11 @@ namespace NSubstitute.Specs
                 _callSpecification = mock<ICallSpecification>();
                 _call = mock<ICall>();
                 _callSpecification.stub(x => x.IsSatisfiedBy(_call)).Return(true);
+                var callInfo = StubCallInfoForCall(_call);
+                _funcToGetOriginalResult = mock<Func<CallInfo, object>>();
+                _funcToGetOriginalResult.stub(x => x(callInfo)).Return(_originalResult);
+                _funcToGetOverriddenResult = mock<Func<CallInfo, object>>();
+                _funcToGetOverriddenResult.stub(x => x(callInfo)).Return(_overriddenResult);
             }
             
         }

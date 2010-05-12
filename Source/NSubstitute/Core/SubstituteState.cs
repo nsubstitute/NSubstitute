@@ -6,14 +6,14 @@ namespace NSubstitute.Core
     {
         public SubstituteState(ISubstitutionContext substitutionContext)
         {
+            CallInfoFactory = new CallInfoFactory();
             CallStack = new CallStack();
-            CallResults = new CallResults();
+            CallResults = new CallResults(CallInfoFactory);
             CallActions = new CallActions();
             PropertyHelper = new PropertyHelper();
             CallSpecificationFactory = new CallSpecificationFactory(substitutionContext);
             ResultSetter = new ResultSetter(CallStack, CallResults, CallSpecificationFactory);
             EventHandlerRegistry = new EventHandlerRegistry();
-            CallInfoFactory = new CallInfoFactory();
         }
 
         public CallStack CallStack { get; private set; }
