@@ -15,8 +15,8 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_tell_the_substitution_context_to_return_the_value_from_the_last_call()
             {
-                Assert.That(_returnValueSet, Is.TypeOf<ReturnValue<object>>());
-                Assert.That(((ReturnValue<object>) _returnValueSet).ReturnFor(null), Is.SameAs(_value));
+                Assert.That(_returnValueSet, Is.TypeOf<ReturnValue>());
+                Assert.That(_returnValueSet.ReturnFor(null), Is.SameAs(_value));
             }
 
             public override void Because()
@@ -35,6 +35,5 @@ namespace NSubstitute.Specs
                 temporarilyChange(() => SubstitutionContext.Current).to(_substitutionContext);
             }
         }
-        
     }
 }

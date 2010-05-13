@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Routes;
 
@@ -9,7 +10,23 @@ namespace NSubstitute
         public static void Returns<T>(this T value, T returnThis, params T[] returnThese)
         {
             var context = SubstitutionContext.Current;
-            context.LastCallShouldReturn(new ReturnValue<T>(returnThis));
+            IReturn returnValue;
+            if (returnThese == null || returnThese.Length == 0)
+            {
+                returnValue = new ReturnValue(returnThis);
+            }
+            else
+            {            
+                returnValue = new ReturnMultipleValues<T>(new[] {returnThis}.Concat(returnThese));
+            }
+            context.LastCallShouldReturn(returnValue);
+        }
+
+        public static void Returns<T>(this T value, Func<CallInfo,T> returnThis)
+        {
+            var context = SubstitutionContext.Current;
+            var returnValue = new ReturnValueFromFunc<T>(returnThis);
+            context.LastCallShouldReturn(returnValue);
         }
 
         public static T Received<T>(this T substitute)

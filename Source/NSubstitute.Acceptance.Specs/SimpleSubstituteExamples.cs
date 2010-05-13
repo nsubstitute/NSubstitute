@@ -32,6 +32,17 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Return_a_value_evaluated_at_runtime()
+        {
+            var calculator = Substitute.For<ICalculator>();
+            calculator.Add(Arg.Any<int>(), Arg.Any<int>()).Returns(x => (int)x[0] + (int)x[1]);
+            Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
+            Assert.That(calculator.Add(5, 10), Is.EqualTo(15));
+            Assert.That(calculator.Add(123, 456), Is.EqualTo(579));
+            Assert.That(calculator.Add(-1, -2), Is.EqualTo(-3));
+        }
+
+        [Test]
         public void Check_a_call_was_received()
         {
             var calculator = Substitute.For<ICalculator>();

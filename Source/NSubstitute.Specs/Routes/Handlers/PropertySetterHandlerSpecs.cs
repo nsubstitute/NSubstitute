@@ -32,7 +32,7 @@ namespace NSubstitute.Specs.Routes.Handlers
 
         public class When_call_is_a_property_setter : Concern
         {
-            private ReturnValue<object> _returnPassedToResultSetter;
+            private ReturnValue _returnPassedToResultSetter;
 
             [Test]
             public void Should_add_set_value_to_configured_results()
@@ -52,7 +52,7 @@ namespace NSubstitute.Specs.Routes.Handlers
                 _resultSetter
                     .stub(x => x.SetResultForCall(Arg.Is(_propertyGetter), Arg.Any<IReturn>()))
                     .IgnoreArguments()
-                    .WhenCalled(x => _returnPassedToResultSetter = (ReturnValue<object>) x.Arguments[1]);
+                    .WhenCalled(x => _returnPassedToResultSetter = (ReturnValue) x.Arguments[1]);
             }
         }
 

@@ -27,7 +27,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Return_multiple_results_from_the_same_call()
         {
             _something.Count().Returns(1, 2, 3);
