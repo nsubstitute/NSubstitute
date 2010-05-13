@@ -25,7 +25,7 @@ namespace NSubstitute.Specs
         public class When_setting_the_return_value_of_the_last_call : Concern
         {
             private ICallRouter _callRouter;
-            private int _valueToReturn;
+            private IReturn _valueToReturn;
 
             [Test]
             public void Should_tell_the_last_call_router_to_set_the_return_value_of_its_last_call()
@@ -43,7 +43,7 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _callRouter = mock<ICallRouter>();
-                _valueToReturn = 42;
+                _valueToReturn = mock<IReturn>();
             }
         }
 
@@ -52,7 +52,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw_a_substitute_exception()
             {
-                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(5));
+                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(mock<IReturn>()));
             }
         }
 

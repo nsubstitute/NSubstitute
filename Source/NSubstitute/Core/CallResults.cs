@@ -15,14 +15,9 @@ namespace NSubstitute.Core
             _results = new List<ResultForCallSpec>();
         }
 
-        public void SetResult<T>(ICallSpecification callSpecification, T valueToReturn)
+        public void SetResult(ICallSpecification callSpecification, IReturn result)
         {
-            _results.Add(new ResultForCallSpec(callSpecification, (Func<CallInfo,T>) (x => valueToReturn)));
-        }
-
-        public void SetResult<T>(ICallSpecification callSpecification, Func<CallInfo,T> funcToGetReturnValue)
-        {
-            _results.Add(new ResultForCallSpec(callSpecification, funcToGetReturnValue));
+            _results.Add(new ResultForCallSpec(callSpecification, result));
         }
 
         public object GetResult(ICall call)
@@ -33,9 +28,8 @@ namespace NSubstitute.Core
                 var callSpecification = callResult.CallSpecification;
                 if (callSpecification.IsSatisfiedBy(call))
                 {
-                    var funcToGetReturnValue = callResult.FuncToGetResult;
                     var callInfo = _callInfoFactory.Create(call);
-                    return funcToGetReturnValue.DynamicInvoke(callInfo);
+                    return callResult.ResultToReturn.ReturnFor(callInfo);
                 }
             }            
             return GetDefaultResultFor(call);
@@ -70,14 +64,14 @@ namespace NSubstitute.Core
 
         class ResultForCallSpec
         {
-            public ResultForCallSpec(ICallSpecification callSpecification, Delegate funcToGetResult)
+            public ResultForCallSpec(ICallSpecification callSpecification, IReturn resultToReturn)
             {
                 CallSpecification = callSpecification;
-                FuncToGetResult = funcToGetResult;
+                ResultToReturn = resultToReturn;
             }
 
             public ICallSpecification CallSpecification { get; private set; }
-            public Delegate FuncToGetResult { get; private set; }
+            public IReturn ResultToReturn { get; private set; }
         }
     }
 }

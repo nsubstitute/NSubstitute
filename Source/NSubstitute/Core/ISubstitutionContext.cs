@@ -5,7 +5,7 @@ namespace NSubstitute.Core
 {
     public interface ISubstitutionContext
     {
-        void LastCallShouldReturn<T>(T value);
+        void LastCallShouldReturn(IReturn value);
         void LastCallRouter(ICallRouter callRouter);
         ISubstituteFactory GetSubstituteFactory();
         ICallRouter GetCallRouterFor(object substitute);

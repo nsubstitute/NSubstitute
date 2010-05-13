@@ -13,13 +13,13 @@ namespace NSubstitute.Core
             _callSpecificationFactory = callSpecificationFactory;
         }
 
-        public void SetResultForLastCall<T>(T valueToReturn)
+        public void SetResultForLastCall(IReturn valueToReturn)
         {
             var lastCall = _callStack.Pop();
             SetResultForCall(lastCall, valueToReturn);
         }
 
-        public void SetResultForCall<T>(ICall call, T valueToReturn)
+        public void SetResultForCall(ICall call, IReturn valueToReturn)
         {
             var callSpecification = _callSpecificationFactory.CreateFrom(call);
             _configuredResults.SetResult(callSpecification, valueToReturn);

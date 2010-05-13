@@ -31,9 +31,9 @@ namespace NSubstitute.Core
             return result;
         }
 
-        public void LastCallShouldReturn<T>(T valueToReturn)
+        public void LastCallShouldReturn(IReturn returnValue)
         {
-            _resultSetter.SetResultForLastCall(valueToReturn);
+            _resultSetter.SetResultForLastCall(returnValue);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using NSubstitute.Core;
 using NSubstitute.Routes;
 using NSubstitute.Specs.Infrastructure;
@@ -83,17 +84,23 @@ namespace NSubstitute.Specs
 
         public class When_setting_result_of_last_call : Concern
         {
-            const int _valueToReturn = 7;
+            IReturn _returnValue;
 
             [Test]
             public void Should_set_result()
             {
-                _resultSetter.received(x => x.SetResultForLastCall(_valueToReturn));
+                _resultSetter.received(x => x.SetResultForLastCall(_returnValue));
             }
 
             public override void Because()
             {
-                sut.LastCallShouldReturn(_valueToReturn);
+                sut.LastCallShouldReturn(_returnValue);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _returnValue = mock<IReturn>();
             }
         }
     }

@@ -10,11 +10,13 @@ namespace NSubstitute.Specs
         {
             private object _value;
             private ISubstitutionContext _substitutionContext;
+            private IReturn _returnValueSet;
 
             [Test]
             public void Should_tell_the_substitution_context_to_return_the_value_from_the_last_call()
             {
-                _substitutionContext.received(x => x.LastCallShouldReturn(_value));
+                Assert.That(_returnValueSet, Is.TypeOf<ReturnValue<object>>());
+                Assert.That(((ReturnValue<object>) _returnValueSet).ReturnFor(null), Is.SameAs(_value));
             }
 
             public override void Because()
@@ -26,6 +28,10 @@ namespace NSubstitute.Specs
             {
                 _value = new object();
                 _substitutionContext = mock<ISubstitutionContext>();
+                _substitutionContext
+                    .stub(x => x.LastCallShouldReturn(Arg.Any<IReturn>()))
+                    .IgnoreArguments()
+                    .WhenCalled(x => _returnValueSet = (IReturn) x.Arguments[0]);
                 temporarilyChange(() => SubstitutionContext.Current).to(_substitutionContext);
             }
         }

@@ -89,6 +89,7 @@
     <Compile Include="Core\CallInfoFactory.cs" />
     <Compile Include="Core\ICallInfoFactory.cs" />
     <Compile Include="Core\IReceivedCalls.cs" />
+    <Compile Include="Core\IReturn.cs" />
     <Compile Include="Exceptions\ArgumentNotFoundException.cs" />
     <Compile Include="Exceptions\CallNotReceivedException.cs" />
     <Compile Include="Core\CallSpecification.cs" />

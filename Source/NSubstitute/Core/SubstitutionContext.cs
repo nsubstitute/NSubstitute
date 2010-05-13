@@ -33,7 +33,7 @@ namespace NSubstitute.Core
             _substituteFactory = substituteFactory;
         }
 
-        public void LastCallShouldReturn<T>(T value)
+        public void LastCallShouldReturn(IReturn value)
         {            
             if (_lastCallRouter == null) throw new SubstituteException();
             _lastCallRouter.LastCallShouldReturn(value);

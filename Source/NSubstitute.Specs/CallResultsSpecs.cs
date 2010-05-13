@@ -35,7 +35,7 @@ namespace NSubstitute.Specs
             readonly object _expectedResult = new object();
             ICallSpecification _callSpecification;
             ICall _call;
-            Func<CallInfo, object> _funcToGetResult;
+            IReturn _resultToReturn;
 
             [Test]
             public void Should_get_the_result_that_was_set()
@@ -45,19 +45,20 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResult(_callSpecification, _funcToGetResult);
+                sut.SetResult(_callSpecification, _resultToReturn);
                 _result = sut.GetResult(_call);
             }
 
             public override void Context()
             {
                 base.Context();
-                _callSpecification = mock<ICallSpecification>();
                 _call = mock<ICall>();
+                _callSpecification = mock<ICallSpecification>();
                 _callSpecification.stub(x => x.IsSatisfiedBy(_call)).Return(true);
+                
                 var callInfo = StubCallInfoForCall(_call);
-                _funcToGetResult = mock<Func<CallInfo, object>>();
-                _funcToGetResult.stub(x => x(callInfo)).Return(_expectedResult);
+                _resultToReturn = mock<IReturn>();
+                _resultToReturn.stub(x => x.ReturnFor(callInfo)).Return(_expectedResult);
             }
         }
 
@@ -66,8 +67,8 @@ namespace NSubstitute.Specs
             object _result;
             readonly object _originalResult = new object();
             readonly object _overriddenResult = new object();
-            Func<CallInfo, object> _funcToGetOriginalResult;
-            Func<CallInfo, object> _funcToGetOverriddenResult;
+            IReturn _returnOriginalResult;
+            IReturn _returnOverriddenResult;
             ICallSpecification _callSpecification;
             ICall _call;
 
@@ -79,8 +80,8 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResult(_callSpecification, _funcToGetOriginalResult);
-                sut.SetResult(_callSpecification, _funcToGetOverriddenResult);
+                sut.SetResult(_callSpecification, _returnOriginalResult);
+                sut.SetResult(_callSpecification, _returnOverriddenResult);
                 _result = sut.GetResult(_call);
             }
 
@@ -91,10 +92,10 @@ namespace NSubstitute.Specs
                 _call = mock<ICall>();
                 _callSpecification.stub(x => x.IsSatisfiedBy(_call)).Return(true);
                 var callInfo = StubCallInfoForCall(_call);
-                _funcToGetOriginalResult = mock<Func<CallInfo, object>>();
-                _funcToGetOriginalResult.stub(x => x(callInfo)).Return(_originalResult);
-                _funcToGetOverriddenResult = mock<Func<CallInfo, object>>();
-                _funcToGetOverriddenResult.stub(x => x(callInfo)).Return(_overriddenResult);
+                _returnOriginalResult = mock<IReturn>();
+                _returnOriginalResult.stub(x => x.ReturnFor(callInfo)).Return(_originalResult);
+                _returnOverriddenResult = mock<IReturn>();
+                _returnOverriddenResult.stub(x => x.ReturnFor(callInfo)).Return(_overriddenResult);
             }
             
         }

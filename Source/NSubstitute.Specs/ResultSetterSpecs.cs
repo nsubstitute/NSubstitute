@@ -32,22 +32,23 @@ namespace NSubstitute.Specs
         
         public class When_the_return_value_for_the_last_call_is_set : Concern
         {
-            const int ValueToReturn = 7;
+            private IReturn _returnValue;
 
             [Test]
             public void Should_remove_the_call_from_those_recorded_and_add_it_to_configured_results()
             {
-                _configuredResults.received(x => x.SetResult(_callSpecification, ValueToReturn));
+                _configuredResults.received(x => x.SetResult(_callSpecification, _returnValue));
             }
 
             public override void Because()
             {
-                sut.SetResultForLastCall(ValueToReturn);
+                sut.SetResultForLastCall(_returnValue);
             }
 
             public override void Context()
             {
                 base.Context();
+                _returnValue = mock<IReturn>();
                 _callStack.stub(x => x.Pop()).Return(_call);
             }
         }
