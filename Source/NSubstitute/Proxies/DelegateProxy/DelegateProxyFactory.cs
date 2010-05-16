@@ -15,28 +15,28 @@ namespace NSubstitute.Proxies.DelegateProxy
 
         private TDelegate DelegateProxy<TDelegate>(DelegateCall delegateCall)
         {
-            var delegateMethod = typeof (TDelegate).GetMethod("Invoke");
-            var delegateTo = DelegateCall.DelegateCallInvoke;
+            var delegateMethodToProxy = typeof (TDelegate).GetMethod("Invoke");
+            var invokeOnDelegateCall = DelegateCall.DelegateCallInvoke;
 
-            ParameterExpression[] parameters = delegateMethod.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();
-            Expression[] parameterInitialisers = parameters.Select(x => (Expression)Expression.Convert(x, typeof(object))).ToArray();
+            ParameterExpression[] proxyParameters = delegateMethodToProxy.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();
+            Expression[] proxyParametersAsObjects = proxyParameters.Select(x => (Expression)Expression.Convert(x, typeof(object))).ToArray();
 
-            var delegateExpression =
+            var proxyExpression =
                 Expression.Lambda<TDelegate>(
                     Expression.Convert(
                         Expression.Call(
                             Expression.Constant(delegateCall),
-                            delegateTo,
+                            invokeOnDelegateCall,
                             new Expression[]
                             {
-                                Expression.NewArrayInit(typeof(object), parameterInitialisers)
+                                Expression.NewArrayInit(typeof(object), proxyParametersAsObjects)
                             }
                         ),
-                        delegateMethod.ReturnType
+                        delegateMethodToProxy.ReturnType
                     ),
-                    parameters
+                    proxyParameters
                 );
-            return delegateExpression.Compile();
+            return proxyExpression.Compile();
         }
     }
 }
