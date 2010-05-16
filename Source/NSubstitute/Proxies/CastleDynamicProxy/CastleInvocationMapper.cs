@@ -1,5 +1,3 @@
-using System;
-using System.Reflection;
 using Castle.Core.Interceptor;
 using NSubstitute.Core;
 
@@ -9,36 +7,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
     {
         public virtual ICall Map(IInvocation castleInvocation)
         {
-            return new CastleBasedCall(castleInvocation);            
-        }
-
-        private class CastleBasedCall : ICall {
-            readonly IInvocation _castleInvocation;
-
-            public CastleBasedCall(IInvocation castleInvocation)
-            {
-                _castleInvocation = castleInvocation;
-            }
-
-            public Type GetReturnType()
-            {
-                return GetMethodInfo().ReturnType;
-            }
-
-            public MethodInfo GetMethodInfo()
-            {
-                return _castleInvocation.Method;
-            }
-
-            public object[] GetArguments()
-            {
-                return _castleInvocation.Arguments;
-            }
-
-            public object Target()
-            {
-                return _castleInvocation.Proxy;
-            }
+            return new Call(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy);
         }
     }
 }

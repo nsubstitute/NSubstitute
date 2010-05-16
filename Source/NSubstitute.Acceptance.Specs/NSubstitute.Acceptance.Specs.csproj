@@ -91,6 +91,7 @@
     <Compile Include="SequenceChecking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubstituteWhenCalledDo.cs" />
+    <Compile Include="SubstitutingForDelegates.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSubstitute\NSubstitute.csproj">
