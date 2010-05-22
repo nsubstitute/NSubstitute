@@ -3,7 +3,7 @@
 namespace NSubstitute.Acceptance.Specs
 {
     [TestFixture]
-    public class SubstituteReturnResults
+    public class ReturningResults
     {
         private ISomething _something;
 

@@ -1,3 +1,4 @@
+using System;
 using NSubstitute.Routes;
 
 namespace NSubstitute.Core
@@ -15,7 +16,7 @@ namespace NSubstitute.Core
             _resultSetter = resultSetter;
             _routeFactory = routeFactory;
 
-            SetRoute<RecordReplayRoute>();
+            UseDefaultRouteForNextCall();
         }
 
         public void SetRoute<TRoute>(params object[] routeArguments) where TRoute : IRoute
@@ -23,12 +24,17 @@ namespace NSubstitute.Core
             _currentRoute = _routeFactory.Create<TRoute>(routeArguments);
         }
 
+        private void UseDefaultRouteForNextCall()
+        {
+            SetRoute<RecordReplayRoute>();
+        }
+
         public object Route(ICall call)
         {
             _context.LastCallRouter(this);
-            var result = _currentRoute.Handle(call);
-            SetRoute<RecordReplayRoute>();
-            return result;
+            var routeToUseForThisCall = _currentRoute;
+            UseDefaultRouteForNextCall();
+            return routeToUseForThisCall.Handle(call);
         }
 
         public void LastCallShouldReturn(IReturn returnValue)

@@ -3,7 +3,7 @@ using NUnit.Framework;
 namespace NSubstitute.Acceptance.Specs
 {
     [TestFixture]
-    public class SubstituteWhenCalledDo
+    public class WhenCalledDo
     {
         private ISomething _something;
 

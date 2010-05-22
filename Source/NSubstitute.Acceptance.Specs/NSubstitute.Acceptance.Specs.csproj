@@ -78,19 +78,21 @@
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />
     <Compile Include="Infrastructure\ICalculator.cs" />
+    <Compile Include="RaisingEvents.cs" />
     <Compile Include="SubbingForEventHandler.cs" />
     <Compile Include="PropertyBehaviour.cs" />
-    <Compile Include="SubstituteParameterMatching.cs" />
+    <Compile Include="ParameterMatching.cs" />
     <Compile Include="Infrastructure\IIgnition.cs" />
     <Compile Include="Infrastructure\PendingAttribute.cs" />
     <Compile Include="SimpleSubstituteExamples.cs" />
-    <Compile Include="SubstituteReceivedCalls.cs" />
-    <Compile Include="SubstituteReturnResults.cs" />
+    <Compile Include="ReceivedCalls.cs" />
+    <Compile Include="ReturningResults.cs" />
     <Compile Include="Infrastructure\IEngine.cs" />
     <Compile Include="Infrastructure\ISomething.cs" />
     <Compile Include="SequenceChecking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubstituteWhenCalledDo.cs" />
+    <Compile Include="SubstituteTimingAndInteractions.cs" />
+    <Compile Include="WhenCalledDo.cs" />
     <Compile Include="SubstitutingForDelegates.cs" />
   </ItemGroup>
   <ItemGroup>

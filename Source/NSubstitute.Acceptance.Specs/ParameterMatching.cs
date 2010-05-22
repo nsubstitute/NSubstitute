@@ -3,7 +3,7 @@
 namespace NSubstitute.Acceptance.Specs
 {
     [TestFixture]
-    public class SubstituteParameterMatching
+    public class ParameterMatching
     {
         private ISomething _something;
 

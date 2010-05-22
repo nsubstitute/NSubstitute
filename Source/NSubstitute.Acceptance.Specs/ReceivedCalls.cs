@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace NSubstitute.Acceptance.Specs
 {
     [TestFixture]
-    public class SubstituteReceivedCalls
+    public class ReceivedCalls
     {
         private IEngine _engine;
         private int _rpm;
