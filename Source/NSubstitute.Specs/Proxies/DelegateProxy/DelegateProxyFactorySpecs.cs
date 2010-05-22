@@ -9,10 +9,24 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
 {
     public class DelegateProxyFactorySpecs 
     {
-        public class When_generating_a_proxy_for_a_delegate : ConcernFor<DelegateProxyFactory>
+        public abstract class Concern : ConcernFor<DelegateProxyFactory>
+        {
+            protected ICallRouter _callRouter;
+
+            public override void Context()
+            {
+                _callRouter = mock<ICallRouter>();
+            }
+
+            public override DelegateProxyFactory CreateSubjectUnderTest()
+            {
+                return new DelegateProxyFactory();
+            }
+        }
+
+        public class When_generating_a_proxy_for_a_delegate : Concern
         {
             private Func<int, string> _result;
-            private ICallRouter _callRouter;
 
             [Test]
             public void Proxy_should_forward_calls_to_call_router()
@@ -24,16 +38,6 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
             public override void Because()
             {
                 _result = sut.GenerateProxy<Func<int, string>>(_callRouter);
-            }
-
-            public override void Context()
-            {
-                _callRouter = mock<ICallRouter>();
-            }
-
-            public override DelegateProxyFactory CreateSubjectUnderTest()
-            {
-                return new DelegateProxyFactory();
             }
 
             private ICall DelegateCallWithArg(int arg)
@@ -55,6 +59,16 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
                 var callArguments = x.GetArguments();
                 return callArguments.Length == 1 && (int)callArguments[0] == arg;
             }
+        }
+
+        public class When_generating_a_proxy_for_an_action : Concern
+        {
+            [Test]
+            public void Should_be_able_to_create_an_action_proxy()
+            {
+                var result = sut.GenerateProxy<Action<int>>(_callRouter);
+                result(12);
+            }           
         }
     }
 }

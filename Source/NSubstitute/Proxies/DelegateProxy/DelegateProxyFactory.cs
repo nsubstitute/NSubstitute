@@ -21,21 +21,23 @@ namespace NSubstitute.Proxies.DelegateProxy
             ParameterExpression[] proxyParameters = delegateMethodToProxy.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();
             Expression[] proxyParametersAsObjects = proxyParameters.Select(x => (Expression)Expression.Convert(x, typeof(object))).ToArray();
 
-            var proxyExpression =
-                Expression.Lambda<TDelegate>(
-                    Expression.Convert(
-                        Expression.Call(
-                            Expression.Constant(delegateCall),
-                            invokeOnDelegateCall,
-                            new Expression[]
-                            {
-                                Expression.NewArrayInit(typeof(object), proxyParametersAsObjects)
-                            }
-                        ),
-                        delegateMethodToProxy.ReturnType
-                    ),
-                    proxyParameters
+            Expression callInvokeOnDelegateCallInstance = 
+                Expression.Call(
+                    Expression.Constant(delegateCall),
+                    invokeOnDelegateCall,
+                    new Expression[]
+                    {
+                        Expression.NewArrayInit(typeof(object), proxyParametersAsObjects)
+                    }
                 );
+
+            if (delegateMethodToProxy.ReturnType != typeof(void))
+            {
+                callInvokeOnDelegateCallInstance =
+                    Expression.Convert(callInvokeOnDelegateCallInstance, delegateMethodToProxy.ReturnType);
+            }
+            
+            var proxyExpression = Expression.Lambda<TDelegate>(callInvokeOnDelegateCallInstance, proxyParameters);
             return proxyExpression.Compile();
         }
     }

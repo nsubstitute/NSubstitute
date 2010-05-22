@@ -97,6 +97,7 @@
     <Compile Include="Core\CallSpecificationFactory.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateCall.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateProxyFactory.cs" />
+    <Compile Include="Proxies\ProxyFactory.cs" />
     <Compile Include="Routes\CheckCallReceivedRoute.cs" />
     <Compile Include="Routes\Handlers\CheckReceivedCallHandler.cs" />
     <Compile Include="Routes\Handlers\DoActionsCallHandler.cs" />

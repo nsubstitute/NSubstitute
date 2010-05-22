@@ -92,6 +92,7 @@
     <Compile Include="CallSpecificationSpecs.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateProxyFactorySpecs.cs" />
+    <Compile Include="Proxies\ProxyFactorySpecs.cs" />
     <Compile Include="RoutePartsSpecs.cs" />
     <Compile Include="Routes\CheckCallReceivedRouteSpecs.cs" />
     <Compile Include="Routes\ConcernForRoute.cs" />
