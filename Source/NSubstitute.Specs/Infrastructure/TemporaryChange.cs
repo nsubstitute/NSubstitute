@@ -11,11 +11,6 @@ namespace NSubstitute.Specs.Infrastructure
         public Action<T> SetValue { get; set; }
         public bool IsConfigured { get; set; }
 
-        public TemporaryChange(T value)
-        {
-            OriginalValue = value;
-        }
-
         public TemporaryChange(MemberInfo member, T originalValue)
         {
             MemberName = member.Name;
