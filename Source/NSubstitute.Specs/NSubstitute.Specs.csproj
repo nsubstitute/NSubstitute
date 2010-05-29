@@ -88,6 +88,7 @@
     <Compile Include="CallInfoSpecs.cs" />
     <Compile Include="CallRouterFactorySpecs.cs" />
     <Compile Include="CallResultsSpecs.cs" />
+    <Compile Include="CallRouterResolverSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />
     <Compile Include="CallSpecificationSpecs.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />

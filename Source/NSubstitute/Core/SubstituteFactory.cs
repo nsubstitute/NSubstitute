@@ -1,3 +1,5 @@
+using System;
+
 namespace NSubstitute.Core
 {
     public class SubstituteFactory : ISubstituteFactory
@@ -5,20 +7,27 @@ namespace NSubstitute.Core
         readonly ISubstitutionContext _context;
         readonly ICallRouterFactory _callRouterFactory;
         readonly IProxyFactory _proxyFactory;
-        
-        public SubstituteFactory(ISubstitutionContext context, 
-                                    ICallRouterFactory callRouterFactory, 
-                                    IProxyFactory proxyFactory)
+        readonly ICallRouterResolver _callRouterResolver;
+
+        public SubstituteFactory(ISubstitutionContext context, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory, ICallRouterResolver callRouterResolver)
         {
             _context = context;
             _callRouterFactory = callRouterFactory;
             _proxyFactory = proxyFactory;
+            _callRouterResolver = callRouterResolver;
         }
 
         public T Create<T>() where T : class
         {
             var callRouter = _callRouterFactory.Create(_context);
-            return _proxyFactory.GenerateProxy<T>(callRouter);
+            var proxy = _proxyFactory.GenerateProxy<T>(callRouter);
+            _callRouterResolver.Register(proxy, callRouter);
+            return proxy;
+        }
+
+        public ICallRouter GetCallRouterCreatedFor(object substitute)
+        {
+            return _callRouterResolver.ResolveFor(substitute);
         }
     }
 }

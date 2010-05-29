@@ -28,7 +28,8 @@ namespace NSubstitute.Core
             var dynamicProxyFactory = new CastleDynamicProxyFactory(interceptorFactory);
             var delegateFactory = new DelegateProxyFactory();
             var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
-            _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory);
+            var callRouteResolver = new CallRouterResolver();
+            _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver);
             _argumentSpecifications = new List<IArgumentSpecification>();
         }
 
@@ -65,9 +66,7 @@ namespace NSubstitute.Core
 
         public ICallRouter GetCallRouterFor(object substitute)
         {
-            var isCallRouter = substitute is ICallRouter;
-            if (!isCallRouter) throw new NotASubstituteException();
-            return (ICallRouter) substitute;
+            return _substituteFactory.GetCallRouterCreatedFor(substitute);
         }
 
         public void EnqueueArgumentSpecification(IArgumentSpecification spec)

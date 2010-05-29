@@ -59,45 +59,28 @@ namespace NSubstitute.Specs
         public class When_getting_call_router_for_a_substitute : Concern
         {
             private ICallRouter _routerForSubstitute;
-            private object _substituteCastableAsRouter;
+            private object _substitute;
             private ICallRouter _result;
 
             [Test]
-            public void Should_cast_substitute_to_call_router()
+            public void Should_resolve_call_router_for_substitute()
             {
                 Assert.That(_result, Is.SameAs(_routerForSubstitute));               
             }
 
             public override void Because()
             {
-                _result = sut.GetCallRouterFor(_substituteCastableAsRouter);
+                _result = sut.GetCallRouterFor(_substitute);
             }
 
             public override void Context()
             {
                 base.Context();                
+                _substitute = new object();
                 _routerForSubstitute = mock<ICallRouter>();
-                _substituteCastableAsRouter = _routerForSubstitute;
+                _substituteFactory.stub(x => x.GetCallRouterCreatedFor(_substitute)).Return(_routerForSubstitute);
             }
         }
-
-        public class When_getting_call_router_for_an_instance_that_is_not_a_substitute : Concern
-        {
-            private object _notASubstitute;
-
-            [Test]
-            public void Should_throw_an_exception()
-            {
-                Assert.Throws<NotASubstituteException>(() => sut.GetCallRouterFor(_notASubstitute));
-            }
-
-            public override void Context()
-            {
-                base.Context();
-                _notASubstitute = new object();
-            }        
-        }
-
 
         public class When_getting_the_substitute_factory_for_the_context:Concern
         {

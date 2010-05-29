@@ -7,7 +7,6 @@ namespace NSubstitute.Acceptance.Specs
     public class SubstitutingForDelegates
     {
         [Test]
-        [Pending]
         public void SubForAction()
         {
             var action = Substitute.For<Action>();
@@ -16,7 +15,6 @@ namespace NSubstitute.Acceptance.Specs
         }
         
         [Test]
-        [Pending]
         public void SubForFunc()
         {
             var func = Substitute.For<Func<int, string>>();
