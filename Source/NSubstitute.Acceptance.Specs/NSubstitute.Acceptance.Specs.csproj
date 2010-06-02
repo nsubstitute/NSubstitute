@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CallNotReceivedExceptions.cs" />
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />
     <Compile Include="Infrastructure\ICalculator.cs" />
