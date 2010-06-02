@@ -14,6 +14,7 @@ namespace NSubstitute.Core
             CallSpecificationFactory = new CallSpecificationFactory(substitutionContext);
             ResultSetter = new ResultSetter(CallStack, CallResults, CallSpecificationFactory);
             EventHandlerRegistry = new EventHandlerRegistry();
+            CallNotReceivedExceptionThrower = new CallNotReceivedExceptionThrower();
         }
 
         public CallStack CallStack { get; private set; }
@@ -24,5 +25,6 @@ namespace NSubstitute.Core
         public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
         public ICallActions CallActions { get; private set; }
         public CallInfoFactory CallInfoFactory { get; private set; }
+        public ICallNotReceivedExceptionThrower CallNotReceivedExceptionThrower { get; private set; }
     }
 }

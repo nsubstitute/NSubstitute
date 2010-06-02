@@ -86,6 +86,7 @@
     <Compile Include="CallActionsSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallInfoSpecs.cs" />
+    <Compile Include="CallNotReceivedExceptionThrowerSpecs.cs" />
     <Compile Include="CallRouterFactorySpecs.cs" />
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallRouterResolverSpecs.cs" />

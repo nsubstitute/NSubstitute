@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Exceptions;
@@ -27,6 +28,11 @@ namespace NSubstitute.Core
         {
             if (_stack.Any(receivedCall => callSpecification.IsSatisfiedBy(receivedCall))) return;
             throw new CallNotReceivedException();
+        }
+
+        public IEnumerable<ICall> FindMatchingCalls(ICallSpecification callSpecification)
+        {
+            return _stack.Where(x => callSpecification.IsSatisfiedBy(x));
         }
     }
 }

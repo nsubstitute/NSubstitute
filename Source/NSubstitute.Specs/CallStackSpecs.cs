@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
@@ -86,6 +88,40 @@ namespace NSubstitute.Specs
                 _firstCall = mock<ICall>();
                 _secondCall = mock<ICall>();
                 _callSpecificationToCheck = mock<ICallSpecification>();
+            }
+        }
+
+        public class When_finding_calls_matching_a_specification : Concern
+        {
+            private ICallSpecification _callSpecificationToCheck;
+            private ICall _callThatDoesNotMatchSpec;
+            private ICall _callThatMatchesSpec;
+            private ICall _anotherCallThatMatchesSpec;
+            private IEnumerable<ICall> _result;
+
+            [Test]
+            public void Should_return_all_calls_that_satisfy_specification()
+            {
+                Assert.That(_result, Is.EquivalentTo(new[] { _callThatMatchesSpec, _anotherCallThatMatchesSpec })); 
+            }
+
+            public override void Because()
+            {
+                sut.Push(_callThatMatchesSpec);
+                sut.Push(_callThatDoesNotMatchSpec);
+                sut.Push(_anotherCallThatMatchesSpec);
+                _result = sut.FindMatchingCalls(_callSpecificationToCheck);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _callThatDoesNotMatchSpec = mock<ICall>();
+                _callThatMatchesSpec = mock<ICall>();
+                _anotherCallThatMatchesSpec = mock<ICall>();
+                _callSpecificationToCheck = mock<ICallSpecification>();
+                _callSpecificationToCheck.stub(x => x.IsSatisfiedBy(_callThatMatchesSpec)).Return(true);
+                _callSpecificationToCheck.stub(x => x.IsSatisfiedBy(_anotherCallThatMatchesSpec)).Return(true);
             }
         }
     }

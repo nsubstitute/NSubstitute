@@ -1,3 +1,4 @@
+using System;
 using NSubstitute.Core;
 using NSubstitute.Routes.Handlers;
 using NSubstitute.Specs.Infrastructure;
@@ -15,6 +16,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             protected IReceivedCalls _receivedCalls;
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
+            protected ICallNotReceivedExceptionThrower _exceptionThrower;
 
             public override void Context()
             {
@@ -24,26 +26,55 @@ namespace NSubstitute.Specs.Routes.Handlers
                 _call = mock<ICall>();
                 _callSpecification = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
+                _exceptionThrower = mock<ICallNotReceivedExceptionThrower>();
                 _callSpecificationFactory.stub(x => x.CreateFrom(_call)).Return(_callSpecification);
             }
 
             public override CheckReceivedCallHandler CreateSubjectUnderTest()
             {
-                return new CheckReceivedCallHandler(_receivedCalls, _callSpecificationFactory);
+                return new CheckReceivedCallHandler(_receivedCalls, _callSpecificationFactory, _exceptionThrower);
             } 
         }
 
-        public class When_handling_call : Concern
+        public class When_handling_call_that_has_been_received : Concern
+        {
+            private object _result;
+
+            [Test]
+            public void Should_return_without_exception()
+            {
+                _exceptionThrower.did_not_receive(x => x.Throw(_callSpecification));
+            }
+
+            public override void Because()
+            {
+                _result = sut.Handle(_call);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new [] {_call});
+            }
+        }
+
+        public class When_handling_call_that_has_not_been_received : Concern
         {
             [Test]
-            public void Should_throw_exception_if_call_has_not_been_received()
+            public void Should_throw_exception()
             {
-                _receivedCalls.received(x => x.ThrowIfCallNotFound(_callSpecification));
+                _exceptionThrower.received(x => x.Throw(_callSpecification));
             }
 
             public override void Because()
             {
                 sut.Handle(_call);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new ICall[0]);
             }
         }
     }
