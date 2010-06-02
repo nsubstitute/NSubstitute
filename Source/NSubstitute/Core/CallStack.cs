@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
@@ -22,12 +21,6 @@ namespace NSubstitute.Core
         public ICall Pop()
         {
             return _stack.Pop();
-        }
-
-        public void ThrowIfCallNotFound(ICallSpecification callSpecification)
-        {
-            if (_stack.Any(receivedCall => callSpecification.IsSatisfiedBy(receivedCall))) return;
-            throw new CallNotReceivedException();
         }
 
         public IEnumerable<ICall> FindMatchingCalls(ICallSpecification callSpecification)

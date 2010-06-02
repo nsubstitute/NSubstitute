@@ -48,47 +48,6 @@ namespace NSubstitute.Specs
                 var exception = Assert.Throws<InvalidOperationException>(() => sut.Pop());
                 Assert.That(exception.Message, Text.Contains("Stack empty"));
             }
-
-            [Test]
-            public void Should_throw_when_checking_if_a_call_is_found()
-            {
-                Assert.Throws<CallNotReceivedException>(() => sut.ThrowIfCallNotFound(mock<ICallSpecification>()));
-            }
-        }
-
-        public class When_checking_multiple_calls_received_and_checking_for_a_specific_call : Concern
-        {
-            private ICallSpecification _callSpecificationToCheck;
-            private ICall _firstCall;
-            private ICall _secondCall;
-
-            [Test]
-            public void Should_throw_if_no_matches_for_call_are_found()
-            {
-                Assert.Throws<CallNotReceivedException>(() => sut.ThrowIfCallNotFound(mock<ICallSpecification>()));                
-            }
-
-            [Test]
-            public void Should_not_throw_is_a_matching_call_is_found()
-            {
-                sut.ThrowIfCallNotFound(_callSpecificationToCheck);
-                Assert.Pass();
-            }
-
-            public override void Because()
-            {
-                _callSpecificationToCheck.stub(x => x.IsSatisfiedBy(_secondCall)).Return(true);
-                sut.Push(_firstCall);
-                sut.Push(_secondCall);
-            }
-
-            public override void Context()
-            {
-                base.Context();
-                _firstCall = mock<ICall>();
-                _secondCall = mock<ICall>();
-                _callSpecificationToCheck = mock<ICallSpecification>();
-            }
         }
 
         public class When_finding_calls_matching_a_specification : Concern
