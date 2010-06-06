@@ -10,14 +10,16 @@ namespace NSubstitute.Specs
     {
         public class When_throwing : ConcernFor<CallNotReceivedExceptionThrower>
         {
+            private const string DescriptionOfCall = "SomeSampleMethod(args)";
             private ICallSpecification _callSpecification;
             private CallNotReceivedException _exception;
             private MethodInfo _methodInfo;
+            private ICallFormatter _callFormatter;
 
             [Test]
-            public void Exception_should_contain_name_of_expected_member()
+            public void Exception_should_contain_description_of_expected_call()
             {
-                Assert.That(_exception.Message, Text.Contains(_methodInfo.Name));
+                Assert.That(_exception.Message, Is.StringContaining(DescriptionOfCall));
             }
 
             public override void Because()
@@ -39,11 +41,13 @@ namespace NSubstitute.Specs
                 base.Context();
                 _methodInfo = typeof(ISample).GetMethod("SomeSampleMethod");
                 _callSpecification = new CallSpecification(_methodInfo);
+                _callFormatter = mock<ICallFormatter>();
+                _callFormatter.stub(x => x.Format(_methodInfo)).Return(DescriptionOfCall);
             }
 
             public override CallNotReceivedExceptionThrower CreateSubjectUnderTest()
             {
-                return new CallNotReceivedExceptionThrower();
+                return new CallNotReceivedExceptionThrower(_callFormatter);
             }
 
             private interface ISample

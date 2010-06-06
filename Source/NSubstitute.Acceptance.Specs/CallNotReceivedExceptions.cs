@@ -105,11 +105,11 @@ namespace NSubstitute.Acceptance.Specs
             protected virtual void ConfigureContext() {}
             protected void ExceptionMessageContains(string expected)
             {
-                Assert.That(_exception.Message, Text.Contains(expected));
+                Assert.That(_exception.Message, Is.StringContaining(expected));
             }
             protected void ExceptionMessageMatchesRegex(string pattern)
             {
-                Assert.That(_exception.Message, Text.Matches(pattern));
+                Assert.That(_exception.Message, Is.StringContaining(pattern));
             }
         }        
     }

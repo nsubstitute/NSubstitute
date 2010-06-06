@@ -86,10 +86,12 @@
     <Compile Include="Core\ArgumentSpecification.cs" />
     <Compile Include="Core\Call.cs" />
     <Compile Include="Core\CallActions.cs" />
+    <Compile Include="Core\CallFormatter.cs" />
     <Compile Include="Core\CallInfo.cs" />
     <Compile Include="Core\CallInfoFactory.cs" />
     <Compile Include="Core\CallNotReceivedExceptionThrower.cs" />
     <Compile Include="Core\CallRouterResolver.cs" />
+    <Compile Include="Core\ICallFormatter.cs" />
     <Compile Include="Core\ICallInfoFactory.cs" />
     <Compile Include="Core\ICallNotReceivedExceptionThrower.cs" />
     <Compile Include="Core\ICallRouterResolver.cs" />

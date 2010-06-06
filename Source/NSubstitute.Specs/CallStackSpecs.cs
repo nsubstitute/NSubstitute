@@ -46,7 +46,7 @@ namespace NSubstitute.Specs
             public void Should_get_a_stack_empty_exception_when_trying_to_pop()
             {
                 var exception = Assert.Throws<InvalidOperationException>(() => sut.Pop());
-                Assert.That(exception.Message, Text.Contains("Stack empty"));
+                Assert.That(exception.Message, Is.StringContaining("Stack empty"));
             }
         }
 

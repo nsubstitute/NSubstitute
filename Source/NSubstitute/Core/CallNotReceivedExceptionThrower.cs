@@ -1,12 +1,20 @@
-﻿using NSubstitute.Exceptions;
+﻿using System;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
     public class CallNotReceivedExceptionThrower : ICallNotReceivedExceptionThrower
     {
+        private readonly ICallFormatter _callFormatter;
+
+        public CallNotReceivedExceptionThrower(ICallFormatter callFormatter)
+        {
+            _callFormatter = callFormatter;
+        }
+
         public void Throw(ICallSpecification callSpecification)
         {
-            throw new CallNotReceivedException("Expected call to " + callSpecification.MethodInfo.Name);
+            throw new CallNotReceivedException("Expected: " + _callFormatter.Format(callSpecification.MethodInfo));
         }
     }
 }
