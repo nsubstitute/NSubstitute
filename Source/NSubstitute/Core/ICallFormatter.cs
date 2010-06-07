@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace NSubstitute.Core
 {
     public interface ICallFormatter
     {
-        string Format(MethodInfo methodInfoOfCall);
+        string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments);
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
@@ -13,7 +14,6 @@ namespace NSubstitute.Specs
             private const string DescriptionOfCall = "SomeSampleMethod(args)";
             private ICallSpecification _callSpecification;
             private CallNotReceivedException _exception;
-            private MethodInfo _methodInfo;
             private ICallFormatter _callFormatter;
 
             [Test]
@@ -39,10 +39,13 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _methodInfo = typeof(ISample).GetMethod("SomeSampleMethod");
-                _callSpecification = new CallSpecification(_methodInfo);
+                var methodInfo = typeof(ISample).GetMethod("SomeSampleMethod");
+                var arguments = new List<IArgumentSpecification>(new[] {mock<IArgumentSpecification>()});
+                _callSpecification = new CallSpecification(methodInfo);
+                arguments.ForEach(x => _callSpecification.ArgumentSpecifications.Add(x));
+
                 _callFormatter = mock<ICallFormatter>();
-                _callFormatter.stub(x => x.Format(_methodInfo)).Return(DescriptionOfCall);
+                _callFormatter.stub(x => x.Format(methodInfo, arguments.ToArray())).Return(DescriptionOfCall);
             }
 
             public override CallNotReceivedExceptionThrower CreateSubjectUnderTest()
