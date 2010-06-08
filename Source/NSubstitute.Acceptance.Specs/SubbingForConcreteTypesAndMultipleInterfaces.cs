@@ -1,0 +1,80 @@
+using System;
+using NUnit.Framework;
+
+namespace NSubstitute.Acceptance.Specs
+{
+    [TestFixture]
+    public class SubbingForConcreteTypesAndMultipleInterfaces
+    {
+        [Test]
+        [Pending]
+        public void Can_sub_for_multiple_interfaces()
+        {
+            var sub = Substitute.For<IFirst>(typeof(ISecond));
+            var subAsSecondInterface = (ISecond)sub;
+
+            sub.First();
+            subAsSecondInterface.Second();
+
+            sub.Received().First();
+            subAsSecondInterface.Received().Second();
+        }
+
+        [Test]
+        [Pending]
+        public void Can_sub_for_concrete_type_and_implement_other_interfaces()
+        {
+            var sub = Substitute.For<One>(typeof(IFirst));
+            var subAsIFirst = (IFirst)sub;
+
+            sub.Number();
+            subAsIFirst.First();
+
+            sub.Received().Number();
+            subAsIFirst.Received().First();
+        }
+
+        [Test]
+        public void Partial_sub()
+        {
+            var sub = Substitute.For<Partial>();
+            sub.Number().Returns(10);
+            Assert.That(sub.GetNumberPlusOne(), Is.EqualTo(11));
+        }
+
+        [Test]
+        [Pending]
+        public void Working_with_nonvirtual_members_of_partial_sub()
+        {
+            var sub = Substitute.For<Partial>();
+            sub.GetNumberPlusOne().Returns(5);
+            //TODO: Should this throw???!?!
+        }
+
+        [Test][Pending]
+        public void Sub_with_constructor_arguments()
+        {
+            var expectedString = "from ctor";
+            var expectedInt = 5;
+            var sub = Substitute.For<ClassWithCtorArgs>(expectedString, expectedInt);
+            Assert.That(sub.StringFromCtorArg, Is.EqualTo(expectedString)); 
+            Assert.That(sub.IntFromCtorArg, Is.EqualTo(expectedInt)); 
+        }
+
+        public interface IFirst { int First(); }
+        public interface ISecond { int Second(); }
+        public class One { public virtual int Number() { return 1; } }
+        public class Two { public virtual int AnotherNumber() { return 2; } }
+        public class Partial
+        {
+            public virtual int Number() { return -1; }
+            public int GetNumberPlusOne() { return Number() + 1; }
+        }
+        public abstract class ClassWithCtorArgs
+        {
+            public ClassWithCtorArgs(string s, int a) { StringFromCtorArg = s; IntFromCtorArg = a; }
+            public string StringFromCtorArg { get; set; }
+            public int IntFromCtorArg { get; set; }
+        }
+    }
+}
