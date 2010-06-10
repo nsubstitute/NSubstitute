@@ -1,3 +1,4 @@
+using System;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
@@ -29,7 +30,7 @@ namespace NSubstitute.Specs
             {
                 _substitute = mock<Foo>();
                 _substituteFactory = mock<ISubstituteFactory>();
-                _substituteFactory.stub(x => x.Create<Foo>()).Return(_substitute);
+                _substituteFactory.stub(x => x.Create<Foo>(new Type[0], new object[0])).Return(_substitute);
                 _context = mock<ISubstitutionContext>();
                 _context.stub(x => x.GetSubstituteFactory()).Return(_substituteFactory);
                 temporarilyChange(() => SubstitutionContext.Current).to(_context);

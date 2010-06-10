@@ -50,7 +50,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Create<Foo>();
+                _result = sut.Create<Foo>(new Type[0], new object[0]);
             }
 
             public override void Context()

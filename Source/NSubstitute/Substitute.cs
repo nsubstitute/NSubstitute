@@ -26,7 +26,7 @@ namespace NSubstitute
         public static T For<T>(Type[] additionalInterfaces, params object[] constructorArguments) where T : class
         {
             var substituteFactory = SubstitutionContext.Current.GetSubstituteFactory();
-            return substituteFactory.Create<T>();
+            return substituteFactory.Create<T>(new Type[0], new object[0]);
         }
     }
 }

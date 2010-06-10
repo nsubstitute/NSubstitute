@@ -17,7 +17,7 @@ namespace NSubstitute.Core
             _callRouterResolver = callRouterResolver;
         }
 
-        public T Create<T>() where T : class
+        public T Create<T>(Type[] additionalInterfaces, object[] constructorArguments) where T : class
         {
             var callRouter = _callRouterFactory.Create(_context);
             var proxy = _proxyFactory.GenerateProxy<T>(callRouter);
