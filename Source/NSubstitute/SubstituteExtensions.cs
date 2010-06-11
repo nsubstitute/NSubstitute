@@ -42,5 +42,9 @@ namespace NSubstitute
             var context = SubstitutionContext.Current;
             return new WhenCalled<T>(context, substitute, substituteCall);            
         }
+
+        public static void ClearReceivedCalls<T>(this T substitute)
+        {
+        }
     }
 }

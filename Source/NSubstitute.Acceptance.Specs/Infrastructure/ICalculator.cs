@@ -1,6 +1,6 @@
 using System;
 
-namespace NSubstitute.Acceptance.Specs
+namespace NSubstitute.Acceptance.Specs.Infrastructure
 {
     public interface ICalculator
     {
