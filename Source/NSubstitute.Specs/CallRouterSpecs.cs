@@ -14,18 +14,20 @@ namespace NSubstitute.Specs
             protected ICall _call;
             protected IResultSetter _resultSetter;
             protected IRouteFactory _routeFactory;
+            protected IReceivedCalls _receivedCalls;
 
             public override void Context()
             {
                 _context = mock<ISubstitutionContext>();
                 _call = mock<ICall>();
+                _receivedCalls = mock<IReceivedCalls>();
                 _resultSetter = mock<IResultSetter>();
                 _routeFactory = mock<IRouteFactory>();
             }
 
             public override CallRouter CreateSubjectUnderTest()
             {
-                return new CallRouter(_context, _resultSetter, _routeFactory);
+                return new CallRouter(_context, _receivedCalls, _resultSetter, _routeFactory);
             }
 
             protected IRoute CreateRouteThatReturns(object returnValue)
@@ -101,6 +103,19 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _returnValue = mock<IReturn>();
+            }
+        }
+
+        public class When_clearing_received_calls : Concern
+        {
+            [Test]
+            public void Should_clear_calls()
+            {
+                _receivedCalls.received(x => x.Clear());
+            }
+            public override void Because()
+            {
+                sut.ClearReceivedCalls();
             }
         }
     }

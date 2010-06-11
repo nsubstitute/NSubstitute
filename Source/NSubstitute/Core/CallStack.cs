@@ -27,5 +27,9 @@ namespace NSubstitute.Core
         {
             return _stack.Where(x => callSpecification.IsSatisfiedBy(x));
         }
+
+        public void Clear()
+        {
+        }
     }
 }

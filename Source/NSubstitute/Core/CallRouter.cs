@@ -6,13 +6,15 @@ namespace NSubstitute.Core
     public class CallRouter : ICallRouter
     {
         readonly ISubstitutionContext _context;
+        private readonly IReceivedCalls _receivedCalls;
         readonly IResultSetter _resultSetter;
         IRoute _currentRoute;
         IRouteFactory _routeFactory;
 
-        public CallRouter(ISubstitutionContext context, IResultSetter resultSetter, IRouteFactory routeFactory)
+        public CallRouter(ISubstitutionContext context, IReceivedCalls receivedCalls, IResultSetter resultSetter, IRouteFactory routeFactory)
         {
             _context = context;
+            _receivedCalls = receivedCalls;
             _resultSetter = resultSetter;
             _routeFactory = routeFactory;
 
@@ -26,6 +28,7 @@ namespace NSubstitute.Core
 
         public void ClearReceivedCalls()
         {
+            _receivedCalls.Clear();
         }
 
         private void UseDefaultRouteForNextCall()
