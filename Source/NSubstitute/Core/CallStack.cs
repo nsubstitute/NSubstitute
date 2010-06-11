@@ -30,6 +30,7 @@ namespace NSubstitute.Core
 
         public void Clear()
         {
+            _stack.Clear();
         }
     }
 }

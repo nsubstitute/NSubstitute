@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using NSubstitute.Core;
-using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
@@ -47,6 +45,21 @@ namespace NSubstitute.Specs
             {
                 var exception = Assert.Throws<InvalidOperationException>(() => sut.Pop());
                 Assert.That(exception.Message, Is.StringContaining("Stack empty"));
+            }
+        }
+
+        public class When_calls_are_cleared : Concern
+        {
+            [Test]
+            public void Should_not_have_any_calls_to_pop()
+            {
+                Assert.Throws<InvalidOperationException>(() => sut.Pop());
+            }
+
+            public override void Because()
+            {
+                sut.Push(mock<ICall>());
+                sut.Clear();
             }
         }
 

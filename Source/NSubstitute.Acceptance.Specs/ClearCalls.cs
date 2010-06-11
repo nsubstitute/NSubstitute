@@ -7,7 +7,7 @@ namespace NSubstitute.Acceptance.Specs
     [TestFixture]
     public class ClearCalls
     {
-        [Test][Pending]
+        [Test]
         public void Can_clear_received_calls_on_a_substitute()
         {
             var substitute = Substitute.For<ICalculator>();
