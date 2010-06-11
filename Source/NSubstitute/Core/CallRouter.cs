@@ -24,6 +24,10 @@ namespace NSubstitute.Core
             _currentRoute = _routeFactory.Create<TRoute>(routeArguments);
         }
 
+        public void ClearReceivedCalls()
+        {
+        }
+
         private void UseDefaultRouteForNextCall()
         {
             SetRoute<RecordReplayRoute>();

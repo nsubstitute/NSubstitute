@@ -45,6 +45,9 @@ namespace NSubstitute
 
         public static void ClearReceivedCalls<T>(this T substitute)
         {
+            var context = SubstitutionContext.Current;
+            var router = context.GetCallRouterFor(substitute);
+            router.ClearReceivedCalls();
         }
     }
 }
