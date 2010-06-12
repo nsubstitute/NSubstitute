@@ -31,15 +31,22 @@ namespace NSubstitute
 
         public static T Received<T>(this T substitute) where T : class
         {
-            var context = SubstitutionContext.Current;
-            var router = context.GetCallRouterFor(substitute);
+            var router = GetRouterForSubstitute(substitute);
             router.SetRoute<CheckCallReceivedRoute>();
             return substitute;
         }
 
         public static T DidNotReceive<T>(this T substitute) where T : class
         {
+            var router = GetRouterForSubstitute(substitute);
+            router.SetRoute<CheckCallNotReceivedRoute>();
             return substitute;
+        }
+
+        public static void ClearReceivedCalls<T>(this T substitute) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.ClearReceivedCalls();
         }
 
         public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall) where T : class
@@ -48,11 +55,10 @@ namespace NSubstitute
             return new WhenCalled<T>(context, substitute, substituteCall);            
         }
 
-        public static void ClearReceivedCalls<T>(this T substitute) where T : class
+        private static ICallRouter GetRouterForSubstitute<T>(T substitute)
         {
             var context = SubstitutionContext.Current;
-            var router = context.GetCallRouterFor(substitute);
-            router.ClearReceivedCalls();
+            return context.GetCallRouterFor(substitute);
         }
     }
 }

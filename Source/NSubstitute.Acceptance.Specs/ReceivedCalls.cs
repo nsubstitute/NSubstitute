@@ -43,7 +43,7 @@ namespace NSubstitute.Acceptance.Specs
             _engine.DidNotReceive().RevAt(_rpm + 2); 
         }
 
-        [Test][Pending]
+        [Test]
         public void Throw_when_a_call_was_not_expected_to_be_received()
         {
             Assert.Throws<CallReceivedException>(() =>
