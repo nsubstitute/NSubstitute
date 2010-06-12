@@ -10,13 +10,13 @@ namespace NSubstitute.Acceptance.Specs
         private int _rpm;
 
         [Test]
-        public void Pass_when_call_was_received()
+        public void Check_when_call_was_received()
         {
             _engine.Received().Rev();
         }
 
         [Test]
-        public void Fail_when_call_was_not_received()
+        public void Throw_when_expected_call_was_not_received()
         {
             Assert.Throws<CallNotReceivedException>(() =>
                     _engine.Received().Idle()
@@ -24,16 +24,30 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Pass_when_call_was_received_with_correct_argument()
+        public void Check_call_was_received_with_expected_argument()
         {
             _engine.Received().RevAt(_rpm);
         }
 
         [Test]
-        public void Fail_when_call_was_received_with_different_argument()
+        public void Throw_when_expected_call_was_received_with_different_argument()
         {
             Assert.Throws<CallNotReceivedException>(() =>
                     _engine.Received().RevAt(_rpm + 2)
+                );
+        }
+
+        [Test]
+        public void Check_that_a_call_was_not_received()
+        {
+            _engine.DidNotReceive().RevAt(_rpm + 2); 
+        }
+
+        [Test][Pending]
+        public void Throw_when_a_call_was_not_expected_to_be_received()
+        {
+            Assert.Throws<CallReceivedException>(() =>
+                _engine.DidNotReceive().RevAt(_rpm)
                 );
         }
 

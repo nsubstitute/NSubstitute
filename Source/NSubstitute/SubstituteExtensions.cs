@@ -29,21 +29,26 @@ namespace NSubstitute
             context.LastCallShouldReturn(returnValue);
         }
 
-        public static T Received<T>(this T substitute)
+        public static T Received<T>(this T substitute) where T : class
         {
             var context = SubstitutionContext.Current;
             var router = context.GetCallRouterFor(substitute);
             router.SetRoute<CheckCallReceivedRoute>();
             return substitute;
         }
-        
-        public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall)
+
+        public static T DidNotReceive<T>(this T substitute) where T : class
+        {
+            return substitute;
+        }
+
+        public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
             return new WhenCalled<T>(context, substitute, substituteCall);            
         }
 
-        public static void ClearReceivedCalls<T>(this T substitute)
+        public static void ClearReceivedCalls<T>(this T substitute) where T : class
         {
             var context = SubstitutionContext.Current;
             var router = context.GetCallRouterFor(substitute);

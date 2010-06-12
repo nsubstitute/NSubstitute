@@ -101,6 +101,7 @@
     <Compile Include="Exceptions\CallNotReceivedException.cs" />
     <Compile Include="Core\CallSpecification.cs" />
     <Compile Include="Core\CallSpecificationFactory.cs" />
+    <Compile Include="Exceptions\CallReceivedException.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateCall.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateProxyFactory.cs" />
     <Compile Include="Proxies\ProxyFactory.cs" />
