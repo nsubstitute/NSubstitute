@@ -1,38 +1,30 @@
 using System.Collections.Generic;
-using System.Linq;
-using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
     public class CallSpecificationFactory : ICallSpecificationFactory
     {
         private readonly ISubstitutionContext _context;
+        readonly IArgumentSpecificationFactory _argumentSpecificationFactory;
 
-        public CallSpecificationFactory(ISubstitutionContext context)
+        public CallSpecificationFactory(ISubstitutionContext context, IArgumentSpecificationFactory argumentSpecificationFactory)
         {
             _context = context;
+            _argumentSpecificationFactory = argumentSpecificationFactory;
         }
 
         public ICallSpecification CreateFrom(ICall call)
         {
-            var result = new CallSpecification(call.GetMethodInfo());
+            var methodInfo = call.GetMethodInfo();
+            var result = new CallSpecification(methodInfo);
             var argumentSpecs = _context.DequeueAllArgumentSpecifications();
             var arguments = call.GetArguments();
-            if (argumentSpecs.Count == 0)
-            {
-                AddArgumentSpecsToCallSpec(result, arguments.Select(x => (IArgumentSpecification) new ArgumentEqualsSpecification(x)));
-            }
-            else if (argumentSpecs.Count == arguments.Length)
-            {
-                AddArgumentSpecsToCallSpec(result, argumentSpecs);
-            }
-            else
-            {
-                throw new AmbiguousArgumentsException(
-                    "Cannot determine argument specifications to use. Please use specifications for all arguments.");
-            }
+            var parameterInfos = methodInfo.GetParameters();
+            var argumentSpecificationsForCall = _argumentSpecificationFactory.Create(argumentSpecs, arguments, parameterInfos);
+            AddArgumentSpecsToCallSpec(result, argumentSpecificationsForCall);
             return result;
         }
+
 
         private void AddArgumentSpecsToCallSpec(ICallSpecification callSpec, IEnumerable<IArgumentSpecification> argSpecs)
         {

@@ -95,6 +95,7 @@
     <Compile Include="CallSpecificationSpecs.cs" />
     <Compile Include="ClearReceivedCallsExtensionSpec.cs" />
     <Compile Include="DidNotReceiveExtensionsSpecs.cs" />
+    <Compile Include="ArgumentSpecificationFactorySpecs.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateProxyFactorySpecs.cs" />
     <Compile Include="Proxies\ProxyFactorySpecs.cs" />

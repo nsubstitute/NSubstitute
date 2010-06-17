@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Arg.cs" />
     <Compile Include="Core\ArgumentSpecification.cs" />
+    <Compile Include="Core\ArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Call.cs" />
     <Compile Include="Core\CallActions.cs" />
     <Compile Include="Core\CallFormatter.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Core\CallReceivedExceptionThrower.cs" />
     <Compile Include="Core\CallRouterResolver.cs" />
     <Compile Include="Core\ICallFormatter.cs" />
+    <Compile Include="Core\IArgumentSpecificationFactory.cs" />
     <Compile Include="Core\ICallInfoFactory.cs" />
     <Compile Include="Core\ICallNotReceivedExceptionThrower.cs" />
     <Compile Include="Core\ICallReceivedExceptionThrower.cs" />

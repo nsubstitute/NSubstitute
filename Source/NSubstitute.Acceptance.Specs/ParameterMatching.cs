@@ -37,6 +37,16 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Return_result_with_only_one_matcher_for_that_type()
+        {
+            _something.Funky(Arg.Any<float>(), 12, "Lots", null).Returns(42);
+
+            Assert.That(_something.Funky(123.456f, 12, "Lots", null), Is.EqualTo(42));
+            Assert.That(_something.Funky(0.0f, 12, "Lots", null), Is.EqualTo(42));
+            Assert.That(_something.Funky(0.0f, 11, "Lots", null), Is.EqualTo(0));
+        }
+
+        [Test]
         public void Received_for_any_parameter()
         {
             _something.Echo(7);
@@ -58,6 +68,14 @@ namespace NSubstitute.Acceptance.Specs
             _something.Echo(7);
 
             _something.Received().Echo(Arg.Is<int>(x => x > 3));
+        }
+
+        [Test]
+        public void Recieved_for_only_one_matcher_for_that_type()
+        {
+            _something.Funky(123.456f, 12, "Lots", null);
+
+            _something.Received().Funky(Arg.Any<float>(), 12, "Lots", null);
         }
 
         [SetUp]
