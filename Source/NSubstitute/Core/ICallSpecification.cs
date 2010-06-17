@@ -5,7 +5,7 @@ namespace NSubstitute.Core
 {
     public interface ICallSpecification
     {
-        IList<IArgumentSpecification> ArgumentSpecifications { get; }
+        IEnumerable<IArgumentSpecification> ArgumentSpecifications { get; }
         MethodInfo MethodInfo { get; }
         bool IsSatisfiedBy(ICall call);
     }

@@ -34,10 +34,7 @@ namespace NSubstitute.Specs
 
             public override CallSpecification CreateSubjectUnderTest()
             {
-                var subjectUnderTest = new CallSpecification(_methodInfo);
-                subjectUnderTest.ArgumentSpecifications.Add(_firstArgSpec);
-                subjectUnderTest.ArgumentSpecifications.Add(_secondArgSpec);
-                return subjectUnderTest;
+                return new CallSpecification(_methodInfo, new[] { _firstArgSpec, _secondArgSpec });
             }
         }
 
@@ -68,7 +65,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _methodInfo = typeof (IAmForTesting).GetMethod("AnotherTestMethod");
+                _methodInfo = typeof(IAmForTesting).GetMethod("AnotherTestMethod");
                 _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
                 _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
             }
@@ -79,6 +76,7 @@ namespace NSubstitute.Specs
                 Assert.That(_result, Is.False);
             }
         }
+
         public class When_an_argument_spec_is_not_satisfied : Concern
         {
             public override void Context()
@@ -110,7 +108,6 @@ namespace NSubstitute.Specs
             {
                 Assert.That(_result, Is.False);
             }
-            
         }
     }
 }

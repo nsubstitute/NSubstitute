@@ -40,12 +40,11 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 var methodInfo = typeof(ISample).GetMethod("SomeSampleMethod");
-                var arguments = new List<IArgumentSpecification>(new[] {mock<IArgumentSpecification>()});
-                _callSpecification = new CallSpecification(methodInfo);
-                arguments.ForEach(x => _callSpecification.ArgumentSpecifications.Add(x));
+                IEnumerable<IArgumentSpecification> argumentSpecifications = new List<IArgumentSpecification>(new[] { mock<IArgumentSpecification>() });
+                _callSpecification = new CallSpecification(methodInfo, argumentSpecifications);
 
                 _callFormatter = mock<ICallFormatter>();
-                _callFormatter.stub(x => x.Format(methodInfo, arguments.ToArray())).Return(DescriptionOfCall);
+                _callFormatter.stub(x => x.Format(methodInfo, argumentSpecifications)).Return(DescriptionOfCall);
             }
 
             public override CallNotReceivedExceptionThrower CreateSubjectUnderTest()

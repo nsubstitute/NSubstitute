@@ -1,35 +1,31 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace NSubstitute.Core
 {
     public class CallSpecification : ICallSpecification
     {
-        readonly List<IArgumentSpecification> _argumentSpecifications;
         public MethodInfo MethodInfo { get; private set; }
+        public IEnumerable<IArgumentSpecification> ArgumentSpecifications { get; private set; }
 
-        public CallSpecification(MethodInfo methodInfo)
+        public CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications)
         {
+            ArgumentSpecifications = argumentSpecifications;
             MethodInfo = methodInfo;
-            _argumentSpecifications = new List<IArgumentSpecification>();
         }
 
         public bool IsSatisfiedBy(ICall call)
         {
             if (MethodInfo != call.GetMethodInfo()) return false;
             var arguments = call.GetArguments();
-            if (arguments.Length != ArgumentSpecifications.Count) return false;
+            if (arguments.Length != ArgumentSpecifications.Count()) return false;
             for (int i = 0; i < arguments.Length; i++)
             {
-                var argumentMatchesSpecification = ArgumentSpecifications[i].IsSatisfiedBy(arguments[i]);
+                var argumentMatchesSpecification = ArgumentSpecifications.ElementAt(i).IsSatisfiedBy(arguments[i]);
                 if (!argumentMatchesSpecification) return false;
             }
             return true;
-        }
-
-        public IList<IArgumentSpecification> ArgumentSpecifications
-        {
-            get { return _argumentSpecifications; }
         }
     }
 }
