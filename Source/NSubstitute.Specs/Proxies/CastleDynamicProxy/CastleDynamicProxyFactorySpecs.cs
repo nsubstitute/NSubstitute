@@ -1,3 +1,4 @@
+using System;
 using NSubstitute.Core;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NSubstitute.Specs.Infrastructure;
@@ -12,7 +13,9 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
         public abstract class When_creating_a_proxy<TFoo> : ConcernFor<CastleDynamicProxyFactory> where TFoo : class, IFoo
         {
             ICallRouter _callRouter;
-            TFoo _result;
+            protected TFoo _result;
+            protected Type[] _additionalInterfaces;
+            protected object[] _ctorArgs;
 
             public override void Context()
             {
@@ -21,7 +24,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
 
             public override void Because()
             {
-                _result = sut.GenerateProxy<TFoo>(_callRouter);
+                _result = (TFoo) sut.GenerateProxy(_callRouter, typeof(TFoo), _additionalInterfaces, _ctorArgs);
             }
 
             [Test]
@@ -91,5 +94,34 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
         public class When_creating_a_proxy_for_a_class : When_creating_a_proxy<Foo>
         {
         }
+
+        public class When_providing_additional_interfaces : When_creating_a_proxy<IFoo>
+        {
+            public override void Context()
+            {
+                base.Context();
+                _additionalInterfaces = new[] { typeof(IFirstExtra), typeof(ISecondExtra) };
+            }
+
+            [Test]
+            public void Proxy_should_also_be_instance_of_each_additional_interface()
+            {
+                Assert.IsInstanceOf<IFirstExtra>(_result); 
+                Assert.IsInstanceOf<ISecondExtra>(_result); 
+            }
+        }
+
+        public class When_creating_a_proxy_for_a_class_with_constructor_args : When_creating_a_proxy<FooWithCtorArgs>
+        {
+            public override void Context()
+            {
+                base.Context();
+                _ctorArgs = new object[] { "string", 4 };
+            }
+        }
+
+        public interface IFirstExtra { }
+        public interface ISecondExtra { }
+        public class FooWithCtorArgs : Foo { public FooWithCtorArgs(string s, int number) { } }
     }
 }

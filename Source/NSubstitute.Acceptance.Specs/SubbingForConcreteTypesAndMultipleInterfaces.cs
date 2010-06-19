@@ -7,10 +7,9 @@ namespace NSubstitute.Acceptance.Specs
     public class SubbingForConcreteTypesAndMultipleInterfaces
     {
         [Test]
-        [Pending]
         public void Can_sub_for_multiple_interfaces()
         {
-            var sub = Substitute.For<IFirst>(typeof(ISecond));
+            var sub = Substitute.For<IFirst, ISecond>();
             var subAsSecondInterface = (ISecond)sub;
 
             sub.First();
@@ -21,10 +20,9 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Can_sub_for_concrete_type_and_implement_other_interfaces()
         {
-            var sub = Substitute.For<One>(typeof(IFirst));
+            var sub = Substitute.For<One, IFirst>();
             var subAsIFirst = (IFirst)sub;
 
             sub.Number();
@@ -51,7 +49,7 @@ namespace NSubstitute.Acceptance.Specs
             //TODO: Should this throw???!?!
         }
 
-        [Test][Pending]
+        [Test]
         public void Sub_with_constructor_arguments()
         {
             var expectedString = "from ctor";
