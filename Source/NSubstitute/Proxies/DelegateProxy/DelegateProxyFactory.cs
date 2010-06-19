@@ -7,12 +7,6 @@ namespace NSubstitute.Proxies.DelegateProxy
 {
     public class DelegateProxyFactory : IProxyFactory
     {
-        public T GenerateProxy<T>(ICallRouter callRouter) where T : class
-        {
-            var delegateCall = new DelegateCall(callRouter);
-            return (T) DelegateProxy(typeof(T), delegateCall);
-        }
-
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
         {
             var delegateCall = new DelegateCall(callRouter);

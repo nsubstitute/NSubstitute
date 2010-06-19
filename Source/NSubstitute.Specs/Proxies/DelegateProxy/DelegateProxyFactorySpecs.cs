@@ -37,7 +37,7 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
 
             public override void Because()
             {
-                _result = sut.GenerateProxy<Func<int, string>>(_callRouter);
+                _result = (Func<int, string>) sut.GenerateProxy(_callRouter, typeof(Func<int, string>), null, null);
             }
 
             private ICall DelegateCallWithArg(int arg)
@@ -66,9 +66,10 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
             [Test]
             public void Should_be_able_to_create_an_action_proxy()
             {
-                var result = sut.GenerateProxy<Action<int>>(_callRouter);
+                var result = (Action<int>) sut.GenerateProxy(_callRouter, typeof(Action<int>), null, null);
                 result(12);
             }           
         }
+
     }
 }
