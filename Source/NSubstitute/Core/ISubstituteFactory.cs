@@ -4,7 +4,7 @@ namespace NSubstitute.Core
 {
     public interface ISubstituteFactory
     {
-        T Create<T>(Type[] additionalInterfaces, object[] constructorArguments) where T : class;
+        object Create(Type[] typesToProxy, object[] constructorArguments); 
         ICallRouter GetCallRouterCreatedFor(object substitute);
     }
 }

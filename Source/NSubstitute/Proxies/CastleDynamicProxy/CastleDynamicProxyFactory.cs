@@ -29,6 +29,18 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             return _proxyGenerator.CreateClassProxy<T>(proxyGenerationOptions, interceptor);
         }
 
+        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
+        {
+            var interceptor = _interceptorFactory.CreateForwardingInterceptor(callRouter);
+            var proxyGenerationOptions = GetOptionsToMixinCallRouter(callRouter);
+            if (typeToProxy.IsInterface)
+            {
+                return _proxyGenerator.CreateInterfaceProxyWithoutTarget(typeToProxy, proxyGenerationOptions, interceptor);
+            }
+            return _proxyGenerator.CreateClassProxy(typeToProxy, additionalInterfaces, proxyGenerationOptions, constructorArguments, interceptor);
+
+        }
+
         private ProxyGenerationOptions GetOptionsToMixinCallRouter(ICallRouter callRouter)
         {
             var options = new ProxyGenerationOptions(_ignoreCallRouterCallsHook);

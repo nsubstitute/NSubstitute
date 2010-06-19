@@ -10,12 +10,18 @@ namespace NSubstitute.Proxies.DelegateProxy
         public T GenerateProxy<T>(ICallRouter callRouter) where T : class
         {
             var delegateCall = new DelegateCall(callRouter);
-            return DelegateProxy<T>(delegateCall);
+            return (T) DelegateProxy(typeof(T), delegateCall);
         }
 
-        private TDelegate DelegateProxy<TDelegate>(DelegateCall delegateCall)
+        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
         {
-            var delegateMethodToProxy = typeof (TDelegate).GetMethod("Invoke");
+            var delegateCall = new DelegateCall(callRouter);
+            return DelegateProxy(typeToProxy, delegateCall);
+        }
+
+        private object DelegateProxy(Type delegateType, DelegateCall delegateCall)
+        {
+            var delegateMethodToProxy = delegateType.GetMethod("Invoke");
             var invokeOnDelegateCall = DelegateCall.DelegateCallInvoke;
 
             ParameterExpression[] proxyParameters = delegateMethodToProxy.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();
@@ -37,7 +43,7 @@ namespace NSubstitute.Proxies.DelegateProxy
                     Expression.Convert(callInvokeOnDelegateCallInstance, delegateMethodToProxy.ReturnType);
             }
             
-            var proxyExpression = Expression.Lambda<TDelegate>(callInvokeOnDelegateCallInstance, proxyParameters);
+            var proxyExpression = Expression.Lambda(delegateType, callInvokeOnDelegateCallInstance, proxyParameters);
             return proxyExpression.Compile();
         }
     }

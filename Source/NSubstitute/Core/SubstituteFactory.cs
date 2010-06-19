@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace NSubstitute.Core
 {
@@ -17,12 +18,20 @@ namespace NSubstitute.Core
             _callRouterResolver = callRouterResolver;
         }
 
-        public T Create<T>(Type[] additionalInterfaces, object[] constructorArguments) where T : class
+        public object Create(Type[] typesToProxy, object[] constructorArguments)  
         {
             var callRouter = _callRouterFactory.Create(_context);
-            var proxy = _proxyFactory.GenerateProxy<T>(callRouter);
+            var primaryProxyType = GetPrimaryProxyType(typesToProxy);
+            var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
+            var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);
             _callRouterResolver.Register(proxy, callRouter);
             return proxy;
+        }
+
+        private Type GetPrimaryProxyType(Type[] typesToProxy)
+        {
+            if (typesToProxy.Any(x => x.IsClass)) return typesToProxy.First(x => x.IsClass);
+            return typesToProxy.First();
         }
 
         public ICallRouter GetCallRouterCreatedFor(object substitute)

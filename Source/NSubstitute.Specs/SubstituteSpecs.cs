@@ -8,12 +8,14 @@ namespace NSubstitute.Specs
 {
     public class SubstituteSpecs
     {
-        public class When_substituting_for_a_type : StaticConcern
+        public class When_substituting_for_a_types : StaticConcern
         {
-            Foo _result;
+            object _result;
             Foo _substitute;
             ISubstituteFactory _substituteFactory;
             ISubstitutionContext _context;
+            private Type[] _types;
+            private object[] _constructorArgs;
 
             [Test]
             public void Should_return_a_substitute_from_factory()
@@ -23,14 +25,16 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = Substitute.For<Foo>();
+                _result = Substitute.For(_types, _constructorArgs);
             }
 
             public override void Context()
             {
+                _types = new[] { typeof(Foo) };
+                _constructorArgs = new[] { new object() };
                 _substitute = mock<Foo>();
                 _substituteFactory = mock<ISubstituteFactory>();
-                _substituteFactory.stub(x => x.Create<Foo>(new Type[0], new object[0])).Return(_substitute);
+                _substituteFactory.stub(x => x.Create(_types, _constructorArgs)).Return(_substitute);
                 _context = mock<ISubstitutionContext>();
                 _context.stub(x => x.GetSubstituteFactory()).Return(_substituteFactory);
                 temporarilyChange(() => SubstitutionContext.Current).to(_context);
