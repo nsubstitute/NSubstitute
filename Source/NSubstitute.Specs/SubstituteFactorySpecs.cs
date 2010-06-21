@@ -1,5 +1,6 @@
 using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;
@@ -64,7 +65,7 @@ namespace NSubstitute.Specs
                 _constructorArgs = new[] { new object() };
 
                 _callRouterFactory.stub(x => x.Create(_context)).Return(_callRouter);
-                _proxyFactory.stub(x => x.GenerateProxy(_callRouter, typeof(Foo), new [] { typeof(IFoo) }, _constructorArgs)).Return(_proxy);
+                _proxyFactory.stub(x => x.GenerateProxy(_callRouter, typeof(Foo), new[] { typeof(IFoo) }, _constructorArgs)).Return(_proxy);
             }
         }
 
@@ -92,6 +93,6 @@ namespace NSubstitute.Specs
                 _substitute = new object();
                 _callRouterResolver.stub(x => x.ResolveFor(_substitute)).Return(_callRouter);
             }
-        } 
+        }
     }
 }

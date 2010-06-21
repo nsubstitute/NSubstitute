@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Proxies.DelegateProxy
 {
@@ -9,8 +10,23 @@ namespace NSubstitute.Proxies.DelegateProxy
     {
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
         {
+            if (HasItems(additionalInterfaces))
+            {
+                throw new SubstituteException(
+                    "Can not specify additional interfaces when substituting for a delegate. You must specify only a single delegate type if you need to substitute for a delegate.");
+            }
+            if (HasItems(constructorArguments))
+            {
+                throw new SubstituteException("Can not provide constructor arguments when substituting for a delegate.");
+            }
+
             var delegateCall = new DelegateCall(callRouter);
             return DelegateProxy(typeToProxy, delegateCall);
+        }
+
+        private bool HasItems<T>(T[] array)
+        {
+            return array != null && array.Length > 0;
         }
 
         private object DelegateProxy(Type delegateType, DelegateCall delegateCall)

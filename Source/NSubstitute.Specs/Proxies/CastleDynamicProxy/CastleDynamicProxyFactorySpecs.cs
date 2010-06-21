@@ -1,5 +1,6 @@
 using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
@@ -109,6 +110,34 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
                 Assert.IsInstanceOf<IFirstExtra>(_result); 
                 Assert.IsInstanceOf<ISecondExtra>(_result); 
             }
+        }
+
+        public class When_creating_a_substitute_and_passing_a_class_as_an_additional_interface : StaticConcern
+        {
+            [Test]
+            public void Should_throw_exception_as_proxies_should_not_inherit_from_multiple_concrete_classes()
+            {
+                var sut = new CastleDynamicProxyFactory(new CastleInterceptorFactory());
+
+                Assert.Throws<SubstituteException>(
+                    () => sut.GenerateProxy(mock<ICallRouter>(), typeof(Foo), new[] { typeof(IFoo), typeof(SomeOtherClass) }, null)
+                );
+            }
+
+            public class SomeOtherClass { }
+        }
+
+        public class When_substituting_for_an_interface_and_passing_constructor_arguments : StaticConcern
+        {
+            [Test]
+            public void Should_throw_exception()
+            {
+                var sut = new CastleDynamicProxyFactory(new CastleInterceptorFactory());
+
+                Assert.Throws<SubstituteException>(
+                    () => sut.GenerateProxy(mock<ICallRouter>(), typeof(IFoo), null, new[] { new object() }));
+            }
+
         }
 
         public class When_creating_a_proxy_for_a_class_with_constructor_args : When_creating_a_proxy<FooWithCtorArgs>

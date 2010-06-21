@@ -1,7 +1,9 @@
 using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 using NSubstitute.Proxies.DelegateProxy;
 using NSubstitute.Specs.Infrastructure;
+using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -69,6 +71,24 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
                 var result = (Action<int>) sut.GenerateProxy(_callRouter, typeof(Action<int>), null, null);
                 result(12);
             }           
+        }
+
+        public class When_generating_a_proxy_for_a_delegate_and_specifying_other_interfaces : Concern
+        {
+            [Test]
+            public void Should_throw_substitute_exception()
+            {
+                Assert.Throws<SubstituteException>(() => sut.GenerateProxy(_callRouter, typeof(Func<int>), new[] {typeof(IFoo)}, null));
+            }
+        }
+
+        public class When_generating_a_proxy_for_a_delegate_and_specifying_constructor_arguments : Concern
+        {
+            [Test]
+            public void Should_throw_substitute_exception()
+            {
+                Assert.Throws<SubstituteException>(() => sut.GenerateProxy(_callRouter, typeof(Func<int>), null, new[] { new object() }));
+            }
         }
 
     }
