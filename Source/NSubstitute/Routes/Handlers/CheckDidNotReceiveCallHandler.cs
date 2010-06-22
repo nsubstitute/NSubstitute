@@ -19,7 +19,7 @@ namespace NSubstitute.Routes.Handlers
 
         public object Handle(ICall call)
         {
-            var callSpec = _callSpecificationFactory.CreateFrom(call);
+            var callSpec = _callSpecificationFactory.CreateFrom(call, false);
             if (_receivedCalls.FindMatchingCalls(callSpec).Any()) _exceptionThrower.Throw(callSpec);
             return null;
         }

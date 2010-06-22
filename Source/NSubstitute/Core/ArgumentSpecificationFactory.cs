@@ -8,12 +8,11 @@ namespace NSubstitute.Core
 {
     public class ArgumentSpecificationFactory : IArgumentSpecificationFactory
     {
-        public IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, ParameterInfo[] parameterInfos)
+        public IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, ParameterInfo[] parameterInfos, bool matchAnyArguments)
         {
-            if (argumentSpecs.Count == arguments.Length)
-            {
-                return argumentSpecs;
-            }
+            if (matchAnyArguments) return parameterInfos.Select(x => (IArgumentSpecification) new ArgumentIsAnythingSpecification(x.ParameterType));
+
+            if (argumentSpecs.Count == arguments.Length) return argumentSpecs; 
 
             var result = new List<IArgumentSpecification>();
             for (int i = 0; i < parameterInfos.Length; i++)

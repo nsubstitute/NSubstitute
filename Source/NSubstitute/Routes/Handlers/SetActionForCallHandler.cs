@@ -18,7 +18,7 @@ namespace NSubstitute.Routes.Handlers
 
         public object Handle(ICall call)
         {
-            var callSpec = _callSpecificationFactory.CreateFrom(call);
+            var callSpec = _callSpecificationFactory.CreateFrom(call, false);
             _callActions.Add(callSpec, _action);
             return null;
         }

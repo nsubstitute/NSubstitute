@@ -21,7 +21,7 @@ namespace NSubstitute.Core
 
         public void SetResultForCall(ICall call, IReturn valueToReturn)
         {
-            var callSpecification = _callSpecificationFactory.CreateFrom(call);
+            var callSpecification = _callSpecificationFactory.CreateFrom(call, false);
             _configuredResults.SetResult(callSpecification, valueToReturn);
         }
     }

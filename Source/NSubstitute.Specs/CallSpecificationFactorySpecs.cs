@@ -16,16 +16,18 @@ namespace NSubstitute.Specs
             IArgumentSpecificationFactory _argumentSpecificationFactory;
             IArgumentSpecification[] _expectedArgumentSpecifications;
             ICallSpecification _result;
+            const bool WithAnyArguments = true;
 
             public override void Context()
             {
                 base.Context();
                 var methodInfo = mock<MethodInfo>();
+                var arguments = new[] { new object() };
                 methodInfo.Stub(x => x.GetParameters()).Return(new ParameterInfo[0]);
 
                 _call = mock<ICall>();
                 _call.stub(x => x.GetMethodInfo()).Return(methodInfo);
-                _call.stub(x => x.GetArguments()).Return(new object[0]);
+                _call.stub(x => x.GetArguments()).Return(arguments);
                 
                 _context = mock<ISubstitutionContext>();
                 _context.stub(x => x.DequeueAllArgumentSpecifications()).Return(mock<IList<IArgumentSpecification>>());
@@ -36,7 +38,8 @@ namespace NSubstitute.Specs
                     .Stub(x => x.Create(
                                 _context.DequeueAllArgumentSpecifications(), 
                                 _call.GetArguments(), 
-                                methodInfo.GetParameters()))
+                                methodInfo.GetParameters(), 
+                                WithAnyArguments))
                     .Return(_expectedArgumentSpecifications);
             }
 
@@ -59,7 +62,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.CreateFrom(_call);
+                _result = sut.CreateFrom(_call, WithAnyArguments);
             }
         }
     }

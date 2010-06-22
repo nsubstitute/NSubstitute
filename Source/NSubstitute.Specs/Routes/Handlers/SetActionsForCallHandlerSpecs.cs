@@ -35,7 +35,7 @@ namespace NSubstitute.Specs.Routes.Handlers
                 _callSpec = mock<ICallSpecification>();
 
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call)).Return(_callSpec);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, false)).Return(_callSpec);
             }
 
             public override SetActionForCallHandler CreateSubjectUnderTest()

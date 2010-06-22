@@ -21,7 +21,7 @@ namespace NSubstitute.Specs
                 _configuredResults = mock<ICallResults>();
                 _callSpecification = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call)).Return(_callSpecification);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, false)).Return(_callSpecification);
             }
 
             public override ResultSetter CreateSubjectUnderTest()

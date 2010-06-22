@@ -16,6 +16,7 @@ namespace NSubstitute.Specs
             protected IList<IArgumentSpecification> _argumentSpecifications;
             protected object[] _arguments;
             protected ParameterInfo[] _parameterInfos;
+            protected bool _matchAnyArguments;
 
             public override void Context()
             {
@@ -46,7 +47,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Create(_argumentSpecifications, _arguments, _parameterInfos);
+                _result = sut.Create(_argumentSpecifications, _arguments, _parameterInfos, _matchAnyArguments);
             }
             
             [Test]
@@ -121,8 +122,27 @@ namespace NSubstitute.Specs
             public void Should_throw_amgiguous_arguments_exception()
             {
                 Assert.Throws<AmbiguousArgumentsException>(
-                        () => sut.Create(_argumentSpecifications, _arguments, _parameterInfos)
+                        () => sut.Create(_argumentSpecifications, _arguments, _parameterInfos, false)
                     );
+            }
+        }
+
+        public class When_creating_argument_specifications_that_match_any_arguments : When_creating_argument_specifications
+        {
+            public override void Context()
+            {
+                base.Context();
+                _matchAnyArguments = true;
+            }
+
+            [Test]
+            public void Should_return_specifications_that_match_any_arguments()
+            {
+                for (int i = 0; i < _arguments.Count(); i++)
+                {
+                    Assert.That(_result.ElementAt(i), Is.TypeOf(typeof(ArgumentIsAnythingSpecification)));
+                    Assert.That(_result.ElementAt(i).ForType, Is.EqualTo(_arguments[i].GetType()));
+                }
             }
         }
     }

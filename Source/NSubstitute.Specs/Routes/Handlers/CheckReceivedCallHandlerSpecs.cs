@@ -27,7 +27,7 @@ namespace NSubstitute.Specs.Routes.Handlers
                 _callSpecification = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
                 _exceptionThrower = mock<ICallNotReceivedExceptionThrower>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call)).Return(_callSpecification);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, false)).Return(_callSpecification);
             }
 
             public override CheckReceivedCallHandler CreateSubjectUnderTest()
