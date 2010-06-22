@@ -9,6 +9,7 @@ namespace NSubstitute.Acceptance.Specs
         void Stop();
         void Idle();
         void RevAt(int rpm);
+        void FillPetrolTankTo(int percent);
         event Action Started;
         event EventHandler<IdlingEventArgs> Idling;
         event EventHandler Stopped;

@@ -7,8 +7,8 @@ namespace NSubstitute
 {
     public static class SubstituteExtensions
     {
-        private const bool MatchArgs = false;
-        private const bool DoNotMatchArgs = true;
+        private const bool MatchArgsSpecifiedInCall = false;
+        private const bool MatchAnyArgs = true;
 
         public static void Returns<T>(this T value, T returnThis, params T[] returnThese)
         {
@@ -35,14 +35,28 @@ namespace NSubstitute
         public static T Received<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckCallReceivedRoute>(MatchArgs);
+            router.SetRoute<CheckCallReceivedRoute>(MatchArgsSpecifiedInCall);
             return substitute;
         }
 
         public static T DidNotReceive<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckCallNotReceivedRoute>(MatchArgs);
+            router.SetRoute<CheckCallNotReceivedRoute>(MatchArgsSpecifiedInCall);
+            return substitute;
+        }
+
+        public static T ReceivedWithAnyArgs<T>(this T substitute) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.SetRoute<CheckCallReceivedRoute>(MatchAnyArgs);
+            return substitute;
+        }
+        
+        public static T DidNotReceiveWithAnyArgs<T>(this T substitute) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.SetRoute<CheckCallNotReceivedRoute>(MatchAnyArgs);
             return substitute;
         }
 

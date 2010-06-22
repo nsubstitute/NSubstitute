@@ -51,6 +51,34 @@ namespace NSubstitute.Acceptance.Specs
                 );
         }
 
+        [Test]
+        public void Check_call_received_with_any_arguments()
+        {
+            _engine.ReceivedWithAnyArgs().RevAt(_rpm + 100); 
+        }
+
+        [Test]
+        public void Throw_when_call_was_expected_with_any_arguments()
+        {
+            Assert.Throws<CallNotReceivedException>(() =>
+                _engine.ReceivedWithAnyArgs().FillPetrolTankTo(10)
+                );
+        }
+
+        [Test]
+        public void Check_call_was_not_received_with_any_combination_of_arguments()
+        {
+            _engine.DidNotReceiveWithAnyArgs().FillPetrolTankTo(10);
+        }
+
+        [Test]
+        public void Throw_when_call_was_not_expected_to_be_received_with_any_combination_of_arguments()
+        {
+            Assert.Throws<CallReceivedException>(() =>
+                _engine.DidNotReceiveWithAnyArgs().RevAt(0)
+                );
+        }
+
         [SetUp]
         public void SetUp()
         {
