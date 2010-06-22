@@ -17,6 +17,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
             protected ICallNotReceivedExceptionThrower _exceptionThrower;
+            const bool _withAnyArgs = true;
 
             public override void Context()
             {
@@ -27,12 +28,12 @@ namespace NSubstitute.Specs.Routes.Handlers
                 _callSpecification = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
                 _exceptionThrower = mock<ICallNotReceivedExceptionThrower>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, false)).Return(_callSpecification);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, _withAnyArgs)).Return(_callSpecification);
             }
 
             public override CheckReceivedCallHandler CreateSubjectUnderTest()
             {
-                return new CheckReceivedCallHandler(_receivedCalls, _callSpecificationFactory, _exceptionThrower);
+                return new CheckReceivedCallHandler(_receivedCalls, _callSpecificationFactory, _exceptionThrower, _withAnyArgs);
             } 
         }
 
