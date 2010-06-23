@@ -15,7 +15,7 @@ namespace NSubstitute.Specs
             ISubstitutionContext _context;
             IArgumentSpecificationFactory _argumentSpecificationFactory;
             IArgumentSpecification[] _expectedArgumentSpecifications;
-            ICallSpecification _result;
+            CallSpecification _result;
             const bool WithAnyArguments = true;
 
             public override void Context()
@@ -62,7 +62,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.CreateFrom(_call, WithAnyArguments);
+                _result = (CallSpecification) sut.CreateFrom(_call, WithAnyArguments);
             }
         }
     }

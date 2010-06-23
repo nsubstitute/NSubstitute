@@ -15,7 +15,7 @@ namespace NSubstitute.Core
 
         public void Throw(ICallSpecification callSpecification)
         {
-            throw new CallReceivedException("Expected: " + _callFormatter.Format(callSpecification.MethodInfo, callSpecification.ArgumentSpecifications.ToArray()));
+            throw new CallReceivedException("Expected: " + callSpecification.Format(_callFormatter));
         }
     }
 }

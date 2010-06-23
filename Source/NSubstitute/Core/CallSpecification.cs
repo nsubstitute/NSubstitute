@@ -29,7 +29,7 @@ namespace NSubstitute.Core
             return true;
         }
 
-        public string ToString(ICallFormatter callFormatter)
+        public string Format(ICallFormatter callFormatter)
         {
             return callFormatter.Format(MethodInfo, ArgumentSpecifications);
         }

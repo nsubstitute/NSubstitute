@@ -125,7 +125,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _specAsString = sut.ToString(_callFormatter);
+                _specAsString = sut.Format(_callFormatter);
             }
 
             [Test]

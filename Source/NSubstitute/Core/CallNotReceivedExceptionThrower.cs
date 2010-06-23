@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using NSubstitute.Exceptions;
+﻿using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
@@ -15,7 +13,7 @@ namespace NSubstitute.Core
 
         public void Throw(ICallSpecification callSpecification)
         {
-            throw new CallNotReceivedException("Expected not to receive call: " + _callFormatter.Format(callSpecification.MethodInfo, callSpecification.ArgumentSpecifications.ToArray()));
+            throw new CallNotReceivedException("Expected not to receive call: " + callSpecification.Format(_callFormatter));
         }
     }
 }
