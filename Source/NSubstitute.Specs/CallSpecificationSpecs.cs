@@ -109,5 +109,30 @@ namespace NSubstitute.Specs
                 Assert.That(_result, Is.False);
             }
         }
+        
+        public class When_formatting_call_as_string : Concern
+        {
+            private ICallFormatter _callFormatter;
+            private string _specAsString;
+            private const string FormattedCall = "Call(first, second)";
+
+            public override void Context()
+            {
+                base.Context();
+                _callFormatter = mock<ICallFormatter>();
+                _callFormatter.stub(x => x.Format(_methodInfo, new [] { _firstArgSpec, _secondArgSpec })).Return(FormattedCall);
+            }
+
+            public override void Because()
+            {
+                _specAsString = sut.ToString(_callFormatter);
+            }
+
+            [Test]
+            public void Should_return_formatted_call()
+            {
+                Assert.That(_specAsString, Is.EqualTo(FormattedCall));
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -26,6 +27,11 @@ namespace NSubstitute.Core
                 if (!argumentMatchesSpecification) return false;
             }
             return true;
+        }
+
+        public string ToString(ICallFormatter callFormatter)
+        {
+            return callFormatter.Format(MethodInfo, ArgumentSpecifications);
         }
     }
 }
