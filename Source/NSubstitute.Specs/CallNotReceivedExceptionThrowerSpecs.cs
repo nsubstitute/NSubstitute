@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
+using System.Linq;
 
 namespace NSubstitute.Specs
 {
@@ -33,14 +33,14 @@ namespace NSubstitute.Specs
                     _exception = ex;
                     return;
                 }
-                throw new AssertionException("Expected a CallNotFoundException to be throw.");
+                throw new AssertionException("Expected a CallNotFoundException to be thrown.");
             }
 
             public override void Context()
             {
                 base.Context();
                 var methodInfo = typeof(ISample).GetMethod("SomeSampleMethod");
-                IEnumerable<IArgumentSpecification> argumentSpecifications = new List<IArgumentSpecification>(new[] { mock<IArgumentSpecification>() });
+                var argumentSpecifications = new[] { mock<IArgumentSpecification>() };
                 _callSpecification = new CallSpecification(methodInfo, argumentSpecifications);
 
                 _callFormatter = mock<ICallFormatter>();

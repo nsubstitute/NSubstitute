@@ -5,10 +5,10 @@ namespace NSubstitute.Core
 {
     public abstract class ArgumentSpecification : IArgumentSpecification
     {
-        private readonly Predicate<object> _matchingCriteria;
+        readonly Predicate<object> _matchingCriteria;
         readonly Type _forType;
 
-        public ArgumentSpecification(Predicate<object> matchingCriteria, Type forType)
+        protected ArgumentSpecification(Predicate<object> matchingCriteria, Type forType)
         {
             _matchingCriteria = matchingCriteria;
             _forType = forType;

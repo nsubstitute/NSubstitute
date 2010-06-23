@@ -31,7 +31,7 @@ namespace NSubstitute.Core
 
         public string Format(ICallFormatter callFormatter)
         {
-            return callFormatter.Format(_methodInfo, _argumentSpecifications);
+            return callFormatter.Format(_methodInfo, _argumentSpecifications.Cast<object>());
         }
     }
 }

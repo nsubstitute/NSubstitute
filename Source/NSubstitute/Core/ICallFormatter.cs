@@ -5,6 +5,6 @@ namespace NSubstitute.Core
 {
     public interface ICallFormatter
     {
-        string Format(MethodInfo methodInfoOfCall, IEnumerable<IArgumentSpecification> argumentSpecifications);
+        string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments);
     }
 }

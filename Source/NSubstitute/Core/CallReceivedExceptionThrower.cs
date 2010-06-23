@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using NSubstitute.Exceptions;
+﻿using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
