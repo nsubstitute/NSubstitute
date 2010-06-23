@@ -7,23 +7,23 @@ namespace NSubstitute.Core
 {
     public class CallSpecification : ICallSpecification
     {
-        public MethodInfo MethodInfo { get; private set; }
-        public IEnumerable<IArgumentSpecification> ArgumentSpecifications { get; private set; }
+        readonly IEnumerable<IArgumentSpecification> _argumentSpecifications;
+        readonly MethodInfo _methodInfo;
 
         public CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications)
         {
-            ArgumentSpecifications = argumentSpecifications;
-            MethodInfo = methodInfo;
+            _argumentSpecifications = argumentSpecifications;
+            _methodInfo = methodInfo;
         }
 
         public bool IsSatisfiedBy(ICall call)
         {
-            if (MethodInfo != call.GetMethodInfo()) return false;
+            if (_methodInfo != call.GetMethodInfo()) return false;
             var arguments = call.GetArguments();
-            if (arguments.Length != ArgumentSpecifications.Count()) return false;
+            if (arguments.Length != _argumentSpecifications.Count()) return false;
             for (int i = 0; i < arguments.Length; i++)
             {
-                var argumentMatchesSpecification = ArgumentSpecifications.ElementAt(i).IsSatisfiedBy(arguments[i]);
+                var argumentMatchesSpecification = _argumentSpecifications.ElementAt(i).IsSatisfiedBy(arguments[i]);
                 if (!argumentMatchesSpecification) return false;
             }
             return true;
@@ -31,7 +31,7 @@ namespace NSubstitute.Core
 
         public string Format(ICallFormatter callFormatter)
         {
-            return callFormatter.Format(MethodInfo, ArgumentSpecifications);
+            return callFormatter.Format(_methodInfo, _argumentSpecifications);
         }
     }
 }
