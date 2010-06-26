@@ -13,7 +13,7 @@ namespace NSubstitute.Core
 
         public void Throw(ICallSpecification callSpecification)
         {
-            throw new CallReceivedException("Expected: " + callSpecification.Format(_callFormatter));
+            throw new CallReceivedException("Unexpected call to: " + callSpecification.Format(_callFormatter));
         }
     }
 }

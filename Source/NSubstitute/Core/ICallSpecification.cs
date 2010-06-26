@@ -4,5 +4,6 @@ namespace NSubstitute.Core
     {
         bool IsSatisfiedBy(ICall call);
         string Format(ICallFormatter callFormatter);
+        string HowDifferentFrom(ICall call, ICallFormatter formatter);
     }
 }

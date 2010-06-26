@@ -33,5 +33,10 @@ namespace NSubstitute.Core
         {
             return callFormatter.Format(_methodInfo, _argumentSpecifications.Cast<object>());
         }
+
+        public string HowDifferentFrom(ICall call, ICallFormatter formatter)
+        {
+            return string.Empty;
+        }
     }
 }
