@@ -3,7 +3,6 @@ using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
-using System.Linq;
 
 namespace NSubstitute.Specs
 {
@@ -15,6 +14,7 @@ namespace NSubstitute.Specs
             private ICallSpecification _callSpecification;
             private CallNotReceivedException _exception;
             private ICallFormatter _callFormatter;
+            private IEnumerable<ICall> _actualCalls;
 
             [Test]
             public void Exception_should_contain_description_of_expected_call()
@@ -26,7 +26,7 @@ namespace NSubstitute.Specs
             {
                 try
                 {
-                    sut.Throw(_callSpecification);
+                    sut.Throw(_callSpecification, _actualCalls);
                 }
                 catch (CallNotReceivedException ex)
                 {
@@ -41,6 +41,7 @@ namespace NSubstitute.Specs
                 base.Context();
                 var methodInfo = typeof(ISample).GetMethod("SomeSampleMethod");
                 var argumentSpecifications = new[] { mock<IArgumentSpecification>() };
+                _actualCalls = new[] { mock<ICall>(), mock<ICall>() };
                 _callSpecification = new CallSpecification(methodInfo, argumentSpecifications);
 
                 _callFormatter = mock<ICallFormatter>();

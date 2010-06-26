@@ -21,6 +21,12 @@ namespace NSubstitute.Specs.Infrastructure
             mock.AssertWasNotCalled(call);    
         }
 
+        public static void did_not_receive_with_any_args<T>(this T mock, Action<T> call)
+        {
+            mock.AssertWasNotCalled(call, options => options.IgnoreArguments());
+
+        }
+
         public static IMethodOptions<object> stub<T>(this T mock, Action<T> call) where T : class
         {
             return mock.Stub(call);

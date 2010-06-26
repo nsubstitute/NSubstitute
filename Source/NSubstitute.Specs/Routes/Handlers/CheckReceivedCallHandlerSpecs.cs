@@ -17,7 +17,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
             protected ICallNotReceivedExceptionThrower _exceptionThrower;
-            const bool _withAnyArgs = true;
+            const bool _withAnyArgs = false;
 
             public override void Context()
             {
@@ -44,7 +44,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             [Test]
             public void Should_return_without_exception()
             {
-                _exceptionThrower.did_not_receive(x => x.Throw(_callSpecification));
+                _exceptionThrower.did_not_receive_with_any_args(x => x.Throw(null, null));
             }
 
             public override void Because()
@@ -61,10 +61,13 @@ namespace NSubstitute.Specs.Routes.Handlers
 
         public class When_handling_call_that_has_not_been_received : Concern
         {
+            ICallSpecification _callSpecWithAnyArguments;
+            private ICall[] _actualCalls;
+
             [Test]
             public void Should_throw_exception()
             {
-                _exceptionThrower.received(x => x.Throw(_callSpecification));
+                _exceptionThrower.received(x => x.Throw(_callSpecification, _actualCalls));
             }
 
             public override void Because()
@@ -75,7 +78,11 @@ namespace NSubstitute.Specs.Routes.Handlers
             public override void Context()
             {
                 base.Context();
+                _callSpecWithAnyArguments = mock<ICallSpecification>();
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, true)).Return(_callSpecWithAnyArguments);
+                _actualCalls = new ICall[0];
                 _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new ICall[0]);
+                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecWithAnyArguments)).Return(_actualCalls);
             }
         }
     }
