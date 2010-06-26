@@ -72,7 +72,7 @@ namespace NSubstitute.Specs
             private IEnumerable<ICall> _result;
 
             [Test]
-            public void Should_return_all_calls_that_satisfy_specification()
+            public void Should_return_calls_that_satisfy_specification()
             {
                 Assert.That(_result, Is.EquivalentTo(new[] { _callThatMatchesSpec, _anotherCallThatMatchesSpec })); 
             }
@@ -94,6 +94,33 @@ namespace NSubstitute.Specs
                 _callSpecificationToCheck = mock<ICallSpecification>();
                 _callSpecificationToCheck.stub(x => x.IsSatisfiedBy(_callThatMatchesSpec)).Return(true);
                 _callSpecificationToCheck.stub(x => x.IsSatisfiedBy(_anotherCallThatMatchesSpec)).Return(true);
+            }
+        }
+
+        public class When_finding_all_calls : Concern
+        {
+            private IEnumerable<ICall> _result;
+            private ICall _firstCall;
+            private ICall _secondCall;
+
+            [Test]
+            public void Should_return_all_calls()
+            {
+                Assert.That(_result, Is.EquivalentTo(new[] { _firstCall, _secondCall })); 
+            }
+
+            public override void Because()
+            {
+                sut.Push(_firstCall);
+                sut.Push(_secondCall);
+                _result = sut.AllCalls();
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _firstCall = mock<ICall>();
+                _secondCall = mock<ICall>();
             }
         }
     }

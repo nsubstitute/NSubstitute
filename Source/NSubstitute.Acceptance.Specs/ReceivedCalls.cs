@@ -1,3 +1,4 @@
+using System.Linq;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -77,6 +78,15 @@ namespace NSubstitute.Acceptance.Specs
             Assert.Throws<CallReceivedException>(() =>
                 _engine.DidNotReceiveWithAnyArgs().RevAt(0)
                 );
+        }
+
+        [Test]
+        public void Get_all_received_calls()
+        {
+            var calls = _engine.ReceivedCalls();
+            var callNames = calls.Select(x => x.GetMethodInfo().Name);
+            Assert.That(callNames, Has.Member("Rev"));
+            Assert.That(callNames, Has.Member("RevAt"));
         }
 
         [SetUp]

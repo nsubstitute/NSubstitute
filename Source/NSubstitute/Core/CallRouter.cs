@@ -34,7 +34,7 @@ namespace NSubstitute.Core
 
         public IEnumerable<ICall> ReceivedCalls()
         {
-            yield break;
+            return _receivedCalls.AllCalls();
         }
 
         private void UseDefaultRouteForNextCall()

@@ -28,6 +28,14 @@ namespace NSubstitute.Core
             return _stack.Where(x => callSpecification.IsSatisfiedBy(x));
         }
 
+        public IEnumerable<ICall> AllCalls()
+        {
+            foreach (var call in _stack)
+            {
+                yield return call;
+            }
+        }
+
         public void Clear()
         {
             _stack.Clear();

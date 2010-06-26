@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NSubstitute.Core;
 using NSubstitute.Routes;
 using NSubstitute.Specs.Infrastructure;
@@ -116,6 +117,30 @@ namespace NSubstitute.Specs
             public override void Because()
             {
                 sut.ClearReceivedCalls();
+            }
+        }
+
+        public class When_getting_received_calls : Concern
+        {
+            private IEnumerable<ICall> _result;
+            private IEnumerable<ICall> _allCalls;
+
+            [Test]
+            public void Should_return_all_calls()
+            {
+                Assert.That(_result, Is.SameAs(_allCalls)); 
+            }
+
+            public override void Because()
+            {
+                _result = sut.ReceivedCalls();
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _allCalls = new ICall[0];
+                _receivedCalls.stub(x => x.AllCalls()).Return(_allCalls);
             }
         }
     }
