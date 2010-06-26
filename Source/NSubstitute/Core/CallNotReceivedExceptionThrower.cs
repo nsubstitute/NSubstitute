@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using NSubstitute.Exceptions;
 
@@ -17,10 +18,17 @@ namespace NSubstitute.Core
         {
             var builder = new StringBuilder();
             builder.AppendLine("Expected to receive call: " + callSpecification.Format(_callFormatter));
-            builder.AppendLine("Actually received:");
-            foreach (var call in actualCalls)
+            if (!actualCalls.Any())
             {
-                builder.AppendFormat("\t{0}\n", callSpecification.HowDifferentFrom(call, _callFormatter));
+                builder.AppendLine("Actually received no calls that ressemble the expected call.");
+            }
+            else
+            {
+                builder.AppendLine("Actually received:");
+                foreach (var call in actualCalls)
+                {
+                    builder.AppendFormat("\t{0}\n", callSpecification.HowDifferentFrom(call, _callFormatter));
+                }
             }
             throw new CallNotReceivedException(builder.ToString());
         }

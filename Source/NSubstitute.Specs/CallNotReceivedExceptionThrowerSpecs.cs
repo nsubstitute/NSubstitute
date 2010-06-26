@@ -9,28 +9,13 @@ namespace NSubstitute.Specs
 {
     public class CallNotReceivedExceptionThrowerSpecs
     {
-        public class When_throwing : ConcernFor<CallNotReceivedExceptionThrower>
+        public class Concern : ConcernFor<CallNotReceivedExceptionThrower>
         {
-            private const string DescriptionOfCall = "SomeSampleMethod(args)";
-            private ICallSpecification _callSpecification;
-            private CallNotReceivedException _exception;
-            private ICallFormatter _callFormatter;
-            private IEnumerable<ICall> _actualCalls;
-            private const string HowDifferentFromFirst = "First";
-            private const string HowDifferentFromSecond = "Second";
-
-            [Test]
-            public void Exception_should_contain_description_of_expected_call()
-            {
-                Assert.That(_exception.Message, Is.StringContaining(DescriptionOfCall));
-            }
-
-            [Test]
-            public void Exception_should_contain_how_actual_calls_differ()
-            {
-                Assert.That(_exception.Message, Is.StringContaining(HowDifferentFromFirst)); 
-                Assert.That(_exception.Message, Is.StringContaining(HowDifferentFromSecond)); 
-            }
+            protected const string DescriptionOfCall = "SomeSampleMethod(args)";
+            protected ICallSpecification _callSpecification;
+            protected CallNotReceivedException _exception;
+            protected ICallFormatter _callFormatter;
+            protected IEnumerable<ICall> _actualCalls;
 
             public override void Because()
             {
@@ -49,19 +34,63 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _actualCalls = new[] {mock<ICall>(), mock<ICall>() };
                 _callSpecification = mock<ICallSpecification>();
-
                 _callFormatter = mock<ICallFormatter>();
-
                 _callSpecification.stub(x => x.Format(_callFormatter)).Return(DescriptionOfCall);
-                _callSpecification.stub(x => x.HowDifferentFrom(_actualCalls.First(), _callFormatter)).Return(HowDifferentFromFirst);
-                _callSpecification.stub(x => x.HowDifferentFrom(_actualCalls.ElementAt(1), _callFormatter)).Return(HowDifferentFromSecond);
             }
 
             public override CallNotReceivedExceptionThrower CreateSubjectUnderTest()
             {
                 return new CallNotReceivedExceptionThrower(_callFormatter);
+            }
+        }
+
+        public class When_throwing_exception_with_actual_calls_to_specified_method : Concern
+        {
+            const string HowDifferentFromFirst = "First";
+            const string HowDifferentFromSecond = "Second";
+
+            [Test]
+            public void Exception_should_contain_description_of_expected_call()
+            {
+                Assert.That(_exception.Message, Is.StringContaining(DescriptionOfCall));
+            }
+
+            [Test]
+            public void Exception_should_contain_how_actual_calls_differ()
+            {
+                Assert.That(_exception.Message, Is.StringContaining(HowDifferentFromFirst)); 
+                Assert.That(_exception.Message, Is.StringContaining(HowDifferentFromSecond)); 
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _actualCalls = new[] {mock<ICall>(), mock<ICall>() };
+                _callSpecification.stub(x => x.HowDifferentFrom(_actualCalls.First(), _callFormatter)).Return(HowDifferentFromFirst);
+                _callSpecification.stub(x => x.HowDifferentFrom(_actualCalls.ElementAt(1), _callFormatter)).Return(HowDifferentFromSecond);
+            }
+        }
+
+        public class When_throwing_exception_with_no_actual_calls : Concern
+        {
+
+            [Test]
+            public void Exception_should_contain_description_of_expected_call()
+            {
+                Assert.That(_exception.Message, Is.StringContaining(DescriptionOfCall));
+            }
+
+            [Test]
+            public void Exception_should_state_no_calls_to_member_received()
+            {
+                Assert.That(_exception.Message, Is.StringContaining("Actually received no calls that ressemble the expected call."));
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _actualCalls = new ICall[0];
             }
         }
     }
