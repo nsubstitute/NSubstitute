@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
@@ -9,7 +10,8 @@ namespace NSubstitute.Specs
     {
         public class Concern : ConcernFor<CallSpecification>
         {
-            protected MethodInfo _methodInfo;
+            protected MethodInfo _methodInfoSpecified;
+            protected MethodInfo _methodInfoOfCall;
             protected IArgumentSpecification _firstArgSpec;
             protected IArgumentSpecification _secondArgSpec;
             protected ICall _call;
@@ -21,10 +23,11 @@ namespace NSubstitute.Specs
             {
                 _firstArgSpec = mock<IArgumentSpecification>();
                 _secondArgSpec = mock<IArgumentSpecification>();
-                _methodInfo = typeof(IAmForTesting).GetMethod("TestMethod");
+                _methodInfoOfCall = mock<MethodInfo>();
+                _methodInfoSpecified = _methodInfoOfCall;
                 firstArg = "something";
                 secondArg = 123;
-                _call = new Call(_methodInfo, new object[] { firstArg, secondArg }, null);
+                _call = new Call(_methodInfoOfCall, new object[] { firstArg, secondArg }, null);
             }
 
             public override void Because()
@@ -34,14 +37,8 @@ namespace NSubstitute.Specs
 
             public override CallSpecification CreateSubjectUnderTest()
             {
-                return new CallSpecification(_methodInfo, new[] { _firstArgSpec, _secondArgSpec });
+                return new CallSpecification(_methodInfoSpecified, new[] { _firstArgSpec, _secondArgSpec });
             }
-        }
-
-        public interface IAmForTesting
-        {
-            int TestMethod(string aString, int aNumber);
-            int AnotherTestMethod(string aString, int aNumber);
         }
 
         public class When_checking_a_call_with_matching_method_and_all_argument_specifications_met : Concern
@@ -49,6 +46,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
+                _methodInfoSpecified = _methodInfoOfCall;
                 _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
                 _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
             }
@@ -65,7 +63,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _methodInfo = typeof(IAmForTesting).GetMethod("AnotherTestMethod");
+                _methodInfoSpecified = mock<MethodInfo>();
                 _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
                 _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
             }
@@ -100,7 +98,7 @@ namespace NSubstitute.Specs
                 base.Context();
                 _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
                 _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
-                _call = new Call(_methodInfo, new object[] { firstArg }, null);
+                _call = new Call(_methodInfoSpecified, new object[] { firstArg }, null);
             }
 
             [Test]
@@ -120,7 +118,7 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _callFormatter = mock<ICallFormatter>();
-                _callFormatter.stub(x => x.Format(_methodInfo, new [] { _firstArgSpec, _secondArgSpec })).Return(FormattedCall);
+                _callFormatter.stub(x => x.Format(_methodInfoSpecified, new [] { _firstArgSpec, _secondArgSpec })).Return(FormattedCall);
             }
 
             public override void Because()
@@ -132,6 +130,32 @@ namespace NSubstitute.Specs
             public void Should_return_formatted_call()
             {
                 Assert.That(_specAsString, Is.EqualTo(FormattedCall));
+            }
+        }
+
+
+        public class When_describing_how_a_call_differs : Concern
+        {
+            ICallFormatter _callFormatter;
+            const string Description = "differs";
+            private string _difference;
+
+            public override void Context()
+            {
+                base.Context();
+                _callFormatter = mock<ICallFormatter>();
+                _callFormatter.stub(x => x.Format(_call.GetMethodInfo(), _call.GetArguments())).Return(Description);
+            }
+
+            public override void Because()
+            {
+                _difference = sut.HowDifferentFrom(_call, _callFormatter);
+            }
+
+            [Test]
+            public void Should_contain_formated_call()
+            {
+                Assert.That(_difference, Is.StringContaining(Description)); 
             }
         }
     }

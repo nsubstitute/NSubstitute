@@ -36,7 +36,7 @@ namespace NSubstitute.Core
 
         public string HowDifferentFrom(ICall call, ICallFormatter formatter)
         {
-            return string.Empty;
+            return formatter.Format(call.GetMethodInfo(), call.GetArguments());
         }
     }
 }
