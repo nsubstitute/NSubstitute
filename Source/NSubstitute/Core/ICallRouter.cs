@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace NSubstitute.Core
 {
     public interface ICallRouter
@@ -6,5 +8,6 @@ namespace NSubstitute.Core
         object Route(ICall call);
         void SetRoute<TRoute>(params object[] routeArguments) where TRoute : IRoute;
         void ClearReceivedCalls();
+        IEnumerable<ICall> ReceivedCalls();
     }
 }

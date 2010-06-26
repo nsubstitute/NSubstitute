@@ -100,6 +100,7 @@
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateProxyFactorySpecs.cs" />
     <Compile Include="Proxies\ProxyFactorySpecs.cs" />
+    <Compile Include="ReceivedCallsExtensionSpec.cs" />
     <Compile Include="ReceivedWithAnyArgsExtensionSpec.cs" />
     <Compile Include="RoutePartsSpecs.cs" />
     <Compile Include="Routes\CheckCallNotReceivedRouteSpecs.cs" />

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Routes;
@@ -70,6 +71,11 @@ namespace NSubstitute
         {
             var context = SubstitutionContext.Current;
             return new WhenCalled<T>(context, substitute, substituteCall);            
+        }
+
+        public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class
+        {
+            return GetRouterForSubstitute(substitute).ReceivedCalls();
         }
 
         private static ICallRouter GetRouterForSubstitute<T>(T substitute)

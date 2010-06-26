@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NSubstitute.Routes;
 
 namespace NSubstitute.Core
@@ -29,6 +30,11 @@ namespace NSubstitute.Core
         public void ClearReceivedCalls()
         {
             _receivedCalls.Clear();
+        }
+
+        public IEnumerable<ICall> ReceivedCalls()
+        {
+            yield break;
         }
 
         private void UseDefaultRouteForNextCall()
