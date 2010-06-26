@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arg.cs" />
+    <Compile Include="Core\ArgumentFormatter.cs" />
     <Compile Include="Core\ArgumentSpecification.cs" />
     <Compile Include="Core\ArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Call.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Core\CallNotReceivedExceptionThrower.cs" />
     <Compile Include="Core\CallReceivedExceptionThrower.cs" />
     <Compile Include="Core\CallRouterResolver.cs" />
+    <Compile Include="Core\IArgumentFormatter.cs" />
     <Compile Include="Core\ICallFormatter.cs" />
     <Compile Include="Core\IArgumentSpecificationFactory.cs" />
     <Compile Include="Core\ICallInfoFactory.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Core\ICallRouterResolver.cs" />
     <Compile Include="Core\IReceivedCalls.cs" />
     <Compile Include="Core\IReturn.cs" />
+    <Compile Include="Core\ReflectionExtensions.cs" />
     <Compile Include="Exceptions\ArgumentNotFoundException.cs" />
     <Compile Include="Exceptions\CallNotReceivedException.cs" />
     <Compile Include="Core\CallSpecification.cs" />

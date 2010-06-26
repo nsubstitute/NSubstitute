@@ -19,9 +19,7 @@ namespace NSubstitute.Core
 
         private PropertyInfo GetPropertyFromSetterCallOrNull(ICall call)
         {
-            var methodInfo = call.GetMethodInfo();
-            var properties = methodInfo.DeclaringType.GetProperties();
-            return properties.FirstOrDefault(x => x.GetSetMethod() == methodInfo);
+            return call.GetMethodInfo().GetPropertyFromSetterCallOrNull();
         }
 
         public ICall CreateCallToPropertyGetterFromSetterCall(ICall callToSetter)
