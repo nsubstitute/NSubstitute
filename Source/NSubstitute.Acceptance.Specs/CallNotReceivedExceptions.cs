@@ -13,27 +13,7 @@ namespace NSubstitute.Acceptance.Specs
             void SampleMethod(int i);
             void SampleMethod(string s, int i, IList<string> strings);
             void AnotherMethod(IList<string> strings);
-            string AProperty { get; set; }
-        }
-
-        public class When_no_calls_have_been_made_at_all : Context
-        {
-            protected override void ExpectedCall()
-            {
-                Sample.Received().SampleMethod(5);
-            }
-
-            [Test][Pending]
-            public void Should_report_the_method_we_were_expecting()
-            {
-                ExceptionMessageMatchesRegex(@"Expected to receive call:\n\tSampleMethod\(5\)");
-            }
-
-            [Test][Pending]
-            public void Should_report_that_we_did_not_receive_any_calls()
-            {
-                ExceptionMessageMatchesRegex(@"Actually received:\n\tNo calls");
-            }
+            int AProperty { get; set; }
         }
 
         public class When_no_calls_are_made_to_the_expected_member : Context
@@ -49,10 +29,37 @@ namespace NSubstitute.Acceptance.Specs
                 Sample.Received().SampleMethod(5);
             }
 
-            [Test][Pending]
-            public void Should_list_all_calls_made_to_substitute()
+            [Test]
+            public void Should_report_the_method_we_were_expecting()
             {
-                ExceptionMessageMatchesRegex(@"Actually received:\n\tAnotherMethod\(.*?\)\n\tAnotherMethod\(.*?\)");   
+                ExceptionMessageContains("Expected to receive call:\n\tSampleMethod(5)");
+            }
+        }
+
+        public class When_calls_have_been_made_to_expected_member_but_with_different_args : Context
+        {
+            protected override void ConfigureContext()
+            {
+                Sample.SampleMethod(1);
+                Sample.SampleMethod(2);
+            }
+
+            protected override void ExpectedCall()
+            {
+                Sample.Received().SampleMethod(5);
+            }
+
+            [Test]
+            public void Should_report_the_method_we_were_expecting()
+            {
+                ExceptionMessageContains("Expected to receive call:\n\tSampleMethod(5)");
+            }
+
+            [Test]
+            public void Should_report_actual_calls()
+            {
+                ExceptionMessageContains("SampleMethod(1)");
+                ExceptionMessageContains("SampleMethod(2)");
             }
         }
 
@@ -60,24 +67,24 @@ namespace NSubstitute.Acceptance.Specs
         {
             protected override void ConfigureContext()
             {
-                Sample.AProperty = "a";
+                Sample.AProperty = 1;
             }
 
             protected override void ExpectedCall()
             {
-                Sample.Received().AProperty = "b";
+                Sample.Received().AProperty = 5;
             }
 
-            [Test][Pending]
+            [Test]
             public void Should_list_expected_property_set()
             {
-                ExceptionMessageMatchesRegex(@"Expected to receive call:\n\tAProprety \= b");
+                ExceptionMessageContains("Expected to receive call:\n\tAProperty = 5");
             }
 
-            [Test][Pending]
+            [Test]
             public void Should_list_actual_calls()
             {
-                ExceptionMessageMatchesRegex(@"Actual calls:\n\tAProperty \= a");
+                ExceptionMessageContains("Property = 1");
             }
         }
 
@@ -109,7 +116,7 @@ namespace NSubstitute.Acceptance.Specs
             }
             protected void ExceptionMessageMatchesRegex(string pattern)
             {
-                Assert.That(_exception.Message, Is.StringContaining(pattern));
+                Assert.That(_exception.Message, Is.StringMatching(pattern));
             }
         }        
     }

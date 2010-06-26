@@ -17,7 +17,7 @@ namespace NSubstitute.Core
         public void Throw(ICallSpecification callSpecification, IEnumerable<ICall> actualCalls)
         {
             var builder = new StringBuilder();
-            builder.AppendLine("Expected to receive call: " + callSpecification.Format(_callFormatter));
+            builder.AppendLine("Expected to receive call:\n\t" + callSpecification.Format(_callFormatter));
             if (!actualCalls.Any())
             {
                 builder.AppendLine("Actually received no calls that ressemble the expected call.");

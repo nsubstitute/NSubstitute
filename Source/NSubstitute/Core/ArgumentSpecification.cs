@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace NSubstitute.Core
 {
@@ -28,16 +29,40 @@ namespace NSubstitute.Core
     public class ArgumentIsAnythingSpecification : ArgumentSpecification
     {
         public ArgumentIsAnythingSpecification(Type forType) : base(arg => true, forType) { }
+        public override string ToString()
+        {
+            return "<any " + ForType.Name + ">";
+        }
     }
 
     public class ArgumentEqualsSpecification : ArgumentSpecification
     {
-        public ArgumentEqualsSpecification(object value, Type forType) : base(arg => EqualityComparer<object>.Default.Equals(value, arg), forType) { }
+        private readonly object _value;
+
+        public ArgumentEqualsSpecification(object value, Type forType) : base(arg => EqualityComparer<object>.Default.Equals(value, arg), forType)
+        {
+            _value = value;
+        }
+
+        public override string ToString()
+        {
+            return new ArgumentFormatter().Format(_value); 
+        }
     }
 
     public class ArgumentMatchesSpecification : ArgumentSpecification
     {
-        public ArgumentMatchesSpecification(Predicate<object> matchingCriteria, Type forType) : base(matchingCriteria, forType) { }
+        private readonly Expression<Predicate<object>> _matchingCriteria;
+
+        public ArgumentMatchesSpecification(Expression<Predicate<object>> matchingCriteria, Type forType) : base(matchingCriteria.Compile(), forType)
+        {
+            _matchingCriteria = matchingCriteria;
+        }
+
+        public override string ToString()
+        {
+            return _matchingCriteria.Body.ToString();
+        }
     }
 
 
