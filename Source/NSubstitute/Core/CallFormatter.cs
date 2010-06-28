@@ -14,6 +14,11 @@ namespace NSubstitute.Core
             _argumentFormatter = argumentFormatter;
         }
 
+        public string Format(ICall call)
+        {
+            return Format(call.GetMethodInfo(), call.GetArguments());
+        }
+
         public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments)
         {
             string genericInfo = null;

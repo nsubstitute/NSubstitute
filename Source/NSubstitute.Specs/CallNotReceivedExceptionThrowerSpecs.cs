@@ -47,8 +47,8 @@ namespace NSubstitute.Specs
 
         public class When_throwing_exception_with_actual_calls_to_specified_method : Concern
         {
-            const string HowDifferentFromFirst = "First";
-            const string HowDifferentFromSecond = "Second";
+            const string FormattedFirstCall = "First";
+            const string FormattedSecondCall = "Second";
 
             [Test]
             public void Exception_should_contain_description_of_expected_call()
@@ -57,18 +57,18 @@ namespace NSubstitute.Specs
             }
 
             [Test]
-            public void Exception_should_contain_how_actual_calls_differ()
+            public void Exception_should_list_actual_calls()
             {
-                Assert.That(_exception.Message, Is.StringContaining(HowDifferentFromFirst)); 
-                Assert.That(_exception.Message, Is.StringContaining(HowDifferentFromSecond)); 
+                Assert.That(_exception.Message, Is.StringContaining(FormattedFirstCall)); 
+                Assert.That(_exception.Message, Is.StringContaining(FormattedSecondCall)); 
             }
 
             public override void Context()
             {
                 base.Context();
                 _actualCalls = new[] {mock<ICall>(), mock<ICall>() };
-                _callSpecification.stub(x => x.HowDifferentFrom(_actualCalls.First(), _callFormatter)).Return(HowDifferentFromFirst);
-                _callSpecification.stub(x => x.HowDifferentFrom(_actualCalls.ElementAt(1), _callFormatter)).Return(HowDifferentFromSecond);
+                _callFormatter.stub(x => x.Format(_actualCalls.First())).Return(FormattedFirstCall);
+                _callFormatter.stub(x => x.Format(_actualCalls.ElementAt(1))).Return(FormattedSecondCall);
             }
         }
 

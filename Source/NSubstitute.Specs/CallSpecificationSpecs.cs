@@ -132,31 +132,5 @@ namespace NSubstitute.Specs
                 Assert.That(_specAsString, Is.EqualTo(FormattedCall));
             }
         }
-
-
-        public class When_describing_how_a_call_differs : Concern
-        {
-            ICallFormatter _callFormatter;
-            const string Description = "differs";
-            private string _difference;
-
-            public override void Context()
-            {
-                base.Context();
-                _callFormatter = mock<ICallFormatter>();
-                _callFormatter.stub(x => x.Format(_call.GetMethodInfo(), _call.GetArguments())).Return(Description);
-            }
-
-            public override void Because()
-            {
-                _difference = sut.HowDifferentFrom(_call, _callFormatter);
-            }
-
-            [Test]
-            public void Should_contain_formated_call()
-            {
-                Assert.That(_difference, Is.StringContaining(Description)); 
-            }
-        }
     }
 }
