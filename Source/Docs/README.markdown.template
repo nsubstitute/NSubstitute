@@ -1,0 +1,41 @@
+NSubstitute
+========
+
+### What is it?
+
+NSubstitute is a friendly substitute for .NET mocking frameworks.
+
+It's like a stub with property behaviour.  
+With nice semantics for setting return values.  
+It only has one mode - loose semantics, which you can query afterwards.  
+It's meant to be simple, succinct and pleasant to use.  
+
+It's also a work in progress (and in the early stages of progress at that).
+
+### Basic use
+
+Let's say we have a basic calculator interface:
+
+{CODE:basic_calculator_interface}
+
+We can ask NSubstitute to create a substitute instance for this type (you could call it a stub, mock, or fake, but why bother when we just want to substitute in an instance we have some control over?).
+
+{CODE:Use_a_shiny_new_substitute}
+
+Now we can tell our substitute to return different values for different calls:
+
+{CODE:Return_different_values_for_different_arguments}
+
+And we can check that our substitute received a call:
+
+{CODE:Check_a_call_was_received}
+
+### Limitations
+
+Lots. It only has basic functionality at the moment. Don't call it from multiple threads. And if you want to get nice exception messages or create substitutes that implement multiple interfaces then you're out of luck (for now...).
+
+### Building
+
+If you have Visual Studio 2008 or 2010 you should be able to compile NSubstitute and run the unit tests using the NUnit GUI or console test runner (see the ThirdParty directory).
+To do full builds you'll also need Ruby and rake to run the rakefile.
+

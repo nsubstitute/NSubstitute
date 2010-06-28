@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>NSubstitute - a friendly substitute for .NET mocking libraries</title>
+  <link rel="stylesheet" href="style.css" type="text/css" />
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css" tpe="test/css" />
+</head>
+<body>
+  <div id="Header">
+      <img src="NSubstitute.png" style="float: left; margin-right: 15px; width: 100px; height: 100px;" />
+      <h1 style="display: inline"> NSubstitute </h1> <br />
+      <span><i>A friendly substitute for .NET mocking frameworks</i></span>
+  </div>
+
+  <p>&nbsp;</p>
+
+  <div id="tabs">
+    <ul>
+      <li><a href="#what-is-it">What is it?</a></li>
+      <li><a href="#how-do-i-use-it">How do I use it?</a></li>
+      <li><a href="#why-use-it">Why use it?</a></li>
+      <li><a href="#where-do-i-find-out-more">Where do I find out more?</a></li>
+    </ul>
+
+    <div id="what-is-it">
+      <p>NSubstitute is a friendly substitute for .NET mocking frameworks.</p>
+
+      <p>It's like a stub with property behaviour.<br/>
+      With nice semantics for setting return values.<br/>
+      It only has one mode - loose semantics, which you can query afterwards.<br/>
+      It's meant to be simple, succinct and pleasant to use.  </p>
+
+      <p><b>It also isn't released yet, but you can grab the source from <a href="http://github.com/nsubstitute/NSubstitute">GitHub</a> if you'd like to try it out.</b></p>
+    </div>
+
+    <div id="how-do-i-use-it">
+<p>Let's say we have a basic calculator interface:</p> 
+ 
+<pre><code>{CODE:basic_calculator_interface}</code></pre> 
+ 
+<p>We can ask NSubstitute to create a <em>substitute</em> instance for this type (you could call it a <em>stub</em>, <em>mock</em>, or <em>fake</em>, but why bother when we just want to substitute in an instance we have some control over?).</p> 
+ 
+<pre><code>{CODE:Use_a_shiny_new_substitute}</code></pre> 
+ 
+<p>Now we can tell our substitute to return different values for different calls:</p> 
+ 
+<pre><code>{CODE:Return_different_values_for_different_arguments}</code></pre> 
+ 
+<p>And we can check that our substitute received a call:</p> 
+ 
+<pre><code>{CODE:Check_a_call_was_received}</code></pre> 
+    </div>
+
+    <div id="why-use-it">
+      <p>The .NET space is already well populated with mocking frameworks. Why create another? We found that none of the existing frameworks were succinct enough and the code written to use one of these frameworks quickly turns C# in to PERL.</p>
+
+	  <p>We've attempted to make the most frequently required operations obvious and easy to use, keeping less usual scenarios discoverable and accessible, and all the while maintaining as much natural language as possible.</p>
+
+	  <p>Perfect for those dipping their toe into the testing space, or for others who would just like to use less lambdas.</p>
+
+      <p><pre><code>NSubstitute.MakesProgramming(Easier).Returns(true);</code></pre></p>
+    </div>
+	
+	
+    <div id="where-do-i-find-out-more">
+      <p>For more information, have a look at the <a href="http://github.com/nsubstitute/NSubstitute">NSubstitute project on GitHub</a>.</p>
+    </div>
+
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
+
+ <script type="text/javascript">
+    $(document).ready(function() {
+      $("#tabs").tabs({fx: { opacity: 'toggle', duration: 'fast'}});
+	  
+	  $("#tabs").bind("tabsshow", function(event, ui) { 
+		window.location.hash = ui.tab.hash;
+	  })
+    });
+  </script>
+
+  <script language="javascript" type="text/javascript" src="http://quickribbon.com/ribbon/2010/06/8f56a407406ef6d7ca7f058015adb5dc.js"></script><noscript><a href="http://quickribbon.com/">Quickribbon</a></noscript>
+</body>
+</html>

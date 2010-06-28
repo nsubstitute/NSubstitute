@@ -1,9 +1,11 @@
 require 'rake/clean'
+require 'docgenerator'
 
 DOT_NET_PATH = "#{ENV["SystemRoot"]}\\Microsoft.NET\\Framework\\v3.5"
 NUNIT_EXE = "../ThirdParty/NUnit/bin/net-2.0/nunit-console-x86.exe"
 SOURCE_PATH = "../Source"
 OUTPUT_PATH = "../Output"
+DOCS_PATH = "../Docs"
 
 ENV["config"] = "Debug" if ENV["config"].nil?
 CONFIG = ENV["config"]
@@ -12,7 +14,7 @@ CLEAN.include(OUTPUT_PATH)
 
 task :default => ["clean", "all"]
 task :all => [:compile, :test, :specs]
-task :deploy => [:version_assemblies, :default]
+task :deploy => [:version_assemblies, :default, :generate_docs]
   
 desc "Build solutions using MSBuild"
 task :compile do
@@ -40,6 +42,11 @@ task :pending => [:compile] do
     sh "#{NUNIT_EXE} #{acceptance_tests} /nologo /include=Pending /xml=#{OUTPUT_PATH}/PendingSpecResults.xml"
 end
 
+desc "Generates documentation for the website"
+task :generate_docs do
+	generate_docs
+end
+
 task :version_assemblies do 
 	assembly_info_files = "#{SOURCE_PATH}/**/AssemblyInfo.cs"
 
@@ -59,7 +66,7 @@ def get_build_number
 	"#{version_info[1]}.#{version_info[2]}.#{version_info[3]}.#{version_info[4]}"
 end
 
-
 def get_build_version
   /v(\d+)\.(\d+)\.(\d+)\-(\d+)/.match(`git describe --tags --long --match v*`.chomp)
 end
+
