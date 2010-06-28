@@ -54,10 +54,6 @@ And we can check that our substitute received a call:
 		calculator.Received().Add(1, 2);            
 	}
 
-### Limitations
-
-Lots. It only has basic functionality at the moment. Don't call it from multiple threads. And if you want to get nice exception messages or create substitutes that implement multiple interfaces then you're out of luck (for now...).
-
 ### Building
 
 If you have Visual Studio 2008 or 2010 you should be able to compile NSubstitute and run the unit tests using the NUnit GUI or console test runner (see the ThirdParty directory).
