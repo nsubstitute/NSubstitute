@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
 {
@@ -35,6 +36,34 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Count(), Is.EqualTo(2), "Second return");
             Assert.That(_something.Count(), Is.EqualTo(3), "Third return");
             Assert.That(_something.Count(), Is.EqualTo(3), "Fourth return");
+        }
+
+        [Test]
+        public void Return_result_for_any_arguments()
+        {
+            _something.Echo(1).ReturnsForAnyArgs("always");
+
+            Assert.That(_something.Echo(1), Is.EqualTo("always"));
+            Assert.That(_something.Echo(2), Is.EqualTo("always"));
+            Assert.That(_something.Echo(724), Is.EqualTo("always"));
+        }
+
+        [Test]
+        public void Return_multiple_results_for_any_arguments()
+        {
+            _something.Echo(1).ReturnsForAnyArgs("first", "second");
+
+            Assert.That(_something.Echo(2), Is.EqualTo("first"));
+            Assert.That(_something.Echo(724), Is.EqualTo("second"));
+        }
+
+        [Test]
+        public void Return_calculated_results_for_any_arguments()
+        {
+            _something.Echo(-2).ReturnsForAnyArgs(x => x[0].ToString());
+
+            Assert.That(_something.Echo(12), Is.EqualTo(12.ToString()));
+            Assert.That(_something.Echo(123), Is.EqualTo(123.ToString()));
         }
 
         [SetUp]
