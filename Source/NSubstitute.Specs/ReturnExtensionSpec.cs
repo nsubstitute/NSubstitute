@@ -36,7 +36,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_match_last_calls_arguments()
             {
-                _substitutionContext.received(x => x.LastCallShouldReturn(_returnValueSet, true)); 
+                _substitutionContext.received(x => x.LastCallShouldReturn(_returnValueSet, false)); 
             }
 
             public override void Because()
@@ -50,7 +50,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_not_match_last_calls_arguments()
             {
-                _substitutionContext.received(x => x.LastCallShouldReturn(_returnValueSet, false)); 
+                _substitutionContext.received(x => x.LastCallShouldReturn(_returnValueSet, true)); 
             }
 
             public override void Because()

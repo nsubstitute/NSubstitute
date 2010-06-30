@@ -13,25 +13,25 @@ namespace NSubstitute
 
         public static void Returns<T>(this T value, T returnThis, params T[] returnThese)
         {
-            Returns(true, returnThis, returnThese);
+            Returns(false, returnThis, returnThese);
         }
 
         public static void Returns<T>(this T value, Func<CallInfo,T> returnThis)
         {
-            Returns(true, returnThis);
+            Returns(false, returnThis);
         }
 
         public static void ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese)
         {
-            Returns(false, returnThis, returnThese);
+            Returns(true, returnThis, returnThese);
         }
 
         public static void ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis)
         {
-            Returns(false, returnThis);
+            Returns(true, returnThis);
         }
 
-        private static void Returns<T>(bool matchCallArgs, T returnThis, params T[] returnThese)
+        private static void Returns<T>(bool ignoreCallArgs, T returnThis, params T[] returnThese)
         {
             var context = SubstitutionContext.Current;
             IReturn returnValue;
@@ -43,14 +43,14 @@ namespace NSubstitute
             {            
                 returnValue = new ReturnMultipleValues<T>(new[] {returnThis}.Concat(returnThese));
             }
-            context.LastCallShouldReturn(returnValue, matchCallArgs);
+            context.LastCallShouldReturn(returnValue, ignoreCallArgs);
         }
 
-        private static void Returns<T>(bool matchCallArgs, Func<CallInfo,T> returnThis)
+        private static void Returns<T>(bool ignoreCallArgs, Func<CallInfo,T> returnThis)
         {
             var context = SubstitutionContext.Current;
             var returnValue = new ReturnValueFromFunc<T>(returnThis);
-            context.LastCallShouldReturn(returnValue, matchCallArgs);
+            context.LastCallShouldReturn(returnValue, ignoreCallArgs);
         }
 
         public static T Received<T>(this T substitute) where T : class

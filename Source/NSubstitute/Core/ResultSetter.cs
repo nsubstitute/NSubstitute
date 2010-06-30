@@ -13,7 +13,7 @@ namespace NSubstitute.Core
             _callSpecificationFactory = callSpecificationFactory;
         }
 
-        public void SetResultForLastCall(IReturn valueToReturn)
+        public void SetResultForLastCall(IReturn valueToReturn, bool forAnyArguments)
         {
             var lastCall = _callStack.Pop();
             SetResultForCall(lastCall, valueToReturn);

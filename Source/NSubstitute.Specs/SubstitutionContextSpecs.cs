@@ -24,20 +24,20 @@ namespace NSubstitute.Specs
         
         public class When_setting_the_return_value_of_the_last_call : Concern
         {
-            private const bool MatchLastCallsArguments = true;
+            private const bool ForAnyArguments = true;
             private ICallRouter _callRouter;
             private IReturn _valueToReturn;
 
             [Test]
             public void Should_tell_the_last_call_router_to_set_the_return_value_of_its_last_call()
             {
-                _callRouter.received(x => x.LastCallShouldReturn(_valueToReturn, MatchLastCallsArguments));
+                _callRouter.received(x => x.LastCallShouldReturn(_valueToReturn, ForAnyArguments));
             }
             
             public override void Because()
             {
                 sut.LastCallRouter(_callRouter);
-                sut.LastCallShouldReturn(_valueToReturn, MatchLastCallsArguments);
+                sut.LastCallShouldReturn(_valueToReturn, ForAnyArguments);
             }
 
             public override void Context()

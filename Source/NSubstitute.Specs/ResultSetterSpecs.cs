@@ -42,7 +42,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResultForLastCall(_returnValue);
+                sut.SetResultForLastCall(_returnValue, true);
             }
 
             public override void Context()
@@ -52,6 +52,11 @@ namespace NSubstitute.Specs
                 _callStack.stub(x => x.Pop()).Return(_call);
             }
         }
+
+        public class When_the_return_value_for_the_last_call_with_any_arguments_is_set : Concern
+        {
+        }
+
 
 
     }

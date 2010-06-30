@@ -88,17 +88,17 @@ namespace NSubstitute.Specs
         public class When_setting_result_of_last_call : Concern
         {
             IReturn _returnValue;
-            const bool MatchLastCallsArguments = true;
+            const bool ForAnyArguments = true;
 
             [Test]
             public void Should_set_result()
             {
-                _resultSetter.received(x => x.SetResultForLastCall(_returnValue));
+                _resultSetter.received(x => x.SetResultForLastCall(_returnValue, ForAnyArguments));
             }
 
             public override void Because()
             {
-                sut.LastCallShouldReturn(_returnValue, MatchLastCallsArguments);
+                sut.LastCallShouldReturn(_returnValue, ForAnyArguments);
             }
 
             public override void Context()

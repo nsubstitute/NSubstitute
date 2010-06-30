@@ -38,10 +38,10 @@ namespace NSubstitute.Core
             _substituteFactory = substituteFactory;
         }
 
-        public void LastCallShouldReturn(IReturn value, bool matchLastCallsArguments)
+        public void LastCallShouldReturn(IReturn value, bool forAnyArguments)
         {            
             if (_lastCallRouter == null) throw new SubstituteException();
-            _lastCallRouter.LastCallShouldReturn(value, matchLastCallsArguments);
+            _lastCallRouter.LastCallShouldReturn(value, forAnyArguments);
         }
 
         public void LastCallRouter(ICallRouter callRouter)
