@@ -36,7 +36,7 @@ namespace NSubstitute.Specs
             public override void Because()
             {
                 sut.LastCallRouter(_callRouter);
-                sut.LastCallShouldReturn(_valueToReturn);
+                sut.LastCallShouldReturn(_valueToReturn, true);
             }
 
             public override void Context()
@@ -52,7 +52,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw_a_substitute_exception()
             {
-                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(mock<IReturn>()));
+                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(mock<IReturn>(), true));
             }
         }
 

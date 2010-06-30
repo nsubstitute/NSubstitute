@@ -13,6 +13,26 @@ namespace NSubstitute
 
         public static void Returns<T>(this T value, T returnThis, params T[] returnThese)
         {
+            Returns(true, returnThis, returnThese);
+        }
+
+        public static void Returns<T>(this T value, Func<CallInfo,T> returnThis)
+        {
+            Returns(true, returnThis);
+        }
+
+        public static void ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese)
+        {
+            Returns(false, returnThis, returnThese);
+        }
+
+        public static void ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis)
+        {
+            Returns(false, returnThis);
+        }
+
+        private static void Returns<T>(bool matchCallArgs, T returnThis, params T[] returnThese)
+        {
             var context = SubstitutionContext.Current;
             IReturn returnValue;
             if (returnThese == null || returnThese.Length == 0)
@@ -23,14 +43,14 @@ namespace NSubstitute
             {            
                 returnValue = new ReturnMultipleValues<T>(new[] {returnThis}.Concat(returnThese));
             }
-            context.LastCallShouldReturn(returnValue);
+            context.LastCallShouldReturn(returnValue, matchCallArgs);
         }
 
-        public static void Returns<T>(this T value, Func<CallInfo,T> returnThis)
+        private static void Returns<T>(bool matchCallArgs, Func<CallInfo,T> returnThis)
         {
             var context = SubstitutionContext.Current;
             var returnValue = new ReturnValueFromFunc<T>(returnThis);
-            context.LastCallShouldReturn(returnValue);
+            context.LastCallShouldReturn(returnValue, matchCallArgs);
         }
 
         public static T Received<T>(this T substitute) where T : class
