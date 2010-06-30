@@ -55,7 +55,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Recieved_for_specific_parameter()
+        public void Received_for_specific_parameter()
         {
             _something.Echo(3);
             
@@ -63,7 +63,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Recieved_for_parameter_matching_predicate()
+        public void Received_for_parameter_matching_predicate()
         {
             _something.Echo(7);
 
@@ -71,11 +71,19 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Recieved_for_only_one_matcher_for_that_type()
+        public void Received_for_only_one_matcher_for_that_type()
         {
             _something.Funky(123.456f, 12, "Lots", null);
 
             _something.Received().Funky(Arg.Any<float>(), 12, "Lots", null);
+        }
+
+        [Test][Pending]
+        public void Resolve_potentially_ambiguous_matches_by_checking_for_non_default_argument_values()
+        {
+            _something.Add(10, Arg.Any<int>()).Returns(1);
+
+            Assert.That(_something.Add(10, 5), Is.EqualTo(1));
         }
 
         [SetUp]
