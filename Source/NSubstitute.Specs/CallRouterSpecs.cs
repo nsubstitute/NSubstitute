@@ -88,6 +88,7 @@ namespace NSubstitute.Specs
         public class When_setting_result_of_last_call : Concern
         {
             IReturn _returnValue;
+            const bool MatchLastCallsArguments = true;
 
             [Test]
             public void Should_set_result()
@@ -97,7 +98,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.LastCallShouldReturn(_returnValue);
+                sut.LastCallShouldReturn(_returnValue, MatchLastCallsArguments);
             }
 
             public override void Context()

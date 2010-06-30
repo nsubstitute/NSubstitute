@@ -50,7 +50,7 @@ namespace NSubstitute.Core
             return routeToUseForThisCall.Handle(call);
         }
 
-        public void LastCallShouldReturn(IReturn returnValue)
+        public void LastCallShouldReturn(IReturn returnValue, bool matchLastCallsArguments)
         {
             _resultSetter.SetResultForLastCall(returnValue);
         }
