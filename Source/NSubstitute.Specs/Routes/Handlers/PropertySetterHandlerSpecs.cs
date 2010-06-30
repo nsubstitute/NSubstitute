@@ -50,7 +50,7 @@ namespace NSubstitute.Specs.Routes.Handlers
                 base.Context();
                 _propertyHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
                 _resultSetter
-                    .stub(x => x.SetResultForCall(Arg.Is(_propertyGetter), Arg.Any<IReturn>()))
+                    .stub(x => x.SetResultForCall(Arg.Is(_propertyGetter), Arg.Any<IReturn>(), Arg.Is(false)))
                     .IgnoreArguments()
                     .WhenCalled(x => _returnPassedToResultSetter = (ReturnValue) x.Arguments[1]);
             }
@@ -61,7 +61,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             [Test]
             public void Should_not_add_any_values_to_configured_results()
             {
-                _resultSetter.did_not_receive(x => x.SetResultForCall(Arg.Is(_propertyGetter), Arg.Any<IReturn>()));
+                _resultSetter.did_not_receive(x => x.SetResultForCall(Arg.Is(_propertyGetter), Arg.Any<IReturn>(), Arg.Is(false)));
             }
 
             public override void Because()

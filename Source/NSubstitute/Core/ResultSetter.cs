@@ -16,12 +16,12 @@ namespace NSubstitute.Core
         public void SetResultForLastCall(IReturn valueToReturn, bool forAnyArguments)
         {
             var lastCall = _callStack.Pop();
-            SetResultForCall(lastCall, valueToReturn);
+            SetResultForCall(lastCall, valueToReturn, forAnyArguments);
         }
 
-        public void SetResultForCall(ICall call, IReturn valueToReturn)
+        public void SetResultForCall(ICall call, IReturn valueToReturn, bool forAnyArguments)
         {
-            var callSpecification = _callSpecificationFactory.CreateFrom(call, false);
+            var callSpecification = _callSpecificationFactory.CreateFrom(call, forAnyArguments);
             _configuredResults.SetResult(callSpecification, valueToReturn);
         }
     }
