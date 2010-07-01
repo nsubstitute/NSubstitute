@@ -2,7 +2,7 @@ require 'rake/clean'
 require 'docgenerator'
 
 DOT_NET_PATH = "#{ENV["SystemRoot"]}\\Microsoft.NET\\Framework\\v3.5"
-NUNIT_EXE = "../ThirdParty/NUnit/bin/net-2.0/nunit-console-x86.exe"
+NUNIT_EXE = "../ThirdParty/NUnit/bin/net-2.0/nunit-console.exe"
 SOURCE_PATH = "../Source"
 OUTPUT_PATH = "../Output"
 DOCS_PATH = "../Docs"
