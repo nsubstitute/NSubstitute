@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
@@ -15,23 +14,14 @@ namespace NSubstitute.Specs
         {
             protected IList<IArgumentSpecification> _argumentSpecifications;
             protected object[] _arguments;
-            protected ParameterInfo[] _parameterInfos;
+            protected Type[] _parameterTypes;
             protected bool _matchAnyArguments;
 
             public override void Context()
             {
                 base.Context();
                 _arguments = new object[] { 1, "fred", "harry" };
-                _parameterInfos = new ParameterInfo[_arguments.Length];
-                int i = 0;
-                foreach (var argument in _arguments)
-                {
-                    var parameterInfo = mock<ParameterInfo>();
-                    Type t;
-                    parameterInfo.stub(x => t = x.ParameterType).Return(argument.GetType());
-                    _parameterInfos[i] = parameterInfo;
-                    i++;
-                }
+                _parameterTypes = _arguments.Select(x => x.GetType()).ToArray();
                 _argumentSpecifications = new List<IArgumentSpecification>();
             }
 
@@ -47,7 +37,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Create(_argumentSpecifications, _arguments, _parameterInfos, _matchAnyArguments);
+                _result = sut.Create(_argumentSpecifications, _arguments, _parameterTypes, _matchAnyArguments);
             }
             
             [Test]
@@ -122,7 +112,7 @@ namespace NSubstitute.Specs
             public void Should_throw_amgiguous_arguments_exception()
             {
                 Assert.Throws<AmbiguousArgumentsException>(
-                        () => sut.Create(_argumentSpecifications, _arguments, _parameterInfos, false)
+                        () => sut.Create(_argumentSpecifications, _arguments, _parameterTypes, false)
                     );
             }
         }

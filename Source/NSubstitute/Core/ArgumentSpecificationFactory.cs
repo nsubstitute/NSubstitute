@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
     public class ArgumentSpecificationFactory : IArgumentSpecificationFactory
     {
-        public IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, ParameterInfo[] parameterInfos, bool matchAnyArguments)
+        public IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, Type[] parameterTypes, bool matchAnyArguments)
         {
-            if (matchAnyArguments) return parameterInfos.Select(x => (IArgumentSpecification) new ArgumentIsAnythingSpecification(x.ParameterType));
+            if (matchAnyArguments) return parameterTypes.Select(x => (IArgumentSpecification) new ArgumentIsAnythingSpecification(x));
 
             if (argumentSpecs.Count == arguments.Length) return argumentSpecs; 
 
             var result = new List<IArgumentSpecification>();
-            for (int i = 0; i < parameterInfos.Length; i++)
+            for (int i = 0; i < parameterTypes.Length; i++)
             {
-                result.Add(new ArgumentEqualsSpecification(arguments[i], parameterInfos[i].ParameterType));
+                result.Add(new ArgumentEqualsSpecification(arguments[i], parameterTypes[i]));
             }
             if (argumentSpecs.Count == 0)
             {
@@ -25,9 +24,9 @@ namespace NSubstitute.Core
             }
             foreach (var argumentSpecification in argumentSpecs)
             {
-                if (SingleParameterMatchesType(parameterInfos, argumentSpecification.ForType))
+                if (SingleParameterMatchesType(parameterTypes, argumentSpecification.ForType))
                 {
-                    var index = IndexOfParameterInfoWithMatchingType(parameterInfos, argumentSpecification.ForType);
+                    var index = IndexOfParameterInfoWithMatchingType(parameterTypes, argumentSpecification.ForType);
                     result[index] = argumentSpecification;
                 }
                 else
@@ -39,11 +38,11 @@ namespace NSubstitute.Core
             return result;
         }
 
-        int IndexOfParameterInfoWithMatchingType(ParameterInfo[] parameterInfos, Type type)
+        int IndexOfParameterInfoWithMatchingType(Type[] parameterTypes, Type type)
         {
-            for (int i = 0; i < parameterInfos.Length; i++)
+            for (int i = 0; i < parameterTypes.Length; i++)
             {
-                if (parameterInfos[i].ParameterType == type)
+                if (parameterTypes[i] == type)
                 {
                     return i;
                 }
@@ -51,9 +50,9 @@ namespace NSubstitute.Core
             throw new Exception("ParameterInfo with matching type not found");
         }
 
-        bool SingleParameterMatchesType(IEnumerable<ParameterInfo> parameterInfos, Type type)
+        bool SingleParameterMatchesType(IEnumerable<Type> parameterTypes, Type type)
         {
-            return parameterInfos.Count(x => x.ParameterType == type) == 1;
+            return parameterTypes.Count(x => x == type) == 1;
         }
     }
 }

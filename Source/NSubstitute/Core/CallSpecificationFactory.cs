@@ -1,3 +1,4 @@
+using System.Linq;
 namespace NSubstitute.Core
 {
     public class CallSpecificationFactory : ICallSpecificationFactory
@@ -16,8 +17,8 @@ namespace NSubstitute.Core
             var methodInfo = call.GetMethodInfo();
             var argumentSpecs = _context.DequeueAllArgumentSpecifications();
             var arguments = call.GetArguments();
-            var parameterInfos = methodInfo.GetParameters();
-            var argumentSpecificationsForCall = _argumentSpecificationFactory.Create(argumentSpecs, arguments, parameterInfos, withAnyArguments);
+            var parameterTypes = methodInfo.GetParameters().Select(x => x.ParameterType).ToArray();
+            var argumentSpecificationsForCall = _argumentSpecificationFactory.Create(argumentSpecs, arguments, parameterTypes, withAnyArguments);
             return new CallSpecification(methodInfo, argumentSpecificationsForCall);
         }
     }

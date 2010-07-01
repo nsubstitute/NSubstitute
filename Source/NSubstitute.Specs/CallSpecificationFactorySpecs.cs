@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
@@ -36,7 +37,7 @@ namespace NSubstitute.Specs
                     .Stub(x => x.Create(
                                 _context.DequeueAllArgumentSpecifications(), 
                                 _call.GetArguments(), 
-                                methodInfo.GetParameters(), 
+                                methodInfo.GetParameters().Select(y => y.ParameterType).ToArray(), 
                                 WithAnyArguments))
                     .Return(_argSpecsFromFactory);
             }
