@@ -1,10 +1,12 @@
+require 'cgi'
 
 def generate_docs
 	files_for_generation = FileList.new ["#{SOURCE_PATH}/Docs/*.template"]
 
 	Dir.glob(files_for_generation).each do |original_file| 
 	  new_file = DOCS_PATH + "/" + File.basename(original_file, '.template')
-	  
+	  is_html = new_file =~ /\.html$/
+
 	  cp original_file, new_file
 	  content = File.new(new_file,'r').read	
 	  
@@ -12,7 +14,7 @@ def generate_docs
 	  
 	  replacement_tags.each do |tag|
 		replacement_content = get_replacement(tag)
-		
+		replacement_content = CGI::escapeHTML(replacement_content) if (is_html)
 		content.gsub!(tag.to_s, replacement_content)
 	  end
 
@@ -52,8 +54,11 @@ def extract_code_block(source_file, start_point)
 			block_count = 0 if (block_count == nil)
 			block_count += 1
 		elsif (char == "}")
-			raise "invalid syntax encountered - closing brace before opening brace" if (block_count == nil)
-			block_count -= 1
+			if (block_count == nil)
+				end_point = i-1
+				break;
+			end
+			block_count -= 1 unless (block_count == 0)
 		end
 		
 		if (block_count == 0)

@@ -57,6 +57,7 @@
     <Compile Include="ClearCalls.cs" />
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />
+    <Compile Include="Examples\QuickStart.cs" />
     <Compile Include="Infrastructure\ICalculator.cs" />
     <Compile Include="RaisingEvents.cs" />
     <Compile Include="SubbingForEventHandler.cs" />

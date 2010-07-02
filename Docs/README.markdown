@@ -18,49 +18,69 @@ Let's say we have a basic calculator interface:
 
     public interface ICalculator
     {
-        void SwitchOn();
         int Add(int a, int b);
-        int Subtract(int a, int b);
-        string Name { get; set; }
-        DateTime Now { get; }
-        string Firmware { set; }
+        string Mode { get; set; }
+        event Action PoweringUp;
     }
 
-We can ask NSubstitute to create a substitute instance for this type (you could call it a stub, mock, or fake, but why bother when we just want to substitute in an instance we have some control over?).
+We can ask NSubstitute to create a substitute instance for this type. We could ask for a stub, mock, fake, spy, test double etc., but why bother when we just want to substitute an instance we have some control over?
 
-    [Test]
-    public void Use_a_shiny_new_substitute()
-    {
-        var calculator = Substitute.For<ICalculator>();
-        calculator.SwitchOn();
-        Assert.That(calculator.Add(1,2), Is.EqualTo(default(int)));
-    }
+    _calculator = Substitute.For<ICalculator>();
 
-Now we can tell our substitute to return different values for different calls:
+Now we can tell our substitute to return a value for a call:
 
-    [Test]
-    public void Return_different_values_for_different_arguments()
-    {
-        var calculator = Substitute.For<ICalculator>();
-        calculator.Add(1, 2).Returns(3);
-        calculator.Add(20, 30).Returns(50);
-        Assert.That(calculator.Add(20, 30), Is.EqualTo(50));
-        Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
-    }
+    _calculator.Add(1, 2).Returns(3);
+    Assert.That(_calculator.Add(1, 2), Is.EqualTo(3));
 
-And we can check that our substitute received a call:
+We can check that our substitute received a call, and did not receive others:
 
-    [Test]
-    public void Check_a_call_was_received()
-    {
-        var calculator = Substitute.For<ICalculator>();
-        calculator.Add(1, 2);
-        calculator.Received().Add(1, 2);            
-    }
+    _calculator.Add(1, 2);
+    _calculator.Received().Add(1, 2);
+    _calculator.DidNotReceive().Add(5, 7);
 
-### Limitations
+If our Received() assertion fails, NSubstitute tries to give us some help as to what the problem might be:
 
-Lots. It only has basic functionality at the moment. Don't call it from multiple threads. And if you want to get nice exception messages or create substitutes that implement multiple interfaces then you're out of luck (for now...).
+	NSubstitute.Exceptions.CallNotReceivedException : Expected to receive call:
+	    Add(1, 2)
+	Actually received:
+	    Add(4, 5)
+	    Add(3, 4)
+
+We can also work with properties using the Returns syntax we use for methods, or just stick with plain old property setters (for read/write properties):
+
+    _calculator.Mode.Returns("DEC");
+    Assert.That(_calculator.Mode, Is.EqualTo("DEC"));
+    
+    _calculator.Mode = "HEX";
+    Assert.That(_calculator.Mode, Is.EqualTo("HEX"));
+
+NSubstitute supports argument matching for setting return values and asserting a call was received:
+
+    _calculator.Add(10, -5);
+    _calculator.Received().Add(Arg.Is(10), Arg.Any<int>());
+    _calculator.Received().Add(Arg.Is(10), Arg.Is<int>(x => x < 0));
+
+We can use argument matching as well as passing a function to Returns() to get some more behaviour out of our substitute (possibly too much, but that's your call):
+
+    _calculator
+       .Add(Arg.Any<int>(), Arg.Any<int>())
+       .Returns(x => (int)x[0] + (int)x[1]);
+    Assert.That(_calculator.Add(5, 10), Is.EqualTo(15));
+
+Returns() can also be called with multiple arguments to set up a sequence of return values.
+
+    _calculator.Mode.Returns("HEX", "DEC", "BIN");
+    Assert.That(_calculator.Mode, Is.EqualTo("HEX"));
+    Assert.That(_calculator.Mode, Is.EqualTo("DEC"));
+    Assert.That(_calculator.Mode, Is.EqualTo("BIN"));
+
+Finally, we can raise events on our substitutes (unfortunately C# dramatically restricts the extent to which this syntax can be cleaned up):
+
+    bool eventWasRaised = false;
+    _calculator.PoweringUp += () => eventWasRaised = true;
+    
+    _calculator.PoweringUp += Raise.Action();
+    Assert.That(eventWasRaised);
 
 ### Building
 

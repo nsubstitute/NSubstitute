@@ -1,5 +1,6 @@
 require 'rake/clean'
 require 'docgenerator'
+require 'FileUtils'
 
 DOT_NET_PATH = "#{ENV["SystemRoot"]}\\Microsoft.NET\\Framework\\v3.5"
 NUNIT_EXE = "../ThirdParty/NUnit/bin/net-2.0/nunit-console.exe"
@@ -14,7 +15,7 @@ CLEAN.include(OUTPUT_PATH)
 
 task :default => ["clean", "all"]
 task :all => [:compile, :test, :specs]
-task :deploy => [:version_assemblies, :default, :generate_docs]
+task :deploy => [:version_assemblies, :default, :generate_docs, :package]
   
 desc "Build solutions using MSBuild"
 task :compile do
@@ -47,11 +48,12 @@ task :generate_docs do
 	generate_docs
 end
 
-task :version_assemblies do 
+desc "Updates assembly infos with build number"
+task :version_assemblies => [:get_build_number] do 
 	assembly_info_files = "#{SOURCE_PATH}/**/AssemblyInfo.cs"
 
 	assembly_info_template_replacements = [
-		['0.0.0.0', get_build_number]
+		['0.0.0.0', @@build_number]
 	]
 	
 	Dir.glob(assembly_info_files).each do |file|
@@ -61,12 +63,25 @@ task :version_assemblies do
 	end
 end
 
-def get_build_number
+desc "Gets build number based on git tags and commit."
+task :get_build_number do
  	version_info = get_build_version
-	"#{version_info[1]}.#{version_info[2]}.#{version_info[3]}.#{version_info[4]}"
+	@@build_number = "#{version_info[1]}.#{version_info[2]}.#{version_info[3]}.#{version_info[4]}"
 end
 
 def get_build_version
   /v(\d+)\.(\d+)\.(\d+)\-(\d+)/.match(`git describe --tags --long --match v*`.chomp)
 end
 
+
+desc "Packages up assembly and documentation"
+task :package => [:compile, :version_assemblies, :generate_docs] do
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+	dll_path = "#{output_base_path}/NSubstitute"
+	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
+	#mkdir deploy_path unless File.exists? deploy_path
+	cp_r dll_path, deploy_path
+	cp_r "#{DOCS_PATH}", "#{deploy_path}/Docs"
+	mv "#{deploy_path}/Docs/README.markdown", "#{deploy_path}/README.txt"
+	cp "../LICENSE", "#{deploy_path}"
+end

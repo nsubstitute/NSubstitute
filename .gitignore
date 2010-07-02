@@ -2,6 +2,7 @@
 *.user
 *.suo
 *.orig
+*.swp
 bin/
 obj/
 Output/*

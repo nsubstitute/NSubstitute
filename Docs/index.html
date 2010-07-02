@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css" tpe="test/css" />
 </head>
 <body>
+<a href="http://github.com/nsubstitute/NSubstitute"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" /></a>
+  </div>
+
   <div id="Header">
       <img src="NSubstitute.png" style="float: left; margin-right: 15px; width: 100px; height: 100px;" />
       <h1 style="display: inline"> NSubstitute </h1> <br />
@@ -31,61 +34,93 @@
       It only has one mode - loose semantics, which you can query afterwards.<br/>
       It's meant to be simple, succinct and pleasant to use.  </p>
 
-      <p><b>It also isn't released yet, but you can grab the source from <a href="http://github.com/nsubstitute/NSubstitute">GitHub</a> if you'd like to try it out.</b></p>
+      <div class="download">
+      <a href="http://github.com/downloads/nsubstitute/NSubstitute/NSubstitute-0.1.1.zip">Download NSubstitute 0.1 alpha 2</a>
+      <a href="http://github.com/nsubstitute/NSubstitute/downloads" style="font-size: x-small;">Grab the source from GitHub</a>
+      </div>
+
     </div>
 
     <div id="how-do-i-use-it">
-<p>Let's say we have a basic calculator interface:</p> 
- 
+<p> Let's say we have a basic calculator interface: </p>
+
 <pre><code>    public interface ICalculator
     {
-        void SwitchOn();
         int Add(int a, int b);
-        int Subtract(int a, int b);
-        string Name { get; set; }
-        DateTime Now { get; }
-        string Firmware { set; }
-    }</code></pre> 
+        string Mode { get; set; }
+        event Action PoweringUp;
+    }</code></pre>
+
+<p> We can ask NSubstitute to create a substitute instance for this type. We could ask for a stub, mock, fake, spy, test double etc., but why bother when we just want to substitute an instance we have some control over?
+</p>
+
+<pre><code>    _calculator = Substitute.For&lt;ICalculator&gt;();</code></pre>
+
+<p> Now we can tell our substitute to return a value for a call: </p>
+
+<pre><code>    _calculator.Add(1, 2).Returns(3);
+    Assert.That(_calculator.Add(1, 2), Is.EqualTo(3));</code></pre>
+
+<p> We can check that our substitute received a call, and did not receive others: </p>
+
+<pre><code>    _calculator.Add(1, 2);
+    _calculator.Received().Add(1, 2);
+    _calculator.DidNotReceive().Add(5, 7);</code></pre>
+
+<p> If our Received() assertion fails, NSubstitute tries to give us some help as to what the problem might be: </p>
+
+<pre>
+NSubstitute.Exceptions.CallNotReceivedException : Expected to receive call:
+	Add(1, 2)
+Actually received:
+	Add(4, 5)
+	Add(3, 4)
+</pre>
+
+<p> We can also work with properties using the Returns syntax we use for methods, or just stick with plain old property setters (for read/write properties): </p>
+
+<pre><code>    _calculator.Mode.Returns(&quot;DEC&quot;);
+    Assert.That(_calculator.Mode, Is.EqualTo(&quot;DEC&quot;));
+    
+    _calculator.Mode = &quot;HEX&quot;;
+    Assert.That(_calculator.Mode, Is.EqualTo(&quot;HEX&quot;));</code></pre>
+
+<p> NSubstitute supports argument matching for setting return values and asserting a call was received: </p>
+
+<pre><code>    _calculator.Add(10, -5);
+    _calculator.Received().Add(Arg.Is(10), Arg.Any&lt;int&gt;());
+    _calculator.Received().Add(Arg.Is(10), Arg.Is&lt;int&gt;(x =&gt; x &lt; 0));</code></pre>
+
+<p> We can use argument matching as well as passing a function to Returns() to get some more behaviour out of our substitute (possibly too much, but that's your call): </p>
+
+<pre><code>    _calculator
+       .Add(Arg.Any&lt;int&gt;(), Arg.Any&lt;int&gt;())
+       .Returns(x =&gt; (int)x[0] + (int)x[1]);
+    Assert.That(_calculator.Add(5, 10), Is.EqualTo(15));</code></pre>
+
+<p> Returns() can also be called with multiple arguments to set up a sequence of return values.  </p>
+
+<pre><code>    _calculator.Mode.Returns(&quot;HEX&quot;, &quot;DEC&quot;, &quot;BIN&quot;);
+    Assert.That(_calculator.Mode, Is.EqualTo(&quot;HEX&quot;));
+    Assert.That(_calculator.Mode, Is.EqualTo(&quot;DEC&quot;));
+    Assert.That(_calculator.Mode, Is.EqualTo(&quot;BIN&quot;));</code></pre>
+
+<p> Finally, we can raise events on our substitutes (unfortunately C# dramatically restricts the extent to which this syntax can be cleaned up): </p>
+
+<pre><code>    bool eventWasRaised = false;
+    _calculator.PoweringUp += () =&gt; eventWasRaised = true;
+    
+    _calculator.PoweringUp += Raise.Action();
+    Assert.That(eventWasRaised);</code></pre>
  
-<p>We can ask NSubstitute to create a <em>substitute</em> instance for this type (you could call it a <em>stub</em>, <em>mock</em>, or <em>fake</em>, but why bother when we just want to substitute in an instance we have some control over?).</p> 
- 
-<pre><code>    [Test]
-    public void Use_a_shiny_new_substitute()
-    {
-        var calculator = Substitute.For<ICalculator>();
-        calculator.SwitchOn();
-        Assert.That(calculator.Add(1,2), Is.EqualTo(default(int)));
-    }</code></pre> 
- 
-<p>Now we can tell our substitute to return different values for different calls:</p> 
- 
-<pre><code>    [Test]
-    public void Return_different_values_for_different_arguments()
-    {
-        var calculator = Substitute.For<ICalculator>();
-        calculator.Add(1, 2).Returns(3);
-        calculator.Add(20, 30).Returns(50);
-        Assert.That(calculator.Add(20, 30), Is.EqualTo(50));
-        Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
-    }</code></pre> 
- 
-<p>And we can check that our substitute received a call:</p> 
- 
-<pre><code>    [Test]
-    public void Check_a_call_was_received()
-    {
-        var calculator = Substitute.For<ICalculator>();
-        calculator.Add(1, 2);
-        calculator.Received().Add(1, 2);            
-    }</code></pre> 
     </div>
 
     <div id="why-use-it">
-      <p>The .NET space is already well populated with mocking frameworks. Why create another? We found that none of the existing frameworks were succinct enough and the code written to use one of these frameworks quickly turns C# in to PERL.</p>
+      <p>There are already some great mocking frameworks around for .NET, so why create another? We found that for all their great features, none of the existing frameworks had the succinct syntax we were craving &mdash; the code required to configure test doubles quickly obscured the intention behind our tests.</p>
 
 	  <p>We've attempted to make the most frequently required operations obvious and easy to use, keeping less usual scenarios discoverable and accessible, and all the while maintaining as much natural language as possible.</p>
 
-	  <p>Perfect for those dipping their toe into the testing space, or for others who would just like to use less lambdas.</p>
+	  <p>Perfect for those new to testing, and for others who would just like to to get their tests written with less noise and less lambdas.</p>
 
       <p><pre><code>NSubstitute.MakesProgramming(Easier).Returns(true);</code></pre></p>
     </div>
@@ -97,19 +132,33 @@
 
   </div>
 
+  <div id="footer">
+  NSubstitute is open source software, licensed under the <a href="http://www.opensource.org/licenses/bsd-license.php">BSD License</a>.<br />
+  NSubstitute logo donated by <a href="http://troyhunt.com">Troy Hunt</a>.
+  </div>
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
 
  <script type="text/javascript">
     $(document).ready(function() {
-      $("#tabs").tabs({fx: { opacity: 'toggle', duration: 'fast'}});
-	  
-	  $("#tabs").bind("tabsshow", function(event, ui) { 
-		window.location.hash = ui.tab.hash;
-	  })
+      $("#tabs").tabs({ fx: { opacity: 'toggle', duration: 'fast'}});
     });
   </script>
 
-  <script language="javascript" type="text/javascript" src="http://quickribbon.com/ribbon/2010/06/8f56a407406ef6d7ca7f058015adb5dc.js"></script><noscript><a href="http://quickribbon.com/">Quickribbon</a></noscript>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17200262-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
 </body>
 </html>

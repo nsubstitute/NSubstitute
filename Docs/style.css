@@ -11,8 +11,22 @@ h1{font-size:3.0em}
 h2{font-size:2.0em}
 h3{font-size:1.5em}
 
-#Download { float: right }
+#footer { font-size: xx-small; text-align: center; padding: 15px; }
 
+.download {
+  <!--background-color:#95b7ce;-->
+  padding: 25px;
+
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.download a {
+  display: block;
+  font-weight: bold;
+  padding-top: 10px;
+}
 pre {
   border: 1px solid #AAAAAA;
   padding: 5px;

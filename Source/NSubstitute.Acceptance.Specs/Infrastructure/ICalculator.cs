@@ -2,7 +2,6 @@ using System;
 
 namespace NSubstitute.Acceptance.Specs.Infrastructure
 {
-    /* {CODE:basic_calculator_interface} */
     public interface ICalculator
     {
         void SwitchOn();
