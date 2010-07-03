@@ -44,20 +44,20 @@
     <div id="how-do-i-use-it">
 <p> Let's say we have a basic calculator interface: </p>
 
-<pre><code>{CODE:basic_calculator_interface}</code></pre>
+{CODE:basic_calculator_interface}
 
 <p> We can ask NSubstitute to create a substitute instance for this type. We could ask for a stub, mock, fake, spy, test double etc., but why bother when we just want to substitute an instance we have some control over?
 </p>
 
-<pre><code>{CODE:substitute_for_calculator}</code></pre>
+{CODE:substitute_for_calculator}
 
 <p> Now we can tell our substitute to return a value for a call: </p>
 
-<pre><code>{CODE:return_a_value_for_a_call}</code></pre>
+{CODE:return_a_value_for_a_call}
 
 <p> We can check that our substitute received a call, and did not receive others: </p>
 
-<pre><code>{CODE:check_substitute_received_some_calls_but_not_others}</code></pre>
+{CODE:check_substitute_received_some_calls_but_not_others}
 
 <p> If our Received() assertion fails, NSubstitute tries to give us some help as to what the problem might be: </p>
 
@@ -71,23 +71,23 @@ Actually received:
 
 <p> We can also work with properties using the Returns syntax we use for methods, or just stick with plain old property setters (for read/write properties): </p>
 
-<pre><code>{CODE:set_properties_with_returns_or_setters}</code></pre>
+{CODE:set_properties_with_returns_or_setters}
 
 <p> NSubstitute supports argument matching for setting return values and asserting a call was received: </p>
 
-<pre><code>{CODE:arg_matching}</code></pre>
+{CODE:arg_matching}
 
 <p> We can use argument matching as well as passing a function to Returns() to get some more behaviour out of our substitute (possibly too much, but that's your call): </p>
 
-<pre><code>{CODE:arg_matching_and_behaviour}</code></pre>
+{CODE:arg_matching_and_behaviour}
 
 <p> Returns() can also be called with multiple arguments to set up a sequence of return values.  </p>
 
-<pre><code>{CODE:return_multiple_arguments}</code></pre>
+{CODE:return_multiple_arguments}
 
 <p> Finally, we can raise events on our substitutes (unfortunately C# dramatically restricts the extent to which this syntax can be cleaned up): </p>
 
-<pre><code>{CODE:raise_events}</code></pre>
+{CODE:raise_events}
  
     </div>
 
@@ -98,12 +98,12 @@ Actually received:
 
 	  <p>Perfect for those new to testing, and for others who would just like to to get their tests written with less noise and less lambdas.</p>
 
-      <p><pre><code>NSubstitute.MakesProgramming(Easier).Returns(true);</code></pre></p>
     </div>
 	
 	
     <div id="where-do-i-find-out-more">
-      <p>For more information, have a look at the <a href="http://github.com/nsubstitute/NSubstitute">NSubstitute project on GitHub</a>.</p>
+      <p>To ask a question about or provide some feedback on NSubstitute, head on over to the <a href="http://groups.google.com/group/nsubstitute">NSubstitute discussion group</a>.</p>
+      <p>You can also check out the <a href="http://github.com/nsubstitute/NSubstitute">NSubstitute project site on GitHub</a>, where you can grab the source, raise an issue, or browse through the acceptance tests for some examples of how NSubstitute works.</p>
     </div>
 
   </div>

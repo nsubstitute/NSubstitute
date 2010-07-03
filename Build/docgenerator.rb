@@ -14,12 +14,16 @@ def generate_docs
 	  
 	  replacement_tags.each do |tag|
 		replacement_content = get_replacement(tag)
-		replacement_content = CGI::escapeHTML(replacement_content) if (is_html)
+		replacement_content = to_html(replacement_content) if (is_html)
 		content.gsub!(tag.to_s, replacement_content)
 	  end
 
 	  File.open(new_file, 'w') { |fw| fw.write(content) }
 	end
+end
+
+def to_html(text)
+	"<pre><code>" + CGI::escapeHTML(text) + "</code></pre>"
 end
 
 def get_replacement(tag)
