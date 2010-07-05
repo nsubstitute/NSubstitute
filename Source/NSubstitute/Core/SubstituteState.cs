@@ -11,7 +11,7 @@ namespace NSubstitute.Core
             CallResults = new CallResults(CallInfoFactory);
             CallActions = new CallActions();
             PropertyHelper = new PropertyHelper();
-            CallSpecificationFactory = new CallSpecificationFactory(substitutionContext, new ArgumentSpecificationFactory());
+            CallSpecificationFactory = new CallSpecificationFactory(substitutionContext, new ArgumentSpecificationFactory(new MixedArgumentSpecificationFactory()));
             ResultSetter = new ResultSetter(CallStack, CallResults, CallSpecificationFactory);
             EventHandlerRegistry = new EventHandlerRegistry();
             CallNotReceivedExceptionThrower = new CallNotReceivedExceptionThrower(new CallFormatter(new ArgumentFormatter()));

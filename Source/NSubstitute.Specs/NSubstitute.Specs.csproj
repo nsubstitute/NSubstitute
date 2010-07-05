@@ -77,6 +77,7 @@
     <Compile Include="CallSpecificationFactorySpecs.cs" />
     <Compile Include="CallSpecificationSpecs.cs" />
     <Compile Include="ClearReceivedCallsExtensionSpec.cs" />
+    <Compile Include="MixedArgumentSpecificationFactorySpecs.cs" />
     <Compile Include="DidNotReceiveExtensionsSpecs.cs" />
     <Compile Include="ArgumentSpecificationFactorySpecs.cs" />
     <Compile Include="DidNotReceiveWithAnyArgsExtensionSpec.cs" />

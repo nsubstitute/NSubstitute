@@ -77,6 +77,8 @@
     <Compile Include="Core\CallNotReceivedExceptionThrower.cs" />
     <Compile Include="Core\CallReceivedExceptionThrower.cs" />
     <Compile Include="Core\CallRouterResolver.cs" />
+    <Compile Include="Core\IMixedArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\MixedArgumentSpecificationFactory.cs" />
     <Compile Include="Core\IArgumentFormatter.cs" />
     <Compile Include="Core\ICallFormatter.cs" />
     <Compile Include="Core\IArgumentSpecificationFactory.cs" />

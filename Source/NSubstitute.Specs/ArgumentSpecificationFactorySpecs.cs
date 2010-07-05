@@ -5,6 +5,7 @@ using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace NSubstitute.Specs
 {
@@ -16,6 +17,7 @@ namespace NSubstitute.Specs
             protected object[] _arguments;
             protected Type[] _parameterTypes;
             protected bool _matchAnyArguments;
+            protected IMixedArgumentSpecificationFactory _mixedArgumentSpecificationFactory;
 
             public override void Context()
             {
@@ -23,11 +25,12 @@ namespace NSubstitute.Specs
                 _arguments = new object[] { 1, "fred", "harry" };
                 _parameterTypes = _arguments.Select(x => x.GetType()).ToArray();
                 _argumentSpecifications = new List<IArgumentSpecification>();
+                _mixedArgumentSpecificationFactory = mock<IMixedArgumentSpecificationFactory>();
             }
 
             public override ArgumentSpecificationFactory CreateSubjectUnderTest()
             {
-                return new ArgumentSpecificationFactory();
+                return new ArgumentSpecificationFactory(_mixedArgumentSpecificationFactory);
             }
         }
 
@@ -44,20 +47,6 @@ namespace NSubstitute.Specs
             public void Should_have_specifications_for_all_arguments()
             {
                 Assert.That(_result.Count(), Is.EqualTo(_arguments.Length));
-            }
-        }
-
-        public class When_creating_argument_specifications_with_no_argument_specifications_given : When_creating_argument_specifications
-        {
-            [Test]
-            public void Should_set_argument_specifications_that_match_arguments()
-            {
-                for (int i = 0; i < _arguments.Count(); i++)
-                {
-                    Assert.That(_result.ElementAt(i), Is.TypeOf(typeof(ArgumentEqualsSpecification)));
-                    Assert.That(_result.ElementAt(i).IsSatisfiedBy(_arguments[i]));
-                    Assert.That(_result.ElementAt(i).IsSatisfiedBy("some other argument"), Is.False);
-                }
             }
         }
 
@@ -79,41 +68,40 @@ namespace NSubstitute.Specs
             }
         }
 
-        public class When_creating_argument_specifications_with_argument_specs_for_each_argument_of_that_type : When_creating_argument_specifications
+        public class When_creating_argument_specifications_with_no_argument_specifications_given : BaseConcern
         {
+            protected IEnumerable<IArgumentSpecification> _mixedArgumentSpecs;
+            protected IEnumerable<IArgumentSpecification> _result;
+
+            public override void Because()
+            {
+                _result = sut.Create(_argumentSpecifications, _arguments, _parameterTypes, _matchAnyArguments);
+            }
+
             public override void Context()
             {
                 base.Context();
-                var argumentSpecification = mock<IArgumentSpecification>();
-                Type t;
-                argumentSpecification.stub(x => t = x.ForType).Return(_arguments[0].GetType());
-                _argumentSpecifications.Add(argumentSpecification);
+                _mixedArgumentSpecs = mock<IEnumerable<IArgumentSpecification>>();
+                _mixedArgumentSpecificationFactory.Stub(
+                    x => x.Create(_argumentSpecifications, _arguments, _parameterTypes)).Return(_mixedArgumentSpecs);
             }
 
             [Test]
-            public void Should_use_argument_spec_for_argument_matching_type()
+            public void Should_use_mixed_argument_specifcation_factory()
             {
-                Assert.That(_result.ElementAt(0), Is.EqualTo(_argumentSpecifications[0]));
+                Assert.That(_result == _mixedArgumentSpecs);
             }
         }
 
-        public class When_creating_argument_specifications_with_less_argument_specs_than_arguments_of_that_type : BaseConcern
+        public class When_creating_argument_specifications_with_less_argument_specs_than_arguments : When_creating_argument_specifications_with_no_argument_specifications_given
         {
             public override void Context()
             {
                 base.Context();
                 var argumentSpecification = mock<IArgumentSpecification>();
                 Type t;
-                argumentSpecification.stub(x => t = x.ForType).Return(_arguments[1].GetType());
+                argumentSpecification.stub(x => t = x.ForType).Return(_parameterTypes[0]);
                 _argumentSpecifications.Add(argumentSpecification);
-            }
-
-            [Test]
-            public void Should_throw_amgiguous_arguments_exception()
-            {
-                Assert.Throws<AmbiguousArgumentsException>(
-                        () => sut.Create(_argumentSpecifications, _arguments, _parameterTypes, false)
-                    );
             }
         }
 
