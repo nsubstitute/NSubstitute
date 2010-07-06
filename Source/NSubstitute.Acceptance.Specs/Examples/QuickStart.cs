@@ -55,8 +55,8 @@ namespace NSubstitute.Acceptance.Specs.Examples
         {
             /* {CODE:arg_matching} */
             _calculator.Add(10, -5);
-            _calculator.Received().Add(Arg.Is(10), Arg.Any<int>());
-            _calculator.Received().Add(Arg.Is(10), Arg.Is<int>(x => x < 0));
+            _calculator.Received().Add(10, Arg.Any<int>());
+            _calculator.Received().Add(10, Arg.Is<int>(x => x < 0));
         }
 
         [Test]
