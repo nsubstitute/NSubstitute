@@ -12,37 +12,22 @@ namespace NSubstitute
 
         public static ActionWrapper<Action<T>> Action<T>(T argument)
         {
-            return new ActionWrapper<Action<T>>();
+            return new ActionWrapper<Action<T>>(argument);
         }
 
         public static ActionWrapper<Action<T1, T2>> Action<T1, T2>(T1 argument1, T2 argument2)
         {
-            return new ActionWrapper<Action<T1, T2>>();
+            return new ActionWrapper<Action<T1, T2>>(argument1, argument2);
         }
 
-        public static EventHandlerWrapper<EventHandler<TEventArgs>> Event<TEventArgs>(object sender, TEventArgs arguments) where TEventArgs : EventArgs
+        public static EventHandlerWrapper<EventHandler<TEventArgs>> Event<TEventArgs>(object sender, TEventArgs eventArgs) where TEventArgs : EventArgs
         {
-            return new EventHandlerWrapper<EventHandler<TEventArgs>>(sender, arguments);
+            return new EventHandlerWrapper<EventHandler<TEventArgs>>(sender, eventArgs);
         }
 
-        public static EventHandlerWrapper<EventHandler<TEventArgs>> Event<TEventArgs>(TEventArgs arguments) where TEventArgs : EventArgs
+        public static EventHandlerWrapper<EventHandler<TEventArgs>> Event<TEventArgs>(TEventArgs eventArgs) where TEventArgs : EventArgs
         {
-            return new EventHandlerWrapper<EventHandler<TEventArgs>>();
-        }
-
-        public static EventHandlerWrapper<EventHandler> Event(object sender, EventArgs arguments)
-        {
-            return new EventHandlerWrapper<EventHandler>(sender, arguments);
-        }
-
-        public static EventHandlerWrapper<EventHandler> Event(EventArgs arguments)
-        {
-            return new EventHandlerWrapper<EventHandler>();
-        }
-
-        public static EventHandlerWrapper<EventHandler<TEventArgs>> Event<TEventArgs>() where TEventArgs : EventArgs
-        {
-            return new EventHandlerWrapper<EventHandler<TEventArgs>>();
+            return new EventHandlerWrapper<EventHandler<TEventArgs>>(eventArgs);
         }
 
         public static EventHandlerWrapper<object> Event()

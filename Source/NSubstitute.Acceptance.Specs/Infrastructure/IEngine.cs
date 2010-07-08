@@ -11,6 +11,8 @@ namespace NSubstitute.Acceptance.Specs
         void RevAt(int rpm);
         void FillPetrolTankTo(int percent);
         event Action Started;
+        event Action<int> RevvedAt;
+        event Action<int, int> PetrolTankFilled;
         event EventHandler<IdlingEventArgs> Idling;
         event EventHandler Stopped;
 
