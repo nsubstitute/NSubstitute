@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
@@ -73,6 +74,12 @@ namespace NSubstitute.Specs
             {
                 Assert.That(_result, Is.False);
             }
+
+            [Test]
+            public void Non_matching_indicies_should_be_empty()
+            {
+                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.Empty); 
+            }
         }
 
         public class When_an_argument_spec_is_not_satisfied : Concern
@@ -88,6 +95,12 @@ namespace NSubstitute.Specs
             public void Should_not_be_satisfied()
             {
                 Assert.That(_result, Is.False);
+            }
+
+            [Test]
+            public void Should_return_index_of_different_arguments()
+            {
+                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.EqualTo(new[] { 1 }));
             }
         }
 
@@ -105,6 +118,12 @@ namespace NSubstitute.Specs
             public void Should_not_be_satisfied()
             {
                 Assert.That(_result, Is.False);
+            }
+
+            [Test]
+            public void Should_return_empty_for_non_matching_arg_index_because_args_that_are_specified_match()
+            {
+                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.Empty); 
             }
         }
         
