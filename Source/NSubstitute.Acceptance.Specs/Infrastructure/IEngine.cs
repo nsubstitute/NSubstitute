@@ -15,7 +15,7 @@ namespace NSubstitute.Acceptance.Specs
         event Action<int, int> PetrolTankFilled;
         event EventHandler<IdlingEventArgs> Idling;
         event EventHandler Stopped;
-
+        event EventHandler<EventArgs> Broken;
     }
 
     public class IdlingEventArgs : EventArgs

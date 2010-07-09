@@ -49,6 +49,20 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(stoppedEventHandler.EventArgs, Is.SameAs(arguments));
         }
 
+        [Test][Pending]
+        public void Raise_event_with_standard_event_args_as_generic_and_sender_automatically_set_to_substitute()
+        {
+            var arguments = new EventArgs();
+
+            var engine = Substitute.For<IEngine>();
+            var brokenEventHandler = new RaisedEventRecorder<EventArgs>();
+            engine.Broken += brokenEventHandler.Record;
+            // this needs to compile //engine.Broken += Raise.Event(arguments);
+
+            Assert.That(brokenEventHandler.Sender, Is.SameAs(engine));
+            Assert.That(brokenEventHandler.EventArgs, Is.SameAs(arguments));
+        }
+
         [Test]
         public void Raise_event_with_custom_event_args_and_sender_automatically_set_to_substitute()
         {
