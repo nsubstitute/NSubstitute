@@ -14,7 +14,7 @@ namespace NSubstitute.Core
             _argumentFormatter = argumentFormatter;
         }
 
-        public string Format(ICall call)
+        public string Format(ICall call, ICallSpecification withRespectToCallSpec)
         {
             return Format(call.GetMethodInfo(), call.GetArguments());
         }

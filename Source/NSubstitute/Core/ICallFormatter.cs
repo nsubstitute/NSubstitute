@@ -6,6 +6,6 @@ namespace NSubstitute.Core
     public interface ICallFormatter
     {
         string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments);
-        string Format(ICall call);
+        string Format(ICall call, ICallSpecification withRespectToCallSpec);
     }
 }

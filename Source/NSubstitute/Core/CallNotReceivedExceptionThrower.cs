@@ -27,7 +27,7 @@ namespace NSubstitute.Core
                 builder.AppendLine("Actually received:");
                 foreach (var call in actualCalls)
                 {
-                    builder.AppendFormat("\t{0}\n", _callFormatter.Format(call));
+                    builder.AppendFormat("\t{0}\n", _callFormatter.Format(call, callSpecification));
                 }
             }
             throw new CallNotReceivedException(builder.ToString());

@@ -67,8 +67,8 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _actualCalls = new[] {mock<ICall>(), mock<ICall>() };
-                _callFormatter.stub(x => x.Format(_actualCalls.First())).Return(FormattedFirstCall);
-                _callFormatter.stub(x => x.Format(_actualCalls.ElementAt(1))).Return(FormattedSecondCall);
+                _callFormatter.stub(x => x.Format(_actualCalls.First(), _callSpecification)).Return(FormattedFirstCall);
+                _callFormatter.stub(x => x.Format(_actualCalls.ElementAt(1), _callSpecification)).Return(FormattedSecondCall);
             }
         }
 
