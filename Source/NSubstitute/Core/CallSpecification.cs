@@ -39,11 +39,15 @@ namespace NSubstitute.Core
             var arguments = call.GetArguments();
             for (var i = 0; i < arguments.Length; i++)
             {
-                if (i >= _argumentSpecifications.Length) yield return i;
-
-                var argumentMatchesSpecification = _argumentSpecifications[i].IsSatisfiedBy(arguments[i]);
-                if (!argumentMatchesSpecification) yield return i; 
+                var argumentMatchesSpecification = ArgIsSpecifiedAndMatchesSpec(arguments[i], i);
+                if (!argumentMatchesSpecification) yield return i;
             }
+        }
+
+        private bool ArgIsSpecifiedAndMatchesSpec(object argument, int argumentIndex)
+        {
+            if (argumentIndex >= _argumentSpecifications.Length) return false;
+            return _argumentSpecifications[argumentIndex].IsSatisfiedBy(argument);
         }
     }
 }

@@ -104,7 +104,7 @@ namespace NSubstitute.Specs
             }
         }
 
-        public class When_call_has_different_number_of_arguments_than_specified : Concern
+        public class When_call_has_less_arguments_than_specified : Concern
         {
             public override void Context()
             {
@@ -124,6 +124,29 @@ namespace NSubstitute.Specs
             public void Should_return_empty_for_non_matching_arg_index_because_args_that_are_specified_match()
             {
                 Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.Empty); 
+            }
+        }
+
+        public class When_call_has_more_arguments_than_specified : Concern
+        {
+            public override void Context()
+            {
+                base.Context();
+                _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
+                _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
+                _call = new Call(_methodInfoSpecified, new[] { firstArg, secondArg, new object() }, null);
+            }
+
+            [Test]
+            public void Should_not_be_satisfied()
+            {
+                Assert.That(_result, Is.False); 
+            }
+
+            [Test]
+            public void Should_return_index_of_arg_that_is_not_specified()
+            {
+                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.EqualTo(new[] { 2 }));
             }
         }
         
