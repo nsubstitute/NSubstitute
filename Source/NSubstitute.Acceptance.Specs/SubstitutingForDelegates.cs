@@ -14,7 +14,7 @@ namespace NSubstitute.Acceptance.Specs
             action.Received()();
         }
         
-        [Test][Pending]
+        [Test]
         public void SubForActionWith2Parameters()
         {
             var action = Substitute.For<Action<int, int>>();
@@ -32,7 +32,7 @@ namespace NSubstitute.Acceptance.Specs
             func.Received()(1);
         }
 
-        [Test][Pending]
+        [Test]
         public void substitute_for_an_event_handler()
         {
             var eventHandler = Substitute.For<EventHandler>();
@@ -41,7 +41,7 @@ namespace NSubstitute.Acceptance.Specs
             eventHandler.Received().Invoke(null, null);
         }
 
-        [Test][Pending]
+        [Test]
         public void substitute_for_an_eventhandler()
         {
             var eventHandler = Substitute.For<EventHandler>();

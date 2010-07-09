@@ -20,8 +20,7 @@ namespace NSubstitute.Proxies.DelegateProxy
                 throw new SubstituteException("Can not provide constructor arguments when substituting for a delegate.");
             }
 
-            var delegateCall = new DelegateCall(callRouter);
-            return DelegateProxy(typeToProxy, delegateCall);
+            return DelegateProxy(typeToProxy, callRouter);
         }
 
         private bool HasItems<T>(T[] array)
@@ -29,10 +28,13 @@ namespace NSubstitute.Proxies.DelegateProxy
             return array != null && array.Length > 0;
         }
 
-        private object DelegateProxy(Type delegateType, DelegateCall delegateCall)
+        private object DelegateProxy(Type delegateType, ICallRouter callRouter)
         {
             var delegateMethodToProxy = delegateType.GetMethod("Invoke");
             var invokeOnDelegateCall = DelegateCall.DelegateCallInvoke;
+
+            var proxyParameterTypes = delegateMethodToProxy.GetParameters().Select(x => x.ParameterType).ToArray();
+            var delegateCall = new DelegateCall(callRouter, proxyParameterTypes);
 
             ParameterExpression[] proxyParameters = delegateMethodToProxy.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();
             Expression[] proxyParametersAsObjects = proxyParameters.Select(x => (Expression)Expression.Convert(x, typeof(object))).ToArray();
