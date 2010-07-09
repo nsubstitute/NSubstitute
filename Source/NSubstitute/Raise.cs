@@ -67,12 +67,6 @@ namespace NSubstitute
             return null;
         }
 
-        public static implicit operator EventHandler<EventArgs>(EventHandlerWrapper<T> wrapper)
-        {
-            RaiseEvent(wrapper);
-            return null;
-        }
-
         static void RaiseEvent(EventHandlerWrapper<T> wrapper)
         {
             var sender = wrapper._sender;
