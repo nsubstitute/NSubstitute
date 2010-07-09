@@ -36,7 +36,7 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
-        public class When_calls_have_been_made_to_expected_member_but_with_different_args : Context
+        public class When_calls_have_been_made_to_expected_member_but_with_different_arg : Context
         {
             protected override void ConfigureContext()
             {
@@ -60,6 +60,35 @@ namespace NSubstitute.Acceptance.Specs
             {
                 ExceptionMessageContains("SampleMethod(*1*)");
                 ExceptionMessageContains("SampleMethod(*2*)");
+            }
+        }
+
+        public class When_calls_have_been_made_to_expected_member_but_with_some_different_args : Context
+        {
+            readonly IList<string> _strings = new List<string> { "a", "b"};
+
+            protected override void ConfigureContext()
+            {
+                Sample.SampleMethod("different", 1, new List<string>());
+                Sample.SampleMethod("string", 7, new List<string>());
+            }
+
+            protected override void ExpectedCall()
+            {
+                Sample.Received().SampleMethod("string", 1, _strings);
+            }
+
+            [Test]
+            public void Should_report_the_method_we_were_expecting()
+            {
+                ExceptionMessageContains("Expected to receive call:\n\tSampleMethod(\"string\", 1, List<String>)");
+            }
+
+            [Test]
+            public void Should_indicate_which_args_are_different()
+            {
+                ExceptionMessageContains("SampleMethod(*\"different\"*, 1, *List<String>*)");
+                ExceptionMessageContains("SampleMethod(\"string\", *7*, *List<String>*)");
             }
         }
 
