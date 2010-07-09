@@ -20,7 +20,7 @@ namespace NSubstitute.Core
             builder.AppendLine("Expected to receive call:\n\t" + callSpecification.Format(_callFormatter));
             if (!actualCalls.Any())
             {
-                builder.AppendLine("Actually received no calls that ressemble the expected call.");
+                builder.AppendLine("Actually received no calls that resemble the expected call.");
             }
             else
             {

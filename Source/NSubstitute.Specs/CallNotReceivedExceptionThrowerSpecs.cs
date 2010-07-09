@@ -84,7 +84,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Exception_should_state_no_calls_to_member_received()
             {
-                Assert.That(_exception.Message, Is.StringContaining("Actually received no calls that ressemble the expected call."));
+                Assert.That(_exception.Message, Is.StringContaining("Actually received no calls that resemble the expected call."));
             }
 
             public override void Context()
