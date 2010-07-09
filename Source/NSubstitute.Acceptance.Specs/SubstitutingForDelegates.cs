@@ -14,6 +14,14 @@ namespace NSubstitute.Acceptance.Specs
             action.Received()();
         }
         
+        [Test][Pending]
+        public void SubForActionWith2Parameters()
+        {
+            var action = Substitute.For<Action<int, int>>();
+            action(4, 2);
+            action.Received()(4, 2);
+        }
+        
         [Test]
         public void SubForFunc()
         {
@@ -23,5 +31,24 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(func(1), Is.EqualTo("1"));
             func.Received()(1);
         }
+
+        [Test][Pending]
+        public void substitute_for_an_event_handler()
+        {
+            var eventHandler = Substitute.For<EventHandler>();
+            eventHandler.Invoke(null, null);
+
+            eventHandler.Received().Invoke(null, null);
+        }
+
+        [Test][Pending]
+        public void substitute_for_an_eventhandler()
+        {
+            var eventHandler = Substitute.For<EventHandler>();
+            eventHandler(null, null);
+
+            eventHandler.Received()(null, null);
+        }
+
     }
 }

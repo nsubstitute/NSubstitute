@@ -17,7 +17,7 @@ namespace NSubstitute.Core
             var methodInfo = call.GetMethodInfo();
             var argumentSpecs = _context.DequeueAllArgumentSpecifications();
             var arguments = call.GetArguments();
-            var parameterTypes = methodInfo.GetParameters().Select(x => x.ParameterType).ToArray();
+            var parameterTypes = call.GetParameterTypes();
             var argumentSpecificationsForCall = _argumentSpecificationFactory.Create(argumentSpecs, arguments, parameterTypes, withAnyArguments);
             return new CallSpecification(methodInfo, argumentSpecificationsForCall);
         }

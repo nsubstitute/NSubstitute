@@ -24,7 +24,6 @@ namespace NSubstitute.Specs
                 base.Context();
                 var methodInfo = mock<MethodInfo>();
                 var arguments = new[] { new object() };
-                methodInfo.Stub(x => x.GetParameters()).Return(new ParameterInfo[0]);
 
                 _call = CreateStubCall(methodInfo, arguments);
                 
@@ -37,7 +36,7 @@ namespace NSubstitute.Specs
                     .Stub(x => x.Create(
                                 _context.DequeueAllArgumentSpecifications(), 
                                 _call.GetArguments(), 
-                                methodInfo.GetParameters().Select(y => y.ParameterType).ToArray(), 
+                                _call.GetParameterTypes(),
                                 WithAnyArguments))
                     .Return(_argSpecsFromFactory);
             }

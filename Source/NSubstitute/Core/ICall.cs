@@ -9,5 +9,6 @@ namespace NSubstitute.Core
         MethodInfo GetMethodInfo();
         object[] GetArguments();
         object Target();
+        Type[] GetParameterTypes();
     }
 }

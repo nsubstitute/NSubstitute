@@ -38,6 +38,7 @@ namespace NSubstitute.Core
             private readonly MethodInfo _methodInfo;
             readonly object _target;
             private readonly object[] _arguments = new object[0];
+            private readonly Type[] _parameterTypes = new Type[0];
 
             public CallToPropertyGetter(MethodInfo methodInfo, object target)
             {
@@ -49,6 +50,7 @@ namespace NSubstitute.Core
             public MethodInfo GetMethodInfo() { return _methodInfo; }
             public object[] GetArguments() { return _arguments; }
             public object Target() { return _target; }
+            public Type[] GetParameterTypes() { return _parameterTypes; }
         }
     }
 }

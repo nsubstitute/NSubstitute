@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace NSubstitute.Core
@@ -8,12 +9,29 @@ namespace NSubstitute.Core
         private MethodInfo _methodInfo;
         private object[] _arguments;
         private object _target;
+        private readonly Type[] _parameterTypes;
 
-        public Call(MethodInfo methodInfo, object[] arguments, object target)
+        public Call(MethodInfo methodInfo, object[] arguments, object target): this(methodInfo, arguments, target, null)
+        {}
+
+        public Call(MethodInfo methodInfo, object[] arguments, object target, Type[] parameterTypes)
         {
             _methodInfo = methodInfo;
             _arguments = arguments;
             _target = target;
+            _parameterTypes = parameterTypes ?? GetParameterTypesFrom(_methodInfo);
+        }
+
+        private Type[] GetParameterTypesFrom(MethodInfo methodInfo)
+        {
+            var parameters = methodInfo.GetParameters();
+            if (parameters == null) return new Type[0];
+            return parameters.Select(x => x.ParameterType).ToArray();
+        }
+
+        public Type[] GetParameterTypes()
+        {
+            return _parameterTypes;
         }
 
         public Type GetReturnType()
