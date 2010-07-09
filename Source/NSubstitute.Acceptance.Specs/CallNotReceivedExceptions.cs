@@ -58,8 +58,8 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_report_actual_calls()
             {
-                ExceptionMessageContains("SampleMethod(1)");
-                ExceptionMessageContains("SampleMethod(2)");
+                ExceptionMessageContains("SampleMethod(*1*)");
+                ExceptionMessageContains("SampleMethod(*2*)");
             }
         }
 
@@ -84,7 +84,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_list_actual_calls()
             {
-                ExceptionMessageContains("Property = 1");
+                ExceptionMessageContains("Property = *1*");
             }
         }
 

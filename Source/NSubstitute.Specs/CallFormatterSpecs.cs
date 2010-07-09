@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
@@ -35,6 +36,12 @@ namespace NSubstitute.Specs
             AssertCallFormat(x => x.Property = 2, "Property = arg");
         }
 
+        [Test]
+        public void Should_highlight_specified_arguments()
+        {
+            AssertCallFormat(x => x.SampleMethod(1, "b"), new[] {1}, "SampleMethod(arg, *arg*)");
+        }
+
         public override void Context()
         {
             base.Context();
@@ -50,9 +57,14 @@ namespace NSubstitute.Specs
 
         private void AssertCallFormat(Action<ISample> callOnSubstitute, string expectedFormat)
         {
+            AssertCallFormat(callOnSubstitute, new int[0], expectedFormat);
+        }
+
+        private void AssertCallFormat(Action<ISample> callOnSubstitute, IEnumerable<int> argumentsToHighlight, string expectedFormat)
+        {
             callOnSubstitute(_sampleSub);
             var call =  _sampleSub.ReceivedCalls().First();
-            var format = sut.Format(call.GetMethodInfo(), call.GetArguments());
+            var format = sut.Format(call.GetMethodInfo(), call.GetArguments(), argumentsToHighlight);
             Assert.That(format, Is.EqualTo(expectedFormat));
         }
 

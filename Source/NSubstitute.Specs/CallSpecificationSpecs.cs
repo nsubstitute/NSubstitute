@@ -160,7 +160,7 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _callFormatter = mock<ICallFormatter>();
-                _callFormatter.stub(x => x.Format(_methodInfoSpecified, new [] { _firstArgSpec, _secondArgSpec })).Return(FormattedCall);
+                _callFormatter.stub(x => x.Format(_methodInfoSpecified, new [] { _firstArgSpec, _secondArgSpec }, new int[0])).Return(FormattedCall);
             }
 
             public override void Because()

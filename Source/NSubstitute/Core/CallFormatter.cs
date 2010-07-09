@@ -16,33 +16,34 @@ namespace NSubstitute.Core
 
         public string Format(ICall call, ICallSpecification withRespectToCallSpec)
         {
-            return Format(call.GetMethodInfo(), call.GetArguments());
+            return Format(call.GetMethodInfo(), call.GetArguments(), withRespectToCallSpec.NonMatchingArgumentIndicies(call));
         }
 
-        public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments)
+        public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
         {
             string genericInfo = null;
             var propertyInfoFromMethod = methodInfoOfCall.GetPropertyFromSetterCallOrNull();
             if (propertyInfoFromMethod != null)
             {
-                return propertyInfoFromMethod.Name + " = " + FormatArgs(arguments);
+                return propertyInfoFromMethod.Name + " = " + FormatArgs(arguments, argumentsToHighlight);
             }
             if (methodInfoOfCall.IsGenericMethod)
             {
                 var genericArgs = methodInfoOfCall.GetGenericArguments();
                 genericInfo = "<" + string.Join(", ", genericArgs.Select(x => x.Name).ToArray()) + ">";
             }
-            return string.Format("{0}{1}({2})", methodInfoOfCall.Name, genericInfo, FormatArgs(arguments));
+            return string.Format("{0}{1}({2})", methodInfoOfCall.Name, genericInfo, FormatArgs(arguments, argumentsToHighlight));
         }
 
-        private string FormatArgs(IEnumerable<object> arguments)
+        private string FormatArgs(IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
         {
-            return string.Join(", ", arguments.Select(argument => FormatArg(argument)).ToArray());
+            return string.Join(", ", arguments.Select( (argument, index) => FormatArg(argument, argumentsToHighlight.Contains(index))).ToArray());
         }
 
-        private string FormatArg(object argument)
+        private string FormatArg(object argument, bool highlight)
         {
-            return _argumentFormatter.Format(argument);
+            var argAsString = _argumentFormatter.Format(argument);
+            return highlight ? "*" + argAsString + "*" : argAsString;
         }
     }
 }

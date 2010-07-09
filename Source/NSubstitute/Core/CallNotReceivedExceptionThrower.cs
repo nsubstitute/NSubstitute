@@ -24,7 +24,7 @@ namespace NSubstitute.Core
             }
             else
             {
-                builder.AppendLine("Actually received:");
+                builder.AppendLine("Actually received (non-matching arguments indicated with '*' characters):");
                 foreach (var call in actualCalls)
                 {
                     builder.AppendFormat("\t{0}\n", _callFormatter.Format(call, callSpecification));

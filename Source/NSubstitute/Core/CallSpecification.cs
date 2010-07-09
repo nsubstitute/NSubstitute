@@ -26,7 +26,7 @@ namespace NSubstitute.Core
 
         public string Format(ICallFormatter callFormatter)
         {
-            return callFormatter.Format(_methodInfo, _argumentSpecifications);
+            return callFormatter.Format(_methodInfo, _argumentSpecifications, new int[0]);
         }
 
         private bool HasDifferentNumberOfArguments(ICall call)
