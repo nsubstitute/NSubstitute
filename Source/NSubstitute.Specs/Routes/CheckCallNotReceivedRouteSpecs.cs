@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs.Routes
 {
-    public class CheckCallNotReceivedRouteSpecs : ConcernForRoute<CheckCallNotReceivedRoute     >
+    public class CheckCallNotReceivedRouteSpecs : ConcernForRoute<CheckCallNotReceivedRoute>
     {
         [Test]
         public void Should_check_did_not_receive_call()

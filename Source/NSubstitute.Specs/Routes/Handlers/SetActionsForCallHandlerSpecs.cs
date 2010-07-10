@@ -15,6 +15,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             private ICall _call;
             private ICallSpecificationFactory _callSpecificationFactory;
             private ICallSpecification _callSpec;
+            private bool _forAnyArguments;
 
             [Test]
             public void Should_add_action_for_specified_call_to_call_actions()
@@ -33,14 +34,15 @@ namespace NSubstitute.Specs.Routes.Handlers
                 _action = args => { };
                 _callActions = mock<ICallActions>();
                 _callSpec = mock<ICallSpecification>();
+                _forAnyArguments = true;
 
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, false)).Return(_callSpec);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, _forAnyArguments)).Return(_callSpec);
             }
 
             public override SetActionForCallHandler CreateSubjectUnderTest()
             {
-                return new SetActionForCallHandler(_callSpecificationFactory, _callActions, _action);
+                return new SetActionForCallHandler(_callSpecificationFactory, _callActions, _action, _forAnyArguments);
             }
         }
     }

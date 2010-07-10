@@ -35,10 +35,11 @@ namespace NSubstitute.Acceptance.Specs
             int called = 0;
             _something.When(x => x.Echo(Arg.Any<int>())).Do(x => called++);
             _something.When(x => x.Echo(4)).Do(x => called++);
+            _something.WhenForAnyArgs(x => x.Echo(1234)).Do(x => called++);
 
             Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
             _something.Echo(4);
-            Assert.That(called, Is.EqualTo(2));
+            Assert.That(called, Is.EqualTo(3));
         }
 
         [Test]
@@ -51,6 +52,17 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
             _something.Echo(1);
             Assert.That(called, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Execute_when_called_for_any_args()
+        {
+            var called = false;
+            _something.WhenForAnyArgs(x => x.Echo(1)).Do(x => called = true);
+
+            Assert.That(called, Is.False, "Called");
+            _something.Echo(1234);
+            Assert.That(called, Is.True, "Called");
         }
 
         [SetUp]

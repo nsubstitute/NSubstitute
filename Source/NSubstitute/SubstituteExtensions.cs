@@ -90,7 +90,13 @@ namespace NSubstitute
         public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
-            return new WhenCalled<T>(context, substitute, substituteCall);            
+            return new WhenCalled<T>(context, substitute, substituteCall, MatchArgsSpecifiedInCall);            
+        }
+
+        public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Action<T> substituteCall) where T : class
+        {
+            var context = SubstitutionContext.Current;
+            return new WhenCalled<T>(context, substitute, substituteCall, MatchAnyArgs);            
         }
 
         public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class

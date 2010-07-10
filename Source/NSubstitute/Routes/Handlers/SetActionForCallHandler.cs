@@ -8,17 +8,19 @@ namespace NSubstitute.Routes.Handlers
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly ICallActions _callActions;
         private readonly Action<CallInfo> _action;
+        private readonly bool _matchAnyArguments;
 
-        public SetActionForCallHandler(ICallSpecificationFactory callSpecificationFactory, ICallActions callActions, Action<CallInfo> action)
+        public SetActionForCallHandler(ICallSpecificationFactory callSpecificationFactory, ICallActions callActions, Action<CallInfo> action, bool matchAnyArguments)
         {
             _callSpecificationFactory = callSpecificationFactory;
             _callActions = callActions;
             _action = action;
+            _matchAnyArguments = matchAnyArguments;
         }
 
         public object Handle(ICall call)
         {
-            var callSpec = _callSpecificationFactory.CreateFrom(call, false);
+            var callSpec = _callSpecificationFactory.CreateFrom(call, _matchAnyArguments);
             _callActions.Add(callSpec, _action);
             return null;
         }
