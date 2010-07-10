@@ -17,7 +17,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
             protected ICallNotReceivedExceptionThrower _exceptionThrower;
-            const bool _withAnyArgs = false;
+            MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
 
             public override void Context()
             {
@@ -28,12 +28,12 @@ namespace NSubstitute.Specs.Routes.Handlers
                 _callSpecification = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
                 _exceptionThrower = mock<ICallNotReceivedExceptionThrower>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, _withAnyArgs)).Return(_callSpecification);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, _argMatching)).Return(_callSpecification);
             }
 
             public override CheckReceivedCallHandler CreateSubjectUnderTest()
             {
-                return new CheckReceivedCallHandler(_receivedCalls, _callSpecificationFactory, _exceptionThrower, _withAnyArgs);
+                return new CheckReceivedCallHandler(_receivedCalls, _callSpecificationFactory, _exceptionThrower, _argMatching);
             } 
         }
 
@@ -79,7 +79,7 @@ namespace NSubstitute.Specs.Routes.Handlers
             {
                 base.Context();
                 _callSpecWithAnyArguments = mock<ICallSpecification>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, true)).Return(_callSpecWithAnyArguments);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, MatchArgs.Any)).Return(_callSpecWithAnyArguments);
                 _actualCalls = new ICall[0];
                 _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new ICall[0]);
                 _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecWithAnyArguments)).Return(_actualCalls);

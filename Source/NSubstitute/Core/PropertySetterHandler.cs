@@ -19,7 +19,7 @@ namespace NSubstitute.Core
             {
                 var callToPropertyGetter = _propertyHelper.CreateCallToPropertyGetterFromSetterCall(call);
                 var valueBeingSetOnProperty = call.GetArguments().First();
-                _resultSetter.SetResultForCall(callToPropertyGetter, new ReturnValue(valueBeingSetOnProperty), false);
+                _resultSetter.SetResultForCall(callToPropertyGetter, new ReturnValue(valueBeingSetOnProperty), MatchArgs.AsSpecifiedInCall);
             }
             return null;
         }

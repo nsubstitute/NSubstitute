@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
@@ -17,7 +16,7 @@ namespace NSubstitute.Specs
             IArgumentSpecificationFactory _argumentSpecificationFactory;
             IArgumentSpecification[] _argSpecsFromFactory;
             ICallSpecification _result;
-            const bool WithAnyArguments = true;
+            MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
 
             public override void Context()
             {
@@ -37,7 +36,7 @@ namespace NSubstitute.Specs
                                 _context.DequeueAllArgumentSpecifications(), 
                                 _call.GetArguments(), 
                                 _call.GetParameterTypes(),
-                                WithAnyArguments))
+                                _argMatching))
                     .Return(_argSpecsFromFactory);
             }
 
@@ -48,7 +47,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.CreateFrom(_call, WithAnyArguments);
+                _result = sut.CreateFrom(_call, _argMatching);
             }
 
             [Test]

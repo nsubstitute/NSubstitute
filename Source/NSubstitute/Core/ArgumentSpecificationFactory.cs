@@ -14,9 +14,9 @@ namespace NSubstitute.Core
             _mixedArgumentSpecificationFactory = mixedArgumentSpecificationFactory;
         }
 
-        public IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, Type[] parameterTypes, bool matchAnyArguments)
+        public IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, Type[] parameterTypes, MatchArgs matchArgs)
         {
-            if (matchAnyArguments) return parameterTypes.Select(x => (IArgumentSpecification) new ArgumentIsAnythingSpecification(x));
+            if (matchArgs == MatchArgs.Any) return parameterTypes.Select(x => (IArgumentSpecification) new ArgumentIsAnythingSpecification(x));
 
             if (argumentSpecs.Count == arguments.Length) return argumentSpecs;
 

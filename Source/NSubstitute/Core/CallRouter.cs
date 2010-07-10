@@ -50,9 +50,9 @@ namespace NSubstitute.Core
             return routeToUseForThisCall.Handle(call);
         }
 
-        public void LastCallShouldReturn(IReturn returnValue, bool forAnyArguments)
+        public void LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
         {
-            _resultSetter.SetResultForLastCall(returnValue, forAnyArguments);
+            _resultSetter.SetResultForLastCall(returnValue, matchArgs);
         }
     }
 }

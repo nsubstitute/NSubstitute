@@ -6,6 +6,6 @@ namespace NSubstitute.Core
 {
     public interface IArgumentSpecificationFactory
     {
-        IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, Type[] parameterTypes, bool matchAnyArguments);
+        IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, Type[] parameterTypes, MatchArgs matchArgs);
     }
 }

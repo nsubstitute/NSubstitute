@@ -24,7 +24,7 @@ namespace NSubstitute.Specs
                 _value = new object();
                 _substitutionContext = mock<ISubstitutionContext>();
                 _substitutionContext
-                    .stub(x => x.LastCallShouldReturn(Arg.Any<IReturn>(), Arg.Any<bool>()))
+                    .stub(x => x.LastCallShouldReturn(Arg.Any<IReturn>(), Arg.Any<MatchArgs>()))
                     .IgnoreArguments()
                     .WhenCalled(x => _returnValueSet = (IReturn) x.Arguments[0]);
                 temporarilyChange(() => SubstitutionContext.Current).to(_substitutionContext);
@@ -36,7 +36,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_match_last_calls_arguments()
             {
-                _substitutionContext.received(x => x.LastCallShouldReturn(_returnValueSet, false)); 
+                _substitutionContext.received(x => x.LastCallShouldReturn(_returnValueSet, MatchArgs.AsSpecifiedInCall)); 
             }
 
             public override void Because()
@@ -50,7 +50,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_not_match_last_calls_arguments()
             {
-                _substitutionContext.received(x => x.LastCallShouldReturn(_returnValueSet, true)); 
+                _substitutionContext.received(x => x.LastCallShouldReturn(_returnValueSet, MatchArgs.Any)); 
             }
 
             public override void Because()

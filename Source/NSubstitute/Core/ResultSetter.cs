@@ -13,15 +13,15 @@ namespace NSubstitute.Core
             _callSpecificationFactory = callSpecificationFactory;
         }
 
-        public void SetResultForLastCall(IReturn valueToReturn, bool forAnyArguments)
+        public void SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs)
         {
             var lastCall = _callStack.Pop();
-            SetResultForCall(lastCall, valueToReturn, forAnyArguments);
+            SetResultForCall(lastCall, valueToReturn, matchArgs);
         }
 
-        public void SetResultForCall(ICall call, IReturn valueToReturn, bool forAnyArguments)
+        public void SetResultForCall(ICall call, IReturn valueToReturn, MatchArgs matchArgs)
         {
-            var callSpecification = _callSpecificationFactory.CreateFrom(call, forAnyArguments);
+            var callSpecification = _callSpecificationFactory.CreateFrom(call, matchArgs);
             _configuredResults.SetResult(callSpecification, valueToReturn);
         }
     }

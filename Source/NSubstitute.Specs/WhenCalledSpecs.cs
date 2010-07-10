@@ -15,12 +15,12 @@ namespace NSubstitute.Specs
             private IFoo _substitute;
             private Action<IFoo> _call;
             private ICallRouter _callRouter;
-            private bool _matchAnyArgs;
+            private MatchArgs _matchArgs;
 
             [Test]
             public void Should_tell_substitute_to_add_callback_for_next_call_then_invoke_call()
             {
-                _callRouter.received(x => x.SetRoute<DoWhenCalledRoute>(_callbackWithArguments, _matchAnyArgs));
+                _callRouter.received(x => x.SetRoute<DoWhenCalledRoute>(_callbackWithArguments, _matchArgs));
                 _call.received(x => x(_substitute));
             }
 
@@ -33,7 +33,7 @@ namespace NSubstitute.Specs
             {
                 _call = mock<Action<IFoo>>();
                 _callbackWithArguments = args => { };
-                _matchAnyArgs = true; 
+                _matchArgs = MatchArgs.AsSpecifiedInCall; 
 
                 _context = mock<ISubstitutionContext>();
                 _substitute = mock<IFoo>();
@@ -44,7 +44,7 @@ namespace NSubstitute.Specs
 
             public override WhenCalled<IFoo> CreateSubjectUnderTest()
             {
-                return new WhenCalled<IFoo>(_context, _substitute, _call, _matchAnyArgs);
+                return new WhenCalled<IFoo>(_context, _substitute, _call, _matchArgs);
             }
         }
     }

@@ -7,20 +7,20 @@ namespace NSubstitute.Core
     {
         private readonly T _substitute;
         private readonly Action<T> _call;
-        private readonly bool _matchAnyArguments;
+        private readonly MatchArgs _matchArgs;
         private ICallRouter _callRouter;
 
-        public WhenCalled(ISubstitutionContext context, T substitute, Action<T> call, bool matchAnyArguments)
+        public WhenCalled(ISubstitutionContext context, T substitute, Action<T> call, MatchArgs matchArgs)
         {
             _substitute = substitute;
             _call = call;
-            _matchAnyArguments = matchAnyArguments;
+            _matchArgs = matchArgs;
             _callRouter = context.GetCallRouterFor(substitute);
         }
 
         public void Do(Action<CallInfo> callbackWithArguments)
         {
-            _callRouter.SetRoute<DoWhenCalledRoute>(callbackWithArguments, _matchAnyArguments);
+            _callRouter.SetRoute<DoWhenCalledRoute>(callbackWithArguments, _matchArgs);
             _call(_substitute);
         }
 

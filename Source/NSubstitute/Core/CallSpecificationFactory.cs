@@ -12,13 +12,13 @@ namespace NSubstitute.Core
             _argumentSpecificationFactory = argumentSpecificationFactory;
         }
 
-        public ICallSpecification CreateFrom(ICall call, bool withAnyArguments)
+        public ICallSpecification CreateFrom(ICall call, MatchArgs matchArgs)
         {
             var methodInfo = call.GetMethodInfo();
             var argumentSpecs = _context.DequeueAllArgumentSpecifications();
             var arguments = call.GetArguments();
             var parameterTypes = call.GetParameterTypes();
-            var argumentSpecificationsForCall = _argumentSpecificationFactory.Create(argumentSpecs, arguments, parameterTypes, withAnyArguments);
+            var argumentSpecificationsForCall = _argumentSpecificationFactory.Create(argumentSpecs, arguments, parameterTypes, matchArgs);
             return new CallSpecification(methodInfo, argumentSpecificationsForCall);
         }
     }

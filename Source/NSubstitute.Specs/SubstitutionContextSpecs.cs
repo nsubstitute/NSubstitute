@@ -24,20 +24,20 @@ namespace NSubstitute.Specs
         
         public class When_setting_the_return_value_of_the_last_call : Concern
         {
-            private const bool ForAnyArguments = true;
+            MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
             private ICallRouter _callRouter;
             private IReturn _valueToReturn;
 
             [Test]
             public void Should_tell_the_last_call_router_to_set_the_return_value_of_its_last_call()
             {
-                _callRouter.received(x => x.LastCallShouldReturn(_valueToReturn, ForAnyArguments));
+                _callRouter.received(x => x.LastCallShouldReturn(_valueToReturn, _argMatching));
             }
             
             public override void Because()
             {
                 sut.LastCallRouter(_callRouter);
-                sut.LastCallShouldReturn(_valueToReturn, ForAnyArguments);
+                sut.LastCallShouldReturn(_valueToReturn, _argMatching);
             }
 
             public override void Context()
@@ -53,7 +53,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw_a_substitute_exception()
             {
-                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(mock<IReturn>(), true));
+                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
             }
         }
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core;
-using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -16,7 +15,7 @@ namespace NSubstitute.Specs
             protected IList<IArgumentSpecification> _argumentSpecifications;
             protected object[] _arguments;
             protected Type[] _parameterTypes;
-            protected bool _matchAnyArguments;
+            protected MatchArgs _matchArgs;
             protected IMixedArgumentSpecificationFactory _mixedArgumentSpecificationFactory;
 
             public override void Context()
@@ -40,7 +39,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Create(_argumentSpecifications, _arguments, _parameterTypes, _matchAnyArguments);
+                _result = sut.Create(_argumentSpecifications, _arguments, _parameterTypes, _matchArgs);
             }
             
             [Test]
@@ -75,7 +74,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Create(_argumentSpecifications, _arguments, _parameterTypes, _matchAnyArguments);
+                _result = sut.Create(_argumentSpecifications, _arguments, _parameterTypes, _matchArgs);
             }
 
             public override void Context()
@@ -110,7 +109,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _matchAnyArguments = true;
+                _matchArgs = MatchArgs.Any;
             }
 
             [Test]

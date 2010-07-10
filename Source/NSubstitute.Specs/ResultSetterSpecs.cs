@@ -44,14 +44,14 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResultForLastCall(_returnValue, false);
+                sut.SetResultForLastCall(_returnValue, MatchArgs.AsSpecifiedInCall);
             }
 
             public override void Context()
             {
                 base.Context();
                 _callSpecification = mock<ICallSpecification>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, false)).Return(_callSpecification);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, MatchArgs.AsSpecifiedInCall)).Return(_callSpecification);
             }
         }
 
@@ -67,14 +67,14 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResultForLastCall(_returnValue, true);
+                sut.SetResultForLastCall(_returnValue, MatchArgs.Any);
             }
 
             public override void Context()
             {
                 base.Context();
                 _callWithAnyArgsSpecification = mock<ICallSpecification>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, true)).Return(_callWithAnyArgsSpecification);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, MatchArgs.Any)).Return(_callWithAnyArgsSpecification);
             }
         }
     }
