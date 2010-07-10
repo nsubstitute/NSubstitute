@@ -10,5 +10,11 @@ namespace NSubstitute.Core
             var properties = call.DeclaringType.GetProperties();
             return properties.FirstOrDefault(x => x.GetSetMethod() == call);
         }
+
+        public static PropertyInfo GetPropertyFromGetterCallOrNull(this MethodInfo call)
+        {
+            var properties = call.DeclaringType.GetProperties();
+            return properties.FirstOrDefault(x => x.GetGetMethod() == call);
+        }
     }
 }

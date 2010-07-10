@@ -86,7 +86,7 @@
     <Compile Include="Proxies\ProxyFactorySpecs.cs" />
     <Compile Include="ReceivedCallsExtensionSpec.cs" />
     <Compile Include="ReceivedWithAnyArgsExtensionSpec.cs" />
-    <Compile Include="ReflectionExtensions.cs" />
+    <Compile Include="ReflectionExtensionsSpecs.cs" />
     <Compile Include="RoutePartsSpecs.cs" />
     <Compile Include="Routes\CheckCallNotReceivedRouteSpecs.cs" />
     <Compile Include="Routes\CheckCallReceivedRouteSpecs.cs" />

@@ -37,9 +37,33 @@ namespace NSubstitute.Specs
         }
 
         [Test]
+        public void Should_format_property_get()
+        {
+            AssertCallFormat(x => { var _ = x.Property; }, "Property");
+        }
+
+        [Test]
         public void Should_highlight_specified_arguments()
         {
             AssertCallFormat(x => x.SampleMethod(1, "b"), new[] {1}, "SampleMethod(arg, *arg*)");
+        }
+
+        [Test]
+        public void Should_format_indexer_setter()
+        {
+            AssertCallFormat(x => x["a", "b"] = 4, "this[arg, arg] = arg"); 
+        }
+
+        [Test]
+        public void Should_format_indexer_setter_with_highlighting()
+        {
+            AssertCallFormat(x => x["a", "b"] = 4, new[] { 0, 1, 2}, "this[*arg*, *arg*] = *arg*"); 
+        }
+
+        [Test]
+        public void Should_formated_indexer_getter()
+        {
+            AssertCallFormat(x => { var _ = x["a", "b"]; }, "this[arg, arg]");
         }
 
         public override void Context()
@@ -74,6 +98,7 @@ namespace NSubstitute.Specs
             void GenericMethod<T>(T t);
             void GenericMethodWithMultipleTypes<T1, T2>(T1 t1, T2 t2);
             int Property { get; set; }
+            int this[string a, string b] { get; set; }
         }
     }
 }

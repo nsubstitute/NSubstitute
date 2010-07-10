@@ -21,12 +21,22 @@ namespace NSubstitute.Core
 
         public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
         {
-            string genericInfo = null;
-            var propertyInfoFromMethod = methodInfoOfCall.GetPropertyFromSetterCallOrNull();
-            if (propertyInfoFromMethod != null)
+            var propertyInfoFromCall = GetPropertyFromGetterOrSetterCall(methodInfoOfCall);
+            if (propertyInfoFromCall != null)
             {
-                return propertyInfoFromMethod.Name + " = " + FormatArgs(arguments, argumentsToHighlight);
+                return FormatPropertyCall(propertyInfoFromCall, argumentsToHighlight, arguments);
             }
+            return FormatMethod(methodInfoOfCall, argumentsToHighlight, arguments);
+        }
+
+        private PropertyInfo GetPropertyFromGetterOrSetterCall(MethodInfo methodInfoOfCall)
+        {
+            return methodInfoOfCall.GetPropertyFromSetterCallOrNull() ?? methodInfoOfCall.GetPropertyFromGetterCallOrNull();
+        }
+
+        private string FormatMethod(MethodInfo methodInfoOfCall, IEnumerable<int> argumentsToHighlight, IEnumerable<object> arguments)
+        {
+            string genericInfo = null;
             if (methodInfoOfCall.IsGenericMethod)
             {
                 var genericArgs = methodInfoOfCall.GetGenericArguments();
@@ -35,9 +45,36 @@ namespace NSubstitute.Core
             return string.Format("{0}{1}({2})", methodInfoOfCall.Name, genericInfo, FormatArgs(arguments, argumentsToHighlight));
         }
 
+        private string FormatPropertyCall(PropertyInfo propertyInfo, IEnumerable<int> argumentsToHighlight, IEnumerable<object> arguments)
+        {
+            var numberOfIndexParams = propertyInfo.GetIndexParameters().Length;
+            var propertyName =
+                (numberOfIndexParams == 0)
+                ? propertyInfo.Name
+                : FormatPropertyIndexer(numberOfIndexParams, argumentsToHighlight, arguments);
+
+            return propertyName + FormatArgsAfterIndexParamsAsSetterArgs(numberOfIndexParams, argumentsToHighlight, arguments);
+        }
+
+        private string FormatPropertyIndexer(int numberofIndexParameters, IEnumerable<int> argumentsToHighlight, IEnumerable<object> arguments)
+        {
+            return "this[" + FormatArgs(arguments.Take(numberofIndexParameters), argumentsToHighlight) + "]";
+        }
+
+        private bool OnlyHasIndexParameterArgs(int numberOfIndexParameters, IEnumerable<object> arguments)
+        {
+            return numberOfIndexParameters >= arguments.Count();
+        }
+
+        private string FormatArgsAfterIndexParamsAsSetterArgs(int numberOfIndexParameters, IEnumerable<int> argumentsToHighlight, IEnumerable<object> arguments)
+        {
+            if (OnlyHasIndexParameterArgs(numberOfIndexParameters, arguments)) return string.Empty;
+            return " = " + FormatArgs(arguments.Skip(numberOfIndexParameters), argumentsToHighlight.Select(x => x - numberOfIndexParameters));
+        }
+
         private string FormatArgs(IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
         {
-            return string.Join(", ", arguments.Select( (argument, index) => FormatArg(argument, argumentsToHighlight.Contains(index))).ToArray());
+            return string.Join(", ", arguments.Select((argument, index) => FormatArg(argument, argumentsToHighlight.Contains(index))).ToArray());
         }
 
         private string FormatArg(object argument, bool highlight)
