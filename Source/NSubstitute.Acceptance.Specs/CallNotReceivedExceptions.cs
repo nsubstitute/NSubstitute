@@ -14,6 +14,7 @@ namespace NSubstitute.Acceptance.Specs
             void SampleMethod(string s, int i, IList<string> strings);
             void AnotherMethod(IList<string> strings);
             int AProperty { get; set; }
+            int this[string a, string b] { get; set; }
         }
 
         public class When_no_calls_are_made_to_the_expected_member : Context
@@ -32,7 +33,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_report_the_method_we_were_expecting()
             {
-                ExceptionMessageContains("Expected to receive call:\n\tSampleMethod(5)");
+                ExceptionMessageContains(ExpectedCallMessagePrefix + "SampleMethod(5)");
             }
         }
 
@@ -52,7 +53,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_report_the_method_we_were_expecting()
             {
-                ExceptionMessageContains("Expected to receive call:\n\tSampleMethod(5)");
+                ExceptionMessageContains(ExpectedCallMessagePrefix + "SampleMethod(5)");
             }
 
             [Test]
@@ -81,7 +82,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_report_the_method_we_were_expecting()
             {
-                ExceptionMessageContains("Expected to receive call:\n\tSampleMethod(\"string\", 1, List<String>)");
+                ExceptionMessageContains(ExpectedCallMessagePrefix + "SampleMethod(\"string\", 1, List<String>)");
             }
 
             [Test]
@@ -92,7 +93,7 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
-        public class When_checking_call_to_a_property : Context
+        public class When_checking_call_to_a_property_setter : Context
         {
             protected override void ConfigureContext()
             {
@@ -107,7 +108,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_list_expected_property_set()
             {
-                ExceptionMessageContains("Expected to receive call:\n\tAProperty = 5");
+                ExceptionMessageContains(ExpectedCallMessagePrefix + "AProperty = 5");
             }
 
             [Test]
@@ -117,8 +118,80 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
+        public class When_checking_call_to_a_property_getter : Context
+        {
+
+            protected override void ExpectedCall()
+            {
+                var _ = Sample.Received().AProperty;
+            }
+
+            [Test]
+            public void Should_list_expected_property_get()
+            {
+                ExceptionMessageContains(ExpectedCallMessagePrefix + "AProperty");
+            }
+        }
+
+        public class When_checking_call_to_an_indexer_setter : Context
+        {
+            protected override void ConfigureContext()
+            {
+                Sample["c", "d"] = 5;
+                Sample["a", "z"] = 2;
+                Sample["a", "b"] = 1;
+            }
+
+            protected override void ExpectedCall()
+            {
+                Sample.Received()["a", "b"] = 5;
+            }
+
+            [Test]
+            public void Should_list_expected_indexer_set()
+            {
+                ExceptionMessageContains(ExpectedCallMessagePrefix + "this[\"a\", \"b\"] = 5");
+            }
+
+            [Test]
+            public void Should_list_actual_calls()
+            {
+                ExceptionMessageContains("this[*\"c\"*, *\"d\"*] = 5"); 
+                ExceptionMessageContains("this[\"a\", *\"z\"*] = *2*"); 
+                ExceptionMessageContains("this[\"a\", \"b\"] = *1*"); 
+            }
+        }
+
+        public class When_checking_call_to_an_indexer_getter : Context
+        {
+            protected override void ConfigureContext()
+            {
+                var _ = Sample["c", "d"];
+                var __ = Sample["a", "d"];
+            }
+
+            protected override void ExpectedCall()
+            {
+                var _ = Sample.Received()["a", "b"];
+            }
+
+            [Test]
+            public void Should_list_expected_indexer_get()
+            {
+                ExceptionMessageContains(ExpectedCallMessagePrefix + "this[\"a\", \"b\"]");
+            }
+
+            [Test]
+            public void Should_list_actual_calls()
+            {
+                ExceptionMessageContains("this[*\"c\"*, *\"d\"*]"); 
+                ExceptionMessageContains("this[\"a\", *\"d\"*]"); 
+            }
+        }
+
         public abstract class Context
         {
+            protected const string ExpectedCallMessagePrefix = "Expected to receive call:\n\t";
             protected ISample Sample;
             private CallNotReceivedException _exception;
 
