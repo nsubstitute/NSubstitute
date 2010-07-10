@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arg.cs" />
+    <Compile Include="Core\ArgumentsFormatter.cs" />
+    <Compile Include="Core\IArgumentsFormatter.cs" />
     <Compile Include="Core\MatchArgs.cs" />
     <Compile Include="Core\ArgumentFormatter.cs" />
     <Compile Include="Core\ArgumentSpecification.cs" />

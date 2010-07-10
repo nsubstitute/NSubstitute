@@ -7,11 +7,11 @@ namespace NSubstitute.Core
 {
     public class CallFormatter : ICallFormatter
     {
-        private readonly IArgumentFormatter _argumentFormatter;
+        private readonly IArgumentsFormatter _argumentsFormatter;
 
-        public CallFormatter(IArgumentFormatter argumentFormatter)
+        public CallFormatter(IArgumentsFormatter argumentsFormatter)
         {
-            _argumentFormatter = argumentFormatter;
+            _argumentsFormatter = argumentsFormatter;
         }
 
         public string Format(ICall call, ICallSpecification withRespectToCallSpec)
@@ -74,13 +74,7 @@ namespace NSubstitute.Core
 
         private string FormatArgs(IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
         {
-            return string.Join(", ", arguments.Select((argument, index) => FormatArg(argument, argumentsToHighlight.Contains(index))).ToArray());
-        }
-
-        private string FormatArg(object argument, bool highlight)
-        {
-            var argAsString = _argumentFormatter.Format(argument);
-            return highlight ? "*" + argAsString + "*" : argAsString;
+            return _argumentsFormatter.Format(arguments, argumentsToHighlight);
         }
     }
 }
