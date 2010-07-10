@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentEqualsSpecificationSpecs.cs" />
+    <Compile Include="ArgumentsFormatterSpecs.cs" />
     <Compile Include="CallActionsSpecs.cs" />
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
