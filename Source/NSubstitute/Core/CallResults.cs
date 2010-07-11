@@ -34,31 +34,9 @@ namespace NSubstitute.Core
                     .GetResult(_callInfoFactory.Create(call));
         }
 
-        public object GetDefaultResultFor(ICall call)
-        {
-            return GetDefaultInstanceOf(call.GetReturnType());
-        }
-
-        object GetDefaultInstanceOf(Type type)
-        {            
-            if (IsVoid(type)) return null;
-            if (type.IsValueType) return CreateInstanceOfTypeWithNoConstructorArgs(type);
-            return null;
-        }
-
-        object CreateInstanceOfTypeWithNoConstructorArgs(Type type)
-        {
-            return Activator.CreateInstance(type);
-        }
-
         bool ReturnsVoidFrom(ICall call)
         {
-            return IsVoid(call.GetReturnType());
-        }
-
-        bool IsVoid(Type type)
-        {
-            return type == typeof (void);
+            return call.GetReturnType() == typeof (void);
         }
 
         class ResultForCallSpec
