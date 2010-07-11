@@ -68,6 +68,7 @@
     <Compile Include="Arg.cs" />
     <Compile Include="Core\ArgumentsFormatter.cs" />
     <Compile Include="Core\IArgumentsFormatter.cs" />
+    <Compile Include="Core\IMethodInfoFormatter.cs" />
     <Compile Include="Core\MatchArgs.cs" />
     <Compile Include="Core\ArgumentFormatter.cs" />
     <Compile Include="Core\ArgumentSpecification.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Core\CallReceivedExceptionThrower.cs" />
     <Compile Include="Core\CallRouterResolver.cs" />
     <Compile Include="Core\IMixedArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\MethodFormatter.cs" />
     <Compile Include="Core\MixedArgumentSpecificationFactory.cs" />
     <Compile Include="Core\IArgumentFormatter.cs" />
     <Compile Include="Core\ICallFormatter.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Core\ICallRouterResolver.cs" />
     <Compile Include="Core\IReceivedCalls.cs" />
     <Compile Include="Core\IReturn.cs" />
+    <Compile Include="Core\PropertyCallFormatter.cs" />
     <Compile Include="Core\ReflectionExtensions.cs" />
     <Compile Include="Exceptions\ArgumentNotFoundException.cs" />
     <Compile Include="Exceptions\CallNotReceivedException.cs" />
