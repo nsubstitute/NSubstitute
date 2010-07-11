@@ -106,7 +106,7 @@
     <Compile Include="ReceivedExtensionSpec.cs" />
     <Compile Include="Routes\Handlers\RecordCallHandlerSpecs.cs" />
     <Compile Include="Routes\Handlers\ReturnConfiguredResultHandlerSpecs.cs" />
-    <Compile Include="Routes\Handlers\ReturnDefaultResultHandlerSpecs.cs" />
+    <Compile Include="Routes\Handlers\ReturnDefaultForReturnTypeHandlerSpecs.cs" />
     <Compile Include="ReturnExtensionSpec.cs" />
     <Compile Include="CallRouterSpecs.cs" />
     <Compile Include="ResultSetterSpecs.cs" />

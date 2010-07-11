@@ -94,7 +94,7 @@ namespace NSubstitute.Specs
         {
             private ICallRouter _result;
             private object _substitute;
-            private object _callRouter;
+            private ICallRouter _callRouter;
 
             [Test]
             public void Should_resolve_call_router()

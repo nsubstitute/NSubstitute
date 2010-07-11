@@ -31,5 +31,11 @@ namespace NSubstitute.Specs.Infrastructure
         {
             return mock.Stub(call);
         }
+
+        public static IMethodOptions<R> stub<T, R>(this T mock, Func<T, R> call) where T : class
+        {
+            Function<T, R> function = t => call(t);
+            return mock.Stub(function);
+        }
     }
 }

@@ -152,7 +152,7 @@
     <Compile Include="Routes\RecordReplayRoute.cs" />
     <Compile Include="Core\PropertyHelper.cs" />
     <Compile Include="Core\ResultSetter.cs" />
-    <Compile Include="Routes\Handlers\ReturnDefaultResultHandler.cs" />
+    <Compile Include="Routes\Handlers\ReturnDefaultForReturnTypeHandler.cs" />
     <Compile Include="Core\RouteFactory.cs" />
     <Compile Include="Core\RouteParts.cs" />
     <Compile Include="Core\RoutePartsFactory.cs" />
