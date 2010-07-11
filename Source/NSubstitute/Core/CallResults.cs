@@ -20,19 +20,18 @@ namespace NSubstitute.Core
             _results.Add(new ResultForCallSpec(callSpecification, result));
         }
 
+        public bool HasResultFor(ICall call)
+        {
+            if (ReturnsVoidFrom(call)) return false;
+            return _results.Any(x => x.IsResultFor(call));
+        }
+
         public object GetResult(ICall call)
         {
-            if (ReturnsVoidFrom(call)) return null;
-            foreach (var callResult in _results.Reverse())
-            {
-                var callSpecification = callResult.CallSpecification;
-                if (callSpecification.IsSatisfiedBy(call))
-                {
-                    var callInfo = _callInfoFactory.Create(call);
-                    return callResult.ResultToReturn.ReturnFor(callInfo);
-                }
-            }            
-            return GetDefaultResultFor(call);
+            return _results
+                    .Reverse()
+                    .First(x => x.IsResultFor(call))
+                    .GetResult(_callInfoFactory.Create(call));
         }
 
         public object GetDefaultResultFor(ICall call)
@@ -64,14 +63,17 @@ namespace NSubstitute.Core
 
         class ResultForCallSpec
         {
+            readonly ICallSpecification _callSpecification;
+            readonly IReturn _resultToReturn;
+
             public ResultForCallSpec(ICallSpecification callSpecification, IReturn resultToReturn)
             {
-                CallSpecification = callSpecification;
-                ResultToReturn = resultToReturn;
+                _callSpecification = callSpecification;
+                _resultToReturn = resultToReturn;
             }
 
-            public ICallSpecification CallSpecification { get; private set; }
-            public IReturn ResultToReturn { get; private set; }
+            public bool IsResultFor(ICall call) { return _callSpecification.IsSatisfiedBy(call); }
+            public object GetResult(CallInfo callInfo) { return _resultToReturn.ReturnFor(callInfo); }
         }
     }
 }

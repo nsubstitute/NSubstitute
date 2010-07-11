@@ -29,24 +29,27 @@ namespace NSubstitute.Specs
             }
         }
 
-        public class When_getting_a_result_that_has_been_set : Concern
+        public class When_a_result_that_has_been_set : Concern
         {
-            object _result;
             readonly object _expectedResult = new object();
             ICallSpecification _callSpecification;
             ICall _call;
             IReturn _resultToReturn;
 
             [Test]
+            public void Should_have_result_for_call()
+            {
+                Assert.That(sut.HasResultFor(_call)); 
+            }
+            [Test]
             public void Should_get_the_result_that_was_set()
             {
-                Assert.That(_result, Is.SameAs(_expectedResult));
+                Assert.That(sut.GetResult(_call), Is.SameAs(_expectedResult));
             }
 
             public override void Because()
             {
                 sut.SetResult(_callSpecification, _resultToReturn);
-                _result = sut.GetResult(_call);
             }
 
             public override void Context()
@@ -100,68 +103,31 @@ namespace NSubstitute.Specs
             
         }
 
-        public class When_getting_a_reference_type_result_that_has_not_been_set : Concern
+        public class When_a_result_has_not_been_set_for_a_call : Concern
         {
-            object _result;
-            ICall _call;
+            private ICall _call;
 
             [Test]
-            public void Should_use_the_default_value_for_the_result_type()
+            public void Should_not_have_result_for_call()
             {
-                Assert.That(_result, Is.Null);
-            }
-
-            public override void Because()
-            {
-                _result = sut.GetResult(_call);
+                Assert.That(sut.HasResultFor(_call), Is.False);
             }
 
             public override void Context()
             {
                 base.Context();
                 _call = mock<ICall>();
-                _call.stub(x => x.GetReturnType()).Return(typeof(List));
-            }
-        }
-        
-        public class When_getting_a_value_type_result_that_has_not_been_set : Concern
-        {
-            object _result;
-            ICall _call;
-
-            [Test]
-            public void Should_use_the_default_value_for_the_result_type()
-            {
-                Assert.That(_result, Is.EqualTo(default(int)));
-            }
-
-            public override void Because()
-            {
-                _result = sut.GetResult(_call);
-            }
-
-            public override void Context()
-            {
-                base.Context();
-                _call = mock<ICall>();
-                _call.stub(x => x.GetReturnType()).Return(typeof(int));
             }
         }
 
         public class When_getting_a_void_type_result : Concern
         {
-            object _result;
             ICall _call;
 
             [Test]
-            public void Should_return_null_because_there_is_no_void_instance()
+            public void Should_not_have_result_for_call()
             {
-                Assert.That(_result, Is.Null);
-            }
-
-            public override void Because()
-            {
-                _result = sut.GetResult(_call);
+                Assert.That(sut.HasResultFor(_call), Is.False);
             }
 
             public override void Context()
@@ -169,40 +135,6 @@ namespace NSubstitute.Specs
                 base.Context();
                 _call = mock<ICall>();
                 _call.stub(x => x.GetReturnType()).Return(typeof (void));
-            }
-        }
-
-        public class When_getting_default_results : Concern
-        {
-            [Test]
-            public void Should_return_null_for_reference_types()
-            {
-                var callThatReturnsReferenceType = CreateCallWithReturnType(typeof(string));
-                var result = sut.GetDefaultResultFor(callThatReturnsReferenceType);
-                Assert.That(result, Is.Null);
-            }
-
-            [Test]
-            public void Should_return_default_for_value_types()
-            {
-                var callThatReturnsValueType = CreateCallWithReturnType(typeof(int));
-                var result = sut.GetDefaultResultFor(callThatReturnsValueType);
-                Assert.That(result, Is.EqualTo(default(int)));
-            }
-
-            [Test]
-            public void Should_return_null_for_void_type()
-            {
-                var callThatReturnsVoidType = CreateCallWithReturnType(typeof (void));
-                var result = sut.GetDefaultResultFor(callThatReturnsVoidType);
-                Assert.That(result, Is.Null);
-            }
-
-            ICall CreateCallWithReturnType(Type type)
-            {
-                var call = mock<ICall>();
-                call.stub(x => x.GetReturnType()).Return(type);
-                return call;
             }
         }
     }

@@ -16,6 +16,7 @@ namespace NSubstitute.Core
             EventHandlerRegistry = new EventHandlerRegistry();
             CallNotReceivedExceptionThrower = new CallNotReceivedExceptionThrower(new CallFormatter(new ArgumentsFormatter(new ArgumentFormatter())));
             CallReceivedExceptionThrower = new CallReceivedExceptionThrower(new CallFormatter(new ArgumentsFormatter(new ArgumentFormatter())));
+            DefaultForType = new DefaultForType();
         }
 
         public CallStack CallStack { get; private set; }
@@ -28,5 +29,6 @@ namespace NSubstitute.Core
         public CallInfoFactory CallInfoFactory { get; private set; }
         public ICallNotReceivedExceptionThrower CallNotReceivedExceptionThrower { get; private set; }
         public ICallReceivedExceptionThrower CallReceivedExceptionThrower { get; private set; }
+        public IDefaultForType DefaultForType { get; private set; }
     }
 }
