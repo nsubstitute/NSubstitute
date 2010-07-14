@@ -1,5 +1,5 @@
 using System;
-using NSubstitute.Routes;
+using NSubstitute.Routing.Definitions;
 
 namespace NSubstitute.Core
 {

@@ -1,3 +1,5 @@
+using NSubstitute.Routing;
+
 namespace NSubstitute.Core
 {
     public class CallRouterFactory : ICallRouterFactory

@@ -4,7 +4,7 @@ using NSubstitute.Exceptions;
 using NSubstitute.Proxies;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NSubstitute.Proxies.DelegateProxy;
-using NSubstitute.Routes;
+using NSubstitute.Routing.Definitions;
 
 namespace NSubstitute.Core
 {

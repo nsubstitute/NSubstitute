@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using NSubstitute.Core;
-using NSubstitute.Routes;
+using NSubstitute.Routing;
+using NSubstitute.Routing.Definitions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 

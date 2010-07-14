@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using NSubstitute.Routes;
+using NSubstitute.Routing;
+using NSubstitute.Routing.Definitions;
 
 namespace NSubstitute.Core
 {

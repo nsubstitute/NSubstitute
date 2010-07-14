@@ -2,6 +2,7 @@ using System;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Proxies.CastleDynamicProxy;
+using NSubstitute.Routing;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;

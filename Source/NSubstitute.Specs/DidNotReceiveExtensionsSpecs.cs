@@ -1,6 +1,6 @@
 using System;
 using NSubstitute.Core;
-using NSubstitute.Routes;
+using NSubstitute.Routing.Definitions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 

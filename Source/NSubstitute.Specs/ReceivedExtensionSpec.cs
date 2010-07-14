@@ -1,5 +1,5 @@
 using NSubstitute.Core;
-using NSubstitute.Routes;
+using NSubstitute.Routing.Definitions;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;

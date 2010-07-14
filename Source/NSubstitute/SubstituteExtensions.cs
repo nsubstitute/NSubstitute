@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core;
-using NSubstitute.Routes;
+using NSubstitute.Routing.Definitions;
 
 namespace NSubstitute
 {
