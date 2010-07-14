@@ -23,7 +23,7 @@ namespace NSubstitute.Routing
             return CreatePart(typeof (TPart));
         }
 
-        private ICallHandler CreatePart(Type partType)
+        public ICallHandler CreatePart(Type partType)
         {
             var constructor = GetConstructorFor(partType);
             var parameterTypes = constructor.GetParameters().Select(x => x.ParameterType);

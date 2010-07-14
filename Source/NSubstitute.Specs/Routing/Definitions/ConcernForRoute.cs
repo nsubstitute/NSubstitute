@@ -56,6 +56,12 @@ namespace NSubstitute.Specs.Routing.Definitions
                 var partKey = typeof(TPart);
                 return _parts.ContainsKey(partKey) ? _parts[partKey] : MockPartAndReturn(partKey);
             }
+
+            public ICallHandler CreatePart(Type partType)
+            {
+                throw new NotImplementedException();
+            }
+
             private ICallHandler MockPartAndReturn(Type partKey)
             {
                 var part = MockingAdaptor.Create<ICallHandler>();

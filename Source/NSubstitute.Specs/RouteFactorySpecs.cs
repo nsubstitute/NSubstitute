@@ -15,25 +15,32 @@ namespace NSubstitute.Specs
             private IRoute _result;
             private IRoutePartsFactory _routePartsFactory;
             private IRouteParts _routeParts;
+            private ICallHandler[] _callHandlers;
 
             [Test]
-            public void Should_create_route_with_route_parts()
+            public void Should_create_route_with_from_defined_handlers()
             {
-                Assert.That(_result, Is.SameAs(SampleRoute.LastInstanceCreated));
-                Assert.That(((SampleRoute) _result).RoutePartsUsedForCreation, Is.SameAs(_routeParts));
+                var route = (FakeRoute) _result;
+                Assert.That(route.CallHandlers, Is.EqualTo(_callHandlers));
             }
 
             public override void Because()
             {
-                _result = sut.Create<SampleRoute>(_routeArguments);
+                _result = sut.Create<SampleRouteDefinition>(_routeArguments);
             }
 
             public override void Context()
             {
+                _callHandlers = new[] { mock<ICallHandler>(), mock<ICallHandler>() };
                 _routeArguments = new[] {new object(), new object()};
+
                 _routeParts = mock<IRouteParts>();
                 _routePartsFactory = mock<IRoutePartsFactory>();
                 _routePartsFactory.stub(x => x.Create(_routeArguments)).Return(_routeParts);
+                _routeParts.stub(x => x.CreatePart(SampleRouteDefinition.Handlers[0])).Return(_callHandlers[0]);
+                _routeParts.stub(x => x.CreatePart(SampleRouteDefinition.Handlers[1])).Return(_callHandlers[1]);
+
+                temporarilyChange(() => RouteFactory.ConstructRoute).to(x => new FakeRoute(x));
             }
 
             public override RouteFactory CreateSubjectUnderTest()
@@ -41,17 +48,17 @@ namespace NSubstitute.Specs
                 return new RouteFactory(_routePartsFactory);
             }
 
-            class SampleRoute : IRoute, IRouteDefinition {
-                public static SampleRoute LastInstanceCreated { get; private set; }
-                public IRouteParts RoutePartsUsedForCreation { get; private set; }
-                public SampleRoute(IRouteParts routeParts)
-                {
-                    LastInstanceCreated = this;
-                    RoutePartsUsedForCreation = routeParts;
-                }
-                public object Handle(ICall call) { return null; }
+            class FakeRoute : IRoute
+            {
+                public IEnumerable<ICallHandler> CallHandlers { get; private set; }
+                public FakeRoute(IEnumerable<ICallHandler> callHandlers) { CallHandlers = callHandlers; }
+                public object Handle(ICall call) { throw new NotImplementedException(); }
+            }
 
-                public IEnumerable<Type> HandlerTypes { get { return new Type[0]; } }
+            class SampleRouteDefinition : IRouteDefinition {
+                public SampleRouteDefinition(IRouteParts routeParts) { }
+                public static Type[] Handlers = new[] { typeof(object), typeof(int) };
+                public IEnumerable<Type> HandlerTypes { get { return Handlers; } }
             }
         }
     }
