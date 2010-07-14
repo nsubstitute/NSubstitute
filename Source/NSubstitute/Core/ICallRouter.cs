@@ -7,7 +7,7 @@ namespace NSubstitute.Core
     {
         void LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs);
         object Route(ICall call);
-        void SetRoute<TRoute>(params object[] routeArguments) where TRoute : IRoute;
+        void SetRoute<TRouteDefinition>(params object[] routeArguments) where TRouteDefinition : IRouteDefinition;
         void ClearReceivedCalls();
         IEnumerable<ICall> ReceivedCalls();
     }

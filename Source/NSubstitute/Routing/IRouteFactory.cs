@@ -2,6 +2,6 @@
 {
     public interface IRouteFactory
     {
-        IRoute Create<TRoute>(params object[] routeArguments) where TRoute : IRoute;
+        IRoute Create<TRouteDefinition>(params object[] routeArguments) where TRouteDefinition : IRouteDefinition;
     }
 }

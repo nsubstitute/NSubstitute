@@ -83,7 +83,7 @@ namespace NSubstitute.Specs
                 _routeFactory.stub(x => x.Create<RecordReplayRoute>()).Return(_recordReplayRoute);
             }
 
-            abstract class SampleRoute : IRoute { public abstract object Handle(ICall call); }
+            abstract class SampleRoute : IRouteDefinition { public abstract IEnumerable<Type> HandlerTypes { get; } }
         }
 
         public class When_setting_result_of_last_call : Concern

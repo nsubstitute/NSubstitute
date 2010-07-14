@@ -84,8 +84,8 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             protected void AssertCallsMadeToResultsCallRouterAreForwardedToOriginalRouter(object result)
             {
                 var resultsCallRouter = (ICallRouter) result;
-                resultsCallRouter.SetRoute<IRoute>();
-                _callRouter.received(x => x.SetRoute<IRoute>());
+                resultsCallRouter.SetRoute<IRouteDefinition>();
+                _callRouter.received(x => x.SetRoute<IRouteDefinition>());
             }
         }
 

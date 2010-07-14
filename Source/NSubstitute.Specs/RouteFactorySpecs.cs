@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using NSubstitute.Core;
 using NSubstitute.Routing;
 using NSubstitute.Specs.Infrastructure;
@@ -39,7 +41,7 @@ namespace NSubstitute.Specs
                 return new RouteFactory(_routePartsFactory);
             }
 
-            class SampleRoute : IRoute {
+            class SampleRoute : IRoute, IRouteDefinition {
                 public static SampleRoute LastInstanceCreated { get; private set; }
                 public IRouteParts RoutePartsUsedForCreation { get; private set; }
                 public SampleRoute(IRouteParts routeParts)
@@ -48,6 +50,8 @@ namespace NSubstitute.Specs
                     RoutePartsUsedForCreation = routeParts;
                 }
                 public object Handle(ICall call) { return null; }
+
+                public IEnumerable<Type> HandlerTypes { get { return new Type[0]; } }
             }
         }
     }

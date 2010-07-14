@@ -23,9 +23,9 @@ namespace NSubstitute.Core
             UseDefaultRouteForNextCall();
         }
 
-        public void SetRoute<TRoute>(params object[] routeArguments) where TRoute : IRoute
+        public void SetRoute<TRouteDefinition>(params object[] routeArguments) where TRouteDefinition : IRouteDefinition
         {
-            _currentRoute = _routeFactory.Create<TRoute>(routeArguments);
+            _currentRoute = _routeFactory.Create<TRouteDefinition>(routeArguments);
         }
 
         public void ClearReceivedCalls()

@@ -11,10 +11,10 @@ namespace NSubstitute.Routing
             _routePartsFactory = routePartsFactory;
         }
 
-        public IRoute Create<TRoute>(params object[] routeArguments) where TRoute : IRoute
+        public IRoute Create<TRouteDefinition>(params object[] routeArguments) where TRouteDefinition : IRouteDefinition
         {
             var routeParts = _routePartsFactory.Create(routeArguments);
-            var route = (IRoute) Activator.CreateInstance(typeof (TRoute), routeParts);
+            var route = (IRoute) Activator.CreateInstance(typeof (TRouteDefinition), routeParts);
             return route;
         }
     }
