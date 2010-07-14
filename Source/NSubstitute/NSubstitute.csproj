@@ -97,6 +97,7 @@
     <Compile Include="Core\IReturn.cs" />
     <Compile Include="Core\PropertyCallFormatter.cs" />
     <Compile Include="Core\ReflectionExtensions.cs" />
+    <Compile Include="Core\Route.cs" />
     <Compile Include="Exceptions\ArgumentNotFoundException.cs" />
     <Compile Include="Exceptions\CallNotReceivedException.cs" />
     <Compile Include="Core\CallSpecification.cs" />
