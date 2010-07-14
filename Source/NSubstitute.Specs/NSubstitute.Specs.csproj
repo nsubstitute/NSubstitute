@@ -94,6 +94,7 @@
     <Compile Include="Routing\Definitions\CheckCallReceivedRouteSpecs.cs" />
     <Compile Include="Routing\Definitions\ConcernForRoute.cs" />
     <Compile Include="Routing\Definitions\DoWhenCalledRouteSpecs.cs" />
+    <Compile Include="Routing\Definitions\RouteDefininitionSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckDidNotReceiveCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckReceivedCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\DoActionsCallHandlerSpecs.cs" />

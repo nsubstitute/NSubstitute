@@ -22,7 +22,7 @@ namespace NSubstitute.Routing.Definitions
 
         public IEnumerable<Type> HandlerTypes
         {
-            get { throw new NotImplementedException(); }
+            get { return new[] {typeof (RaiseEventHandler), typeof (ReturnDefaultForReturnTypeHandler)}; }
         }
     }
 }

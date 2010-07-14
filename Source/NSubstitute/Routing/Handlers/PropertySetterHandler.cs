@@ -1,6 +1,7 @@
 using System.Linq;
+using NSubstitute.Core;
 
-namespace NSubstitute.Core
+namespace NSubstitute.Routing.Handlers
 {
     public class PropertySetterHandler : ICallHandler
     {

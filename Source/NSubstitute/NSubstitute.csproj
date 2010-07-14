@@ -144,7 +144,7 @@
     <Compile Include="Core\ISubstituteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\CallRouter.cs" />
-    <Compile Include="Core\PropertySetterHandler.cs" />
+    <Compile Include="Routing\Handlers\PropertySetterHandler.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />

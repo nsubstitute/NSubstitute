@@ -1,4 +1,5 @@
 using NSubstitute.Core;
+using NSubstitute.Routing.Handlers;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
