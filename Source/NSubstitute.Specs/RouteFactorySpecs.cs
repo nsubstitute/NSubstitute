@@ -14,8 +14,9 @@ namespace NSubstitute.Specs
             private object[] _routeArguments;
             private IRoute _result;
             private IRoutePartsFactory _routePartsFactory;
-            private IRouteParts _routeParts;
+            private ICallHandlerFactory _callHandlerFactory;
             private ICallHandler[] _callHandlers;
+            private ISubstituteState _substituteState;
 
             [Test]
             public void Should_create_route_with_from_defined_handlers()
@@ -31,21 +32,22 @@ namespace NSubstitute.Specs
 
             public override void Context()
             {
+                _substituteState = mock<ISubstituteState>();
                 _callHandlers = new[] { mock<ICallHandler>(), mock<ICallHandler>() };
                 _routeArguments = new[] {new object(), new object()};
 
-                _routeParts = mock<IRouteParts>();
+                _callHandlerFactory = mock<ICallHandlerFactory>();
                 _routePartsFactory = mock<IRoutePartsFactory>();
-                _routePartsFactory.stub(x => x.Create(_routeArguments)).Return(_routeParts);
-                _routeParts.stub(x => x.CreatePart(SampleRouteDefinition.Handlers[0])).Return(_callHandlers[0]);
-                _routeParts.stub(x => x.CreatePart(SampleRouteDefinition.Handlers[1])).Return(_callHandlers[1]);
+                _routePartsFactory.stub(x => x.Create(_routeArguments)).Return(_callHandlerFactory);
+                _callHandlerFactory.stub(x => x.CreateCallHandler(SampleRouteDefinition.Handlers[0], _substituteState, _routeArguments)).Return(_callHandlers[0]);
+                _callHandlerFactory.stub(x => x.CreateCallHandler(SampleRouteDefinition.Handlers[1], _substituteState, _routeArguments)).Return(_callHandlers[1]);
 
                 temporarilyChange(() => RouteFactory.ConstructRoute).to(x => new FakeRoute(x));
             }
 
             public override RouteFactory CreateSubjectUnderTest()
             {
-                return new RouteFactory(_routePartsFactory);
+                return new RouteFactory(_substituteState, _routePartsFactory);
             }
 
             class FakeRoute : IRoute

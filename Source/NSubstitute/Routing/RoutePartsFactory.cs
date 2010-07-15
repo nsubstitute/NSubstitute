@@ -11,9 +11,9 @@ namespace NSubstitute.Routing
             _substituteState = substituteState;
         }
 
-        public IRouteParts Create(params object[] routeArguments)
+        public ICallHandlerFactory Create(params object[] routeArguments)
         {
-            return new RouteParts(_substituteState, routeArguments);
+            return new CallHandlerFactory();
         }
     }
 }

@@ -7,44 +7,30 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Routing
 {
-    public class RouteParts : IRouteParts
+    public class CallHandlerFactory : ICallHandlerFactory
     {
-        private readonly SubstituteState _substituteState;
-        private readonly object[] _routeArguments;
-
-        public RouteParts(SubstituteState substituteState, object[] routeArguments)
-        {
-            _substituteState = substituteState;
-            _routeArguments = routeArguments;
-        }
-
-        public ICallHandler GetPart<TPart>() where TPart : ICallHandler
-        {
-            return CreatePart(typeof (TPart));
-        }
-
-        public ICallHandler CreatePart(Type partType)
+        public ICallHandler CreateCallHandler(Type partType, ISubstituteState substituteState, object[] routeArguments)
         {
             var constructor = GetConstructorFor(partType);
             var parameterTypes = constructor.GetParameters().Select(x => x.ParameterType);
-            var parameters = GetParameters(parameterTypes);
+            var parameters = GetParameters(parameterTypes, substituteState, routeArguments);
             return (ICallHandler) constructor.Invoke(parameters);
         }
 
-        private object[] GetParameters(IEnumerable<Type> parameterTypes)
+        private object[] GetParameters(IEnumerable<Type> parameterTypes, ISubstituteState substituteState, object[] routeArguments)
         {
-            return parameterTypes.Select(x => GetParameter(x)).ToArray();
+            return parameterTypes.Select(x => GetParameter(x, substituteState, routeArguments)).ToArray();
         }
 
-        private object GetParameter(Type type)
+        private object GetParameter(Type type, ISubstituteState substituteState, object[] routeArguments)
         {
             var stateProperties = typeof(SubstituteState).GetProperties();
             foreach (var property in stateProperties)
             {
                 if (type.IsAssignableFrom(property.PropertyType))
-                    return property.GetValue(_substituteState, null);
+                    return property.GetValue(substituteState, null);
             }
-            foreach (var argument in _routeArguments)
+            foreach (var argument in routeArguments)
             {
                 if (type.IsAssignableFrom(argument.GetType())) return argument;
             }

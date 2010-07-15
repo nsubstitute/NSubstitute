@@ -8,7 +8,7 @@ namespace NSubstitute.Core
         {
             var substituteState = new SubstituteState(substitutionContext);
             var routePartsFactory = new RoutePartsFactory(substituteState);
-            return new CallRouter(substitutionContext, substituteState.CallStack, substituteState.ResultSetter, new RouteFactory(routePartsFactory));
+            return new CallRouter(substitutionContext, substituteState.CallStack, substituteState.ResultSetter, new RouteFactory(substituteState, routePartsFactory));
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core
 {
-    public class SubstituteState
+    public class SubstituteState : ISubstituteState
     {
         public SubstituteState(ISubstitutionContext substitutionContext)
         {

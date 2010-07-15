@@ -2,6 +2,6 @@ namespace NSubstitute.Routing
 {
     public interface IRoutePartsFactory
     {
-        IRouteParts Create(params object[] routeArguments);
+        ICallHandlerFactory Create(params object[] routeArguments);
     }
 }

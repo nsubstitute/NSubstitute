@@ -98,7 +98,7 @@ namespace NSubstitute.Specs.Routing
                 var constructor = type.GetConstructors().First();
                 var constructorParameters = constructor.GetParameters();
                 Assert.That(constructorParameters.Length, Is.EqualTo(1), type.Name);
-                Assert.That(constructorParameters.First().ParameterType, Is.EqualTo(typeof(IRouteParts)), type.Name);
+                Assert.That(constructorParameters.First().ParameterType, Is.EqualTo(typeof(ICallHandlerFactory)), type.Name);
             }
         }
     }

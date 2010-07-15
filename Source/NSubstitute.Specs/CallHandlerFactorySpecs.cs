@@ -5,13 +5,13 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs
 {
-    public class RoutePartsSpecs
+    public class CallHandlerFactorySpecs
     {
-        public class When_getting_a_part : ConcernFor<RouteParts>
+        public class When_creating_a_call_handler : ConcernFor<CallHandlerFactory>
         {
             private SubstituteState _substituteState;
             private object[] _routeArguments;
-            private SamplePart _result;
+            private SampleHandler _result;
 
             [Test]
             public void Should_create_part_by_injecting_dependencies_from_its_state()
@@ -23,7 +23,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = (SamplePart) sut.GetPart<SamplePart>();
+                _result = (SampleHandler) sut.CreateCallHandler(typeof(SampleHandler), _substituteState, _routeArguments);
             }
 
             public override void Context()
@@ -32,18 +32,18 @@ namespace NSubstitute.Specs
                 _routeArguments = new object[] {2};
             }
 
-            public override RouteParts CreateSubjectUnderTest()
+            public override CallHandlerFactory CreateSubjectUnderTest()
             {
-                return new RouteParts(_substituteState, _routeArguments);
+                return new CallHandlerFactory();
             }
 
-            class SamplePart : ICallHandler
+            class SampleHandler : ICallHandler
             {
                 public ICallStack CallStack { get; private set; }
                 public ICallResults CallResults { get; private set; }
                 public int FromRouteArgument { get; private set; }
 
-                public SamplePart(ICallStack callStack, ICallResults results, int fromRouteArgument)
+                public SampleHandler(ICallStack callStack, ICallResults results, int fromRouteArgument)
                 {
                     CallStack = callStack;
                     CallResults = results;
