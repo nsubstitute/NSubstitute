@@ -24,7 +24,7 @@ namespace NSubstitute.Routing
         public IRoute Create<TRouteDefinition>(params object[] routeArguments) where TRouteDefinition : IRouteDefinition
         {
             var routeParts = _routePartsFactory.Create(routeArguments);
-            var routeDefinition = (IRouteDefinition) Activator.CreateInstance(typeof(TRouteDefinition), routeParts);
+            var routeDefinition = (IRouteDefinition) Activator.CreateInstance(typeof(TRouteDefinition));
             var handlers = routeDefinition.HandlerTypes.Select(x => routeParts.CreatePart(x));
             return ConstructRoute(handlers);
         }

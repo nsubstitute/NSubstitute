@@ -90,10 +90,6 @@
     <Compile Include="ReceivedWithAnyArgsExtensionSpec.cs" />
     <Compile Include="ReflectionExtensionsSpecs.cs" />
     <Compile Include="RoutePartsSpecs.cs" />
-    <Compile Include="Routing\Definitions\CheckCallNotReceivedRouteSpecs.cs" />
-    <Compile Include="Routing\Definitions\CheckCallReceivedRouteSpecs.cs" />
-    <Compile Include="Routing\Definitions\ConcernForRoute.cs" />
-    <Compile Include="Routing\Definitions\DoWhenCalledRouteSpecs.cs" />
     <Compile Include="Routing\Definitions\RouteDefininitionSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckDidNotReceiveCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckReceivedCallHandlerSpecs.cs" />
@@ -114,8 +110,6 @@
     <Compile Include="ResultSetterSpecs.cs" />
     <Compile Include="RouteFactorySpecs.cs" />
     <Compile Include="RoutePartsSpec.cs" />
-    <Compile Include="Routing\Definitions\RaiseEventRouteSpecs.cs" />
-    <Compile Include="Routing\Definitions\RecordReplayRouteSpecs.cs" />
     <Compile Include="Routing\RouteSpecs.cs" />
     <Compile Include="Routing\Handlers\SetActionsForCallHandlerSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />

@@ -56,7 +56,6 @@ namespace NSubstitute.Specs
             }
 
             class SampleRouteDefinition : IRouteDefinition {
-                public SampleRouteDefinition(IRouteParts routeParts) { }
                 public static Type[] Handlers = new[] { typeof(object), typeof(int) };
                 public IEnumerable<Type> HandlerTypes { get { return Handlers; } }
             }

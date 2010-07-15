@@ -66,7 +66,7 @@ namespace NSubstitute.Specs.Routing.Definitions
 
             IRouteDefinition CreateDefinition(Type definitionType)
             {
-                return (IRouteDefinition)Activator.CreateInstance(definitionType, mock<IRouteParts>());
+                return (IRouteDefinition)Activator.CreateInstance(definitionType);
             }
         }
     }
