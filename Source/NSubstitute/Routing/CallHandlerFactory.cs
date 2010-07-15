@@ -9,9 +9,9 @@ namespace NSubstitute.Routing
 {
     public class CallHandlerFactory : ICallHandlerFactory
     {
-        public ICallHandler CreateCallHandler(Type partType, ISubstituteState substituteState, object[] routeArguments)
+        public ICallHandler CreateCallHandler(Type handlerType, ISubstituteState substituteState, object[] routeArguments)
         {
-            var constructor = GetConstructorFor(partType);
+            var constructor = GetConstructorFor(handlerType);
             var parameterTypes = constructor.GetParameters().Select(x => x.ParameterType);
             var parameters = GetParameters(parameterTypes, substituteState, routeArguments);
             return (ICallHandler) constructor.Invoke(parameters);

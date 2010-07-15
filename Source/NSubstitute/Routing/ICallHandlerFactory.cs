@@ -5,6 +5,6 @@ namespace NSubstitute.Routing
 {
     public interface ICallHandlerFactory
     {
-        ICallHandler CreateCallHandler(Type partType, ISubstituteState substituteState, object[] routeArguments);
+        ICallHandler CreateCallHandler(Type handlerType, ISubstituteState substituteState, object[] routeArguments);
     }
 }
