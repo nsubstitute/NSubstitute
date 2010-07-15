@@ -13,7 +13,6 @@ namespace NSubstitute.Specs
         {
             private object[] _routeArguments;
             private IRoute _result;
-            private IRoutePartsFactory _routePartsFactory;
             private ICallHandlerFactory _callHandlerFactory;
             private ICallHandler[] _callHandlers;
             private ISubstituteState _substituteState;
@@ -37,8 +36,6 @@ namespace NSubstitute.Specs
                 _routeArguments = new[] {new object(), new object()};
 
                 _callHandlerFactory = mock<ICallHandlerFactory>();
-                _routePartsFactory = mock<IRoutePartsFactory>();
-                _routePartsFactory.stub(x => x.Create(_routeArguments)).Return(_callHandlerFactory);
                 _callHandlerFactory.stub(x => x.CreateCallHandler(SampleRouteDefinition.Handlers[0], _substituteState, _routeArguments)).Return(_callHandlers[0]);
                 _callHandlerFactory.stub(x => x.CreateCallHandler(SampleRouteDefinition.Handlers[1], _substituteState, _routeArguments)).Return(_callHandlers[1]);
 
@@ -47,7 +44,7 @@ namespace NSubstitute.Specs
 
             public override RouteFactory CreateSubjectUnderTest()
             {
-                return new RouteFactory(_substituteState, _routePartsFactory);
+                return new RouteFactory(_substituteState, _callHandlerFactory);
             }
 
             class FakeRoute : IRoute

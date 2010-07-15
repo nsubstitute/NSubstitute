@@ -117,7 +117,6 @@
     <Compile Include="Core\EventHandlerRegistry.cs" />
     <Compile Include="Core\ICallActions.cs" />
     <Compile Include="Routing\ICallHandlerFactory.cs" />
-    <Compile Include="Routing\IRoutePartsFactory.cs" />
     <Compile Include="Routing\Handlers\RaiseEventHandler.cs" />
     <Compile Include="Routing\Handlers\EventSubscriptionHandler.cs" />
     <Compile Include="Exceptions\AmbiguousArgumentsException.cs" />
@@ -160,7 +159,6 @@
     <Compile Include="Routing\Handlers\ReturnDefaultForReturnTypeHandler.cs" />
     <Compile Include="Routing\RouteFactory.cs" />
     <Compile Include="Routing\CallHandlerFactory.cs" />
-    <Compile Include="Routing\RoutePartsFactory.cs" />
     <Compile Include="Routing\Handlers\SetActionForCallHandler.cs" />
     <Compile Include="Substitute.cs" />
     <Compile Include="SubstituteExtensions.cs" />
