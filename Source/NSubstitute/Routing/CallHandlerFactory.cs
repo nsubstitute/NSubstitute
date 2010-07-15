@@ -24,23 +24,18 @@ namespace NSubstitute.Routing
 
         private object GetParameter(Type type, ISubstituteState substituteState, object[] routeArguments)
         {
-            var stateProperties = typeof(SubstituteState).GetProperties();
-            foreach (var property in stateProperties)
+            var parameter = substituteState.FindInstanceFor(type, routeArguments);
+            if (parameter == null)
             {
-                if (type.IsAssignableFrom(property.PropertyType))
-                    return property.GetValue(substituteState, null);
+                throw new SubstituteException("Cannot create handler. Cannot find an instance of " + type.FullName);
             }
-            foreach (var argument in routeArguments)
-            {
-                if (type.IsAssignableFrom(argument.GetType())) return argument;
-            }
-            throw new SubstituteException("Cannot create part. Cannot find an instance of " + type.FullName);
+            return parameter;
         }
         
-        private ConstructorInfo GetConstructorFor(Type partType)
+        private ConstructorInfo GetConstructorFor(Type handlerType)
         {
-            var constructors = partType.GetConstructors();
-            if (constructors.Length != 1) throw new SubstituteException("Cannot create part of type " + partType.FullName + ". Make sure it only has one constructor.");
+            var constructors = handlerType.GetConstructors();
+            if (constructors.Length != 1) throw new SubstituteException("Cannot create handler of type " + handlerType.FullName + ". Make sure it only has one constructor.");
             return constructors[0];
         }
     }
