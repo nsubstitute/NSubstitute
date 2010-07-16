@@ -1,0 +1,13 @@
+0.1.2 alpha 3
+* [NEW] Marked non-matching parameters in the actual calls listed for CallNotReceivedException messages.
+* [NEW] Added WhenForAnyArgs..Do syntax for callbacks.
+* [UPDATE] Updated arg matching to be smarter when matchers are not used for all args.
+* [FIX] Fixed bug when substituting for delegates with multiple parameters
+* [FIX] Removed redundant cast operator which sometimes caused the compiler trouble in resolving Raise.Event().
+
+0.1.1 alpha 2
+* [NEW] Added ReturnsForAnyArgs() extension methods
+* [FIX] Compiled for Any CPU to run on x64 platforms
+
+0.1.0 alpha
+* Initial release

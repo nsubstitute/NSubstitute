@@ -56,8 +56,8 @@ We can also work with properties using the Returns syntax we use for methods, or
 NSubstitute supports argument matching for setting return values and asserting a call was received:
 
     _calculator.Add(10, -5);
-    _calculator.Received().Add(Arg.Is(10), Arg.Any<int>());
-    _calculator.Received().Add(Arg.Is(10), Arg.Is<int>(x => x < 0));
+    _calculator.Received().Add(10, Arg.Any<int>());
+    _calculator.Received().Add(10, Arg.Is<int>(x => x < 0));
 
 We can use argument matching as well as passing a function to Returns() to get some more behaviour out of our substitute (possibly too much, but that's your call):
 
