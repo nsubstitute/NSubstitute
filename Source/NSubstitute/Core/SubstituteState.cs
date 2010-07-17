@@ -28,6 +28,7 @@ namespace NSubstitute.Core
                 callStack,
                 callResults,
                 callSpecificationFactory,
+                substitutionContext.GetSubstituteFactory(),
                 new CallActions(),
                 new PropertyHelper(),
                 new ResultSetter(callStack, callResults, callSpecificationFactory),
@@ -44,7 +45,7 @@ namespace NSubstitute.Core
         {
             return _state
                     .Concat(additionalArguments ?? new object[0])
-                    .FirstOrDefault(x => type.IsAssignableFrom(x.GetType()));
+                    .FirstOrDefault(x => x != null && type.IsAssignableFrom(x.GetType()));
         }
     }
 }

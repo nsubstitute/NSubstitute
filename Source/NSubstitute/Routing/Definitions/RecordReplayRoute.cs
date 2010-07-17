@@ -14,7 +14,7 @@ namespace NSubstitute.Routing.Definitions
                            {
                                typeof (EventSubscriptionHandler), typeof (PropertySetterHandler),
                                typeof (DoActionsCallHandler), typeof (RecordCallHandler),
-                               typeof (ReturnConfiguredResultHandler), typeof(ReturnDefaultForReturnTypeHandler)
+                               typeof (ReturnConfiguredResultHandler), typeof(ReturnNewSubstituteForTypeHandler), typeof(ReturnDefaultForReturnTypeHandler)
                            };
             }
         }

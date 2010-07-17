@@ -11,8 +11,9 @@ namespace NSubstitute.Core
     public class SubstitutionContext : ISubstitutionContext
     {
         public static ISubstitutionContext Current { get; set; }
+
+        readonly ISubstituteFactory _substituteFactory;
         ICallRouter _lastCallRouter;
-        ISubstituteFactory _substituteFactory;
         IList<IArgumentSpecification> _argumentSpecifications;
         Func<ICall, object[]> _getArgumentsForRaisingEvent;
 
@@ -38,6 +39,8 @@ namespace NSubstitute.Core
             _substituteFactory = substituteFactory;
         }
 
+        public ISubstituteFactory SubstituteFactory { get { return _substituteFactory; } }
+
         public void LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
         {            
             if (_lastCallRouter == null) throw new SubstituteException();
@@ -61,12 +64,12 @@ namespace NSubstitute.Core
 
         public ISubstituteFactory GetSubstituteFactory()
         {
-            return _substituteFactory;
+            return SubstituteFactory;
         }
 
         public ICallRouter GetCallRouterFor(object substitute)
         {
-            return _substituteFactory.GetCallRouterCreatedFor(substitute);
+            return SubstituteFactory.GetCallRouterCreatedFor(substitute);
         }
 
         public void EnqueueArgumentSpecification(IArgumentSpecification spec)

@@ -12,5 +12,6 @@ namespace NSubstitute.Core
         void EnqueueArgumentSpecification(IArgumentSpecification spec);
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
         void RaiseEventForNextCall(Func<ICall, object[]> getArguments);
+        ISubstituteFactory SubstituteFactory { get; }
     }
 }

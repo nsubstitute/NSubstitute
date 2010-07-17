@@ -12,7 +12,7 @@ namespace NSubstitute.Specs
             ISubstitutionContext _context;
 
             [Test]
-            public void Should_create_an_instance_a_call_router()
+            public void Should_create_an_instance_of_a_call_router()
             {
                 Assert.That(_result, Is.TypeOf<CallRouter>());
             }
