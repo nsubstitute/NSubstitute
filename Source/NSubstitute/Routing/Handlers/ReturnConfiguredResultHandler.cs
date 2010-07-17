@@ -13,11 +13,11 @@ namespace NSubstitute.Routing.Handlers
 
         public RouteAction Handle(ICall call)
         {
-            if (!_callResults.HasResultFor(call))
+            if (_callResults.HasResultFor(call))
             {
-                return RouteAction.Continue();
+                return RouteAction.Return(_callResults.GetResult(call));
             }
-            return RouteAction.Return(_callResults.GetResult(call));
+            return RouteAction.Continue();
         }
     }
 }

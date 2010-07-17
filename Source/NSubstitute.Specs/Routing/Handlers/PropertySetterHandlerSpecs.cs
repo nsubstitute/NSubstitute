@@ -58,8 +58,7 @@ namespace NSubstitute.Specs.Routing.Handlers
                 base.Context();
                 _propertyHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
                 _resultSetter
-                    .stub(x => x.SetResultForCall(Arg.Is(_propertyGetter), Arg.Any<IReturn>(), Arg.Is(MatchArgs.AsSpecifiedInCall)))
-                    .IgnoreArguments()
+                    .stub(x => x.SetResultForCall(It.Is(_propertyGetter), It.IsAny<IReturn>(), It.Is(MatchArgs.AsSpecifiedInCall)))
                     .WhenCalled(x => _returnPassedToResultSetter = (ReturnValue) x.Arguments[1]);
             }
         }

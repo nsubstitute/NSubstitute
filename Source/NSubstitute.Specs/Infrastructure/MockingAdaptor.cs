@@ -1,9 +1,17 @@
 using System;
+using System.Linq.Expressions;
 using Rhino.Mocks;
 using Rhino.Mocks.Interfaces;
 
 namespace NSubstitute.Specs.Infrastructure
 {
+    public static class It
+    {
+        public static T Is<T>(T value) { return Arg<T>.Is.Equal(value); }
+        public static T IsAny<T>() { return Arg<T>.Is.Anything; }
+        public static T Matches<T>(Expression<Predicate<T>> expression) { return Arg<T>.Matches(expression); }
+    }
+
     public static class MockingAdaptor
     {
         public static T Create<T>() where T : class

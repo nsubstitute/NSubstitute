@@ -73,6 +73,7 @@
     <Compile Include="Core\IDefaultForType.cs" />
     <Compile Include="Core\IMethodInfoFormatter.cs" />
     <Compile Include="Core\ISubstituteState.cs" />
+    <Compile Include="Routing\Handlers\ReturnNewSubstituteForTypeHandler.cs" />
     <Compile Include="Routing\IRouteDefinition.cs" />
     <Compile Include="Core\MatchArgs.cs" />
     <Compile Include="Core\ArgumentFormatter.cs" />
