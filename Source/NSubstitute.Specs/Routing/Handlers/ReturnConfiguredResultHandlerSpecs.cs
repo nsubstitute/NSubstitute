@@ -11,7 +11,6 @@ namespace NSubstitute.Specs.Routing.Handlers
         public abstract class When_handling_call : ConcernFor<ReturnConfiguredResultHandler>
         {
             protected ICallResults _callResults;
-            protected IDefaultForType _defaultForType;
             protected ICall _call;
             protected RouteAction _result;
 
@@ -19,7 +18,6 @@ namespace NSubstitute.Specs.Routing.Handlers
             {
                 _call = mock<ICall>();
                 _callResults = mock<ICallResults>();
-                _defaultForType = mock<IDefaultForType>();
             }
 
             public override void Because()
@@ -29,7 +27,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override ReturnConfiguredResultHandler CreateSubjectUnderTest()
             {
-                return new ReturnConfiguredResultHandler(_callResults, _defaultForType);
+                return new ReturnConfiguredResultHandler(_callResults);
             }       
         }
 
@@ -53,13 +51,12 @@ namespace NSubstitute.Specs.Routing.Handlers
 
         public class When_handling_call_without_configured_result : When_handling_call
         {
-            readonly object _defaultForReturnType = new object();
             readonly Type _returnType = typeof(object);
 
             [Test]
-            public void Should_return_default_for_call_return_type()
+            public void Should_continue_route()
             {
-                Assert.That(_result.ReturnValue, Is.SameAs(_defaultForReturnType)); 
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
             }
 
             public override void Context()
@@ -67,7 +64,6 @@ namespace NSubstitute.Specs.Routing.Handlers
                 base.Context();
                 _callResults.stub(x => x.HasResultFor(_call)).Return(false);
                 _call.stub(x => x.GetReturnType()).Return(_returnType);
-                _defaultForType.stub(x => x.GetDefaultFor(_returnType)).Return(_defaultForReturnType);
             }
         }
     }
