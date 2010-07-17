@@ -19,12 +19,14 @@ namespace NSubstitute.Routing.Handlers
             _matchArgs = matchArgs;
         }
 
-        public object Handle(ICall call)
+        public RouteAction Handle(ICall call)
         {
             var callSpecification = _callSpecificationFactory.CreateFrom(call, _matchArgs);
-            if (_receivedCalls.FindMatchingCalls(callSpecification).Any()) return null;
-            _exceptionThrower.Throw(callSpecification, GetAllReceivedCallsToMethod(call));
-            return null;
+            if (!_receivedCalls.FindMatchingCalls(callSpecification).Any())
+            {
+                _exceptionThrower.Throw(callSpecification, GetAllReceivedCallsToMethod(call));
+            }
+            return RouteAction.Continue();
         }
 
         private IEnumerable<ICall> GetAllReceivedCallsToMethod(ICall call)

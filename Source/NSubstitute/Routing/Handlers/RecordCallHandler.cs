@@ -11,10 +11,10 @@ namespace NSubstitute.Routing.Handlers
             _callStack = callStack;
         }
 
-        public object Handle(ICall call)
+        public RouteAction Handle(ICall call)
         {
             _callStack.Push(call);
-            return null;
+            return RouteAction.Continue();
         }
     }
 }

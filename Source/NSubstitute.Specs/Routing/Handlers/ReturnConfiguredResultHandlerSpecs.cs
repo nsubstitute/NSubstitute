@@ -13,7 +13,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             protected ICallResults _callResults;
             protected IDefaultForType _defaultForType;
             protected ICall _call;
-            protected object _result;
+            protected RouteAction _result;
 
             public override void Context()
             {
@@ -26,7 +26,6 @@ namespace NSubstitute.Specs.Routing.Handlers
             {
                 _result = sut.Handle(_call);
             }
-
 
             public override ReturnConfiguredResultHandler CreateSubjectUnderTest()
             {
@@ -41,7 +40,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Should_return_configured_result()
             {
-                Assert.That(_result, Is.SameAs(_expectedResult));
+                Assert.That(_result.ReturnValue, Is.SameAs(_expectedResult));
             }
 
             public override void Context()
@@ -60,7 +59,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Should_return_default_for_call_return_type()
             {
-                Assert.That(_result, Is.SameAs(_defaultForReturnType)); 
+                Assert.That(_result.ReturnValue, Is.SameAs(_defaultForReturnType)); 
             }
 
             public override void Context()

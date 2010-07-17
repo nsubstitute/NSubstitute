@@ -15,7 +15,7 @@ namespace NSubstitute.Routing.Handlers
             _getEventArguments = getEventArguments;
         }
 
-        public object Handle(ICall call)
+        public RouteAction Handle(ICall call)
         {
             var methodInfo = call.GetMethodInfo();
             var eventInfo = methodInfo.DeclaringType.GetEvents().First(
@@ -26,7 +26,7 @@ namespace NSubstitute.Routing.Handlers
             {
                 handler.DynamicInvoke(eventArguments);
             }
-            return null;
+            return RouteAction.Continue();
         }
     }
 }

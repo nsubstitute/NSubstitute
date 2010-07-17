@@ -11,9 +11,10 @@ namespace NSubstitute.Routing.Handlers
             _defaultForType = defaultForType;
         }
 
-        public object Handle(ICall call)
+        public RouteAction Handle(ICall call)
         {
-            return _defaultForType.GetDefaultFor(call.GetMethodInfo().ReturnType);
+            var returnValue = _defaultForType.GetDefaultFor(call.GetMethodInfo().ReturnType);
+            return RouteAction.Return(returnValue);
         }
     }
 }

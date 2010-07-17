@@ -38,7 +38,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
         public class When_handling_call_that_has_been_received : Concern
         {
-            private object _result;
+            private RouteAction _result;
 
             [Test]
             public void Should_return_without_exception()
@@ -46,6 +46,12 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _exceptionThrower.did_not_receive_with_any_args(x => x.Throw(null, null));
             }
 
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
+            
             public override void Because()
             {
                 _result = sut.Handle(_call);

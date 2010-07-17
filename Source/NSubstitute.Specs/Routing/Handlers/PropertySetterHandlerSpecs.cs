@@ -34,6 +34,7 @@ namespace NSubstitute.Specs.Routing.Handlers
         public class When_call_is_a_property_setter : Concern
         {
             private ReturnValue _returnPassedToResultSetter;
+            private RouteAction _result;
 
             [Test]
             public void Should_add_set_value_to_configured_results()
@@ -41,9 +42,15 @@ namespace NSubstitute.Specs.Routing.Handlers
                 Assert.That(_returnPassedToResultSetter.ReturnFor(null), Is.EqualTo(_setValue));
             }
 
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
+
             public override void Because()
             {
-                sut.Handle(_call);
+                _result = sut.Handle(_call);
             }
 
             public override void Context()
@@ -59,15 +66,23 @@ namespace NSubstitute.Specs.Routing.Handlers
 
         public class When_call_is_not_a_property_setter : Concern
         {
+            private RouteAction _result;
+
             [Test]
             public void Should_not_add_any_values_to_configured_results()
             {
                 _resultSetter.did_not_receive(x => x.SetResultForCall(Arg.Is(_propertyGetter), Arg.Any<IReturn>(), Arg.Is(MatchArgs.AsSpecifiedInCall)));
             }
 
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
+
             public override void Because()
             {
-                sut.Handle(_call);
+                _result = sut.Handle(_call);
             }
 
             public override void Context()

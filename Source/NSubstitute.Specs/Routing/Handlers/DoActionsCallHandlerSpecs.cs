@@ -15,6 +15,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             private ICallActions _callActions;
             private Action<CallInfo>[] _matchingActions;
             private ICallInfoFactory _callInfoFactory;
+            private RouteAction _result;
 
             [Test]
             public void Should_invoke_all_actions_for_call_with_call_information()
@@ -25,9 +26,15 @@ namespace NSubstitute.Specs.Routing.Handlers
                 }
             }
 
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue())); 
+            }
+
             public override void Because()
             {
-                sut.Handle(_call);
+                _result = sut.Handle(_call);
             }
 
             public override void Context()

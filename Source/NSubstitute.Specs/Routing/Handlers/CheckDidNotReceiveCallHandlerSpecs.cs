@@ -33,12 +33,12 @@ namespace NSubstitute.Specs.Routing.Handlers
             public override CheckDidNotReceiveCallHandler CreateSubjectUnderTest()
             {
                 return new CheckDidNotReceiveCallHandler(_receivedCalls, _callSpecificationFactory, _exceptionThrower, _argMatching);
-            } 
+            }
         }
 
         public class When_handling_call_that_has_been_received : Concern
         {
-            private object _result;
+            private RouteAction _result;
 
             [Test]
             public void Should_throw_exception()
@@ -54,21 +54,29 @@ namespace NSubstitute.Specs.Routing.Handlers
             public override void Context()
             {
                 base.Context();
-                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new [] {_call});
+                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new[] { _call });
             }
         }
 
         public class When_handling_call_that_has_not_been_received : Concern
         {
+            private RouteAction _result;
+
             [Test]
-            public void  Should_return_without_exception()
+            public void Should_return_without_exception()
             {
                 _exceptionThrower.did_not_receive(x => x.Throw(_callSpecification));
             }
 
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
+
             public override void Because()
             {
-                sut.Handle(_call);
+                _result = sut.Handle(_call);
             }
 
             public override void Context()

@@ -17,13 +17,13 @@ namespace NSubstitute.Specs.Routing
             private ICall _call;
             private ICallHandler _firstHandler;
             private ICallHandler _secondHandler;
-            private readonly object _lastHandlerResult = new object();
+            private readonly object _valueToReturn = new object();
             private ICallHandler[] _handlers;
 
             [Test]
-            public void Should_return_result_from_last_handler()
+            public void Should_return_result_from_when_a_handler_provides_a_result()
             {
-                Assert.That(_result, Is.SameAs(_lastHandlerResult)); 
+                Assert.That(_result, Is.SameAs(_valueToReturn)); 
             }
 
             public override void Because()
@@ -35,8 +35,9 @@ namespace NSubstitute.Specs.Routing
             {
                 _call = mock<ICall>();
                 _firstHandler = mock<ICallHandler>();
+                _firstHandler.stub(x => x.Handle(_call)).Return(RouteAction.Continue());
                 _secondHandler = mock<ICallHandler>();
-                _secondHandler.stub(x => x.Handle(_call)).Return(_lastHandlerResult);
+                _secondHandler.stub(x => x.Handle(_call)).Return(RouteAction.Return(_valueToReturn));
 
                 _handlers = new[] { _firstHandler, _secondHandler };
             }

@@ -20,6 +20,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             object[] _eventArguments;
             Func<ICall, object[]> _getEventArguments;
             IEnumerable<object> _handlers;
+            private RouteAction _result;
 
             [Test]
             public void Should_raise_event_with_arguments()
@@ -27,9 +28,15 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _eventHandler.AssertWasCalled(x => x.Invoke(_eventArguments[0], (EventArgs) _eventArguments[1]));
             }
 
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
+
             public override void Because()
             {
-                sut.Handle(_call);
+                _result = sut.Handle(_call);
             }
 
             public override void Context()

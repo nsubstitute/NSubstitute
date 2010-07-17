@@ -39,6 +39,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             private const string SampleEventName = "Sample";
             private ICall _eventSubscription;
             private object _handlerArgument;
+            private RouteAction _result;
 
             public override void Context()
             {
@@ -50,14 +51,21 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override void Because()
             {
-                sut.Handle(_eventSubscription);
+                _result = sut.Handle(_eventSubscription);
             }
 
             [Test]
             public void Should_add_handler_for_event()
             {
                 _eventHandlerRegistry.received(x => x.Add(SampleEventName, _handlerArgument));
-            }            
+            }
+
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
+
         }
 
         public class When_handling_an_event_unsubscription : Concern
@@ -65,6 +73,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             private const string SampleEventName = "Sample";
             private ICall _eventUnsubscription;
             private object _handlerArgument;
+            private RouteAction _result;
 
             public override void Context()
             {
@@ -76,7 +85,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override void Because()
             {
-                sut.Handle(_eventUnsubscription);
+                _result = sut.Handle(_eventUnsubscription);
             }
 
             [Test]
@@ -84,11 +93,18 @@ namespace NSubstitute.Specs.Routing.Handlers
             {
                 _eventHandlerRegistry.received(x => x.Remove(SampleEventName, _handlerArgument));
             }                
+
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
         }
 
         public class When_call_is_not_an_event_subscription_or_removal :Concern
         {
             private ICall _nonEventCall;
+            private RouteAction _result;
 
             public override void Context()
             {
@@ -99,13 +115,19 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override void Because()
             {
-                sut.Handle(_nonEventCall);
+                _result = sut.Handle(_nonEventCall);
             }
 
             [Test]
             public void Should_not_add_or_remove_a_handler_for_event()
             {
                 _eventHandlerRegistry.did_not_receive(x => x.Add(Arg<string>.Is.Anything, Arg<object>.Is.Anything));
+            }
+
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
             }
         }
 

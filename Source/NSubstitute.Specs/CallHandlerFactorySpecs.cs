@@ -58,7 +58,7 @@ namespace NSubstitute.Specs
                     FromRouteArgument = fromRouteArgument;
                 }
 
-                public object Handle(ICall call) { return null; }
+                public RouteAction Handle(ICall call) { return null; }
             }
         }
     }

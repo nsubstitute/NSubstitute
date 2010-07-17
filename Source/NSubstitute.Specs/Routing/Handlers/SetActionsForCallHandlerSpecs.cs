@@ -16,6 +16,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             private ICallSpecificationFactory _callSpecificationFactory;
             private ICallSpecification _callSpec;
             private MatchArgs _matchArgs;
+            private RouteAction _result;
 
             [Test]
             public void Should_add_action_for_specified_call_to_call_actions()
@@ -23,9 +24,15 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _callActions.received(x => x.Add(_callSpec, _action));
             }
 
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
+
             public override void Because()
             {
-                sut.Handle(_call);
+                _result = sut.Handle(_call);
             }
 
             public override void Context()

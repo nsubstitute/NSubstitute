@@ -18,11 +18,11 @@ namespace NSubstitute.Routing.Handlers
             _matchArgs = matchArgs;
         }
 
-        public object Handle(ICall call)
+        public RouteAction Handle(ICall call)
         {
             var callSpec = _callSpecificationFactory.CreateFrom(call, _matchArgs);
             _callActions.Add(callSpec, _action);
-            return null;
+            return RouteAction.Continue();
         }
     }
 }

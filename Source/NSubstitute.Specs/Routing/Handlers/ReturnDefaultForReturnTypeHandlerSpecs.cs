@@ -13,12 +13,12 @@ namespace NSubstitute.Specs.Routing.Handlers
             private readonly object _expectedDefault = new object();
             private IDefaultForType _defaultForType;
             ICall _call;
-            object _result;
+            RouteAction _result;
 
             [Test]
             public void Should_return_default_for_type()
             {
-                Assert.That(_result, Is.SameAs(_expectedDefault));
+                Assert.That(_result.ReturnValue, Is.SameAs(_expectedDefault));
 
             }
             public override void Because()

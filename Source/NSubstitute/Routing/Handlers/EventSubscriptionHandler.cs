@@ -15,11 +15,11 @@ namespace NSubstitute.Routing.Handlers
             _eventHandlerRegistry = eventHandlerRegistry;
         }
 
-        public object Handle(ICall call)
+        public RouteAction Handle(ICall call)
         {
             If(call, IsEventSubscription, _eventHandlerRegistry.Add);
             If(call, IsEventUnsubscription, _eventHandlerRegistry.Remove);
-            return null;
+            return RouteAction.Continue();
         }
 
         private void If(ICall call, Func<ICall, Predicate<EventInfo>> meetsThisSpecification, Action<string, object> takeThisAction)

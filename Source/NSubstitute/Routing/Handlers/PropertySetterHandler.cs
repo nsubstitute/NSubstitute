@@ -14,7 +14,7 @@ namespace NSubstitute.Routing.Handlers
             _resultSetter = resultSetter;
         }
 
-        public object Handle(ICall call)
+        public RouteAction Handle(ICall call)
         {
             if (_propertyHelper.IsCallToSetAReadWriteProperty(call))
             {
@@ -22,7 +22,7 @@ namespace NSubstitute.Routing.Handlers
                 var valueBeingSetOnProperty = call.GetArguments().First();
                 _resultSetter.SetResultForCall(callToPropertyGetter, new ReturnValue(valueBeingSetOnProperty), MatchArgs.AsSpecifiedInCall);
             }
-            return null;
+            return RouteAction.Continue();
         }
     }
 }

@@ -2,6 +2,6 @@ namespace NSubstitute.Core
 {
     public interface ICallHandler
     {
-        object Handle(ICall call);
+        RouteAction Handle(ICall call);
     }
 }

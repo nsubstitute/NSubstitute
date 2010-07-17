@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NSubstitute.Core;
 
 namespace NSubstitute.Routing
@@ -14,12 +15,8 @@ namespace NSubstitute.Routing
 
         public object Handle(ICall call)
         {
-            object result = null;
-            foreach (var handler in _handlers)
-            {
-                result = handler.Handle(call); 
-            }
-            return result;
+            var result = _handlers.Select(x => x.Handle(call)).FirstOrDefault(x => x.HasReturnValue);
+            return result == null ? null : result.ReturnValue;
         }
     }
 }

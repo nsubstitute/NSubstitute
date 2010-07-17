@@ -11,6 +11,7 @@ namespace NSubstitute.Specs.Routing.Handlers
         {
             ICall _call;
             ICallStack _callStack;
+            private RouteAction _result;
 
             [Test]
             public void Should_record_call()
@@ -18,9 +19,15 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _callStack.received(x => x.Push(_call));
             }
 
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
+
             public override void Because()
             {
-                sut.Handle(_call);
+                _result = sut.Handle(_call);
             }
 
             public override void Context()

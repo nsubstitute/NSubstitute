@@ -13,7 +13,7 @@ namespace NSubstitute.Routing.Handlers
             _callInfoFactory = callInfoFactory;
         }
 
-        public object Handle(ICall call)
+        public RouteAction Handle(ICall call)
         {
             var actions = _callActions.MatchingActions(call);
             var callInfo = _callInfoFactory.Create(call);
@@ -21,7 +21,7 @@ namespace NSubstitute.Routing.Handlers
             {
                 action(callInfo);
             }
-            return null;
+            return RouteAction.Continue();
         }
     }
 }
