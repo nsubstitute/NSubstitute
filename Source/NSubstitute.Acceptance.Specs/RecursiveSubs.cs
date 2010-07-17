@@ -10,6 +10,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             IRequest Request { get; }
             IRequest GetRequest();
+            IRequest GetRequest(int number);
         }
         public interface IRequest
         {
@@ -57,6 +58,15 @@ namespace NSubstitute.Acceptance.Specs
             var context = Substitute.For<IContext>();
             context.Request.Identity.Name = "Eric";
             Assert.That(context.Request.Identity.Name, Is.EqualTo("Eric"));
+        }
+
+        [Test]
+        public void Recursively_generate_for_methods_that_take_arguments()
+        {
+            var context = Substitute.For<IContext>();
+            context.GetRequest(10).Identity.Name = "Eric";
+            Assert.That(context.GetRequest(10).Identity.Name, Is.EqualTo("Eric"));
+            Assert.That(context.GetRequest(9).Identity.Name, Is.Null);
         }
     }
 }
