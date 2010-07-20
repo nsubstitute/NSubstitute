@@ -20,23 +20,28 @@ namespace NSubstitute
             return new ActionWrapper<Action<T1, T2>>(argument1, argument2);
         }
 
-        public static EventHandlerWrapper<EventHandler<TEventArgs>> Event<TEventArgs>(object sender, TEventArgs eventArgs) where TEventArgs : EventArgs
+        public static EventHandlerWrapper<TEventArgs> Event<TEventArgs>(object sender, TEventArgs eventArgs) where TEventArgs : EventArgs
         {
-            return new EventHandlerWrapper<EventHandler<TEventArgs>>(sender, eventArgs);
+            return new EventHandlerWrapper<TEventArgs>(sender, eventArgs);
         }
 
-        public static EventHandlerWrapper<EventHandler<TEventArgs>> Event<TEventArgs>(TEventArgs eventArgs) where TEventArgs : EventArgs
+        public static EventHandlerWrapper<TEventArgs> Event<TEventArgs>(TEventArgs eventArgs) where TEventArgs : EventArgs
         {
-            return new EventHandlerWrapper<EventHandler<TEventArgs>>(eventArgs);
+            return new EventHandlerWrapper<TEventArgs>(eventArgs);
         }
 
-        public static EventHandlerWrapper<object> Event()
+        public static EventHandlerWrapper<TEventArgs> Event<TEventArgs>() where TEventArgs : EventArgs
         {
-            return new EventHandlerWrapper<object>();
+            return new EventHandlerWrapper<TEventArgs>(null);
+        }
+
+        public static EventHandlerWrapper<EventArgs> Event()
+        {
+            return new EventHandlerWrapper<EventArgs>();
         }
     }
 
-    public class EventHandlerWrapper<T>
+    public class EventHandlerWrapper<TEventArgs> where TEventArgs : EventArgs
     {
         object _sender;
         readonly EventArgs _eventArgs;
@@ -55,19 +60,19 @@ namespace NSubstitute
             _eventArgs = eventArgs;
         }
 
-        public static implicit operator T(EventHandlerWrapper<T> wrapper)
-        {
-            RaiseEvent(wrapper);
-            return default(T);
-        }
-
-        public static implicit operator EventHandler(EventHandlerWrapper<T> wrapper)
+        public static implicit operator EventHandler(EventHandlerWrapper<TEventArgs> wrapper)
         {
             RaiseEvent(wrapper);
             return null;
         }
 
-        static void RaiseEvent(EventHandlerWrapper<T> wrapper)
+        public static implicit operator EventHandler<TEventArgs>(EventHandlerWrapper<TEventArgs> wrapper)
+        {
+            RaiseEvent(wrapper);
+            return null;
+        }
+
+        static void RaiseEvent(EventHandlerWrapper<TEventArgs> wrapper)
         {
             var sender = wrapper._sender;
             var eventArgs = wrapper._eventArgs;
@@ -76,8 +81,9 @@ namespace NSubstitute
                                               {
                                                   if (sender == null)
                                                       sender = call.Target();
-                                                  if (eventArgs == null)
+                                                  if (eventArgs == null && typeof(TEventArgs) == typeof(EventArgs)) 
                                                       eventArgs = EventArgs.Empty;
+
                                                   return new[]{sender, eventArgs};
                                               });
         }

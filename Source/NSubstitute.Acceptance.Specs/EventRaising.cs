@@ -90,6 +90,19 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Raise_event_with_custom_event_args_and_automatically_set_sender_and_args()
+        {
+            var engine = Substitute.For<IEngine>();
+            var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
+            engine.Idling += idlingHandler.Record;
+            engine.Idling += Raise.Event<IdlingEventArgs>();
+
+            Assert.That(idlingHandler.Sender, Is.SameAs(engine));
+            Assert.That(idlingHandler.EventArgs, Is.Null);
+            
+        }
+
+        [Test]
         public void Raise_event_declared_as_action()
         {
             var wasStarted = false;

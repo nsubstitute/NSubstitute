@@ -16,8 +16,31 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(consumer.EventHandled, "Expected event to be raised and handled by the SUT.");
         }
 
+        [Test]
+        public void RaiseEventHandlerEvent()
+        {
+            var eventSource = Substitute.For<IEventSource>();
+            var consumer = new SampleEventConsumer(eventSource);
 
-        public interface IEventSource { event Action AnEvent; }
+            eventSource.AnEventHandlerEvent += Raise.Event();
+            Assert.That(consumer.EventHandled, Is.True, "Expected event to be raised and handled by the SUT.");
+        }
+
+        [Test]
+        public void RaiseEventHandlerEventWithArgType()
+        {
+            var eventSource = Substitute.For<IEventSource>();
+            var consumer = new SampleEventConsumer(eventSource);
+
+            eventSource.AnEventHandlerEventWithArgType += Raise.Event();
+            Assert.That(consumer.EventHandled, Is.True, "Expected event to be raised and handled by the SUT.");
+        }
+        
+        public interface IEventSource { 
+            event Action AnEvent;
+            event EventHandler<EventArgs> AnEventHandlerEventWithArgType;
+            event EventHandler AnEventHandlerEvent;
+        }
 
         public class SampleEventConsumer
         {
@@ -26,6 +49,8 @@ namespace NSubstitute.Acceptance.Specs
             public SampleEventConsumer(IEventSource eventSource)
             {
                 eventSource.AnEvent += () => EventHandled = true;
+                eventSource.AnEventHandlerEvent += (sender, args) => EventHandled = true;
+                eventSource.AnEventHandlerEventWithArgType += (sender, args) => EventHandled = true;
             }
         }
     }
