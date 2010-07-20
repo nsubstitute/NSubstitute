@@ -68,6 +68,7 @@
     <Compile Include="Arg.cs" />
     <Compile Include="Core\ArgumentsFormatter.cs" />
     <Compile Include="Core\DefaultForType.cs" />
+    <Compile Include="Core\EventCallFormatter.cs" />
     <Compile Include="Core\RouteAction.cs" />
     <Compile Include="Core\IArgumentsFormatter.cs" />
     <Compile Include="Core\IDefaultForType.cs" />

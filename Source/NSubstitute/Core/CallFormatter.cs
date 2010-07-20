@@ -10,7 +10,11 @@ namespace NSubstitute.Core
 
         public CallFormatter(IArgumentsFormatter argumentsFormatter)
         {
-            _methodInfoFormatters = new IMethodInfoFormatter[] { new PropertyCallFormatter(argumentsFormatter), new MethodFormatter(argumentsFormatter) };
+            _methodInfoFormatters = new IMethodInfoFormatter[] { 
+                new PropertyCallFormatter(argumentsFormatter), 
+                new EventCallFormatter(argumentsFormatter, EventCallFormatter.IsSubscription, "+="), 
+                new EventCallFormatter(argumentsFormatter, EventCallFormatter.IsUnsubscription, "-="), 
+                new MethodFormatter(argumentsFormatter) };
         }
 
         public string Format(ICall call, ICallSpecification withRespectToCallSpec)

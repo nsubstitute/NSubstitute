@@ -54,6 +54,18 @@ namespace NSubstitute.Specs
             AssertCallFormat(x => { var _ = x["a", "b"]; }, "this[args]");
         }
 
+        [Test]
+        public void Should_format_event_subscription()
+        {
+            AssertCallFormat(x => x.AnEvent += null, "AnEvent += args");  
+        }
+
+        [Test]
+        public void Should_format_event_unsubscription()
+        {
+            AssertCallFormat(x => x.AnEvent -= null, "AnEvent -= args");  
+        }
+
         public override void Context()
         {
             base.Context();
@@ -87,6 +99,7 @@ namespace NSubstitute.Specs
             void GenericMethodWithMultipleTypes<T1, T2>(T1 t1, T2 t2);
             int Property { get; set; }
             int this[string a, string b] { get; set; }
+            event Action AnEvent;
         }
     }
 }
