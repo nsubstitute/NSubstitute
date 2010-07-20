@@ -31,7 +31,7 @@ namespace NSubstitute.Core
         public ArgumentIsAnythingSpecification(Type forType) : base(arg => true, forType) { }
         public override string ToString()
         {
-            return "<any " + ForType.Name + ">";
+            return "any " + ForType.Name;
         }
     }
 
