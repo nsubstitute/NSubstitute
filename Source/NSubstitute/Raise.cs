@@ -1,5 +1,7 @@
 using System;
+using System.Reflection;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute
 {
@@ -81,11 +83,32 @@ namespace NSubstitute
                                               {
                                                   if (sender == null)
                                                       sender = call.Target();
-                                                  if (eventArgs == null && typeof(TEventArgs) == typeof(EventArgs)) 
-                                                      eventArgs = EventArgs.Empty;
+                                                  if (eventArgs == null) 
+                                                      eventArgs = GetDefaultForEventArgType(typeof(TEventArgs));
+
 
                                                   return new[]{sender, eventArgs};
                                               });
+        }
+
+        private static EventArgs GetDefaultForEventArgType(Type type)
+        {
+            if (type == typeof(EventArgs)) return EventArgs.Empty;
+            var defaultConstructor = GetDefaultConstructor(type);
+            if (defaultConstructor == null)
+            {
+                var message = string.Format(
+                    "Cannot create arguments of type {0} for this event as {0} has no default constructor. " +
+                    "Provide arguments for this event by calling Raise.Event<{0}>(instanceOf{0})."
+                    , type.Name);
+                throw new CannotCreateEventArgsException(message);
+            }
+            return (EventArgs) defaultConstructor.Invoke(new object[0]);
+        }
+
+        private static ConstructorInfo GetDefaultConstructor(Type type)
+        {
+            return type.GetConstructor(Type.EmptyTypes);
         }
     }
 

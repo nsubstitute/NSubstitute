@@ -16,10 +16,20 @@ namespace NSubstitute.Acceptance.Specs
         event EventHandler<IdlingEventArgs> Idling;
         event EventHandler Stopped;
         event EventHandler<EventArgs> Broken;
+        event EventHandler<LowFuelWarningEventArgs> LowFuelWarning;
     }
 
     public class IdlingEventArgs : EventArgs
     {
         public int Rpm;
+    }
+
+    public class LowFuelWarningEventArgs : EventArgs
+    {
+        public int PercentLeft { get; private set; }
+        public LowFuelWarningEventArgs(int percentLeft)
+        {
+            PercentLeft = percentLeft;
+        }
     }
 }

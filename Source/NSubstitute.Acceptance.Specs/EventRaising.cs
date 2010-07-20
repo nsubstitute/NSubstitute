@@ -1,4 +1,5 @@
 using System;
+using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -90,7 +91,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Raise_event_with_custom_event_args_and_automatically_set_sender_and_args()
+        public void Raise_event_with_custom_event_args_that_have_a_default_ctor_and_automatically_set_sender_and_args()
         {
             var engine = Substitute.For<IEngine>();
             var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
@@ -98,8 +99,19 @@ namespace NSubstitute.Acceptance.Specs
             engine.Idling += Raise.Event<IdlingEventArgs>();
 
             Assert.That(idlingHandler.Sender, Is.SameAs(engine));
-            Assert.That(idlingHandler.EventArgs, Is.Null);
-            
+            Assert.That(idlingHandler.EventArgs, Is.Not.Null);
+        }
+
+        [Test]
+        public void Raise_event_with_custom_event_args_with_no_default_ctor_should_throw()
+        {
+            var engine = Substitute.For<IEngine>();
+            var lowFuelHandler = new RaisedEventRecorder<LowFuelWarningEventArgs>();
+            engine.LowFuelWarning += lowFuelHandler.Record;
+
+            Assert.Throws<CannotCreateEventArgsException>(() =>
+                engine.LowFuelWarning += Raise.Event<LowFuelWarningEventArgs>()
+                );
         }
 
         [Test]
