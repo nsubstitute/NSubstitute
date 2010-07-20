@@ -59,7 +59,6 @@
     <Compile Include="EventRaising.cs" />
     <Compile Include="Examples\QuickStart.cs" />
     <Compile Include="Infrastructure\ICalculator.cs" />
-    <Compile Include="RaisingEvents.cs" />
     <Compile Include="RecursiveSubs.cs" />
     <Compile Include="SubbingForEventHandler.cs" />
     <Compile Include="PropertyBehaviour.cs" />
