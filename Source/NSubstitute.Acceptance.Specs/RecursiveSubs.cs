@@ -40,7 +40,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Can_override_a_recusrively_generated_sub()
+        public void Can_override_a_recursively_generated_sub()
         {
             var newIdentity = Substitute.For<IIdentity>();
             var context = Substitute.For<IContext>();
@@ -67,6 +67,17 @@ namespace NSubstitute.Acceptance.Specs
             context.GetRequest(10).Identity.Name = "Eric";
             Assert.That(context.GetRequest(10).Identity.Name, Is.EqualTo("Eric"));
             Assert.That(context.GetRequest(9).Identity.Name, Is.Null);
+        }
+
+        [Test]
+        public void Argument_matchers_with_recursive_stubs()
+        {
+            var context = Substitute.For<IContext>();
+            context.GetRequest(Arg.Is<int>(x => x < 10)).Identity.Name = "Eric";
+
+            Assert.That(context.GetRequest(1).Identity.Name, Is.EqualTo("Eric"));
+            Assert.That(context.GetRequest(2).Identity.Name, Is.EqualTo("Eric"));
+            Assert.That(context.GetRequest(99).Identity.Name, Is.Null);
         }
     }
 }
