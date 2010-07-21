@@ -10,7 +10,7 @@ def generate_docs
 	  cp original_file, new_file
 	  content = File.new(new_file,'r').read	
 	  
-	  replacement_tags = content.scan(/(\{CODE:.+\})/)
+	  replacement_tags = content.scan(/\{CODE:.+\}/)
 	  
 	  replacement_tags.each do |tag|
 		replacement_content = get_replacement(tag)
@@ -27,21 +27,22 @@ def to_html(text)
 end
 
 def get_replacement(tag)
-	print ":: Finding replacement for :: " + tag.to_s + "\r\n"
+	print ":: Finding replacement for :: " + tag + "\r\n"
 	source_files = FileList.new ["#{SOURCE_PATH}/NSubstitute.Acceptance.Specs/**/*.cs"]
 
 	location = nil
 	source_file = nil
-	Dir.glob(source_files).each do |source_file| 
+	Dir.glob(source_files).each do |file| 
+		source_file = file
 		file_content = File.new(source_file,'r').read
-		location = file_content.index(tag.to_s);
+		location = file_content.index(tag);
 		
 		break if (location != nil) 
 	end
 	
-	raise "Tag " + tag.to_s + " not found in source code" if (location == nil)
+	raise "Tag " + tag + " not found in source code" if (location == nil)
 	
-	replacement_content = extract_code_block(source_file, location + tag.to_s.length + 4) 
+	replacement_content = extract_code_block(source_file, location + tag.length + 4) 
 	## MUST FIX LENGTH TO MOVE ONTO NEXT LINE
 end
 
