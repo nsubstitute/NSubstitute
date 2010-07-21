@@ -1,4 +1,4 @@
-using Castle.Core.Interceptor;
+using Castle.DynamicProxy;
 using NSubstitute.Core;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy

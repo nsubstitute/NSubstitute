@@ -45,7 +45,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         private class IgnoreCallRouterCallsHook : IProxyGenerationHook
         {
             public bool ShouldInterceptMethod(Type type, MethodInfo methodInfo) { return type != typeof(ICallRouter); }
-            public void NonVirtualMemberNotification(Type type, MemberInfo memberInfo) { }
+            public void NonProxyableMemberNotification(Type type, MemberInfo memberInfo) { }
             public void MethodsInspected() { }
         }
 
