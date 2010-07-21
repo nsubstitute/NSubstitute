@@ -98,8 +98,8 @@ namespace NSubstitute
             if (defaultConstructor == null)
             {
                 var message = string.Format(
-                    "Cannot create arguments of type {0} for this event as {0} has no default constructor. " +
-                    "Provide arguments for this event by calling Raise.Event<{0}>(instanceOf{0})."
+                    "Cannot create {0} for this event as it has no default constructor. " +
+                    "Provide arguments for this event by calling Raise.Event(instanceOf{0})."
                     , type.Name);
                 throw new CannotCreateEventArgsException(message);
             }
