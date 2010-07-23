@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace NSubstitute.Acceptance.Specs
+namespace NSubstitute.Acceptance.Specs.Infrastructure
 {
+    public delegate void OverheatingEvent(int temperatureInCelcius);
+
     public interface IEngine
     {
         void Start();
@@ -17,6 +19,7 @@ namespace NSubstitute.Acceptance.Specs
         event EventHandler Stopped;
         event EventHandler<EventArgs> Broken;
         event EventHandler<LowFuelWarningEventArgs> LowFuelWarning;
+        event OverheatingEvent Overheating;
     }
 
     public class IdlingEventArgs : EventArgs

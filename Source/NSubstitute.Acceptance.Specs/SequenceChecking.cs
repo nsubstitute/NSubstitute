@@ -1,4 +1,5 @@
 ﻿using System;
+using NSubstitute.Acceptance.Specs.Infrastructure;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs

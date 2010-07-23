@@ -7,19 +7,19 @@ namespace NSubstitute
 {
     public static class Raise
     {
-        public static ActionWrapper<Action> Action()
+        public static RaiseWrapper<Action> Action()
         {
-            return new ActionWrapper<Action>();
+            return new RaiseWrapper<Action>();
         }
 
-        public static ActionWrapper<Action<T>> Action<T>(T argument)
+        public static RaiseWrapper<Action<T>> Action<T>(T argument)
         {
-            return new ActionWrapper<Action<T>>(argument);
+            return new RaiseWrapper<Action<T>>(argument);
         }
 
-        public static ActionWrapper<Action<T1, T2>> Action<T1, T2>(T1 argument1, T2 argument2)
+        public static RaiseWrapper<Action<T1, T2>> Action<T1, T2>(T1 argument1, T2 argument2)
         {
-            return new ActionWrapper<Action<T1, T2>>(argument1, argument2);
+            return new RaiseWrapper<Action<T1, T2>>(argument1, argument2);
         }
 
         public static EventHandlerWrapper<TEventArgs> Event<TEventArgs>(object sender, TEventArgs eventArgs) where TEventArgs : EventArgs
@@ -41,6 +41,11 @@ namespace NSubstitute
         {
             return new EventHandlerWrapper<EventArgs>();
         }
+
+        public static RaiseWrapper<T> Event<T>(params object[] arguments)
+        {
+            return new RaiseWrapper<T>(arguments);
+        }
     }
 
     public class EventHandlerWrapper<TEventArgs> where TEventArgs : EventArgs
@@ -48,11 +53,13 @@ namespace NSubstitute
         object _sender;
         readonly EventArgs _eventArgs;
 
-        public EventHandlerWrapper(): this(null, null)
+        public EventHandlerWrapper()
+            : this(null, null)
         {
         }
 
-        public EventHandlerWrapper(EventArgs eventArgs): this(null, eventArgs)
+        public EventHandlerWrapper(EventArgs eventArgs)
+            : this(null, eventArgs)
         {
         }
 
@@ -79,15 +86,15 @@ namespace NSubstitute
             var sender = wrapper._sender;
             var eventArgs = wrapper._eventArgs;
             var context = SubstitutionContext.Current;
-            context.RaiseEventForNextCall(delegate (ICall call)
+            context.RaiseEventForNextCall(delegate(ICall call)
                                               {
                                                   if (sender == null)
                                                       sender = call.Target();
-                                                  if (eventArgs == null) 
+                                                  if (eventArgs == null)
                                                       eventArgs = GetDefaultForEventArgType(typeof(TEventArgs));
 
 
-                                                  return new[]{sender, eventArgs};
+                                                  return new[] { sender, eventArgs };
                                               });
         }
 
@@ -103,7 +110,7 @@ namespace NSubstitute
                     , type.Name);
                 throw new CannotCreateEventArgsException(message);
             }
-            return (EventArgs) defaultConstructor.Invoke(new object[0]);
+            return (EventArgs)defaultConstructor.Invoke(new object[0]);
         }
 
         private static ConstructorInfo GetDefaultConstructor(Type type)
@@ -112,22 +119,22 @@ namespace NSubstitute
         }
     }
 
-    public class ActionWrapper<T>
+    public class RaiseWrapper<T>
     {
         readonly object[] _arguments;
 
-        public ActionWrapper(params object[] arguments)
+        public RaiseWrapper(params object[] arguments)
         {
             _arguments = arguments;
         }
 
-        public static implicit operator T(ActionWrapper<T> wrapper)
+        public static implicit operator T(RaiseWrapper<T> wrapper)
         {
             RaiseEvent(wrapper);
             return default(T);
         }
 
-        static void RaiseEvent(ActionWrapper<T> wrapper)
+        static void RaiseEvent(RaiseWrapper<T> wrapper)
         {
             var arguments = wrapper._arguments;
             var context = SubstitutionContext.Current;

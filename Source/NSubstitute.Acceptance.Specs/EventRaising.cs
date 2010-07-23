@@ -1,4 +1,5 @@
 using System;
+using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -156,6 +157,19 @@ namespace NSubstitute.Acceptance.Specs
             engine.PetrolTankFilled += Raise.Action(20, 80);
             Assert.That(initialPercent, Is.EqualTo(20));
             Assert.That(finalPercent, Is.EqualTo(80));
+        }
+
+        [Test]
+        public void Raise_event_declared_as_custom_delegate_type()
+        {
+            var temperature = 0;
+            var engine = Substitute.For<IEngine>();
+            engine.Overheating += x => temperature = x;
+
+
+            Assert.That(temperature, Is.EqualTo(0));
+            engine.Overheating += Raise.Event<OverheatingEvent>(87);
+            Assert.That(temperature, Is.EqualTo(87));
         }
 
         class RaisedEventRecorder<T>
