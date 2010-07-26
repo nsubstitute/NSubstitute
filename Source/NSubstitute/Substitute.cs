@@ -14,7 +14,7 @@ namespace NSubstitute
         /// can be recorded or have return values specified.</para>
         /// </summary>
         /// <typeparam name="T">The type of interface or class to substitute.</typeparam>
-        /// <param name="constructorArguments">Arguments required to construct a class being substituted. Not required for interfaces of classes with default constructors.</param>
+        /// <param name="constructorArguments">Arguments required to construct a class being substituted. Not required for interfaces or classes with default constructors.</param>
         /// <returns>A substitute for the interface or class.</returns>
         public static T For<T>(params object[] constructorArguments) 
             where T : class
