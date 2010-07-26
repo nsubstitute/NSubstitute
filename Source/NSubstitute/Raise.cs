@@ -7,21 +7,6 @@ namespace NSubstitute
 {
     public static class Raise
     {
-        public static RaiseWrapper<Action> Action()
-        {
-            return new RaiseWrapper<Action>();
-        }
-
-        public static RaiseWrapper<Action<T>> Action<T>(T argument)
-        {
-            return new RaiseWrapper<Action<T>>(argument);
-        }
-
-        public static RaiseWrapper<Action<T1, T2>> Action<T1, T2>(T1 argument1, T2 argument2)
-        {
-            return new RaiseWrapper<Action<T1, T2>>(argument1, argument2);
-        }
-
         public static EventHandlerWrapper<TEventArgs> Event<TEventArgs>(object sender, TEventArgs eventArgs) where TEventArgs : EventArgs
         {
             return new EventHandlerWrapper<TEventArgs>(sender, eventArgs);
@@ -42,9 +27,24 @@ namespace NSubstitute
             return new EventHandlerWrapper<EventArgs>();
         }
 
-        public static RaiseWrapper<T> Event<T>(params object[] arguments)
+        public static DelegateEventWrapper<T> Event<T>(params object[] arguments)
         {
-            return new RaiseWrapper<T>(arguments);
+            return new DelegateEventWrapper<T>(arguments);
+        }
+
+        public static DelegateEventWrapper<Action> Action()
+        {
+            return new DelegateEventWrapper<Action>();
+        }
+
+        public static DelegateEventWrapper<Action<T>> Action<T>(T argument)
+        {
+            return new DelegateEventWrapper<Action<T>>(argument);
+        }
+
+        public static DelegateEventWrapper<Action<T1, T2>> Action<T1, T2>(T1 argument1, T2 argument2)
+        {
+            return new DelegateEventWrapper<Action<T1, T2>>(argument1, argument2);
         }
     }
 
@@ -119,22 +119,22 @@ namespace NSubstitute
         }
     }
 
-    public class RaiseWrapper<T>
+    public class DelegateEventWrapper<T>
     {
         readonly object[] _arguments;
 
-        public RaiseWrapper(params object[] arguments)
+        public DelegateEventWrapper(params object[] arguments)
         {
             _arguments = arguments;
         }
 
-        public static implicit operator T(RaiseWrapper<T> wrapper)
+        public static implicit operator T(DelegateEventWrapper<T> wrapper)
         {
             RaiseEvent(wrapper);
             return default(T);
         }
 
-        static void RaiseEvent(RaiseWrapper<T> wrapper)
+        static void RaiseEvent(DelegateEventWrapper<T> wrapper)
         {
             var arguments = wrapper._arguments;
             var context = SubstitutionContext.Current;
