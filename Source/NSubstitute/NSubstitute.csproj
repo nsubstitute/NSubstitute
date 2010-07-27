@@ -50,7 +50,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\ThirdParty\Castle.Windsor.2.5.beta2\bin-NET35\Castle.Core.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Castle.Core-NET35-193\bin\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
