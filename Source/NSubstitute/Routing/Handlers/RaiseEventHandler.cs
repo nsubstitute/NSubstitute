@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
 using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
@@ -24,9 +26,29 @@ namespace NSubstitute.Routing.Handlers
             var eventArguments = _getEventArguments(call);
             foreach (Delegate handler in handlers)
             {
-                handler.DynamicInvoke(eventArguments);
+                try
+                {
+                    handler.DynamicInvoke(eventArguments);
+                }
+                catch (TargetInvocationException e)
+                {
+                    PreserveStackTrace(e.InnerException);
+
+                    throw e.InnerException;
+                }
             }
             return RouteAction.Continue();
+        }
+
+        private void PreserveStackTrace(Exception exception)
+        {
+            var context = new StreamingContext(StreamingContextStates.CrossAppDomain);
+            var objectManager = new ObjectManager(null, context);
+            var serializationInfo = new SerializationInfo(exception.GetType(), new FormatterConverter());
+
+            exception.GetObjectData(serializationInfo, context);
+            objectManager.RegisterObject(exception, 1, serializationInfo); 
+            objectManager.DoFixups();
         }
     }
 }

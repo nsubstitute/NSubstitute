@@ -172,6 +172,14 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(temperature, Is.EqualTo(87));
         }
 
+        [Test]
+        public void Raise_event_will_throw_same_exception_as_thrown_in_event_handler()
+        {
+            var engine = Substitute.For<IEngine>();
+            engine.LowFuelWarning += (sender, e) => { throw new Exception(); };
+            Assert.Throws<Exception>(() => engine.LowFuelWarning += Raise.Event(new LowFuelWarningEventArgs(5)));
+        }
+
         class RaisedEventRecorder<T>
         {
             public object Sender;

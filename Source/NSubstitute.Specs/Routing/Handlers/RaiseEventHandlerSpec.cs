@@ -11,45 +11,28 @@ namespace NSubstitute.Specs.Routing.Handlers
 {
     public class RaiseEventHandlerSpec
     {
-        public class When_raising_an_event_from_a_call : ConcernFor<RaiseEventHandler>
+        public abstract class Concern : ConcernFor<RaiseEventHandler>
         {
             private const string SampleEventName = "Sample";
-            IEventHandlerRegistry _eventHandlerRegistry;
-            EventHandler<EventArgs> _eventHandler;
-            ICall _call;
-            object[] _eventArguments;
-            Func<ICall, object[]> _getEventArguments;
-            IEnumerable<object> _handlers;
-            private RouteAction _result;
+            private IEventHandlerRegistry _eventHandlerRegistry;
+            private Func<ICall, object[]> _getEventArguments;
+            protected IList<object> _handlers;
 
-            [Test]
-            public void Should_raise_event_with_arguments()
-            {
-                _eventHandler.AssertWasCalled(x => x.Invoke(_eventArguments[0], (EventArgs) _eventArguments[1]));
-            }
-
-            [Test]
-            public void Should_continue_route()
-            {
-                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
-            }
-
-            public override void Because()
-            {
-                _result = sut.Handle(_call);
-            }
+            protected EventHandler<EventArgs> EventHandler;
+            protected object[] EventArguments;
+            protected ICall Call;
 
             public override void Context()
             {
                 var subscribeMethodInfo = typeof(SampleClassWithEvent).GetEvent(SampleEventName).GetAddMethod();
-                _call = CreateCall(subscribeMethodInfo, new object[0]);
+                Call = CreateCall(subscribeMethodInfo, new object[0]);
 
-                _eventArguments = new[] { new object(), EventArgs.Empty };
-                _getEventArguments = mock <Func<ICall, object[]>>();
-                _getEventArguments.stub(x => x(_call)).Return(_eventArguments);
+                EventArguments = new[] { new object(), EventArgs.Empty };
+                _getEventArguments = mock<Func<ICall, object[]>>();
+                _getEventArguments.stub(x => x(Call)).Return(EventArguments);
 
-                _eventHandler = mock<EventHandler<EventArgs>>();
-                _handlers = new object[] { _eventHandler };
+                EventHandler = mock<EventHandler<EventArgs>>();
+                _handlers = new object[] { EventHandler };
                 _eventHandlerRegistry = mock<IEventHandlerRegistry>();
                 _eventHandlerRegistry.Stub(x => x.GetHandlers(SampleEventName)).Return(_handlers);
             }
@@ -65,6 +48,44 @@ namespace NSubstitute.Specs.Routing.Handlers
                 call.stub(x => x.GetMethodInfo()).Return(subscribeMethodInfo);
                 call.stub(x => x.GetArguments()).Return(arguments);
                 return call;
+            }
+        }
+
+        public class When_raising_an_event_from_a_call : Concern
+        {
+            private RouteAction _result;
+
+            [Test]
+            public void Should_raise_event_with_arguments()
+            {
+                EventHandler.AssertWasCalled(x => x.Invoke(EventArguments[0], (EventArgs) EventArguments[1]));
+            }
+
+            [Test]
+            public void Should_continue_route()
+            {
+                Assert.That(_result, Is.SameAs(RouteAction.Continue()));
+            }
+
+            public override void Because()
+            {
+                _result = sut.Handle(Call);
+            }
+        }
+
+        public class When_raising_an_event_and_event_handler_throws_an_exception : Concern
+        {
+            public override void Context()
+            {
+                base.Context();
+                EventHandler handler = (sender, eventArgs) => { throw new Exception(); };
+                _handlers[0] = handler;
+            }
+
+            [Test]
+            public void Should_throw_original_exception()
+            {
+                Assert.Throws<Exception>(() => sut.Handle(Call));
             }
         }
 
