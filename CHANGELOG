@@ -1,8 +1,16 @@
+unreleased
+* [NEW] Support auto/recursive substituting for members that return interfaces.
+* [NEW] Raise.Event<TEventArgs>() will now attempt to construct arguments with default ctors, so in most cases they will not need to be explictly provided.
+* [UPDATE] Added support for raising events with custom delegate types.
+* [UPDATE] Formatting for event subscription and unsubscription calls in call received/not received exceptions.
+* [UPDATE] Updated to pre-release build of Castle.Core 2.5 to get dynamic proxy to support modopts.
+* [FIX] Throw correct exception when raising an event and event handler throws. (Fix by Rodrigo Perera)
+
 0.1.2 alpha 3
 * [NEW] Marked non-matching parameters in the actual calls listed for CallNotReceivedException messages.
 * [NEW] Added WhenForAnyArgs..Do syntax for callbacks.
 * [UPDATE] Updated arg matching to be smarter when matchers are not used for all args.
-* [FIX] Fixed bug when substituting for delegates with multiple parameters
+* [FIX] Fixed bug when substituting for delegates with multiple parameters.
 * [FIX] Removed redundant cast operator which sometimes caused the compiler trouble in resolving Raise.Event().
 
 0.1.1 alpha 2
