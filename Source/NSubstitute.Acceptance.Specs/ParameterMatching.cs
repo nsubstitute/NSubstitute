@@ -86,6 +86,20 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Add(10, 5), Is.EqualTo(1));
         }
 
+        [Test]
+        [Pending]
+        public void Received_should_compare_elements_for_params_arguments()
+        {
+            const string first = "first";
+            const string second = "second";
+            _something.WithParams(1, first, second);
+
+            _something.Received().WithParams(1, first, second);
+            _something.Received().WithParams(1, new[] {first, second});
+            _something.DidNotReceive().WithParams(2, first, second);
+            _something.DidNotReceive().WithParams(1, first, first);
+        }
+
         [SetUp]
         public void SetUp()
         {
