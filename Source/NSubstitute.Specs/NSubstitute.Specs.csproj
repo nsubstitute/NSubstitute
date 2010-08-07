@@ -103,6 +103,7 @@
     <Compile Include="PropertyHelperSpecs.cs" />
     <Compile Include="ReceivedExtensionSpec.cs" />
     <Compile Include="Routing\Handlers\RecordCallHandlerSpecs.cs" />
+    <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnConfiguredResultHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnDefaultForReturnTypeHandlerSpecs.cs" />
     <Compile Include="ReturnExtensionSpec.cs" />
