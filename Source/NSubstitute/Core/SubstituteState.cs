@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute.Routing.AutoValues;
 
 namespace NSubstitute.Core
 {
@@ -15,6 +16,7 @@ namespace NSubstitute.Core
 
         public static SubstituteState Create(ISubstitutionContext substitutionContext)
         {
+            var substituteFactory = substitutionContext.GetSubstituteFactory();
             var callInfoFactory = new CallInfoFactory();
             var callStack = new CallStack();
             var callResults = new CallResults(callInfoFactory);
@@ -35,7 +37,8 @@ namespace NSubstitute.Core
                 new EventHandlerRegistry(),
                 new CallNotReceivedExceptionThrower(callFormatter),
                 new CallReceivedExceptionThrower(callFormatter),
-                new DefaultForType()
+                new DefaultForType(),
+                new[] { new AutoSubstituteProvider(substituteFactory) }
             };
 
             return new SubstituteState(state);

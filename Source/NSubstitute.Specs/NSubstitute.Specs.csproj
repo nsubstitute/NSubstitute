@@ -111,7 +111,6 @@
     <Compile Include="CallRouterSpecs.cs" />
     <Compile Include="ResultSetterSpecs.cs" />
     <Compile Include="RouteFactorySpecs.cs" />
-    <Compile Include="Routing\Handlers\ReturnNewSubstituteForTypeHandlerSpecs.cs" />
     <Compile Include="Routing\RouteSpecs.cs" />
     <Compile Include="Routing\Handlers\SetActionsForCallHandlerSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />

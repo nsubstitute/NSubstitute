@@ -79,7 +79,6 @@
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
     <Compile Include="Routing\AutoValues\IAutoValueProvider.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
-    <Compile Include="Routing\Handlers\ReturnNewSubstituteForTypeHandler.cs" />
     <Compile Include="Routing\IRouteDefinition.cs" />
     <Compile Include="Core\MatchArgs.cs" />
     <Compile Include="Core\ArgumentFormatter.cs" />

@@ -30,7 +30,8 @@ namespace NSubstitute.Specs.Routing.Definitions
                 { typeof(RecordReplayRoute),
                     new[] { typeof (EventSubscriptionHandler), typeof (PropertySetterHandler),
                             typeof (DoActionsCallHandler), typeof (RecordCallHandler), 
-                            typeof (ReturnConfiguredResultHandler), typeof(ReturnNewSubstituteForTypeHandler), typeof(ReturnDefaultForReturnTypeHandler) }
+                            typeof (ReturnConfiguredResultHandler), typeof(ReturnAutoValueForThisAndSubsequentCallsHandler), 
+                            typeof(ReturnDefaultForReturnTypeHandler) }
                     },
             };
 
