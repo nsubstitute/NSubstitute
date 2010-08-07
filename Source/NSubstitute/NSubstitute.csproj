@@ -76,6 +76,7 @@
     <Compile Include="Core\IMethodInfoFormatter.cs" />
     <Compile Include="Core\ISubstituteState.cs" />
     <Compile Include="Exceptions\CannotCreateEventArgsException.cs" />
+    <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
     <Compile Include="Routing\AutoValues\IAutoValueProvider.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />

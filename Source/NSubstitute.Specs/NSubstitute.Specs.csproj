@@ -90,6 +90,7 @@
     <Compile Include="ReceivedWithAnyArgsExtensionSpec.cs" />
     <Compile Include="ReflectionExtensionsSpecs.cs" />
     <Compile Include="CallHandlerFactorySpecs.cs" />
+    <Compile Include="Routing\AutoValues\AutoStringProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProviderSpecs.cs" />
     <Compile Include="Routing\Definitions\RouteDefininitionSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckDidNotReceiveCallHandlerSpecs.cs" />
