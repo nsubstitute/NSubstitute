@@ -1,5 +1,6 @@
 unreleased
 * [NEW] Support auto/recursive substituting for members that return interfaces.
+* [NEW] Support auto substituting for members that return arrays and strings (return empty values rather than null).
 * [NEW] Raise.Event<TEventArgs>() will now attempt to construct arguments with default ctors, so in most cases they will not need to be explictly provided.
 * [UPDATE] Added support for raising events with custom delegate types.
 * [UPDATE] Formatting for event subscription and unsubscription calls in call received/not received exceptions.
