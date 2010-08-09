@@ -12,6 +12,7 @@ namespace NSubstitute.Acceptance.Specs.Infrastructure
         void Idle();
         void RevAt(int rpm);
         void FillPetrolTankTo(int percent);
+        float GetCapacityInLitres();
         event Action Started;
         event Action<int> RevvedAt;
         event Action<int, int> PetrolTankFilled;

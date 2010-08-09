@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
@@ -88,6 +89,16 @@ namespace NSubstitute.Acceptance.Specs
             var callNames = calls.Select(x => x.GetMethodInfo().Name);
             Assert.That(callNames, Has.Member("Rev"));
             Assert.That(callNames, Has.Member("RevAt"));
+        }
+
+        [Test]
+        public void Should_receive_call_even_when_call_is_stubbed_to_throw_an_exception()
+        {
+            _engine.GetCapacityInLitres().Returns(x => { throw new InvalidOperationException(); });
+
+            try { _engine.GetCapacityInLitres(); } catch { }
+
+            _engine.Received().GetCapacityInLitres();
         }
 
         [SetUp]
