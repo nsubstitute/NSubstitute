@@ -38,7 +38,7 @@ namespace NSubstitute.Core
                 new CallNotReceivedExceptionThrower(callFormatter),
                 new CallReceivedExceptionThrower(callFormatter),
                 new DefaultForType(),
-                new IAutoValueProvider[] { new AutoSubstituteProvider(substituteFactory), new AutoStringProvider()}
+                new IAutoValueProvider[] { new AutoSubstituteProvider(substituteFactory), new AutoStringProvider(), new AutoArrayProvider()}
             };
 
             return new SubstituteState(state);

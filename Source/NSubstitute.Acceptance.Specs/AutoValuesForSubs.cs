@@ -23,7 +23,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Should_auto_return_empty_array()
         {
             Assert.That(_sample.GetNumbers().Length, Is.EqualTo(0));
