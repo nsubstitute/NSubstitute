@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace NSubstitute.Core
@@ -10,5 +11,6 @@ namespace NSubstitute.Core
         object[] GetArguments();
         object Target();
         Type[] GetParameterTypes();
+        IList<IArgumentSpecification> GetArgumentSpecifications();
     }
 }

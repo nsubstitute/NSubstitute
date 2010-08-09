@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -51,6 +52,7 @@ namespace NSubstitute.Core
             public object[] GetArguments() { return _arguments; }
             public object Target() { return _target; }
             public Type[] GetParameterTypes() { return _parameterTypes; }
+            public IList<IArgumentSpecification> GetArgumentSpecifications() { return new List<IArgumentSpecification>(); }
         }
     }
 }

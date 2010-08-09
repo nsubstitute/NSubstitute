@@ -66,7 +66,7 @@ namespace NSubstitute.Acceptance.Specs
             var context = Substitute.For<IContext>();
             context.GetRequest(10).Identity.Name = "Eric";
             Assert.That(context.GetRequest(10).Identity.Name, Is.EqualTo("Eric"));
-            Assert.That(context.GetRequest(9).Identity.Name, Is.Null);
+            Assert.That(context.GetRequest(9).Identity.Name, Is.Not.EqualTo("Eric"));
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(context.GetRequest(1).Identity.Name, Is.EqualTo("Eric"));
             Assert.That(context.GetRequest(2).Identity.Name, Is.EqualTo("Eric"));
-            Assert.That(context.GetRequest(99).Identity.Name, Is.Null);
+            Assert.That(context.GetRequest(99).Identity.Name, Is.Not.EqualTo("Eric"));
         }
     }
 }

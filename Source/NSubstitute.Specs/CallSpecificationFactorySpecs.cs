@@ -12,7 +12,6 @@ namespace NSubstitute.Specs
         public class When_creating_a_specification : ConcernFor<CallSpecificationFactory>
         {
             ICall _call;
-            ISubstitutionContext _context;
             IArgumentSpecificationFactory _argumentSpecificationFactory;
             IArgumentSpecification[] _argSpecsFromFactory;
             ICallSpecification _result;
@@ -25,15 +24,13 @@ namespace NSubstitute.Specs
                 var arguments = new[] { new object() };
 
                 _call = CreateStubCall(methodInfo, arguments);
-                
-                _context = mock<ISubstitutionContext>();
-                _context.stub(x => x.DequeueAllArgumentSpecifications()).Return(mock<IList<IArgumentSpecification>>());
+                _call.stub(x => x.GetArgumentSpecifications()).Return(mock<IList<IArgumentSpecification>>());
                 
                 _argumentSpecificationFactory = mock<IArgumentSpecificationFactory>();
                 _argSpecsFromFactory = new[] { mock<IArgumentSpecification>(), mock<IArgumentSpecification>() };
                 _argumentSpecificationFactory
                     .Stub(x => x.Create(
-                                _context.DequeueAllArgumentSpecifications(), 
+                                _call.GetArgumentSpecifications(), 
                                 _call.GetArguments(), 
                                 _call.GetParameterTypes(),
                                 _argMatching))
@@ -42,7 +39,7 @@ namespace NSubstitute.Specs
 
             public override CallSpecificationFactory CreateSubjectUnderTest()
             {
-                return new CallSpecificationFactory(_context, _argumentSpecificationFactory);
+                return new CallSpecificationFactory(_argumentSpecificationFactory);
             }
 
             public override void Because()
@@ -88,6 +85,7 @@ namespace NSubstitute.Specs
                 var call = mock<ICall>();
                 call.stub(x => x.GetMethodInfo()).Return(methodInfo);
                 call.stub(x => x.GetArguments()).Return(arguments);
+                call.stub(x => x.GetArgumentSpecifications()).Return(mock<IList<IArgumentSpecification>>());
                 return call;
             }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -10,6 +11,7 @@ namespace NSubstitute.Core
         private object[] _arguments;
         private object _target;
         private readonly Type[] _parameterTypes;
+        private IList<IArgumentSpecification> _argumentSpecifications;
 
         public Call(MethodInfo methodInfo, object[] arguments, object target): this(methodInfo, arguments, target, null)
         {}
@@ -20,6 +22,7 @@ namespace NSubstitute.Core
             _arguments = arguments;
             _target = target;
             _parameterTypes = parameterTypes ?? GetParameterTypesFrom(_methodInfo);
+            _argumentSpecifications = SubstitutionContext.Current.DequeueAllArgumentSpecifications();
         }
 
         private Type[] GetParameterTypesFrom(MethodInfo methodInfo)
@@ -32,6 +35,11 @@ namespace NSubstitute.Core
         public Type[] GetParameterTypes()
         {
             return _parameterTypes;
+        }
+
+        public IList<IArgumentSpecification> GetArgumentSpecifications()
+        {
+            return _argumentSpecifications;
         }
 
         public Type GetReturnType()

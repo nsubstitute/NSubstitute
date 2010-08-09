@@ -20,7 +20,7 @@ namespace NSubstitute.Core
             var callInfoFactory = new CallInfoFactory();
             var callStack = new CallStack();
             var callResults = new CallResults(callInfoFactory);
-            var callSpecificationFactory = new CallSpecificationFactory(substitutionContext, new ArgumentSpecificationFactory(new MixedArgumentSpecificationFactory()));
+            var callSpecificationFactory = new CallSpecificationFactory(new ArgumentSpecificationFactory(new MixedArgumentSpecificationFactory()));
 
             var callFormatter = new CallFormatter(new ArgumentsFormatter(new ArgumentFormatter()));
 
@@ -30,7 +30,7 @@ namespace NSubstitute.Core
                 callStack,
                 callResults,
                 callSpecificationFactory,
-                substitutionContext.GetSubstituteFactory(),
+                substituteFactory,
                 new CallActions(),
                 new PropertyHelper(),
                 new ResultSetter(callStack, callResults, callSpecificationFactory),
@@ -38,7 +38,7 @@ namespace NSubstitute.Core
                 new CallNotReceivedExceptionThrower(callFormatter),
                 new CallReceivedExceptionThrower(callFormatter),
                 new DefaultForType(),
-                new[] { new AutoSubstituteProvider(substituteFactory) }
+                new IAutoValueProvider[] { new AutoSubstituteProvider(substituteFactory), new AutoStringProvider()}
             };
 
             return new SubstituteState(state);
