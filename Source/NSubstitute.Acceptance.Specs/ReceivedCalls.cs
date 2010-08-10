@@ -96,9 +96,23 @@ namespace NSubstitute.Acceptance.Specs
         {
             _engine.GetCapacityInLitres().Returns(x => { throw new InvalidOperationException(); });
 
-            try { _engine.GetCapacityInLitres(); } catch { }
+            var exceptionThrown = false;
+            try { _engine.GetCapacityInLitres(); } catch { exceptionThrown = true; }
 
             _engine.Received().GetCapacityInLitres();
+            Assert.That(exceptionThrown, "An exception should have been thrown for this to actually test whether calls that throw exceptions are received.");
+        }
+
+        [Test]
+        public void Should_receive_call_when_a_callback_for_call_throws_an_exception()
+        {
+            _engine.When(x => x.Rev()).Do(x => { throw new InvalidOperationException(); });
+
+            var exceptionThrown = false;
+            try { _engine.Rev(); } catch { exceptionThrown = true; } 
+
+            _engine.Received().Rev();
+            Assert.That(exceptionThrown, "An exception should have been thrown for this to actually test whether calls that throw exceptions are received.");
         }
 
         [SetUp]
