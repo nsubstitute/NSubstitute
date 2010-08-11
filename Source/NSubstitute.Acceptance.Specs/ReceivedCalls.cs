@@ -10,11 +10,19 @@ namespace NSubstitute.Acceptance.Specs
     public class ReceivedCalls
     {
         private IEngine _engine;
-        private int _rpm;
+        const int _rpm = 7000;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _engine = Substitute.For<IEngine>();
+        }
 
         [Test]
         public void Check_when_call_was_received()
         {
+            _engine.Rev();
+
             _engine.Received().Rev();
         }
 
@@ -29,12 +37,16 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Check_call_was_received_with_expected_argument()
         {
+            _engine.RevAt(_rpm);
+
             _engine.Received().RevAt(_rpm);
         }
 
         [Test]
         public void Throw_when_expected_call_was_received_with_different_argument()
         {
+            _engine.RevAt(_rpm);
+
             Assert.Throws<CallNotReceivedException>(() =>
                     _engine.Received().RevAt(_rpm + 2)
                 );
@@ -43,12 +55,16 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Check_that_a_call_was_not_received()
         {
+            _engine.RevAt(_rpm);
+
             _engine.DidNotReceive().RevAt(_rpm + 2); 
         }
 
         [Test]
         public void Throw_when_a_call_was_not_expected_to_be_received()
         {
+            _engine.RevAt(_rpm);
+
             Assert.Throws<CallReceivedException>(() =>
                 _engine.DidNotReceive().RevAt(_rpm)
                 );
@@ -57,6 +73,8 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Check_call_received_with_any_arguments()
         {
+            _engine.RevAt(_rpm);
+
             _engine.ReceivedWithAnyArgs().RevAt(_rpm + 100); 
         }
 
@@ -77,6 +95,8 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Throw_when_call_was_not_expected_to_be_received_with_any_combination_of_arguments()
         {
+            _engine.RevAt(_rpm);
+
             Assert.Throws<CallReceivedException>(() =>
                 _engine.DidNotReceiveWithAnyArgs().RevAt(0)
                 );
@@ -85,6 +105,9 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Get_all_received_calls()
         {
+            _engine.Rev();
+            _engine.RevAt(_rpm);
+
             var calls = _engine.ReceivedCalls();
             var callNames = calls.Select(x => x.GetMethodInfo().Name);
             Assert.That(callNames, Has.Member("Rev"));
@@ -114,16 +137,5 @@ namespace NSubstitute.Acceptance.Specs
             _engine.Received().Rev();
             Assert.That(exceptionThrown, "An exception should have been thrown for this to actually test whether calls that throw exceptions are received.");
         }
-
-        [SetUp]
-        public void SetUp()
-        {
-            _rpm = 7000;
-            _engine = Substitute.For<IEngine>();
-            _engine.Rev();
-            _engine.RevAt(_rpm);
-        }
-
     }
-
 }

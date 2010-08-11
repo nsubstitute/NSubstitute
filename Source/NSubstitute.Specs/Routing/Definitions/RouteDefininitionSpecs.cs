@@ -28,8 +28,8 @@ namespace NSubstitute.Specs.Routing.Definitions
                     new[] {typeof (RaiseEventHandler), typeof (ReturnDefaultForReturnTypeHandler) }
                     },
                 { typeof(RecordReplayRoute),
-                    new[] { typeof (EventSubscriptionHandler), typeof (PropertySetterHandler),
-                            typeof (DoActionsCallHandler), typeof (RecordCallHandler), 
+                    new[] { typeof (RecordCallHandler), typeof (EventSubscriptionHandler), 
+                            typeof (PropertySetterHandler), typeof (DoActionsCallHandler),
                             typeof (ReturnConfiguredResultHandler), typeof(ReturnAutoValueForThisAndSubsequentCallsHandler), 
                             typeof(ReturnDefaultForReturnTypeHandler) }
                     },

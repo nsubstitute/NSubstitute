@@ -6,6 +6,7 @@ unreleased
 * [UPDATE] Formatting for event subscription and unsubscription calls in call received/not received exceptions.
 * [UPDATE] Updated to pre-release build of Castle.Core 2.5 to get dynamic proxy to support modopts.
 * [FIX] Throw correct exception when raising an event and event handler throws. (Fix by Rodrigo Perera)
+* [FIX] Record call as received when it throws an exception from the When..Do callback.
 
 0.1.2 alpha 3
 * [NEW] Marked non-matching parameters in the actual calls listed for CallNotReceivedException messages.
