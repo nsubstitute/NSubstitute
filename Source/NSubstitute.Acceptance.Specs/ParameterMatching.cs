@@ -100,6 +100,18 @@ namespace NSubstitute.Acceptance.Specs
             _something.DidNotReceive().WithParams(1, first, first);
         }
 
+        [Test]
+        [Pending]
+        public void Resolve_setter_arg_matcher_with_more_specific_type_than_member_signature()
+        {
+            const string value = "some string";
+            const string key = "key";
+
+            _something[key] = value;
+
+            _something.Received()[key] = Arg.Is(value);
+        }
+
         [SetUp]
         public void SetUp()
         {
