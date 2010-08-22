@@ -1,0 +1,67 @@
+v2.5
+- Merged project into Castle.Core.dll
+- Moved project to Core repository
+
+V1.1
+====
+
+- Group meta and instance properties together
+
+- Standardize edit and non-edit mode with notifications
+
+- Visit children properties to determine if changed
+
+- Use standard IChangeTracking to identify dirty
+
+- Added Validation group support
+
+- Added more fine-grained fetching strategy
+
+- Support multiple validators simulatenously
+
+- Added mult-level editing capability
+
+- Added dynamic property value resolution
+
+- Added on-demand property resolution
+
+- Added editable collection support
+
+- Added support for creating additional adapters from existing adapter
+
+- Added PropertyDescriptor initialization hook
+
+- Added nested property notification (with progagation)
+
+- Added DictionaryAdapter initialization hook
+
+- Added support for IDataErrorInfo
+
+- Simplied internals and added support for IEditableObject
+
+- Added support for INotifyPropertyChanged
+
+
+RC 4
+====
+ 
+- Resolved COMP-ISSUE-105 to allow properties to be redefined to add write access
+
+- Added IDictionaryAdapterMeta mixin to all generated adapters to expose meta
+  data information.
+
+- Added DictionaryTypeKeyPrefixAttribute to use the interface type for scoping
+
+- Added DictionaryStringListAttribute to support delimited string conversion
+
+- Created PropertyDescriptor to simplify IL generation
+
+- Refactored to generalize property getting and setting
+
+- Refactored to support general-purpose key modifications
+
+- Applied patch from Lee Henson allowing Types to inherit or override prefixes using [DictionaryAdapterKeyPrefix()].
+
+- Return default(T) for value type properties not in the dictionary
+
+- Moved for CastleContrib/Castle.Tools.CodeGenerator
