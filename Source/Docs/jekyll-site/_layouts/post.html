@@ -11,7 +11,7 @@ layout: default
   <h2>Related</h2>
   <ul class="posts">
     {% for post in site.related_posts limit:3 %}
-      <li>><a href="{{ post.url }}">{{ post.title }}</a></li>
+      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
   </ul>
 </div>
