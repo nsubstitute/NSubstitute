@@ -47,7 +47,33 @@ Assert.IsInstanceOf<ISomeInterface>(substitute);
 Assert.IsInstanceOf<SomeClassWithCtorArgs>(substitute);
 {% endhighlight %}
 
+{% requiredcode %}
+public interface ISomeInterface { }
+public abstract class SomeClassWithCtorArgs
+{
+	protected SomeClassWithCtorArgs(int anInt, string aString) { }
+}
 
+public interface ICommand
+{
+	void Execute();
+}
+
+public class CommandRunner
+{
+	private readonly ICommand _command;
+	public CommandRunner(ICommand command)
+	{
+		_command = command;
+	}
+
+	public void RunCommand()
+	{
+		_command.Execute();
+		if (_command is IDisposable) ((IDisposable)_command).Dispose();
+	}
+}
+{% endrequiredcode %}
 
 
 
