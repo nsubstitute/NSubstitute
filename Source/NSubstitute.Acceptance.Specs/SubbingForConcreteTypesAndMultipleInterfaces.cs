@@ -59,8 +59,31 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(sub.IntFromCtorArg, Is.EqualTo(expectedInt)); 
         }
 
+        [Test]
+        public void Sub_for_inherited_interfaces()
+        {
+            var sub = Substitute.For<IFirstAndSecond>();
+            sub.Second();
+            sub.Received().Second();
+        }
+
+        [Test]
+        public void Sub_for_interface_with_inherited_generic_interface()
+        {
+            var sub = Substitute.For<IInheritFromAGenericInterface>();
+            sub.Other().Returns(11);
+
+            var result = sub.Other();
+
+            Assert.That(result, Is.EqualTo(11));
+            sub.Received().Other();
+        }
+
         public interface IFirst { int First(); }
         public interface ISecond { int Second(); }
+        public interface IFirstAndSecond : IFirst, ISecond { }
+        public interface IOtherInterface<T> { T Other(); }
+        public interface IInheritFromAGenericInterface : IOtherInterface<int> { };
         public class One { public virtual int Number() { return 1; } }
         public class Two { public virtual int AnotherNumber() { return 2; } }
         public class Partial
