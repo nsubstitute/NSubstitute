@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Routing.AutoValues;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
@@ -20,7 +21,7 @@ namespace NSubstitute.Core
             var callInfoFactory = new CallInfoFactory();
             var callStack = new CallStack();
             var callResults = new CallResults(callInfoFactory);
-            var callSpecificationFactory = new CallSpecificationFactory(new ArgumentSpecificationFactory(new MixedArgumentSpecificationFactory()));
+            var callSpecificationFactory = NewCallSpecificationFactory();
 
             var callFormatter = new CallFormatter(new ArgumentsFormatter(new ArgumentFormatter()));
 
@@ -42,6 +43,54 @@ namespace NSubstitute.Core
             };
 
             return new SubstituteState(state);
+        }
+
+        private static IDefaultChecker NewDefaultChecker()
+        {
+            return new DefaultChecker(new DefaultForType());
+        }
+
+        private static IParamsArgumentSpecificationFactory NewParamsArgumentSpecificationFactory()
+        {
+            return 
+                new ParamsArgumentSpecificationFactory(
+                    NewDefaultChecker(),
+                    new ArgumentEqualsSpecificationFactory(),
+                    new ArrayArgumentSpecificationsFactory(
+                        new NonParamsArgumentSpecificationFactory(
+                            NewDefaultChecker(),
+                            new ArgumentEqualsSpecificationFactory()
+                        )
+                    ),
+                    new ParameterInfosFromParamsArrayFactory(),
+                    new SuppliedArgumentSpecificationsFactory(),
+                    new ArrayContentsArgumentSpecificationFactory()
+                );
+        }
+
+        private static INonParamsArgumentSpecificationFactory NewNonParamsArgumentSpecificationFactory()
+        {
+            return
+                new NonParamsArgumentSpecificationFactory(
+                    NewDefaultChecker(),
+                    new ArgumentEqualsSpecificationFactory()
+                );
+        }
+
+        private static ICallSpecificationFactory NewCallSpecificationFactory()
+        {
+            return 
+                new CallSpecificationFactory(
+                    new ArgumentSpecificationsFactory(
+                        new MixedArgumentSpecificationsFactory(
+                            new ArgumentSpecificationFactory(
+                                NewParamsArgumentSpecificationFactory(),
+                                NewNonParamsArgumentSpecificationFactory()
+                            ),
+                            new SuppliedArgumentSpecificationsFactory()
+                        )
+                    )
+                );
         }
 
         public object FindInstanceFor(Type type, object[] additionalArguments)

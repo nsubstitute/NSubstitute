@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
@@ -10,31 +11,31 @@ namespace NSubstitute.Core
         private MethodInfo _methodInfo;
         private object[] _arguments;
         private object _target;
-        private readonly Type[] _parameterTypes;
+        private readonly IParameterInfo[] _parameterInfos;
         private IList<IArgumentSpecification> _argumentSpecifications;
 
         public Call(MethodInfo methodInfo, object[] arguments, object target): this(methodInfo, arguments, target, null)
         {}
 
-        public Call(MethodInfo methodInfo, object[] arguments, object target, Type[] parameterTypes)
+        public Call(MethodInfo methodInfo, object[] arguments, object target, IParameterInfo[] parameterInfos)
         {
             _methodInfo = methodInfo;
             _arguments = arguments;
             _target = target;
-            _parameterTypes = parameterTypes ?? GetParameterTypesFrom(_methodInfo);
+            _parameterInfos = parameterInfos ?? GetParameterInfosFrom(_methodInfo);
             _argumentSpecifications = SubstitutionContext.Current.DequeueAllArgumentSpecifications();
         }
 
-        private Type[] GetParameterTypesFrom(MethodInfo methodInfo)
+        private IParameterInfo[] GetParameterInfosFrom(MethodInfo methodInfo)
         {
             var parameters = methodInfo.GetParameters();
-            if (parameters == null) return new Type[0];
-            return parameters.Select(x => x.ParameterType).ToArray();
+            if (parameters == null) return new IParameterInfo[0];
+            return parameters.Select(x => new ParameterInfoWrapper(x)).ToArray();
         }
 
-        public Type[] GetParameterTypes()
+        public IParameterInfo[] GetParameterInfos()
         {
-            return _parameterTypes;
+            return _parameterInfos;
         }
 
         public IList<IArgumentSpecification> GetArgumentSpecifications()

@@ -1,35 +1,39 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace NSubstitute.Specs
+namespace NSubstitute.Specs.Arguments
 {
-    public class ArgumentSpecificationFactorySpecs
+    public class ArgumentSpecificationsFactorySpecs
     {
-        public abstract class BaseConcern : ConcernFor<ArgumentSpecificationFactory>
+        public abstract class BaseConcern : ConcernFor<ArgumentSpecificationsFactory>
         {
             protected IList<IArgumentSpecification> _argumentSpecifications;
             protected object[] _arguments;
-            protected Type[] _parameterTypes;
             protected MatchArgs _matchArgs;
-            protected IMixedArgumentSpecificationFactory _mixedArgumentSpecificationFactory;
+            protected IMixedArgumentSpecificationsFactory MixedArgumentSpecificationsFactory;
+            protected IParameterInfo[] _parameterInfos;
 
             public override void Context()
             {
                 base.Context();
                 _arguments = new object[] { 1, "fred", "harry" };
-                _parameterTypes = _arguments.Select(x => x.GetType()).ToArray();
+                _parameterInfos = new[] { mock<IParameterInfo>(), mock<IParameterInfo>(), mock<IParameterInfo>() };
+                _parameterInfos[0].stub(x => x.ParameterType).Return(_arguments[0].GetType());
+                _parameterInfos[1].stub(x => x.ParameterType).Return(_arguments[1].GetType());
+                _parameterInfos[2].stub(x => x.ParameterType).Return(_arguments[2].GetType());
                 _argumentSpecifications = new List<IArgumentSpecification>();
-                _mixedArgumentSpecificationFactory = mock<IMixedArgumentSpecificationFactory>();
+                MixedArgumentSpecificationsFactory = mock<IMixedArgumentSpecificationsFactory>();
             }
 
-            public override ArgumentSpecificationFactory CreateSubjectUnderTest()
+            public override ArgumentSpecificationsFactory CreateSubjectUnderTest()
             {
-                return new ArgumentSpecificationFactory(_mixedArgumentSpecificationFactory);
+                return new ArgumentSpecificationsFactory(MixedArgumentSpecificationsFactory);
             }
         }
 
@@ -39,9 +43,9 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Create(_argumentSpecifications, _arguments, _parameterTypes, _matchArgs);
+                _result = sut.Create(_argumentSpecifications, _arguments, _parameterInfos, _matchArgs);
             }
-            
+
             [Test]
             public void Should_have_specifications_for_all_arguments()
             {
@@ -56,7 +60,7 @@ namespace NSubstitute.Specs
                 base.Context();
                 foreach (var argument in _arguments)
                 {
-                    _argumentSpecifications.Add(mock<IArgumentSpecification>());                    
+                    _argumentSpecifications.Add(mock<IArgumentSpecification>());
                 }
             }
 
@@ -74,15 +78,15 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Create(_argumentSpecifications, _arguments, _parameterTypes, _matchArgs);
+                _result = sut.Create(_argumentSpecifications, _arguments, _parameterInfos, _matchArgs);
             }
 
             public override void Context()
             {
                 base.Context();
                 _mixedArgumentSpecs = mock<IEnumerable<IArgumentSpecification>>();
-                _mixedArgumentSpecificationFactory.Stub(
-                    x => x.Create(_argumentSpecifications, _arguments, _parameterTypes)).Return(_mixedArgumentSpecs);
+                MixedArgumentSpecificationsFactory.Stub(
+                    x => x.Create(_argumentSpecifications, _arguments, _parameterInfos)).Return(_mixedArgumentSpecs);
             }
 
             [Test]
@@ -99,7 +103,7 @@ namespace NSubstitute.Specs
                 base.Context();
                 var argumentSpecification = mock<IArgumentSpecification>();
                 Type t;
-                argumentSpecification.stub(x => t = x.ForType).Return(_parameterTypes[0]);
+                argumentSpecification.stub(x => t = x.ForType).Return(_parameterInfos[0].ParameterType);
                 _argumentSpecifications.Add(argumentSpecification);
             }
         }

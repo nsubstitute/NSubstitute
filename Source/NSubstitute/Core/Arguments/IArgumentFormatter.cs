@@ -1,4 +1,4 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core.Arguments
 {
     public interface IArgumentFormatter
     {

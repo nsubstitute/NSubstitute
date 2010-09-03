@@ -1,10 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
-namespace NSubstitute.Specs
+namespace NSubstitute.Specs.Arguments
 {
     public class ArgumentEqualsSpecificationSpecs : StaticConcern
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace NSubstitute.Core
+namespace NSubstitute.Core.Arguments
 {
     public interface IArgumentSpecification
     {

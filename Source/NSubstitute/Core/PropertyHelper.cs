@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
@@ -39,7 +40,7 @@ namespace NSubstitute.Core
             private readonly MethodInfo _methodInfo;
             readonly object _target;
             private readonly object[] _arguments = new object[0];
-            private readonly Type[] _parameterTypes = new Type[0];
+            private readonly IParameterInfo[] _parameterInfos = new IParameterInfo[0];
 
             public CallToPropertyGetter(MethodInfo methodInfo, object target)
             {
@@ -51,7 +52,7 @@ namespace NSubstitute.Core
             public MethodInfo GetMethodInfo() { return _methodInfo; }
             public object[] GetArguments() { return _arguments; }
             public object Target() { return _target; }
-            public Type[] GetParameterTypes() { return _parameterTypes; }
+            public IParameterInfo[] GetParameterInfos() { return _parameterInfos; }
             public IList<IArgumentSpecification> GetArgumentSpecifications() { return new List<IArgumentSpecification>(); }
         }
     }

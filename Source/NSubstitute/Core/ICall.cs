@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
@@ -10,7 +11,7 @@ namespace NSubstitute.Core
         MethodInfo GetMethodInfo();
         object[] GetArguments();
         object Target();
-        Type[] GetParameterTypes();
+        IParameterInfo[] GetParameterInfos();
         IList<IArgumentSpecification> GetArgumentSpecifications();
     }
 }

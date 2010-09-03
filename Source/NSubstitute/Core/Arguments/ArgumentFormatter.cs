@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace NSubstitute.Core
+namespace NSubstitute.Core.Arguments
 {
     public class ArgumentFormatter : IArgumentFormatter
     {

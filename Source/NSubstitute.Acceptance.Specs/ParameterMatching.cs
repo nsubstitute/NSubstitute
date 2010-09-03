@@ -87,7 +87,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Received_should_compare_elements_for_params_arguments()
         {
             const string first = "first";
@@ -95,9 +94,16 @@ namespace NSubstitute.Acceptance.Specs
             _something.WithParams(1, first, second);
 
             _something.Received().WithParams(1, first, second);
+            _something.Received().WithParams(1, Arg.Any<string>(), second);
+            _something.Received().WithParams(1, first, Arg.Any<string>());
             _something.Received().WithParams(1, new[] {first, second});
+            _something.Received().WithParams(1, Arg.Any<string[]>());
+            _something.Received().WithParams(1, Arg.Is<string[]>(x => x.Length == 2));
             _something.DidNotReceive().WithParams(2, first, second);
+            _something.DidNotReceive().WithParams(2, first, Arg.Any<string>());
             _something.DidNotReceive().WithParams(1, first, first);
+            _something.DidNotReceive().WithParams(1, null);
+            _something.DidNotReceive().WithParams(1, Arg.Is<string[]>(x => x.Length > 3));
         }
 
         [Test]

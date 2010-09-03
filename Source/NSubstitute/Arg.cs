@@ -1,5 +1,6 @@
 using System;
 using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute
 {

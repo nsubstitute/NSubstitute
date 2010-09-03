@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -12,7 +15,7 @@ namespace NSubstitute.Specs
         public class When_creating_a_specification : ConcernFor<CallSpecificationFactory>
         {
             ICall _call;
-            IArgumentSpecificationFactory _argumentSpecificationFactory;
+            IArgumentSpecificationsFactory _argumentSpecificationsFactory;
             IArgumentSpecification[] _argSpecsFromFactory;
             ICallSpecification _result;
             MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
@@ -26,20 +29,20 @@ namespace NSubstitute.Specs
                 _call = CreateStubCall(methodInfo, arguments);
                 _call.stub(x => x.GetArgumentSpecifications()).Return(mock<IList<IArgumentSpecification>>());
                 
-                _argumentSpecificationFactory = mock<IArgumentSpecificationFactory>();
+                _argumentSpecificationsFactory = mock<IArgumentSpecificationsFactory>();
                 _argSpecsFromFactory = new[] { mock<IArgumentSpecification>(), mock<IArgumentSpecification>() };
-                _argumentSpecificationFactory
+                _argumentSpecificationsFactory
                     .Stub(x => x.Create(
                                 _call.GetArgumentSpecifications(), 
                                 _call.GetArguments(), 
-                                _call.GetParameterTypes(),
+                                _call.GetParameterInfos(),
                                 _argMatching))
                     .Return(_argSpecsFromFactory);
             }
 
             public override CallSpecificationFactory CreateSubjectUnderTest()
             {
-                return new CallSpecificationFactory(_argumentSpecificationFactory);
+                return new CallSpecificationFactory(_argumentSpecificationsFactory);
             }
 
             public override void Because()

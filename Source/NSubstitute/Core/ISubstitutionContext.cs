@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {

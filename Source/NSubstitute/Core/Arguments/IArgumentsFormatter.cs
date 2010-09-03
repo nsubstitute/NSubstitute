@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace NSubstitute.Core
+namespace NSubstitute.Core.Arguments
 {
     public interface IArgumentsFormatter
     {

@@ -30,10 +30,7 @@ namespace NSubstitute.Core
 
         public IEnumerable<ICall> AllCalls()
         {
-            foreach (var call in _stack)
-            {
-                yield return call;
-            }
+            return _stack;
         }
 
         public void Clear()

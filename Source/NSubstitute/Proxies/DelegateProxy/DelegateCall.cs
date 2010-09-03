@@ -8,17 +8,17 @@ namespace NSubstitute.Proxies.DelegateProxy
     {
         internal static readonly MethodInfo DelegateCallInvoke = typeof (DelegateCall).GetMethod("Invoke");
         private readonly ICallRouter _callRouter;
-        private readonly Type[] _parameterTypes;
+        private readonly IParameterInfo[] _parameterInfos;
 
-        public DelegateCall(ICallRouter callRouter, Type[] parameterTypes)
+        public DelegateCall(ICallRouter callRouter, IParameterInfo[] parameterInfos)
         {
             _callRouter = callRouter;
-            _parameterTypes = parameterTypes;
+            _parameterInfos = parameterInfos;
         }
 
         public object Invoke(object[] arguments)
         {
-            var call = new Call(DelegateCallInvoke, arguments, this, _parameterTypes);
+            var call = new Call(DelegateCallInvoke, arguments, this, _parameterInfos);
             return _callRouter.Route(call);
         }
     }

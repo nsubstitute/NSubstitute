@@ -1,8 +1,8 @@
-using NSubstitute.Core;
+﻿using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
-namespace NSubstitute.Specs
+namespace NSubstitute.Specs.Arguments
 {
     public abstract class ArgumentsFormatterSpecs
     {

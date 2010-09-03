@@ -65,8 +65,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArgumentEqualsSpecificationSpecs.cs" />
-    <Compile Include="ArgumentsFormatterSpecs.cs" />
+    <Compile Include="Arguments\ArgumentEqualsSpecificationSpecs.cs" />
+    <Compile Include="Arguments\ArgumentsFormatterSpecs.cs" />
+    <Compile Include="Arguments\ArgumentSpecificationsFactorySpecs.cs" />
+    <Compile Include="Arguments\ArgumentSpecificationFactorySpecs.cs" />
+    <Compile Include="Arguments\ArrayArgumentSpecificationsFactorySpecs.cs" />
+    <Compile Include="Arguments\ArrayContentsArgumentSpecificationSpecs.cs" />
+    <Compile Include="Arguments\SuppliedArgumentSpecificationsFactorySpecs.cs" />
+    <Compile Include="Arguments\ParameterInfosFromParamsArrayFactorySpecs.cs" />
+    <Compile Include="Arguments\SuppliedArgumentSpecificationsSpecs.cs" />
+    <Compile Include="Arguments\DefaultCheckerSpecs.cs" />
+    <Compile Include="Arguments\NonParamsArgumentSpecificationFactorySpecs.cs" />
+    <Compile Include="Arguments\ParamsArgumentSpecificationFactorySpecs.cs" />
     <Compile Include="CallActionsSpecs.cs" />
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
@@ -79,9 +89,8 @@
     <Compile Include="CallSpecificationSpecs.cs" />
     <Compile Include="ClearReceivedCallsExtensionSpec.cs" />
     <Compile Include="DefaultForTypeSpecs.cs" />
-    <Compile Include="MixedArgumentSpecificationFactorySpecs.cs" />
+    <Compile Include="Arguments\MixedArgumentSpecificationsFactorySpecs.cs" />
     <Compile Include="DidNotReceiveExtensionsSpecs.cs" />
-    <Compile Include="ArgumentSpecificationFactorySpecs.cs" />
     <Compile Include="DidNotReceiveWithAnyArgsExtensionSpec.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateProxyFactorySpecs.cs" />

@@ -1,13 +1,15 @@
 using System.Linq;
+using NSubstitute.Core.Arguments;
+
 namespace NSubstitute.Core
 {
     public class CallSpecificationFactory : ICallSpecificationFactory
     {
-        readonly IArgumentSpecificationFactory _argumentSpecificationFactory;
+        readonly IArgumentSpecificationsFactory _argumentSpecificationsFactory;
 
-        public CallSpecificationFactory(IArgumentSpecificationFactory argumentSpecificationFactory)
+        public CallSpecificationFactory(IArgumentSpecificationsFactory argumentSpecificationsFactory)
         {
-            _argumentSpecificationFactory = argumentSpecificationFactory;
+            _argumentSpecificationsFactory = argumentSpecificationsFactory;
         }
 
         public ICallSpecification CreateFrom(ICall call, MatchArgs matchArgs)
@@ -15,8 +17,8 @@ namespace NSubstitute.Core
             var methodInfo = call.GetMethodInfo();
             var argumentSpecs = call.GetArgumentSpecifications();
             var arguments = call.GetArguments();
-            var parameterTypes = call.GetParameterTypes();
-            var argumentSpecificationsForCall = _argumentSpecificationFactory.Create(argumentSpecs, arguments, parameterTypes, matchArgs);
+            var parameterInfos = call.GetParameterInfos();
+            var argumentSpecificationsForCall = _argumentSpecificationsFactory.Create(argumentSpecs, arguments, parameterInfos, matchArgs);
             return new CallSpecification(methodInfo, argumentSpecificationsForCall);
         }
     }
