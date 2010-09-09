@@ -1,5 +1,5 @@
 require 'rake/clean'
-require 'docgenerator'
+require_relative 'docgenerator'
 require 'FileUtils'
 
 DOT_NET_PATH = "#{ENV["SystemRoot"]}\\Microsoft.NET\\Framework\\v3.5"
