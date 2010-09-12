@@ -6,6 +6,7 @@ describe "Given lines of markdown" do
         Console.WriteLine("Hello world");
     }'
     SecondCodeBlock = '//Gherkin'
+    ThirdCodeBlock = '//Code goes here'
 
     MarkdownExample = <<-EOF
         Sample markdown file.
@@ -16,17 +17,21 @@ describe "Given lines of markdown" do
         {% highlight csharp %}
         #{FirstCodeBlock}
         {% endhighlight %}
+
+        {% requiredcode %}
+        #{SecondCodeBlock}
+        {% endrequiredcode %}
         
         Some more text. Hooray.
         {% highlight csharp %}
-        #{SecondCodeBlock}
+        #{ThirdCodeBlock}
         {% endhighlight %}
     EOF
 
-    it "should extract blocks of code from between highlight tags" do
+    it "should extract blocks of code from between highlight and requiredcode tags" do
         extractor = CodeExtractor.new
         result = CodeExtractor.new.extract MarkdownExample
-        result.should equal_ignoring_whitespace [FirstCodeBlock, SecondCodeBlock]
+        result.should equal_ignoring_whitespace [FirstCodeBlock, SecondCodeBlock, ThirdCodeBlock]
     end
 
 

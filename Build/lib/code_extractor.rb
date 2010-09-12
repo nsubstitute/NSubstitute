@@ -19,11 +19,11 @@
     private
 
     def is_start_block? line
-        line =~ /\{% highlight csharp %\}/
+        line =~ /\{% (highlight csharp|requiredcode) %\}/
     end
 
     def is_end_block? line
-        line =~ /\{% endhighlight %\}/
+        line =~ /\{% end(highlight|requiredcode) %\}/
     end
 
 end
