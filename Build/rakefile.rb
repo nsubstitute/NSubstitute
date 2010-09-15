@@ -1,5 +1,6 @@
 require 'rake/clean'
-require_relative 'docgenerator'
+require File.expand_path 'docgenerator.rb', File.dirname(__FILE__)
+require File.expand_path 'lib/examples_to_code.rb', File.dirname(__FILE__)
 require 'FileUtils'
 
 DOT_NET_PATH = "#{ENV["SystemRoot"]}\\Microsoft.NET\\Framework\\v3.5"
@@ -42,6 +43,12 @@ desc "Runs pending acceptance specs with NUnit"
 task :pending => [:compile] do
     acceptance_tests = FileList["#{OUTPUT_PATH}/**/NSubstitute.Acceptance.Specs.dll"].exclude(/obj\//)
     sh "#{NUNIT_EXE} #{acceptance_tests} /nologo /include=Pending /xml=#{OUTPUT_PATH}/PendingSpecResults.xml"
+end
+
+desc "Generate code from examples"
+task :generate_code_examples do
+    examples_to_code = ExamplesToCode.create
+    examples_to_code.convert("../Source/Docs", "#{OUTPUT_PATH}/CodeFromDocs")
 end
 
 desc "Generates documentation for the website"

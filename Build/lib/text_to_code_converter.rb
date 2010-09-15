@@ -9,6 +9,7 @@
         tests = code_blocks
                     .select { |x| not declaration? x}
                     .map { |x| to_test(x, test_number += 1) }
+                    .join "\n"
 
         <<-EOF
 using System;
