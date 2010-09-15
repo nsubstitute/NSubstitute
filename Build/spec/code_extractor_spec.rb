@@ -1,40 +1,38 @@
-﻿require_relative 'test_helper'
+﻿require_relative 'spec_helper'
 testing 'code_extractor.rb'
 
 describe "Given lines of markdown" do
-    FirstCodeBlock = 'public void Main() {
+    first_code_block = 'public void Main() {
         Console.WriteLine("Hello world");
     }'
-    SecondCodeBlock = '//Gherkin'
-    ThirdCodeBlock = '//Code goes here'
+    second_code_block = '//Gherkin'
+    third_code_block = '//Code goes here'
 
-    MarkdownExample = <<-EOF
+    markdown_example = <<-EOF
         Sample markdown file.
 
         # A heading
 
         Some text. More text.
         {% highlight csharp %}
-        #{FirstCodeBlock}
+        #{first_code_block}
         {% endhighlight %}
 
         {% requiredcode %}
-        #{SecondCodeBlock}
+        #{second_code_block}
         {% endrequiredcode %}
         
         Some more text. Hooray.
         {% highlight csharp %}
-        #{ThirdCodeBlock}
+        #{third_code_block}
         {% endhighlight %}
     EOF
 
     it "should extract blocks of code from between highlight and requiredcode tags" do
         extractor = CodeExtractor.new
-        result = CodeExtractor.new.extract MarkdownExample
-        result.should equal_ignoring_whitespace [FirstCodeBlock, SecondCodeBlock, ThirdCodeBlock]
+        result = CodeExtractor.new.extract markdown_example
+        result.should equal_ignoring_whitespace [first_code_block, second_code_block, third_code_block]
     end
-
-
 end
 
 

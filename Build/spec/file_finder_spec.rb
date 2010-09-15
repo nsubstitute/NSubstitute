@@ -1,4 +1,4 @@
-﻿require_relative 'test_helper'
+﻿require_relative 'spec_helper'
 testing 'file_finder.rb'
 
 describe FileFinder, "when finding markdown files" do
