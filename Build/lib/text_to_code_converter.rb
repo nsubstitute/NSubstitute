@@ -17,9 +17,12 @@ using NUnit.Framework;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace NSubstitute.Documentation.Samples {
-#{declarations}
-#{tests}
+namespace NSubstitute.Documentation.Samples.NewScope_#{rand(10000)} {
+    #{declarations}
+
+    public class Tests_#{rand(10000)} {
+        #{tests}
+    }
 }
         EOF
     end
@@ -30,7 +33,7 @@ namespace NSubstitute.Documentation.Samples {
     end
 
     def to_test(code_block, test_number)
-        "[Test] public void Test_#{test_number} {
+        "[Test] public void Test_#{test_number}() {
             #{code_block}
         }"
     end

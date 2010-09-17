@@ -39,6 +39,12 @@ task :specs => [:compile] do
     sh "#{NUNIT_EXE} #{tests} /nologo /exclude=Pending /xml=#{OUTPUT_PATH}/SpecResults.xml"
 end
 
+desc "Test code samples in documentation with NUnit"
+task :test_examples => [:compile_code_examples] do
+    tests = FileList["#{OUTPUT_PATH}/**/NSubstitute.Samples.dll"].exclude(/obj\//)
+    sh "#{NUNIT_EXE} #{tests} /nologo /exclude=Pending /xml=#{OUTPUT_PATH}/DocResults.xml"
+end
+
 desc "Runs pending acceptance specs with NUnit"
 task :pending => [:compile] do
     acceptance_tests = FileList["#{OUTPUT_PATH}/**/NSubstitute.Acceptance.Specs.dll"].exclude(/obj\//)
@@ -49,6 +55,22 @@ desc "Generate code from examples"
 task :generate_code_examples do
     examples_to_code = ExamplesToCode.create
     examples_to_code.convert("../Source/Docs", "#{OUTPUT_PATH}/CodeFromDocs")
+end
+
+desc "Compile code from examples"
+task :compile_code_examples => [:generate_code_examples] do
+    #Copy references to documentation directory
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+    output_doc_path = "#{OUTPUT_PATH}/CodeFromDocs"
+    references = %w(NSubstitute.dll nunit.framework.dll).map do |x| 
+        "#{output_base_path}/NSubstitute.Specs/#{x}"
+    end
+    FileUtils.cp references, output_doc_path
+
+    #Compile
+    FileUtils.cd output_doc_path do
+        sh "#{DOT_NET_PATH}/csc.exe /target:library /out:\"NSubstitute.Samples.dll\" /reference:\"nunit.framework.dll\" /reference:\"NSubstitute.dll\" *.cs"
+    end
 end
 
 desc "Generates documentation for the website"
