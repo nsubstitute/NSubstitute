@@ -1,4 +1,4 @@
-﻿class CodeExtractor
+class CodeExtractor
     NewLine = "\n"
     def extract(text)
         block = nil

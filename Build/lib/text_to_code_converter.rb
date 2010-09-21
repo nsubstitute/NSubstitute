@@ -1,4 +1,4 @@
-﻿class TextToCodeConverter
+class TextToCodeConverter
     def initialize(extractor)
         @extractor = extractor
     end
@@ -6,9 +6,9 @@
         test_number = 0
         code_blocks = @extractor.extract(text)
         declarations = code_blocks.select { |x| declaration? x}.join("\n")
-        tests = code_blocks
-                    .select { |x| not declaration? x}
-                    .map { |x| to_test(x, test_number += 1) }
+        tests = code_blocks \
+                    .select { |x| not declaration? x} \
+                    .map { |x| to_test(x, test_number += 1) } \
                     .join "\n"
 
         <<-EOF

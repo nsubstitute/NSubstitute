@@ -1,4 +1,4 @@
-﻿class FileConverter
+class FileConverter
     def initialize(file_reader_writer, converter)
         @file_reader_writer = file_reader_writer
         @converter = converter

@@ -1,4 +1,5 @@
-unreleased changes
+0.9.0 Beta 1
+* [FIX] Now handles argument specifiers used for params arguments correctly
 * [UPDATE] Updated to Castle.Core 2.5 final.
 
 0.1.3 alpha 4

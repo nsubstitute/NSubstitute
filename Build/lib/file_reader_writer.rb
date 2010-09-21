@@ -1,4 +1,4 @@
-﻿require 'FileUtils'
+require 'FileUtils'
 class FileReaderWriter
     def read(file)
         File.read(file)

@@ -1,6 +1,6 @@
 require 'rake/clean'
-require File.expand_path 'docgenerator.rb', File.dirname(__FILE__)
-require File.expand_path 'lib/examples_to_code.rb', File.dirname(__FILE__)
+require File.expand_path('docgenerator.rb', File.dirname(__FILE__))
+require File.expand_path('lib/examples_to_code.rb', File.dirname(__FILE__))
 require 'FileUtils'
 
 DOT_NET_PATH = "#{ENV["SystemRoot"]}\\Microsoft.NET\\Framework\\v3.5"
@@ -111,7 +111,8 @@ task :package => [:compile, :version_assemblies, :generate_docs] do
 	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
 	#mkdir deploy_path unless File.exists? deploy_path
 	cp_r dll_path, deploy_path
-	cp_r "#{DOCS_PATH}", "#{deploy_path}/Docs"
-	mv "#{deploy_path}/Docs/README.markdown", "#{deploy_path}/README.txt"
-	cp "../LICENSE", "#{deploy_path}"
+	cp "#{DOCS_PATH}/README.markdown", "#{deploy_path}/README.txt"
+	cp "../LICENSE.txt", "#{deploy_path}"
+	cp "../CHANGELOG.txt", "#{deploy_path}"
 end
+
