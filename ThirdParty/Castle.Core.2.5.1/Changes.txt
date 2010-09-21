@@ -1,3 +1,15 @@
+2.5.1 (2010-09-21)
+==================
+- Interface proxy with target Interface now accepts null as a valid target value (which can be replaced at a later stage).
+- DictionaryAdapter behavior overrides are now ordered with all other behaviors
+- BREAKING CHANGE: removed web logger so that by default Castle.Core works in .NET 4 client profile
+- added paramter to ModuleScope disabling usage of signed modules. This is to workaround issue DYNPROXY-134. Also a descriptive exception message is being thrown now when the issue is detected.
+- Added IDictionaryBehaviorBuilder to allow grouping behaviors
+- Added GenericDictionaryAdapter to simplify generic value sources
+- fixed issue DYNPROXY-138 - Error message missing space
+- fixed false positive where DynamicProxy would not let you proxy interface with target interface when target object was a COM object.
+- fixed ReflectionBasedDictionaryAdapter when using indexed properties
+
 2.5.0 (2010-08-21)
 ==================
 - DynamicProxy will now not replicate non-public attribute types

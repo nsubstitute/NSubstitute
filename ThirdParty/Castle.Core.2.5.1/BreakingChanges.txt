@@ -1,4 +1,17 @@
 ================================================================================================
+change - Removed WebLogger and WebLoggerFactory
+
+impact - low
+fixability - medium
+revision - 
+
+description - To minimize management overhead the classes were removed so that only single 
+	Client Profile version of Castle.Core can be distributed.
+
+fix - You can use NLog or Log4Net web logger integration, or reuse implementation of existing
+	web logger and use it as a custom logger.
+
+================================================================================================
 change - Removed obsolete overload of ProxyGenerator.CreateClassProxy
 
 impact - low
