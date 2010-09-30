@@ -2,7 +2,6 @@
 layout: default
 ---
 
-
 <div id="post">
     <div id="post-index">
         <ul>
@@ -13,17 +12,8 @@ layout: default
     </div>
 
     <div id="post-content">
-      <h2>{{ page.title }}</h2>
+      <h1>{{ page.title }}</h1>
       {{ content }}
-
-      {% if site.related_posts.length > 0 %}
-      <h2>Related</h2>
-      <ul class="posts">
-        {% for post in site.related_posts limit:3 %}
-          <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-        {% endfor %}
-      </ul>
-      {% endif %}
     </div>
 </div>
 

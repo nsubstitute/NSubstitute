@@ -1,8 +1,10 @@
 class TextToCodeConverter
+    @@converted = 0
     def initialize(extractor)
         @extractor = extractor
     end
     def convert(text)
+        @@converted += 1
         test_number = 0
         code_blocks = @extractor.extract(text)
         declarations = code_blocks.select { |x| declaration? x}.join("\n")
@@ -17,10 +19,10 @@ using NUnit.Framework;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace NSubstitute.Documentation.Samples.NewScope_#{rand(10000)} {
-    #{declarations}
+namespace NSubstitute.Documentation.Samples {
+    public class Tests_#{@@converted} {
+        #{declarations}
 
-    public class Tests_#{rand(10000)} {
         #{tests}
     }
 }
