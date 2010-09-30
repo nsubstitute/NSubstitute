@@ -29,12 +29,14 @@ title: NSubstitute - a friendly substitute for .NET mocking libraries
     <div id="how-do-i-use-it">
 <p> Let's say we have a basic calculator interface: </p>
 
-<pre><code>    public interface ICalculator
+{% highlight csharp %}
+    public interface ICalculator
     {
         int Add(int a, int b);
         string Mode { get; set; }
         event Action PoweringUp;
-    }</code></pre>
+    }
+{% endhighlight %}
 
 <p> We can ask NSubstitute to create a substitute instance for this type. We could ask for a stub, mock, fake, spy, test double etc., but why bother when we just want to substitute an instance we have some control over?
 </p>

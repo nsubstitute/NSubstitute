@@ -50,7 +50,8 @@ task :check_examples => [:generate_code_examples, :compile_code_examples, :test_
 
 task :generate_code_examples do
     examples_to_code = ExamplesToCode.create
-    examples_to_code.convert("../Source/Docs", "#{OUTPUT_PATH}/CodeFromDocs")
+    examples_to_code.convert("../Source/Docs/jekyll-site", "#{OUTPUT_PATH}/CodeFromDocs")
+    examples_to_code.convert("../Source/Docs/jekyll-site/help/_posts/", "#{OUTPUT_PATH}/CodeFromDocs")
 end
 
 task :compile_code_examples => [:generate_code_examples] do

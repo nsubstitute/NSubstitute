@@ -14,7 +14,7 @@ class ExamplesToCode
 
     def convert(example_dir, target_dir)
         puts "Convert from #{example_dir} to #{target_dir}"
-        @file_finder.find(example_dir, "**/*.markdown").each do |file|
+        @file_finder.find(example_dir, "*.{markdown,html}").each do |file|
             file_name = File.basename(file, File.extname(file))
             target = "#{target_dir}/#{file_name}.cs"
             puts "Converting #{file} to #{target}"

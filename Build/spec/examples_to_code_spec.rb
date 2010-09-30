@@ -8,7 +8,7 @@ describe ExamplesToCode, "when converting examples to code" do
 
     before do
         @file_finder = Substitute.new
-        @file_finder.find(example_dir, "**/*.markdown").returns(example_files)
+        @file_finder.find(example_dir, "*.{markdown,html}").returns(example_files)
         @converter = Substitute.new
 
         examples_to_code = ExamplesToCode.new(@file_finder, @converter)
