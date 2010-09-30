@@ -1,21 +1,43 @@
 ﻿
 html { font-family: "helvetica", Helvetica, Arial }
+body {
+    margin:0;
+    padding:0;
+    border:0;
+    width:100%;
+    min-width:600px;
+}
 
 p{
   font-size:1.0em;
   line-height:1.6; 
   font-family:"Georgia"
 }
-div { border: 1px solid red; }
+
 h1{font-size:3.0em}
 h2{font-size:2.0em}
 h3{font-size:1.5em}
 
-#footer { font-size: xx-small; text-align: center; padding: 15px; }
-#post-index { width: 300px; float: left;}
-#post { float: right;}
-
-.clear { clear: both; }
+#footer { font-size: xx-small; text-align: center; padding: 15px; clear: both; }
+#post {
+    position:relative;
+    clear:both;
+    float:left;
+    width:100%;
+}
+#post-index { 
+    float: left;
+    position: relative;
+    min-width: 150px;
+    with: 15%;
+}
+#post-content { 
+    float: left;
+    position: relative;
+    min-width: 400px;
+    width: 70%;
+    padding-left: 10px;
+}
 
 .download {
   <!--background-color:#95b7ce;-->
