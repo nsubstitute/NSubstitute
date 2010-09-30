@@ -18,6 +18,16 @@ h1{font-size:3.0em}
 h2{font-size:2.0em}
 h3{font-size:1.5em}
 
+a:link { color: #4183C4; }
+a:visited { color: #4183C4; }
+a:hover { color: #95b7ce; }
+a:active { color: #000000; }
+
+#header a {
+    text-decoration:none;
+    color: #000000;
+}
+
 #footer { font-size: xx-small; text-align: center; padding: 15px; clear: both; }
 #post {
     position:relative;
@@ -27,15 +37,23 @@ h3{font-size:1.5em}
 }
 #post-index { 
     float: left;
+    line-height: 1.7em;
     position: relative;
-    min-width: 150px;
-    with: 15%;
+    width:21%;
+    top:5em;
+    background-color: #EEEEEE;
+    -webkit-border-top-right-radius: 20px;
+    -webkit-border-bottom-right-radius: 20px;
+    -moz-border-radius-topright: 20px;
+    -moz-border-radius-bottomright: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
+
 #post-content { 
     float: left;
     position: relative;
-    min-width: 400px;
-    width: 70%;
+    width:71%;
     padding-left: 10px;
 }
 
@@ -53,14 +71,10 @@ h3{font-size:1.5em}
   font-weight: bold;
   padding-top: 10px;
 }
-pre {
+
+div.highlight {
   border: 1px solid #AAAAAA;
   padding: 5px;
-}
-
-pre,code {
-  background-color:#E3E5EA;
-  
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
