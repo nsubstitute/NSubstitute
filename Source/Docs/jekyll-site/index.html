@@ -53,14 +53,18 @@ _calculator = Substitute.For<ICalculator>();
 
 <p> Now we can tell our substitute to return a value for a call: </p>
 
-<pre><code>    _calculator.Add(1, 2).Returns(3);
-    Assert.That(_calculator.Add(1, 2), Is.EqualTo(3));</code></pre>
+{% highlight csharp %}
+    _calculator.Add(1, 2).Returns(3);
+    Assert.That(_calculator.Add(1, 2), Is.EqualTo(3));
+{% endhighlight %}
 
 <p> We can check that our substitute received a call, and did not receive others: </p>
 
-<pre><code>    _calculator.Add(1, 2);
+{% highlight csharp %}
+    _calculator.Add(1, 2);
     _calculator.Received().Add(1, 2);
-    _calculator.DidNotReceive().Add(5, 7);</code></pre>
+    _calculator.DidNotReceive().Add(5, 7);
+{% endhighlight %}
 
 <p> If our Received() assertion fails, NSubstitute tries to give us some help as to what the problem might be: </p>
 
@@ -74,39 +78,49 @@ Actually received:
 
 <p> We can also work with properties using the Returns syntax we use for methods, or just stick with plain old property setters (for read/write properties): </p>
 
-<pre><code>    _calculator.Mode.Returns(&quot;DEC&quot;);
-    Assert.That(_calculator.Mode, Is.EqualTo(&quot;DEC&quot;));
+{% highlight csharp %}
+    _calculator.Mode.Returns("DEC");
+    Assert.That(_calculator.Mode, Is.EqualTo("DEC"));
     
-    _calculator.Mode = &quot;HEX&quot;;
-    Assert.That(_calculator.Mode, Is.EqualTo(&quot;HEX&quot;));</code></pre>
+    _calculator.Mode = "HEX";
+    Assert.That(_calculator.Mode, Is.EqualTo("HEX"));
+{% endhighlight %}
 
 <p> NSubstitute supports argument matching for setting return values and asserting a call was received: </p>
 
-<pre><code>    _calculator.Add(10, -5);
-    _calculator.Received().Add(10, Arg.Any&lt;int&gt;());
-    _calculator.Received().Add(10, Arg.Is&lt;int&gt;(x =&gt; x &lt; 0));</code></pre>
+{% highlight csharp %}
+    _calculator.Add(10, -5);
+    _calculator.Received().Add(10, Arg.Any<int>());
+    _calculator.Received().Add(10, Arg.Is<int>(x => x < 0));
+{% endhighlight %}
 
 <p> We can use argument matching as well as passing a function to Returns() to get some more behaviour out of our substitute (possibly too much, but that's your call): </p>
 
-<pre><code>    _calculator
-       .Add(Arg.Any&lt;int&gt;(), Arg.Any&lt;int&gt;())
-       .Returns(x =&gt; (int)x[0] + (int)x[1]);
-    Assert.That(_calculator.Add(5, 10), Is.EqualTo(15));</code></pre>
+{% highlight csharp %}
+    _calculator
+       .Add(Arg.Any<int>(), Arg.Any<int>())
+       .Returns(x => (int)x[0] + (int)x[1]);
+    Assert.That(_calculator.Add(5, 10), Is.EqualTo(15));
+{% endhighlight %}
 
 <p> Returns() can also be called with multiple arguments to set up a sequence of return values.  </p>
 
-<pre><code>    _calculator.Mode.Returns(&quot;HEX&quot;, &quot;DEC&quot;, &quot;BIN&quot;);
-    Assert.That(_calculator.Mode, Is.EqualTo(&quot;HEX&quot;));
-    Assert.That(_calculator.Mode, Is.EqualTo(&quot;DEC&quot;));
-    Assert.That(_calculator.Mode, Is.EqualTo(&quot;BIN&quot;));</code></pre>
+{% highlight csharp %}
+    _calculator.Mode.Returns("HEX", "DEC", "BIN");
+    Assert.That(_calculator.Mode, Is.EqualTo("HEX"));
+    Assert.That(_calculator.Mode, Is.EqualTo("DEC"));
+    Assert.That(_calculator.Mode, Is.EqualTo("BIN"));
+{% endhighlight %}
 
 <p> Finally, we can raise events on our substitutes (unfortunately C# dramatically restricts the extent to which this syntax can be cleaned up): </p>
 
-<pre><code>    bool eventWasRaised = false;
-    _calculator.PoweringUp += () =&gt; eventWasRaised = true;
+{% highlight csharp %}
+    bool eventWasRaised = false;
+    _calculator.PoweringUp += () => eventWasRaised = true;
     
     _calculator.PoweringUp += Raise.Action();
-    Assert.That(eventWasRaised);</code></pre>
+    Assert.That(eventWasRaised);
+{% endhighlight %}
  
     </div>
 
