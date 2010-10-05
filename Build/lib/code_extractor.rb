@@ -20,7 +20,7 @@ class CodeExtractor
     class CodeBlock
         ClassOrInterfacePattern = /(public |private |protected )?(class |interface )\w+\s*\{/m 
         def declaration?
-            @tag.starts_with?("requiredcode") || !!(code() =~ ClassOrInterfacePattern)
+            @tag.start_with?("requiredcode") || !!(code() =~ ClassOrInterfacePattern)
         end
         def code
             @lines.join("\n")
@@ -31,6 +31,9 @@ class CodeExtractor
         end
         def <<(line)
             @lines << line
+        end
+        def to_s
+            code
         end
     end
 

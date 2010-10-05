@@ -7,11 +7,14 @@ class TextToCodeConverter
         @@converted += 1
         test_number = 0
         code_blocks = @extractor.extract(text)
-        declarations = code_blocks.select { |x| declaration? x}.join("\n")
+        declarations = code_blocks \
+                    .select { |x| x.declaration?} \
+                    .map { |x| x.code } \
+                    .join("\n")
         tests = code_blocks \
-                    .select { |x| not declaration? x} \
+                    .select { |x| not x.declaration? } \
                     .map { |x| to_test(x, test_number += 1) } \
-                    .join "\n"
+                    .join("\n")
 
         <<-EOF
 using System;
@@ -30,13 +33,9 @@ namespace NSubstitute.Documentation.Samples {
     end
 
     private
-    def declaration?(code_block)
-        code_block =~ /(public |private |protected )?(class|interface)/
-    end
-
     def to_test(code_block, test_number)
         "[Test] public void Test_#{test_number}() {
-            #{code_block}
+            #{code_block.code}
         }"
     end
 end
