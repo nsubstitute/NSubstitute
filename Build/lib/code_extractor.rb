@@ -1,3 +1,4 @@
+
 class CodeExtractor
     NewLine = "\n"
     def extract(text)
@@ -5,10 +6,10 @@ class CodeExtractor
         lines = text.split(NewLine)
         lines.inject(Array.new) do |blocks, line|
             if is_end_block? line and not block.nil?
-                blocks << block.join(NewLine)
+                blocks << block
                 block = nil
             elsif is_start_block? line and block.nil?
-                block = []
+                block = CodeBlock.new(tag(line))
             else
                 block << line unless block.nil?
             end
@@ -16,14 +17,39 @@ class CodeExtractor
         end
     end
 
+    class CodeBlock
+        ClassOrInterfacePattern = /(public |private |protected )?(class |interface )\w+\s*\{/m 
+        def declaration?
+            @tag.starts_with?("requiredcode") || !!(code() =~ ClassOrInterfacePattern)
+        end
+        def code
+            @lines.join("\n")
+        end
+        def initialize(tag)
+            @lines = []
+            @tag = tag
+        end
+        def <<(line)
+            @lines << line
+        end
+    end
+
     private
 
+    StartPattern = /\{% (highlight csharp|requiredcode) %\}/
+    EndPattern = /\{% end(highlight|requiredcode) %\}/
+
     def is_start_block? line
-        line =~ /\{% (highlight csharp|requiredcode) %\}/
+        line =~ StartPattern
     end
 
     def is_end_block? line
-        line =~ /\{% end(highlight|requiredcode) %\}/
+        line =~ EndPattern
+    end
+
+    def tag line
+        match = StartPattern.match(line)
+        match[1].split()[0]
     end
 
 end

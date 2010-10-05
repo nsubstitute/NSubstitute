@@ -38,10 +38,18 @@ title: NSubstitute - a friendly substitute for .NET mocking libraries
     }
 {% endhighlight %}
 
+{% requiredcode %}
+ICalculator _calculator;
+[SetUp]
+public void SetUp() { _calculator = Substitute.For<ICalculator>(); }
+{% endrequiredcode %}
+
 <p> We can ask NSubstitute to create a substitute instance for this type. We could ask for a stub, mock, fake, spy, test double etc., but why bother when we just want to substitute an instance we have some control over?
 </p>
 
-<pre><code>    _calculator = Substitute.For&lt;ICalculator&gt;();</code></pre>
+{% highlight csharp %}
+_calculator = Substitute.For<ICalculator>();
+{% endhighlight %}
 
 <p> Now we can tell our substitute to return a value for a call: </p>
 
