@@ -5,9 +5,9 @@ layout: post
 
 The basic syntax for creating a substitute is:
 
-{% highlight csharp %}
+{% examplecode csharp %}
 var substitute = Substitute.For<ISomeInterface>();
-{% endhighlight %}
+{% endexamplecode %}
 
 This is how you'll normally create substitutes for types. Generally this type will be an interface, but you can also substitute classes in cases of emergency.
 
@@ -15,9 +15,9 @@ This is how you'll normally create substitutes for types. Generally this type wi
 
 With the knowledge that we're not going to be substituting for classes, here is how you create a substitute for a class that has constructor arguments:
 
-{% highlight csharp %}
+{% examplecode csharp %}
 var someClass = Substitute.For<SomeClassWithCtorArgs>(5, "hello world");
-{% endhighlight %}
+{% endexamplecode %}
 
 For classes that have default constructors the syntax is the same as substituting for interfaces.
 
@@ -25,7 +25,7 @@ For classes that have default constructors the syntax is the same as substitutin
 
 There are times when you want to substitute for multiple types. The best example of this is when you have code that works with a type, then checks whether it implements <code>IDisposable</code> and disposes of it if it doesn't.
 
-{% highlight csharp %}
+{% examplecode csharp %}
 var command = Substitute.For<ICommand, IDisposable>();
 var runner = new CommandRunner(command);
 
@@ -33,11 +33,11 @@ runner.RunCommand();
 
 command.Received().Execute();
 ((IDisposable)command).Received().Dispose();
-{% endhighlight %}
+{% endexamplecode %}
 
 You're substitute can implement several types this way, but remember you can only implement a maximum of one class. You can specify as many interfaces as you like, but only one of these can be a class. The most flexible way of creating substitutes for multiple types is using this overload:
 
-{% highlight csharp %}
+{% examplecode csharp %}
 var substitute = Substitute.For(
 		new[] { typeof(ICommand), typeof(ISomeInterface), typeof(SomeClassWithCtorArgs) },
 		new object[] { 5, "hello world" }
@@ -45,7 +45,7 @@ var substitute = Substitute.For(
 Assert.IsInstanceOf<ICommand>(substitute);
 Assert.IsInstanceOf<ISomeInterface>(substitute);
 Assert.IsInstanceOf<SomeClassWithCtorArgs>(substitute);
-{% endhighlight %}
+{% endexamplecode %}
 
 {% requiredcode %}
 public interface ISomeInterface { }

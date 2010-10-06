@@ -2,11 +2,11 @@
 testing 'code_extractor.rb'
 
 describe "Given lines of markdown" do
-    highlight_code_block = 'public void Main() {
+    example_code_block = 'public void Main() {
         Console.WriteLine("Hello world");
     }'
     required_block = '//Gherkin'
-    highlight_class_block = 'public class SomeClass { }'
+    example_code_class_block = 'public class SomeClass { }'
 
     markdown_example = <<-EOF
         Sample markdown file.
@@ -14,24 +14,24 @@ describe "Given lines of markdown" do
         # A heading
 
         Some text. More text.
-        {% highlight csharp %}
-        #{highlight_code_block}
-        {% endhighlight %}
+        {% examplecode csharp %}
+        #{example_code_block}
+        {% endexamplecode %}
 
         {% requiredcode %}
         #{required_block}
         {% endrequiredcode %}
         
         Some more text. Hooray.
-        {% highlight csharp %}
-        #{highlight_class_block}
-        {% endhighlight %}
+        {% examplecode csharp %}
+        #{example_code_class_block}
+        {% endexamplecode %}
     EOF
 
     subject { CodeExtractor.new.extract markdown_example }
 
-    it "should extract blocks of code from between highlight and requiredcode tags" do
-        subject.map {|x| x.code}.should equal_ignoring_whitespace [highlight_code_block, required_block, highlight_class_block]
+    it "should extract blocks of code from between examplecode and requiredcode tags" do
+        subject.map {|x| x.code}.should equal_ignoring_whitespace [example_code_block, required_block, example_code_class_block]
     end
 
     it "should identify required code, interfaces and classes as declarations" do

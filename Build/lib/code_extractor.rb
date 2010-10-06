@@ -39,8 +39,8 @@ class CodeExtractor
 
     private
 
-    StartPattern = /\{% (highlight csharp|requiredcode) %\}/
-    EndPattern = /\{% end(highlight|requiredcode) %\}/
+    StartPattern = /\{% (examplecode csharp|requiredcode) %\}/
+    EndPattern = /\{% end(examplecode|requiredcode) %\}/
 
     def is_start_block? line
         line =~ StartPattern
