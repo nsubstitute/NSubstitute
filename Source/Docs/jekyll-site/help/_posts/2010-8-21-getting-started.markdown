@@ -1,5 +1,5 @@
 ---
-title: Quick tour
+title: Getting started
 layout: post
 ---
 
