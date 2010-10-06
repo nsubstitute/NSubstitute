@@ -65,6 +65,18 @@ a:active { color: #000000; }
     padding-left: 10px;
 }
 
+#page-navigation {
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+#page-navigation > .next {
+    float: right;
+}
+
+#page-navigation > .previous {
+    float: left;
+}
+
 .download {
   <!--background-color:#95b7ce;-->
   padding: 25px;
