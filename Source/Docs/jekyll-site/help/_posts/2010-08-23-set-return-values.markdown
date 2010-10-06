@@ -29,7 +29,7 @@ var calculator = Substitute.For<ICalculator>();
 calculator.Add(1, 2).Returns(3); //Make this call return 3.
 Assert.AreEqual(calculator.Add(1, 2), 3);
 Assert.AreEqual(calculator.Add(1, 2), 3);
-//Call with different arguments does not retun 3
+//Call with different arguments does not return 3
 Assert.AreNotEqual(calculator.Add(3, 6), 3); 
 {% endexamplecode %}
 
