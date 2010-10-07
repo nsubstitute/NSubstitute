@@ -43,6 +43,10 @@ a:active { color: #000000; }
     float:left;
     width:100%;
 }
+
+#content {
+    clear: both;
+}
 #post-index { 
     float: left;
     line-height: 1.7em;
@@ -77,19 +81,34 @@ a:active { color: #000000; }
     float: left;
 }
 
-.download {
-  <!--background-color:#95b7ce;-->
-  padding: 25px;
+#features {
+    float: left;
+    position: relative;
+    width:51%;
+    padding: 2em;
+}
 
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+#links {
+    float: right;
+    position: relative;
+    width:40%;
+}
+
+.download {
+  border: 1px solid black;
+  margin: 25px;
+  padding: 20px;
+
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .download a {
   display: block;
   font-weight: bold;
   padding-top: 10px;
+  color: black;
 }
 
 div.highlight {
@@ -100,3 +119,13 @@ div.highlight {
   border-radius: 3px;
 }
 
+div.feature-title {
+    font-size: 1.5em;
+}
+
+div.feature-detail { 
+}
+
+div.feature {
+ clear:both;
+}
