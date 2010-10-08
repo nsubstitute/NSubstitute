@@ -1,5 +1,4 @@
 require 'rake/clean'
-require File.expand_path('docgenerator.rb', File.dirname(__FILE__))
 require File.expand_path('lib/examples_to_code.rb', File.dirname(__FILE__))
 require 'FileUtils'
 
@@ -7,7 +6,6 @@ DOT_NET_PATH = "#{ENV["SystemRoot"]}\\Microsoft.NET\\Framework\\v3.5"
 NUNIT_EXE = "../ThirdParty/NUnit/bin/net-2.0/nunit-console.exe"
 SOURCE_PATH = "../Source"
 OUTPUT_PATH = "../Output"
-DOCS_PATH = "../Docs"
 
 ENV["config"] = "Debug" if ENV["config"].nil?
 CONFIG = ENV["config"]
@@ -45,13 +43,21 @@ task :pending => [:compile] do
     sh "#{NUNIT_EXE} #{acceptance_tests} /nologo /include=Pending /xml=#{OUTPUT_PATH}/PendingSpecResults.xml"
 end
 
-desc "Compile and test code from examples"
+desc "Generates documentation for the website"
+task :generate_docs => [:all, :check_examples] do
+    output = File.expand_path("#{OUTPUT_PATH}/nsubstitute.github.com", File.dirname(__FILE__))
+    FileUtils.cd "../Source/Docs" do
+        sh "jekyll \"#{output}\""
+    end
+end
+
+desc "Compile and test code from examples from last NSubstitute build"
 task :check_examples => [:generate_code_examples, :compile_code_examples, :test_examples]
 
 task :generate_code_examples do
     examples_to_code = ExamplesToCode.create
-    examples_to_code.convert("../Source/Docs/jekyll-site", "#{OUTPUT_PATH}/CodeFromDocs")
-    examples_to_code.convert("../Source/Docs/jekyll-site/help/_posts/", "#{OUTPUT_PATH}/CodeFromDocs")
+    examples_to_code.convert("../Source/Docs/", "#{OUTPUT_PATH}/CodeFromDocs")
+    examples_to_code.convert("../Source/Docs/help/_posts/", "#{OUTPUT_PATH}/CodeFromDocs")
 end
 
 task :compile_code_examples => [:generate_code_examples] do
@@ -74,13 +80,6 @@ task :test_examples => [:compile_code_examples] do
     sh "#{NUNIT_EXE} #{tests} /nologo /exclude=Pending /xml=#{OUTPUT_PATH}/DocResults.xml"
 end
 
-
-desc "Generates documentation for the website"
-task :generate_docs do
-	generate_docs
-end
-
-desc "Updates assembly infos with build number"
 task :version_assemblies => [:get_build_number] do 
 	assembly_info_files = "#{SOURCE_PATH}/**/AssemblyInfo.cs"
 
@@ -113,7 +112,7 @@ task :package => [:compile, :version_assemblies, :generate_docs] do
 	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
 	#mkdir deploy_path unless File.exists? deploy_path
 	cp_r dll_path, deploy_path
-	cp "#{DOCS_PATH}/README.markdown", "#{deploy_path}/README.txt"
+	cp "../README.markdown", "#{deploy_path}/README.txt"
 	cp "../LICENSE.txt", "#{deploy_path}"
 	cp "../CHANGELOG.txt", "#{deploy_path}"
 end

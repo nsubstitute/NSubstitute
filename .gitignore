@@ -3,6 +3,7 @@
 *.suo
 *.orig
 *.swp
+*.swo
 bin/
 obj/
 Output/*
