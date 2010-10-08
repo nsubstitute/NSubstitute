@@ -58,6 +58,7 @@ task :generate_code_examples do
     examples_to_code = ExamplesToCode.create
     examples_to_code.convert("../Source/Docs/", "#{OUTPUT_PATH}/CodeFromDocs")
     examples_to_code.convert("../Source/Docs/help/_posts/", "#{OUTPUT_PATH}/CodeFromDocs")
+    examples_to_code.convert("../", "#{OUTPUT_PATH}/CodeFromDocs")
 end
 
 task :compile_code_examples => [:generate_code_examples] do
@@ -115,5 +116,22 @@ task :package => [:compile, :version_assemblies, :generate_docs] do
 	cp "../README.markdown", "#{deploy_path}/README.txt"
 	cp "../LICENSE.txt", "#{deploy_path}"
 	cp "../CHANGELOG.txt", "#{deploy_path}"
+    tidyUpTextFileFromMarkdown("#{deploy_path}/README.txt")
 end
 
+def tidyUpTextFileFromMarkdown(file)
+    text = File.read(file)
+    File.open(file, "w") { |f| f.write( stripHtmlComments(text) ) }
+end
+
+def stripHtmlComments(text)
+    startComment = "<!--"
+    endComment = "-->"
+
+    indexOfStart = text.index(startComment)
+    indexOfEnd = text.index(endComment)
+    return text if indexOfStart.nil? or indexOfEnd.nil?
+
+    text[indexOfStart..(indexOfEnd+endComment.length-1)] = ""
+    return stripHtmlComments(text)
+end
