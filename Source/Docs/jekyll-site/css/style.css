@@ -23,17 +23,33 @@ a:visited { color: #4183C4; }
 a:hover { color: #95b7ce; }
 a:active { color: #000000; }
 
+#header { padding-top: 1em; }
 #header h1 {
     font-size: 3em;
+    color:#365f91;
 }
 
 #header a {
     text-decoration:none;
-    color: #000000;
+    color:#000000;
 }
 
 #header img {
     border:0;
+}
+
+#nav { 
+    position:absolute;
+    top:0px;
+    right:0px;
+    margin-top: 0.5em;
+    font-weight: bold;
+}
+
+#nav a {
+    text-decoration:none;
+    color:#365f91;
+    margin: 0.7em;
 }
 
 #footer { font-size: xx-small; text-align: center; padding: 15px; clear: both; }
@@ -84,19 +100,20 @@ a:active { color: #000000; }
 #features {
     float: left;
     position: relative;
-    width:51%;
+    width:60%;
     padding: 2em;
+    padding-top: 0em;
 }
 
 #links {
     float: right;
     position: relative;
-    width:40%;
+    width:28%;
+    padding-right: 2em;
 }
 
 .download {
   border: 1px solid black;
-  margin: 25px;
   padding: 20px;
 
   -webkit-border-radius: 5px;
@@ -117,6 +134,7 @@ div.highlight {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  overflow: auto;
 }
 
 div.feature-title {
