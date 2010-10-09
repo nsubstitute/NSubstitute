@@ -58,9 +58,6 @@
     <Compile Include="ClearCalls.cs" />
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />
-    <Compile Include="Examples\CreatingSubstitutes.cs" />
-    <Compile Include="Examples\QuickStart.cs" />
-    <Compile Include="Examples\SetReturnValues.cs" />
     <Compile Include="FieldReports\SubbingSynchronizationContext.cs" />
     <Compile Include="Infrastructure\ICalculator.cs" />
     <Compile Include="RecursiveSubs.cs" />

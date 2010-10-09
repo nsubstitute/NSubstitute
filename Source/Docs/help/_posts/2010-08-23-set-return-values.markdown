@@ -3,7 +3,7 @@ title: Setting return values
 layout: post
 ---
 
-The following examples related to substituting for the following interface:
+The following examples relate to substituting for the following interface:
 
 {% examplecode csharp %}
 public interface ICalculator
@@ -13,23 +13,56 @@ public interface ICalculator
 }
 {% endexamplecode %}
 
-## For methods
+{% requiredcode %}
+ICalculator calculator;
+[SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
+{% endrequiredcode %}
 
+## For methods
 To set a return value for a method call on a substitute, call the method as normal, then follow it with a call to NSubstitute's `Returns` extension method.
 
 {% examplecode csharp %}
 var calculator = Substitute.For<ICalculator>();
-calculator.Add(1, 2).Returns(3); //Make this call return 3.
+calculator.Add(1, 2).Returns(3);
 {% endexamplecode %}
 
-This will only apply to this combination of arguments, so other calls to this method will return a default value instead.
+This value will be returned every time this call is made. `Returns()` will only apply to this combination of arguments, so other calls to this method will return a default value instead.
 
 {% examplecode csharp %}
-var calculator = Substitute.For<ICalculator>();
-calculator.Add(1, 2).Returns(3); //Make this call return 3.
+//Make a call return 3:
+calculator.Add(1, 2).Returns(3); 
 Assert.AreEqual(calculator.Add(1, 2), 3);
 Assert.AreEqual(calculator.Add(1, 2), 3);
+
 //Call with different arguments does not return 3
 Assert.AreNotEqual(calculator.Add(3, 6), 3); 
 {% endexamplecode %}
 
+## For properties
+The return value for a property can be set in the same was as for a method, using `Returns()`. You can also just use plain old property setters for read/write properties; they'll behave just the way you expect them to.
+
+{% examplecode csharp %}
+calculator.Mode.Returns("DEC");
+Assert.AreEqual(calculator.Mode, "DEC");
+
+calculator.Mode = "HEX";
+Assert.AreEqual(calculator.Mode, "HEX");
+{% endexamplecode %}
+
+## Multiple return values
+A call can also be configured to return a different value over multiple calls. The following example shows this for a call to a property, but it works the same way for method calls.
+
+{% examplecode csharp %}
+calculator.Mode.Returns("DEC", "HEX", "BIN");
+Assert.AreEqual("DEC", calculator.Mode);
+Assert.AreEqual("HEX", calculator.Mode);
+Assert.AreEqual("BIN", calculator.Mode);
+{% endexamplecode %}
+
+<!--
+## Calculating the return value with a function
+The return value for a call to a property or method can be set to the result of a function. This allows more complex logic to be put into the substitute. Although this is normally a bad practice, there are some situations in which it is useful.
+
+{% examplecode csharp %}
+{% endexamplecode %}
+-->

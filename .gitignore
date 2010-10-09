@@ -8,4 +8,4 @@ bin/
 obj/
 Output/*
 *.sln.cache
-_site
+Source/Docs/_site
