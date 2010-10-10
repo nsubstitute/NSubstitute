@@ -1,5 +1,7 @@
 unreleased changes
-* [UPDATE] Update to Castle.Core 2.5.1
+* [UPDATE] Update to Castle.Core build 2124 (post 2.5.1 release build)
+* [FIX] Can substitute for SynchronizationContext in .NET4 (fixed in Castle.Core)
+* [NEW] NSubstitute available as NuPack package
 
 0.9.0 Beta 1
 * [FIX] Now handles argument specifiers used for params arguments correctly
