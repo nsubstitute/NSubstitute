@@ -17,7 +17,7 @@ CLEAN.include(OUTPUT_PATH)
 task :default => ["clean", "all"]
 task :all => [:compile, :test, :specs]
 desc "Update assembly versions, build, generate docs and create directory for packaging"
-task :deploy => [:version_assemblies, :default, :generate_docs, :package]
+task :deploy => [:version_assemblies, :default, :generate_docs, :package, :nupack]
   
 desc "Build solutions using MSBuild"
 task :compile do
@@ -108,8 +108,8 @@ def get_build_version
 end
 
 
-desc "Packages up assembly and documentation"
-task :package => [:compile, :version_assemblies, :generate_docs] do
+desc "Packages up assembly"
+task :package => [:version_assemblies, :all, :check_examples] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	dll_path = "#{output_base_path}/NSubstitute"
 	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
