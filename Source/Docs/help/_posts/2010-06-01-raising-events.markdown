@@ -1,0 +1,79 @@
+---
+title: Raising events
+layout: post
+---
+
+Sometimes it is necessary to raise events declared on the types being substituted for. Consider the following example:
+
+{% examplecode csharp %}
+
+public interface IEngine {
+    event EventHandler Idling;
+    event EventHandler<LowFuelWarningEventArgs> LowFuelWarning;
+    event Action<int> RevvedAt;
+}
+
+public class LowFuelWarningEventArgs : EventArgs {
+    public int PercentLeft { get; private set; }
+    public LowFuelWarningEventArgs(int percentLeft) {
+        PercentLeft = percentLeft;
+    }
+}
+{% endexamplecode %}
+{% requiredcode %}
+IEngine engine;
+bool wasCalled;
+int numberOfEvents;
+[SetUp] public void SetUp() { 
+    engine = Substitute.For<IEngine>(); 
+    wasCalled = false;
+    numberOfEvents = 0;
+    engine.Idling += (sender, args) => wasCalled = true;
+}
+{% endrequiredcode %}
+
+Events are "interesting" creatures in the .NET world, as you can't pass around references to them like you can with other members. Instead, you can only add or remove handlers to events, and it is this add handler syntax that NSubstitute uses to raise events.
+
+{% examplecode csharp %}
+var wasCalled = false;
+engine.Idling += (sender, args) => wasCalled = true;
+
+//Tell the substitute to raise the event with a sender and EventArgs:
+engine.Idling += Raise.Event(new object(), new EventArgs());
+
+Assert.True(wasCalled);
+{% endexamplecode %}
+
+In the example above we don't really mind what sender and `EventArgs` our event is raised with, just that it was called. In this case NSubstitute can make our life easier by creating the required arguments for our event handler:
+
+{% examplecode csharp %}
+engine.Idling += Raise.Event();
+Assert.True(wasCalled);
+{% endexamplecode %}
+
+## Raising events when arguments do not have a default constructor
+
+NSubstitute will not always be able to create the event arguments for you. If your event args do not have a default constructor you will have to provide them yourself, as is the case for the `LowFuelWarning` event. NSubstitute will still create the sender for you if you don't provide it though.
+
+{% examplecode csharp %}
+engine.LowFuelWarning += (sender, args) => numberOfEvents++;
+
+//Raise event with specific args, any sender:
+engine.LowFuelWarning += Raise.Event(new LowFuelWarningEventArgs(10));
+//Raise event with specific args and sender:
+engine.LowFuelWarning += Raise.Event(new object(), new LowFuelWarningEventArgs(10));
+
+Assert.AreEqual(2, numberOfEvents);
+{% endexamplecode %}
+
+## Raising `Action` events
+In the `IEngine` example the `RevvedAt` event is declared as an `Action<int>`. In this case we can use `Raise.Action()` to fire our event.
+
+{% examplecode csharp %}
+int revvedAt = 0;;
+engine.RevvedAt += rpm => revvedAt = rpm;
+
+engine.RevvedAt += Raise.Action(123);
+
+Assert.AreEqual(123, revvedAt);
+{% endexamplecode %}
