@@ -6,7 +6,6 @@ namespace NSubstitute.Acceptance.Specs
     [TestFixture]
     public class SimpleSubstituteExamples
     {
-        /* {CODE:Use_a_shiny_new_substitute} */
         [Test]
         public void Use_a_shiny_new_substitute()
         {
@@ -23,7 +22,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
         }
 
-        /* {CODE:Return_different_values_for_different_arguments} */
         [Test]
         public void Return_different_values_for_different_arguments()
         {
@@ -45,7 +43,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(calculator.Add(-1, -2), Is.EqualTo(-3));
         }
 
-        /* {CODE:Check_a_call_was_received} */
         [Test]
         public void Check_a_call_was_received()
         {

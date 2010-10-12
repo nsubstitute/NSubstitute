@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute.Exceptions;
+using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
 {
@@ -104,6 +105,20 @@ namespace NSubstitute.Acceptance.Specs
             _something.DidNotReceive().WithParams(1, first, first);
             _something.DidNotReceive().WithParams(1, null);
             _something.DidNotReceive().WithParams(1, Arg.Is<string[]>(x => x.Length > 3));
+        }
+
+        [Test]
+        [Pending]
+        public void Throw_with_ambiguous_arguments_when_given_an_arg_matcher_and_a_default_arg_value()
+        {
+            Assert.Throws<AmbiguousArgumentsException>(() =>
+               {
+                   _something.Add(0, Arg.Any<int>()).Returns(1);
+                   //Should not make it here, as it can't work out which arg the matcher refers to.
+                   //If it does this will throw an AssertionException rather than AmbiguousArgumentsException.
+                   Assert.That(_something.Add(0, 5), Is.EqualTo(1));
+               }
+                );
         }
 
         [Test]
