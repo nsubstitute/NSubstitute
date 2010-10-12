@@ -51,6 +51,7 @@ command.DidNotReceive().Execute();
 public interface ICalculator {
     int Add(int a, int b);
     int Subtract(int a, int b);
+    string Mode { get; set; }
 }
 ICalculator calculator;
 [SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
@@ -83,5 +84,30 @@ calculator.ReceivedWithAnyArgs().Add(1,1);
 calculator.DidNotReceiveWithAnyArgs().Subtract(0,0);
 {% endexamplecode %}
 
+## Checking calls to properties
 
+The same syntax can be used to check calls on properties. Normally we'd want to avoid this, as we're really more interested in testing the required behaviour rather than the precise implementation details (i.e. we would set the property to return a value and check that was used properly, rather than assert that the property getter was called). Still, there are probably times when checking getters and setters were called can come in handy, so here's how you do it:
 
+{% examplecode csharp %}
+var mode = calculator.Mode;
+calculator.Mode = "TEST";
+
+//Check received call to property getter
+//We need to assign the result to a variable to keep
+//the compiler happy.
+var temp = calculator.Received().Mode;
+
+//Check received call to property setter with arg of "TEST"
+calculator.Received().Mode = "TEST";
+{% endexamplecode %}
+
+## Checking calls to indexers
+An indexer is really just another property, so we can use the same syntax to check calls to indexers.
+
+{% examplecode csharp %} 
+var dictionary = Substitute.For<IDictionary<string, int>>();
+dictionary["test"] = 1;
+
+dictionary.Received()["test"] = 1;
+dictionary.Received()["test"] = Arg.Is<int>(x => x < 5);
+{% endexamplecode %}
