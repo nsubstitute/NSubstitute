@@ -25,7 +25,7 @@ a:active { color: #000000; text-decoration: underline;}
 #header { padding-top: 1.5em; }
 #header h1 {
     font-size: 3em;
-    color:#365f91;
+    color:#0A2D44;
 }
 
 #header a {
@@ -66,7 +66,7 @@ a:active { color: #000000; text-decoration: underline;}
     position: relative;
     width:21%;
     top:5em;
-    background-color: #D5E1DD;
+    background-color: #ECF0F5;
     -webkit-border-top-right-radius: 20px;
     -webkit-border-bottom-right-radius: 20px;
     -moz-border-radius-topright: 20px;
@@ -109,7 +109,7 @@ a:active { color: #000000; text-decoration: underline;}
     padding: 2em;
     padding-right: 1em;
 
-    background-color: #D5E1DD;
+    background-color: #ECF0F5;
     -webkit-border-top-left-radius: 20px;
     -webkit-border-bottom-left-radius: 20px;
     -moz-border-radius-topleft: 20px;
