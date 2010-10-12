@@ -33,6 +33,12 @@ namespace NSubstitute.Specs
             {
                 _callRouter.received(x => x.LastCallShouldReturn(_valueToReturn, _argMatching));
             }
+
+            [Test]
+            public void Should_throw_if_trying_to_set_another_return_value_before_another_call_is_made_on_a_substitute()
+            {
+                Assert.Throws<CouldNotSetReturnException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
+            }
             
             public override void Because()
             {
@@ -51,9 +57,9 @@ namespace NSubstitute.Specs
         public class When_trying_to_set_a_return_value_when_no_previous_call_has_been_made : Concern
         {
             [Test]
-            public void Should_throw_a_substitute_exception()
+            public void Should_throw()
             {
-                Assert.Throws<SubstituteException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
+                Assert.Throws<CouldNotSetReturnException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
             }
         }
 

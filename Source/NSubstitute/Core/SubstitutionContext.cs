@@ -44,8 +44,9 @@ namespace NSubstitute.Core
 
         public void LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
         {            
-            if (_lastCallRouter == null) throw new SubstituteException();
+            if (_lastCallRouter == null) throw new CouldNotSetReturnException();
             _lastCallRouter.LastCallShouldReturn(value, matchArgs);
+            _lastCallRouter = null;
         }
 
         public void LastCallRouter(ICallRouter callRouter)

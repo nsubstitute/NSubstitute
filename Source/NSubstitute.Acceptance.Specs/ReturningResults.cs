@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -72,6 +73,26 @@ namespace NSubstitute.Acceptance.Specs
         {
             _something.ToString().Returns("this string");
             Assert.That(_something.ToString(), Is.EqualTo("this string"));
+        }
+
+        [Test]
+        public void Throw_when_blatantly_misusing_returns()
+        {
+            const string expectedMessage = 
+                "Could not find a call to return from.\n"+
+                "Make sure you called Returns() after calling your substitute (for example: mySub.SomeMethod().Returns(value)).\n" +
+                "If you substituted for a class rather than an interface, check that the call to your substitute was on a virtual/abstract member.\n" +
+                "Return values cannot be configured for non-virtual/non-abstract members.";
+
+            var exception = Assert.Throws<CouldNotSetReturnException>(() =>
+              {
+                  //Start with legitimate call to Returns (so the static context will not have any residual calls stored).
+                  _something.Echo(1).Returns("one");
+                  //Now let's we'll misuse Returns.
+                  "".Returns("I shouldn't be calling returns like this!");
+              });
+
+            Assert.That(exception.Message, Contains.Substring(expectedMessage));
         }
 
         [SetUp]
