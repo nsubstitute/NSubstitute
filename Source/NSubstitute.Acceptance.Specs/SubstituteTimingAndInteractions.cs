@@ -24,13 +24,39 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
+        public class When_unsubscribing_from_an_event_from_within_an_event_handler
+        {
+            public interface IHaveEvents { event EventHandler Event; }
+            IHaveEvents sub;
+            int removeHandlerCallCount;
+
+            [SetUp]
+            public void SetUp() { sub = Substitute.For<IHaveEvents>(); }
+
+            [Test]
+            public void Should_remove_handler_after_first_event_is_raised()
+            {
+                sub.Event += RemoveThisEventSubscriptionWhenRaised;
+                sub.Event += Raise.Event();
+                sub.Event += Raise.Event();
+                Assert.That(removeHandlerCallCount, Is.EqualTo(1));
+            }
+
+            void RemoveThisEventSubscriptionWhenRaised(object sender, EventArgs e)
+            {
+                removeHandlerCallCount++;
+                sub.Event -= RemoveThisEventSubscriptionWhenRaised;
+            }
+        }
+
         public class When_setting_the_return_value_of_one_sub_within_the_call_to_set_a_return_on_another
         {
 
             public interface IWidget { string GetName(); }
             public interface IWidgetFactory { IWidget CreateWidget(); }
 
-            [Test][Pending]
+            [Test]
+            [Pending]
             public void Should_set_both_calls_to_return_the_specified_values()
             {
                 const string widgetName = "widget x";

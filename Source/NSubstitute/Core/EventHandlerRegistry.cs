@@ -18,7 +18,8 @@ namespace NSubstitute.Core
 
         public IEnumerable<object> GetHandlers(string eventName)
         {
-            return Handlers(eventName);
+            var snapshotOfHandlersForEvent = Handlers(eventName).ToArray();
+            return snapshotOfHandlersForEvent;
         }
 
         private List<object> Handlers(string eventName)
