@@ -1,6 +1,6 @@
 The aim of this file is to acknowledge the software, particularly those distributed as Open Source Software, that have been used to create NSubstitute. They have been invaluable in helping us produce this software.
 
-# Software distributed/compiled into NSubstitute
+# Software distributed with/compiled into NSubstitute
 
 ## Castle.Core
 NSubstitute is built on the Castle.Core library, particularly Castle.DynamicProxy which is used for generating proxies for types and intercepting calls made to them so that NSubstitute can record them. 
@@ -23,6 +23,9 @@ Used for packaging NSubstitute for distribution as a nu package. Distributed und
 
 ## Jekyll [http://jekyllrb.com/]
 Static website generator written in Ruby, used for NSubstitute's website and documentation. Distributed under the MIT license [http://www.opensource.org/licenses/bsd-license.php].
+
+## SyntaxHighlighter [http://alexgorbatchev.com/SyntaxHighlighter/]
+Open source, JavaScript, client-side code highlighter used for highlighting code samples on the NSubstitute website. Distributed under the MIT License [http://en.wikipedia.org/wiki/MIT_License] and the GPL [http://www.gnu.org/copyleft/lesser.html].
 
 ## Ruby (and libraries) [http://www.ruby-lang.org]
 Ruby is used for NSubstitute's build. The rake library is used to run the build; custom Ruby code is used to extract and test code samples from documentation; rspec is used to test that Ruby code; Markdown is used for documentation; gems for installing all this stuff; RubyInstaller for Windows and DevKit for interop with Windows; and much more. Ruby is awesome, as are the many projects contributed to the Ruby community that make developers' lives awesome.
