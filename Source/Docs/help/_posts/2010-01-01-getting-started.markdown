@@ -3,7 +3,7 @@ title: Getting started
 layout: post
 ---
 
-So you've [downloaded NSubstitute](http://github.com/nsubstitute/NSubstitute/downloads) and are staring at a blank test fixture you've created to try it out, wondering where to start. 
+So you've [downloaded NSubstitute](http://github.com/nsubstitute/NSubstitute/downloads), created a new project with a reference to your favourite unit testing framework (for these examples we're using [NUnit](http://www.nunit.org/)), and are staring at a blank test fixture you've created to try it out, wondering where to start. 
 
 Well, first you need to add a reference to `NSubstitute.dll` (from the download) into your project, and add `using NSubstitute;` to your current C# file. This will give you everything you need to start substituting.
 
