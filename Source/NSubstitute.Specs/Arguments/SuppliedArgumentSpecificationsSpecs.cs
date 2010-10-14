@@ -38,6 +38,13 @@ namespace NSubstitute.Specs.Arguments
             }
 
             [Test]
+            public void AnyFor_should_return_true_after_items_removed()
+            {
+                sut.DequeueAll();
+                Assert.That(sut.AnyFor(Type3), Is.True);
+            }
+
+            [Test]
             public void AnyFor_should_return_false()
             {
                 Assert.That(sut.AnyFor(typeof(double)), Is.False);

@@ -7,15 +7,17 @@ namespace NSubstitute.Core.Arguments
     public class SuppliedArgumentSpecifications : ISuppliedArgumentSpecifications
     {
         private readonly Queue<IArgumentSpecification> _queue;
+        private readonly List<IArgumentSpecification> _list;
 
         public SuppliedArgumentSpecifications(IEnumerable<IArgumentSpecification> argumentSpecifications)
         {
-            _queue = new Queue<IArgumentSpecification>(argumentSpecifications);
+            _list = new List<IArgumentSpecification>(argumentSpecifications);
+            _queue = new Queue<IArgumentSpecification>(_list);
         }
 
         public bool AnyFor(Type type)
         {
-            return _queue.Any(x => x.ForType == type);
+            return _list.Any(x => x.ForType == type);
         }
 
         public bool NextFor(Type type)

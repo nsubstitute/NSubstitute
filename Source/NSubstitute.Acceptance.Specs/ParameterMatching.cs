@@ -108,7 +108,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Throw_with_ambiguous_arguments_when_given_an_arg_matcher_and_a_default_arg_value()
         {
             Assert.Throws<AmbiguousArgumentsException>(() =>
