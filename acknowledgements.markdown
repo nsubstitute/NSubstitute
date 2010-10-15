@@ -1,4 +1,4 @@
-The aim of this file is to acknowledge the software packages that have been used to create NSubstitute, particularly those distributed as Open Source Software. They have been invaluable in helping us produce this software.
+The aim of this file is to acknowledge the software projects that have been used to create NSubstitute, particularly those distributed as Open Source Software. They have been invaluable in helping us produce this software.
 
 # Software distributed with/compiled into NSubstitute
 
@@ -40,6 +40,8 @@ Mono is available under four open source licenses for different parts of the pro
 
 ## Microsoft Ilmerge [http://research.microsoft.com/en-us/people/mbarnett/ilmerge.aspx]
 Used for combining assemblies so NSubstitute can be distributed as a single DLL. Available for use under a EULA as described on the ilmerge site.
+
+# Other acknowledgements
 
 ## Software developers
 Yes, you! To everyone who has tried to get better at the craft and science of programming, especially those of you who have talked, tweeted, blogged, screencasted, and/or contributed software or ideas to the community.
