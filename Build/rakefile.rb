@@ -120,8 +120,10 @@ task :package => [:version_assemblies, :all, :check_examples] do
 	cp "../README.markdown", "#{deploy_path}/README.txt"
 	cp "../LICENSE.txt", "#{deploy_path}"
 	cp "../CHANGELOG.txt", "#{deploy_path}"
-	cp "../acknowledgements.txt", "#{deploy_path}"
+	cp "../acknowledgements.markdown", "#{deploy_path}/acknowledgements.txt"
+
     tidyUpTextFileFromMarkdown("#{deploy_path}/README.txt")
+    tidyUpTextFileFromMarkdown("#{deploy_path}/acknowledgements.txt")
 end
 
 desc "Create NuPack package"

@@ -1,4 +1,4 @@
-The aim of this file is to acknowledge the software, particularly those distributed as Open Source Software, that have been used to create NSubstitute. They have been invaluable in helping us produce this software.
+The aim of this file is to acknowledge the software packages that have been used to create NSubstitute, particularly those distributed as Open Source Software. They have been invaluable in helping us produce this software.
 
 # Software distributed with/compiled into NSubstitute
 
