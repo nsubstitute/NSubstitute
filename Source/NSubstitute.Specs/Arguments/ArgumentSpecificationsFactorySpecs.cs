@@ -53,24 +53,6 @@ namespace NSubstitute.Specs.Arguments
             }
         }
 
-        public class When_creating_argument_specifications_with_argument_specs_for_each_argument : When_creating_argument_specifications
-        {
-            public override void Context()
-            {
-                base.Context();
-                foreach (var argument in _arguments)
-                {
-                    _argumentSpecifications.Add(mock<IArgumentSpecification>());
-                }
-            }
-
-            [Test]
-            public void Should_use_argument_specs_passed_in()
-            {
-                Assert.That(_result, Is.EquivalentTo(_argumentSpecifications));
-            }
-        }
-
         public class When_creating_argument_specifications_with_no_argument_specifications_given : BaseConcern
         {
             protected IEnumerable<IArgumentSpecification> _mixedArgumentSpecs;

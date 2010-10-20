@@ -59,7 +59,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Received_for_specific_parameter()
         {
             _something.Echo(3);
-            
+
             _something.Received().Echo(Arg.Is(3));
         }
 
@@ -97,7 +97,7 @@ namespace NSubstitute.Acceptance.Specs
             _something.Received().WithParams(1, first, second);
             _something.Received().WithParams(1, Arg.Any<string>(), second);
             _something.Received().WithParams(1, first, Arg.Any<string>());
-            _something.Received().WithParams(1, new[] {first, second});
+            _something.Received().WithParams(1, new[] { first, second });
             _something.Received().WithParams(1, Arg.Any<string[]>());
             _something.Received().WithParams(1, Arg.Is<string[]>(x => x.Length == 2));
             _something.DidNotReceive().WithParams(2, first, second);
@@ -118,6 +118,14 @@ namespace NSubstitute.Acceptance.Specs
                    Assert.That(_something.Add(0, 5), Is.EqualTo(1));
                }
                 );
+        }
+
+        [Test]
+        public void Returns_should_work_with_params()
+        {
+            _something.WithParams(Arg.Any<int>(), Arg.Is<string>(x => x == "one")).Returns("fred");    
+
+            Assert.That(_something.WithParams(1, "one"), Is.EqualTo("fred"));
         }
 
         [Test]

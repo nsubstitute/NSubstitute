@@ -16,8 +16,6 @@ namespace NSubstitute.Core.Arguments
         {
             if (matchArgs == MatchArgs.Any) return parameterInfos.Select(x => (IArgumentSpecification) new ArgumentIsAnythingSpecification(x.ParameterType));
 
-            if (argumentSpecs.Count == arguments.Length) return argumentSpecs;
-
             return MixedArgumentSpecificationsFactory.Create(argumentSpecs, arguments, parameterInfos);
         }
     }
