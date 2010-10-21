@@ -1,4 +1,8 @@
 unreleased changes
+* [NEW] NSubstitute website and documentation http://nsubstitute.github.com
+* [FIX] Match single argument matcher passed to params arg (#34)
+* [FIX] Detect ambiguous arg matchers in additional case (#31)
+* [FIX] Can modify event handler subscriptions from within event callback
 * [UPDATE] Update to Castle.Core build 2124 (post 2.5.1 release build)
 * [FIX] Can substitute for SynchronizationContext in .NET4 (fixed in Castle.Core)
 * [NEW] NSubstitute available as NuPack package
