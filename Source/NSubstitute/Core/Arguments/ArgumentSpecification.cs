@@ -63,18 +63,19 @@ namespace NSubstitute.Core.Arguments
         }
     }
 
-    public class ArgumentMatchesSpecification : ArgumentSpecification
+    public class ArgumentMatchesSpecification<T> : ArgumentSpecification
     {
-        private readonly Expression<Predicate<object>> _matchingCriteria;
+        readonly string _predicateDescription;
 
-        public ArgumentMatchesSpecification(Expression<Predicate<object>> matchingCriteria, Type forType) : base(matchingCriteria.Compile(), forType)
+        public ArgumentMatchesSpecification(Expression<Predicate<T>> predicate)
+            : base(arg => predicate.Compile().Invoke((T)arg), typeof(T))
         {
-            _matchingCriteria = matchingCriteria;
+            _predicateDescription = predicate.ToString();
         }
 
         public override string ToString()
         {
-            return _matchingCriteria.Body.ToString();
+            return _predicateDescription;
         }
     }
 

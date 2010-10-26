@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments\ArgumentEqualsSpecificationSpecs.cs" />
+    <Compile Include="Arguments\ArgumentMatchesSpecificationSpecs.cs" />
     <Compile Include="Arguments\ArgumentsFormatterSpecs.cs" />
     <Compile Include="Arguments\ArgumentSpecificationsFactorySpecs.cs" />
     <Compile Include="Arguments\ArgumentSpecificationFactorySpecs.cs" />

@@ -1,5 +1,6 @@
 unreleased changes
 * [NEW] NSubstitute website and documentation http://nsubstitute.github.com
+* [FIX] Formating for argument matchers that take predicate functions.
 * [FIX] Match single argument matcher passed to params arg (#34)
 * [FIX] Detect ambiguous arg matchers in additional case (#31)
 * [FIX] Can modify event handler subscriptions from within event callback

@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 
@@ -16,9 +17,9 @@ namespace NSubstitute
             return EnqueueArgumentSpec<T>(new ArgumentEqualsSpecification(value, typeof(T)));
         }
 
-        public static T Is<T>(Predicate<T> predicate)
+        public static T Is<T>(Expression<Predicate<T>> predicate)
         {
-            return EnqueueArgumentSpec<T>(new ArgumentMatchesSpecification(arg => predicate((T) arg), typeof(T)));
+            return EnqueueArgumentSpec<T>(new ArgumentMatchesSpecification<T>(predicate));
         }
 
         private static T EnqueueArgumentSpec<T>(IArgumentSpecification argumentSpec)
