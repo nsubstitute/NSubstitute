@@ -35,7 +35,7 @@ command.Received().Execute();
 ((IDisposable)command).Received().Dispose();
 {% endexamplecode %}
 
-You're substitute can implement several types this way, but remember you can only implement a maximum of one class. You can specify as many interfaces as you like, but only one of these can be a class. The most flexible way of creating substitutes for multiple types is using this overload:
+Your substitute can implement several types this way, but remember you can only implement a maximum of one class. You can specify as many interfaces as you like, but only one of these can be a class. The most flexible way of creating substitutes for multiple types is using this overload:
 
 {% examplecode csharp %}
 var substitute = Substitute.For(
@@ -74,6 +74,18 @@ public class CommandRunner
 	}
 }
 {% endrequiredcode %}
+
+## Substituting for delegates
+
+NSubstitute can also substitute for delegate types by using `Substiute.For<T>()`. When substituting for delegate types you will not be able to get the substitute to implement additional interfaces or classes.
+
+{% examplecode csharp %}
+var func = Substitute.For<Func<string>>();
+
+func().Returns("hello");
+Assert.AreEqual("hello", func());
+{% endexamplecode %}
+
 
 
 
