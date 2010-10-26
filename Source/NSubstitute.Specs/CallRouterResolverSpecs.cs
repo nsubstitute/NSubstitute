@@ -78,7 +78,7 @@ namespace NSubstitute.Specs
             {
                 Assert.Throws<NotASubstituteException>(() =>
                     sut.ResolveFor(new object())
-                    );
+                );
             }
         }
     }
