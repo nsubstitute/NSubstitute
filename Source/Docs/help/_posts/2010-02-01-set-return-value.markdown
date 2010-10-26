@@ -29,12 +29,12 @@ This value will be returned every time this call is made. `Returns()` will only 
 
 {% examplecode csharp %}
 //Make a call return 3:
-calculator.Add(1, 2).Returns(3); 
+calculator.Add(1, 2).Returns(3);
 Assert.AreEqual(calculator.Add(1, 2), 3);
 Assert.AreEqual(calculator.Add(1, 2), 3);
 
 //Call with different arguments does not return 3
-Assert.AreNotEqual(calculator.Add(3, 6), 3); 
+Assert.AreNotEqual(calculator.Add(3, 6), 3);
 {% endexamplecode %}
 
 ## For properties
