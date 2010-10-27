@@ -34,7 +34,7 @@ namespace NSubstitute.Proxies.DelegateProxy
             var invokeOnDelegateCall = DelegateCall.DelegateCallInvoke;
 
             var proxyParameterTypes = delegateMethodToProxy.GetParameters().Select(x => new ParameterInfoWrapper(x)).ToArray();
-            var delegateCall = new DelegateCall(callRouter, proxyParameterTypes);
+            var delegateCall = new DelegateCall(callRouter, delegateMethodToProxy.ReturnType, proxyParameterTypes);
 
             ParameterExpression[] proxyParameters = delegateMethodToProxy.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();
             Expression[] proxyParametersAsObjects = proxyParameters.Select(x => (Expression)Expression.Convert(x, typeof(object))).ToArray();

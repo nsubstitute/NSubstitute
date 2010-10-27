@@ -33,6 +33,14 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void SubForFuncThatReturnsValueType()
+        {
+            var func = Substitute.For<Func<int>>();
+            func().Returns(10);
+            Assert.AreEqual(10, func());
+        }
+
+        [Test]
         public void substitute_for_an_event_handler()
         {
             var eventHandler = Substitute.For<EventHandler>();

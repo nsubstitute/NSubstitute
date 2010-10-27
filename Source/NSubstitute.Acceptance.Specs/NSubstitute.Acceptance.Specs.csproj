@@ -58,7 +58,6 @@
     <Compile Include="ClearCalls.cs" />
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />
-    <Compile Include="FieldReports\SubbingForFuncIntDelegate.cs" />
     <Compile Include="FieldReports\SubbingSynchronizationContext.cs" />
     <Compile Include="Infrastructure\ICalculator.cs" />
     <Compile Include="NotASubstituteExceptions.cs" />
