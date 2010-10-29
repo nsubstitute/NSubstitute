@@ -226,6 +226,33 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(recorder.EventArgs, Is.EqualTo(EventArgs.Empty));
         }
 
+        [Test]
+        public void Raise_event_declared_as_delegate_with_an_integer_arg()
+        {
+            var sub = Substitute.For<IDelegateEvents>();
+            var wasCalledWithArg = -1;
+            sub.DelegateEventWithAnArg += x => wasCalledWithArg = x;
+            sub.DelegateEventWithAnArg += Raise.Event<VoidDelegateWithAnArg>(123);
+            Assert.That(wasCalledWithArg, Is.EqualTo(123));
+        }
+
+        [Test]
+        public void Raise_event_with_incorrect_args()
+        {
+            var expectedExceptionMessage = string.Format(
+@"Raising event of type {0} requires additional arguments.
+
+Use Raise.Event<{0}>({1}) to raise this event.",
+                           typeof(VoidDelegateWithAnArg).Name,
+                           typeof(int).Name
+                );
+            var sub = Substitute.For<IDelegateEvents>();
+            sub.DelegateEventWithAnArg += x => { };
+            Assert.That(
+                () => { sub.DelegateEventWithAnArg += Raise.Event<VoidDelegateWithAnArg>(); },
+                Throws.TypeOf<ArgumentException>().With.Message.EqualTo(expectedExceptionMessage)
+                );
+        }
         public interface IDelegateEvents
         {
             event VoidDelegateWithEventArgs DelegateEventWithEventArgs;

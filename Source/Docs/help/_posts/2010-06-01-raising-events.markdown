@@ -24,8 +24,8 @@ public class LowFuelWarningEventArgs : EventArgs {
 IEngine engine;
 bool wasCalled;
 int numberOfEvents;
-[SetUp] public void SetUp() { 
-    engine = Substitute.For<IEngine>(); 
+[SetUp] public void SetUp() {
+    engine = Substitute.For<IEngine>();
     wasCalled = false;
     numberOfEvents = 0;
     engine.Idling += (sender, args) => wasCalled = true;
@@ -39,7 +39,7 @@ var wasCalled = false;
 engine.Idling += (sender, args) => wasCalled = true;
 
 //Tell the substitute to raise the event with a sender and EventArgs:
-engine.Idling += Raise.Event(new object(), new EventArgs());
+engine.Idling += Raise.EventWith(new object(), new EventArgs());
 
 Assert.True(wasCalled);
 {% endexamplecode %}
@@ -47,7 +47,7 @@ Assert.True(wasCalled);
 In the example above we don't really mind what sender and `EventArgs` our event is raised with, just that it was called. In this case NSubstitute can make our life easier by creating the required arguments for our event handler:
 
 {% examplecode csharp %}
-engine.Idling += Raise.Event();
+engine.Idling += Raise.EventWithEmptyEventArgs();
 Assert.True(wasCalled);
 {% endexamplecode %}
 
@@ -59,12 +59,29 @@ NSubstitute will not always be able to create the event arguments for you. If yo
 engine.LowFuelWarning += (sender, args) => numberOfEvents++;
 
 //Raise event with specific args, any sender:
-engine.LowFuelWarning += Raise.Event(new LowFuelWarningEventArgs(10));
+engine.LowFuelWarning += Raise.EventWith(new LowFuelWarningEventArgs(10));
 //Raise event with specific args and sender:
-engine.LowFuelWarning += Raise.Event(new object(), new LowFuelWarningEventArgs(10));
+engine.LowFuelWarning += Raise.EventWith(new object(), new LowFuelWarningEventArgs(10));
 
 Assert.AreEqual(2, numberOfEvents);
 {% endexamplecode %}
+
+## Raising `Delegate` events
+
+Sometimes events are declared with a _delegate_ that does not inherit from `EventHandler<T>` or `EventHandler`. These events an be raised using `Raise.Event<TypeOfEventHandlerDelegate>(_arguments_)`. NSubsitute will try and guess the arguments required for the delegate, but if it can't it will tell you what arguments you need to supply.
+
+The following examples shows raising an `INotifyPropertyChanged` event, which uses a `PropertyChangedEventHandler` delegate and requires two parameters.
+
+{% examplecode csharp %}
+var sub = Substitute.For<INotifyPropertyChanged>();
+bool wasCalled = false;
+sub.PropertyChanged += (sender, args) => wasCalled = true;
+
+sub.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(this, new PropertyChangedEventArgs("test"));
+
+Assert.That(wasCalled);
+{% endexamplecode %}
+
 
 ## Raising `Action` events
 In the `IEngine` example the `RevvedAt` event is declared as an `Action<int>`. In this case we can use `Raise.Action()` to fire our event.

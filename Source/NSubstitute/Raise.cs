@@ -28,6 +28,11 @@ namespace NSubstitute
             return new EventHandlerWrapper<EventArgs>();
         }
 
+        public static EventHandlerWrapper<EventArgs> Event()
+        {
+            return new EventHandlerWrapper<EventArgs>();
+        }
+
         public static DelegateEventWrapper<THandler> Event<THandler>(params object[] arguments)
         {
             return new DelegateEventWrapper<THandler>(arguments);
@@ -132,13 +137,25 @@ namespace NSubstitute
         object[] DefaultArguments(object[] arguments)
         {
             arguments = arguments ?? new object[0];
-            if (arguments.Any()) return arguments;
             var parameters = typeof(T).GetMethod("Invoke").GetParameters();
 
-            if (LooksLikeAnEventStyleCall(parameters))
+            if (LooksLikeAnEventStyleCall(parameters) && arguments.Length == 0)
             {
-                arguments = new object[] { this, GetDefaultForEventArgType(parameters[1].ParameterType)};
+                return new object[] { this, GetDefaultForEventArgType(parameters[1].ParameterType)};
             }
+
+            if (arguments.Length != parameters.Length)
+            {
+                var message = string.Format(
+@"Raising event of type {0} requires additional arguments.
+
+Use Raise.Event<{0}>({1}) to raise this event.",
+                           typeof(T).Name,
+                           string.Join(", ", parameters.Select(x => x.ParameterType.Name).ToArray())
+                );
+                throw new ArgumentException(message);
+            }
+
             return arguments;
         }
 

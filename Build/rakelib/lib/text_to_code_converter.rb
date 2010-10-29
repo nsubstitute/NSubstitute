@@ -21,6 +21,7 @@ using System;
 using NUnit.Framework;
 using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace NSubstitute.Documentation.Samples {
     public class Tests_#{@@converted} {
