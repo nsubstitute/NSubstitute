@@ -129,7 +129,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Resolve_setter_arg_matcher_with_more_specific_type_than_member_signature()
         {
             const string value = "some string";
@@ -138,6 +137,25 @@ namespace NSubstitute.Acceptance.Specs
             _something[key] = value;
 
             _something.Received()[key] = Arg.Is(value);
+        }
+
+        [Test]
+        public void Resolve_argument_matcher_for_more_specific_type()
+        {
+            _something.Anything("Hello");
+            _something.Received().Anything(Arg.Any<string>());
+            _something.DidNotReceive().Anything(Arg.Any<int>());
+        }
+
+        [Test]
+        public void Set_returns_using_more_specific_type_matcher()
+        {
+            _something.Anything(Arg.Is<string>(x => x.Contains("world"))).Returns(123);
+
+            Assert.That(_something.Anything("Hello world!"), Is.EqualTo(123));
+            Assert.That(_something.Anything("Howdy"), Is.EqualTo(0));
+            Assert.That(_something.Anything(2), Is.EqualTo(0));
+
         }
 
         [SetUp]

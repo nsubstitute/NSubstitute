@@ -3,6 +3,7 @@
     public interface ISomething
     {
         int Count();
+        int Anything(object stuff);
         string Echo(int i);
         int Funky(float percentage, int amount, string label, ISomething something);
         int Add(int a, int b);

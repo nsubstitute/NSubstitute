@@ -17,14 +17,14 @@ namespace NSubstitute.Core.Arguments
 
         public bool AnyFor(Type type)
         {
-            return _list.Any(x => x.ForType == type);
+            return _list.Any(x => type.IsAssignableFrom(x.ForType));
         }
 
         public bool NextFor(Type type)
         {
             if (_queue.Count > 0)
             {
-                return _queue.Peek().ForType == type;
+                return type.IsAssignableFrom(_queue.Peek().ForType);
             }
             return false;
         }

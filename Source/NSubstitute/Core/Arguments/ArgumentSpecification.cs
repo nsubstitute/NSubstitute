@@ -7,7 +7,7 @@ namespace NSubstitute.Core.Arguments
 {
     public abstract class ArgumentSpecification : IArgumentSpecification
     {
-        readonly Predicate<object> _matchingCriteria;
+        protected readonly Predicate<object> _matchingCriteria;
         public Type ForType { get; private set; }
 
         protected ArgumentSpecification(Predicate<object> matchingCriteria, Type forType)
@@ -16,7 +16,7 @@ namespace NSubstitute.Core.Arguments
             ForType = forType;
         }
 
-        public bool IsSatisfiedBy(object argument)
+        virtual public bool IsSatisfiedBy(object argument)
         {
             return _matchingCriteria(argument);
         }
@@ -71,6 +71,25 @@ namespace NSubstitute.Core.Arguments
             : base(arg => predicate.Compile().Invoke((T)arg), typeof(T))
         {
             _predicateDescription = predicate.ToString();
+        }
+
+        public override bool IsSatisfiedBy(object argument)
+        {
+            if (argument == null)
+            {
+                var typeCantBeNull = ForType.IsValueType;
+                if (typeCantBeNull)
+                    return false;
+            }
+            else
+            {
+                var argumentIsCompatibleWithType = ForType.IsAssignableFrom(argument.GetType());
+                if (!argumentIsCompatibleWithType)
+                {
+                    return false;
+                }
+            }
+            return _matchingCriteria(argument);
         }
 
         public override string ToString()
