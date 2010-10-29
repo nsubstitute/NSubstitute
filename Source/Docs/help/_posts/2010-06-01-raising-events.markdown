@@ -68,7 +68,7 @@ Assert.AreEqual(2, numberOfEvents);
 
 ## Raising `Delegate` events
 
-Sometimes events are declared with a _delegate_ that does not inherit from `EventHandler<T>` or `EventHandler`. These events an be raised using `Raise.Event<TypeOfEventHandlerDelegate>(_arguments_)`. NSubsitute will try and guess the arguments required for the delegate, but if it can't it will tell you what arguments you need to supply.
+Sometimes events are declared with a _delegate_ that does not inherit from `EventHandler<T>` or `EventHandler`. These events an be raised using `Raise.Event<TypeOfEventHandlerDelegate>(arguments)`. NSubsitute will try and guess the arguments required for the delegate, but if it can't it will tell you what arguments you need to supply.
 
 The following examples shows raising an `INotifyPropertyChanged` event, which uses a `PropertyChangedEventHandler` delegate and requires two parameters.
 
