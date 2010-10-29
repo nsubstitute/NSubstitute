@@ -116,7 +116,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Raise_event_declared_as_action()
+        public void Raise_event_declared_as_action_using_shortcut_syntax()
         {
             var wasStarted = false;
             var engine = Substitute.For<IEngine>();
@@ -124,6 +124,18 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(wasStarted, Is.False, "Why is this started before event was raised? Something has gone wrong!");
             engine.Started += Raise.Action();
+            Assert.That(wasStarted);
+        }
+
+        [Test]
+        public void Raise_event_declared_as_action()
+        {
+            var wasStarted = false;
+            var engine = Substitute.For<IEngine>();
+            engine.Started += () => wasStarted = true;
+
+            Assert.That(wasStarted, Is.False, "Why is this started before event was raised? Something has gone wrong!");
+            engine.Started += Raise.Event<Action>();
             Assert.That(wasStarted);
         }
 
