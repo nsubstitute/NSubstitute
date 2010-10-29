@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
@@ -7,29 +8,29 @@ namespace NSubstitute
 {
     public static class Raise
     {
-        public static EventHandlerWrapper<TEventArgs> Event<TEventArgs>(object sender, TEventArgs eventArgs) where TEventArgs : EventArgs
+        public static EventHandlerWrapper<TEventArgs> EventWith<TEventArgs>(object sender, TEventArgs eventArgs) where TEventArgs : EventArgs
         {
             return new EventHandlerWrapper<TEventArgs>(sender, eventArgs);
         }
 
-        public static EventHandlerWrapper<TEventArgs> Event<TEventArgs>(TEventArgs eventArgs) where TEventArgs : EventArgs
+        public static EventHandlerWrapper<TEventArgs> EventWith<TEventArgs>(TEventArgs eventArgs) where TEventArgs : EventArgs
         {
             return new EventHandlerWrapper<TEventArgs>(eventArgs);
         }
 
-        public static EventHandlerWrapper<TEventArgs> Event<TEventArgs>() where TEventArgs : EventArgs
+        public static EventHandlerWrapper<TEventArgs> EventWith<TEventArgs>() where TEventArgs : EventArgs
         {
-            return new EventHandlerWrapper<TEventArgs>(null);
+            return new EventHandlerWrapper<TEventArgs>();
         }
 
-        public static EventHandlerWrapper<EventArgs> Event()
+        public static EventHandlerWrapper<EventArgs> EventWithEmptyEventArgs()
         {
             return new EventHandlerWrapper<EventArgs>();
         }
 
-        public static DelegateEventWrapper<T> Event<T>(params object[] arguments)
+        public static DelegateEventWrapper<THandler> Event<THandler>(params object[] arguments)
         {
-            return new DelegateEventWrapper<T>(arguments);
+            return new DelegateEventWrapper<THandler>(arguments);
         }
 
         public static DelegateEventWrapper<Action> Action()
@@ -106,7 +107,7 @@ namespace NSubstitute
             {
                 var message = string.Format(
                     "Cannot create {0} for this event as it has no default constructor. " +
-                    "Provide arguments for this event by calling Raise.Event(instanceOf{0})."
+                    "Provide arguments for this event by calling Raise.EventWith(instanceOf{0})."
                     , type.Name);
                 throw new CannotCreateEventArgsException(message);
             }
@@ -125,7 +126,47 @@ namespace NSubstitute
 
         public DelegateEventWrapper(params object[] arguments)
         {
-            _arguments = arguments;
+            _arguments = DefaultArguments(arguments);
+        }
+
+        object[] DefaultArguments(object[] arguments)
+        {
+            arguments = arguments ?? new object[0];
+            if (arguments.Any()) return arguments;
+            var parameters = typeof(T).GetMethod("Invoke").GetParameters();
+
+            if (LooksLikeAnEventStyleCall(parameters))
+            {
+                arguments = new object[] { this, GetDefaultForEventArgType(parameters[1].ParameterType)};
+            }
+            return arguments;
+        }
+
+        bool LooksLikeAnEventStyleCall(ParameterInfo[] parameters)
+        {
+            return parameters.Length == 2 &&
+                parameters[0].ParameterType == typeof(object) &&
+                typeof(EventArgs).IsAssignableFrom(parameters[1].ParameterType);
+        }
+
+        private static EventArgs GetDefaultForEventArgType(Type type)
+        {
+            if (type == typeof(EventArgs)) return EventArgs.Empty;
+            var defaultConstructor = GetDefaultConstructor(type);
+            if (defaultConstructor == null)
+            {
+                var message = string.Format(
+                    "Cannot create {0} for this event as it has no default constructor. " +
+                    "Provide arguments for this event by calling Raise.EventWith(instanceOf{0})."
+                    , type.Name);
+                throw new CannotCreateEventArgsException(message);
+            }
+            return (EventArgs)defaultConstructor.Invoke(new object[0]);
+        }
+
+        private static ConstructorInfo GetDefaultConstructor(Type type)
+        {
+            return type.GetConstructor(Type.EmptyTypes);
         }
 
         public static implicit operator T(DelegateEventWrapper<T> wrapper)

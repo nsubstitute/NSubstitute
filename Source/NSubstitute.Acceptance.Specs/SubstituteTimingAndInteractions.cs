@@ -37,8 +37,8 @@ namespace NSubstitute.Acceptance.Specs
             public void Should_remove_handler_after_first_event_is_raised()
             {
                 sub.Event += RemoveThisEventSubscriptionWhenRaised;
-                sub.Event += Raise.Event();
-                sub.Event += Raise.Event();
+                sub.Event += Raise.EventWithEmptyEventArgs();
+                sub.Event += Raise.EventWithEmptyEventArgs();
                 Assert.That(removeHandlerCallCount, Is.EqualTo(1));
             }
 

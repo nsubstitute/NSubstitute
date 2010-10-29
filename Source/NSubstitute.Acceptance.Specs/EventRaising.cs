@@ -16,7 +16,7 @@ namespace NSubstitute.Acceptance.Specs
             var engine = Substitute.For<IEngine>();
             var stoppedHandler = new RaisedEventRecorder<EventArgs>();
             engine.Stopped += stoppedHandler.Record;
-            engine.Stopped += Raise.Event(sender, arguments);
+            engine.Stopped += Raise.EventWith(sender, arguments);
 
             Assert.That(stoppedHandler.Sender, Is.SameAs(sender));
             Assert.That(stoppedHandler.EventArgs, Is.SameAs(arguments));
@@ -31,7 +31,7 @@ namespace NSubstitute.Acceptance.Specs
             var engine = Substitute.For<IEngine>();
             var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
             engine.Idling += idlingHandler.Record;
-            engine.Idling += Raise.Event(sender, arguments);
+            engine.Idling += Raise.EventWith(sender, arguments);
 
             Assert.That(idlingHandler.Sender, Is.SameAs(sender));
             Assert.That(idlingHandler.EventArgs, Is.SameAs(arguments));
@@ -45,7 +45,7 @@ namespace NSubstitute.Acceptance.Specs
             var engine = Substitute.For<IEngine>();
             var stoppedEventHandler = new RaisedEventRecorder<EventArgs>();
             engine.Stopped += stoppedEventHandler.Record;
-            engine.Stopped += Raise.Event(arguments);
+            engine.Stopped += Raise.EventWith(arguments);
 
             Assert.That(stoppedEventHandler.Sender, Is.SameAs(engine));
             Assert.That(stoppedEventHandler.EventArgs, Is.SameAs(arguments));
@@ -59,7 +59,7 @@ namespace NSubstitute.Acceptance.Specs
             var engine = Substitute.For<IEngine>();
             var brokenEventHandler = new RaisedEventRecorder<EventArgs>();
             engine.Broken += brokenEventHandler.Record;
-            engine.Broken += Raise.Event(arguments);
+            engine.Broken += Raise.EventWith(arguments);
 
             Assert.That(brokenEventHandler.Sender, Is.SameAs(engine));
             Assert.That(brokenEventHandler.EventArgs, Is.SameAs(arguments));
@@ -73,19 +73,19 @@ namespace NSubstitute.Acceptance.Specs
             var engine = Substitute.For<IEngine>();
             var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
             engine.Idling += idlingHandler.Record;
-            engine.Idling += Raise.Event(arguments);
+            engine.Idling += Raise.EventWith(arguments);
 
             Assert.That(idlingHandler.Sender, Is.SameAs(engine));
             Assert.That(idlingHandler.EventArgs, Is.SameAs(arguments));
         }
 
         [Test]
-        public void Raise_event_with_sensible_default_arguments()
+        public void Raise_event_with_empty_event_args()
         {
             var engine = Substitute.For<IEngine>();
             var stoppedHandler = new RaisedEventRecorder<EventArgs>();
             engine.Stopped += stoppedHandler.Record;
-            engine.Stopped += Raise.Event();
+            engine.Stopped += Raise.EventWithEmptyEventArgs();
 
             Assert.That(stoppedHandler.Sender, Is.EqualTo(engine));
             Assert.That(stoppedHandler.EventArgs, Is.EqualTo(EventArgs.Empty));
@@ -97,7 +97,7 @@ namespace NSubstitute.Acceptance.Specs
             var engine = Substitute.For<IEngine>();
             var idlingHandler = new RaisedEventRecorder<IdlingEventArgs>();
             engine.Idling += idlingHandler.Record;
-            engine.Idling += Raise.Event<IdlingEventArgs>();
+            engine.Idling += Raise.EventWith<IdlingEventArgs>();
 
             Assert.That(idlingHandler.Sender, Is.SameAs(engine));
             Assert.That(idlingHandler.EventArgs, Is.Not.Null);
@@ -111,7 +111,7 @@ namespace NSubstitute.Acceptance.Specs
             engine.LowFuelWarning += lowFuelHandler.Record;
 
             Assert.Throws<CannotCreateEventArgsException>(() =>
-                engine.LowFuelWarning += Raise.Event<LowFuelWarningEventArgs>()
+                engine.LowFuelWarning += Raise.EventWith<LowFuelWarningEventArgs>()
                 );
         }
 
@@ -151,7 +151,6 @@ namespace NSubstitute.Acceptance.Specs
                                                finalPercent = y;
                                            };
 
-
             Assert.That(initialPercent, Is.EqualTo(0));
             Assert.That(finalPercent, Is.EqualTo(0));
             engine.PetrolTankFilled += Raise.Action(20, 80);
@@ -177,19 +176,52 @@ namespace NSubstitute.Acceptance.Specs
         {
             var engine = Substitute.For<IEngine>();
             engine.LowFuelWarning += (sender, e) => { throw new Exception(); };
-            Assert.Throws<Exception>(() => engine.LowFuelWarning += Raise.Event(new LowFuelWarningEventArgs(5)));
+            Assert.Throws<Exception>(() => engine.LowFuelWarning += Raise.EventWith(new LowFuelWarningEventArgs(5)));
         }
 
         class RaisedEventRecorder<T>
         {
             public object Sender;
             public T EventArgs;
+            public bool WasCalled;
 
             public void Record(object sender, T eventArgs)
             {
+                WasCalled = true;
                 Sender = sender;
                 EventArgs = eventArgs;
             }
         }
+
+        [Test]
+        public void Raise_event_declared_as_delegate_with_no_args()
+        {
+            var sub = Substitute.For<IDelegateEvents>();
+            var wasRaised = false;
+            sub.DelegateEventWithoutArgs += () => wasRaised = true;
+            sub.DelegateEventWithoutArgs += Raise.Event<VoidDelegateWithoutArgs>();
+            Assert.That(wasRaised);
+        }
+
+        [Test]
+        public void Raise_event_declared_as_delegate_with_event_args()
+        {
+            var sub = Substitute.For<IDelegateEvents>();
+            var recorder = new RaisedEventRecorder<EventArgs>();
+            sub.DelegateEventWithEventArgs += (sender, args) => recorder.Record(sender, args);
+            sub.DelegateEventWithEventArgs += Raise.Event<VoidDelegateWithEventArgs>();
+            Assert.That(recorder.WasCalled);
+            Assert.That(recorder.EventArgs, Is.EqualTo(EventArgs.Empty));
+        }
+
+        public interface IDelegateEvents
+        {
+            event VoidDelegateWithEventArgs DelegateEventWithEventArgs;
+            event VoidDelegateWithoutArgs DelegateEventWithoutArgs;
+            event VoidDelegateWithAnArg DelegateEventWithAnArg;
+        }
+        public delegate void VoidDelegateWithoutArgs();
+        public delegate void VoidDelegateWithEventArgs(object sender, EventArgs args);
+        public delegate void VoidDelegateWithAnArg(int arg);
     }
 }
