@@ -267,16 +267,28 @@ namespace NSubstitute.Acceptance.Specs
                 );
         }
 
+        [Test]
+        public void Raise_event_for_delegate_with_return_value()
+        {
+            var sub = Substitute.For<IDelegateEvents>();
+            var wasCalled = false;
+            sub.FuncDelegate += () => { wasCalled = true; return 0; };
+            sub.FuncDelegate += Raise.Event<FuncDelegateWithoutArgs>();
+            Assert.That(wasCalled);
+        }
+
         public interface IDelegateEvents
         {
             event VoidDelegateWithEventArgs DelegateEventWithEventArgs;
             event VoidDelegateWithoutArgs DelegateEventWithoutArgs;
             event VoidDelegateWithAnArg DelegateEventWithAnArg;
             event VoidDelegateWithMultipleArgs DelegateEventWithMultipleArgs;
+            event FuncDelegateWithoutArgs FuncDelegate;
         }
         public delegate void VoidDelegateWithoutArgs();
         public delegate void VoidDelegateWithEventArgs(object sender, EventArgs args);
         public delegate void VoidDelegateWithAnArg(int arg);
         public delegate void VoidDelegateWithMultipleArgs(int intArg, string stringArg);
+        public delegate int FuncDelegateWithoutArgs();
     }
 }
