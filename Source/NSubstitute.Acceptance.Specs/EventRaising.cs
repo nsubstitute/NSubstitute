@@ -237,30 +237,46 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Raise_event_with_incorrect_args()
+        public void Raise_event_with_incorrect_number_of_args()
         {
             var expectedExceptionMessage = string.Format(
-@"Raising event of type {0} requires additional arguments.
-
-Use Raise.Event<{0}>({1}) to raise this event.",
+                           "Cannot raise event with the provided arguments. Use Raise.Event<{0}>({1}) to raise this event.",
                            typeof(VoidDelegateWithAnArg).Name,
                            typeof(int).Name
                 );
             var sub = Substitute.For<IDelegateEvents>();
-            sub.DelegateEventWithAnArg += x => { };
             Assert.That(
                 () => { sub.DelegateEventWithAnArg += Raise.Event<VoidDelegateWithAnArg>(); },
                 Throws.TypeOf<ArgumentException>().With.Message.EqualTo(expectedExceptionMessage)
                 );
         }
+
+        [Test]
+        public void Raise_event_with_incorrect_args()
+        {
+            var expectedExceptionMessage = string.Format(
+                           "Cannot raise event with the provided arguments. Use Raise.Event<{0}>({1}, {2}) to raise this event.",
+                           typeof(VoidDelegateWithMultipleArgs).Name,
+                           typeof(int).Name,
+                           typeof(string).Name
+                );
+            var sub = Substitute.For<IDelegateEvents>();
+            Assert.That(
+                () => { sub.DelegateEventWithMultipleArgs += Raise.Event<VoidDelegateWithMultipleArgs>("test", "test"); },
+                Throws.TypeOf<ArgumentException>().With.Message.EqualTo(expectedExceptionMessage)
+                );
+        }
+
         public interface IDelegateEvents
         {
             event VoidDelegateWithEventArgs DelegateEventWithEventArgs;
             event VoidDelegateWithoutArgs DelegateEventWithoutArgs;
             event VoidDelegateWithAnArg DelegateEventWithAnArg;
+            event VoidDelegateWithMultipleArgs DelegateEventWithMultipleArgs;
         }
         public delegate void VoidDelegateWithoutArgs();
         public delegate void VoidDelegateWithEventArgs(object sender, EventArgs args);
         public delegate void VoidDelegateWithAnArg(int arg);
+        public delegate void VoidDelegateWithMultipleArgs(int intArg, string stringArg);
     }
 }

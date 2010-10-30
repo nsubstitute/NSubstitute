@@ -131,32 +131,45 @@ namespace NSubstitute
 
         public DelegateEventWrapper(params object[] arguments)
         {
-            _arguments = DefaultArguments(arguments);
+            _arguments = WorkOutRequiredArguments(arguments);
         }
 
-        object[] DefaultArguments(object[] arguments)
+        object[] WorkOutRequiredArguments(object[] providedArgs)
         {
-            arguments = arguments ?? new object[0];
-            var parameters = typeof(T).GetMethod("Invoke").GetParameters();
+            providedArgs = providedArgs ?? new object[0];
+            var requiredArgs = typeof(T).GetMethod("Invoke").GetParameters();
 
-            if (LooksLikeAnEventStyleCall(parameters) && arguments.Length == 0)
+            if (providedArgs.Length == 0 && LooksLikeAnEventStyleCall(requiredArgs))
             {
-                return new object[] { this, GetDefaultForEventArgType(parameters[1].ParameterType)};
+                return new object[] { this, GetDefaultForEventArgType(requiredArgs[1].ParameterType)};
             }
 
-            if (arguments.Length != parameters.Length)
+            if (!RequiredArgsHaveBeenProvided(providedArgs, requiredArgs))
             {
                 var message = string.Format(
-@"Raising event of type {0} requires additional arguments.
-
-Use Raise.Event<{0}>({1}) to raise this event.",
+                           "Cannot raise event with the provided arguments. Use Raise.Event<{0}>({1}) to raise this event.",
                            typeof(T).Name,
-                           string.Join(", ", parameters.Select(x => x.ParameterType.Name).ToArray())
+                           string.Join(", ", requiredArgs.Select(x => x.ParameterType.Name).ToArray())
                 );
                 throw new ArgumentException(message);
             }
 
-            return arguments;
+            return providedArgs;
+        }
+
+        bool RequiredArgsHaveBeenProvided(object[] providedArgs, ParameterInfo[] requiredArgs)
+        {
+            if (providedArgs.Length != requiredArgs.Length) return false;
+            for (var i = 0; i < providedArgs.Length; i++)
+            {
+                var requiredArgType = requiredArgs[i].ParameterType;
+                var providedArgType = providedArgs[i].GetType();
+                if (!requiredArgType.IsAssignableFrom(providedArgType))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         bool LooksLikeAnEventStyleCall(ParameterInfo[] parameters)
