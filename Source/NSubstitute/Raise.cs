@@ -142,7 +142,7 @@ namespace NSubstitute
 
         protected override object[] WorkOutRequiredArguments(ICall call)
         {
-            var requiredArgs = RequiredArgsForEvent();
+            var requiredArgs = typeof(T).GetMethod("Invoke").GetParameters();
 
             if (_providedArguments.Length < 2 && LooksLikeAnEventStyleCall(requiredArgs))
             {
@@ -151,15 +151,17 @@ namespace NSubstitute
 
             if (!RequiredArgsHaveBeenProvided(_providedArguments, requiredArgs))
             {
-                var message = string.Format(
-                           "Cannot raise event with the provided arguments. Use Raise.Event<{0}>({1}) to raise this event.",
-                           typeof(T).Name,
-                           string.Join(", ", requiredArgs.Select(x => x.ParameterType.Name).ToArray())
-                );
-                throw new ArgumentException(message);
+                ThrowBecauseRequiredArgsNotProvided(requiredArgs);
             }
 
             return _providedArguments;
+        }
+
+        bool LooksLikeAnEventStyleCall(ParameterInfo[] parameters)
+        {
+            return parameters.Length == 2 &&
+                   parameters[0].ParameterType == typeof(object) &&
+                   typeof(EventArgs).IsAssignableFrom(parameters[1].ParameterType);
         }
 
         object[] WorkOutSenderAndEventArgs(Type eventArgsType, ICall call)
@@ -184,11 +186,6 @@ namespace NSubstitute
             return new[] { sender, eventArgs };
         }
 
-        ParameterInfo[] RequiredArgsForEvent()
-        {
-            return typeof(T).GetMethod("Invoke").GetParameters();
-        }
-
         bool RequiredArgsHaveBeenProvided(object[] providedArgs, ParameterInfo[] requiredArgs)
         {
             if (providedArgs.Length != requiredArgs.Length) return false;
@@ -204,11 +201,14 @@ namespace NSubstitute
             return true;
         }
 
-        bool LooksLikeAnEventStyleCall(ParameterInfo[] parameters)
+        void ThrowBecauseRequiredArgsNotProvided(ParameterInfo[] requiredArgs)
         {
-            return parameters.Length == 2 &&
-                parameters[0].ParameterType == typeof(object) &&
-                typeof(EventArgs).IsAssignableFrom(parameters[1].ParameterType);
+            var message = string.Format(
+                "Cannot raise event with the provided arguments. Use Raise.Event<{0}>({1}) to raise this event.",
+                typeof(T).Name,
+                string.Join(", ", requiredArgs.Select(x => x.ParameterType.Name).ToArray())
+                );
+            throw new ArgumentException(message);
         }
     }
 }
