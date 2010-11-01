@@ -1,4 +1,8 @@
 unreleased changes
+* [NEW] Raise.Event<THandler>() methods to raise any type of event, including delegates.
+* [BREAKING] Raise.Action() methods removed. Use Raise.Event<THandler>() (e.g. Raise.Event<Action>>()).
+* [BREAKING] Renamed Raise.Event<TEventArgs>() methods to Raise.EventWith<TEventArgs>().
+* [UPDATE] Arg matchers can be specified using more specific, compatible type (Arg.Is<string>(..) for arg of type object).
 * [NEW] NSubstitute website and documentation http://nsubstitute.github.com
 * [FIX] Formating for argument matchers that take predicate functions.
 * [FIX] Match single argument matcher passed to params arg (#34)
