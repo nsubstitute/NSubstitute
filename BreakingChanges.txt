@@ -5,7 +5,12 @@
 Raise.Event<TEventArgs>(...) methods renamed to Raise.EventWith<TEventArgs()
 
 Reason:
-Adding Raise.Event<THandler>() methods to raise any event, including those declared as delegates.
+The Raise.Event<TEventArgs>() signature would often conflict with the
+Raise.Event<THandler>() method which is used to raise all types of events.
+
+Raise.Event<THandler>() will now always work for any event type, while
+Raise.EventWith<TEventArgs>() can be used as a shortcut to raise
+EventHandler-style events with a particular argument.
 
 Fix:
 Replace Raise.Event<TEventArgs>() calls with equivalent Raise.EventWith<TEventArgs>() call.
@@ -14,7 +19,7 @@ Replace Raise.Event<TEventArgs>() calls with equivalent Raise.EventWith<TEventAr
 Raise.Action() methods removed
 
 Reason:
-New Raise.Event<THandler>() methods can be used to raise all delegate events, including Actions.
+The Raise.Event<THandler>() method can be used to raise all delegate events, including Actions.
 Raise.Action() was removed so there is a consistent way of raising all delegate events.
 
 Fix:
