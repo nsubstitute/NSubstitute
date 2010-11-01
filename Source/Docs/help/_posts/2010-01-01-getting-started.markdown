@@ -3,7 +3,7 @@ title: Getting started
 layout: post
 ---
 
-So you've [downloaded NSubstitute](http://github.com/nsubstitute/NSubstitute/downloads), created a new project with a reference to your favourite unit testing framework (for these examples we're using [NUnit](http://www.nunit.org/)), and are staring at a blank test fixture you've created to try it out, wondering where to start. 
+So you've [downloaded NSubstitute](http://github.com/nsubstitute/NSubstitute/downloads), created a new project with a reference to your favourite unit testing framework (for these examples we're using [NUnit](http://www.nunit.org/)), and are staring at a blank test fixture you've created to try it out, wondering where to start.
 
 Well, first you need to add a reference to `NSubstitute.dll` (from the download) into your project, and add `using NSubstitute;` to your current C# file. This will give you everything you need to start substituting.
 
@@ -14,7 +14,7 @@ public interface ICalculator
 {
     int Add(int a, int b);
     string Mode { get; set; }
-    event Action PoweringUp;
+    event EventHandler PoweringUp;
 }
 {% endexamplecode %}
 
@@ -30,14 +30,14 @@ We can ask NSubstitute to create a substitute instance for this type. We could a
 calculator = Substitute.For<ICalculator>();
 {% endexamplecode %}
 
-Now we can tell our substitute to return a value for a call: 
+Now we can tell our substitute to return a value for a call:
 
 {% examplecode csharp %}
 calculator.Add(1, 2).Returns(3);
 Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
 {% endexamplecode %}
 
-We can check that our substitute received a call, and did not receive others: 
+We can check that our substitute received a call, and did not receive others:
 
 {% examplecode csharp %}
 calculator.Add(1, 2);
@@ -45,7 +45,7 @@ calculator.Received().Add(1, 2);
 calculator.DidNotReceive().Add(5, 7);
 {% endexamplecode %}
 
-If our `Received()` assertion fails, NSubstitute tries to give us some help as to what the problem might be: 
+If our `Received()` assertion fails, NSubstitute tries to give us some help as to what the problem might be:
 
     NSubstitute.Exceptions.CallNotReceivedException : Expected to receive call:
         Add(1, 2)
@@ -53,7 +53,7 @@ If our `Received()` assertion fails, NSubstitute tries to give us some help as t
         Add(1, *5*)
         Add(*4*, *7*)
 
-We can also work with properties using the `Returns` syntax we use for methods, or just stick with plain old property setters (for read/write properties): 
+We can also work with properties using the `Returns` syntax we use for methods, or just stick with plain old property setters (for read/write properties):
 
 {% examplecode csharp %}
 calculator.Mode.Returns("DEC");
@@ -71,7 +71,7 @@ calculator.Received().Add(10, Arg.Any<int>());
 calculator.Received().Add(10, Arg.Is<int>(x => x < 0));
 {% endexamplecode %}
 
-We can use argument matching as well as passing a function to `Returns()` to get some more behaviour out of our substitute (possibly too much, but that's your call): 
+We can use argument matching as well as passing a function to `Returns()` to get some more behaviour out of our substitute (possibly too much, but that's your call):
 
 {% examplecode csharp %}
 calculator
@@ -80,7 +80,7 @@ calculator
 Assert.That(calculator.Add(5, 10), Is.EqualTo(15));
 {% endexamplecode %}
 
-`Returns()` can also be called with multiple arguments to set up a sequence of return values. 
+`Returns()` can also be called with multiple arguments to set up a sequence of return values.
 
 {% examplecode csharp %}
 calculator.Mode.Returns("HEX", "DEC", "BIN");
@@ -89,14 +89,14 @@ Assert.That(calculator.Mode, Is.EqualTo("DEC"));
 Assert.That(calculator.Mode, Is.EqualTo("BIN"));
 {% endexamplecode %}
 
-Finally, we can raise events on our substitutes (unfortunately C# dramatically restricts the extent to which this syntax can be cleaned up): 
+Finally, we can raise events on our substitutes (unfortunately C# dramatically restricts the extent to which this syntax can be cleaned up):
 
 {% examplecode csharp %}
 bool eventWasRaised = false;
-calculator.PoweringUp += () => eventWasRaised = true;
+calculator.PoweringUp += (sender, args) => eventWasRaised = true;
 
-calculator.PoweringUp += Raise.Action();
+calculator.PoweringUp += Raise.Event();
 Assert.That(eventWasRaised);
 {% endexamplecode %}
 
-That's pretty much all you need to get started with NSubstitute. Read on for more detailed feature descriptions, as well as for some of the less common requirements that NSubstitute supports. 
+That's pretty much all you need to get started with NSubstitute. Read on for more detailed feature descriptions, as well as for some of the less common requirements that NSubstitute supports.

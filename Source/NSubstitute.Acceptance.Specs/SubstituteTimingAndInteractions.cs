@@ -19,7 +19,7 @@ namespace NSubstitute.Acceptance.Specs
                 var firstMate = Substitute.For<IICapn>();
                 firstMate.HoistTheMainSail += () => firstMate.IsMainSailHoisted = true;
 
-                firstMate.HoistTheMainSail += Raise.Action();
+                firstMate.HoistTheMainSail += Raise.Event<Action>();
                 Assert.That(firstMate.IsMainSailHoisted, Is.True);
             }
         }
@@ -37,8 +37,8 @@ namespace NSubstitute.Acceptance.Specs
             public void Should_remove_handler_after_first_event_is_raised()
             {
                 sub.Event += RemoveThisEventSubscriptionWhenRaised;
-                sub.Event += Raise.EventWithEmptyEventArgs();
-                sub.Event += Raise.EventWithEmptyEventArgs();
+                sub.Event += Raise.Event();
+                sub.Event += Raise.Event();
                 Assert.That(removeHandlerCallCount, Is.EqualTo(1));
             }
 

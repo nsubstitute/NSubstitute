@@ -5,10 +5,10 @@ NSubstitute
 
 NSubstitute is a friendly substitute for .NET mocking frameworks.
 
-It's like a stub with property behaviour.  
-With nice semantics for setting return values.  
-It only has one mode - loose semantics, which you can query afterwards.  
-It's meant to be simple, succinct and pleasant to use.  
+It's like a stub with property behaviour.
+With nice semantics for setting return values.
+It only has one mode - loose semantics, which you can query afterwards.
+It's meant to be simple, succinct and pleasant to use.
 
 
 ### Basic use
@@ -63,7 +63,7 @@ We can also work with properties using the Returns syntax we use for methods, or
 <!-- {% examplecode csharp %} -->
     _calculator.Mode.Returns("DEC");
     Assert.That(_calculator.Mode, Is.EqualTo("DEC"));
-    
+
     _calculator.Mode = "HEX";
     Assert.That(_calculator.Mode, Is.EqualTo("HEX"));
 <!-- {% endexamplecode %} -->
@@ -99,8 +99,8 @@ Finally, we can raise events on our substitutes (unfortunately C# dramatically r
 <!-- {% examplecode csharp %} -->
     bool eventWasRaised = false;
     _calculator.PoweringUp += () => eventWasRaised = true;
-    
-    _calculator.PoweringUp += Raise.Action();
+
+    _calculator.PoweringUp += Raise.Event<Action>();
     Assert.That(eventWasRaised);
 <!-- {% endexamplecode %} -->
 

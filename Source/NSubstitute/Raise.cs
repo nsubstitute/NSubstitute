@@ -23,11 +23,10 @@ namespace NSubstitute
             return new EventHandlerWrapper<TEventArgs>();
         }
 
-        public static EventHandlerWrapper<EventArgs> EventWithEmptyEventArgs()
-        {
-            return new EventHandlerWrapper<EventArgs>();
-        }
-
+        /// <summary>
+        /// Raise an event for an <see>EventHandler</see> event using empty <see>EventArgs</see>.
+        /// </summary>
+        /// <returns></returns>
         public static EventHandlerWrapper<EventArgs> Event()
         {
             return new EventHandlerWrapper<EventArgs>();
@@ -36,21 +35,6 @@ namespace NSubstitute
         public static DelegateEventWrapper<THandler> Event<THandler>(params object[] arguments)
         {
             return new DelegateEventWrapper<THandler>(arguments);
-        }
-
-        public static DelegateEventWrapper<Action> Action()
-        {
-            return new DelegateEventWrapper<Action>();
-        }
-
-        public static DelegateEventWrapper<Action<T>> Action<T>(T argument)
-        {
-            return new DelegateEventWrapper<Action<T>>(argument);
-        }
-
-        public static DelegateEventWrapper<Action<T1, T2>> Action<T1, T2>(T1 argument1, T2 argument2)
-        {
-            return new DelegateEventWrapper<Action<T1, T2>>(argument1, argument2);
         }
     }
 
