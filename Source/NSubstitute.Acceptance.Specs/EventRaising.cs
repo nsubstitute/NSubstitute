@@ -1,5 +1,4 @@
 using System;
-using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -244,6 +243,19 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(wasCalled);
         }
 
+        [Test]
+        public void Raise_custom_event_that_has_sender_and_args_but_does_not_inherit_from_EventHandler()
+        {
+            var sub = Substitute.For<IEventSamples>();
+            var eventRecorder = new RaisedEventRecorder<CustomEventArgs>();
+            sub.CustomEventThatDoesNotInheritFromEventHandler += eventRecorder.Record;
+
+            sub.CustomEventThatDoesNotInheritFromEventHandler += Raise.Event<CustomEventThatDoesNotInheritFromEventHandler>();
+            Assert.That(eventRecorder.WasCalled);
+            Assert.That(eventRecorder.EventArgs, Is.Not.Null);
+            Assert.That(eventRecorder.Sender, Is.SameAs(sub));
+        }
+
         class RaisedEventRecorder<T>
         {
             public object Sender;
@@ -272,6 +284,7 @@ namespace NSubstitute.Acceptance.Specs
             event EventHandler<EventArgs> StandardGenericEventHandler;
             event EventHandler<CustomEventArgs> EventHandlerWithCustomArgs;
             event EventHandler<CustomEventArgsWithNoDefaultCtor> EventHandlerWithCustomArgsAndNoDefaultCtor;
+            event CustomEventThatDoesNotInheritFromEventHandler CustomEventThatDoesNotInheritFromEventHandler;
         }
         public delegate void VoidDelegateWithoutArgs();
         public delegate void VoidDelegateWithEventArgs(object sender, EventArgs args);
@@ -279,6 +292,7 @@ namespace NSubstitute.Acceptance.Specs
         public delegate void VoidDelegateWithMultipleArgs(int intArg, string stringArg);
         public delegate int FuncDelegateWithoutArgs();
         public delegate int FuncDelegateWithArgs(int intArg, string stringArg);
+        public delegate void CustomEventThatDoesNotInheritFromEventHandler(object sender, CustomEventArgs args);
         public class CustomEventArgs : EventArgs { }
         public class CustomEventArgsWithNoDefaultCtor : EventArgs
         {

@@ -127,17 +127,24 @@ namespace NSubstitute
 
         public DelegateEventWrapper(params object[] arguments)
         {
-            _arguments = WorkOutRequiredArguments(arguments);
+            _arguments = arguments;
         }
 
-        object[] WorkOutRequiredArguments(object[] providedArgs)
+        public static implicit operator T(DelegateEventWrapper<T> wrapper)
+        {
+            RaiseEvent(wrapper);
+            return default(T);
+        }
+
+
+        object[] WorkOutRequiredArguments(ICall call, object[] providedArgs)
         {
             providedArgs = providedArgs ?? new object[0];
             var requiredArgs = typeof(T).GetMethod("Invoke").GetParameters();
 
             if (providedArgs.Length == 0 && LooksLikeAnEventStyleCall(requiredArgs))
             {
-                return new object[] { this, GetDefaultForEventArgType(requiredArgs[1].ParameterType)};
+                return new[] { call.Target(), GetDefaultForEventArgType(requiredArgs[1].ParameterType)};
             }
 
             if (!RequiredArgsHaveBeenProvided(providedArgs, requiredArgs))
@@ -183,7 +190,7 @@ namespace NSubstitute
             {
                 var message = string.Format(
                     "Cannot create {0} for this event as it has no default constructor. " +
-                    "Provide arguments for this event by calling Raise.EventWith(instanceOf{0})."
+                    "Provide arguments for this event by calling Raise.Event(sender, instanceOf{0})."
                     , type.Name);
                 throw new CannotCreateEventArgsException(message);
             }
@@ -195,17 +202,11 @@ namespace NSubstitute
             return type.GetConstructor(Type.EmptyTypes);
         }
 
-        public static implicit operator T(DelegateEventWrapper<T> wrapper)
-        {
-            RaiseEvent(wrapper);
-            return default(T);
-        }
-
         static void RaiseEvent(DelegateEventWrapper<T> wrapper)
         {
             var arguments = wrapper._arguments;
             var context = SubstitutionContext.Current;
-            context.RaiseEventForNextCall(callRouter => arguments);
+            context.RaiseEventForNextCall(call => wrapper.WorkOutRequiredArguments(call, arguments));
         }
     }
 }
