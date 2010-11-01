@@ -52,20 +52,47 @@ namespace NSubstitute
         }
     }
 
-    public class EventHandlerWrapper<TEventArgs> where TEventArgs : EventArgs
+    public abstract class RaiseEventWrapper
+    {
+        protected abstract object[] WorkOutRequiredArguments(ICall call);
+        protected abstract string RaiseMethodName { get; }
+
+        protected EventArgs GetDefaultForEventArgType(Type type)
+        {
+            if (type == typeof(EventArgs)) return EventArgs.Empty;
+            var defaultConstructor = GetDefaultConstructor(type);
+            if (defaultConstructor == null)
+            {
+                var message = string.Format(
+                    "Cannot create {0} for this event as it has no default constructor. " +
+                    "Provide arguments for this event by calling {1}({0})."
+                    , type.Name, RaiseMethodName);
+                throw new CannotCreateEventArgsException(message);
+            }
+            return (EventArgs)defaultConstructor.Invoke(new object[0]);
+        }
+
+        static ConstructorInfo GetDefaultConstructor(Type type)
+        {
+            return type.GetConstructor(Type.EmptyTypes);
+        }
+
+        protected static void RaiseEvent(RaiseEventWrapper wrapper)
+        {
+            var context = SubstitutionContext.Current;
+            context.RaiseEventForNextCall(call => wrapper.WorkOutRequiredArguments(call));
+        }
+    }
+
+    public class EventHandlerWrapper<TEventArgs> : RaiseEventWrapper where TEventArgs : EventArgs
     {
         readonly object _sender;
         readonly EventArgs _eventArgs;
+        protected override string RaiseMethodName { get { return "Raise.EventWith"; } }
 
-        public EventHandlerWrapper()
-            : this(null, null)
-        {
-        }
+        public EventHandlerWrapper() : this(null, null) { }
 
-        public EventHandlerWrapper(EventArgs eventArgs)
-            : this(null, eventArgs)
-        {
-        }
+        public EventHandlerWrapper(EventArgs eventArgs) : this(null, eventArgs) { }
 
         public EventHandlerWrapper(object sender, EventArgs eventArgs)
         {
@@ -85,49 +112,26 @@ namespace NSubstitute
             return null;
         }
 
-        static void RaiseEvent(EventHandlerWrapper<TEventArgs> wrapper)
+        protected override object[] WorkOutRequiredArguments(ICall call)
         {
-            var sender = wrapper._sender;
-            var eventArgs = wrapper._eventArgs;
-            var context = SubstitutionContext.Current;
-            context.RaiseEventForNextCall(delegate(ICall call)
-                                              {
-                                                  if (sender == null)
-                                                      sender = call.Target();
-                                                  if (eventArgs == null)
-                                                      eventArgs = GetDefaultForEventArgType(typeof(TEventArgs));
-                                                  return new[] { sender, eventArgs };
-                                              });
-        }
-
-        private static EventArgs GetDefaultForEventArgType(Type type)
-        {
-            if (type == typeof(EventArgs)) return EventArgs.Empty;
-            var defaultConstructor = GetDefaultConstructor(type);
-            if (defaultConstructor == null)
-            {
-                var message = string.Format(
-                    "Cannot create {0} for this event as it has no default constructor. " +
-                    "Provide arguments for this event by calling Raise.EventWith(instanceOf{0})."
-                    , type.Name);
-                throw new CannotCreateEventArgsException(message);
-            }
-            return (EventArgs)defaultConstructor.Invoke(new object[0]);
-        }
-
-        private static ConstructorInfo GetDefaultConstructor(Type type)
-        {
-            return type.GetConstructor(Type.EmptyTypes);
+            var sender = _sender;
+            var eventArgs = _eventArgs;
+            if (sender == null)
+                sender = call.Target();
+            if (eventArgs == null)
+                eventArgs = GetDefaultForEventArgType(typeof(TEventArgs));
+            return new[] { sender, eventArgs };
         }
     }
 
-    public class DelegateEventWrapper<T>
+    public class DelegateEventWrapper<T> : RaiseEventWrapper
     {
-        readonly object[] _arguments;
+        readonly object[] _providedArguments;
+        protected override string RaiseMethodName { get { return "Raise.Event"; } }
 
         public DelegateEventWrapper(params object[] arguments)
         {
-            _arguments = arguments;
+            _providedArguments = arguments ?? new object[0];
         }
 
         public static implicit operator T(DelegateEventWrapper<T> wrapper)
@@ -136,18 +140,16 @@ namespace NSubstitute
             return default(T);
         }
 
-
-        object[] WorkOutRequiredArguments(ICall call, object[] providedArgs)
+        protected override object[] WorkOutRequiredArguments(ICall call)
         {
-            providedArgs = providedArgs ?? new object[0];
-            var requiredArgs = typeof(T).GetMethod("Invoke").GetParameters();
+            var requiredArgs = RequiredArgsForEvent();
 
-            if (providedArgs.Length == 0 && LooksLikeAnEventStyleCall(requiredArgs))
+            if (_providedArguments.Length < 2 && LooksLikeAnEventStyleCall(requiredArgs))
             {
-                return new[] { call.Target(), GetDefaultForEventArgType(requiredArgs[1].ParameterType)};
+                return WorkOutSenderAndEventArgs(requiredArgs[1].ParameterType, call);
             }
 
-            if (!RequiredArgsHaveBeenProvided(providedArgs, requiredArgs))
+            if (!RequiredArgsHaveBeenProvided(_providedArguments, requiredArgs))
             {
                 var message = string.Format(
                            "Cannot raise event with the provided arguments. Use Raise.Event<{0}>({1}) to raise this event.",
@@ -157,7 +159,34 @@ namespace NSubstitute
                 throw new ArgumentException(message);
             }
 
-            return providedArgs;
+            return _providedArguments;
+        }
+
+        object[] WorkOutSenderAndEventArgs(Type eventArgsType, ICall call)
+        {
+            object sender;
+            object eventArgs;
+            if (_providedArguments.Length == 0)
+            {
+                sender = call.Target();
+                eventArgs = GetDefaultForEventArgType(eventArgsType);
+            }
+            else if (eventArgsType.IsAssignableFrom(_providedArguments[0].GetType()))
+            {
+                sender = call.Target();
+                eventArgs = _providedArguments[0];
+            }
+            else
+            {
+                sender = _providedArguments[0];
+                eventArgs = GetDefaultForEventArgType(eventArgsType);
+            }
+            return new[] { sender, eventArgs };
+        }
+
+        ParameterInfo[] RequiredArgsForEvent()
+        {
+            return typeof(T).GetMethod("Invoke").GetParameters();
         }
 
         bool RequiredArgsHaveBeenProvided(object[] providedArgs, ParameterInfo[] requiredArgs)
@@ -180,33 +209,6 @@ namespace NSubstitute
             return parameters.Length == 2 &&
                 parameters[0].ParameterType == typeof(object) &&
                 typeof(EventArgs).IsAssignableFrom(parameters[1].ParameterType);
-        }
-
-        private static EventArgs GetDefaultForEventArgType(Type type)
-        {
-            if (type == typeof(EventArgs)) return EventArgs.Empty;
-            var defaultConstructor = GetDefaultConstructor(type);
-            if (defaultConstructor == null)
-            {
-                var message = string.Format(
-                    "Cannot create {0} for this event as it has no default constructor. " +
-                    "Provide arguments for this event by calling Raise.Event(sender, instanceOf{0})."
-                    , type.Name);
-                throw new CannotCreateEventArgsException(message);
-            }
-            return (EventArgs)defaultConstructor.Invoke(new object[0]);
-        }
-
-        private static ConstructorInfo GetDefaultConstructor(Type type)
-        {
-            return type.GetConstructor(Type.EmptyTypes);
-        }
-
-        static void RaiseEvent(DelegateEventWrapper<T> wrapper)
-        {
-            var arguments = wrapper._arguments;
-            var context = SubstitutionContext.Current;
-            context.RaiseEventForNextCall(call => wrapper.WorkOutRequiredArguments(call, arguments));
         }
     }
 }

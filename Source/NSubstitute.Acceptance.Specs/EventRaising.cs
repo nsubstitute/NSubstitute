@@ -246,6 +246,21 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Raise_custom_event_that_has_sender_and_args_but_does_not_inherit_from_EventHandler()
         {
+            var sender = new object();
+            var eventArgs = new CustomEventArgs();
+            var sub = Substitute.For<IEventSamples>();
+            var eventRecorder = new RaisedEventRecorder<CustomEventArgs>();
+            sub.CustomEventThatDoesNotInheritFromEventHandler += eventRecorder.Record;
+
+            sub.CustomEventThatDoesNotInheritFromEventHandler += Raise.Event<CustomEventThatDoesNotInheritFromEventHandler>(sender, eventArgs);
+            Assert.That(eventRecorder.WasCalled);
+            Assert.That(eventRecorder.EventArgs, Is.SameAs(eventArgs));
+            Assert.That(eventRecorder.Sender, Is.SameAs(sender));
+        }
+
+        [Test]
+        public void Raise_custom_event_that_has_sender_and_args_but_does_not_inherit_from_EventHandler_without_providing_arguments()
+        {
             var sub = Substitute.For<IEventSamples>();
             var eventRecorder = new RaisedEventRecorder<CustomEventArgs>();
             sub.CustomEventThatDoesNotInheritFromEventHandler += eventRecorder.Record;
@@ -254,6 +269,34 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(eventRecorder.WasCalled);
             Assert.That(eventRecorder.EventArgs, Is.Not.Null);
             Assert.That(eventRecorder.Sender, Is.SameAs(sub));
+        }
+
+        [Test]
+        public void Raise_custom_event_that_has_sender_and_args_but_does_not_inherit_from_EventHandler_when_only_providing_event_args()
+        {
+            var eventArgs = new CustomEventArgs();
+            var sub = Substitute.For<IEventSamples>();
+            var eventRecorder = new RaisedEventRecorder<CustomEventArgs>();
+            sub.CustomEventThatDoesNotInheritFromEventHandler += eventRecorder.Record;
+
+            sub.CustomEventThatDoesNotInheritFromEventHandler += Raise.Event<CustomEventThatDoesNotInheritFromEventHandler>(eventArgs);
+            Assert.That(eventRecorder.WasCalled);
+            Assert.That(eventRecorder.EventArgs, Is.SameAs(eventArgs));
+            Assert.That(eventRecorder.Sender, Is.SameAs(sub));
+        }
+
+        [Test]
+        public void Raise_custom_event_that_has_sender_and_args_but_does_not_inherit_from_EventHandler_when_only_providing_sender()
+        {
+            var sender = new object();
+            var sub = Substitute.For<IEventSamples>();
+            var eventRecorder = new RaisedEventRecorder<CustomEventArgs>();
+            sub.CustomEventThatDoesNotInheritFromEventHandler += eventRecorder.Record;
+
+            sub.CustomEventThatDoesNotInheritFromEventHandler += Raise.Event<CustomEventThatDoesNotInheritFromEventHandler>(sender);
+            Assert.That(eventRecorder.WasCalled);
+            Assert.That(eventRecorder.EventArgs, Is.Not.Null);
+            Assert.That(eventRecorder.Sender, Is.SameAs(sender));
         }
 
         class RaisedEventRecorder<T>
