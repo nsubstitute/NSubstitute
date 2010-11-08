@@ -1,4 +1,5 @@
 unreleased changes
+* [FIX] Equals() for class substitutes fixed by not intercepting Object methods Equals(), ToString() and GetHashCode().
 * [NEW] Raise.Event<THandler>() methods to raise any type of event, including delegates.
 * [BREAKING] Raise.Action() methods removed. Use Raise.Event<THandler>() (e.g. Raise.Event<Action>>()).
 * [BREAKING] Renamed Raise.Event<TEventArgs>() methods to Raise.EventWith<TEventArgs>().
