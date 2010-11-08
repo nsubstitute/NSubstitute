@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
@@ -44,9 +45,12 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private class IgnoreCallRouterCallsHook : IProxyGenerationHook
         {
-            public bool ShouldInterceptMethod(Type type, MethodInfo methodInfo) { return type != typeof(ICallRouter); }
+            private static readonly ICollection<Type> SkippedTypes = new[] { typeof (object), typeof (MarshalByRefObject), typeof (ContextBoundObject), typeof(ICallRouter) };
+            public bool ShouldInterceptMethod(Type type, MethodInfo methodInfo) { return !SkippedTypes.Contains(methodInfo.DeclaringType); }
             public void NonProxyableMemberNotification(Type type, MemberInfo memberInfo) { }
             public void MethodsInspected() { }
+            public override bool Equals(object obj) { return obj != null && obj.GetType() == GetType(); }
+            public override int GetHashCode() { return GetType().GetHashCode(); } 
         }
 
         private void VerifyNoConstructorArgumentsGivenForInterface(object[] constructorArguments)
