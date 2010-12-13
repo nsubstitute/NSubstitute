@@ -18,8 +18,9 @@ namespace NSubstitute.Core
     public class ReturnValueFromFunc<T> : IReturn
     {
         private readonly Func<CallInfo, T> _funcToReturnValue;
-        public ReturnValueFromFunc(Func<CallInfo, T> funcToReturnValue) { _funcToReturnValue = funcToReturnValue; }
+        public ReturnValueFromFunc(Func<CallInfo, T> funcToReturnValue) { _funcToReturnValue = funcToReturnValue ?? ReturnNull; }
         public object ReturnFor(CallInfo info) { return _funcToReturnValue(info); }
+        private static readonly Func<CallInfo, T> ReturnNull = x => default(T);
     }
 
     public class ReturnMultipleValues<T> : IReturn
