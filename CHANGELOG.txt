@@ -1,4 +1,5 @@
-unreleased changes
+0.9.5 Release Candidate
+* [FIX] Fixed bug when trying to return null from a call to a substitute.
 * [FIX] Equals() for class substitutes fixed by not intercepting Object methods Equals(), ToString() and GetHashCode().
 * [NEW] Raise.Event<THandler>() methods to raise any type of event, including delegates.
 * [BREAKING] Raise.Action() methods removed. Use Raise.Event<THandler>() (e.g. Raise.Event<Action>>()).
@@ -9,7 +10,7 @@ unreleased changes
 * [FIX] Match single argument matcher passed to params arg (#34)
 * [FIX] Detect ambiguous arg matchers in additional case (#31)
 * [FIX] Can modify event handler subscriptions from within event callback
-* [UPDATE] Update to Castle.Core build 2124 (post 2.5.1 release build)
+* [UPDATE] Update to Castle.Core 2.5.2
 * [FIX] Can substitute for SynchronizationContext in .NET4 (fixed in Castle.Core)
 * [NEW] NSubstitute available as NuPack package
 
