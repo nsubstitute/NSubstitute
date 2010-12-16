@@ -4,7 +4,7 @@ require 'date'
 
 DOT_NET_PATH = "#{ENV["SystemRoot"]}\\Microsoft.NET\\Framework\\v3.5"
 NUNIT_EXE = File.expand_path "../ThirdParty/NUnit/bin/net-2.0/nunit-console.exe"
-NUPACK_EXE = File.expand_path "../ThirdParty/NuPack/NuPack.exe"
+NUGET_EXE = File.expand_path "../ThirdParty/NuGet/NuGet.exe"
 SOURCE_PATH = File.expand_path "../Source"
 OUTPUT_PATH = File.expand_path "../Output"
 

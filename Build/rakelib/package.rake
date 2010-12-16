@@ -18,30 +18,30 @@ task :package => [:version_assemblies, :all, :check_examples] do
     tidyUpTextFileFromMarkdown("#{deploy_path}/acknowledgements.txt")
 end
 
-desc "Create NuPack package"
-task :nupack => [:package] do
+desc "Create NuGet package"
+task :nuget => [:package] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	dll_path = "#{output_base_path}/NSubstitute"
 	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
-	nupack_path = "#{output_base_path}/nupack/#{@@build_number}"
-	nupack_lib_path = "#{output_base_path}/nupack/#{@@build_number}/lib/35"
+	nuget_path = "#{output_base_path}/nuget/#{@@build_number}"
+	nuget_lib_path = "#{output_base_path}/nuget/#{@@build_number}/lib/35"
 
-    #Ensure nupack path exists
-    mkdir_p nupack_lib_path
+    #Ensure nuget path exists
+    mkdir_p nuget_lib_path
 
     #Copy binaries into lib path
-    cp Dir.glob("#{dll_path}/*.{dll,xml}"), nupack_lib_path
+    cp Dir.glob("#{dll_path}/*.{dll,xml}"), nuget_lib_path
 
     #Copy nuspec and *.txt docs into package root
-    cp Dir.glob("#{deploy_path}/*.txt"), nupack_path
-    cp "NSubstitute.nuspec", nupack_path
-    updateNuspec("#{nupack_path}/NSubstitute.nuspec")
+    cp Dir.glob("#{deploy_path}/*.txt"), nuget_path
+    cp "NSubstitute.nuspec", nuget_path
+    updateNuspec("#{nuget_path}/NSubstitute.nuspec")
 
     #Build package
-    full_path_to_nupack_exe = File.expand_path(NUPACK_EXE, File.dirname(__FILE__))
-    nuspec = File.expand_path("#{nupack_path}/NSubstitute.nuspec", File.dirname(__FILE__))
-    FileUtils.cd "#{output_base_path}/nupack" do
-        sh "#{full_path_to_nupack_exe} #{nuspec}"
+    full_path_to_nuget_exe = File.expand_path(NUGET_EXE, File.dirname(__FILE__))
+    nuspec = File.expand_path("#{nuget_path}/NSubstitute.nuspec", File.dirname(__FILE__))
+    FileUtils.cd "#{output_base_path}/nuget" do
+        sh "\"#{full_path_to_nuget_exe}\" pack \"#{nuspec}\""
     end
 end
 
