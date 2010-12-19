@@ -9,5 +9,6 @@
     <tags>mocking,mocks,testing,unit testing,TDD,AAA</tags>
     <projectUrl>http://nsubstitute.github.com</projectUrl>
     <licenseUrl>http://www.opensource.org/licenses/bsd-license.php</licenseUrl>
+    <iconUrl>http://nsubstitute.github.com/images/nsubstitute-32x32.png</iconUrl>
   </metadata>
 </package>

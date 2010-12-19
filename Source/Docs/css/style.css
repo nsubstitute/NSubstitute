@@ -9,7 +9,7 @@ body {
 
 p{
   font-size:1.0em;
-  line-height:1.6; 
+  line-height:1.6;
   font-family:"Georgia"
 }
 
@@ -37,7 +37,7 @@ a:active { color: #000000; text-decoration: underline;}
     border:0;
 }
 
-#nav { 
+#nav {
     position:absolute;
     top:0px;
     right:0px;
@@ -60,7 +60,7 @@ a:active { color: #000000; text-decoration: underline;}
 #content {
     clear: both;
 }
-#post-index { 
+#post-index {
     float: left;
     line-height: 1.7em;
     position: relative;
@@ -75,7 +75,7 @@ a:active { color: #000000; text-decoration: underline;}
     border-bottom-right-radius: 20px;
 }
 
-#post-content { 
+#post-content {
     float: left;
     position: relative;
     width:71%;
@@ -122,7 +122,6 @@ a:active { color: #000000; text-decoration: underline;}
   border: 1px solid black;
   padding: 15px;
   background-color: white;
-  background-image: url(/images/NSubstitute-faded.png);
   background-position: right bottom;
   background-repeat: no-repeat;
 
@@ -151,7 +150,7 @@ div.feature-title {
     font-size: 1.5em;
 }
 
-div.feature-detail { 
+div.feature-detail {
 }
 
 div.feature {
