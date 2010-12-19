@@ -99,6 +99,7 @@
     <Compile Include="Core\IMethodInfoFormatter.cs" />
     <Compile Include="Core\ISubstituteState.cs" />
     <Compile Include="Exceptions\CannotCreateEventArgsException.cs" />
+    <Compile Include="Exceptions\CannotReturnNullforValueType.cs" />
     <Compile Include="Exceptions\CouldNotSetReturnException.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />

@@ -1,5 +1,6 @@
 using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
@@ -52,17 +53,12 @@ namespace NSubstitute.Specs
             }
         }
 
-        public class When_passing_null_as_the_func_to_return_a_value_type_value_from : ConcernFor<ReturnValueFromFunc<int>>
+        public class When_passing_null_as_the_func_to_return_a_value_type_value_from : StaticConcern
         {
             [Test]
-            public void Should_return_default_for_value_type()
+            public void Should_throw_exception()
             {
-                Assert.That(sut.ReturnFor(new CallInfo(new object[0])), Is.EqualTo(default(int)));
-            }
-
-            public override ReturnValueFromFunc<int> CreateSubjectUnderTest()
-            {
-                return new ReturnValueFromFunc<int>(null);
+                Assert.That(() => new ReturnValueFromFunc<int>(null), Throws.TypeOf<CannotReturnNullForValueType>());
             }
         }
     }

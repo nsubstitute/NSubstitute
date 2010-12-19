@@ -1,4 +1,4 @@
-using System;
+using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports
@@ -8,6 +8,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public interface IDoSomething
         {
             object Something();
+            int SomethingWithValueType();
         }
 
         [Test]
@@ -17,6 +18,13 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             doSomething.Something().Returns(null);
             var result = doSomething.Something();
             Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void SettingCallWhichReturnsAValueTypeToNullShouldThrow()
+        {
+            var doSomething = Substitute.For<IDoSomething>();
+            Assert.That(() => doSomething.SomethingWithValueType().Returns(null), Throws.TypeOf<CannotReturnNullForValueType>());
         }
     }
 }
