@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.Proxies;
@@ -11,12 +12,13 @@ namespace NSubstitute.Core
 {
     public class SubstitutionContext : ISubstitutionContext
     {
+
         public static ISubstitutionContext Current { get; set; }
 
         readonly ISubstituteFactory _substituteFactory;
-        ICallRouter _lastCallRouter;
-        IList<IArgumentSpecification> _argumentSpecifications;
-        Func<ICall, object[]> _getArgumentsForRaisingEvent;
+        readonly ThreadLocal<ICallRouter> _lastCallRouter = new ThreadLocal<ICallRouter>();
+        readonly ThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications = new ThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
+        readonly ThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent = new ThreadLocal<Func<ICall, object[]>>();
 
         static SubstitutionContext()
         {
@@ -32,7 +34,6 @@ namespace NSubstitute.Core
             var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
             var callRouteResolver = new CallRouterResolver();
             _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver);
-            _argumentSpecifications = new List<IArgumentSpecification>();
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory)
@@ -43,24 +44,24 @@ namespace NSubstitute.Core
         public ISubstituteFactory SubstituteFactory { get { return _substituteFactory; } }
 
         public void LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
-        {            
-            if (_lastCallRouter == null) throw new CouldNotSetReturnException();
-            _lastCallRouter.LastCallShouldReturn(value, matchArgs);
-            _lastCallRouter = null;
+        {
+            if (_lastCallRouter.Value == null) throw new CouldNotSetReturnException();
+            _lastCallRouter.Value.LastCallShouldReturn(value, matchArgs);
+            _lastCallRouter.Value = null;
         }
 
         public void LastCallRouter(ICallRouter callRouter)
         {
-            _lastCallRouter = callRouter;
+            _lastCallRouter.Value = callRouter;
             RaiseEventIfSet(callRouter);
         }
 
         void RaiseEventIfSet(ICallRouter callRouter)
         {
-            if (_getArgumentsForRaisingEvent != null)
+            if (_getArgumentsForRaisingEvent.Value != null)
             {
-                callRouter.SetRoute<RaiseEventRoute>(_getArgumentsForRaisingEvent);
-                _getArgumentsForRaisingEvent = null;
+                callRouter.SetRoute<RaiseEventRoute>(_getArgumentsForRaisingEvent.Value);
+                _getArgumentsForRaisingEvent.Value = null;
             }
         }
 
@@ -76,19 +77,19 @@ namespace NSubstitute.Core
 
         public void EnqueueArgumentSpecification(IArgumentSpecification spec)
         {
-            _argumentSpecifications.Add(spec);
+            _argumentSpecifications.Value.Add(spec);
         }
 
         public IList<IArgumentSpecification> DequeueAllArgumentSpecifications()
         {
-            var result = _argumentSpecifications;
-            _argumentSpecifications = new List<IArgumentSpecification>();
+            var result = _argumentSpecifications.Value;
+            _argumentSpecifications.Value = new List<IArgumentSpecification>();
             return result;
         }
 
         public void RaiseEventForNextCall(Func<ICall, object[]> getArguments)
         {
-            _getArgumentsForRaisingEvent = getArguments;
+            _getArgumentsForRaisingEvent.Value = getArguments;
         }
     }
 }

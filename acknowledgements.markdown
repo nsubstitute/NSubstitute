@@ -41,6 +41,9 @@ Mono is available under four open source licenses for different parts of the pro
 ## Microsoft Ilmerge [http://research.microsoft.com/en-us/people/mbarnett/ilmerge.aspx]
 Used for combining assemblies so NSubstitute can be distributed as a single DLL. Available for use under a EULA as described on the ilmerge site.
 
+## Microsoft Reactive Extensions for .NET (Rx) [http://msdn.microsoft.com/en-us/devlabs/ee794896]
+Used to provide .NET 3.5 with some of the neat concurrency helper classes that ship with out of the box with .NET 4.0. Distributed under a EULA [http://msdn.microsoft.com/en-us/devlabs/ff394099].
+
 # Other acknowledgements
 
 ## Software developers
