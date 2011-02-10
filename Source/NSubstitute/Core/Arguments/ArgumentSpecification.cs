@@ -2,50 +2,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.Arguments
 {
     public abstract class ArgumentSpecification : IArgumentSpecification
     {
-        protected readonly Predicate<object> _matchingCriteria;
-        public Type ForType { get; private set; }
-
-        protected ArgumentSpecification(Predicate<object> matchingCriteria, Type forType)
-        {
-            _matchingCriteria = matchingCriteria;
-            ForType = forType;
-        }
-
-        virtual public bool IsSatisfiedBy(object argument)
-        {
-            return _matchingCriteria(argument);
-        }
+        public abstract bool IsSatisfiedBy(object argument);
+        private readonly Type _forType;
+        public Type ForType { get { return _forType; } }
+        protected ArgumentSpecification(Type forType) { _forType = forType; }
     }
 
     public class ArgumentIsAnythingSpecification : ArgumentSpecification
     {
-        public ArgumentIsAnythingSpecification(Type forType) : base(arg => true, forType) { }
-        public override string ToString()
-        {
-            return "any " + ForType.Name;
-        }
+        public ArgumentIsAnythingSpecification(Type forType) : base(forType) { }
+        public override string ToString() { return "any " + ForType.Name; }
+        public override bool IsSatisfiedBy(object argument) { return true; }
     }
 
-    public class ArgumentEqualsSpecification : IArgumentSpecification
+    public class ArgumentEqualsSpecification : ArgumentSpecification
     {
         private readonly object _value;
-        private Type _forType;
 
-        public Type ForType
-        {
-            get { return _forType; }
-        }
-
-        public ArgumentEqualsSpecification(object value, Type forType)
-        {
-            _value = value;
-            _forType = forType;
-        }
+        public ArgumentEqualsSpecification(object value, Type forType) : base(forType) { _value = value; }
 
         private bool Matches(object argument)
         {
@@ -57,7 +37,7 @@ namespace NSubstitute.Core.Arguments
             return new ArgumentFormatter().Format(_value); 
         }
 
-        public bool IsSatisfiedBy(object argument)
+        public override bool IsSatisfiedBy(object argument)
         {
             return Matches(argument);
         }
@@ -66,10 +46,11 @@ namespace NSubstitute.Core.Arguments
     public class ArgumentMatchesSpecification<T> : ArgumentSpecification
     {
         readonly string _predicateDescription;
+        private readonly Predicate<T> _predicate;
 
-        public ArgumentMatchesSpecification(Expression<Predicate<T>> predicate)
-            : base(arg => predicate.Compile().Invoke((T)arg), typeof(T))
+        public ArgumentMatchesSpecification(Expression<Predicate<T>> predicate) : base(typeof(T)) 
         {
+            _predicate = predicate.Compile();
             _predicateDescription = predicate.ToString();
         }
 
@@ -89,27 +70,29 @@ namespace NSubstitute.Core.Arguments
                     return false;
                 }
             }
-            return _matchingCriteria(argument);
+            try
+            {
+                return _predicate((T) argument);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentMatchingException(ToString(), argument, ForType, ex);
+            }
         }
 
-        public override string ToString()
-        {
-            return _predicateDescription;
-        }
+        public override string ToString() { return _predicateDescription; }
     }
 
-    public class ArrayContentsArgumentSpecification : IArgumentSpecification
+    public class ArrayContentsArgumentSpecification : ArgumentSpecification
     {
         private readonly IEnumerable<IArgumentSpecification> _argumentSpecifications;
-        private readonly Type _forType;
 
-        public ArrayContentsArgumentSpecification(IEnumerable<IArgumentSpecification> argumentSpecifications, Type forType)
+        public ArrayContentsArgumentSpecification(IEnumerable<IArgumentSpecification> argumentSpecifications, Type forType) : base(forType)
         {
             _argumentSpecifications = argumentSpecifications;
-            _forType = forType;
         }
 
-        public bool IsSatisfiedBy(object argument)
+        public override bool IsSatisfiedBy(object argument)
         {
             if (argument != null)
             {
@@ -120,11 +103,6 @@ namespace NSubstitute.Core.Arguments
                 }
             }
             return false;
-        }
-
-        public Type ForType
-        {
-            get { return _forType; }
         }
 
         public override string ToString()

@@ -4,12 +4,12 @@ using NUnit.Framework;
 namespace NSubstitute.Acceptance.Specs
 {
     [TestFixture]
-    public class ParameterMatching
+    public class ArgumentMatching
     {
         private ISomething _something;
 
         [Test]
-        public void Return_result_for_any_parameter()
+        public void Return_result_for_any_argument()
         {
             _something.Echo(Arg.Any<int>()).Returns("anything");
 
@@ -18,7 +18,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Return_result_for_specific_parameter()
+        public void Return_result_for_specific_argument()
         {
             _something.Echo(Arg.Is(3)).Returns("three");
             _something.Echo(4).Returns("four");
@@ -28,13 +28,22 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Return_result_for_parameter_matching_predicate()
+        public void Return_result_for_argument_matching_predicate()
         {
             _something.Echo(Arg.Is<int>(x => x <= 3)).Returns("small");
             _something.Echo(Arg.Is<int>(x => x > 3)).Returns("big");
 
             Assert.That(_something.Echo(1), Is.EqualTo("small"), "First return");
             Assert.That(_something.Echo(4), Is.EqualTo("big"), "Second return");
+        }
+
+        [Test]
+        public void Throw_argument_matching_exception_when_arg_matcher_throws()
+        {
+            _something.Say(Arg.Is<string>(x => x.Contains("hello"))).Returns("howdy");
+
+            Assert.That(_something.Say("hello world"), Is.EqualTo("howdy"));
+            Assert.That(() => _something.Say(null), Throws.InstanceOf<ArgumentMatchingException>());
         }
 
         [Test]
@@ -48,7 +57,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Received_for_any_parameter()
+        public void Received_for_any_argument()
         {
             _something.Echo(7);
 
@@ -56,7 +65,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Received_for_specific_parameter()
+        public void Received_for_specific_argument()
         {
             _something.Echo(3);
 
@@ -64,7 +73,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Received_for_parameter_matching_predicate()
+        public void Received_for_argument_matching_predicate()
         {
             _something.Echo(7);
 
@@ -123,7 +132,7 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Returns_should_work_with_params()
         {
-            _something.WithParams(Arg.Any<int>(), Arg.Is<string>(x => x == "one")).Returns("fred");    
+            _something.WithParams(Arg.Any<int>(), Arg.Is<string>(x => x == "one")).Returns("fred");
 
             Assert.That(_something.WithParams(1, "one"), Is.EqualTo("fred"));
         }

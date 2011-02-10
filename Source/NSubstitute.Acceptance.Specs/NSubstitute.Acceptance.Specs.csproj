@@ -65,11 +65,10 @@
     <Compile Include="Infrastructure\ICalculator.cs" />
     <Compile Include="MultipleThreads.cs" />
     <Compile Include="NotASubstituteExceptions.cs" />
-    <Compile Include="Probs_ArgMatching.cs" />
     <Compile Include="RecursiveSubs.cs" />
     <Compile Include="SubbingForEventHandler.cs" />
     <Compile Include="PropertyBehaviour.cs" />
-    <Compile Include="ParameterMatching.cs" />
+    <Compile Include="ArgumentMatching.cs" />
     <Compile Include="Infrastructure\IIgnition.cs" />
     <Compile Include="Infrastructure\PendingAttribute.cs" />
     <Compile Include="SimpleSubstituteExamples.cs" />

@@ -1,4 +1,6 @@
+using System;
 using NSubstitute.Core.Arguments;
+using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs.Arguments
@@ -24,6 +26,22 @@ namespace NSubstitute.Specs.Arguments
         {
             var spec = new ArgumentMatchesSpecification<int>(x => x < 5);
             Assert.False(spec.IsSatisfiedBy(7));
+        }
+
+        [Test]
+        public void Should_throw_argument_matching_exception_if_arg_spec_throws()
+        {
+            var spec = new ArgumentMatchesSpecification<string>(x => Throw());
+            Assert.That(() => spec.IsSatisfiedBy("hello world"), Throws.InstanceOf<ArgumentMatchingException>());
+        }
+
+        private bool Throw() { throw new InvalidOperationException(); }
+
+        [Test]
+        public void Should_throw_argument_matching_exception_that_mentions_null_arg_if_arg_spec_throws_due_to_null_reference()
+        {
+            var spec = new ArgumentMatchesSpecification<string>(x => x.Contains("something"));
+            Assert.That(() => spec.IsSatisfiedBy(null), Throws.InstanceOf<ArgumentMatchingException>().With.Message.ContainsSubstring("<null>"));
         }
     }
 }
