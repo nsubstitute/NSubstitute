@@ -12,13 +12,36 @@ namespace NSubstitute.Core
 {
     public class SubstitutionContext : ISubstitutionContext
     {
+        class RobustThreadLocal<T>
+        {
+            /* Delegates to ThreadLocal<T>, but wraps Value property access in try/catch to swallow ObjectDisposedExceptions.
+             * These can occur if the Value property is access from the finalizer thread. Because we can't detect this, we'll
+             * just swallow the exception (the finalizer thread won't be using any of these values anyway).
+             */
+            readonly ThreadLocal<T> _threadLocal;
+            public RobustThreadLocal() { _threadLocal = new ThreadLocal<T>(); }
+            public RobustThreadLocal(Func<T> initialValue) { _threadLocal = new ThreadLocal<T>(initialValue); }
+            public T Value
+            {
+                get
+                {
+                    try { return _threadLocal.Value; }
+                    catch (ObjectDisposedException) { return default(T); }
+                }
+                set 
+                {
+                    try { _threadLocal.Value = value; }
+                    catch (ObjectDisposedException) { }
+                }
+            }
+        }
 
         public static ISubstitutionContext Current { get; set; }
 
         readonly ISubstituteFactory _substituteFactory;
-        readonly ThreadLocal<ICallRouter> _lastCallRouter = new ThreadLocal<ICallRouter>();
-        readonly ThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications = new ThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
-        readonly ThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent = new ThreadLocal<Func<ICall, object[]>>();
+        readonly RobustThreadLocal<ICallRouter> _lastCallRouter = new RobustThreadLocal<ICallRouter>();
+        readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
+        readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
 
         static SubstitutionContext()
         {
