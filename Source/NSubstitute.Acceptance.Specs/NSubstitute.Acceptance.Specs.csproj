@@ -58,6 +58,7 @@
     <Compile Include="ClearCalls.cs" />
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />
+    <Compile Include="FieldReports\DisposeWithThreadLocal.cs" />
     <Compile Include="FieldReports\Issue38_SettingNullReturnValue.cs" />
     <Compile Include="FieldReports\EqualsBehaviourOnClassSubs.cs" />
     <Compile Include="FieldReports\Issue33_RaisingINotifyPropertyChangedEvents.cs" />

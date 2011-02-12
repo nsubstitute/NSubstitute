@@ -12,13 +12,13 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
     {
         readonly ProxyGenerator _proxyGenerator;
         readonly CastleInterceptorFactory _interceptorFactory;
-        readonly IgnoreCallRouterCallsHook _ignoreCallRouterCallsHook;
+        readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook;
 
         public CastleDynamicProxyFactory(CastleInterceptorFactory interceptorFactory)
         {
             _proxyGenerator = new ProxyGenerator();
             _interceptorFactory = interceptorFactory;
-            _ignoreCallRouterCallsHook = new IgnoreCallRouterCallsHook();
+            _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
         }
 
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
@@ -38,19 +38,22 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private ProxyGenerationOptions GetOptionsToMixinCallRouter(ICallRouter callRouter)
         {
-            var options = new ProxyGenerationOptions(_ignoreCallRouterCallsHook);
+            var options = new ProxyGenerationOptions(_allMethodsExceptCallRouterCallsHook);
             options.AddMixinInstance(callRouter);
             return options;
         }
 
-        private class IgnoreCallRouterCallsHook : IProxyGenerationHook
+        private class AllMethodsExceptCallRouterCallsHook : AllMethodsHook
         {
-            private static readonly ICollection<Type> SkippedTypes = new[] { typeof (object), typeof (MarshalByRefObject), typeof (ContextBoundObject), typeof(ICallRouter) };
-            public bool ShouldInterceptMethod(Type type, MethodInfo methodInfo) { return !SkippedTypes.Contains(methodInfo.DeclaringType); }
-            public void NonProxyableMemberNotification(Type type, MemberInfo memberInfo) { }
-            public void MethodsInspected() { }
-            public override bool Equals(object obj) { return obj != null && obj.GetType() == GetType(); }
-            public override int GetHashCode() { return GetType().GetHashCode(); } 
+            public override bool ShouldInterceptMethod(Type type, MethodInfo methodInfo)
+            {
+                return IsNotCallRouterMethod(methodInfo) && base.ShouldInterceptMethod(type, methodInfo);
+            }
+
+            private static bool IsNotCallRouterMethod(MethodInfo methodInfo)
+            {
+                return methodInfo.DeclaringType != typeof(ICallRouter);
+            }
         }
 
         private void VerifyNoConstructorArgumentsGivenForInterface(object[] constructorArguments)
