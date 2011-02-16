@@ -98,6 +98,7 @@
     <Compile Include="Core\IParameterInfo.cs" />
     <Compile Include="Core\ParameterInfoFromType.cs" />
     <Compile Include="Core\ParameterInfoWrapper.cs" />
+    <Compile Include="Core\RobustThreadLocal.cs" />
     <Compile Include="Core\RouteAction.cs" />
     <Compile Include="Core\Arguments\IArgumentsFormatter.cs" />
     <Compile Include="Core\IDefaultForType.cs" />
