@@ -55,5 +55,17 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(request.Get("please provide me with a greeting"), Is.EqualTo("request too long"));
             Assert.That(request.Get(null), Is.EqualTo(""));
         }
+
+        [Test]
+        [Pending]
+        public void Multiple_conditions_with_multiple_returns()
+        {
+            var request = Substitute.For<IRequest>();
+            request.Get(null).Returns("huh?", "what?", "pardon?");
+            request.Get(Arg.Is<string>(x => x.Contains("greeting"))).Returns("hello world");
+
+            Assert.That(request.Get(null), Is.EqualTo("huh?"));
+            Assert.That(request.Get(null), Is.EqualTo("what?"));
+        }
     }
 }
