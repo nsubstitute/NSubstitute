@@ -57,9 +57,7 @@ namespace NSubstitute.Core.Arguments
 
         public override bool IsSatisfiedBy(object argument)
         {
-            if (argument == null && TypeCanNotBeNull()) return false;
-            var argumentIsCompatibleWithType = argument == null || ForType.IsAssignableFrom(argument.GetType());
-            if (!argumentIsCompatibleWithType) return false;
+            if (!ArgumentIsCompatibleWithType(argument)) return false;
             try
             {
                 return _predicate((T)argument);
@@ -70,7 +68,12 @@ namespace NSubstitute.Core.Arguments
             }
         }
 
-        private bool TypeCanNotBeNull() { return ForType.IsValueType; }
+        private bool ArgumentIsCompatibleWithType(object argument)
+        {
+            return argument == null ? TypeCanBeNull() : ForType.IsAssignableFrom(argument.GetType());
+        }
+
+        private bool TypeCanBeNull() { return !ForType.IsValueType; }
         public override string ToString() { return _predicateDescription; }
     }
 
