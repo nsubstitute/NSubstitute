@@ -104,7 +104,6 @@
     <Compile Include="Core\IDefaultForType.cs" />
     <Compile Include="Core\IMethodInfoFormatter.cs" />
     <Compile Include="Core\ISubstituteState.cs" />
-    <Compile Include="Exceptions\ArgumentMatchingException.cs" />
     <Compile Include="Exceptions\CannotCreateEventArgsException.cs" />
     <Compile Include="Exceptions\CannotReturnNullForValueType.cs" />
     <Compile Include="Exceptions\CouldNotSetReturnException.cs" />

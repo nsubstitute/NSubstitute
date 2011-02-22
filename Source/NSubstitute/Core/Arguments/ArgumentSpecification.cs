@@ -34,7 +34,7 @@ namespace NSubstitute.Core.Arguments
 
         public override string ToString()
         {
-            return new ArgumentFormatter().Format(_value); 
+            return new ArgumentFormatter().Format(_value);
         }
 
         public override bool IsSatisfiedBy(object argument)
@@ -48,7 +48,8 @@ namespace NSubstitute.Core.Arguments
         readonly string _predicateDescription;
         private readonly Predicate<T> _predicate;
 
-        public ArgumentMatchesSpecification(Expression<Predicate<T>> predicate) : base(typeof(T)) 
+        public ArgumentMatchesSpecification(Expression<Predicate<T>> predicate)
+            : base(typeof(T))
         {
             _predicate = predicate.Compile();
             _predicateDescription = predicate.ToString();
@@ -56,30 +57,20 @@ namespace NSubstitute.Core.Arguments
 
         public override bool IsSatisfiedBy(object argument)
         {
-            if (argument == null)
-            {
-                var typeCantBeNull = ForType.IsValueType;
-                if (typeCantBeNull)
-                    return false;
-            }
-            else
-            {
-                var argumentIsCompatibleWithType = ForType.IsAssignableFrom(argument.GetType());
-                if (!argumentIsCompatibleWithType)
-                {
-                    return false;
-                }
-            }
+            if (argument == null && TypeCanNotBeNull()) return false;
+            var argumentIsCompatibleWithType = argument == null || ForType.IsAssignableFrom(argument.GetType());
+            if (!argumentIsCompatibleWithType) return false;
             try
             {
-                return _predicate((T) argument);
+                return _predicate((T)argument);
             }
-            catch (Exception ex)
+            catch
             {
-                throw new ArgumentMatchingException(ToString(), argument, ForType, ex);
+                return false;
             }
         }
 
+        private bool TypeCanNotBeNull() { return ForType.IsValueType; }
         public override string ToString() { return _predicateDescription; }
     }
 
@@ -87,7 +78,8 @@ namespace NSubstitute.Core.Arguments
     {
         private readonly IEnumerable<IArgumentSpecification> _argumentSpecifications;
 
-        public ArrayContentsArgumentSpecification(IEnumerable<IArgumentSpecification> argumentSpecifications, Type forType) : base(forType)
+        public ArrayContentsArgumentSpecification(IEnumerable<IArgumentSpecification> argumentSpecifications, Type forType)
+            : base(forType)
         {
             _argumentSpecifications = argumentSpecifications;
         }
@@ -99,7 +91,7 @@ namespace NSubstitute.Core.Arguments
                 var argumentArray = (IEnumerable<object>)argument;
                 if (argumentArray.Count() == _argumentSpecifications.Count())
                 {
-                    return _argumentSpecifications.Select((value, index) => value.IsSatisfiedBy(argumentArray.ElementAt(index))).All(x => x); 
+                    return _argumentSpecifications.Select((value, index) => value.IsSatisfiedBy(argumentArray.ElementAt(index))).All(x => x);
                 }
             }
             return false;

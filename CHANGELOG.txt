@@ -1,6 +1,9 @@
+unreleased changes
+* [UPDATE] Exceptions thrown in custom argument matchers (Arg.Is<T>(x => ...)) will now silently fail to match the argument, rather than allowing exceptions to bubble up.
+* [NEW] Support for test fixtures run in parallel.
+
 1.0.0
-* [FIX] Using Returns(null) for value types throws, rather than returning
-default(T).
+* [FIX] Using Returns(null) for value types throws, rather than returning default(T).
 
 0.9.5 Release Candidate
 * [FIX] Fixed bug when trying to return null from a call to a substitute.

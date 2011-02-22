@@ -1,6 +1,5 @@
 using System;
 using NSubstitute.Core.Arguments;
-using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs.Arguments
@@ -29,19 +28,19 @@ namespace NSubstitute.Specs.Arguments
         }
 
         [Test]
-        public void Should_throw_argument_matching_exception_if_arg_spec_throws()
+        public void Should_not_match_if_arg_spec_throws()
         {
             var spec = new ArgumentMatchesSpecification<string>(x => Throw());
-            Assert.That(() => spec.IsSatisfiedBy("hello world"), Throws.InstanceOf<ArgumentMatchingException>());
+            Assert.False(spec.IsSatisfiedBy("hello world"));
+        }
+
+        [Test]
+        public void Should_match_when_predicate_compares_null_to_null()
+        {
+            var spec = new ArgumentMatchesSpecification<string>(x => x == null);
+            Assert.True(spec.IsSatisfiedBy(null));
         }
 
         private bool Throw() { throw new InvalidOperationException(); }
-
-        [Test]
-        public void Should_throw_argument_matching_exception_that_mentions_null_arg_if_arg_spec_throws_due_to_null_reference()
-        {
-            var spec = new ArgumentMatchesSpecification<string>(x => x.Contains("something"));
-            Assert.That(() => spec.IsSatisfiedBy(null), Throws.InstanceOf<ArgumentMatchingException>().With.Message.ContainsSubstring("<null>"));
-        }
     }
 }

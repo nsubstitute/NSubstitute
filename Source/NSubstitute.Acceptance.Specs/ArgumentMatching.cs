@@ -38,12 +38,13 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throw_argument_matching_exception_when_arg_matcher_throws()
+        [Pending]
+        public void Should_not_match_when_arg_matcher_throws()
         {
-            _something.Say(Arg.Is<string>(x => x.Contains("hello"))).Returns("howdy");
+            _something.Say(Arg.Is<string>(x => x.Length < 2)).Returns("?");
 
-            Assert.That(_something.Say("hello world"), Is.EqualTo("howdy"));
-            Assert.That(() => _something.Say(null), Throws.InstanceOf<ArgumentMatchingException>());
+            Assert.That(_something.Say("eh"), Is.EqualTo("?"));
+            Assert.That(_something.Say(null), Is.EqualTo(string.Empty));
         }
 
         [Test]
