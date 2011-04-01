@@ -165,7 +165,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Anything("Hello world!"), Is.EqualTo(123));
             Assert.That(_something.Anything("Howdy"), Is.EqualTo(0));
             Assert.That(_something.Anything(2), Is.EqualTo(0));
-
         }
 
         [SetUp]

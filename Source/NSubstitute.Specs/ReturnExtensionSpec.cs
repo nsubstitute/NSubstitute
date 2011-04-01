@@ -24,7 +24,7 @@ namespace NSubstitute.Specs
                 _value = new object();
                 _substitutionContext = mock<ISubstitutionContext>();
                 _substitutionContext
-                    .stub(x => x.LastCallShouldReturn(Arg.Any<IReturn>(), Arg.Any<MatchArgs>()))
+                    .stub(x => x.LastCallShouldReturn(It.IsAny<IReturn>(), It.IsAny<MatchArgs>()))
                     .IgnoreArguments()
                     .WhenCalled(x => _returnValueSet = (IReturn) x.Arguments[0]);
                 temporarilyChange(() => SubstitutionContext.Current).to(_substitutionContext);

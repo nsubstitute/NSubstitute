@@ -5,7 +5,7 @@ using NSubstitute.Core.Arguments;
 
 namespace NSubstitute
 {
-    public class Arg
+    public static class Arg
     {
         public static T Any<T>()
         {
@@ -22,9 +22,9 @@ namespace NSubstitute
             return EnqueueArgumentSpec<T>(new ArgumentMatchesSpecification<T>(predicate));
         }
 
-        private static T EnqueueArgumentSpec<T>(IArgumentSpecification argumentSpec)
+        private static T EnqueueArgumentSpec<T>(IArgumentSpecification argumentSpecification)
         {
-            SubstitutionContext.Current.EnqueueArgumentSpecification(argumentSpec);
+            SubstitutionContext.Current.EnqueueArgumentSpecification(argumentSpecification);
             return default(T);
         }
     }

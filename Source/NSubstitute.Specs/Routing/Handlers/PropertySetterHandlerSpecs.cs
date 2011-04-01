@@ -70,7 +70,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Should_not_add_any_values_to_configured_results()
             {
-                _resultSetter.did_not_receive(x => x.SetResultForCall(Arg.Is(_propertyGetter), Arg.Any<IReturn>(), Arg.Is(MatchArgs.AsSpecifiedInCall)));
+                _resultSetter.did_not_receive(x => x.SetResultForCall(It.Is(_propertyGetter), It.IsAny<IReturn>(), It.Is(MatchArgs.AsSpecifiedInCall)));
             }
 
             [Test]

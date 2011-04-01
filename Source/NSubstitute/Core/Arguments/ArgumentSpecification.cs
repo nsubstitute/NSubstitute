@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.Arguments
 {
@@ -18,7 +17,10 @@ namespace NSubstitute.Core.Arguments
     {
         public ArgumentIsAnythingSpecification(Type forType) : base(forType) { }
         public override string ToString() { return "any " + ForType.Name; }
-        public override bool IsSatisfiedBy(object argument) { return true; }
+        public override bool IsSatisfiedBy(object argument) {
+            if (argument == null) return true;
+            return ForType.IsAssignableFrom(argument.GetType());
+        }
     }
 
     public class ArgumentEqualsSpecification : ArgumentSpecification
@@ -29,18 +31,13 @@ namespace NSubstitute.Core.Arguments
 
         private bool Matches(object argument)
         {
+            if (IsTypePassedByReference()) return ReferenceEquals(_value, argument);
             return EqualityComparer<object>.Default.Equals(_value, argument);
         }
 
-        public override string ToString()
-        {
-            return new ArgumentFormatter().Format(_value);
-        }
-
-        public override bool IsSatisfiedBy(object argument)
-        {
-            return Matches(argument);
-        }
+        private bool IsTypePassedByReference() { return ForType.IsByRef; }
+        public override string ToString() { return new ArgumentFormatter().Format(_value); }
+        public override bool IsSatisfiedBy(object argument) { return Matches(argument); }
     }
 
     public class ArgumentMatchesSpecification<T> : ArgumentSpecification

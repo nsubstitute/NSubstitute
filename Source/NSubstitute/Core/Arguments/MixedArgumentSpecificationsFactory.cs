@@ -8,6 +8,12 @@ namespace NSubstitute.Core.Arguments
         private readonly IArgumentSpecificationFactory _argumentSpecificationFactory;
         private readonly ISuppliedArgumentSpecificationsFactory _suppliedArgumentSpecificationsFactory;
 
+        public MixedArgumentSpecificationsFactory(IArgumentSpecificationFactory argumentSpecificationFactory, ISuppliedArgumentSpecificationsFactory suppliedArgumentSpecificationsFactory)
+        {
+            _argumentSpecificationFactory = argumentSpecificationFactory;
+            _suppliedArgumentSpecificationsFactory = suppliedArgumentSpecificationsFactory;
+        }
+
         public IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, IParameterInfo[] parameterInfos)
         {
             var suppliedArgumentSpecifications = _suppliedArgumentSpecificationsFactory.Create(argumentSpecs);
@@ -18,12 +24,6 @@ namespace NSubstitute.Core.Arguments
                             argument, parameterInfos[i], suppliedArgumentSpecifications)
                     )
                 );
-        }
-
-        public MixedArgumentSpecificationsFactory(IArgumentSpecificationFactory argumentSpecificationFactory, ISuppliedArgumentSpecificationsFactory suppliedArgumentSpecificationsFactory)
-        {
-            _argumentSpecificationFactory = argumentSpecificationFactory;
-            _suppliedArgumentSpecificationsFactory = suppliedArgumentSpecificationsFactory;
         }
     }
 }

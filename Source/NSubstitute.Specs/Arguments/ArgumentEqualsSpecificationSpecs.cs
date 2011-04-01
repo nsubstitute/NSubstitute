@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -29,6 +30,22 @@ namespace NSubstitute.Specs.Arguments
         }
 
         [Test]
+        public void Should_match_when_by_ref_types_have_the_same_reference()
+        {
+            var value = new object();
+            var other = value;
+            Assert.That(CreateSubjectForByRefType(ref value).IsSatisfiedBy(other)); 
+        }
+
+        [Test]
+        public void Should_not_match_when_by_ref_types_have_different_references()
+        {
+            var value = new object();
+            var otherReference = new object();
+            Assert.False(CreateSubjectForByRefType(ref value).IsSatisfiedBy(otherReference)); 
+        }
+
+        [Test]
         public void Should_match_when_both_arguments_are_null()
         {
             string x = null;
@@ -40,5 +57,13 @@ namespace NSubstitute.Specs.Arguments
         {
             return new ArgumentEqualsSpecification(value, typeof(T));
         }
+
+        public ArgumentEqualsSpecification CreateSubjectForByRefType<T>(ref T value)
+        {
+            var parameterType = GetType().GetMethod("MethodWithARefArgument").GetParameters()[0].ParameterType;
+            return new ArgumentEqualsSpecification(value, parameterType);
+        }
+
+        public void MethodWithARefArgument<T>(ref T arg) { }
     }
 }
