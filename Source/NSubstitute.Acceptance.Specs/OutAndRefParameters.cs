@@ -6,25 +6,9 @@ namespace NSubstitute.Acceptance.Specs
     {
         public interface ILookupStrings
         {
-            bool TryRef(ref int number);
             bool TryGet(string key, out string value);
             string Get(string key);
             string LookupByObject(ref object obj);
-        }
-
-        [Test]
-        [Pending]
-        public void SetNonOutputArgument()
-        {
-            var sub = Substitute.For<ILookupStrings>();
-            var key = "hi";
-            sub.Get(key).Returns("hello");
-            sub.When(x => x.Get(key)).Do(x => { x[0] = "snarf!"; });
-
-            var result = sub.Get("hi");
-
-            Assert.That(key, Is.EqualTo("hi"));
-            Assert.That(result, Is.EqualTo("hello"));
         }
 
         [Test]
@@ -33,7 +17,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             var sub = Substitute.For<ILookupStrings>();
             string value;
-            sub.TryGet("hi", out value).Returns(x => { x[1] = "hello"; return true; });
+            //sub.TryGet("hi", out value).Returns(x => { x[1] = "hello"; return true; });
 
             var result = sub.TryGet("hi", out value);
 
@@ -42,7 +26,19 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void MatchIntRefArgument()
+        [Pending]
+        public void Match_and_set_ref_argument()
+        {
+            var sub = Substitute.For<ILookupStrings>();
+            var key = new object();
+            sub.LookupByObject(ref key).Returns(x => { x[0] = new object(); return "1"; });
+
+            Assert.That(sub.LookupByObject(ref key), Is.EqualTo("1"));
+            Assert.That(sub.LookupByObject(ref key), Is.EqualTo("1"));
+        }
+
+        [Test]
+        public void Match_int_ref_argument()
         {
             var sub = Substitute.For<ILookupStrings>();
             var value = 1;
@@ -52,7 +48,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void MatchObjectRefArgument()
+        public void Match_object_ref_argument()
         {
             var sub = Substitute.For<ILookupStrings>();
             var value = new object();
