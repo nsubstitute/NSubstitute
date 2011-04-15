@@ -16,7 +16,6 @@ namespace NSubstitute.Core
         public object this[int index]
         {
             get { return _callArguments[index]; }
-            set { _callArguments[index] = value; }
         }
 
         public object[] Args()
