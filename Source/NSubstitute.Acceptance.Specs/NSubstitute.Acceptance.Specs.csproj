@@ -67,6 +67,7 @@
     <Compile Include="Infrastructure\ICalculator.cs" />
     <Compile Include="MultipleThreads.cs" />
     <Compile Include="NotASubstituteExceptions.cs" />
+    <Compile Include="NullReferenceCheckingForSubstituteExtensions.cs" />
     <Compile Include="OutAndRefParameters.cs" />
     <Compile Include="RecursiveSubs.cs" />
     <Compile Include="SubbingForEventHandler.cs" />

@@ -81,5 +81,16 @@ namespace NSubstitute.Specs
                 );
             }
         }
+
+        public class When_getting_call_router_for_a_null_reference : Concern
+        {
+            [Test]
+            public void Should_throw_a_null_substitute_reference_exception()
+            {
+                Assert.Throws<NullSubstituteReferenceException>(() => 
+                    sut.ResolveFor(null)
+                );
+            }
+        }
     }
 }

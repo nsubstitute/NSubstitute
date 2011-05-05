@@ -1,3 +1,4 @@
+using System;
 using NSubstitute.Core;
 using NSubstitute.Routing.Definitions;
 using NSubstitute.Specs.Infrastructure;
@@ -35,6 +36,6 @@ namespace NSubstitute.Specs
 
                 temporarilyChange(() => SubstitutionContext.Current).to(_context);        
             }
-        }        
+        }
     }
 }

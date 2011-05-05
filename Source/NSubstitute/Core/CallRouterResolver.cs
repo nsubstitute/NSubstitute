@@ -10,6 +10,7 @@ namespace NSubstitute.Core
 
         public ICallRouter ResolveFor(object substitute)
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
             if (substitute is ICallRouter) return (ICallRouter)substitute;
             ICallRouter callRouter;
             if (_callRouterMappings.TryGetValue(substitute, out callRouter))
