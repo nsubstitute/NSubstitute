@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
@@ -8,12 +9,18 @@ namespace NSubstitute.Specs
 {
     public class CallInfoSpecs : ConcernFor<CallInfo>
     {
-        private object[] _arguments;
+        private Argument[] _arguments;
 
         [Test]
         public void Can_get_arguments()
         {
-            Assert.That(sut.Args(), Is.EqualTo(_arguments));
+            Assert.That(sut.Args(), Is.EqualTo(_arguments.Select(x => x.Value).ToArray()));
+        }
+
+        [Test]
+        public void Can_get_argument_types()
+        {
+            Assert.That(sut.ArgTypes(), Is.EqualTo(_arguments.Select(x => x.DeclaredType).ToArray()));
         }
 
         [Test]
@@ -21,7 +28,7 @@ namespace NSubstitute.Specs
         {
             for (int i = 0; i < _arguments.Length; i++)
             {
-                Assert.That(sut[i], Is.EqualTo(_arguments[i]));
+                Assert.That(sut[i], Is.EqualTo(_arguments[i].Value));
             }
         }
 
@@ -50,9 +57,10 @@ namespace NSubstitute.Specs
 
         public override void Context()
         {
-            _arguments = new object[] {5, "test", 1.234, 10, new string[0]};
+            _arguments = new[] {CreateArg(5), CreateArg("test"), CreateArg(1.234), CreateArg(10), CreateArg(new string[0])};
         }
 
+        private Argument CreateArg<T>(T value) { return new Argument(typeof (T), value); }
 
         public override CallInfo CreateSubjectUnderTest()
         {

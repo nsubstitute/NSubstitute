@@ -1,4 +1,5 @@
 unreleased changes
+* [FIX] CallInfo.Arg<T>() now works more reliably, including for null arguments.
 * [FIX] Better exception when accidentally calling substitute extension method with a null reference (e.g. foo.Received().Call() when foo is null)
 * [UPDATE] Exceptions thrown in custom argument matchers (Arg.Is<T>(x => ...)) will now silently fail to match the argument, rather than allowing exceptions to bubble up.
 * [NEW] Support for test fixtures run in parallel.

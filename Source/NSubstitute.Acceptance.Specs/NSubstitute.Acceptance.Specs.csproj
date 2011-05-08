@@ -63,6 +63,7 @@
     <Compile Include="FieldReports\Issue38_SettingNullReturnValue.cs" />
     <Compile Include="FieldReports\EqualsBehaviourOnClassSubs.cs" />
     <Compile Include="FieldReports\Issue33_RaisingINotifyPropertyChangedEvents.cs" />
+    <Compile Include="FieldReports\Issue45_CallInfoArgAccessFailsForNull.cs" />
     <Compile Include="FieldReports\SubbingSynchronizationContext.cs" />
     <Compile Include="Infrastructure\ICalculator.cs" />
     <Compile Include="MultipleThreads.cs" />

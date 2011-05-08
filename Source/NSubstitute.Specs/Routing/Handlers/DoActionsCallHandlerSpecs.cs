@@ -40,7 +40,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             public override void Context()
             {
                 _matchingActions = new[] { mock<Action<CallInfo>>(), mock<Action<CallInfo>>() };
-                _callInfo = new CallInfo(new object[0]);
+                _callInfo = new CallInfo(new Argument[0]);
 
                 _call = mock<ICall>();
                 _callActions = mock<ICallActions>();

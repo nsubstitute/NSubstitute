@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arg.cs" />
+    <Compile Include="Core\Argument.cs" />
     <Compile Include="Core\Arguments\ArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\ArgumentsFormatter.cs" />
     <Compile Include="Core\Arguments\ArgumentSpecificationFactory.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Core\DefaultForType.cs" />
     <Compile Include="Core\EventCallFormatter.cs" />
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
+    <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\IParameterInfo.cs" />
     <Compile Include="Core\ParameterInfoFromType.cs" />
     <Compile Include="Core\ParameterInfoWrapper.cs" />

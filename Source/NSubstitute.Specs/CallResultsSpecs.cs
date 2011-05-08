@@ -23,7 +23,7 @@ namespace NSubstitute.Specs
 
             protected CallInfo StubCallInfoForCall(ICall call)
             {
-                var callInfo = new CallInfo(new object[0]);
+                var callInfo = new CallInfo(new Argument[0]);
                 _callInfoFactory.stub(x => x.Create(call)).Return(callInfo);
                 return callInfo;
             }
