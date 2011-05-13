@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<package>
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>NSubstitute</id>
     <version>0.9.0</version>
     <description>NSubstitute is a friendly substitute for .NET mocking framekworks. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</description>
     <authors>Anthony Egerton,David Tchepak</authors>
-    <language>en-US</language>
     <tags>mocking mocks testing unit-testing TDD AAA</tags>
     <projectUrl>http://nsubstitute.github.com</projectUrl>
     <licenseUrl>https://github.com/nsubstitute/NSubstitute/raw/master/LICENSE.txt</licenseUrl>
