@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
-    public class CallReceivedException : Exception
+    public class CallReceivedException : SubstituteException
     {
         public CallReceivedException() { }
         public CallReceivedException(string message) : base(message) { }

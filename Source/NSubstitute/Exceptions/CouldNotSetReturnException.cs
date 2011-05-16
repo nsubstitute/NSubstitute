@@ -1,4 +1,6 @@
-﻿namespace NSubstitute.Exceptions
+﻿using System.Runtime.Serialization;
+
+namespace NSubstitute.Exceptions
 {
     public class CouldNotSetReturnException : SubstituteException
     {
@@ -9,5 +11,6 @@
                 "Return values cannot be configured for non-virtual/non-abstract members.";
 
         public CouldNotSetReturnException() : base(WhatProbablyWentWrong) { }
+        protected CouldNotSetReturnException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }
