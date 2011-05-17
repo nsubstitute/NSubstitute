@@ -1,4 +1,5 @@
 unreleased changes
+* [UPDATE] Updated to Castle.Core 2.5.3.
 * [FIX] Fixed bug when raising a delegate event with a null argument.
 * [FIX] CallInfo.Arg<T>() now works more reliably, including for null arguments.
 * [FIX] Better exception when accidentally calling substitute extension method with a null reference (e.g. foo.Received().Call() when foo is null)
