@@ -9,6 +9,6 @@
     <projectUrl>http://nsubstitute.github.com</projectUrl>
     <licenseUrl>https://github.com/nsubstitute/NSubstitute/raw/master/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <iconUrl>http://nsubstitute.github.com/images/nsubstitute-32x32.png</iconUrl>
+    <iconUrl>http://nsubstitute.github.com/images/nsubstitute-100x100.png</iconUrl>
   </metadata>
 </package>

@@ -38,10 +38,8 @@ a:active { color: #000000; text-decoration: underline;}
 }
 
 #nav {
-    position:absolute;
-    top:0px;
-    right:0px;
-    margin-top: 0.5em;
+    clear: both;
+    margin-top: 2em;
     font-weight: bold;
 }
 
@@ -102,7 +100,7 @@ a:active { color: #000000; text-decoration: underline;}
     padding-top: 0em;
 }
 
-#links {
+.sidebar {
     float: right;
     position: relative;
     width:25%;
@@ -118,24 +116,28 @@ a:active { color: #000000; text-decoration: underline;}
     border-bottom-left-radius: 20px;
 }
 
-.download {
-  border: 1px solid black;
-  padding: 15px;
-  background-color: white;
-  background-position: right bottom;
-  background-repeat: no-repeat;
+.sidebar h3 {
+    margin: 0px;
+}
 
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+#downloads ul {
+    margin: 0;
+    padding: 5px;
+}
+
+.download {
+    margin-bottom: 2em;
 }
 
 .download a {
   display: block;
-  font-weight: bold;
   padding-top: 10px;
   color: black;
 }
+
+li.github { list-style-image: url(/images/github-16x16.png); }
+li.nsubstitute { list-style-image: url(/images/nsubstitute-16x16.png); }
+li.nuget { list-style-image: url(/images/nuget-16x16.png); }
 
 div.highlight {
   border: 1px solid #AAAAAA;
