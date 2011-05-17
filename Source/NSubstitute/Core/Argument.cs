@@ -22,5 +22,10 @@ namespace NSubstitute.Core
         {
             get { return _declaredType; }
         }
+
+        public Type ActualType
+        {
+            get { return (_value == null) ? _declaredType : _value.GetType(); }
+        }
     }
 }

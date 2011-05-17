@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Exceptions;
 
@@ -23,25 +24,46 @@ namespace NSubstitute.Core
             return _callArguments.Select(x => x.Value).ToArray();
         }
 
-        public T Arg<T>()
-        {
-            var type = typeof(T);
-            var matchingArgs = _callArguments.Where(x => x.DeclaredType == type);
-            var numberOfMatchingArgs = matchingArgs.Count();
-            if (numberOfMatchingArgs > 1)
-            {
-                throw new AmbiguousArgumentsException("There is more than one argument of type " + typeof (T).FullName + " to this call.");
-            }
-            if (numberOfMatchingArgs == 0)
-            {
-                throw new ArgumentNotFoundException("Can not find an argument of type " + typeof (T).FullName + " to this call.");
-            }
-            return (T) matchingArgs.First().Value;
-        }
-
         public Type[] ArgTypes()
         {
             return _callArguments.Select(x => x.DeclaredType).ToArray();
+        }
+
+        public T Arg<T>()
+        {
+            T arg;
+            if (TryGetArg(x => x.DeclaredType == typeof(T), out arg)) return arg;
+            if (TryGetArg(x => typeof(T).IsAssignableFrom(x.ActualType), out arg)) return arg;
+            throw new ArgumentNotFoundException("Can not find an argument of type " + typeof(T).FullName + " to this call.");
+        }
+
+        private bool TryGetArg<T>(Func<Argument, bool> condition, out T value)
+        {
+            value = default(T);
+
+            var matchingArgs = _callArguments.Where(condition);
+            if (!matchingArgs.Any()) return false;
+            ThrowIfMoreThanOne<T>(matchingArgs);
+
+            value = (T)matchingArgs.First().Value;
+            return true;
+        }
+
+        private void ThrowIfMoreThanOne<T>(IEnumerable<Argument> arguments)
+        {
+            if (arguments.Skip(1).Any())
+            {
+                throw new AmbiguousArgumentsException(
+                    "There is more than one argument of type " + typeof(T).FullName + " to this call.\n" +
+                    "The call signature is (" + DisplayTypes(ArgTypes()) + ")\n" +
+                    "  and was called with (" + DisplayTypes(_callArguments.Select(x => x.ActualType)) + ")"
+                    );
+            }
+        }
+
+        private static string DisplayTypes(IEnumerable<Type> types)
+        {
+            return string.Join(", ", types.Select(x => x.Name).ToArray());
         }
     }
 }

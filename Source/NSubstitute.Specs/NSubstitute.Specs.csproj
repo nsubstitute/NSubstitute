@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgumentSpecs.cs" />
     <Compile Include="Arguments\ArgumentEqualsSpecificationSpecs.cs" />
     <Compile Include="Arguments\ArgumentMatchesSpecificationSpecs.cs" />
     <Compile Include="Arguments\ArgumentsFormatterSpecs.cs" />
