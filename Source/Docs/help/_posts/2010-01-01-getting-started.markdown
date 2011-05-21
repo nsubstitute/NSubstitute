@@ -3,9 +3,11 @@ title: Getting started
 layout: post
 ---
 
-So you've [downloaded NSubstitute](http://github.com/nsubstitute/NSubstitute/downloads), created a new project with a reference to your favourite unit testing framework (for these examples we're using [NUnit](http://www.nunit.org/)), and are staring at a blank test fixture you've created to try it out, wondering where to start.
+The easiest way to get started is to reference NSubstitute from your test project using the [NSubstitute NuGet package](http://nuget.org/List/Packages/NSubstitute) via [NuGet](http://nuget.codeplex.com/wikipage?title=Getting%20Started) or [OpenWrap](https://github.com/openrasta/openwrap/wiki/Nuget). Alternatively you can [download NSubstitute](http://github.com/nsubstitute/NSubstitute/downloads) and add a reference to the `NSubstitute.dll` file included in the download into your test project.
 
-Well, first you need to add a reference to `NSubstitute.dll` (from the download) into your project, and add `using NSubstitute;` to your current C# file. This will give you everything you need to start substituting.
+So now you are staring at a blank test fixture (created with your favourite unit testing framework; for these examples we're using [NUnit](http://www.nunit.org/)), and are wondering where to start. 
+
+First, add `using NSubstitute;` to your current C# file. This will give you everything you need to start substituting. 
 
 Now let's say we have a basic calculator interface:
 

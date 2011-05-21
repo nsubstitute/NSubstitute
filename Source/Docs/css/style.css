@@ -127,12 +127,15 @@ a:active { color: #000000; text-decoration: underline;}
 
 .download {
     margin-bottom: 2em;
+    padding-top: 0;
+    padding-bottom: 1em;
 }
 
 .download a {
   display: block;
-  padding-top: 10px;
+  padding-top: 1em;
   color: black;
+  text-decoration: underline;
 }
 
 li.github { list-style-image: url(/images/github-16x16.png); }
