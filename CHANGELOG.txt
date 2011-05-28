@@ -1,3 +1,6 @@
+unreleased changes
+* [FIX] Incorrect ambiguous args exception when supplying value type arg specs for object arguments.
+
 1.1.0 (May 2011)
 * [UPDATE] Updated to Castle.Core 2.5.3.
 * [FIX] Fixed bug when raising a delegate event with a null argument.

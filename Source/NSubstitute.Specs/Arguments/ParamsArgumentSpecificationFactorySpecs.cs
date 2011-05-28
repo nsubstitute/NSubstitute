@@ -50,7 +50,7 @@ namespace NSubstitute.Specs.Arguments
                 _argumentSpecificationsToSupply = new Queue<IArgumentSpecification>();
                 _suppliedArgumentSpecifications = mock<ISuppliedArgumentSpecifications>();
                 _suppliedArgumentSpecifications.stub(x => x.Dequeue()).Return(null).WhenCalled(x => x.ReturnValue = _argumentSpecificationsToSupply.Dequeue());
-                _suppliedArgumentSpecifications.stub(x => x.DequeueAll()).Return(null).WhenCalled(x => x.ReturnValue = _argumentSpecificationsToSupply);
+                _suppliedArgumentSpecifications.stub(x => x.DequeueRemaining()).Return(null).WhenCalled(x => x.ReturnValue = _argumentSpecificationsToSupply);
             }
 
 
@@ -87,7 +87,7 @@ namespace NSubstitute.Specs.Arguments
                 {
                     base.Context();
                     _argumentEqualsSpecification = mock<IArgumentSpecification>();
-                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_parameterInfo.ParameterType)).Return(false);
+                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_argument, _parameterInfo.ParameterType)).Return(false);
                     _argumentEqualsSpecificationFactory.stub(x => x.Create(_argument, _parameterInfo.ParameterType)).Return(_argumentEqualsSpecification);
                 }
 
@@ -106,8 +106,8 @@ namespace NSubstitute.Specs.Arguments
                 {
                     base.Context();
                     _suppliedSpecification = mock<IArgumentSpecification>();
-                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_parameterInfo.ParameterType)).Return(true);
-                    _suppliedArgumentSpecifications.stub(x => x.NextFor(_parameterInfo.ParameterType)).Return(true);
+                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_argument, _parameterInfo.ParameterType)).Return(true);
+                    _suppliedArgumentSpecifications.stub(x => x.IsNextFor(_argument, _parameterInfo.ParameterType)).Return(true);
                     _argumentSpecificationsToSupply.Enqueue(_suppliedSpecification);
                 }
 
@@ -149,8 +149,8 @@ namespace NSubstitute.Specs.Arguments
                 public override void Context()
                 {
                     base.Context();
-                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_parameterInfo.ParameterType)).Return(true);
-                    _suppliedArgumentSpecifications.stub(x => x.NextFor(_parameterInfo.ParameterType)).Return(false);
+                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_argument, _parameterInfo.ParameterType)).Return(true);
+                    _suppliedArgumentSpecifications.stub(x => x.IsNextFor(_argument, _parameterInfo.ParameterType)).Return(false);
                 }
             }
 
@@ -161,8 +161,8 @@ namespace NSubstitute.Specs.Arguments
                 public override void Context()
                 {
                     base.Context();
-                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_parameterInfo.ParameterType)).Return(false);
-                    _suppliedArgumentSpecifications.stub(x => x.NextFor(_parameterInfo.ParameterType)).Return(false);
+                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_argument, _parameterInfo.ParameterType)).Return(false);
+                    _suppliedArgumentSpecifications.stub(x => x.IsNextFor(_argument, _parameterInfo.ParameterType)).Return(false);
                     _argumentSpecificationsToSupply.Enqueue(mock<IArgumentSpecification>());
                 }
             }
@@ -174,8 +174,8 @@ namespace NSubstitute.Specs.Arguments
                 public override void Context()
                 {
                     base.Context();
-                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_parameterInfo.ParameterType)).Return(true);
-                    _suppliedArgumentSpecifications.stub(x => x.NextFor(_parameterInfo.ParameterType)).Return(true);
+                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_argument, _parameterInfo.ParameterType)).Return(true);
+                    _suppliedArgumentSpecifications.stub(x => x.IsNextFor(_argument, _parameterInfo.ParameterType)).Return(true);
                     _argumentSpecificationsToSupply.Enqueue(mock<IArgumentSpecification>());
                     _argumentSpecificationsToSupply.Enqueue(mock<IArgumentSpecification>());
                 }
@@ -198,7 +198,7 @@ namespace NSubstitute.Specs.Arguments
                 var paramterInfosFromParamsArray = mock<IEnumerable<IParameterInfo>>();
                 _parameterInfosFromParamsArrayFactory.stub(x => x.Create(_argument, _parameterInfo.ParameterType)).Return(paramterInfosFromParamsArray);
                 var suppliedArgumentSpecificationsFromParamsArray = mock<ISuppliedArgumentSpecifications>();
-                SuppliedArgumentSpecificationsFactory.stub(x => x.Create(_suppliedArgumentSpecifications.DequeueAll())).Return(suppliedArgumentSpecificationsFromParamsArray);
+                SuppliedArgumentSpecificationsFactory.stub(x => x.Create(_suppliedArgumentSpecifications.DequeueRemaining())).Return(suppliedArgumentSpecificationsFromParamsArray);
                 var arrayArgumentSpecifications = mock<IEnumerable<IArgumentSpecification>>();
                 _arrayArgumentSpecificationsFactory.stub(x => x.Create(_argument, paramterInfosFromParamsArray, suppliedArgumentSpecificationsFromParamsArray)).Return(arrayArgumentSpecifications);
                 _arrayContentsArgumentSpecificationFactory.stub(x => x.Create(arrayArgumentSpecifications, _parameterInfo.ParameterType)).Return(_arrayContentsArgumentSpecification);

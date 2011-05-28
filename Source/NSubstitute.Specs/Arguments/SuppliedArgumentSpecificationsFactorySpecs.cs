@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -15,9 +12,9 @@ namespace NSubstitute.Specs.Arguments
             private IArgumentSpecification[] _argumentSpecifications;
 
             [Test]
-            public void Should_create_suppliedAgumentSpecifications_with_correct_specifications()
+            public void Should_create_supplied_argument_specifications_with_correct_specifications()
             {
-                Assert.That(_result.DequeueAll(), Is.EquivalentTo(_argumentSpecifications));
+                Assert.That(_result.DequeueRemaining(), Is.EquivalentTo(_argumentSpecifications));
             }
 
             public override void Context()
@@ -32,7 +29,7 @@ namespace NSubstitute.Specs.Arguments
 
             public override SuppliedArgumentSpecificationsFactory CreateSubjectUnderTest()
             {
-                return new SuppliedArgumentSpecificationsFactory();
+                return new SuppliedArgumentSpecificationsFactory(mock<IDefaultChecker>());
             }
         }
     }

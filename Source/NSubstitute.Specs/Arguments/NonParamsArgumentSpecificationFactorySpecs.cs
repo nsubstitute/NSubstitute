@@ -12,7 +12,6 @@ namespace NSubstitute.Specs.Arguments
         public abstract class BaseConcern : ConcernFor<NonParamsArgumentSpecificationFactory>
         {
             protected IArgumentSpecification _result;
-            protected IDefaultChecker _defaultChecker;
             protected object _argument;
             protected IParameterInfo _parameterInfo;
             protected ISuppliedArgumentSpecifications _suppliedArgumentSpecifications;
@@ -23,13 +22,12 @@ namespace NSubstitute.Specs.Arguments
                 base.Context();
                 _parameterInfo = mock<IParameterInfo>();
                 _argumentEqualsSpecificationFactory = mock<IArgumentEqualsSpecificationFactory>();
-                _defaultChecker = mock<IDefaultChecker>();
                 _suppliedArgumentSpecifications = mock<ISuppliedArgumentSpecifications>();
             }
 
             public override NonParamsArgumentSpecificationFactory CreateSubjectUnderTest()
             {
-                return new NonParamsArgumentSpecificationFactory(_defaultChecker, _argumentEqualsSpecificationFactory);
+                return new NonParamsArgumentSpecificationFactory(_argumentEqualsSpecificationFactory);
             }
 
             public override void Because()
@@ -38,15 +36,34 @@ namespace NSubstitute.Specs.Arguments
             }
         }
 
-        public class When_argument_is_not_default_value : BaseConcern
+        public class When_next_supplied_arg_spec_works_for_this_argument : BaseConcern
+        {
+            private IArgumentSpecification _suppliedSpecification;
+            public override void Context()
+            {
+                base.Context();
+                _suppliedSpecification = mock<IArgumentSpecification>();
+                _suppliedArgumentSpecifications.stub(x => x.IsNextFor(_argument, _parameterInfo.ParameterType)).Return(true);
+                _suppliedArgumentSpecifications.stub(x => x.Dequeue()).Return(_suppliedSpecification);
+            }
+
+            [Test]
+            public void Should_return_next_arg_spec()
+            {
+                Assert.That(_result, Is.EqualTo(_suppliedArgumentSpecifications.Dequeue()));
+            }
+        }
+
+        public class When_no_supplied_argument_specs_work_for_this_argument : BaseConcern
         {
             private IArgumentSpecification _argumentEqualsSpecification;
             public override void Context()
             {
                 base.Context();
                 _argumentEqualsSpecification = mock<IArgumentSpecification>();
-                _defaultChecker.stub(x => x.IsDefault(_argument, _parameterInfo.ParameterType)).Return(false);
                 _argumentEqualsSpecificationFactory.stub(x => x.Create(_argument, _parameterInfo.ParameterType)).Return(_argumentEqualsSpecification);
+                _suppliedArgumentSpecifications.stub(x => x.IsNextFor(_argument, _parameterInfo.ParameterType)).Return(false);
+                _suppliedArgumentSpecifications.stub(x => x.AnyFor(_argument, _parameterInfo.ParameterType)).Return(false);
             }
 
             [Test]
@@ -55,79 +72,34 @@ namespace NSubstitute.Specs.Arguments
                 Assert.That(_result, Is.EqualTo(_argumentEqualsSpecification));
             }
         }
-        
-        public abstract class When_argument_is_default_value : BaseConcern
+
+        public abstract class When_next_arg_spec_does_not_work_for_this_arg_but_other_supplied_specs_do : BaseConcern
         {
+            private Exception _capturedException;
+
             public override void Context()
             {
                 base.Context();
-                _defaultChecker.stub(x => x.IsDefault(_argument, _parameterInfo.ParameterType)).Return(true);
+                _suppliedArgumentSpecifications.stub(x => x.IsNextFor(_argument, _parameterInfo.ParameterType)).Return(false);
+                _suppliedArgumentSpecifications.stub(x => x.AnyFor(_argument, _parameterInfo.ParameterType)).Return(true);
             }
 
-            public class Given_no_specifications_supplied_for_parameter_type: When_argument_is_default_value
+            public override void Because()
             {
-                private IArgumentSpecification _argumentEqualsSpecification;
-                public override void Context()
+                try
                 {
-                    base.Context();
-                    _argumentEqualsSpecification = mock<IArgumentSpecification>();
-                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_parameterInfo.ParameterType)).Return(false);
-                    _argumentEqualsSpecificationFactory.stub(x => x.Create(_argument, _parameterInfo.ParameterType)).Return(_argumentEqualsSpecification);
+                    base.Because();
                 }
-
-                [Test]
-                public void Should_return_equals_specification()
+                catch (Exception e)
                 {
-                    Assert.That(_result, Is.EqualTo(_argumentEqualsSpecification));
-                }
-            }
-            
-            public class Given_next_specification_supplied_is_for_parameter_type: When_argument_is_default_value
-            {
-                private IArgumentSpecification _suppliedSpecification;
-                public override void Context()
-                {
-                    base.Context();
-                    _suppliedSpecification = mock<IArgumentSpecification>();
-                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_parameterInfo.ParameterType)).Return(true);
-                    _suppliedArgumentSpecifications.stub(x => x.NextFor(_parameterInfo.ParameterType)).Return(true);
-                    _suppliedArgumentSpecifications.stub(x => x.Dequeue()).Return(_suppliedSpecification);
-                }
-
-                [Test]
-                public void Should_return_supplied_specification()
-                {
-                    Assert.That(_result, Is.EqualTo(_suppliedSpecification));
+                    _capturedException = e;
                 }
             }
 
-            public class Given_next_supplied_specification_is_not_for_parameter_type_and_specifications_for_type_are_available: When_argument_is_default_value
+            [Test]
+            public void Should_throw_ambiguous_arguments_exception()
             {
-                private Exception _capturedException;
-
-                public override void Context()
-                {
-                    base.Context();
-                    _suppliedArgumentSpecifications.stub(x => x.AnyFor(_parameterInfo.ParameterType)).Return(true);
-                    _suppliedArgumentSpecifications.stub(x => x.NextFor(_parameterInfo.ParameterType)).Return(false);
-                }
-
-                public override void Because()
-                {
-                    try
-                    {
-                        base.Because();
-                    }
-                    catch (Exception e)
-                    {
-                        _capturedException = e;
-                    }
-                }
-                [Test]
-                public void Should_throw_ambiguous_arguments_exception()
-                {
-                    Assert.That(_capturedException, Is.TypeOf(typeof(AmbiguousArgumentsException)));
-                }
+                Assert.That(_capturedException, Is.TypeOf(typeof(AmbiguousArgumentsException)));
             }
         }
     }

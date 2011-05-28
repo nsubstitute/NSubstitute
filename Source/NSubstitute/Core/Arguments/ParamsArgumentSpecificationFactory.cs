@@ -14,8 +14,8 @@ namespace NSubstitute.Core.Arguments
         private readonly ISuppliedArgumentSpecificationsFactory _suppliedArgumentSpecificationsFactory;
         private readonly IArrayContentsArgumentSpecificationFactory _arrayContentsArgumentSpecificationFactory;
 
-        public ParamsArgumentSpecificationFactory(IDefaultChecker defaultChecker, 
-                                                IArgumentEqualsSpecificationFactory argumentEqualsSpecificationFactory, 
+        public ParamsArgumentSpecificationFactory(IDefaultChecker defaultChecker,
+                                                IArgumentEqualsSpecificationFactory argumentEqualsSpecificationFactory,
                                                 IArrayArgumentSpecificationsFactory arrayArgumentSpecificationsFactory,
                                                 IParameterInfosFromParamsArrayFactory parameterInfosFromParamsArrayFactory,
                                                 ISuppliedArgumentSpecificationsFactory suppliedArgumentSpecificationsFactory,
@@ -33,29 +33,26 @@ namespace NSubstitute.Core.Arguments
         {
             if (_defaultChecker.IsDefault(argument, parameterInfo.ParameterType))
             {
-                if (suppliedArgumentSpecifications.NextFor(parameterInfo.ParameterType))
+                if (suppliedArgumentSpecifications.IsNextFor(argument, parameterInfo.ParameterType))
                 {
                     var argumentSpecification = suppliedArgumentSpecifications.Dequeue();
-                    if (suppliedArgumentSpecifications.DequeueAll().Count() == 0)
+                    if (suppliedArgumentSpecifications.DequeueRemaining().Count() == 0)
                     {
                         return argumentSpecification;
                     }
                 }
-                else
+                else if (!suppliedArgumentSpecifications.AnyFor(argument, parameterInfo.ParameterType))
                 {
-                    if (!suppliedArgumentSpecifications.AnyFor(parameterInfo.ParameterType))
+                    if (suppliedArgumentSpecifications.DequeueRemaining().Count() == 0)
                     {
-                        if (suppliedArgumentSpecifications.DequeueAll().Count() == 0)
-                        {
-                            return _argumentEqualsSpecificationFactory.Create(argument, parameterInfo.ParameterType);
-                        }
+                        return _argumentEqualsSpecificationFactory.Create(argument, parameterInfo.ParameterType);
                     }
                 }
             }
             else
             {
                 var paramterInfosFromParamsArray = _parameterInfosFromParamsArrayFactory.Create(argument, parameterInfo.ParameterType);
-                var suppliedArgumentSpecificationsFromParamsArray = _suppliedArgumentSpecificationsFactory.Create(suppliedArgumentSpecifications.DequeueAll());
+                var suppliedArgumentSpecificationsFromParamsArray = _suppliedArgumentSpecificationsFactory.Create(suppliedArgumentSpecifications.DequeueRemaining());
                 var arrayArgumentSpecifications = _arrayArgumentSpecificationsFactory.Create(argument, paramterInfosFromParamsArray, suppliedArgumentSpecificationsFromParamsArray);
                 return _arrayContentsArgumentSpecificationFactory.Create(arrayArgumentSpecifications, parameterInfo.ParameterType);
             }

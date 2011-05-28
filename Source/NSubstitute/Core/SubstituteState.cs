@@ -57,13 +57,11 @@ namespace NSubstitute.Core
                     NewDefaultChecker(),
                     new ArgumentEqualsSpecificationFactory(),
                     new ArrayArgumentSpecificationsFactory(
-                        new NonParamsArgumentSpecificationFactory(
-                            NewDefaultChecker(),
-                            new ArgumentEqualsSpecificationFactory()
+                        new NonParamsArgumentSpecificationFactory(new ArgumentEqualsSpecificationFactory()
                         )
                     ),
                     new ParameterInfosFromParamsArrayFactory(),
-                    new SuppliedArgumentSpecificationsFactory(),
+                    new SuppliedArgumentSpecificationsFactory(NewDefaultChecker()),
                     new ArrayContentsArgumentSpecificationFactory()
                 );
         }
@@ -71,9 +69,7 @@ namespace NSubstitute.Core
         private static INonParamsArgumentSpecificationFactory NewNonParamsArgumentSpecificationFactory()
         {
             return
-                new NonParamsArgumentSpecificationFactory(
-                    NewDefaultChecker(),
-                    new ArgumentEqualsSpecificationFactory()
+                new NonParamsArgumentSpecificationFactory(new ArgumentEqualsSpecificationFactory()
                 );
         }
 
@@ -87,7 +83,7 @@ namespace NSubstitute.Core
                                 NewParamsArgumentSpecificationFactory(),
                                 NewNonParamsArgumentSpecificationFactory()
                             ),
-                            new SuppliedArgumentSpecificationsFactory()
+                            new SuppliedArgumentSpecificationsFactory(NewDefaultChecker())
                         )
                     )
                 );
