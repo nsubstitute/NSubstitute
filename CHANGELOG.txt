@@ -1,4 +1,5 @@
 unreleased changes
+* [FIX] Failure to match calls with ref arguments using ReceivedWithAnyArgs().
 * [FIX] Incorrect ambiguous args exception when supplying value type arg specs for object arguments.
 
 1.1.0 (May 2011)

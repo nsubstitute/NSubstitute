@@ -19,7 +19,8 @@ namespace NSubstitute.Core.Arguments
         public override string ToString() { return "any " + ForType.Name; }
         public override bool IsSatisfiedBy(object argument) {
             if (argument == null) return true;
-            return ForType.IsAssignableFrom(argument.GetType());
+            var specifiedType = (ForType.IsByRef) ? ForType.GetElementType() : ForType;
+            return specifiedType.IsAssignableFrom(argument.GetType());
         }
     }
 

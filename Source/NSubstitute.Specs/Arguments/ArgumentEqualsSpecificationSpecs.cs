@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;

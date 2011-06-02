@@ -13,6 +13,33 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Match_any_args()
+        {
+            var sub = Substitute.For<ILookupStrings>();
+
+            var value = 1;
+            var otherValue = 1;
+            sub.TryRef(ref value);
+
+            sub.ReceivedWithAnyArgs().TryRef(ref otherValue);
+        }
+
+        [Test]
+        public void Match_any_args_with_when()
+        {
+            var calledWith = 0;
+            var sub = Substitute.For<ILookupStrings>();
+
+            var anyIntRef = 123;
+            var intRefToUseForCall = 789;
+            sub.WhenForAnyArgs(x => x.TryRef(ref anyIntRef)).Do(x => calledWith = x.Arg<int>());
+
+            sub.TryRef(ref intRefToUseForCall);
+
+            Assert.That(calledWith, Is.EqualTo(intRefToUseForCall));
+        }
+
+        [Test]
         [Pending]
         public void Match_int_ref_argument()
         {
