@@ -13,7 +13,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Match_any_args()
+        public void Received_with_any_ref_args()
         {
             var sub = Substitute.For<ILookupStrings>();
 
@@ -25,7 +25,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Match_any_args_with_when()
+        public void When_with_any_ref_args()
         {
             var calledWith = 0;
             var sub = Substitute.For<ILookupStrings>();
