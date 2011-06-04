@@ -15,9 +15,13 @@ namespace NSubstitute.Core
         private static IEnumerable<Argument> GetArgumentsFromCall(ICall call)
         {
             var values = call.GetArguments();
-            var types = call.GetParameterInfos().Select(x => x.ParameterType);
+            var types = call.GetParameterInfos().Select(x => x.ParameterType).ToArray();
 
-            return values.Zip(types, (value, type) => new Argument(type, value));
+            for (var index = 0; index < values.Length; index++)
+            {
+                var i = index;
+                yield return new Argument(types[i], () => values[i], x => values[i] = x);
+            }
         }
     }
 }

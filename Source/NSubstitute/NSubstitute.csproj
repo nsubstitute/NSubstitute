@@ -106,8 +106,10 @@
     <Compile Include="Core\IDefaultForType.cs" />
     <Compile Include="Core\IMethodInfoFormatter.cs" />
     <Compile Include="Core\ISubstituteState.cs" />
+    <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CannotCreateEventArgsException.cs" />
     <Compile Include="Exceptions\CannotReturnNullForValueType.cs" />
+    <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\CouldNotSetReturnException.cs" />
     <Compile Include="Exceptions\NullSubstituteReferenceException.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />

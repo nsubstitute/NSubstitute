@@ -1,3 +1,4 @@
+using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -37,6 +38,66 @@ namespace NSubstitute.Acceptance.Specs
             sub.TryRef(ref intRefToUseForCall);
 
             Assert.That(calledWith, Is.EqualTo(intRefToUseForCall));
+        }
+
+        [Test]
+        public void Set_ref_argument_via_returns()
+        {
+            var anyInt = 0;
+            var sub = Substitute.For<ILookupStrings>();
+
+            sub.TryRef(ref anyInt).ReturnsForAnyArgs(x => { x[0] = 5; return true; });
+
+            var result = sub.TryRef(ref anyInt);
+
+            Assert.That(result, Is.True);
+            Assert.That(anyInt, Is.EqualTo(5));
+        }
+
+        [Test]
+        public void Set_ref_argument_via_when_do()
+        {
+            var anyInt = 0;
+            var sub = Substitute.For<ILookupStrings>();
+
+            sub.WhenForAnyArgs(x => x.TryRef(ref anyInt)).Do(x => x[0] = 5);
+
+            sub.TryRef(ref anyInt);
+
+            Assert.That(anyInt, Is.EqualTo(5));
+        }
+
+        [Test]
+        public void Set_out_argument_via_returns()
+        {
+            var sub = Substitute.For<ILookupStrings>();
+            string output;
+            sub.TryGet("key", out output).Returns(x => { x[1] = "howdy"; return true; });
+
+            var result = sub.TryGet("key", out output);
+
+            Assert.That(result, Is.True);
+            Assert.That(output, Is.EqualTo("howdy"));
+        }
+
+        [Test]
+        public void Throw_when_setting_non_out_arg()
+        {
+            var sub = Substitute.For<ILookupStrings>();
+            string output;
+            sub.TryGet("key", out output).Returns(x => { x[0] = "arg 0 is not settable"; return true; });
+
+            Assert.Throws<ArgumentIsNotOutOrRefException>(() => sub.TryGet("key", out output));
+        }
+
+        [Test]
+        public void Throw_when_setting_arg_with_incompatible_value()
+        {
+            var sub = Substitute.For<ILookupStrings>();
+            string output;
+            sub.TryGet("key", out output).Returns(x => { x[1] = 2; return true; });
+
+            Assert.Throws<ArgumentSetWithIncompatibleValueException>(() => sub.TryGet("key", out output));
         }
 
         [Test]

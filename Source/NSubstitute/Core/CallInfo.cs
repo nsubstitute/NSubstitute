@@ -17,6 +17,25 @@ namespace NSubstitute.Core
         public object this[int index]
         {
             get { return _callArguments[index].Value; }
+            set
+            {
+                var argument = _callArguments[index];
+                EnsureArgIsSettable(argument, index, value); 
+                argument.Value = value;
+            }
+        }
+
+        private void EnsureArgIsSettable(Argument argument, int index, object value)
+        {
+            if (!argument.IsByRef)
+            {
+                throw new ArgumentIsNotOutOrRefException(index, argument.DeclaredType);
+            }
+
+            if (value != null && !argument.CanSetValueWithInstanceOf(value.GetType()))
+            {
+                throw new ArgumentSetWithIncompatibleValueException(index, argument.DeclaredType, value.GetType());
+            }
         }
 
         public object[] Args()
@@ -32,8 +51,8 @@ namespace NSubstitute.Core
         public T Arg<T>()
         {
             T arg;
-            if (TryGetArg(x => x.DeclaredType == typeof(T), out arg)) return arg;
-            if (TryGetArg(x => typeof(T).IsAssignableFrom(x.ActualType), out arg)) return arg;
+            if (TryGetArg(x => x.IsDeclaredTypeEqualToOrByRefVersionOf(typeof(T)), out arg)) return arg;
+            if (TryGetArg(x => x.IsValueAssignableTo(typeof(T)), out arg)) return arg;
             throw new ArgumentNotFoundException("Can not find an argument of type " + typeof(T).FullName + " to this call.");
         }
 

@@ -10,7 +10,7 @@ namespace NSubstitute.Specs
 {
     public class CallInfoSpecs
     {
-        private static Argument CreateArg<T>(T value) { return new Argument(typeof(T), value); }
+        private static Argument CreateArg<T>(T value) { return new Argument(typeof(T), () => value, x => { }); }
 
         public class Simple_argument_types : ConcernFor<CallInfo>
         {
@@ -96,11 +96,53 @@ namespace NSubstitute.Specs
             }
 
             [Test]
+            public void Match_by_ref_type_arguments_when_argument_that_is_the_non_by_ref_type_is_provided()
+            {
+                const int expectedResult = 5;
+                var sut = new CallInfo(new[] { CreateArg<object>("aasdf"), new ByRefArgument<int>(expectedResult) });
+                Assert.That(sut.Arg<int>(), Is.EqualTo(expectedResult));
+            }
+
+            [Test]
+            public void Match_by_ref_type_arguments_when_argument_compatbile_non_by_ref_type_is_provided()
+            {
+                var list = new List<int>();
+                var sut = new CallInfo(new[] { CreateArg<object>("aasdf"), new ByRefArgument<List<int>>(list) });
+                Assert.That(sut.Arg<IEnumerable<int>>(), Is.EqualTo(list));
+            }
+
+            [Test]
             public void Throw_when_there_is_no_declared_type_match_but_multiple_compatible_arguments()
             {
                 var sut = new CallInfo(new[] { CreateArg<object>("a"), CreateArg<object>("b") });
                 Assert.Throws<AmbiguousArgumentsException>(() => sut.Arg<string>());
             }
+        }
+
+        public class When_setting_argument_values
+        {
+            [Test]
+            public void Throw_when_setting_argument_that_is_not_passed_by_ref()
+            {
+                var sut = new CallInfo(new[] { CreateArg(1) });
+
+                Assert.Throws<ArgumentIsNotOutOrRefException>(() => sut[0] = 123);
+            }
+
+            [Test]
+            public void Throw_when_setting_by_ref_argument_with_an_incompatible_value()
+            {
+                var sut = new CallInfo(new[] { new ByRefArgument<object>("needs a string") });
+
+                Assert.Throws<ArgumentSetWithIncompatibleValueException>(() => sut[0] = new object());
+            }
+        }
+
+        private class ByRefArgument<T> : Argument
+        {
+            /* Simulating how an T& argument (like Int32&) comes through to CallInfo */
+            public ByRefArgument(T value) : base(typeof(T).MakeByRefType(), () => value, x => { }) { }
+            public override Type ActualType { get { return Value.GetType().MakeByRefType(); } }
         }
     }
 }

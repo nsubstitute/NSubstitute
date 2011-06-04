@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Linq;
-using System.Reflection;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -36,7 +34,7 @@ namespace NSubstitute.Specs.Arguments
         [Test]
         public void Match_specified_int_type_passed_by_reference_when_compatible_type_passed_in()
         {
-            var anyRefToIntSpec = new ArgumentIsAnythingSpecification(GetByRefIntType());
+            var anyRefToIntSpec = new ArgumentIsAnythingSpecification(typeof(int).MakeByRefType());
 
             Assert.True(anyRefToIntSpec.IsSatisfiedBy(4));
             Assert.True(anyRefToIntSpec.IsSatisfiedBy(null));
@@ -46,34 +44,11 @@ namespace NSubstitute.Specs.Arguments
         [Test]
         public void Match_specified_object_type_passed_by_reference_when_compatible_type_passed_in()
         {
-            var anyRefToIntSpec = new ArgumentIsAnythingSpecification(GetByRefObjectType());
+            var anyRefToIntSpec = new ArgumentIsAnythingSpecification(typeof(object).MakeByRefType());
 
             Assert.True(anyRefToIntSpec.IsSatisfiedBy(4));
             Assert.True(anyRefToIntSpec.IsSatisfiedBy(null));
             Assert.True(anyRefToIntSpec.IsSatisfiedBy(new object()));
         }
-
-        private Type GetByRefIntType()
-        {
-            return GetParameterTypeByMethodName("MethodWithAnIntByRefParameter");
-        }
-
-        private Type GetByRefObjectType()
-        {
-            return GetParameterTypeByMethodName("MethodWithAnObjectByRefParameter");
-        }
-
-        private Type GetParameterTypeByMethodName(string methodName)
-        {
-            /* Can not create by ref types directly in C#, so need to grab an instance via reflection */
-            return GetType()
-                .GetMethod(methodName)
-                .GetParameters()
-                .Select(x => x.ParameterType)
-                .Single();
-        }
-
-        public void MethodWithAnIntByRefParameter(ref int refToInt) { }
-        public void MethodWithAnObjectByRefParameter(ref object refToObject) { }
     }
 }
