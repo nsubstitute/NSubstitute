@@ -43,12 +43,14 @@ namespace NSubstitute.Routing.Handlers
         private void PreserveStackTrace(Exception exception)
         {
             var context = new StreamingContext(StreamingContextStates.CrossAppDomain);
+#if !SILVERLIGHT
             var objectManager = new ObjectManager(null, context);
             var serializationInfo = new SerializationInfo(exception.GetType(), new FormatterConverter());
 
             exception.GetObjectData(serializationInfo, context);
             objectManager.RegisterObject(exception, 1, serializationInfo); 
             objectManager.DoFixups();
+#endif
         }
     }
 }

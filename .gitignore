@@ -9,3 +9,5 @@ obj/
 Output/*
 *.sln.cache
 Source/Docs/_site
+Bin/
+_ReSharper*

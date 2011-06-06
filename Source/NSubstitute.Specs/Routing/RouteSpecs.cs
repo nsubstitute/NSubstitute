@@ -72,9 +72,9 @@ namespace NSubstitute.Specs.Routing
             }
 
             public override void Context()
-            {
-                var assemblyContainingRoutes = Assembly.GetAssembly(typeof(IRoute));
-                _allRouteTypes = assemblyContainingRoutes.GetTypes().Where(x => ImplementsRouteInterface(x)).Where(x => x != typeof(Route));
+            {                
+                var assemblyContainingRoutes = typeof(IRoute).Assembly;
+                _allRouteTypes = assemblyContainingRoutes.GetTypes().Where(ImplementsRouteInterface).Where(x => x != typeof(Route));
             }
 
             private bool ImplementsRouteInterface(Type type)

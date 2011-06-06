@@ -11,6 +11,53 @@ It only has one mode - loose semantics, which you can query afterwards.
 It's meant to be simple, succinct and pleasant to use.
 
 
+
+### NOTE: Framework Multi-Targetting
+
+I'm updating the build process to support multiple framework versions:
+
+####Versions Supported
+
+ + .NET 3.5 - build from command line using:
+ 
+    rake config="NET35"
+	
+*Status*: builds and passes all tests 
+	
+ + .NET 4.0 - build from command line using:
+ 
+    rake config="NET40"
+
+*Status*: only builds. Need to add toggle for using NUnit 4.0 test runner. Signing issue with System.Core and ILMerge (disabled currently)
+
+ + Silverlight 4.0 - build from command line using:
+ 
+    rake config="SL40"
+
+*Status*: only builds. NUnit test runner has issue with mscorlib version found.
+ 
+####Differences between  Silverlight and .NET versions 
+
+ + SerializationInfo is internal in Silverlight - so custom exceptions had to be modified when building against the CoreCLR. I suspect this was due to FxCop rules around custom exceptions, so perhaps this will be supported in SL5. This means one test from the .NET specifications is not valid in the Silverlight port. All other tests pass.
+ + Castle.Core 2.5.2 for Silverlight was added.
+ + An old build of Rhino.Mocks 3.5 for Silverlight was added to get the specifications to pass. Not happy with this - as I can't find the source for it, and it appears to be an unsupported build. An API change around .Matches for the Silverlight port required some compiler includes to get working.
+ + RobustThreadLocal<T> - which wraps functionality from the Reactive extensions around accessing a value from multiple threads - is not available in the Silverlight port. This will impact multi-threaded tests until a workaround can be coded up. It depends on may parts of Reactive Extensions - ConcurrentStack<T>, some sealed classes, etc - so cannot be used in isolation currently.
+ 
+####Gotchas
+
+ + Multi-threaded tests will not work currently.
+ 
+####TODO
+
+ + <del>Pull latest changes from trunk to my branch and update</del>
+ + Get multi-threaded support for tests into framework.
+ + Obtain updated Rhino.Mocks build and kill off workarounds.
+ + Ping owners and see what their plans are for the outstanding acceptance tests.
+ + Get signed builds back for .NET 4.0
+ + Get NUnit test runner working for .NET 4.0 and SL 4.0
+
+
+
 ### Basic use
 
 Let's say we have a basic calculator interface:

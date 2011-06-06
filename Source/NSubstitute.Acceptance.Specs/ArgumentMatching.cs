@@ -38,12 +38,12 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Should_not_match_when_arg_matcher_throws()
         {
             _something.Say(Arg.Is<string>(x => x.Length < 2)).Returns("?");
 
-            Assert.That(_something.Say("eh"), Is.EqualTo("?"));
+            Assert.That(_something.Say("e"), Is.EqualTo("?"));
+            Assert.That(_something.Say("eh"), Is.EqualTo(string.Empty));
             Assert.That(_something.Say(null), Is.EqualTo(string.Empty));
         }
 

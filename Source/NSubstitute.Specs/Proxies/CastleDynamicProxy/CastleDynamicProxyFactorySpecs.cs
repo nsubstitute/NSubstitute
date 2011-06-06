@@ -33,7 +33,12 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             public void Should_generate_a_proxy_that_forwards_to_call_router()
             {
                 _result.Goo();
-                _callRouter.received(x => x.Route(Arg<ICall>.Matches(call => CallWasToMethodNamed(call, "Goo"))));
+#if SILVERLIGHT
+                var call = Arg<ICall>.Matches<ICall>(c => CallWasToMethodNamed(c, "Goo"));
+#else
+                var call = Arg<ICall>.Matches(c => CallWasToMethodNamed(c, "Goo"));
+#endif
+                _callRouter.received(x => x.Route(call));
             }
 
             [Test]
@@ -49,12 +54,14 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
                 const int aNumber = 5;
                 const string aString = "Some string";
                 const string returnFromRoute = "value from route";
-                _callRouter
-                    .stub(x => x.Route(Arg<ICall>.Matches(
-                        call => CallWasToMethodNamed(call, "Bar") && CallArgsWere(call, new object[] {aNumber, aString})
-                        )
-                    ))
-                    .Return(returnFromRoute);
+
+#if SILVERLIGHT
+                var call = Arg<ICall>.Matches<ICall>(c => CallWasToMethodNamed(c, "Bar") && CallArgsWere(c, new object[] {aNumber, aString}));
+#else
+                var call = Arg<ICall>.Matches(c => CallWasToMethodNamed(c, "Bar") && CallArgsWere(c, new object[] {aNumber, aString}));
+#endif
+
+                _callRouter.stub(x => x.Route(call)).Return(returnFromRoute);
 
                 var returnValue = _result.Bar(aNumber, aString);
                 Assert.That(returnValue, Is.EqualTo(returnFromRoute));                

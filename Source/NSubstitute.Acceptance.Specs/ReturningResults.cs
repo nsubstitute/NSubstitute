@@ -91,8 +91,11 @@ namespace NSubstitute.Acceptance.Specs
                   //Now let's we'll misuse Returns.
                   "".Returns("I shouldn't be calling returns like this!");
               });
-
+#if SILVERLIGHT
+            Assert.That(exception.Message.Contains(expectedMessage));
+#else
             Assert.That(exception.Message, Contains.Substring(expectedMessage));
+#endif
         }
 
         [SetUp]

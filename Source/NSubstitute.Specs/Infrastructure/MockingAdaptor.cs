@@ -9,7 +9,11 @@ namespace NSubstitute.Specs.Infrastructure
     {
         public static T Is<T>(T value) { return Arg<T>.Is.Equal(value); }
         public static T IsAny<T>() { return Arg<T>.Is.Anything; }
+#if SILVERLIGHT
+        public static T Matches<T>(Predicate<T> expression) { return Arg<T>.Matches(expression); }
+#else
         public static T Matches<T>(Expression<Predicate<T>> expression) { return Arg<T>.Matches(expression); }
+#endif
     }
 
     public static class MockingAdaptor

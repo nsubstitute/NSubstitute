@@ -22,7 +22,7 @@ namespace NSubstitute.Specs
         public void Check_that_out_setup_has_given_us_some_exception_types()
         {
             Assert.That(_exceptionTypes.Any());
-            
+
         }
 
         [Test]
@@ -37,6 +37,8 @@ namespace NSubstitute.Specs
             }
         }
 
+        // NOTE: this behaviour is not supported in Silverlight as SerializationInfo is marked internal
+#if !SILVERLIGHT
         [Test]
         public void All_nsub_exceptions_should_implement_serialisation_ctor_so_its_stacktrace_can_be_preserved()
         {
@@ -58,9 +60,11 @@ namespace NSubstitute.Specs
         {
             var ctorParameterTypes = ctor.GetParameters().Select(x => x.ParameterType).ToArray();
             if (ctorParameterTypes.Length != 2) return false;
+
             if (ctorParameterTypes[0] != typeof(SerializationInfo)) return false;
             if (ctorParameterTypes[1] != typeof(StreamingContext)) return false;
             return true;
         }
+#endif
     }
 }

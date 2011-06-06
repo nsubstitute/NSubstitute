@@ -44,11 +44,11 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
 
             private ICall DelegateCallWithArg(int arg)
             {
-                return Arg<ICall>.Matches(
-                    x => 
-                    CalledWithOnlyOneArg(x, arg) && 
-                    CallIsInvokeOnDelegateCall(x)
-                    );                
+#if SILVERLIGHT
+                return Arg<ICall>.Matches<ICall>(x => CalledWithOnlyOneArg(x, arg) && CallIsInvokeOnDelegateCall(x)); 
+#else
+                return Arg<ICall>.Matches(x => CalledWithOnlyOneArg(x, arg) && CallIsInvokeOnDelegateCall(x)); 
+#endif
             }
 
             private bool CallIsInvokeOnDelegateCall(ICall x)

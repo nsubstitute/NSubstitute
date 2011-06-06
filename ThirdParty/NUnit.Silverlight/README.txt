@@ -1,0 +1,1 @@
+Grabbed these assemblies from http://code.google.com/p/nunit-silverlight/

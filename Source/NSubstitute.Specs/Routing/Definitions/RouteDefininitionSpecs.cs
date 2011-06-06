@@ -48,7 +48,7 @@ namespace NSubstitute.Specs.Routing.Definitions
 
             private IEnumerable<Type> GetAllRouteDefinitionTypes()
             {
-                var assemblyWithRouteDefinitions = Assembly.GetAssembly(typeof(IRouteDefinition));
+                var assemblyWithRouteDefinitions = typeof(IRouteDefinition).Assembly;
                 return
                     assemblyWithRouteDefinitions
                     .GetTypes()

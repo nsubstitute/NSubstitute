@@ -9,6 +9,8 @@ namespace NSubstitute.Exceptions
                                                     "Please use specifications for all arguments of the same type.";
         public AmbiguousArgumentsException() : this(SpecifyAllArguments) { }
         public AmbiguousArgumentsException(string message) : base(message) { }
+#if !SILVERLIGHT
         protected AmbiguousArgumentsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+#endif
     }
 }
