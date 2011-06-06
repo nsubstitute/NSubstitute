@@ -9,6 +9,8 @@ SOURCE_PATH = File.expand_path "../Source"
 OUTPUT_PATH = File.expand_path "../Output"
 
 ENV["config"] = "Debug" if ENV["config"].nil?
+ENV["target"] = "NET35" if ENV["target"].nil?
 CONFIG = ENV["config"]
+TARGET = ENV["target"]
 
 CLEAN.include(OUTPUT_PATH)

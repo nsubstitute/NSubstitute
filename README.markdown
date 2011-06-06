@@ -12,27 +12,29 @@ It's meant to be simple, succinct and pleasant to use.
 
 
 
-### NOTE: Framework Multi-Targetting
+### NOTE: Framework Multi-Targeting
 
-I'm updating the build process to support multiple framework versions:
+[Brendan](https://github.com/shiftkey) is  updating the build process to support multiple framework versions:
 
 ####Versions Supported
 
  + .NET 3.5 - build from command line using:
  
-    rake config="NET35"
+    `rake target="NET35"`
+
+    or just `rake` as NET35-Debug is the default build.
 	
-*Status*: builds and passes all tests 
+*Status*: builds and passes all tests. Deploy build not yet working.
 	
  + .NET 4.0 - build from command line using:
  
-    rake config="NET40"
+    `rake target="NET40"`
 
 *Status*: only builds. Need to add toggle for using NUnit 4.0 test runner. Signing issue with System.Core and ILMerge (disabled currently)
 
  + Silverlight 4.0 - build from command line using:
  
-    rake config="SL40"
+    `rake target="SL40"`
 
 *Status*: only builds. NUnit test runner has issue with mscorlib version found.
  

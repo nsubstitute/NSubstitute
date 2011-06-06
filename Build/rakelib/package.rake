@@ -1,7 +1,7 @@
 
 desc "Packages up assembly"
 task :package => [:version_assemblies, :all, :check_examples] do
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}/#{TARGET}"
 	dll_path = "#{output_base_path}/NSubstitute"
 	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
 
@@ -20,7 +20,7 @@ end
 
 desc "Create NuGet package"
 task :nuget => [:package] do
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}/#{TARGET}"
 	dll_path = "#{output_base_path}/NSubstitute"
 	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
 	nuget_path = "#{output_base_path}/nuget/#{@@build_number}"

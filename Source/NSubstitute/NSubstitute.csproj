@@ -19,34 +19,34 @@
         <Optimize>false</Optimize>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Debug|AnyCPU' ">
-        <OutputPath>..\..\Output\Debug\NET35\</OutputPath>
+        <OutputPath>..\..\Output\Debug\NET35\NSubstitute\</OutputPath>
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <DocumentationFile>..\..\Output\Debug\NET35\NSubstitute.XML</DocumentationFile>
+        <DocumentationFile>..\..\Output\Debug\NET35\NSubstitute\NSubstitute.XML</DocumentationFile>
         <NoWarn>1591</NoWarn>
         <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Release|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
-        <OutputPath>..\..\Output\Release\NET35\</OutputPath>
+        <OutputPath>..\..\Output\Release\NET35\NSubstitute\</OutputPath>
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <DocumentationFile>..\..\Output\Release\NET35\NSubstitute.XML</DocumentationFile>
+        <DocumentationFile>..\..\Output\Release\NET35\NSubstitute\NSubstitute.XML</DocumentationFile>
         <NoWarn>1591</NoWarn>
         <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Debug|AnyCPU' ">
-        <OutputPath>..\..\Output\Debug\NET40\</OutputPath>
+        <OutputPath>..\..\Output\Debug\NET40\NSubstitute\</OutputPath>
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <DocumentationFile>..\..\Output\Debug\NET40\NSubstitute.XML</DocumentationFile>
+        <DocumentationFile>..\..\Output\Debug\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
         <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
         <NoWarn>1591</NoWarn>
         <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -54,19 +54,19 @@
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Release|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
-        <OutputPath>..\..\Output\Release\NET40\</OutputPath>
+        <OutputPath>..\..\Output\Release\NET40\NSubstitute\</OutputPath>
         <DefineConstants>TRACE</DefineConstants>
         <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <DocumentationFile>..\..\Output\Release\NET40\NSubstitute.XML</DocumentationFile>
+        <DocumentationFile>..\..\Output\Release\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
         <NoWarn>1591</NoWarn>
         <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Debug|AnyCPU' ">
         <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Debug\SL4\</OutputPath>
+        <OutputPath>..\..\Output\Debug\SL4\NSubstitute\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <ProjectGuid>{EB131150-3B00-4C0F-960B-C2DBCA1E68D4}</ProjectGuid>
@@ -84,7 +84,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Release|AnyCPU' ">
         <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Release\SL4\</OutputPath>
+        <OutputPath>..\..\Output\Release\SL4\NSubstitute\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>

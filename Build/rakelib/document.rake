@@ -18,7 +18,7 @@ end
 
 task :compile_code_examples => [:generate_code_examples] do
     #Copy references to documentation directory
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}/#{TARGET}"
     output_doc_path = "#{OUTPUT_PATH}/CodeFromDocs"
     references = %w(NSubstitute.dll nunit.framework.dll).map do |x| 
         "#{output_base_path}/NSubstitute.Specs/#{x}"
@@ -27,6 +27,34 @@ task :compile_code_examples => [:generate_code_examples] do
 
     #Compile
     FileUtils.cd output_doc_path do
-        sh "#{DOT_NET_PATH}/csc.exe /target:library /out:\"NSubstitute.Samples.dll\" /reference:\"nunit.framework.dll\" /reference:\"NSubstitute.dll\" *.cs"
+        File.open('samples.csproj', 'w') do |f|
+            f.write <<-'BUILD_FILE'
+                <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+                  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="'$(Configuration)|$(Platform)' != 'AllBuild|AnyCPU' "/>
+                  <ItemGroup>
+                    <Reference Include="System">
+                        <Private>False</Private>
+                    </Reference>
+                    <Reference Include="System.Core">
+                        <Private>False</Private>
+                    </Reference>
+                    <Reference Include="NSubstitute.dll" />
+                    <Reference Include="nunit.framework.dll" />
+                    <CSFile Include="*.cs" />
+                  </ItemGroup>
+                  <Target Name="Build">
+                    <Csc 
+                        Sources="@(CSFile)"
+                        References="@(Reference)"
+                        OutputAssembly="NSubstitute.Samples.dll"
+                        TargetType="library"
+                    />  
+                  </Target>
+                </Project>
+            BUILD_FILE
+        end
+        sh "#{DOT_NET_PATH}/msbuild.exe samples.csproj /p:TargetFrameworkVersion=v3.5"
+        #sh "#{DOT_NET_PATH}/csc.exe /target:library /out:\"NSubstitute.Samples.dll\" /reference:\"nunit.framework.dll\" /reference:\"NSubstitute.dll\" *.cs"
     end
 end
