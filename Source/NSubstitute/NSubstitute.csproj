@@ -141,8 +141,11 @@
         <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
     <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
-        <Reference Include="Castle.Core" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
+        <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
             <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet35\Castle.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">
+            <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet40\Castle.Core.dll</HintPath>
         </Reference>
         <Reference Include="System.Threading"  Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
             <SpecificVersion>False</SpecificVersion>
@@ -321,12 +324,12 @@
     <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 3.0'" />
     <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
     
-    <!-- TODO: do we want to ILMerge the SL assemblies too? Only doing main build for now Or ('$(Configuration)' == 'NET40-Release') -->
-    <Target Name="AfterBuild" Condition=" ('$(Configuration)' == 'NET35-Release') ">
+    <Target Name="AfterBuild" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
         <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
             <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
         </CreateItem>
-        <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" />
+        <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly)  &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v3.5'" />
+        <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:v4,$(MSBuildToolsPath) &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.0'" />
         <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
     </Target>
 </Project>

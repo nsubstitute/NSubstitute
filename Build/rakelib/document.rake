@@ -29,16 +29,10 @@ task :compile_code_examples => [:generate_code_examples] do
     FileUtils.cd output_doc_path do
         File.open('samples.csproj', 'w') do |f|
             f.write <<-'BUILD_FILE'
-                <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+                <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
                   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="'$(Configuration)|$(Platform)' != 'AllBuild|AnyCPU' "/>
                   <ItemGroup>
-                    <Reference Include="System">
-                        <Private>False</Private>
-                    </Reference>
-                    <Reference Include="System.Core">
-                        <Private>False</Private>
-                    </Reference>
                     <Reference Include="NSubstitute.dll" />
                     <Reference Include="nunit.framework.dll" />
                     <CSFile Include="*.cs" />
