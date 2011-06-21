@@ -1,13 +1,17 @@
 
 desc "Packages up assembly"
 task :package => [:version_assemblies, :all, :check_examples] do
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}/#{TARGET}"
-	dll_path = "#{output_base_path}/NSubstitute"
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
 
     mkdir_p deploy_path
-	cp Dir.glob("#{dll_path}/*.{dll,xml}"), deploy_path
 
+    TARGETS.each do |target|
+        destination = "#{deploy_path}/lib/#{target}/"
+        mkdir_p destination
+        cp Dir.glob("#{output_base_path}/#{target}/NSubstitute/*.{dll,xml}"), destination
+    end
+    
 	cp "../README.markdown", "#{deploy_path}/README.txt"
 	cp "../LICENSE.txt", "#{deploy_path}"
 	cp "../CHANGELOG.txt", "#{deploy_path}"
@@ -20,20 +24,14 @@ end
 
 desc "Create NuGet package"
 task :nuget => [:package] do
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}/#{TARGET}"
-	dll_path = "#{output_base_path}/NSubstitute"
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}/"
 	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
 	nuget_path = "#{output_base_path}/nuget/#{@@build_number}"
-	nuget_lib_path = "#{output_base_path}/nuget/#{@@build_number}/lib/35"
-
-    #Ensure nuget path exists
-    mkdir_p nuget_lib_path
 
     #Copy binaries into lib path
-    cp Dir.glob("#{dll_path}/*.{dll,xml}"), nuget_lib_path
+    cp_r deploy_path, nuget_path
 
-    #Copy nuspec and *.txt docs into package root
-    cp Dir.glob("#{deploy_path}/*.txt"), nuget_path
+    #Copy nuspec into package root
     cp "NSubstitute.nuspec", nuget_path
     updateNuspec("#{nuget_path}/NSubstitute.nuspec")
 

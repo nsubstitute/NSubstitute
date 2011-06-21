@@ -18,7 +18,7 @@ end
 
 task :compile_code_examples => [:generate_code_examples] do
     #Copy references to documentation directory
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}/#{TARGET}"
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}/#{TARGETS.first}"
     output_doc_path = "#{OUTPUT_PATH}/CodeFromDocs"
     references = %w(NSubstitute.dll nunit.framework.dll).map do |x| 
         "#{output_base_path}/NSubstitute.Specs/#{x}"

@@ -16,7 +16,9 @@ desc "Build solutions using MSBuild"
 task :compile do
     solutions = FileList["#{SOURCE_PATH}/**/*.sln"] 
     solutions.each do |solution|
-    sh "#{DOT_NET_PATH}/msbuild.exe /p:Configuration=#{TARGET}-#{CONFIG} #{solution}"
+        TARGETS.each do |target|
+            sh "#{DOT_NET_PATH}/msbuild.exe /p:Configuration=#{target}-#{CONFIG} #{solution}"
+        end
     end
 end
 

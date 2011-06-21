@@ -8,9 +8,11 @@ NUGET_EXE = File.expand_path "../ThirdParty/NuGet/NuGet.exe"
 SOURCE_PATH = File.expand_path "../Source"
 OUTPUT_PATH = File.expand_path "../Output"
 
+ALL_TARGETS = ["NET35", "NET40", "SL40"]
+
 ENV["config"] = "Debug" if ENV["config"].nil?
-ENV["target"] = "NET35" if ENV["target"].nil?
+ENV["target"] = ALL_TARGETS.first if ENV["target"].nil?
 CONFIG = ENV["config"]
-TARGET = ENV["target"]
+TARGETS = ALL_TARGETS.select { |x| (ENV["target"].split(',').include? x) or ENV["target"]=="ALL" }
 
 CLEAN.include(OUTPUT_PATH)
