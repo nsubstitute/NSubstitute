@@ -1,4 +1,5 @@
 unreleased changes
+* [UPDATE] Changed layout of package for eventual support for multiple framework targets.
 * [FIX] Failure to match calls with ref arguments using ReceivedWithAnyArgs().
 * [FIX] Incorrect ambiguous args exception when supplying value type arg specs for object arguments.
 
