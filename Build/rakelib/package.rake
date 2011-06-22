@@ -25,7 +25,7 @@ end
 desc "Create NuGet package"
 task :nuget => [:package] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
-	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
+	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}/."
 	nuget_path = "#{output_base_path}/nuget/#{@@build_number}"
 
     mkdir_p nuget_path
