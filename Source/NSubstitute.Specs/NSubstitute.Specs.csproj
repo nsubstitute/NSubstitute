@@ -61,7 +61,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Debug|AnyCPU' ">
         <MSBuildTargets>Silverlight 3.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Debug\SL3\NSubstitute.Specs\</OutputPath>
+        <OutputPath>..\..\Output\Debug\SL30\NSubstitute.Specs\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <Optimize>true</Optimize>
@@ -84,7 +84,7 @@
         <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
         <MSBuildTargets>Silverlight 3.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Release\SL3\NSubstitute.Specs\</OutputPath>
+        <OutputPath>..\..\Output\Release\SL30\NSubstitute.Specs\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <ProjectGuid>{8EAB429F-B67B-43A0-86D7-4BAFCE0AC0A3}</ProjectGuid>
@@ -103,7 +103,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Debug|AnyCPU' ">
         <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Debug\SL4\NSubstitute.Specs\</OutputPath>
+        <OutputPath>..\..\Output\Debug\SL40\NSubstitute.Specs\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <Optimize>true</Optimize>
@@ -126,7 +126,7 @@
         <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
         <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Release\SL4\NSubstitute.Specs\</OutputPath>
+        <OutputPath>..\..\Output\Release\SL40\NSubstitute.Specs\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <ProjectGuid>{8EAB429F-B67B-43A0-86D7-4BAFCE0AC0A3}</ProjectGuid>

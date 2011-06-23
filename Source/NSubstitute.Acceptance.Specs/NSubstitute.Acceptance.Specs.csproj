@@ -59,7 +59,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL30-Debug|AnyCPU' ">
         <MSBuildTargets>Silverlight 3.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Debug\SL3\NSubstitute.Acceptance.Specs\</OutputPath>
+        <OutputPath>..\..\Output\Debug\SL30\NSubstitute.Acceptance.Specs\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <Optimize>true</Optimize>
@@ -79,7 +79,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL30-Release|AnyCPU' ">
         <MSBuildTargets>Silverlight 3.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Release\SL3\NSubstitute.Acceptance.Specs\</OutputPath>
+        <OutputPath>..\..\Output\Release\SL30\NSubstitute.Acceptance.Specs\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <ProjectGuid>{F78923F8-6B25-495F-B251-5773D0C2D1D2}</ProjectGuid>
@@ -98,7 +98,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Debug|AnyCPU' ">
         <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Debug\SL4\NSubstitute.Acceptance.Specs\</OutputPath>
+        <OutputPath>..\..\Output\Debug\SL40\NSubstitute.Acceptance.Specs\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <Optimize>true</Optimize>
@@ -118,7 +118,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Release|AnyCPU' ">
         <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Release\SL4\NSubstitute.Acceptance.Specs\</OutputPath>
+        <OutputPath>..\..\Output\Release\SL40\NSubstitute.Acceptance.Specs\</OutputPath>
         <ProductVersion>8.0.50727</ProductVersion>
         <SchemaVersion>2.0</SchemaVersion>
         <ProjectGuid>{F78923F8-6B25-495F-B251-5773D0C2D1D2}</ProjectGuid>
