@@ -186,6 +186,7 @@
         <Compile Include="FieldReports\SubbingSynchronizationContext.cs" />
         <Compile Include="Infrastructure\ICalculator.cs" />
         <Compile Include="MultipleThreads.cs" />
+        <Compile Include="IgnoreTestForSilverlightAttribute.cs" />
         <Compile Include="NotASubstituteExceptions.cs" />
         <Compile Include="NullReferenceCheckingForSubstituteExtensions.cs" />
         <Compile Include="OutAndRefParameters.cs" />
@@ -247,6 +248,6 @@
             <Dependencies Include="$(SilverlightLibraryPath)\System.Xml.dll" />
             <Dependencies Include="$(SilverlightLibraryPath)\mscorlib.dll" />
         </ItemGroup>
-        <Copy SourceFiles ="@(Dependencies)" DestinationFolder="$(OutputPath)" />
+        <Copy SourceFiles="@(Dependencies)" DestinationFolder="$(OutputPath)" />
     </Target>
 </Project>

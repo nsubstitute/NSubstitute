@@ -12,17 +12,13 @@ namespace NSubstitute.Core
     class RobustThreadLocal<T>
     {
 #if SILVERLIGHT
-
         public RobustThreadLocal() { }
-
-        
         public RobustThreadLocal(Func<T> initialValue)
         {
             Value = initialValue();
         }
 
         public T Value { get; set; }
-
 #else
         readonly ThreadLocal<T> _threadLocal;
         public RobustThreadLocal() { _threadLocal = new ThreadLocal<T>(); }

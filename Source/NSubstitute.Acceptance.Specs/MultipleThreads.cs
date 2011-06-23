@@ -7,6 +7,7 @@ namespace NSubstitute.Acceptance.Specs
     public class MultipleThreads
     {
         [Test]
+        [IgnoreTestForSilverlight]
         public void CallFromMultipleThreads()
         {
             var firstSub = Substitute.For<IFoo>();
