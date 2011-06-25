@@ -88,7 +88,7 @@ namespace NSubstitute.Acceptance.Specs
               {
                   //Start with legitimate call to Returns (so the static context will not have any residual calls stored).
                   _something.Echo(1).Returns("one");
-                  //Now let's we'll misuse Returns.
+                  //Now we'll misuse Returns.
                   "".Returns("I shouldn't be calling returns like this!");
               });
 #if SILVERLIGHT

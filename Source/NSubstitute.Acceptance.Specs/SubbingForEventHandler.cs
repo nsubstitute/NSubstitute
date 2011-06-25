@@ -6,7 +6,6 @@ namespace NSubstitute.Acceptance.Specs
     public class SubbingForEventHandler
     {
         [Test]
-        [Pending]
         public void Should_not_die_when_trying_to_sub_for_an_event_handler()
         {
             var sut = new Something();
