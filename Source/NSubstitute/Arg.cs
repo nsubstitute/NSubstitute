@@ -27,5 +27,10 @@ namespace NSubstitute
             SubstitutionContext.Current.EnqueueArgumentSpecification(argumentSpecification);
             return default(T);
         }
+
+        public static T Invoke<T>()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
