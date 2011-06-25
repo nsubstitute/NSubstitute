@@ -1,335 +1,335 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">NET35-Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProductVersion>9.0.21022</ProductVersion>
-        <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>NSubstitute</RootNamespace>
-        <AssemblyName>NSubstitute</AssemblyName>
-        <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-        <FileUpgradeFlags></FileUpgradeFlags>
-        <OldToolsVersion>3.5</OldToolsVersion>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Debug|AnyCPU' ">
-        <OutputPath>..\..\Output\Debug\NET35\NSubstitute\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <DocumentationFile>..\..\Output\Debug\NET35\NSubstitute\NSubstitute.XML</DocumentationFile>
-        <NoWarn>1591</NoWarn>
-        <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Release|AnyCPU' ">
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>..\..\Output\Release\NET35\NSubstitute\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <DocumentationFile>..\..\Output\Release\NET35\NSubstitute\NSubstitute.XML</DocumentationFile>
-        <NoWarn>1591</NoWarn>
-        <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Debug|AnyCPU' ">
-        <OutputPath>..\..\Output\Debug\NET40\NSubstitute\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <DocumentationFile>..\..\Output\Debug\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
-        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-        <NoWarn>1591</NoWarn>
-        <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Release|AnyCPU' ">
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>..\..\Output\Release\NET40\NSubstitute\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <DocumentationFile>..\..\Output\Release\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
-        <NoWarn>1591</NoWarn>
-        <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL30-Debug|AnyCPU' ">
-        <MSBuildTargets>Silverlight 3.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Debug\SL30\NSubstitute\</OutputPath>
-        <ProductVersion>8.0.50727</ProductVersion>
-        <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{EB131150-3B00-4C0F-960B-C2DBCA1E68D4}</ProjectGuid>
-        <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-        <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
-        <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-        <SilverlightApplication>false</SilverlightApplication>
-        <ValidateXaml>true</ValidateXaml>
-        <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-        <DefineConstants>DEBUG;TRACE;SILVERLIGHT;SL3</DefineConstants>
-        <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL30-Release|AnyCPU' ">
-        <MSBuildTargets>Silverlight 3.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Release\SL30\NSubstitute\</OutputPath>
-        <ProductVersion>8.0.50727</ProductVersion>
-        <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>
-        <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-        <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
-        <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-        <SilverlightApplication>false</SilverlightApplication>
-        <ValidateXaml>true</ValidateXaml>
-        <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-        <DefineConstants>TRACE;SILVERLIGHT;SL3</DefineConstants>
-        <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Debug|AnyCPU' ">
-        <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Debug\SL40\NSubstitute\</OutputPath>
-        <ProductVersion>8.0.50727</ProductVersion>
-        <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{EB131150-3B00-4C0F-960B-C2DBCA1E68D4}</ProjectGuid>
-        <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-        <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-        <SilverlightApplication>false</SilverlightApplication>
-        <ValidateXaml>true</ValidateXaml>
-        <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-        <DefineConstants>DEBUG;TRACE;SILVERLIGHT;SL4</DefineConstants>
-        <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Release|AnyCPU' ">
-        <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-        <OutputPath>..\..\Output\Release\SL40\NSubstitute\</OutputPath>
-        <ProductVersion>8.0.50727</ProductVersion>
-        <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>
-        <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-        <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-        <SilverlightApplication>false</SilverlightApplication>
-        <ValidateXaml>true</ValidateXaml>
-        <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-        <DefineConstants>TRACE;SILVERLIGHT;SL4</DefineConstants>
-        <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <PropertyGroup>
-        <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
-    </PropertyGroup>
-    <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
-        <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
-            <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet35\Castle.Core.dll</HintPath>
-        </Reference>
-        <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">
-            <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet40\Castle.Core.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Threading"  Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
-            <SpecificVersion>False</SpecificVersion>
-            <HintPath>..\..\ThirdParty\Rx\System.Threading.dll</HintPath>
-        </Reference>
-        <Reference Include="System" />
-        <Reference Include="System.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' " />
-        <Reference Include="System.Xml.Linq" />
-        <Reference Include="System.Xml" />
-    </ItemGroup>
-    <ItemGroup Condition="$(MSBuildTargets) == 'Silverlight 3.0'">
-        <Reference Include="Castle.Core" >
-            <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\Silverlight3\Castle.Core.dll</HintPath>
-        </Reference>
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Xml.Linq" />
-        <Reference Include="System.Xml" />
-    </ItemGroup>
-    <ItemGroup Condition="$(MSBuildTargets) == 'Silverlight 4.0'">
-        <Reference Include="Castle.Core" >
-            <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\Silverlight4\Castle.Core.dll</HintPath>
-        </Reference>
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Xml.Linq" />
-        <Reference Include="System.Xml" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Arg.cs" />
-        <Compile Include="Core\Argument.cs" />
-        <Compile Include="Core\Arguments\ArgumentEqualsSpecificationFactory.cs" />
-        <Compile Include="Core\Arguments\ArgumentsFormatter.cs" />
-        <Compile Include="Core\Arguments\ArgumentSpecificationFactory.cs" />
-        <Compile Include="Core\Arguments\ArrayArgumentSpecificationsFactory.cs" />
-        <Compile Include="Core\Arguments\ArrayContentsArgumentSpecificationFactory.cs" />
-        <Compile Include="Core\Arguments\DefaultChecker.cs" />
-        <Compile Include="Core\Arguments\IArgumentSpecificationFactory.cs" />
-        <Compile Include="Core\Arguments\IArrayArgumentSpecificationsFactory.cs" />
-        <Compile Include="Core\Arguments\IArrayContentsArgumentSpecificationFactory.cs" />
-        <Compile Include="Core\Arguments\INonParamsArgumentSpecificationFactory.cs" />
-        <Compile Include="Core\Arguments\IParameterInfosFromParamsArrayFactory.cs" />
-        <Compile Include="Core\Arguments\ISuppliedArgumentSpecificationsFactory.cs" />
-        <Compile Include="Core\Arguments\NonParamsArgumentSpecificationFactory.cs" />
-        <Compile Include="Core\Arguments\IDefaultChecker.cs" />
-        <Compile Include="Core\Arguments\IParamsArgumentSpecificationFactory.cs" />
-        <Compile Include="Core\Arguments\ISuppliedArgumentSpecifications.cs" />
-        <Compile Include="Core\Arguments\ParameterInfosFromParamsArrayFactory.cs" />
-        <Compile Include="Core\Arguments\ParamsArgumentSpecificationFactory.cs" />
-        <Compile Include="Core\Arguments\SuppliedArgumentSpecifications.cs" />
-        <Compile Include="Core\Arguments\SuppliedArgumentSpecificationsFactory.cs" />
-        <Compile Include="Core\DefaultForType.cs" />
-        <Compile Include="Core\EventCallFormatter.cs" />
-        <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
-        <Compile Include="Core\Extensions.cs" />
-        <Compile Include="Core\IParameterInfo.cs" />
-        <Compile Include="Core\ParameterInfoFromType.cs" />
-        <Compile Include="Core\ParameterInfoWrapper.cs" />
-        <Compile Include="Core\RobustThreadLocal.cs" />
-        <Compile Include="Core\RouteAction.cs" />
-        <Compile Include="Core\Arguments\IArgumentsFormatter.cs" />
-        <Compile Include="Core\IDefaultForType.cs" />
-        <Compile Include="Core\IMethodInfoFormatter.cs" />
-        <Compile Include="Core\ISubstituteState.cs" />
-        <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
-        <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
-        <Compile Include="Exceptions\CannotCreateEventArgsException.cs" />
-        <Compile Include="Exceptions\CannotReturnNullForValueType.cs" />
-        <Compile Include="Exceptions\CouldNotSetReturnException.cs" />
-        <Compile Include="Exceptions\NullSubstituteReferenceException.cs" />
-        <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
-        <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
-        <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
-        <Compile Include="Routing\AutoValues\IAutoValueProvider.cs" />
-        <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
-        <Compile Include="Routing\IRouteDefinition.cs" />
-        <Compile Include="Core\MatchArgs.cs" />
-        <Compile Include="Core\Arguments\ArgumentFormatter.cs" />
-        <Compile Include="Core\Arguments\ArgumentSpecification.cs" />
-        <Compile Include="Core\Arguments\ArgumentSpecificationsFactory.cs" />
-        <Compile Include="Core\Call.cs" />
-        <Compile Include="Core\CallActions.cs" />
-        <Compile Include="Core\CallFormatter.cs" />
-        <Compile Include="Core\CallInfo.cs" />
-        <Compile Include="Core\CallInfoFactory.cs" />
-        <Compile Include="Core\CallNotReceivedExceptionThrower.cs" />
-        <Compile Include="Core\CallReceivedExceptionThrower.cs" />
-        <Compile Include="Core\CallRouterResolver.cs" />
-        <Compile Include="Core\Arguments\IMixedArgumentSpecificationsFactory.cs" />
-        <Compile Include="Core\MethodFormatter.cs" />
-        <Compile Include="Core\Arguments\MixedArgumentSpecificationsFactory.cs" />
-        <Compile Include="Core\Arguments\IArgumentFormatter.cs" />
-        <Compile Include="Core\ICallFormatter.cs" />
-        <Compile Include="Core\Arguments\IArgumentSpecificationsFactory.cs" />
-        <Compile Include="Core\ICallInfoFactory.cs" />
-        <Compile Include="Core\ICallNotReceivedExceptionThrower.cs" />
-        <Compile Include="Core\ICallReceivedExceptionThrower.cs" />
-        <Compile Include="Core\ICallRouterResolver.cs" />
-        <Compile Include="Core\IReceivedCalls.cs" />
-        <Compile Include="Core\IReturn.cs" />
-        <Compile Include="Core\PropertyCallFormatter.cs" />
-        <Compile Include="Core\ReflectionExtensions.cs" />
-        <Compile Include="Routing\Route.cs" />
-        <Compile Include="Exceptions\ArgumentNotFoundException.cs" />
-        <Compile Include="Exceptions\CallNotReceivedException.cs" />
-        <Compile Include="Core\CallSpecification.cs" />
-        <Compile Include="Core\CallSpecificationFactory.cs" />
-        <Compile Include="Exceptions\CallReceivedException.cs" />
-        <Compile Include="Proxies\DelegateProxy\DelegateCall.cs" />
-        <Compile Include="Proxies\DelegateProxy\DelegateProxyFactory.cs" />
-        <Compile Include="Proxies\ProxyFactory.cs" />
-        <Compile Include="Routing\Definitions\CheckCallNotReceivedRoute.cs" />
-        <Compile Include="Routing\Definitions\CheckCallReceivedRoute.cs" />
-        <Compile Include="Routing\Handlers\CheckDidNotReceiveCallHandler.cs" />
-        <Compile Include="Routing\Handlers\CheckReceivedCallHandler.cs" />
-        <Compile Include="Routing\Handlers\DoActionsCallHandler.cs" />
-        <Compile Include="Routing\Definitions\DoWhenCalledRoute.cs" />
-        <Compile Include="Core\EventHandlerRegistry.cs" />
-        <Compile Include="Core\ICallActions.cs" />
-        <Compile Include="Routing\ICallHandlerFactory.cs" />
-        <Compile Include="Routing\Handlers\RaiseEventHandler.cs" />
-        <Compile Include="Routing\Handlers\EventSubscriptionHandler.cs" />
-        <Compile Include="Exceptions\AmbiguousArgumentsException.cs" />
-        <Compile Include="Exceptions\NotASubstituteException.cs" />
-        <Compile Include="Core\Arguments\IArgumentSpecification.cs" />
-        <Compile Include="Core\ICallHandler.cs" />
-        <Compile Include="Core\ICallRouterFactory.cs" />
-        <Compile Include="Core\CallRouterFactory.cs" />
-        <Compile Include="Core\CallResults.cs" />
-        <Compile Include="Core\CallStack.cs" />
-        <Compile Include="Core\ICallResults.cs" />
-        <Compile Include="Core\ICallSpecification.cs" />
-        <Compile Include="Core\ICallSpecificationFactory.cs" />
-        <Compile Include="Core\ICallStack.cs" />
-        <Compile Include="Core\ICall.cs" />
-        <Compile Include="Core\ICallRouter.cs" />
-        <Compile Include="Core\IEventHandlerRegistry.cs" />
-        <Compile Include="Core\IEventRaiser.cs" />
-        <Compile Include="Core\IProxyFactory.cs" />
-        <Compile Include="Core\IPropertyHelper.cs" />
-        <Compile Include="Core\IResultSetter.cs" />
-        <Compile Include="Routing\IRoute.cs" />
-        <Compile Include="Routing\IRouteFactory.cs" />
-        <Compile Include="Core\ISubstitutionContext.cs" />
-        <Compile Include="Core\ISubstituteFactory.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Core\CallRouter.cs" />
-        <Compile Include="Routing\Handlers\PropertySetterHandler.cs" />
-        <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs" />
-        <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs" />
-        <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />
-        <Compile Include="Proxies\CastleDynamicProxy\CastleInvocationMapper.cs" />
-        <Compile Include="Raise.cs" />
-        <Compile Include="Routing\Handlers\ReturnConfiguredResultHandler.cs" />
-        <Compile Include="Routing\Definitions\RaiseEventRoute.cs" />
-        <Compile Include="Routing\Handlers\RecordCallHandler.cs" />
-        <Compile Include="Routing\Definitions\RecordReplayRoute.cs" />
-        <Compile Include="Core\PropertyHelper.cs" />
-        <Compile Include="Core\ResultSetter.cs" />
-        <Compile Include="Routing\Handlers\ReturnDefaultForReturnTypeHandler.cs" />
-        <Compile Include="Routing\RouteFactory.cs" />
-        <Compile Include="Routing\CallHandlerFactory.cs" />
-        <Compile Include="Routing\Handlers\SetActionForCallHandler.cs" />
-        <Compile Include="Substitute.cs" />
-        <Compile Include="SubstituteExtensions.cs" />
-        <Compile Include="Core\SubstituteState.cs" />
-        <Compile Include="Core\SubstitutionContext.cs" />
-        <Compile Include="Exceptions\SubstituteException.cs" />
-        <Compile Include="Core\SubstituteFactory.cs" />
-        <Compile Include="Core\WhenCalled.cs" />
-        <None Include="..\nsubstitute.snk">
-            <Link>Core\nsubstitute.snk</Link>
-        </None>
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
-    <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 3.0'" />
-    <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
-    
-    <Target Name="AfterBuild" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
-        <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
-            <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
-        </CreateItem>
-        <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly)  &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v3.5'" />
-        <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:v4,$(MSBuildToolsPath) &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.0'" />
-        <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
-    </Target>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">NET35-Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NSubstitute</RootNamespace>
+    <AssemblyName>NSubstitute</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Debug|AnyCPU' ">
+    <OutputPath>..\..\Output\Debug\NET35\NSubstitute\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Debug\NET35\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\NET35\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Release\NET35\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Debug|AnyCPU' ">
+    <OutputPath>..\..\Output\Debug\NET40\NSubstitute\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Debug\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\NET40\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Release\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL30-Debug|AnyCPU' ">
+    <MSBuildTargets>Silverlight 3.0</MSBuildTargets>
+    <OutputPath>..\..\Output\Debug\SL30\NSubstitute\</OutputPath>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EB131150-3B00-4C0F-960B-C2DBCA1E68D4}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;SL3</DefineConstants>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL30-Release|AnyCPU' ">
+    <MSBuildTargets>Silverlight 3.0</MSBuildTargets>
+    <OutputPath>..\..\Output\Release\SL30\NSubstitute\</OutputPath>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <DefineConstants>TRACE;SILVERLIGHT;SL3</DefineConstants>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Debug|AnyCPU' ">
+    <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
+    <OutputPath>..\..\Output\Debug\SL40\NSubstitute\</OutputPath>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EB131150-3B00-4C0F-960B-C2DBCA1E68D4}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;SL4</DefineConstants>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Release|AnyCPU' ">
+    <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
+    <OutputPath>..\..\Output\Release\SL40\NSubstitute\</OutputPath>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <DefineConstants>TRACE;SILVERLIGHT;SL4</DefineConstants>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
+    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
+      <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">
+      <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet40\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\Rx\System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' " />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup Condition="$(MSBuildTargets) == 'Silverlight 3.0'">
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\Silverlight3\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup Condition="$(MSBuildTargets) == 'Silverlight 4.0'">
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\Silverlight4\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Arg.cs" />
+    <Compile Include="Core\Argument.cs" />
+    <Compile Include="Core\Arguments\ArgumentEqualsSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\ArgumentsFormatter.cs" />
+    <Compile Include="Core\Arguments\ArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\ArrayArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\Arguments\ArrayContentsArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\DefaultChecker.cs" />
+    <Compile Include="Core\Arguments\IArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\IArrayArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\Arguments\IArrayContentsArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\INonParamsArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\IParameterInfosFromParamsArrayFactory.cs" />
+    <Compile Include="Core\Arguments\ISuppliedArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\Arguments\NonParamsArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\IDefaultChecker.cs" />
+    <Compile Include="Core\Arguments\IParamsArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\ISuppliedArgumentSpecifications.cs" />
+    <Compile Include="Core\Arguments\ParameterInfosFromParamsArrayFactory.cs" />
+    <Compile Include="Core\Arguments\ParamsArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\SuppliedArgumentSpecifications.cs" />
+    <Compile Include="Core\Arguments\SuppliedArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\DefaultForType.cs" />
+    <Compile Include="Core\EventCallFormatter.cs" />
+    <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
+    <Compile Include="Core\Extensions.cs" />
+    <Compile Include="Core\IParameterInfo.cs" />
+    <Compile Include="Core\ParameterInfoFromType.cs" />
+    <Compile Include="Core\ParameterInfoWrapper.cs" />
+    <Compile Include="Core\RobustThreadLocal.cs" />
+    <Compile Include="Core\RouteAction.cs" />
+    <Compile Include="Core\Arguments\IArgumentsFormatter.cs" />
+    <Compile Include="Core\IDefaultForType.cs" />
+    <Compile Include="Core\IMethodInfoFormatter.cs" />
+    <Compile Include="Core\ISubstituteState.cs" />
+    <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
+    <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
+    <Compile Include="Exceptions\CannotCreateEventArgsException.cs" />
+    <Compile Include="Exceptions\CannotReturnNullForValueType.cs" />
+    <Compile Include="Exceptions\CouldNotSetReturnException.cs" />
+    <Compile Include="Exceptions\NullSubstituteReferenceException.cs" />
+    <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
+    <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
+    <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
+    <Compile Include="Routing\AutoValues\IAutoValueProvider.cs" />
+    <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
+    <Compile Include="Routing\IRouteDefinition.cs" />
+    <Compile Include="Core\MatchArgs.cs" />
+    <Compile Include="Core\Arguments\ArgumentFormatter.cs" />
+    <Compile Include="Core\Arguments\ArgumentSpecification.cs" />
+    <Compile Include="Core\Arguments\ArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\Call.cs" />
+    <Compile Include="Core\CallActions.cs" />
+    <Compile Include="Core\CallFormatter.cs" />
+    <Compile Include="Core\CallInfo.cs" />
+    <Compile Include="Core\CallInfoFactory.cs" />
+    <Compile Include="Core\CallNotReceivedExceptionThrower.cs" />
+    <Compile Include="Core\CallReceivedExceptionThrower.cs" />
+    <Compile Include="Core\CallRouterResolver.cs" />
+    <Compile Include="Core\Arguments\IMixedArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\MethodFormatter.cs" />
+    <Compile Include="Core\Arguments\MixedArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\Arguments\IArgumentFormatter.cs" />
+    <Compile Include="Core\ICallFormatter.cs" />
+    <Compile Include="Core\Arguments\IArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\ICallInfoFactory.cs" />
+    <Compile Include="Core\ICallNotReceivedExceptionThrower.cs" />
+    <Compile Include="Core\ICallReceivedExceptionThrower.cs" />
+    <Compile Include="Core\ICallRouterResolver.cs" />
+    <Compile Include="Core\IReceivedCalls.cs" />
+    <Compile Include="Core\IReturn.cs" />
+    <Compile Include="Core\PropertyCallFormatter.cs" />
+    <Compile Include="Core\ReflectionExtensions.cs" />
+    <Compile Include="Routing\Route.cs" />
+    <Compile Include="Exceptions\ArgumentNotFoundException.cs" />
+    <Compile Include="Exceptions\CallNotReceivedException.cs" />
+    <Compile Include="Core\CallSpecification.cs" />
+    <Compile Include="Core\CallSpecificationFactory.cs" />
+    <Compile Include="Exceptions\CallReceivedException.cs" />
+    <Compile Include="Proxies\DelegateProxy\DelegateCall.cs" />
+    <Compile Include="Proxies\DelegateProxy\DelegateProxyFactory.cs" />
+    <Compile Include="Proxies\ProxyFactory.cs" />
+    <Compile Include="Routing\Definitions\CheckCallNotReceivedRoute.cs" />
+    <Compile Include="Routing\Definitions\CheckCallReceivedRoute.cs" />
+    <Compile Include="Routing\Handlers\CheckDidNotReceiveCallHandler.cs" />
+    <Compile Include="Routing\Handlers\CheckReceivedCallHandler.cs" />
+    <Compile Include="Routing\Handlers\DoActionsCallHandler.cs" />
+    <Compile Include="Routing\Definitions\DoWhenCalledRoute.cs" />
+    <Compile Include="Core\EventHandlerRegistry.cs" />
+    <Compile Include="Core\ICallActions.cs" />
+    <Compile Include="Routing\ICallHandlerFactory.cs" />
+    <Compile Include="Routing\Handlers\RaiseEventHandler.cs" />
+    <Compile Include="Routing\Handlers\EventSubscriptionHandler.cs" />
+    <Compile Include="Exceptions\AmbiguousArgumentsException.cs" />
+    <Compile Include="Exceptions\NotASubstituteException.cs" />
+    <Compile Include="Core\Arguments\IArgumentSpecification.cs" />
+    <Compile Include="Core\ICallHandler.cs" />
+    <Compile Include="Core\ICallRouterFactory.cs" />
+    <Compile Include="Core\CallRouterFactory.cs" />
+    <Compile Include="Core\CallResults.cs" />
+    <Compile Include="Core\CallStack.cs" />
+    <Compile Include="Core\ICallResults.cs" />
+    <Compile Include="Core\ICallSpecification.cs" />
+    <Compile Include="Core\ICallSpecificationFactory.cs" />
+    <Compile Include="Core\ICallStack.cs" />
+    <Compile Include="Core\ICall.cs" />
+    <Compile Include="Core\ICallRouter.cs" />
+    <Compile Include="Core\IEventHandlerRegistry.cs" />
+    <Compile Include="Core\IEventRaiser.cs" />
+    <Compile Include="Core\IProxyFactory.cs" />
+    <Compile Include="Core\IPropertyHelper.cs" />
+    <Compile Include="Core\IResultSetter.cs" />
+    <Compile Include="Routing\IRoute.cs" />
+    <Compile Include="Routing\IRouteFactory.cs" />
+    <Compile Include="Core\ISubstitutionContext.cs" />
+    <Compile Include="Core\ISubstituteFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\CallRouter.cs" />
+    <Compile Include="Routing\Handlers\PropertySetterHandler.cs" />
+    <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs" />
+    <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs" />
+    <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />
+    <Compile Include="Proxies\CastleDynamicProxy\CastleInvocationMapper.cs" />
+    <Compile Include="Raise.cs" />
+    <Compile Include="Routing\Handlers\ReturnConfiguredResultHandler.cs" />
+    <Compile Include="Routing\Definitions\RaiseEventRoute.cs" />
+    <Compile Include="Routing\Handlers\RecordCallHandler.cs" />
+    <Compile Include="Routing\Definitions\RecordReplayRoute.cs" />
+    <Compile Include="Core\PropertyHelper.cs" />
+    <Compile Include="Core\ResultSetter.cs" />
+    <Compile Include="Routing\Handlers\ReturnDefaultForReturnTypeHandler.cs" />
+    <Compile Include="Routing\RouteFactory.cs" />
+    <Compile Include="Routing\CallHandlerFactory.cs" />
+    <Compile Include="Routing\Handlers\SetActionForCallHandler.cs" />
+    <Compile Include="Substitute.cs" />
+    <Compile Include="SubstituteExtensions.cs" />
+    <Compile Include="Core\SubstituteState.cs" />
+    <Compile Include="Core\SubstitutionContext.cs" />
+    <Compile Include="Exceptions\SubstituteException.cs" />
+    <Compile Include="Core\SubstituteFactory.cs" />
+    <Compile Include="Core\WhenCalled.cs" />
+    <None Include="..\nsubstitute.snk">
+      <Link>Core\nsubstitute.snk</Link>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 3.0'" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
+  <Target Name="AfterBuild" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
+    <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
+      <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
+    </CreateItem>
+    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly)  &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v3.5'" />
+    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:v4,$(MSBuildToolsPath) &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.0'" />
+    <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+  </Target>
 </Project>
