@@ -17,7 +17,8 @@ namespace NSubstitute.Core.Arguments
     {
         public ArgumentIsAnythingSpecification(Type forType) : base(forType) { }
         public override string ToString() { return "any " + ForType.Name; }
-        public override bool IsSatisfiedBy(object argument) {
+        public override bool IsSatisfiedBy(object argument)
+        {
             if (argument == null) return true;
             var specifiedType = (ForType.IsByRef) ? ForType.GetElementType() : ForType;
             return specifiedType.IsAssignableFrom(argument.GetType());
@@ -32,11 +33,9 @@ namespace NSubstitute.Core.Arguments
 
         private bool Matches(object argument)
         {
-            if (IsTypePassedByReference()) return ReferenceEquals(_value, argument);
             return EqualityComparer<object>.Default.Equals(_value, argument);
         }
 
-        private bool IsTypePassedByReference() { return ForType.IsByRef; }
         public override string ToString() { return new ArgumentFormatter().Format(_value); }
         public override bool IsSatisfiedBy(object argument) { return Matches(argument); }
     }

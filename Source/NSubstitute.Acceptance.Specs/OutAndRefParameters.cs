@@ -101,17 +101,14 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Match_int_ref_argument()
         {
             var sub = Substitute.For<ILookupStrings>();
             var value = 1;
-            var otherValue = 1;
 
             sub.TryRef(ref value);
 
             sub.Received().TryRef(ref value);
-            sub.DidNotReceive().TryRef(ref otherValue);
         }
 
         [Test]
@@ -125,6 +122,31 @@ namespace NSubstitute.Acceptance.Specs
 
             sub.Received().LookupByObject(ref value);
             sub.DidNotReceive().LookupByObject(ref otherValue);
+        }
+
+        [Test]
+        public void Sample_test_for_a_subject_that_uses_a_substitute_with_out_arguments()
+        {
+            var lookup = Substitute.For<ILookupStrings>();
+            var something = new Something(lookup);
+
+            var key = "key";
+            string value;
+            lookup.TryGet(key, out value).Returns(x => { x[1] = "test"; return true; });
+
+            Assert.That(something.GetValue(key), Is.EqualTo("test"));
+            Assert.That(something.GetValue("diff key"), Is.EqualTo("none"));
+        }
+
+        private class Something
+        {
+            private readonly ILookupStrings _lookup;
+            public Something(ILookupStrings lookup) { _lookup = lookup; }
+            public string GetValue(string key)
+            {
+                string value;
+                return _lookup.TryGet(key, out value) ? value : "none";
+            }
         }
     }
 }
