@@ -5,24 +5,69 @@ namespace NSubstitute.Acceptance.Specs
 {
     public class ArgumentInvocationFromMatchers
     {
+        public delegate void ActionCompatibleDelegate(int i);
         public interface IFoo
         {
-            void DoSomething(string something, Action callback);
+            void MethodWithCallback(string something, Action callback);
+            void MethodWithCallbackWithArguments(string something, Action<int, string> callback);
+            void MethodWithDelegateCallback(string something, ActionCompatibleDelegate callback);
         }
 
         [Test]
         [Pending]
         public void Invoke_callback_from_matcher()
         {
-            var wasCalled = false;
-            Action action = () => wasCalled = true;
+            var action = Substitute.For<Action>();
             var sub = Substitute.For<IFoo>();
-            sub.DoSomething("test", Arg.Invoke<Action>());
+            sub.MethodWithCallback("test", Arg.Invoke());
 
-            sub.DoSomething("test", action);
+            sub.MethodWithCallback("test", action);
 
-            Assert.That(wasCalled, "Action should have been invoked");
-            sub.Received().DoSomething("test", action);
+            action.Received().Invoke();
+            sub.Received().MethodWithCallback("test", action);
+        }
+
+        [Test]
+        [Pending]
+        public void Invoke_callback_with_arguments()
+        {
+            var action = Substitute.For<Action<int, string>>();
+            var sub = Substitute.For<IFoo>();
+            sub.MethodWithCallbackWithArguments("test", Arg.Invoke(1, "hello"));
+
+            sub.MethodWithCallbackWithArguments("test", action);
+
+            action.Received().Invoke(1, "hello");
+            sub.Received().MethodWithCallbackWithArguments("test", action);
+        }
+
+        [Test]
+        [Pending]
+        public void Invoke_callback_with_argument_using_specific_delegate_type()
+        {
+            var action = Substitute.For<Action<int, string>>();
+            var sub = Substitute.For<IFoo>();
+            sub.MethodWithCallbackWithArguments("test", Arg.InvokeDelegate<Action<int, string>>(1, "hello"));
+
+            sub.MethodWithCallbackWithArguments("test", action);
+
+            action.Received().Invoke(1, "hello");
+            sub.Received().MethodWithCallbackWithArguments("test", action);
+        }
+
+        [Test]
+        [Pending]
+        public void Invoke_delegate_callback()
+        {
+            var action = Substitute.For<Action<int>>();
+            ActionCompatibleDelegate @delegate = x => action(x);
+            var sub = Substitute.For<IFoo>();
+            sub.MethodWithDelegateCallback("test", Arg.InvokeDelegate<ActionCompatibleDelegate>(1));
+
+            sub.MethodWithDelegateCallback("test", @delegate);
+
+            action.Received().Invoke(1);
+            sub.Received().MethodWithDelegateCallback("test", @delegate);
         }
 
         [Test]
@@ -31,9 +76,9 @@ namespace NSubstitute.Acceptance.Specs
         {
             var sub = Substitute.For<IFoo>();
 
-            sub.DoSomething("test", Arg.Invoke<Action>());
+            sub.MethodWithCallback("test", Arg.Invoke());
 
-            sub.DidNotReceiveWithAnyArgs().DoSomething(null, null);
+            sub.DidNotReceiveWithAnyArgs().MethodWithCallback(null, null);
         }
     }
 }
