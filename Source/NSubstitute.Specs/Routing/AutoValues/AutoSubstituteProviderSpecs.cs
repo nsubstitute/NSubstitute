@@ -24,6 +24,13 @@ namespace NSubstitute.Specs.Routing.AutoValues
         }
 
         [Test]
+        [IgnoreTestForSilverlight]
+        public void Can_provide_value_for_whitelisted_class()
+        {
+            Assert.That(sut.CanProvideValueFor(typeof(System.Web.HttpRequestBase)));
+        }
+
+        [Test]
         public void Should_create_substitute_for_type()
         {
             var autoValue = new object();

@@ -181,6 +181,18 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup Condition="$(Configuration) == 'NET35-Debug'">
+    <Reference Include="System.Web.Abstractions" />
+  </ItemGroup>
+  <ItemGroup Condition="$(Configuration) == 'NET35-Release'">
+    <Reference Include="System.Web.Abstractions" />
+  </ItemGroup>
+  <ItemGroup Condition="$(Configuration) == 'NET40-Debug'">
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup Condition="$(Configuration) == 'NET40-Release'">
+    <Reference Include="System.Web" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentSpecs.cs" />
     <Compile Include="Arguments\ArgumentEqualsSpecificationSpecs.cs" />
@@ -213,6 +225,7 @@
     <Compile Include="DidNotReceiveWithAnyArgsExtensionSpec.cs" />
     <Compile Include="ExceptionsSpecs.cs" />
     <Compile Include="ExtensionsSpecs.cs" />
+    <Compile Include="Infrastructure\IgnoreTestForSilverlight.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateProxyFactorySpecs.cs" />
     <Compile Include="Proxies\ProxyFactorySpecs.cs" />
