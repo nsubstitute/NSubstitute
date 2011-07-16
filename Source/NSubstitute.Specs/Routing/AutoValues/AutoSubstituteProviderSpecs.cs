@@ -5,6 +5,12 @@ using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;
 
+namespace System.Web
+{
+    /* Cheating for testing without adding a reference to System.Web. */
+    internal class HttpRequestBase { }
+}
+
 namespace NSubstitute.Specs.Routing.AutoValues
 {
     public class AutoSubstituteProviderSpecs : ConcernFor<AutoSubstituteProvider>
@@ -24,7 +30,6 @@ namespace NSubstitute.Specs.Routing.AutoValues
         }
 
         [Test]
-        [IgnoreTestForSilverlight]
         public void Can_provide_value_for_whitelisted_class()
         {
             Assert.That(sut.CanProvideValueFor(typeof(System.Web.HttpRequestBase)));

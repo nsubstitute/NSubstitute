@@ -181,14 +181,8 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup Condition="$(Configuration) == 'NET35-Debug'">
-    <Reference Include="System.Web.Abstractions" />
-  </ItemGroup>
   <ItemGroup Condition="$(Configuration) == 'NET35-Release'">
     <Reference Include="System.Web.Abstractions" />
-  </ItemGroup>
-  <ItemGroup Condition="$(Configuration) == 'NET40-Debug'">
-    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup Condition="$(Configuration) == 'NET40-Release'">
     <Reference Include="System.Web" />
