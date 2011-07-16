@@ -23,6 +23,16 @@ namespace NSubstitute.Specs.Routing.AutoValues
             Assert.That(sut.CanProvideValueFor(typeof(Func<int>)));
         }
 
+#if !SILVERLIGHT
+
+        [Test]
+        public void Can_provide_value_for_whitelisted_class()
+        {
+            Assert.That(sut.CanProvideValueFor(typeof(System.Web.HttpRequestBase)));
+        }
+
+#endif
+
         [Test]
         public void Should_create_substitute_for_type()
         {
