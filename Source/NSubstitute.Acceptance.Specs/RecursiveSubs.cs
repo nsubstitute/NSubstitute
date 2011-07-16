@@ -1,5 +1,3 @@
-using System;
-using NSubstitute.Core;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs

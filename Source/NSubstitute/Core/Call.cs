@@ -23,7 +23,12 @@ namespace NSubstitute.Core
             _arguments = arguments;
             _target = target;
             _parameterInfos = parameterInfos ?? GetParameterInfosFrom(_methodInfo);
-            _argumentSpecifications = SubstitutionContext.Current.DequeueAllArgumentSpecifications();
+            _argumentSpecifications = (_parameterInfos.Length == 0) ? EmptyList() : SubstitutionContext.Current.DequeueAllArgumentSpecifications();
+        }
+
+        private IList<IArgumentSpecification> EmptyList()
+        {
+            return new List<IArgumentSpecification>();
         }
 
         private IParameterInfo[] GetParameterInfosFrom(MethodInfo methodInfo)
