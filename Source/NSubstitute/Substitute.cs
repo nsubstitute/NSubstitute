@@ -40,7 +40,7 @@ namespace NSubstitute
 
         /// <summary>
         /// <para>Substitute for multiple interfaces or a class that implements multiple interfaces. At most one class can be specified.</para>
-        /// If additional interfaces are required use the <see cref="For(System.Type[], System.Object[])" /> overload.
+        /// If additional interfaces are required use the <see cref="M:For(System.Type[], System.Object[])" /> overload.
         /// <para>Be careful when specifying a class, as all non-virtual members will actually be executed. Only virtual members 
         /// can be recorded or have return values specified.</para>
         /// </summary>
