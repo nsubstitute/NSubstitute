@@ -1,4 +1,24 @@
 ================================================================================================
+Unreleased
+================================================================================================
+
+Auto-substitute for pure virtual classes (in addition to interfaces and delegate types), which
+means some methods and properties on substitutes that used to return null by default will now
+return a new substitute of that type.
+
+Reason:
+Cut down the code required to configure substitute members that return interface-like types
+(e.g. ASP.NET web abstractions like HttpContextBase) which are safe to create and proxy.
+
+Safe classes are those with all virtual public members, no public fields and containing a 
+default, parameterless constructor.
+
+Fix:
+Explicitly return null from methods and property getters when required for a test.
+e.g. sub.Method().Returns(x => null);
+
+
+================================================================================================
 0.9.5 Release
 ================================================================================================
 

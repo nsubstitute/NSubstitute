@@ -1,5 +1,5 @@
 unreleased changes
-* [UPDATE] Auto-substitute for common ASP.NET web abstraction. Thanks to Tatham Oddie. (Issue #49)
+* [UPDATE] [BREAKING] Auto-substitute for pure virtual classes, including common ASP.NET web abstractions. Use .Returns(x=>null) to explicitly return null from these members if required. Thanks to Tatham Oddie for original idea and patch, and Krzysztof Kozmic for suggesting and defining which classes would be safe to automatically proxy.
 * [UPDATE] Changed layout of package for eventual support for multiple framework targets.
 * [FIX] Failure to match calls with ref arguments using ReceivedWithAnyArgs().
 * [FIX] Incorrect ambiguous args exception when supplying value type arg specs for object arguments.
