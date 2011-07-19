@@ -38,8 +38,6 @@ namespace NSubstitute.Specs.Routing.Handlers
 
         public class When_handling_call_that_has_been_received : Concern
         {
-            private RouteAction _result;
-
             [Test]
             public void Should_throw_exception()
             {
@@ -48,7 +46,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override void Because()
             {
-                _result = sut.Handle(_call);
+                sut.Handle(_call);
             }
 
             public override void Context()

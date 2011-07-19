@@ -80,12 +80,13 @@ namespace NSubstitute.Specs.Arguments
 
         public class When_creating_argument_specifications_with_less_argument_specs_than_arguments : When_creating_argument_specifications_with_no_argument_specifications_given
         {
+            protected Type _ignored;
+
             public override void Context()
             {
                 base.Context();
                 var argumentSpecification = mock<IArgumentSpecification>();
-                Type t;
-                argumentSpecification.stub(x => t = x.ForType).Return(_parameterInfos[0].ParameterType);
+                argumentSpecification.stub(x => _ignored = x.ForType).Return(_parameterInfos[0].ParameterType);
                 _argumentSpecifications.Add(argumentSpecification);
             }
         }

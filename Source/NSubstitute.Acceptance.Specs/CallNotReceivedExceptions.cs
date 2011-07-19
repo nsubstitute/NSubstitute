@@ -120,10 +120,11 @@ namespace NSubstitute.Acceptance.Specs
 
         public class When_checking_call_to_a_property_getter : Context
         {
+            protected int _ignored;
 
             protected override void ExpectedCall()
             {
-                var _ = Sample.Received().AProperty;
+                _ignored = Sample.Received().AProperty;
             }
 
             [Test]
@@ -164,15 +165,17 @@ namespace NSubstitute.Acceptance.Specs
 
         public class When_checking_call_to_an_indexer_getter : Context
         {
+            protected int _ignored;
+
             protected override void ConfigureContext()
             {
-                var _ = Sample["c", "d"];
-                var __ = Sample["a", "d"];
+                _ignored = Sample["c", "d"];
+                _ignored = Sample["a", "d"];
             }
 
             protected override void ExpectedCall()
             {
-                var _ = Sample.Received()["a", "b"];
+                _ignored = Sample.Received()["a", "b"];
             }
 
             [Test]

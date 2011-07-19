@@ -12,6 +12,7 @@ namespace NSubstitute.Specs
     {
         private ISample _sampleSub;
         private IArgumentsFormatter _argumentsFormatter;
+        protected int _ignored;
 
         [Test]
         public void Should_format_method_name_and_arguments()
@@ -40,7 +41,7 @@ namespace NSubstitute.Specs
         [Test]
         public void Should_format_property_get()
         {
-            AssertCallFormat(x => { var _ = x.Property; }, "Property");
+            AssertCallFormat(x => { _ignored = x.Property; }, "Property");
         }
 
         [Test]
@@ -52,7 +53,7 @@ namespace NSubstitute.Specs
         [Test]
         public void Should_formated_indexer_getter()
         {
-            AssertCallFormat(x => { var _ = x["a", "b"]; }, "this[args]");
+            AssertCallFormat(x => { _ignored = x["a", "b"]; }, "this[args]");
         }
 
         [Test]

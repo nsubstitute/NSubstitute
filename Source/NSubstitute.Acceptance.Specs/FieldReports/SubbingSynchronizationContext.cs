@@ -8,7 +8,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         [Test]
         public void Create_substitute_for_synchronization_context()
         {
-            var context = Substitute.For<SynchronizationContext>();
+            Substitute.For<SynchronizationContext>();
         }
     }
 }

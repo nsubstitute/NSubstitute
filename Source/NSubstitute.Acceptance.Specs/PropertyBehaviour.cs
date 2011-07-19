@@ -7,6 +7,8 @@ namespace NSubstitute.Acceptance.Specs
 {
     public class PropertyBehaviour
     {
+        protected object _ignored;
+
         [Test]
         public void Properties_just_work()
         {
@@ -37,9 +39,9 @@ namespace NSubstitute.Acceptance.Specs
         public void Check_a_property_getter_was_called()
         {
             var calculator = Substitute.For<ICalculator>();
-            var theName = calculator.Name;
-            var name = calculator.Received().Name;
-            Assert.Throws<CallNotReceivedException>(() => { var x = calculator.Received().Now; });
+            _ignored = calculator.Name;
+            _ignored = calculator.Received().Name;
+            Assert.Throws<CallNotReceivedException>(() => { _ignored = calculator.Received().Now; });
         }
 
         [Test]
