@@ -35,10 +35,10 @@ namespace NSubstitute.Routing.AutoValues
             return true;
         }
 
-        private static bool HasParameterlessConstructor(Type type)
+        private bool HasParameterlessConstructor(Type type)
         {
             var constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            var parameterlessConstructors = constructors.Where(x => !x.IsPrivate && x.GetParameters().Length == 0);
+            var parameterlessConstructors = constructors.Where(x => IsCallableFromProxy(x) && x.GetParameters().Length == 0);
             if (!parameterlessConstructors.Any()) return false;
             return true;
         }
@@ -49,6 +49,10 @@ namespace NSubstitute.Routing.AutoValues
             if (!methods.All(IsOverridable)) return false;
             if (type.GetFields().Any()) return false;
             return true;
+        }
+        private bool IsCallableFromProxy(MethodBase constructor)
+        {
+            return constructor.IsPublic || constructor.IsFamily || constructor.IsFamilyOrAssembly;
         }
 
         private bool IsOverridable(MethodInfo methodInfo)

@@ -33,6 +33,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
         [TestCase(typeof(TestClasses.ClassWithAPublicField), false)]
         [TestCase(typeof(TestClasses.ClassWithNonVirtualInterfaceImpl), false)]
         [TestCase(typeof(TestClasses.ImpureDescendentOfPureVirtualClass), false)]
+        [TestCase(typeof(TestClasses.VirtualClassWithInternalConstructor), false)]
         public void Can_provide_value_for(Type type, bool shouldProvideValue)
         {
             Assert.That(sut.CanProvideValueFor(type), Is.EqualTo(shouldProvideValue));
@@ -42,6 +43,24 @@ namespace NSubstitute.Specs.Routing.AutoValues
         public void Should_not_provide_value_for_object_type_as_by_default_object_methods_are_not_proxied()
         {
             Assert.False(sut.CanProvideValueFor(typeof(object)));
+        }
+
+        [Test]
+        public void Should_not_provide_value_for_string()
+        {
+            Assert.False(sut.CanProvideValueFor(typeof(string)));
+        }
+
+        [Test]
+        public void Should_not_provide_value_for_array()
+        {
+            Assert.False(sut.CanProvideValueFor(typeof(int[])));
+        }
+
+        [Test]
+        public void Should_not_provide_value_for_value_type()
+        {
+            Assert.False(sut.CanProvideValueFor(typeof(int)));
         }
 
         [Test]
@@ -111,6 +130,8 @@ namespace NSubstitute.Specs.Routing.AutoValues
             {
                 public void AnotherMethod() { }
             }
+
+            public class VirtualClassWithInternalConstructor { internal VirtualClassWithInternalConstructor() { } }
         }
     }
 }
