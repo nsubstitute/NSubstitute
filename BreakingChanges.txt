@@ -10,8 +10,8 @@ Reason:
 Cut down the code required to configure substitute members that return interface-like types
 (e.g. ASP.NET web abstractions like HttpContextBase) which are safe to create and proxy.
 
-Safe classes are those with all virtual public members, no public fields and containing a 
-default, parameterless constructor.
+Safe classes are those with all their public methods and properties defined as virtual or 
+abstract, and containing a default, parameterless constructor defined as public or protected.
 
 Fix:
 Explicitly return null from methods and property getters when required for a test.

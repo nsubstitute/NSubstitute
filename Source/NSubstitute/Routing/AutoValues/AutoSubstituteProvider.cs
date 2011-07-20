@@ -46,10 +46,9 @@ namespace NSubstitute.Routing.AutoValues
         private bool IsPureVirtualType(Type type)
         {
             var methods = type.GetMethods().Where(NotMethodFromObject);
-            if (!methods.All(IsOverridable)) return false;
-            if (type.GetFields().Any()) return false;
-            return true;
+            return methods.All(IsOverridable);
         }
+
         private bool IsCallableFromProxy(MethodBase constructor)
         {
             return constructor.IsPublic || constructor.IsFamily || constructor.IsFamilyOrAssembly;

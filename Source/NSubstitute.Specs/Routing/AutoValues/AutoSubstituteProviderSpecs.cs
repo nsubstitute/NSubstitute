@@ -28,13 +28,13 @@ namespace NSubstitute.Specs.Routing.AutoValues
         [TestCase(typeof(TestClasses.PureVirtualClassWithParameterlessConstructor), true)]
         [TestCase(typeof(TestClasses.PureVirtualClassWithVirtualInterfaceImpl), true)]
         [TestCase(typeof(TestClasses.PureDescendentOfPureVirtualClass), true)]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicField), true)]
         [TestCase(typeof(TestClasses.PureVirtualClassWithoutParameterlessConstructor), false)]
         [TestCase(typeof(TestClasses.ClassWithANonVirtualPublicMember), false)]
-        [TestCase(typeof(TestClasses.ClassWithAPublicField), false)]
         [TestCase(typeof(TestClasses.ClassWithNonVirtualInterfaceImpl), false)]
         [TestCase(typeof(TestClasses.ImpureDescendentOfPureVirtualClass), false)]
         [TestCase(typeof(TestClasses.VirtualClassWithInternalConstructor), false)]
-        public void Can_provide_value_for(Type type, bool shouldProvideValue)
+        public void Can_provide_value_for_class_type(Type type, bool shouldProvideValue)
         {
             Assert.That(sut.CanProvideValueFor(type), Is.EqualTo(shouldProvideValue));
         }
@@ -111,7 +111,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
                 public virtual void Method0() { }
             }
 
-            public class ClassWithAPublicField
+            public class PureVirtualClassWithAPublicField
             {
                 public int Number;
                 public virtual void Method() { }

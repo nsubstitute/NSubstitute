@@ -5,7 +5,7 @@ layout: post
 
 Once a substitute has been created some properties and methods will automatically return non-null values. For example, any properties or methods that return an _interface_, _delegate_, or _purely virtual class_* will automatically return substitutes themselves. This is commonly referred to as _recursive mocking_, and can be useful because you can avoid explicitly creating each substitute, which means less code. Other types, like `String` and `Array`, will default to returning empty values rather than nulls.
 
-_* Note:_ A pure virtual class is defined as one with all its public members defined as _virtual_ or _abstract_, with no public fields, and with a default, parameterless constructor.
+_* Note:_ A pure virtual class is defined as one with all its public methods and properties defined as _virtual_ or _abstract_ and with a default, parameterless constructor defined as _public_ or _protected_.
 
 ## Recursive mocks
 

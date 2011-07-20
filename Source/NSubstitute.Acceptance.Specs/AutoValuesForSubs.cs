@@ -8,6 +8,9 @@ namespace NSubstitute.Acceptance.Specs
     {
         private ISample _sample;
 
+        public class PureVirtualClass { public virtual void Foo() { } }
+        public class NonVirtualClass { public void Bar() { } }
+
         public interface ISample
         {
             int[] GetNumbers();
@@ -15,6 +18,8 @@ namespace NSubstitute.Acceptance.Specs
             string Name { get; set; }
             List<string> ListOfStrings { get; set; }
             int? GetNullableNumber();
+            PureVirtualClass VirtualClass { get; set; }
+            NonVirtualClass NonVirtualClass { get; set; }
         }
 
         [SetUp]
@@ -37,18 +42,9 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Should_auto_return_empty_string()
         {
             Assert.That(_sample.Name.Length, Is.EqualTo(0)); 
-        }
-
-        [Test]
-        [Pending]
-        public void Should_auto_return_empty_string_list()
-        {
-            Assert.That(_sample.ListOfStrings, Is.Not.Null);
-            Assert.That(_sample.ListOfStrings.Count(), Is.EqualTo(0));
         }
 
         [Test]
@@ -62,6 +58,26 @@ namespace NSubstitute.Acceptance.Specs
         {
             var autoArrayValue = _sample.GetNumbers();
             Assert.That(_sample.GetNumbers(), Is.SameAs(autoArrayValue));
+        }
+
+        [Test]
+        public void Should_return_substitute_for_pure_virtual_class()
+        {
+            Assert.That(_sample.VirtualClass, Is.Not.Null);
+        }
+
+        [Test]
+        public void Should_return_default_value_for_non_virtual_class()
+        {
+            Assert.That(_sample.NonVirtualClass, Is.Null);
+        }
+
+        [Test]
+        [Pending]
+        public void Should_auto_return_empty_string_list()
+        {
+            Assert.That(_sample.ListOfStrings, Is.Not.Null);
+            Assert.That(_sample.ListOfStrings.Count(), Is.EqualTo(0));
         }
     }
 }
