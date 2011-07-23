@@ -63,11 +63,6 @@ namespace NSubstitute.Core
             }
         }
 
-        public ISubstituteFactory GetSubstituteFactory()
-        {
-            return SubstituteFactory;
-        }
-
         public ICallRouter GetCallRouterFor(object substitute)
         {
             return SubstituteFactory.GetCallRouterCreatedFor(substitute);

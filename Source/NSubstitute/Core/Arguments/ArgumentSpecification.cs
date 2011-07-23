@@ -10,7 +10,8 @@ namespace NSubstitute.Core.Arguments
         public abstract bool IsSatisfiedBy(object argument);
         private readonly Type _forType;
         public Type ForType { get { return _forType; } }
-        protected ArgumentSpecification(Type forType) { _forType = forType; }
+        protected ArgumentSpecification(Type forType) { _forType = forType; Action = x => { }; }
+        public Action<object> Action { get; set; }
     }
 
     public class ArgumentIsAnythingSpecification : ArgumentSpecification

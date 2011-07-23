@@ -6,5 +6,6 @@ namespace NSubstitute.Core.Arguments
     {
         bool IsSatisfiedBy(object argument);
         Type ForType { get; }
+        Action<object> Action { get; set; }
     }
 }

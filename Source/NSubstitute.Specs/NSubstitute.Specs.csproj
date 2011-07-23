@@ -181,12 +181,6 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup Condition="$(Configuration) == 'NET35-Release'">
-    <Reference Include="System.Web.Abstractions" />
-  </ItemGroup>
-  <ItemGroup Condition="$(Configuration) == 'NET40-Release'">
-    <Reference Include="System.Web" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentSpecs.cs" />
     <Compile Include="Arguments\ArgumentEqualsSpecificationSpecs.cs" />
@@ -223,6 +217,7 @@
     <Compile Include="Infrastructure\IgnoreTestForSilverlight.cs" />
     <Compile Include="Infrastructure\Tests\ReflectionHelperSpecs.cs" />
     <Compile Include="Infrastructure\ReflectionHelper.cs" />
+    <Compile Include="PendingSpecificationSpecs.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateProxyFactorySpecs.cs" />
     <Compile Include="Proxies\ProxyFactorySpecs.cs" />
@@ -234,7 +229,6 @@
     <Compile Include="Routing\AutoValues\AutoArrayProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProviderSpecs.cs" />
-    <Compile Include="Routing\Definitions\RouteDefininitionSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckDidNotReceiveCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckReceivedCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\DoActionsCallHandlerSpecs.cs" />
@@ -247,6 +241,7 @@
     <Compile Include="PropertyHelperSpecs.cs" />
     <Compile Include="ReceivedExtensionSpec.cs" />
     <Compile Include="Routing\Handlers\RecordCallHandlerSpecs.cs" />
+    <Compile Include="Routing\Handlers\RecordCallSpecificationHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnConfiguredResultHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnDefaultForReturnTypeHandlerSpecs.cs" />

@@ -109,5 +109,37 @@ namespace NSubstitute.Specs
             public void SampleMethod() { }
             public void DifferentSampleMethod() { }
         }
+
+        public class When_creating_from_an_existing_call_specification : ConcernFor<CallSpecificationFactory>
+        {
+            ICallSpecification _callSpecification;
+            ICallSpecification _copyOfCallSpecThatMatchesAnyArgs;
+
+            [Test]
+            public void Should_return_same_call_specification_when_matching_original_arguments()
+            {
+                var result = sut.CreateFrom(_callSpecification, MatchArgs.AsSpecifiedInCall);
+                Assert.That(result, Is.SameAs(_callSpecification));
+            }
+
+            [Test]
+            public void Should_return_copy_of_call_specification_when_need_to_match_any_arguments()
+            {
+                var result = sut.CreateFrom(_callSpecification, MatchArgs.Any);
+                Assert.That(result, Is.SameAs(_copyOfCallSpecThatMatchesAnyArgs));
+            }
+
+            public override void Context()
+            {
+                _callSpecification = mock<ICallSpecification>();
+                _copyOfCallSpecThatMatchesAnyArgs = mock<ICallSpecification>();
+                _callSpecification.stub(x => x.CreateCopyThatMatchesAnyArguments()).Return(_copyOfCallSpecThatMatchesAnyArgs);
+            }
+
+            public override CallSpecificationFactory CreateSubjectUnderTest()
+            {
+                return new CallSpecificationFactory(mock<IArgumentSpecificationsFactory>());
+            }
+        }
     }
 }

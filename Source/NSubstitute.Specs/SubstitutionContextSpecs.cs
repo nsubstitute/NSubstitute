@@ -1,4 +1,5 @@
 using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -19,9 +20,9 @@ namespace NSubstitute.Specs
             public override SubstitutionContext CreateSubjectUnderTest()
             {
                 return new SubstitutionContext(_substituteFactory);
-            }            
+            }
         }
-        
+
         public class When_setting_the_return_value_of_the_last_call : Concern
         {
             MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
@@ -39,7 +40,7 @@ namespace NSubstitute.Specs
             {
                 Assert.Throws<CouldNotSetReturnException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
             }
-            
+
             public override void Because()
             {
                 sut.LastCallRouter(_callRouter);
@@ -72,7 +73,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_resolve_call_router_for_substitute()
             {
-                Assert.That(_result, Is.SameAs(_routerForSubstitute));               
+                Assert.That(_result, Is.SameAs(_routerForSubstitute));
             }
 
             public override void Because()
@@ -82,19 +83,52 @@ namespace NSubstitute.Specs
 
             public override void Context()
             {
-                base.Context();                
+                base.Context();
                 _substitute = new object();
                 _routerForSubstitute = mock<ICallRouter>();
                 _substituteFactory.stub(x => x.GetCallRouterCreatedFor(_substitute)).Return(_routerForSubstitute);
             }
         }
 
-        public class When_getting_the_substitute_factory_for_the_context:Concern
+        public class When_getting_the_substitute_factory_for_the_context : Concern
         {
             [Test]
             public void Should_return_the_factory_the_context_was_created_with()
             {
-                Assert.That(sut.GetSubstituteFactory(), Is.SameAs(_substituteFactory));
+                Assert.That(sut.SubstituteFactory, Is.SameAs(_substituteFactory));
+            }
+        }
+
+        public class When_arg_specs_enqueued : Concern
+        {
+            IArgumentSpecification _first;
+            IArgumentSpecification _second;
+
+            [Test]
+            public void Dequeuing_should_return_all_enqueued_arg_specs()
+            {
+                Assert.That(sut.DequeueAllArgumentSpecifications(), Is.EquivalentTo(new[] { _first, _second }));
+            }
+
+            [Test]
+            public void Dequeuing_should_mean_context_no_longer_has_arg_specs()
+            {
+                sut.DequeueAllArgumentSpecifications();
+                Assert.That(sut.DequeueAllArgumentSpecifications(), Is.Empty);
+            }
+
+            public override void Because()
+            {
+                base.Because();
+                sut.EnqueueArgumentSpecification(_first);
+                sut.EnqueueArgumentSpecification(_second);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _first = mock<IArgumentSpecification>();
+                _second = mock<IArgumentSpecification>();
             }
         }
 
@@ -105,14 +139,14 @@ namespace NSubstitute.Specs
             {
                 var firstInstance = SubstitutionContext.Current;
                 var secondInstance = SubstitutionContext.Current;
-                Assert.That(firstInstance, Is.SameAs(secondInstance) | Is.Not.Null);                
+                Assert.That(firstInstance, Is.SameAs(secondInstance) | Is.Not.Null);
             }
 
             [Test]
             public void Should_have_a_substitute_factory()
             {
                 var context = SubstitutionContext.Current;
-                Assert.That(context.GetSubstituteFactory(), Is.TypeOf<SubstituteFactory>());
+                Assert.That(context.SubstituteFactory, Is.TypeOf<SubstituteFactory>());
             }
         }
     }

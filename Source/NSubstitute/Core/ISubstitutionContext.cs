@@ -6,13 +6,12 @@ namespace NSubstitute.Core
 {
     public interface ISubstitutionContext
     {
+        ISubstituteFactory SubstituteFactory { get; }
         void LastCallShouldReturn(IReturn value, MatchArgs matchArgs);
         void LastCallRouter(ICallRouter callRouter);
-        ISubstituteFactory GetSubstituteFactory();
         ICallRouter GetCallRouterFor(object substitute);
         void EnqueueArgumentSpecification(IArgumentSpecification spec);
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
         void RaiseEventForNextCall(Func<ICall, object[]> getArguments);
-        ISubstituteFactory SubstituteFactory { get; }
     }
 }

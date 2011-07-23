@@ -67,7 +67,7 @@ namespace NSubstitute
         /// <returns>A substitute implementing the specified types.</returns>
         public static object For(Type[] typesToProxy, object[] constructorArguments) 
         {
-            var substituteFactory = SubstitutionContext.Current.GetSubstituteFactory();
+            var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
             return substituteFactory.Create(typesToProxy, constructorArguments);
         }
     }

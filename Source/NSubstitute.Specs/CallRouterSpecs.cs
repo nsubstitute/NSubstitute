@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
 using NSubstitute.Routing.Definitions;
 using NSubstitute.Specs.Infrastructure;
@@ -84,6 +86,62 @@ namespace NSubstitute.Specs
             }
 
             abstract class SampleRoute : IRouteDefinition { public abstract IEnumerable<Type> HandlerTypes { get; } }
+        }
+
+        public class When_using_default_route : Concern
+        {
+            readonly object _returnValueFromRecordCallSpecRoute = "value from call spec route";
+            readonly object _returnValueFromRecordReplayRoute = "value from record replay route";
+            IRoute _recordReplayRoute;
+            IRoute _recordCallSpecRoute;
+
+            [Test]
+            public void Should_record_call_spec_if_argument_matchers_have_been_specified_and_the_call_takes_arguments()
+            {
+                _call.stub(x => x.GetArguments()).Return(new object[4]);
+                _call.stub(x => x.GetArgumentSpecifications()).Return(CreateArgSpecs(3));
+
+                var result = sut.Route(_call);
+
+                Assert.That(result, Is.SameAs(_returnValueFromRecordCallSpecRoute));
+            }
+
+            [Test]
+            public void Should_record_call_and_replay_configured_result_if_this_looks_like_a_regular_call()
+            {
+                _call.stub(x => x.GetArguments()).Return(new object[4]);
+                _call.stub(x => x.GetArgumentSpecifications()).Return(CreateArgSpecs(0));
+
+                var result = sut.Route(_call);
+
+                Assert.That(result, Is.SameAs(_returnValueFromRecordReplayRoute));
+            }
+
+            [Test]
+            public void Should_record_call_and_replay_configured_result_if_there_are_arg_matchers_but_the_call_does_not_take_args()
+            {
+                _call.stub(x => x.GetArguments()).Return(new object[0]);
+                _call.stub(x => x.GetArgumentSpecifications()).Return(CreateArgSpecs(2));
+
+                var result = sut.Route(_call);
+
+                Assert.That(result, Is.SameAs(_returnValueFromRecordReplayRoute));
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _recordReplayRoute = CreateRouteThatReturns(_returnValueFromRecordReplayRoute);
+                _recordCallSpecRoute = CreateRouteThatReturns(_returnValueFromRecordCallSpecRoute);
+                
+                _routeFactory.stub(x => x.Create<RecordReplayRoute>()).Return(_recordReplayRoute);
+                _routeFactory.stub(x => x.Create<RecordCallSpecificationRoute>()).Return(_recordCallSpecRoute);
+            }
+
+            IList<IArgumentSpecification> CreateArgSpecs(int count)
+            {
+                return Enumerable.Range(1, count).Select(x => mock<IArgumentSpecification>()).ToList();
+            }
         }
 
         public class When_setting_result_of_last_call : Concern

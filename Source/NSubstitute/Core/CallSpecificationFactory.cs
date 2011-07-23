@@ -21,5 +21,10 @@ namespace NSubstitute.Core
             var argumentSpecificationsForCall = _argumentSpecificationsFactory.Create(argumentSpecs, arguments, parameterInfos, matchArgs);
             return new CallSpecification(methodInfo, argumentSpecificationsForCall);
         }
+
+        public ICallSpecification CreateFrom(ICallSpecification callSpecification, MatchArgs matchArgs)
+        {
+            return matchArgs == MatchArgs.Any ? callSpecification.CreateCopyThatMatchesAnyArguments() : callSpecification;
+        }
     }
 }

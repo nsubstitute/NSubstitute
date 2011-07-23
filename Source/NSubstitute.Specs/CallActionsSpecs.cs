@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -9,50 +7,69 @@ namespace NSubstitute.Specs
 {
     public class CallActionsSpecs
     {
-        public class When_finding_matching_actions_for_a_call : ConcernFor<CallActions>
+        public class When_invoking_matching_actions_for_a_call : ConcernFor<CallActions>
         {
             private Action<CallInfo> _firstMatchingAction;
             private Action<CallInfo> _secondMatchingAction;
             private Action<CallInfo> _nonMatchingAction;
-            private ICallSpecification _matchingCallSpec;
+            private ICallSpecification _firstMatchingCallSpec;
+            private ICallSpecification _secondMatchingCallSpec;
             private ICallSpecification _nonMatchingCallSpec;
             private ICall _call;
-            private IEnumerable<Action<CallInfo>> _result;
+            private CallInfo _callInfo;
+            private ICallInfoFactory _callInfoFactory;
 
             [Test]
-            public void Should_return_all_actions_that_match_call_specification()
+            public void Should_invoke_all_actions_that_match_call_specification()
             {
-                var results = _result.ToArray();
-                Assert.That(results.Length, Is.EqualTo(2), "Expected two matching actions");
-                Assert.That(results[0], Is.SameAs(_firstMatchingAction));
-                Assert.That(results[1], Is.SameAs(_secondMatchingAction));
+                _firstMatchingAction.received(x => x.Invoke(_callInfo));
+                _secondMatchingAction.received(x => x.Invoke(_callInfo));
+                _nonMatchingAction.did_not_receive(x => x.Invoke(_callInfo));
+            }
+
+            [Test]
+            public void Should_invoke_per_argument_actions_specified_on_matching_specifications()
+            {
+                _firstMatchingCallSpec.received(x => x.InvokePerArgumentActions(_callInfo));
+                _secondMatchingCallSpec.received(x => x.InvokePerArgumentActions(_callInfo));
+                _nonMatchingCallSpec.did_not_receive(x => x.InvokePerArgumentActions(_callInfo));
             }
 
             public override void Because()
             {
-                sut.Add(_matchingCallSpec, _firstMatchingAction);
+                sut.Add(_firstMatchingCallSpec, _firstMatchingAction);
                 sut.Add(_nonMatchingCallSpec, _nonMatchingAction);
-                sut.Add(_matchingCallSpec, _secondMatchingAction);
+                sut.Add(_secondMatchingCallSpec, _secondMatchingAction);
 
-                _result = sut.MatchingActions(_call);
+                sut.InvokeMatchingActions(_call);
             }
 
             public override void Context()
             {
                 _call = mock<ICall>();
-                
-                _matchingCallSpec = mock<ICallSpecification>();
-                _matchingCallSpec.stub(x => x.IsSatisfiedBy(_call)).Return(true);
+                _callInfo = new CallInfo(new Argument[0]);
+                _callInfoFactory = mock<ICallInfoFactory>();
+                _callInfoFactory.stub(x => x.Create(_call)).Return(_callInfo);
+
+                _firstMatchingCallSpec = CreateMatchingCallSpec();
+                _secondMatchingCallSpec = CreateMatchingCallSpec();
 
                 _nonMatchingCallSpec = mock<ICallSpecification>();
-                _firstMatchingAction = x => { };
-                _secondMatchingAction = x => { };
-                _nonMatchingAction = x => { };
+                _firstMatchingAction = mock<Action<CallInfo>>();
+                _secondMatchingAction = mock<Action<CallInfo>>();
+                _nonMatchingAction = mock<Action<CallInfo>>();
+            }
+
+            private ICallSpecification CreateMatchingCallSpec()
+            {
+                var callSpec = mock<ICallSpecification>();
+                callSpec.stub(x => x.IsSatisfiedBy(_call)).Return(true);
+                return callSpec;
             }
 
             public override CallActions CreateSubjectUnderTest()
             {
-                return new CallActions();
+                return new CallActions(_callInfoFactory);
             }
         }
     }

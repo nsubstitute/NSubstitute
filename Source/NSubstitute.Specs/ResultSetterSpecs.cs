@@ -9,8 +9,9 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<ResultSetter>
         {
-            protected ICall _call;
+            protected readonly MatchArgs _argMatchStrategy = MatchArgs.AsSpecifiedInCall;
             protected ICallStack _callStack;
+            protected IPendingSpecification _pendingSpecification;
             protected ICallResults _configuredResults;
             protected ICallSpecificationFactory _callSpecificationFactory;
             protected IReturn _returnValue;
@@ -18,22 +19,55 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 _callStack = mock<ICallStack>();
-                _call = mock<ICall>();
+                _pendingSpecification = mock<IPendingSpecification>();
                 _configuredResults = mock<ICallResults>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
 
                 _returnValue = mock<IReturn>();
-                _callStack.stub(x => x.Pop()).Return(_call);
             }
 
             public override ResultSetter CreateSubjectUnderTest()
             {
-                return new ResultSetter(_callStack, _configuredResults, _callSpecificationFactory);
+                return new ResultSetter(_callStack, _pendingSpecification, _configuredResults, _callSpecificationFactory);
             }
         }
-        
-        public class When_the_return_value_for_the_last_call_is_set : Concern
+
+        public class When_a_call_specification_already_exists_for_the_last_call : Concern
         {
+            ICallSpecification _callSpecification;
+            ICallSpecification _lastCallSpecification;
+
+            [Test]
+            public void Should_configure_result_for_the_specification()
+            {
+                _configuredResults.received(x => x.SetResult(_callSpecification, _returnValue));
+            }
+
+            [Test]
+            public void Should_not_touch_call_stack()
+            {
+                _callStack.did_not_receive(x => x.Pop());
+            }
+
+            public override void Because()
+            {
+                sut.SetResultForLastCall(_returnValue, _argMatchStrategy);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _callSpecification = mock<ICallSpecification>();
+                _lastCallSpecification = mock<ICallSpecification>();
+                _pendingSpecification.stub(x => x.HasPendingCallSpec()).Return(true);
+                _pendingSpecification.stub(x => x.UseCallSpec()).Return(_lastCallSpecification);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_lastCallSpecification, _argMatchStrategy)).Return(_callSpecification);
+            }
+        }
+
+        public class When_setting_return_value_for_last_call_and_there_is_no_existing_call_spec : Concern
+        {
+            ICall _call;
             ICallSpecification _callSpecification;
 
             [Test]
@@ -44,37 +78,18 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResultForLastCall(_returnValue, MatchArgs.AsSpecifiedInCall);
+                sut.SetResultForLastCall(_returnValue, _argMatchStrategy);
             }
 
             public override void Context()
             {
                 base.Context();
+                _call = mock<ICall>();
+                _callStack.stub(x => x.Pop()).Return(_call);
+                _pendingSpecification.stub(x => x.HasPendingCallSpec()).Return(false);
+
                 _callSpecification = mock<ICallSpecification>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, MatchArgs.AsSpecifiedInCall)).Return(_callSpecification);
-            }
-        }
-
-        public class When_the_return_value_for_the_last_call_with_any_arguments_is_set : Concern
-        {
-            private ICallSpecification _callWithAnyArgsSpecification;
-
-            [Test]
-            public void Should_remove_the_call_from_those_record_and_add_that_call_with_any_args_to_the_configured_results()
-            {
-                _configuredResults.received(x => x.SetResult(_callWithAnyArgsSpecification, _returnValue)); 
-            }
-
-            public override void Because()
-            {
-                sut.SetResultForLastCall(_returnValue, MatchArgs.Any);
-            }
-
-            public override void Context()
-            {
-                base.Context();
-                _callWithAnyArgsSpecification = mock<ICallSpecification>();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, MatchArgs.Any)).Return(_callWithAnyArgsSpecification);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, _argMatchStrategy)).Return(_callSpecification);
             }
         }
     }

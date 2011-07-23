@@ -5,22 +5,15 @@ namespace NSubstitute.Routing.Handlers
     public class DoActionsCallHandler :ICallHandler
     {
         private readonly ICallActions _callActions;
-        private readonly ICallInfoFactory _callInfoFactory;
 
-        public DoActionsCallHandler(ICallActions callActions, ICallInfoFactory callInfoFactory)
+        public DoActionsCallHandler(ICallActions callActions)
         {
             _callActions = callActions;
-            _callInfoFactory = callInfoFactory;
         }
 
         public RouteAction Handle(ICall call)
         {
-            var actions = _callActions.MatchingActions(call);
-            var callInfo = _callInfoFactory.Create(call);
-            foreach (var action in actions)
-            {
-                action(callInfo);
-            }
+            _callActions.InvokeMatchingActions(call);
             return RouteAction.Continue();
         }
     }

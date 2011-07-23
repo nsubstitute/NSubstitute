@@ -6,30 +6,49 @@ namespace NSubstitute.Core
 {
     public class CallActions : ICallActions
     {
+        static readonly Action<CallInfo> EmptyAction = x => { };
+        readonly ICallInfoFactory _callInfoFactory;
         readonly IList<CallAction> _actions = new List<CallAction>();
+
+        public CallActions(ICallInfoFactory callInfoFactory)
+        {
+            _callInfoFactory = callInfoFactory;
+        }
 
         public void Add(ICallSpecification callSpecification, Action<CallInfo> action)
         {
             _actions.Add(new CallAction(callSpecification, action));
         }
 
-        public IEnumerable<Action<CallInfo>> MatchingActions(ICall call)
+        public void Add(ICallSpecification callSpecification)
         {
-            return _actions
-                .Where(x => x.CallSpecification.IsSatisfiedBy(call))
-                .Select(x => x.Action);
+            _actions.Add(new CallAction(callSpecification, EmptyAction));
+        }
+
+        public void InvokeMatchingActions(ICall call)
+        {
+            var callInfo = _callInfoFactory.Create(call);
+            foreach (var action in _actions.Where(x => x.IsSatisfiedBy(call)))
+            {
+                action.Invoke(callInfo);
+            }
         }
 
         class CallAction
         {
             public CallAction(ICallSpecification callSpecification, Action<CallInfo> action)
             {
-                CallSpecification = callSpecification;
-                Action = action;
+                _callSpecification = callSpecification;
+                _action = action;
             }
 
-            public ICallSpecification CallSpecification;
-            public Action<CallInfo> Action;
+            private readonly ICallSpecification _callSpecification;
+            private readonly Action<CallInfo> _action;
+            public bool IsSatisfiedBy(ICall call) { return _callSpecification.IsSatisfiedBy(call); }
+            public void Invoke(CallInfo callInfo) { 
+                _action(callInfo);
+                _callSpecification.InvokePerArgumentActions(callInfo);
+            }
         }
     }
 }

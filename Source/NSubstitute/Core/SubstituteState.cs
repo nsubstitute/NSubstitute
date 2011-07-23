@@ -17,9 +17,10 @@ namespace NSubstitute.Core
 
         public static SubstituteState Create(ISubstitutionContext substitutionContext)
         {
-            var substituteFactory = substitutionContext.GetSubstituteFactory();
+            var substituteFactory = substitutionContext.SubstituteFactory;
             var callInfoFactory = new CallInfoFactory();
             var callStack = new CallStack();
+            var pendingSpecification = new PendingSpecification();
             var callResults = new CallResults(callInfoFactory);
             var callSpecificationFactory = NewCallSpecificationFactory();
 
@@ -29,12 +30,13 @@ namespace NSubstitute.Core
             {
                 callInfoFactory,
                 callStack,
+                pendingSpecification,
                 callResults,
                 callSpecificationFactory,
                 substituteFactory,
-                new CallActions(),
+                new CallActions(callInfoFactory),
                 new PropertyHelper(),
-                new ResultSetter(callStack, callResults, callSpecificationFactory),
+                new ResultSetter(callStack, pendingSpecification, callResults, callSpecificationFactory),
                 new EventHandlerRegistry(),
                 new CallNotReceivedExceptionThrower(callFormatter),
                 new CallReceivedExceptionThrower(callFormatter),
