@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Permissions;
 using Castle.DynamicProxy;
+using Castle.DynamicProxy.Generators;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
@@ -16,6 +18,19 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         public CastleDynamicProxyFactory(CastleInterceptorFactory interceptorFactory)
         {
+#pragma warning disable 618
+                        AttributesToAvoidReplicating.Add<SecurityPermissionAttribute>();
+#pragma warning restore 618
+
+#if !SILVERLIGHT
+                        AttributesToAvoidReplicating.Add<ReflectionPermissionAttribute>();
+                        AttributesToAvoidReplicating.Add<PermissionSetAttribute>();
+                        AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.MarshalAsAttribute>();
+  #if NET4
+                        AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.TypeIdentifierAttribute>();
+  #endif
+#endif
+         
             _proxyGenerator = new ProxyGenerator();
             _interceptorFactory = interceptorFactory;
             _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
