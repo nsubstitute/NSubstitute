@@ -170,7 +170,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArgumentInvocationFromMatchers.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
     <Compile Include="CallNotReceivedExceptions.cs" />
     <Compile Include="ClearCalls.cs" />
