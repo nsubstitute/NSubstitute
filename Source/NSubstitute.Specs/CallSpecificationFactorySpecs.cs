@@ -21,7 +21,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                var methodInfo = GetSampleMethodInfo();
+                var methodInfo = ReflectionHelper.GetMethod(() => SampleMethod());
                 var arguments = new[] { new object() };
 
                 _call = CreateStubCall(methodInfo, arguments);
@@ -62,7 +62,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Resulting_spec_should_not_be_satisfied_if_call_method_does_not_match()
             {
-                var specifiedMethod = GetOtherSampleMethodInfo();
+                var specifiedMethod = ReflectionHelper.GetMethod(() => DifferentSampleMethod());
                 var args = CreateArgsThatMatchArgSpecsFromFactory();
 
                 var callToDifferentMethod = CreateStubCall(specifiedMethod, args);
@@ -106,18 +106,8 @@ namespace NSubstitute.Specs
                 return args;
             }
 
-            private MethodInfo GetSampleMethodInfo()
-            {
-                return GetType().GetMethod("SampleMethod");
-            }
-
-            private MethodInfo GetOtherSampleMethodInfo()
-            {
-                return GetType().GetMethod("OtherSampleMethod");
-            }
-
-            public void SampleMethod(string first, string second) { }
-            public void OtherSampleMethod(string first, string second) { }
+            public void SampleMethod() { }
+            public void DifferentSampleMethod() { }
         }
     }
 }

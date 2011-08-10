@@ -220,6 +220,8 @@
     <Compile Include="ExceptionsSpecs.cs" />
     <Compile Include="ExtensionsSpecs.cs" />
     <Compile Include="Infrastructure\IgnoreTestForSilverlight.cs" />
+    <Compile Include="Infrastructure\Tests\ReflectionHelperSpecs.cs" />
+    <Compile Include="Infrastructure\ReflectionHelper.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactorySpecs.cs" />
     <Compile Include="Proxies\DelegateProxy\DelegateProxyFactorySpecs.cs" />
     <Compile Include="Proxies\ProxyFactorySpecs.cs" />

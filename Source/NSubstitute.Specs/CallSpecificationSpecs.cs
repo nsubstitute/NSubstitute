@@ -25,7 +25,7 @@ namespace NSubstitute.Specs
             {
                 _firstArgSpec = mock<IArgumentSpecification>();
                 _secondArgSpec = mock<IArgumentSpecification>();
-                _methodInfoOfCall = GetSampleMethodInfo();
+                _methodInfoOfCall = ReflectionHelper.GetMethod(() => SampleMethod());
                 _methodInfoSpecified = _methodInfoOfCall;
                 firstArg = "something";
                 secondArg = 123;
@@ -42,11 +42,7 @@ namespace NSubstitute.Specs
                 return new CallSpecification(_methodInfoSpecified, new[] { _firstArgSpec, _secondArgSpec });
             }
 
-            protected MethodInfo GetSampleMethodInfo() { return typeof(Concern).GetMethod("SampleMethod"); }
-            protected MethodInfo GetAnotherSampleMethodInfo() { return typeof(Concern).GetMethod("AnotherSampleMethod"); }
-
-            public void SampleMethod(string first, string second) { }
-            public void AnotherSampleMethod(string first, string second) { }
+            private void SampleMethod() { }
         }
 
         public class When_checking_a_call_with_matching_method_and_all_argument_specifications_met : Concern
@@ -68,10 +64,12 @@ namespace NSubstitute.Specs
 
         public class When_method_info_is_different : Concern
         {
+            private void DifferentSampleMethod() { }
+
             public override void Context()
             {
                 base.Context();
-                _methodInfoSpecified = GetAnotherSampleMethodInfo();
+                _methodInfoSpecified = ReflectionHelper.GetMethod(() => DifferentSampleMethod());
                 _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
                 _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
             }
@@ -85,7 +83,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Non_matching_indicies_should_be_empty()
             {
-                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.Empty); 
+                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.Empty);
             }
         }
 
@@ -130,7 +128,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_return_empty_for_non_matching_arg_index_because_args_that_are_specified_match()
             {
-                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.Empty); 
+                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.Empty);
             }
         }
 
@@ -147,7 +145,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_not_be_satisfied()
             {
-                Assert.That(_result, Is.False); 
+                Assert.That(_result, Is.False);
             }
 
             [Test]
@@ -156,7 +154,7 @@ namespace NSubstitute.Specs
                 Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.EqualTo(new[] { 2 }));
             }
         }
-        
+
         public class When_formatting_call_as_string : Concern
         {
             private ICallFormatter _callFormatter;
@@ -167,7 +165,7 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _callFormatter = mock<ICallFormatter>();
-                _callFormatter.stub(x => x.Format(_methodInfoSpecified, new [] { _firstArgSpec, _secondArgSpec }, new int[0])).Return(FormattedCall);
+                _callFormatter.stub(x => x.Format(_methodInfoSpecified, new[] { _firstArgSpec, _secondArgSpec }, new int[0])).Return(FormattedCall);
             }
 
             public override void Because()
