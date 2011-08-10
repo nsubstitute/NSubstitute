@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
@@ -23,7 +21,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                var methodInfo = mock<MethodInfo>();
+                var methodInfo = GetSampleMethodInfo();
                 var arguments = new[] { new object() };
 
                 _call = CreateStubCall(methodInfo, arguments);
@@ -64,7 +62,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Resulting_spec_should_not_be_satisfied_if_call_method_does_not_match()
             {
-                var specifiedMethod = mock<MethodInfo>();
+                var specifiedMethod = GetOtherSampleMethodInfo();
                 var args = CreateArgsThatMatchArgSpecsFromFactory();
 
                 var callToDifferentMethod = CreateStubCall(specifiedMethod, args);
@@ -107,6 +105,19 @@ namespace NSubstitute.Specs
                 _argSpecsFromFactory[1].stub(x => x.IsSatisfiedBy(args[1])).Return(false);
                 return args;
             }
+
+            private MethodInfo GetSampleMethodInfo()
+            {
+                return GetType().GetMethod("SampleMethod");
+            }
+
+            private MethodInfo GetOtherSampleMethodInfo()
+            {
+                return GetType().GetMethod("OtherSampleMethod");
+            }
+
+            public void SampleMethod(string first, string second) { }
+            public void OtherSampleMethod(string first, string second) { }
         }
     }
 }

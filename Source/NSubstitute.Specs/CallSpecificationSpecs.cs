@@ -25,7 +25,7 @@ namespace NSubstitute.Specs
             {
                 _firstArgSpec = mock<IArgumentSpecification>();
                 _secondArgSpec = mock<IArgumentSpecification>();
-                _methodInfoOfCall = mock<MethodInfo>();
+                _methodInfoOfCall = GetSampleMethodInfo();
                 _methodInfoSpecified = _methodInfoOfCall;
                 firstArg = "something";
                 secondArg = 123;
@@ -41,6 +41,12 @@ namespace NSubstitute.Specs
             {
                 return new CallSpecification(_methodInfoSpecified, new[] { _firstArgSpec, _secondArgSpec });
             }
+
+            protected MethodInfo GetSampleMethodInfo() { return typeof(Concern).GetMethod("SampleMethod"); }
+            protected MethodInfo GetAnotherSampleMethodInfo() { return typeof(Concern).GetMethod("AnotherSampleMethod"); }
+
+            public void SampleMethod(string first, string second) { }
+            public void AnotherSampleMethod(string first, string second) { }
         }
 
         public class When_checking_a_call_with_matching_method_and_all_argument_specifications_met : Concern
@@ -65,7 +71,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _methodInfoSpecified = mock<MethodInfo>();
+                _methodInfoSpecified = GetAnotherSampleMethodInfo();
                 _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
                 _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
             }

@@ -28,9 +28,8 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override void Context()
             {
-                var returnType = typeof(object);
-                var methodInfo = mock<MethodInfo>();
-                methodInfo.stub(x => x.ReturnType).Return(returnType);
+                var methodInfo = GetMethodInfoForNonVoidMethod();
+                var returnType = methodInfo.ReturnType;
                 _call = mock<ICall>();
                 _call.stub(x => x.GetMethodInfo()).Return(methodInfo);
 
@@ -42,6 +41,9 @@ namespace NSubstitute.Specs.Routing.Handlers
             {
                 return new ReturnDefaultForReturnTypeHandler(_defaultForType);
             }
+
+            public object NonVoidMethod() { return null; }
+            private MethodInfo GetMethodInfoForNonVoidMethod() { return GetType().GetMethod("NonVoidMethod"); }
         }
     }
 }
