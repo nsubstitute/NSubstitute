@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -54,17 +53,6 @@ namespace NSubstitute.Core
             for (var i = 0; i < arguments.Length; i++)
             {
                 argSpecs[i].Action(arguments[i]);
-            }
-        }
-
-        public void PerformActionFor(ICall call)
-        {
-            var arguments = call.GetArguments().GetEnumerator();
-            var argSpecs = _argumentSpecifications.GetEnumerator();
-
-            while (arguments.MoveNext() && argSpecs.MoveNext())
-            {
-                ((IArgumentSpecification) argSpecs.Current).Action(arguments.Current);
             }
         }
 

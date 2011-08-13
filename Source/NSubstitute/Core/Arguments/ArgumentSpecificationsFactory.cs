@@ -5,18 +5,20 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecificationsFactory : IArgumentSpecificationsFactory
     {
-        private readonly IMixedArgumentSpecificationsFactory MixedArgumentSpecificationsFactory;
+        private readonly IMixedArgumentSpecificationsFactory _mixedArgumentSpecificationsFactory;
 
         public ArgumentSpecificationsFactory(IMixedArgumentSpecificationsFactory mixedArgumentSpecificationsFactory)
         {
-            MixedArgumentSpecificationsFactory = mixedArgumentSpecificationsFactory;
+            _mixedArgumentSpecificationsFactory = mixedArgumentSpecificationsFactory;
         }
 
         public IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object[] arguments, IParameterInfo[] parameterInfos, MatchArgs matchArgs)
         {
-            if (matchArgs == MatchArgs.Any) return parameterInfos.Select(x => (IArgumentSpecification) new ArgumentIsAnythingSpecification(x.ParameterType));
+            var argumentSpecifications = _mixedArgumentSpecificationsFactory.Create(argumentSpecs, arguments, parameterInfos);
 
-            return MixedArgumentSpecificationsFactory.Create(argumentSpecs, arguments, parameterInfos);
+            return (matchArgs == MatchArgs.Any) 
+                ? argumentSpecifications.Select(x => (IArgumentSpecification) new ArgumentIsAnythingSpecification(x.ForType) { Action = x.Action })
+                : argumentSpecifications;
         }
     }
 }

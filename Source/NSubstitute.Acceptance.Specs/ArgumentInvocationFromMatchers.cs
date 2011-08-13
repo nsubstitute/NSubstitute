@@ -136,17 +136,13 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Ignore("What should this do?")]
         public void Invoke_callback_using_when_for_any_args_do()
         {
             var sub = Substitute.For<IFoo>();
             var action = Substitute.For<Action<int, string>>();
-            sub.WhenForAnyArgs(x => x.MethodWithCallbackWithArguments("test", Arg.Invoke(1, "hello"))).Do(x => { });
+            sub.WhenForAnyArgs(x => x.MethodWithCallbackWithArguments(null, Arg.Invoke(1, "hello"))).Do(x => { });
 
             sub.MethodWithCallbackWithArguments("something else", action);
-            action.DidNotReceive().Invoke(1, "hello");
-
-            sub.MethodWithCallbackWithArguments("test", action);
             action.Received().Invoke(1, "hello");
         }
     }

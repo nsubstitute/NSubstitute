@@ -36,8 +36,13 @@ namespace NSubstitute.Core
 
         void SetResultForCall(ICallSpecification callSpecification, IReturn valueToReturn, MatchArgs matchArgs)
         {
-            var callSpecForReturnValue = _callSpecificationFactory.CreateFrom(callSpecification, matchArgs);
+            var callSpecForReturnValue = GetCallSpecForArgMatchStrategy(callSpecification, matchArgs);
             _configuredResults.SetResult(callSpecForReturnValue, valueToReturn);
+        }
+
+        private static ICallSpecification GetCallSpecForArgMatchStrategy(ICallSpecification callSpecification, MatchArgs matchArgs)
+        {
+            return (matchArgs == MatchArgs.Any) ? callSpecification.CreateCopyThatMatchesAnyArguments() : callSpecification;
         }
     }
 }

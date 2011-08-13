@@ -11,102 +11,84 @@ namespace NSubstitute.Specs.Arguments
 {
     public class ArgumentSpecificationsFactorySpecs
     {
-        public abstract class BaseConcern : ConcernFor<ArgumentSpecificationsFactory>
+        public abstract class When_creating_argument_specifications : ConcernFor<ArgumentSpecificationsFactory>
         {
-            protected IList<IArgumentSpecification> _argumentSpecifications;
-            protected object[] _arguments;
+            protected IEnumerable<IArgumentSpecification> _result;
             protected MatchArgs _matchArgs;
-            protected IMixedArgumentSpecificationsFactory MixedArgumentSpecificationsFactory;
-            protected IParameterInfo[] _parameterInfos;
+            protected IList<IArgumentSpecification> _mixedArgumentSpecifications;
+
+            private IMixedArgumentSpecificationsFactory _mixedArgumentSpecificationsFactory;
+            private IList<IArgumentSpecification> _argumentSpecifications;
+            private object[] _arguments;
+            private IParameterInfo[] _parameterInfos;
 
             public override void Context()
             {
                 base.Context();
-                _arguments = new object[] { 1, "fred", "harry" };
-                _parameterInfos = new[] { mock<IParameterInfo>(), mock<IParameterInfo>(), mock<IParameterInfo>() };
-                _parameterInfos[0].stub(x => x.ParameterType).Return(_arguments[0].GetType());
-                _parameterInfos[1].stub(x => x.ParameterType).Return(_arguments[1].GetType());
-                _parameterInfos[2].stub(x => x.ParameterType).Return(_arguments[2].GetType());
+                _arguments = new object[2];
+                _parameterInfos = new IParameterInfo[2];
                 _argumentSpecifications = new List<IArgumentSpecification>();
-                MixedArgumentSpecificationsFactory = mock<IMixedArgumentSpecificationsFactory>();
+                _mixedArgumentSpecifications = new List<IArgumentSpecification>();
+                _mixedArgumentSpecificationsFactory = mock<IMixedArgumentSpecificationsFactory>();
+                _mixedArgumentSpecificationsFactory
+                    .Stub(x => x.Create(_argumentSpecifications, _arguments, _parameterInfos))
+                    .Return(_mixedArgumentSpecifications);
+            }
+
+            public override void Because()
+            {
+                _result = sut.Create(_argumentSpecifications, _arguments, _parameterInfos, _matchArgs);
             }
 
             public override ArgumentSpecificationsFactory CreateSubjectUnderTest()
             {
-                return new ArgumentSpecificationsFactory(MixedArgumentSpecificationsFactory);
+                return new ArgumentSpecificationsFactory(_mixedArgumentSpecificationsFactory);
             }
         }
 
-        public abstract class When_creating_argument_specifications : BaseConcern
+        public class When_creating_arg_specs_that_match_arguments_as_specified_in_call : When_creating_argument_specifications
         {
-            protected IEnumerable<IArgumentSpecification> _result;
-
-            public override void Because()
-            {
-                _result = sut.Create(_argumentSpecifications, _arguments, _parameterInfos, _matchArgs);
-            }
-
-            [Test]
-            public void Should_have_specifications_for_all_arguments()
-            {
-                Assert.That(_result.Count(), Is.EqualTo(_arguments.Length));
-            }
-        }
-
-        public class When_creating_argument_specifications_with_no_argument_specifications_given : BaseConcern
-        {
-            protected IEnumerable<IArgumentSpecification> _mixedArgumentSpecs;
-            protected IEnumerable<IArgumentSpecification> _result;
-
-            public override void Because()
-            {
-                _result = sut.Create(_argumentSpecifications, _arguments, _parameterInfos, _matchArgs);
-            }
-
             public override void Context()
             {
                 base.Context();
-                _mixedArgumentSpecs = mock<IEnumerable<IArgumentSpecification>>();
-                MixedArgumentSpecificationsFactory.Stub(
-                    x => x.Create(_argumentSpecifications, _arguments, _parameterInfos)).Return(_mixedArgumentSpecs);
+                _matchArgs = MatchArgs.AsSpecifiedInCall;
             }
 
             [Test]
-            public void Should_use_mixed_argument_specifcation_factory()
+            public void Should_return_arg_specs_as_worked_out_by_mixed_argument_specification_factory()
             {
-                Assert.That(_result == _mixedArgumentSpecs);
+                Assert.That(_result, Is.SameAs(_mixedArgumentSpecifications));
             }
         }
 
-        public class When_creating_argument_specifications_with_less_argument_specs_than_arguments : When_creating_argument_specifications_with_no_argument_specifications_given
-        {
-            protected Type _ignored;
-
-            public override void Context()
-            {
-                base.Context();
-                var argumentSpecification = mock<IArgumentSpecification>();
-                argumentSpecification.stub(x => _ignored = x.ForType).Return(_parameterInfos[0].ParameterType);
-                _argumentSpecifications.Add(argumentSpecification);
-            }
-        }
-
-        public class When_creating_argument_specifications_that_match_any_arguments : When_creating_argument_specifications
+        public class When_creating_arg_specs_that_match_any_arguments : When_creating_argument_specifications
         {
             public override void Context()
             {
                 base.Context();
                 _matchArgs = MatchArgs.Any;
+
+                _mixedArgumentSpecifications.Add(CreateSpecWith(typeof(int), x => { }));
+                _mixedArgumentSpecifications.Add(CreateSpecWith(typeof(string), x => { }));
             }
 
             [Test]
-            public void Should_return_specifications_that_match_any_arguments()
+            public void Should_return_arg_specs_based_on_those_worked_out_by_mixed_arg_spec_factory()
             {
-                for (int i = 0; i < _arguments.Count(); i++)
+                for (int i = 0; i < _mixedArgumentSpecifications.Count(); i++)
                 {
                     Assert.That(_result.ElementAt(i), Is.TypeOf(typeof(ArgumentIsAnythingSpecification)));
-                    Assert.That(_result.ElementAt(i).ForType, Is.EqualTo(_arguments[i].GetType()));
+                    Assert.That(_result.ElementAt(i).ForType, Is.EqualTo(_mixedArgumentSpecifications[i].ForType), "Result should be for same arg type");
+                    Assert.That(_result.ElementAt(i).Action, Is.EqualTo(_mixedArgumentSpecifications[i].Action), "Result should have same specified action");
                 }
+            }
+
+            private IArgumentSpecification CreateSpecWith(Type type, Action<object> action)
+            {
+                var spec = mock<IArgumentSpecification>();
+                spec.stub(x => x.ForType).Return(type);
+                spec.Action = action;
+                return spec;
             }
         }
     }

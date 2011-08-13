@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -9,7 +8,6 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<ResultSetter>
         {
-            protected readonly MatchArgs _argMatchStrategy = MatchArgs.AsSpecifiedInCall;
             protected ICallStack _callStack;
             protected IPendingSpecification _pendingSpecification;
             protected ICallResults _configuredResults;
@@ -34,13 +32,12 @@ namespace NSubstitute.Specs
 
         public class When_a_call_specification_already_exists_for_the_last_call : Concern
         {
-            ICallSpecification _callSpecification;
             ICallSpecification _lastCallSpecification;
 
             [Test]
             public void Should_configure_result_for_the_specification()
             {
-                _configuredResults.received(x => x.SetResult(_callSpecification, _returnValue));
+                _configuredResults.received(x => x.SetResult(_lastCallSpecification, _returnValue));
             }
 
             [Test]
@@ -51,22 +48,54 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetResultForLastCall(_returnValue, _argMatchStrategy);
+                sut.SetResultForLastCall(_returnValue, MatchArgs.AsSpecifiedInCall);
             }
 
             public override void Context()
             {
                 base.Context();
-                _callSpecification = mock<ICallSpecification>();
                 _lastCallSpecification = mock<ICallSpecification>();
                 _pendingSpecification.stub(x => x.HasPendingCallSpec()).Return(true);
                 _pendingSpecification.stub(x => x.UseCallSpec()).Return(_lastCallSpecification);
-                _callSpecificationFactory.stub(x => x.CreateFrom(_lastCallSpecification, _argMatchStrategy)).Return(_callSpecification);
+            }
+        }
+
+        public class When_a_call_specification_already_exists_for_the_last_call_and_we_are_setting_for_any_args : Concern
+        {
+            ICallSpecification _callSpecForAnyArgs;
+            ICallSpecification _lastCallSpecification;
+
+            [Test]
+            public void Should_configure_result_for_the_specification()
+            {
+                _configuredResults.received(x => x.SetResult(_callSpecForAnyArgs, _returnValue));
+            }
+
+            [Test]
+            public void Should_not_touch_call_stack()
+            {
+                _callStack.did_not_receive(x => x.Pop());
+            }
+
+            public override void Because()
+            {
+                sut.SetResultForLastCall(_returnValue, MatchArgs.Any);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _callSpecForAnyArgs = mock<ICallSpecification>();
+                _lastCallSpecification = mock<ICallSpecification>();
+                _pendingSpecification.stub(x => x.HasPendingCallSpec()).Return(true);
+                _pendingSpecification.stub(x => x.UseCallSpec()).Return(_lastCallSpecification);
+                _lastCallSpecification.stub(x => x.CreateCopyThatMatchesAnyArguments()).Return(_callSpecForAnyArgs);
             }
         }
 
         public class When_setting_return_value_for_last_call_and_there_is_no_existing_call_spec : Concern
         {
+            private readonly MatchArgs _argMatchStrategy = MatchArgs.AsSpecifiedInCall;
             ICall _call;
             ICallSpecification _callSpecification;
 
