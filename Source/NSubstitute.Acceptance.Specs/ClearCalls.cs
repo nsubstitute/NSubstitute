@@ -1,4 +1,3 @@
-using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -7,6 +6,11 @@ namespace NSubstitute.Acceptance.Specs
     [TestFixture]
     public class ClearCalls
     {
+        public interface ICalculator
+        {
+            int Add(int a, int b);
+        }
+
         [Test]
         public void Can_clear_received_calls_on_a_substitute()
         {
@@ -16,6 +20,6 @@ namespace NSubstitute.Acceptance.Specs
             substitute.Received().Add(1, 1);
             substitute.ClearReceivedCalls();
             Assert.Throws<CallNotReceivedException>(() => substitute.Received().Add(1, 1));
-        } 
+        }
     }
 }

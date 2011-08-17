@@ -1,4 +1,3 @@
-using NSubstitute.Acceptance.Specs.Infrastructure;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -6,12 +5,18 @@ namespace NSubstitute.Acceptance.Specs
     [TestFixture]
     public class SimpleSubstituteExamples
     {
+        public interface ICalculator
+        {
+            void SwitchOn();
+            int Add(int a, int b);
+        }
+
         [Test]
         public void Use_a_shiny_new_substitute()
         {
             var calculator = Substitute.For<ICalculator>();
             calculator.SwitchOn();
-            Assert.That(calculator.Add(1,2), Is.EqualTo(default(int)));
+            Assert.That(calculator.Add(1, 2), Is.EqualTo(default(int)));
         }
 
         [Test]
@@ -48,7 +53,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             var calculator = Substitute.For<ICalculator>();
             calculator.Add(1, 2);
-            calculator.Received().Add(1, 2);            
+            calculator.Received().Add(1, 2);
         }
 
         [Test]
