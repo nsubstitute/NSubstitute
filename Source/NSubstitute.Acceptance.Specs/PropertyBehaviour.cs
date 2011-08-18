@@ -12,6 +12,7 @@ namespace NSubstitute.Acceptance.Specs
             DateTime Now { get; }
             string WriteOnly { set; }
             string this[int i] { get; set; }
+            string this[string a, string b] { get; set; }
         }
 
         protected object _ignored;
@@ -25,12 +26,31 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Indexer_properties_should_just_work()
         {
             var foo = Substitute.For<IFoo>();
             foo[2] = "two";
             Assert.That(foo[2], Is.EqualTo("two"));
+            Assert.That(foo[0], Is.Not.EqualTo("two"));
+        }
+
+        [Test]
+        public void Indexer_properties_with_multiple_arguments_should_work_ok_too()
+        {
+            var foo = Substitute.For<IFoo>();
+            foo["one", "two"] = "three";
+            Assert.That(foo["one", "two"], Is.EqualTo("three"));
+            Assert.That(foo["one", "one"], Is.Not.EqualTo("three"));
+        }
+
+        [Test]
+        [Pending]
+        public void Indexer_with_arg_matchers()
+        {
+            var foo = Substitute.For<IFoo>();
+            foo[Arg.Any<int>()] = "test";
+            Assert.That(foo[1], Is.EqualTo("test"));
+            Assert.That(foo[7], Is.EqualTo("test"));
         }
 
         [Test]

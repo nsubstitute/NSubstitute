@@ -16,10 +16,10 @@ namespace NSubstitute.Specs
         [Test]
         public void ShouldIdentifyCallSettingAReadWriteProperty()
         {
-            var call = new Call(GetSomePropertySetter(), new[] {"arg"}, null);
+            var call = new Call(GetSomePropertySetter(), new[] { "arg" }, null);
             Assert.That(sut.IsCallToSetAReadWriteProperty(call), Is.True);
         }
-        
+
         [Test]
         public void ShouldIdentifyThatNormalMethodIsNotAPropertySetter()
         {
@@ -38,8 +38,19 @@ namespace NSubstitute.Specs
         public void ShouldCreateACallToGetterFromSetter()
         {
             var callToSetter = new Call(GetSomePropertySetter(), new[] { "arg" }, null);
-            var callToGetter = sut.CreateCallToPropertyGetterFromSetterCall(callToSetter);            
-            Assert.That(callToGetter.GetMethodInfo(), Is.EqualTo(GetSomePropertyGetter()));            
+            var callToGetter = sut.CreateCallToPropertyGetterFromSetterCall(callToSetter);
+            Assert.That(callToGetter.GetMethodInfo(), Is.EqualTo(GetSomePropertyGetter()));
+        }
+
+        [Test]
+        public void ShouldCreateACallToIndexerGetterFromIndexSetter()
+        {
+            const int index = 123;
+            const string value = "arg";
+            var callToSetter = new Call(GetIndexerPropertySetter(), new object[] { index, value }, null);
+            var callToGetter = sut.CreateCallToPropertyGetterFromSetterCall(callToSetter);
+            Assert.That(callToGetter.GetMethodInfo(), Is.EqualTo(GetIndexerPropertyGetter()));
+            Assert.That(callToGetter.GetArguments(), Is.EqualTo(new[] { index }));
         }
 
         [Test]
@@ -54,12 +65,15 @@ namespace NSubstitute.Specs
         MethodInfo GetSomeMethod() { return GetMethodOnHelperClass("SomeMethod"); }
         MethodInfo GetWriteOnlyPropertySetter() { return GetMethodOnHelperClass("set_WriteOnlyProperty"); }
         MethodInfo GetMethodOnHelperClass(string name) { return typeof(ClassToTestPropertyHelper).GetMethod(name); }
+        MethodInfo GetIndexerPropertyGetter() { return GetMethodOnHelperClass("get_Item"); }
+        MethodInfo GetIndexerPropertySetter() { return GetMethodOnHelperClass("set_Item"); }
 
-        class ClassToTestPropertyHelper
+        public class ClassToTestPropertyHelper
         {
             public string SomeProperty { get; set; }
             public void SomeMethod() { }
-            public string WriteOnlyProperty { set {}}
+            public string WriteOnlyProperty { set { } }
+            public string this[int i] { get { return ""; } set { } }
         }
     }
 }

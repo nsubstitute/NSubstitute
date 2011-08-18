@@ -19,7 +19,7 @@ namespace NSubstitute.Routing.Handlers
             if (_propertyHelper.IsCallToSetAReadWriteProperty(call))
             {
                 var callToPropertyGetter = _propertyHelper.CreateCallToPropertyGetterFromSetterCall(call);
-                var valueBeingSetOnProperty = call.GetArguments().First();
+                var valueBeingSetOnProperty = call.GetArguments().Last();
                 _resultSetter.SetResultForCall(callToPropertyGetter, new ReturnValue(valueBeingSetOnProperty), MatchArgs.AsSpecifiedInCall);
             }
             return RouteAction.Continue();

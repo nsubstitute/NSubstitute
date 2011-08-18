@@ -31,29 +31,10 @@ namespace NSubstitute.Core
             {
                 throw new InvalidOperationException("Could not find a GetMethod for \"" + callToSetter.GetMethodInfo() + "\"");
             }
+            var setterArgs = callToSetter.GetArguments();
             var getter = propertyInfo.GetGetMethod();
-            return new CallToPropertyGetter(getter, callToSetter.Target());
-        }
-
-        class CallToPropertyGetter : ICall
-        {
-            private readonly MethodInfo _methodInfo;
-            readonly object _target;
-            private readonly object[] _arguments = new object[0];
-            private readonly IParameterInfo[] _parameterInfos = new IParameterInfo[0];
-
-            public CallToPropertyGetter(MethodInfo methodInfo, object target)
-            {
-                _methodInfo = methodInfo;
-                _target = target;
-            }
-
-            public Type GetReturnType() { return _methodInfo.ReturnType; }
-            public MethodInfo GetMethodInfo() { return _methodInfo; }
-            public object[] GetArguments() { return _arguments; }
-            public object Target() { return _target; }
-            public IParameterInfo[] GetParameterInfos() { return _parameterInfos; }
-            public IList<IArgumentSpecification> GetArgumentSpecifications() { return new List<IArgumentSpecification>(); }
+            var getterArgs = setterArgs.Take(setterArgs.Length - 1).ToArray();
+            return new Call(getter, getterArgs, callToSetter.Target());
         }
     }
 }

@@ -21,14 +21,16 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _resultSetter = mock<IResultSetter>();
                 _call = mock<ICall>();
                 _propertyGetter = mock<ICall>();
-                _call.stub(x => x.GetArguments()).Return(new[] { _setValue });
+
+                var settersWithMultipleArgsLikeIndexersHaveSetValueAsLastInArray = new[] { new object(), new object(), _setValue };
+                _call.stub(x => x.GetArguments()).Return(settersWithMultipleArgsLikeIndexersHaveSetValueAsLastInArray);
                 _propertyHelper.stub(x => x.CreateCallToPropertyGetterFromSetterCall(_call)).Return(_propertyGetter);
             }
 
             public override PropertySetterHandler CreateSubjectUnderTest()
             {
                 return new PropertySetterHandler(_propertyHelper, _resultSetter);
-            } 
+            }
         }
 
         public class When_call_is_a_property_setter : Concern
@@ -59,7 +61,7 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _propertyHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
                 _resultSetter
                     .stub(x => x.SetResultForCall(It.Is(_propertyGetter), It.IsAny<IReturn>(), It.Is(MatchArgs.AsSpecifiedInCall)))
-                    .WhenCalled(x => _returnPassedToResultSetter = (ReturnValue) x.Arguments[1]);
+                    .WhenCalled(x => _returnPassedToResultSetter = (ReturnValue)x.Arguments[1]);
             }
         }
 
