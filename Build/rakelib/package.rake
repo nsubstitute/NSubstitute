@@ -1,6 +1,6 @@
 
 desc "Packages up assembly"
-task :package => [:version_assemblies, :all, :check_examples] do
+task :package => [:all, :check_examples] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	deploy_path = "#{output_base_path}/NSubstitute-#{@@build_number}"
 
@@ -43,6 +43,26 @@ task :nuget => [:package] do
     FileUtils.cd "#{output_base_path}/nuget" do
         sh "\"#{full_path_to_nuget_exe}\" pack \"#{nuspec}\""
     end
+end
+
+desc "Create .ZIP package of binaries"
+task :zip => [:package] do
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+	
+	zip_path = "#{output_base_path}/zip"
+	mkdir_p zip_path
+
+	sh "\"#{ZIP_EXE}\" a -r \"#{zip_path}/NSubstitute-#{@@build_number}.zip\" \"#{output_base_path}/NSubstitute-#{@@build_number}\""
+end
+
+desc "Create .ZIP package of code from docs"
+task :zip_docs => [:package] do
+	sh "\"#{ZIP_EXE}\" a -r \"#{OUTPUT_PATH}/NSubstitute-CodeFromDocs-#{@@build_number}.zip\" \"#{OUTPUT_PATH}/CodeFromDocs\""
+end
+
+desc "Create .ZIP package of website"
+task :zip_website => [:package] do
+	sh "\"#{ZIP_EXE}\" a -r \"#{OUTPUT_PATH}/nsubstitute.github.com-#{@@build_number}.zip\" \"#{OUTPUT_PATH}/nsubstitute.github.com\""
 end
 
 def updateNuspec(file)
