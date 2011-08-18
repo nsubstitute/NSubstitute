@@ -5,9 +5,11 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 {
     public class CastleInvocationMapper
     {
+        readonly static CallFactory CallFactory = new CallFactory();
+
         public virtual ICall Map(IInvocation castleInvocation)
         {
-            return new Call(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy);
+            return CallFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy);
         }
     }
 }

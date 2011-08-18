@@ -48,7 +48,10 @@ namespace NSubstitute.Acceptance.Specs
         public void Indexer_with_arg_matchers()
         {
             var foo = Substitute.For<IFoo>();
+
             foo[Arg.Any<int>()] = "test";
+
+            foo.DidNotReceiveWithAnyArgs()[0] = "test";
             Assert.That(foo[1], Is.EqualTo("test"));
             Assert.That(foo[7], Is.EqualTo("test"));
         }

@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
@@ -13,31 +15,36 @@ namespace NSubstitute.Specs
             return new PropertyHelper();
         }
 
+        private Call CreateCall(MethodInfo methodInfo, object[] args)
+        {
+            return new Call(methodInfo, args, null, new List<IArgumentSpecification>());
+        }
+
         [Test]
         public void ShouldIdentifyCallSettingAReadWriteProperty()
         {
-            var call = new Call(GetSomePropertySetter(), new[] { "arg" }, null);
+            var call = CreateCall(GetSomePropertySetter(), new[] { "arg" });
             Assert.That(sut.IsCallToSetAReadWriteProperty(call), Is.True);
         }
 
         [Test]
         public void ShouldIdentifyThatNormalMethodIsNotAPropertySetter()
         {
-            var call = new Call(GetSomeMethod(), new object[0], null);
+            var call = CreateCall(GetSomeMethod(), new object[0]);
             Assert.That(sut.IsCallToSetAReadWriteProperty(call), Is.False);
         }
 
         [Test]
         public void ShouldIdentifySettingWriteOnlyPropertyIsNotAReadWriteProperty()
         {
-            var call = new Call(GetWriteOnlyPropertySetter(), new[] { "arg" }, null);
+            var call = CreateCall(GetWriteOnlyPropertySetter(), new[] { "arg" });
             Assert.That(sut.IsCallToSetAReadWriteProperty(call), Is.False);
         }
 
         [Test]
         public void ShouldCreateACallToGetterFromSetter()
         {
-            var callToSetter = new Call(GetSomePropertySetter(), new[] { "arg" }, null);
+            var callToSetter = CreateCall(GetSomePropertySetter(), new[] { "arg" });
             var callToGetter = sut.CreateCallToPropertyGetterFromSetterCall(callToSetter);
             Assert.That(callToGetter.GetMethodInfo(), Is.EqualTo(GetSomePropertyGetter()));
         }
@@ -47,7 +54,7 @@ namespace NSubstitute.Specs
         {
             const int index = 123;
             const string value = "arg";
-            var callToSetter = new Call(GetIndexerPropertySetter(), new object[] { index, value }, null);
+            var callToSetter = CreateCall(GetIndexerPropertySetter(), new object[] { index, value });
             var callToGetter = sut.CreateCallToPropertyGetterFromSetterCall(callToSetter);
             Assert.That(callToGetter.GetMethodInfo(), Is.EqualTo(GetIndexerPropertyGetter()));
             Assert.That(callToGetter.GetArguments(), Is.EqualTo(new[] { index }));
@@ -56,7 +63,7 @@ namespace NSubstitute.Specs
         [Test]
         public void ShouldThrowWhenTryingToCreateACallToAGetterThatDoesNotExist()
         {
-            var callToSetter = new Call(GetWriteOnlyPropertySetter(), new[] { "arg" }, null);
+            var callToSetter = CreateCall(GetWriteOnlyPropertySetter(), new[] { "arg" });
             Assert.Throws<InvalidOperationException>(() => sut.CreateCallToPropertyGetterFromSetterCall(callToSetter));
         }
 

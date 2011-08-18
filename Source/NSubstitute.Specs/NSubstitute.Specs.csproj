@@ -203,6 +203,7 @@
     <Compile Include="Arguments\NonParamsArgumentSpecificationFactorySpecs.cs" />
     <Compile Include="Arguments\ParamsArgumentSpecificationFactorySpecs.cs" />
     <Compile Include="CallActionsSpecs.cs" />
+    <Compile Include="CallFactorySpecs.cs" />
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallInfoSpecs.cs" />

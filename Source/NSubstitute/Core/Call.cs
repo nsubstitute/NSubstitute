@@ -14,8 +14,14 @@ namespace NSubstitute.Core
         private readonly IParameterInfo[] _parameterInfos;
         private IList<IArgumentSpecification> _argumentSpecifications;
 
-        public Call(MethodInfo methodInfo, object[] arguments, object target): this(methodInfo, arguments, target, null)
-        {}
+        public Call(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecsForCall) 
+        {
+            _methodInfo = methodInfo;
+            _arguments = arguments;
+            _target = target;
+            _parameterInfos = GetParameterInfosFrom(_methodInfo);
+            _argumentSpecifications = argumentSpecsForCall;
+        }
 
         public Call(MethodInfo methodInfo, object[] arguments, object target, IParameterInfo[] parameterInfos)
         {
