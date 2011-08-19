@@ -10,6 +10,7 @@ namespace NSubstitute.Specs
         {
             protected ICallStack _callStack;
             protected IPendingSpecification _pendingSpecification;
+            protected ICallActions _callActions;
             protected ICallResults _configuredResults;
             protected ICallSpecificationFactory _callSpecificationFactory;
             protected IReturn _returnValue;
@@ -19,6 +20,7 @@ namespace NSubstitute.Specs
                 _callStack = mock<ICallStack>();
                 _pendingSpecification = mock<IPendingSpecification>();
                 _configuredResults = mock<ICallResults>();
+                _callActions = mock<ICallActions>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
 
                 _returnValue = mock<IReturn>();
@@ -26,7 +28,7 @@ namespace NSubstitute.Specs
 
             public override ResultSetter CreateSubjectUnderTest()
             {
-                return new ResultSetter(_callStack, _pendingSpecification, _configuredResults, _callSpecificationFactory);
+                return new ResultSetter(_callStack, _pendingSpecification, _configuredResults, _callSpecificationFactory, _callActions);
             }
         }
 
@@ -38,6 +40,12 @@ namespace NSubstitute.Specs
             public void Should_configure_result_for_the_specification()
             {
                 _configuredResults.received(x => x.SetResult(_lastCallSpecification, _returnValue));
+            }
+
+            [Test]
+            public void Should_not_alter_existing_actions_for_last_call_specification()
+            {
+                _callActions.did_not_receive(x => x.MoveActionsForSpecToNewSpec(It.IsAny<ICallSpecification>(), It.IsAny<ICallSpecification>()));
             }
 
             [Test]
@@ -69,6 +77,12 @@ namespace NSubstitute.Specs
             public void Should_configure_result_for_the_specification()
             {
                 _configuredResults.received(x => x.SetResult(_callSpecForAnyArgs, _returnValue));
+            }
+
+            [Test]
+            public void Should_move_actions_from_last_spec_to_spec_for_any_arguments()
+            {
+                _callActions.received(x => x.MoveActionsForSpecToNewSpec(_lastCallSpecification, _callSpecForAnyArgs));
             }
 
             [Test]

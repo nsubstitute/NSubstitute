@@ -6,13 +6,17 @@ namespace NSubstitute.Core
         private readonly IPendingSpecification _pendingSpecification;
         private readonly ICallResults _configuredResults;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
+        private readonly ICallActions _callActions;
 
-        public ResultSetter(ICallStack callStack, IPendingSpecification pendingSpecification, ICallResults configuredResults, ICallSpecificationFactory callSpecificationFactory)
+        public ResultSetter(ICallStack callStack, IPendingSpecification pendingSpecification,
+            ICallResults configuredResults, ICallSpecificationFactory callSpecificationFactory,
+            ICallActions callActions)
         {
             _callStack = callStack;
             _pendingSpecification = pendingSpecification;
             _configuredResults = configuredResults;
             _callSpecificationFactory = callSpecificationFactory;
+            _callActions = callActions;
         }
 
         public void SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs)
@@ -40,9 +44,16 @@ namespace NSubstitute.Core
             _configuredResults.SetResult(callSpecForReturnValue, valueToReturn);
         }
 
-        private static ICallSpecification GetCallSpecForArgMatchStrategy(ICallSpecification callSpecification, MatchArgs matchArgs)
+        ICallSpecification GetCallSpecForArgMatchStrategy(ICallSpecification callSpecification, MatchArgs matchArgs)
         {
-            return (matchArgs == MatchArgs.Any) ? callSpecification.CreateCopyThatMatchesAnyArguments() : callSpecification;
+            return matchArgs == MatchArgs.AsSpecifiedInCall ? callSpecification : UpdateCallSpecToMatchAnyArgs(callSpecification);
+        }
+
+        ICallSpecification UpdateCallSpecToMatchAnyArgs(ICallSpecification callSpecification)
+        {
+            var anyArgCallSpec = callSpecification.CreateCopyThatMatchesAnyArguments();
+            _callActions.MoveActionsForSpecToNewSpec(callSpecification, anyArgCallSpec);
+            return anyArgCallSpec;
         }
     }
 }

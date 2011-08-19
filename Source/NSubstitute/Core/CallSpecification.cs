@@ -41,7 +41,7 @@ namespace NSubstitute.Core
 
         public ICallSpecification CreateCopyThatMatchesAnyArguments()
         {
-            var anyArgs = _methodInfo.GetParameters().Select(x => new ArgumentIsAnythingSpecification(x.ParameterType)).ToArray();
+            var anyArgs = _argumentSpecifications.Select(x => new ArgumentIsAnythingSpecification(x.ForType) { Action = x.Action }).ToArray();
             return new CallSpecification(_methodInfo, anyArgs);
         }
 

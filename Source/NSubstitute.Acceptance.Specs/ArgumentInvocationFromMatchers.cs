@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -92,7 +94,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Set_return_for_any_args_but_do_not_invoke_callback_when_args_do_not_match()
+        public void Set_return_for_any_args_should_invoke_callback_when_args_do_not_match()
         {
             const int expectedReturnValue = 42;
             var sub = Substitute.For<IFoo>();
@@ -103,7 +105,7 @@ namespace NSubstitute.Acceptance.Specs
 
             var result = sub.MethodWithCallbackWithArgumentsAndReturnValue("different arg", action);
 
-            action.DidNotReceive().Invoke(1, "hello");
+            action.Received().Invoke(1, "hello");
             Assert.That(result, Is.EqualTo(expectedReturnValue));
         }
 
@@ -144,6 +146,55 @@ namespace NSubstitute.Acceptance.Specs
 
             sub.MethodWithCallbackWithArguments("something else", action);
             action.Received().Invoke(1, "hello");
+        }
+
+        [Test]
+        public void Invoke_multiple_callbacks()
+        {
+            var action = Substitute.For<Action<int, string>>();
+            var sub = Substitute.For<IFoo>();
+            sub.MethodWithCallbackWithArguments("test", Arg.Invoke(1, "hello"));
+            sub.MethodWithCallbackWithArguments("test", Arg.Invoke(2, "bye"));
+
+            sub.MethodWithCallbackWithArguments("test", action);
+
+            action.Received().Invoke(1, "hello");
+            action.Received().Invoke(2, "bye");
+            Assert.That(action.ReceivedCalls().Count(), Is.EqualTo(2));
+            sub.Received().MethodWithCallbackWithArguments("test", action);
+            Assert.That(sub.ReceivedCalls().Count(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Insanity_test()
+        {
+            var result = -1;
+            var sub = Substitute.For<IFoo>();
+            var actions = new[] { Substitute.For<Action<int, string>>(), Substitute.For<Action<int, string>>(), Substitute.For<Action<int, string>>() };
+
+            sub.WhenForAnyArgs(x => x.MethodWithCallbackWithArgumentsAndReturnValue(null, Arg.Invoke(1, "que?"))).Do(x => { });
+            sub.MethodWithCallbackWithArgumentsAndReturnValue("hello", Arg.Invoke(2, "hello")).ReturnsForAnyArgs(2);
+            sub.MethodWithCallbackWithArgumentsAndReturnValue("bye", Arg.Invoke(3, "bye")).Returns(3);
+            sub.MethodWithCallbackWithArgumentsAndReturnValue("hmm", Arg.Any<Action<int, string>>()).Returns(4);
+
+            result = sub.MethodWithCallbackWithArgumentsAndReturnValue("something else", actions[0]);
+            Assert.That(result, Is.EqualTo(2));
+            actions[0].Received().Invoke(1, "que?");
+            actions[0].Received().Invoke(2, "hello");
+            Assert.That(actions[0].ReceivedCalls().Count(), Is.EqualTo(2));
+            ClearAllCalls(actions);
+
+            result = sub.MethodWithCallbackWithArgumentsAndReturnValue("bye", actions[0]);
+            Assert.That(result, Is.EqualTo(3));
+            actions[0].Received().Invoke(1, "que?");
+            actions[0].Received().Invoke(2, "hello");
+            actions[0].Received().Invoke(3, "bye");
+            ClearAllCalls(actions);
+        }
+
+        private void ClearAllCalls(IEnumerable<object> subs)
+        {
+            foreach (var sub in subs) { sub.ClearReceivedCalls(); }
         }
     }
 }

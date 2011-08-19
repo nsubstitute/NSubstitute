@@ -7,7 +7,34 @@ namespace NSubstitute.Specs
 {
     public class CallActionsSpecs
     {
-        public class When_invoking_matching_actions_for_a_call : ConcernFor<CallActions>
+        public class Concern : ConcernFor<CallActions>
+        {
+            protected ICallInfoFactory _callInfoFactory;
+            protected ICall _call;
+            protected CallInfo _callInfo;
+
+            protected ICallSpecification CreateMatchingCallSpec()
+            {
+                var callSpec = mock<ICallSpecification>();
+                callSpec.stub(x => x.IsSatisfiedBy(_call)).Return(true);
+                return callSpec;
+            }
+
+            public override void Context()
+            {
+                _call = mock<ICall>();
+                _callInfo = new CallInfo(new Argument[0]);
+                _callInfoFactory = mock<ICallInfoFactory>();
+                _callInfoFactory.stub(x => x.Create(_call)).Return(_callInfo);
+            }
+
+            public override CallActions CreateSubjectUnderTest()
+            {
+                return new CallActions(_callInfoFactory);
+            }
+        }
+
+        public class When_invoking_matching_actions_for_a_call : Concern
         {
             private Action<CallInfo> _firstMatchingAction;
             private Action<CallInfo> _secondMatchingAction;
@@ -15,9 +42,6 @@ namespace NSubstitute.Specs
             private ICallSpecification _firstMatchingCallSpec;
             private ICallSpecification _secondMatchingCallSpec;
             private ICallSpecification _nonMatchingCallSpec;
-            private ICall _call;
-            private CallInfo _callInfo;
-            private ICallInfoFactory _callInfoFactory;
 
             [Test]
             public void Should_invoke_all_actions_that_match_call_specification()
@@ -46,10 +70,7 @@ namespace NSubstitute.Specs
 
             public override void Context()
             {
-                _call = mock<ICall>();
-                _callInfo = new CallInfo(new Argument[0]);
-                _callInfoFactory = mock<ICallInfoFactory>();
-                _callInfoFactory.stub(x => x.Create(_call)).Return(_callInfo);
+                base.Context();
 
                 _firstMatchingCallSpec = CreateMatchingCallSpec();
                 _secondMatchingCallSpec = CreateMatchingCallSpec();
@@ -59,17 +80,34 @@ namespace NSubstitute.Specs
                 _secondMatchingAction = mock<Action<CallInfo>>();
                 _nonMatchingAction = mock<Action<CallInfo>>();
             }
+        }
 
-            private ICallSpecification CreateMatchingCallSpec()
+        public class When_moving_actions_for_a_spec_to_a_new_spec : Concern
+        {
+            private ICallSpecification _initialCallSpec;
+            private ICallSpecification _newSpec;
+            private Action<CallInfo> _callMatchingInitialSpec;
+
+            [Test]
+            public void Should_invoke_based_on_new_spec()
             {
-                var callSpec = mock<ICallSpecification>();
-                callSpec.stub(x => x.IsSatisfiedBy(_call)).Return(true);
-                return callSpec;
+                sut.InvokeMatchingActions(_call);
+
+                _callMatchingInitialSpec.received(x => x.Invoke(_callInfo));
             }
 
-            public override CallActions CreateSubjectUnderTest()
+            public override void Because()
             {
-                return new CallActions(_callInfoFactory);
+                sut.Add(_initialCallSpec, _callMatchingInitialSpec);
+                sut.MoveActionsForSpecToNewSpec(_initialCallSpec, _newSpec);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _initialCallSpec = CreateMatchingCallSpec();
+                _newSpec = CreateMatchingCallSpec();
+                _callMatchingInitialSpec = mock<Action<CallInfo>>();
             }
         }
     }

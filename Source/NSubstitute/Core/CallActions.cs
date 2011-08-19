@@ -8,7 +8,7 @@ namespace NSubstitute.Core
     {
         static readonly Action<CallInfo> EmptyAction = x => { };
         readonly ICallInfoFactory _callInfoFactory;
-        readonly IList<CallAction> _actions = new List<CallAction>();
+        readonly List<CallAction> _actions = new List<CallAction>();
 
         public CallActions(ICallInfoFactory callInfoFactory)
         {
@@ -23,6 +23,14 @@ namespace NSubstitute.Core
         public void Add(ICallSpecification callSpecification)
         {
             _actions.Add(new CallAction(callSpecification, EmptyAction));
+        }
+
+        public void MoveActionsForSpecToNewSpec(ICallSpecification oldCallSpecification, ICallSpecification newCallSpecification)
+        {
+            foreach (var action in _actions.Where(x => x.IsFor(oldCallSpecification)))
+            {
+                action.UpdateCallSpecification(newCallSpecification);
+            }
         }
 
         public void InvokeMatchingActions(ICall call)
@@ -42,13 +50,15 @@ namespace NSubstitute.Core
                 _action = action;
             }
 
-            private readonly ICallSpecification _callSpecification;
+            private ICallSpecification _callSpecification;
             private readonly Action<CallInfo> _action;
             public bool IsSatisfiedBy(ICall call) { return _callSpecification.IsSatisfiedBy(call); }
             public void Invoke(CallInfo callInfo) { 
                 _action(callInfo);
                 _callSpecification.InvokePerArgumentActions(callInfo);
             }
+            public bool IsFor(ICallSpecification spec) { return _callSpecification == spec; }
+            public void UpdateCallSpecification(ICallSpecification spec) { _callSpecification = spec; }
         }
     }
 }

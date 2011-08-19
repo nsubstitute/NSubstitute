@@ -23,6 +23,7 @@ namespace NSubstitute.Core
             var pendingSpecification = new PendingSpecification();
             var callResults = new CallResults(callInfoFactory);
             var callSpecificationFactory = NewCallSpecificationFactory();
+            var callActions = new CallActions(callInfoFactory);
 
             var callFormatter = new CallFormatter(new ArgumentsFormatter(new ArgumentFormatter()));
 
@@ -34,9 +35,9 @@ namespace NSubstitute.Core
                 callResults,
                 callSpecificationFactory,
                 substituteFactory,
-                new CallActions(callInfoFactory),
+                callActions,
                 new PropertyHelper(),
-                new ResultSetter(callStack, pendingSpecification, callResults, callSpecificationFactory),
+                new ResultSetter(callStack, pendingSpecification, callResults, callSpecificationFactory, callActions),
                 new EventHandlerRegistry(),
                 new CallNotReceivedExceptionThrower(callFormatter),
                 new CallReceivedExceptionThrower(callFormatter),
