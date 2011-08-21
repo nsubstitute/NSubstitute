@@ -44,7 +44,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Indexer_with_arg_matchers()
         {
             var foo = Substitute.For<IFoo>();
