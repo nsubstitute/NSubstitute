@@ -53,7 +53,8 @@ namespace NSubstitute.Core
             private ICallSpecification _callSpecification;
             private readonly Action<CallInfo> _action;
             public bool IsSatisfiedBy(ICall call) { return _callSpecification.IsSatisfiedBy(call); }
-            public void Invoke(CallInfo callInfo) { 
+            public void Invoke(CallInfo callInfo)
+            {
                 _action(callInfo);
                 _callSpecification.InvokePerArgumentActions(callInfo);
             }

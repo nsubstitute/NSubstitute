@@ -52,6 +52,11 @@ namespace NSubstitute
             return EnqueueArgumentSpec<TDelegate>(new ArgumentIsAnythingSpecification(typeof(TDelegate)) { Action = InvokeDelegateAction(arguments) });
         }
 
+        public static T Use<T>(Action<T> useArgument)
+        {
+            return EnqueueArgumentSpec<T>(new ArgumentIsAnythingSpecification(typeof(T)) { Action = x => useArgument((T) x) });
+        }
+
         private static T EnqueueArgumentSpec<T>(IArgumentSpecification argumentSpecification)
         {
             SubstitutionContext.Current.EnqueueArgumentSpecification(argumentSpecification);
