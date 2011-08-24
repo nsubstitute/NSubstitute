@@ -66,7 +66,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Use_args_with_more_specific_type()
+        public void Use_args_when_action_requires_more_specific_type_should_only_run_action_when_arg_is_of_compatible_type()
         {
             string stringArg = null;
             _sub.Zap(Arg.Use<string>(arg => stringArg = arg));
@@ -88,6 +88,17 @@ namespace NSubstitute.Acceptance.Specs
 
             _sub.Zap("hello");
             Assert.That(stringArgLength, Is.EqualTo("hello".Length));
+        }
+
+        [Test]
+        public void Override_use_subclass_with_returns_for_any_args()
+        {
+            var stringArgLength = 0;
+            _sub.Zap(Arg.Use<string>(arg => stringArgLength = arg.Length)).ReturnsForAnyArgs(1);
+
+            var result = _sub.Zap(new object());
+            Assert.That(stringArgLength, Is.EqualTo(0));
+            Assert.That(result, Is.EqualTo(1));
         }
     }
 }

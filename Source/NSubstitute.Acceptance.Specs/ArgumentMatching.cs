@@ -167,6 +167,14 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Anything(2), Is.EqualTo(0));
         }
 
+        [Test]
+        public void Override_subclass_arg_matcher_when_returning_for_any_args()
+        {
+            _something.Anything(Arg.Any<string>()).ReturnsForAnyArgs(123);
+
+            Assert.That(_something.Anything(new object()), Is.EqualTo(123));
+        }
+
         [SetUp]
         public void SetUp()
         {
