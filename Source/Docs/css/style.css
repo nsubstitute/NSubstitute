@@ -141,6 +141,7 @@ a:active { color: #000000; text-decoration: underline;}
 li.github { list-style-image: url(/images/github-16x16.png); }
 li.nsubstitute { list-style-image: url(/images/nsubstitute-16x16.png); }
 li.nuget { list-style-image: url(/images/nuget-16x16.png); }
+li.teamcity { list-style-image: url(/images/teamcity-16x16.png); }
 
 div.highlight {
   border: 1px solid #AAAAAA;

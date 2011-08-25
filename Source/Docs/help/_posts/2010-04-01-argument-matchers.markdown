@@ -10,8 +10,15 @@ public interface ICalculator {
     int Add(int a, int b);
     int Subtract(int a, int b);
 }
+public interface IFormatter {
+  string Format(object o);
+}
 ICalculator calculator;
-[SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
+IFormatter formatter;
+[SetUp] public void SetUp() { 
+    calculator = Substitute.For<ICalculator>(); 
+    formatter = Substitute.For<IFormatter>();
+}
 {% endrequiredcode %}
 
 ## Ignoring arguments
@@ -27,6 +34,17 @@ Assert.AreNotEqual(7, calculator.Add(1, 7));
 
 In this example we return `7` when adding any number to `5`. We use `Arg.Any<int>()` to tell NSubstitute to ignore the first argument.
 
+We can also use this to match any argument of a specific sub-type.
+
+{% examplecode csharp %}
+formatter.Format(new object());
+formatter.Format("some string");
+
+formatter.Received().Format(Arg.Any<object>());
+formatter.Received().Format(Arg.Any<string>());
+formatter.DidNotReceive().Format(Arg.Any<int>());
+{% endexamplecode %}
+
 ## Conditionally matching an argument
 An argument of type `T` can be conditionally matched using `Arg.Is<T>(Predicate<T> condition)`.
 
@@ -41,6 +59,18 @@ calculator
     .Add(1, Arg.Is<int>(x => new[] {-2,-5,-10}.Contains(x)));
 //Did not receive call with first arg greater than 10:
 calculator.DidNotReceive().Add(Arg.Is<int>(x => x > 10), -10);
+{% endexamplecode %}
+
+If the condition throws an exception for an argument, then it will be assumed that the argument does not match. The exception itself will be swallowed.
+
+{% examplecode csharp %}
+formatter.Format(Arg.Is<string>(x => x.Length <= 10)).Returns("matched");
+
+Assert.AreEqual("matched", formatter.Format("short"));
+Assert.AreNotEqual("matched", formatter.Format("not matched, too long"));
+// Will not match because trying to access .Length on null will throw an exception when testing
+// our condition. NSubstitute will assume it does not match and swallow the exception.
+Assert.AreNotEqual("matched", formatter.Format(null));
 {% endexamplecode %}
 
 ## Matching a specific argument

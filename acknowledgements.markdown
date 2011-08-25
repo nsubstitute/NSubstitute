@@ -44,6 +44,9 @@ Used for combining assemblies so NSubstitute can be distributed as a single DLL.
 ## Microsoft Reactive Extensions for .NET (Rx) [http://msdn.microsoft.com/en-us/devlabs/ee794896]
 Used to provide .NET 3.5 with some of the neat concurrency helper classes that ship with out of the box with .NET 4.0. Distributed under a EULA [http://msdn.microsoft.com/en-us/devlabs/ff394099].
 
+## 7-Zip [http://www.7-zip.org/]
+7-zip is used to ZIP up NSubstitute distributions as part of the automated build process. Distributed under a mixed GNU LGPL / unRAR licence [http://www.7-zip.org/license.txt].
+
 # Other acknowledgements
 
 ## Software developers
