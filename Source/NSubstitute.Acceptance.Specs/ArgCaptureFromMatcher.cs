@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
 {
-    public class ArgUseFromMatcher
+    public class ArgCaptureFromMatcher
     {
         private readonly object _someObject = new object();
         private IFoo _sub;
@@ -21,10 +21,10 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Should_use_argument_as_directed_and_if_pain_persists_see_your_coder()
+        public void Should_capture_argument_as_directed_and_if_pain_persists_see_your_coder()
         {
             string stringArg = null;
-            _sub.Bar(Arg.Use<string>(x => stringArg = x), 1, _someObject);
+            _sub.Bar(Arg.Capture<string>(x => stringArg = x), 1, _someObject);
 
             _sub.Bar("hello world", 1, _someObject);
 
@@ -32,10 +32,10 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Setting_a_use_of_an_argument_should_not_count_as_a_call()
+        public void Setting_an_argument_capture_should_not_count_as_a_call()
         {
             string stringArg = null;
-            _sub.Bar(Arg.Use<string>(x => stringArg = x), 1, _someObject);
+            _sub.Bar(Arg.Capture<string>(x => stringArg = x), 1, _someObject);
 
             _sub.DidNotReceiveWithAnyArgs().Bar(null, 0, null);
             Assert.That(stringArg, Is.Null);
@@ -45,7 +45,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Should_call_action_with_each_matching_call()
         {
             var stringArgs = new List<string>();
-            _sub.Bar(Arg.Use<string>(x => stringArgs.Add(x)), 1, _someObject);
+            _sub.Bar(Arg.Capture<string>(x => stringArgs.Add(x)), 1, _someObject);
 
             _sub.Bar("hello", 1, _someObject);
             _sub.Bar("world", 1, _someObject);
@@ -55,10 +55,10 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Use_args_with_when_for_any_args()
+        public void Capture_args_with_when_for_any_args()
         {
             string stringArg = null;
-            _sub.WhenForAnyArgs(x => x.Bar(Arg.Use<string>(arg => stringArg = arg), 1, _someObject)).Do(x => { });
+            _sub.WhenForAnyArgs(x => x.Bar(Arg.Capture<string>(arg => stringArg = arg), 1, _someObject)).Do(x => { });
 
             _sub.Bar("hello world", 42, null);
 
@@ -66,10 +66,10 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Use_args_when_action_requires_more_specific_type_should_only_run_action_when_arg_is_of_compatible_type()
+        public void Capture_args_when_action_requires_more_specific_type_should_only_run_action_when_arg_is_of_compatible_type()
         {
             string stringArg = null;
-            _sub.Zap(Arg.Use<string>(arg => stringArg = arg));
+            _sub.Zap(Arg.Capture<string>(arg => stringArg = arg));
 
             _sub.Zap("hello world");
             _sub.Zap(new object());
@@ -78,10 +78,10 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Use_args_with_returns_for_any_args()
+        public void Capture_args_with_returns_for_any_args()
         {
             var stringArgLength = 0;
-            _sub.Zap(Arg.Use<string>(arg => stringArgLength = arg.Length)).ReturnsForAnyArgs(1);
+            _sub.Zap(Arg.Capture<string>(arg => stringArgLength = arg.Length)).ReturnsForAnyArgs(1);
 
             _sub.Zap(new object());
             Assert.That(stringArgLength, Is.EqualTo(0));
@@ -91,10 +91,10 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Override_use_subclass_with_returns_for_any_args()
+        public void Override_capture_subclass_with_returns_for_any_args()
         {
             var stringArgLength = 0;
-            _sub.Zap(Arg.Use<string>(arg => stringArgLength = arg.Length)).ReturnsForAnyArgs(1);
+            _sub.Zap(Arg.Capture<string>(arg => stringArgLength = arg.Length)).ReturnsForAnyArgs(1);
 
             var result = _sub.Zap(new object());
             Assert.That(stringArgLength, Is.EqualTo(0));

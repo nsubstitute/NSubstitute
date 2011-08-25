@@ -171,7 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentInvocationFromMatchers.cs" />
-    <Compile Include="ArgUseFromMatcher.cs" />
+    <Compile Include="ArgCaptureFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
     <Compile Include="CallNotReceivedExceptions.cs" />
     <Compile Include="ClearCalls.cs" />
