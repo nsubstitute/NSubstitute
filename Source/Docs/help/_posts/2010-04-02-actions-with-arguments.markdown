@@ -65,9 +65,9 @@ Here we setup the `processor` to invoke the callback whenever processing an orde
 
 There are several overloads to `Arg.Invoke` that let us invoke callbacks with varying numbers and types of arguments. We can also invoke custom delegate types (those that are not just simple `Action` delegates) using `Arg.InvokeDelegate`.
 
-## Capturing arguments
+## Performing actions with arguments
 
-Sometimes we may not want to invoke a callback immediately. Or maybe we want to capture all instances of a particular argument passed to a method. Or even just capture a single argument for inspection later. We can use `Arg.Capture` for these purposes.
+Sometimes we may not want to invoke a callback immediately. Or maybe we want to store all instances of a particular argument passed to a method. Or even just capture a single argument for inspection later. We can use `Arg.Do` for these purposes. `Arg.Do` calls the action we give it with the argument used for each matching call.
 
 {% requiredcode %}
 public interface ICalculator { int Multiply(int a, int b); }
@@ -77,27 +77,27 @@ ICalculator calculator;
 
 {% examplecode csharp %}
 var argumentUsed = 0;
-calculator.Multiply(Arg.Any<int>(), Arg.Capture<int>(x => argumentUsed = x));
+calculator.Multiply(Arg.Any<int>(), Arg.Do<int>(x => argumentUsed = x));
 
 calculator.Multiply(123, 42);
 
 Assert.AreEqual(42, argumentUsed);
 {% endexamplecode %}
 
-Here we specify that a call to `Multiple` with any first argument should capture the second argument and put it in the `argumentUsed` variable. This can be quite useful when we want to assert several properties on an argument (for types more complex than `int` that is).
+Here we specify that a call to `Multiple` with any first argument should pass the second argument and put it in the `argumentUsed` variable. This can be quite useful when we want to assert several properties on an argument (for types more complex than `int` that is).
 
 {% examplecode csharp %}
 var firstArgsBeingMultiplied = new List<int>();
-calculator.Multiply(Arg.Capture<int>(x => firstArgsBeingMultiplied.Add(x)), 10);
+calculator.Multiply(Arg.Do<int>(x => firstArgsBeingMultiplied.Add(x)), 10);
 
 calculator.Multiply(2, 10);
 calculator.Multiply(5, 10);
-calculator.Multiply(7, 4567); //Will not match our Arg.Capture as second arg is not 10
+calculator.Multiply(7, 4567); //Will not match our Arg.Do as second arg is not 10
 
 Assert.AreEqual(firstArgsBeingMultiplied, new[] { 2, 5 });
 {% endexamplecode %}
 
-Here our `Arg.Capture` takes whatever `int` is passed as the first argument to `Multiply` and adds it to a list whenever the second argument is 10.
+Here our `Arg.Do` takes whatever `int` is passed as the first argument to `Multiply` and adds it to a list whenever the second argument is 10.
 
 ## Argument actions and call specification
 
@@ -106,12 +106,12 @@ Argument actions act just like the [`Arg.Any<T>()` argument matcher](/help/argum
 {% examplecode csharp %}
 var numberOfCallsWhereFirstArgIsLessThan0 = 0;
 //Specify a call where the first arg is less than 0, and the second is any int.
-//When this specification is met we'll capture the second argument that was used for the call,
-//and we'll also make it return 123.
+//When this specification is met we'll increment a counter in the Arg.Do action for 
+//the second argument that was used for the call, and we'll also make it return 123.
 calculator
     .Multiply(
         Arg.Is<int>(x => x < 0), 
-        Arg.Capture<int>(x => numberOfCallsWhereFirstArgIsLessThan0++)
+        Arg.Do<int>(x => numberOfCallsWhereFirstArgIsLessThan0++)
     ).Returns(123);
 
 var results = new[] {

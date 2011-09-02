@@ -5,6 +5,9 @@ using NSubstitute.Core.Arguments;
 
 namespace NSubstitute
 {
+    /// <summary>
+    /// Argument matchers used for specifying calls to substitutes.
+    /// </summary>
     public static class Arg
     {
         /// <summary>
@@ -123,7 +126,7 @@ namespace NSubstitute
         /// <typeparam name="T"></typeparam>
         /// <param name="useArgument"></param>
         /// <returns></returns>
-        public static T Capture<T>(Action<T> useArgument)
+        public static T Do<T>(Action<T> useArgument)
         {
             return EnqueueArgumentSpec<T>(new ArgumentIsAnythingSpecification(typeof(T)) { Action = x => useArgument((T) x) });
         }

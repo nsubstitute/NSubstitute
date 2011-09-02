@@ -1,5 +1,5 @@
 unreleased changes
-* [NEW] Arg.Capture() syntax for capturing arguments passed to a method and performing some action with them whenever the method is called.
+* [NEW] Arg.Do() syntax for capturing arguments passed to a method and performing some action with them whenever the method is called.
 * [NEW] Arg.Invoke() syntax for invoking callbacks passed as arguments to a method whenever the method is called.
 * [FIX] Property behaviour for indexed properties (Issue #53)
 * [UPDATE] [BREAKING] Auto-substitute for pure virtual classes, including common ASP.NET web abstractions. Use .Returns(x=>null) to explicitly return null from these members if required. Thanks to Tatham Oddie for original idea and patch, and Krzysztof Kozmic for suggesting and defining which classes would be safe to automatically proxy.
