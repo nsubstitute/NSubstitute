@@ -69,3 +69,9 @@ var result = calculator.Add(1, 2);
 Assert.AreEqual(3, result);
 Assert.AreEqual(1, counter);
 {% endexamplecode %}
+
+## Per argument callbacks
+
+In cases where we only need callbacks for a particular argument we may be able to use [per argument callbacks like `Arg.Do()` and `Arg.Invoke()`](/help/actions-with-arguments) instead of `When..Do`. 
+
+Argument callbacks give us slightly more concise code in a style that is more in keeping with the rest of the NSubstitute API. See [Actions with arguments](/help/actions-with-arguments) for more information and examples.
