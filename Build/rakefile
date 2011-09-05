@@ -9,7 +9,7 @@ ZIP_EXE = File.expand_path "../ThirdParty/7z/7z.exe"
 SOURCE_PATH = File.expand_path "../Source"
 OUTPUT_PATH = File.expand_path "../Output"
 
-ALL_TARGETS = ["NET35", "NET40", "SL40"]
+ALL_TARGETS = ["NET35", "NET40"]
 
 ENV["config"] = "Debug" if ENV["config"].nil?
 ENV["target"] = ALL_TARGETS.first if ENV["target"].nil?
