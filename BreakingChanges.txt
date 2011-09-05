@@ -1,5 +1,5 @@
 ================================================================================================
-Unreleased
+1.2.0 Release
 ================================================================================================
 
 Auto-substitute for pure virtual classes (in addition to interfaces and delegate types), which
