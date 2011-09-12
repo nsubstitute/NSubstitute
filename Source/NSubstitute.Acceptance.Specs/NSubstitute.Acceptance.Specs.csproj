@@ -186,6 +186,7 @@
     <Compile Include="FieldReports\Issue33_RaisingINotifyPropertyChangedEvents.cs" />
     <Compile Include="FieldReports\Issue45_CallInfoArgAccessFailsForNull.cs" />
     <Compile Include="FieldReports\Issue47_RaisingEventsWithNullArg.cs" />
+    <Compile Include="FieldReports\Issue57_SettingVirtualPropertyInCtor.cs" />
     <Compile Include="FieldReports\SubbingSynchronizationContext.cs" />
     <Compile Include="MultipleThreads.cs" />
     <Compile Include="IgnoreTestForSilverlightAttribute.cs" />

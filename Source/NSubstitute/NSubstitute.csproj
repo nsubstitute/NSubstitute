@@ -302,7 +302,6 @@
     <Compile Include="Routing\Handlers\PropertySetterHandler.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs" />
-    <Compile Include="Proxies\CastleDynamicProxy\CastleInterceptorFactory.cs" />
     <Compile Include="Proxies\CastleDynamicProxy\CastleInvocationMapper.cs" />
     <Compile Include="Raise.cs" />
     <Compile Include="Routing\Handlers\ReturnConfiguredResultHandler.cs" />

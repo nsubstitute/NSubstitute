@@ -12,15 +12,13 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
     public class CastleDynamicProxyFactory : IProxyFactory
     {
         readonly ProxyGenerator _proxyGenerator;
-        readonly CastleInterceptorFactory _interceptorFactory;
         readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook;
 
-        public CastleDynamicProxyFactory(CastleInterceptorFactory interceptorFactory)
+        public CastleDynamicProxyFactory()
         {
             ConfigureDynamicProxyToAvoidReplicatingProblematicAttributes();
 
             _proxyGenerator = new ProxyGenerator();
-            _interceptorFactory = interceptorFactory;
             _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
         }
 
@@ -28,15 +26,24 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         {
             VerifyClassHasNotBeenPassedAsAnAdditionalInterface(additionalInterfaces);
 
-            var interceptor = _interceptorFactory.CreateForwardingInterceptor(callRouter);
+            var interceptor = new CastleForwardingInterceptor(new CastleInvocationMapper(), callRouter);
             var proxyGenerationOptions = GetOptionsToMixinCallRouter(callRouter);
+            var proxy = CreateProxyUsingCastleProxyGenerator(typeToProxy, additionalInterfaces, constructorArguments, interceptor, proxyGenerationOptions);
+            interceptor.StartIntercepting();
+            return proxy;
+        }
+
+        private object CreateProxyUsingCastleProxyGenerator(Type typeToProxy, Type[] additionalInterfaces,
+                                                            object[] constructorArguments,
+                                                            IInterceptor interceptor,
+                                                            ProxyGenerationOptions proxyGenerationOptions)
+        {
             if (typeToProxy.IsInterface)
             {
                 VerifyNoConstructorArgumentsGivenForInterface(constructorArguments);
                 return _proxyGenerator.CreateInterfaceProxyWithoutTarget(typeToProxy, additionalInterfaces, proxyGenerationOptions, interceptor);
             }
             return _proxyGenerator.CreateClassProxy(typeToProxy, additionalInterfaces, proxyGenerationOptions, constructorArguments, interceptor);
-
         }
 
         private ProxyGenerationOptions GetOptionsToMixinCallRouter(ICallRouter callRouter)

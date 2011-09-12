@@ -1,4 +1,5 @@
 unreleased changes
+* [FIX] Calls to virtual methods from constructors of classes being substituted for are no longer recorded, to prevent non-obvious behaviour when calling Returns() on an auto-substituted value. (#57)
 * [NEW] Silverlight 4 support
 
 1.2.0 (Sep 2011)

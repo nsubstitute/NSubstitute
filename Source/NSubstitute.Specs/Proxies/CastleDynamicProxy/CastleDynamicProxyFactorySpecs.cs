@@ -69,7 +69,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
 
             public override CastleDynamicProxyFactory CreateSubjectUnderTest()
             {
-                return new CastleDynamicProxyFactory(new CastleInterceptorFactory());
+                return new CastleDynamicProxyFactory();
             }
 
             private bool CallWasToMethodNamed(ICall call, string methodName)
@@ -125,7 +125,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             [Test]
             public void Should_throw_exception_as_proxies_should_not_inherit_from_multiple_concrete_classes()
             {
-                var sut = new CastleDynamicProxyFactory(new CastleInterceptorFactory());
+                var sut = new CastleDynamicProxyFactory();
 
                 Assert.Throws<SubstituteException>(
                     () => sut.GenerateProxy(mock<ICallRouter>(), typeof(Foo), new[] { typeof(IFoo), typeof(SomeOtherClass) }, null)
@@ -140,7 +140,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             [Test]
             public void Should_throw_exception()
             {
-                var sut = new CastleDynamicProxyFactory(new CastleInterceptorFactory());
+                var sut = new CastleDynamicProxyFactory();
 
                 Assert.Throws<SubstituteException>(
                     () => sut.GenerateProxy(mock<ICallRouter>(), typeof(IFoo), null, new[] { new object() }));

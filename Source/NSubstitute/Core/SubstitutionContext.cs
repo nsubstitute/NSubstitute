@@ -26,8 +26,7 @@ namespace NSubstitute.Core
         SubstitutionContext()
         {
             var callRouterFactory = new CallRouterFactory();
-            var interceptorFactory = new CastleInterceptorFactory();
-            var dynamicProxyFactory = new CastleDynamicProxyFactory(interceptorFactory);
+            var dynamicProxyFactory = new CastleDynamicProxyFactory();
             var delegateFactory = new DelegateProxyFactory();
             var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
             var callRouteResolver = new CallRouterResolver();
