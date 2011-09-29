@@ -17,7 +17,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static T Any<T>()
         {
-            return EnqueueArgumentSpec<T>(new ArgumentIsAnythingSpecification(typeof(T)));
+            return EnqueueArgumentSpec<T>(new AnyArgumentMatcher(typeof(T)));
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static T Is<T>(T value)
         {
-            return EnqueueArgumentSpec<T>(new ArgumentEqualsSpecification(value, typeof(T)));
+            return EnqueueArgumentSpec<T>(new EqualArgumentMatcher(value));
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static T Is<T>(Expression<Predicate<T>> predicate)
         {
-            return EnqueueArgumentSpec<T>(new ArgumentMatchesSpecification<T>(predicate));
+            return EnqueueArgumentSpec<T>(new ExpressionArgumentMatcher<T>(predicate));
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static Action Invoke()
         {
-            return EnqueueArgumentSpec<Action>(new ArgumentIsAnythingSpecification(typeof(Action)) { Action = InvokeDelegateAction() });
+            return EnqueueArgumentSpec<Action>(new AnyArgumentMatcher(typeof(Action)), InvokeDelegateAction());
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static Action<T> Invoke<T>(T arg)
         {
-            return EnqueueArgumentSpec<Action<T>>(new ArgumentIsAnythingSpecification(typeof(Action<T>)) { Action = InvokeDelegateAction(arg) });
+            return EnqueueArgumentSpec<Action<T>>(new AnyArgumentMatcher(typeof(Action<T>)), InvokeDelegateAction(arg));
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static Action<T1, T2> Invoke<T1, T2>(T1 arg1, T2 arg2)
         {
-            return EnqueueArgumentSpec<Action<T1, T2>>(new ArgumentIsAnythingSpecification(typeof(Action<T1, T2>)) { Action = InvokeDelegateAction(arg1, arg2) });
+            return EnqueueArgumentSpec<Action<T1, T2>>(new AnyArgumentMatcher(typeof(Action<T1, T2>)), InvokeDelegateAction(arg1, arg2));
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static Action<T1, T2, T3> Invoke<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3)
         {
-            return EnqueueArgumentSpec<Action<T1, T2, T3>>(new ArgumentIsAnythingSpecification(typeof(Action<T1, T2, T3>)) { Action = InvokeDelegateAction(arg1, arg2, arg3) });
+            return EnqueueArgumentSpec<Action<T1, T2, T3>>(new AnyArgumentMatcher(typeof(Action<T1, T2, T3>)), InvokeDelegateAction(arg1, arg2, arg3));
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static Action<T1, T2, T3, T4> Invoke<T1, T2, T3, T4>(T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
-            return EnqueueArgumentSpec<Action<T1, T2, T3, T4>>(new ArgumentIsAnythingSpecification(typeof(Action<T1, T2, T3, T4>)) { Action = InvokeDelegateAction(arg1, arg2, arg3, arg3) });
+            return EnqueueArgumentSpec<Action<T1, T2, T3, T4>>(new AnyArgumentMatcher(typeof(Action<T1, T2, T3, T4>)), InvokeDelegateAction(arg1, arg2, arg3, arg3));
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static TDelegate InvokeDelegate<TDelegate>(params object[] arguments)
         {
-            return EnqueueArgumentSpec<TDelegate>(new ArgumentIsAnythingSpecification(typeof(TDelegate)) { Action = InvokeDelegateAction(arguments) });
+            return EnqueueArgumentSpec<TDelegate>(new AnyArgumentMatcher(typeof(TDelegate)), InvokeDelegateAction(arguments));
         }
 
         /// <summary>
@@ -128,7 +128,17 @@ namespace NSubstitute
         /// <returns></returns>
         public static T Do<T>(Action<T> useArgument)
         {
-            return EnqueueArgumentSpec<T>(new ArgumentIsAnythingSpecification(typeof(T)) { Action = x => useArgument((T) x) });
+            return EnqueueArgumentSpec<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T)x));
+        }
+
+        private static T EnqueueArgumentSpec<T>(IArgumentMatcher matcher, Action<object> action)
+        {
+            return EnqueueArgumentSpec<T>(new MatcherArgumentSpecification(typeof(T), matcher) { Action = action });
+        }
+
+        private static T EnqueueArgumentSpec<T>(IArgumentMatcher matcher)
+        {
+            return EnqueueArgumentSpec<T>(new MatcherArgumentSpecification(typeof(T), matcher));
         }
 
         private static T EnqueueArgumentSpec<T>(IArgumentSpecification argumentSpecification)

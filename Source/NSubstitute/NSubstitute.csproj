@@ -181,12 +181,16 @@
   <ItemGroup>
     <Compile Include="Arg.cs" />
     <Compile Include="Core\Argument.cs" />
+    <Compile Include="Core\Arguments\AnyArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\ArgumentsFormatter.cs" />
     <Compile Include="Core\Arguments\ArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\ArrayArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\Arguments\ArrayContentsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\DefaultChecker.cs" />
+    <Compile Include="Core\Arguments\EqualArgumentMatcher.cs" />
+    <Compile Include="Core\Arguments\ExpressionArgumentMatcher.cs" />
+    <Compile Include="Core\Arguments\IArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\IArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\IArrayArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\Arguments\IArrayContentsArgumentSpecificationFactory.cs" />
