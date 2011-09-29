@@ -4,4 +4,9 @@ namespace NSubstitute.Core.Arguments
     {
         bool IsSatisfiedBy(object argument);
     }
+
+    public interface IArgumentMatcher<T>
+    {
+        bool IsSatisfiedBy(T argument);
+    }
 }

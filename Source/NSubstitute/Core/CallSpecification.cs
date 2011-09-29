@@ -65,7 +65,8 @@ namespace NSubstitute.Core
 
         private IArgumentSpecification ConvertArgSpecToMatchAnyInstanceOfParameterType(ParameterInfo parameter, IArgumentSpecification spec)
         {
-            return new ArgumentIsAnythingSpecification(parameter.ParameterType)
+            var requiredType = parameter.ParameterType;
+            return new ArgumentSpecification(requiredType, new AnyArgumentMatcher(requiredType))
             {
                 Action = x => RunActionIfTypeIsCompatible(x, spec.Action, spec.ForType)
             };

@@ -77,10 +77,19 @@ namespace NSubstitute.Specs.Arguments
             {
                 for (int i = 0; i < _mixedArgumentSpecifications.Count(); i++)
                 {
-                    Assert.That(_result.ElementAt(i), Is.TypeOf(typeof(ArgumentIsAnythingSpecification)));
-                    Assert.That(_result.ElementAt(i).ForType, Is.EqualTo(_mixedArgumentSpecifications[i].ForType), "Result should be for same arg type");
-                    Assert.That(_result.ElementAt(i).Action, Is.EqualTo(_mixedArgumentSpecifications[i].Action), "Result should have same specified action");
+                    var argSpec = _result.ElementAt(i);
+                    Assert.That(argSpec.IsSatisfiedBy(GetAnyValueFor(argSpec.ForType)), "Result should match any argument of compatible type");
+                    Assert.That(argSpec.ForType, Is.EqualTo(_mixedArgumentSpecifications[i].ForType), "Result should be for same arg type");
+                    Assert.That(argSpec.Action, Is.EqualTo(_mixedArgumentSpecifications[i].Action), "Result should have same specified action");
                 }
+            }
+
+            private object GetAnyValueFor(Type t)
+            {
+                if (t == typeof(string)) return "sample value";
+                if (t == typeof(int)) return 123423;
+                throw new ArgumentOutOfRangeException("Was not expecting type " + t.Name + ". If you added another argument specification " +
+                    "for this type to the fixture context you'll also need to provide a sample value for it.");
             }
 
             private IArgumentSpecification CreateSpecWith(Type type, Action<object> action)

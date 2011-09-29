@@ -185,10 +185,12 @@
     <Compile Include="Core\Arguments\ArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\ArgumentsFormatter.cs" />
     <Compile Include="Core\Arguments\ArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\ArgumentSpecificationQueue.cs" />
     <Compile Include="Core\Arguments\ArrayArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\Arguments\ArrayContentsArgumentSpecification.cs" />
     <Compile Include="Core\Arguments\ArrayContentsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\DefaultChecker.cs" />
-    <Compile Include="Core\Arguments\EqualArgumentMatcher.cs" />
+    <Compile Include="Core\Arguments\EqualsArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ExpressionArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\IArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\IArgumentSpecificationFactory.cs" />

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -50,6 +48,12 @@ namespace NSubstitute.Specs.Arguments
         public void Should_return_correct_forType()
         {
             Assert.That(sut.ForType, Is.EqualTo(_forType));
+        }
+
+        [Test]
+        public void Should_initialise_action()
+        {
+            Assert.That(sut.Action, Is.Not.Null);
         }
 
         public override void Context()

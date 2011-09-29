@@ -6,7 +6,7 @@ namespace NSubstitute.Core.Arguments
     {
         public IArgumentSpecification Create(object value, Type forType)
         {
-            return new ArgumentEqualsSpecification(value, forType);
+            return new ArgumentSpecification(forType, new EqualsArgumentMatcher(value));
         }
     }
 }
