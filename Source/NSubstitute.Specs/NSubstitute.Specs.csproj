@@ -305,6 +305,7 @@
     <ItemGroup>
       <Dependencies Include="$(SilverlightLibraryPath)\System.dll" />
       <Dependencies Include="$(SilverlightLibraryPath)\System.Core.dll" />
+      <Dependencies Include="$(SilverlightLibraryPath)\System.ServiceModel.dll" />
       <Dependencies Include="$(SilverlightLibraryPath)\System.Xml.dll" />
       <Dependencies Include="$(SilverlightLibraryPath)\mscorlib.dll" />
     </ItemGroup>

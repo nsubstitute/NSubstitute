@@ -88,6 +88,8 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             AttributesToAvoidReplicating.Add<SecurityPermissionAttribute>();
 #pragma warning restore 618
 
+            AttributesToAvoidReplicating.Add<System.ServiceModel.ServiceContractAttribute>();
+
 #if !SILVERLIGHT
             AttributesToAvoidReplicating.Add<ReflectionPermissionAttribute>();
             AttributesToAvoidReplicating.Add<PermissionSetAttribute>();
