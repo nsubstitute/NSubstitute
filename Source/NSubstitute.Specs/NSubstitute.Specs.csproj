@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentSpecs.cs" />
+    <Compile Include="Arguments\ArgumentSpecificationSpecs.cs" />
     <Compile Include="Arguments\EqualsArgumentMatcherSpecs.cs" />
     <Compile Include="Arguments\ExpressionArgumentMatchersSpecs.cs" />
     <Compile Include="Arguments\ArgumentsFormatterSpecs.cs" />

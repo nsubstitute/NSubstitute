@@ -1,6 +1,5 @@
 using System;
 using NSubstitute.Core;
-using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs
