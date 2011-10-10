@@ -1,3 +1,6 @@
+unreleased changes
+* [NEW] Silverlight 4 support
+
 1.2.1 (Oct 2011)
 * [FIX] Some combinations of Arg.Do and Returns() caused incorrect values to be returned. (#59)
 * [UPDATE] WCF ServiceContractAttribute no longer applied to proxies. (#60)
