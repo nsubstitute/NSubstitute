@@ -5,5 +5,6 @@
         bool HasPendingCallSpec();
         ICallSpecification UseCallSpec();
         void Set(ICallSpecification callSpecification);
+        void Clear();
     }
 }

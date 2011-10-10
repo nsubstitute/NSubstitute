@@ -228,6 +228,7 @@
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
     <Compile Include="Routing\AutoValues\IAutoValueProvider.cs" />
     <Compile Include="Routing\Definitions\RecordCallSpecificationRoute.cs" />
+    <Compile Include="Routing\Handlers\ClearUnusedCallSpecHandler.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
     <Compile Include="Routing\Handlers\RecordCallSpecificationHandler.cs" />
     <Compile Include="Routing\IRouteDefinition.cs" />

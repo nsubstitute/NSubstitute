@@ -49,6 +49,13 @@ namespace NSubstitute.Specs
                 Assert.That(sut.HasPendingCallSpec(), Is.False);
             }
 
+            [Test]
+            public void Should_not_have_a_spec_after_it_is_cleared()
+            {
+                sut.Clear();
+                Assert.That(sut.HasPendingCallSpec(), Is.False);
+            }
+
             public override void Because()
             {
                 sut.Set(_callSpec);

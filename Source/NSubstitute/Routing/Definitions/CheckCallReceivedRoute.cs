@@ -8,7 +8,10 @@ namespace NSubstitute.Routing.Definitions
     {
         public IEnumerable<Type> HandlerTypes
         {
-            get { return new[] {typeof (CheckReceivedCallHandler), typeof (ReturnDefaultForReturnTypeHandler)}; }
+            get { return new[] {
+                    typeof (ClearUnusedCallSpecHandler),
+                    typeof (CheckReceivedCallHandler), 
+                    typeof (ReturnDefaultForReturnTypeHandler)}; }
         }
     }
 }

@@ -12,8 +12,11 @@ namespace NSubstitute.Routing.Definitions
             {
                 return new[]
                            { 
-                               typeof (RecordCallHandler), typeof (EventSubscriptionHandler), 
-                               typeof (PropertySetterHandler), typeof (DoActionsCallHandler),
+                               typeof (ClearUnusedCallSpecHandler),
+                               typeof (RecordCallHandler), 
+                               typeof (EventSubscriptionHandler), 
+                               typeof (PropertySetterHandler), 
+                               typeof (DoActionsCallHandler),
                                typeof (ReturnConfiguredResultHandler), 
                                typeof (ReturnAutoValueForThisAndSubsequentCallsHandler), 
                                typeof (ReturnDefaultForReturnTypeHandler)

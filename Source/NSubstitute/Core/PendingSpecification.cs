@@ -16,6 +16,11 @@ namespace NSubstitute.Core
             return specToUse;
         }
 
+        public void Clear()
+        {
+            UseCallSpec();
+        }
+
         public void Set(ICallSpecification callSpecification)
         {
             _pendingSpec = callSpecification;

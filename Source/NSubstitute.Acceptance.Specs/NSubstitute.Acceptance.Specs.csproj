@@ -177,6 +177,7 @@
     <Compile Include="ClearCalls.cs" />
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />
+    <Compile Include="FieldReports\Issue59_ArgDoWithReturns.cs" />
     <Compile Include="FieldReports\Issue61_ArgAnyStringRegression.cs" />
     <Compile Include="FieldReports\ArgMatchingWithNestedSubCalls.cs" />
     <Compile Include="FieldReports\ArgMatchingWithValueTypeArgSpecsForObjectArguments.cs" />
