@@ -1,4 +1,7 @@
 unreleased changes
+* [FIX] Some combinations of Arg.Do and Returns() caused incorrect values to be returned. (#59)
+* [UPDATE] WCF ServiceContractAttribute no longer applied to proxies. (#60)
+* [FIX] Passing null could cause argument actions to fail. (#61)
 * [FIX] Calls to virtual methods from constructors of classes being substituted for are no longer recorded, to prevent non-obvious behaviour when calling Returns() on an auto-substituted value. (#57)
 * [NEW] Silverlight 4 support
 
