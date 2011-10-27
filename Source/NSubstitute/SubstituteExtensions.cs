@@ -57,6 +57,13 @@ namespace NSubstitute
             return substitute;
         }
 
+        public static T Received<T>(this T substitute, int expectedCount) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.SetRoute<CheckCallReceivedExactlyRoute>(MatchArgs.AsSpecifiedInCall, expectedCount);
+            return substitute;
+        }
+
         public static T DidNotReceive<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
@@ -68,6 +75,13 @@ namespace NSubstitute
         {
             var router = GetRouterForSubstitute(substitute);
             router.SetRoute<CheckCallReceivedRoute>(MatchArgs.Any);
+            return substitute;
+        }
+
+        public static T ReceivedWithAnyArgs<T>(this T substitute, int expectedCount) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.SetRoute<CheckCallReceivedExactlyRoute>(MatchArgs.Any, expectedCount);
             return substitute;
         }
         
