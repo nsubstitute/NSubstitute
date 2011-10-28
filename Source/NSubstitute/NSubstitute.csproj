@@ -202,6 +202,8 @@
     <Compile Include="Core\Arguments\SuppliedArgumentSpecifications.cs" />
     <Compile Include="Core\Arguments\SuppliedArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\CallFactory.cs" />
+    <Compile Include="Core\CallNotReceivedExactlyExceptionThrower.cs" />
+    <Compile Include="Core\ICallNotReceivedExactlyExceptionThrower.cs" />
     <Compile Include="Core\DefaultForType.cs" />
     <Compile Include="Core\EventCallFormatter.cs" />
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
@@ -227,8 +229,10 @@
     <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
     <Compile Include="Routing\AutoValues\IAutoValueProvider.cs" />
+    <Compile Include="Routing\Definitions\CheckCallReceivedExactlyRoute.cs" />
     <Compile Include="Routing\Definitions\RecordCallSpecificationRoute.cs" />
     <Compile Include="Routing\Handlers\ClearUnusedCallSpecHandler.cs" />
+    <Compile Include="Routing\Handlers\CheckReceivedCallExactlyHandler.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
     <Compile Include="Routing\Handlers\RecordCallSpecificationHandler.cs" />
     <Compile Include="Routing\IRouteDefinition.cs" />

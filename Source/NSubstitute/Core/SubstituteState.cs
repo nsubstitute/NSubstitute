@@ -40,6 +40,7 @@ namespace NSubstitute.Core
                 new ResultSetter(callStack, pendingSpecification, callResults, callSpecificationFactory, callActions),
                 new EventHandlerRegistry(),
                 new CallNotReceivedExceptionThrower(callFormatter),
+                new CallNotReceivedExactlyExceptionThrower(callFormatter),
                 new CallReceivedExceptionThrower(callFormatter),
                 new DefaultForType(),
                 new IAutoValueProvider[] { new AutoSubstituteProvider(substituteFactory), new AutoStringProvider(), new AutoArrayProvider()}
