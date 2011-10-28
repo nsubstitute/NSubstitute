@@ -11,7 +11,6 @@ namespace NSubstitute.Acceptance.Specs
     {
         private IEngine _engine;
         const int _rpm = 7000;
-        private int[] _variousExactlyValues = { 1, 2, 12 };
 
         [SetUp]
         public void SetUp()
@@ -28,37 +27,10 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Check_when_call_was_received_repeatedly()
-        {
-            Execute_repeatedly(count => { _engine.Rev(); }, count => { _engine.Received(count).Rev(); });
-        }
-
-        [Test]
-        public void Check_when_call_was_received_for_exactly_zero()
-        {
-            _engine.Received(0).Rev();
-        }
-
-        [Test]
         public void Throw_when_expected_call_was_not_received()
         {
             Assert.Throws<CallNotReceivedException>(() =>
                     _engine.Received().Idle()
-                );
-        }
-
-        [Test]
-        public void Throw_when_expected_call_was_not_received_exactly()
-        {
-            Execute_repeatedly(count => { }, count => { Assert.Throws<CallNotReceivedException>(() => _engine.Received(count).Idle()); });
-        }
-
-        [Test]
-        [Ignore]
-        public void Throw_when_expected_call_was_not_received_exactly_zero()
-        {
-            Assert.Throws<CallNotReceivedException>(() =>
-                    _engine.Received(0).Idle()
                 );
         }
 
@@ -68,18 +40,6 @@ namespace NSubstitute.Acceptance.Specs
             _engine.RevAt(_rpm);
 
             _engine.Received().RevAt(_rpm);
-        }
-
-        [Test]
-        public void Check_call_was_received_exactly_with_expected_argument()
-        {
-            Execute_repeatedly(count => { _engine.RevAt(_rpm); }, count => { _engine.Received(count).RevAt(_rpm); });
-        }
-
-        [Test]
-        public void Check_call_was_received_exactly_zero_with_expected_argument()
-        {
-            _engine.Received(0).RevAt(_rpm);
         }
 
         [Test]
@@ -93,17 +53,11 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throw_when_expected_call_was_received_exactly_with_different_argument()
-        {
-            Execute_repeatedly(count => { _engine.RevAt(_rpm); }, count => { Assert.Throws<CallNotReceivedException>(() => _engine.Received(count).RevAt(_rpm + 2)); });
-        }
-
-        [Test]
         public void Check_that_a_call_was_not_received()
         {
             _engine.RevAt(_rpm);
 
-            _engine.DidNotReceive().RevAt(_rpm + 2);
+            _engine.DidNotReceive().RevAt(_rpm + 2); 
         }
 
         [Test]
@@ -121,13 +75,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             _engine.RevAt(_rpm);
 
-            _engine.ReceivedWithAnyArgs().RevAt(_rpm + 100);
-        }
-
-        [Test]
-        public void Check_call_received_exactly_with_any_arguments()
-        {
-            Execute_repeatedly(count => _engine.RevAt(_rpm), count => _engine.ReceivedWithAnyArgs(count).RevAt(_rpm + 100));
+            _engine.ReceivedWithAnyArgs().RevAt(_rpm + 100); 
         }
 
         [Test]
@@ -136,12 +84,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.Throws<CallNotReceivedException>(() =>
                 _engine.ReceivedWithAnyArgs().FillPetrolTankTo(10)
                 );
-        }
-
-        [Test]
-        public void Throw_when_call_was_expected_exactly_with_any_arguments()
-        {
-            Execute_repeatedly(count => { }, count => Assert.Throws<CallNotReceivedException>(() => _engine.ReceivedWithAnyArgs(count).FillPetrolTankTo(10)));
         }
 
         [Test]
@@ -178,24 +120,10 @@ namespace NSubstitute.Acceptance.Specs
             _engine.GetCapacityInLitres().Returns(x => { throw new InvalidOperationException(); });
 
             var exceptionThrown = false;
-            try { _engine.GetCapacityInLitres(); }
-            catch { exceptionThrown = true; }
+            try { _engine.GetCapacityInLitres(); } catch { exceptionThrown = true; }
 
             _engine.Received().GetCapacityInLitres();
             Assert.That(exceptionThrown, "An exception should have been thrown for this to actually test whether calls that throw exceptions are received.");
-        }
-
-        [Test]
-        [Ignore]
-        public void Should_receive_exactly_call_even_when_call_is_stubbed_to_throw_an_exception()
-        {
-            _engine.GetCapacityInLitres().Returns(x => { throw new InvalidOperationException(); });
-
-            var exceptionThrown = false;
-            try { _engine.GetCapacityInLitres(); }
-            catch { exceptionThrown = true; }
-
-            Execute_repeatedly(count => { _engine.Received(count).GetCapacityInLitres(); }, count => { Assert.That(exceptionThrown, "An exception should have been thrown for this to actually test whether calls that throw exceptions are received."); });
         }
 
         [Test]
@@ -204,34 +132,95 @@ namespace NSubstitute.Acceptance.Specs
             _engine.When(x => x.Rev()).Do(x => { throw new InvalidOperationException(); });
 
             var exceptionThrown = false;
-            try { _engine.Rev(); }
-            catch { exceptionThrown = true; }
+            try { _engine.Rev(); } catch { exceptionThrown = true; } 
 
             _engine.Received().Rev();
             Assert.That(exceptionThrown, "An exception should have been thrown for this to actually test whether calls that throw exceptions are received.");
         }
 
         [Test]
-        [Ignore]
-        public void Should_receive_exactly_call_when_a_callback_for_call_throws_an_exception()
+        public void Check_when_call_was_received_repeatedly()
         {
-            _engine.When(x => x.Rev()).Do(x => { throw new InvalidOperationException(); });
+            _engine.Rev();
+            _engine.Rev();
+            _engine.Rev();
 
-            var exceptionThrown = false;
-            try { _engine.Rev(); }
-            catch { exceptionThrown = true; }
-
-            Execute_repeatedly(count => { _engine.Received(count).Rev(); }, count => { Assert.That(exceptionThrown, "An exception should have been thrown for this to actually test whether calls that throw exceptions are received."); });
+            _engine.Received(3).Rev();
         }
 
-        private void Execute_repeatedly(Action<int> repeatAction, Action<int> assertion)
+        [Test]
+        public void Check_call_was_not_received_by_making_sure_it_was_called_zero_times()
         {
-            _variousExactlyValues.ToList().ForEach(count =>
-            {
-                _engine.ClearReceivedCalls();
-                Enumerable.Range(0, count).ToList().ForEach(i => repeatAction.Invoke(i));
-                assertion.Invoke(count);
-            });
+            _engine.Received(0).Rev();
+        }
+
+        [Test]
+        public void Throw_when_expected_call_was_not_received_enough_times()
+        {
+            _engine.Idle();
+            _engine.Idle();
+            _engine.Idle();
+            _engine.Idle();
+
+            Assert.Throws<CallNotReceivedException>(() => _engine.Received(5).Idle());
+        }
+
+        [Test]
+        public void Throw_when_expected_call_was_received_too_many_times()
+        {
+            _engine.Idle();
+            _engine.Idle();
+            _engine.Idle();
+
+            Assert.Throws<CallNotReceivedException>(() => _engine.Received(2).Idle());
+        }
+
+        [Test]
+        public void Throw_when_expected_call_was_not_received_exactly_zero_times()
+        {
+            _engine.Idle();
+            Assert.Throws<CallNotReceivedException>(() => _engine.Received(0).Idle());
+        }
+
+        [Test]
+        public void Check_call_was_received_a_specifc_number_of_times_with_expected_argument()
+        {
+            const int differentRpm = _rpm + 2134;
+            _engine.RevAt(_rpm);
+            _engine.RevAt(differentRpm);
+            _engine.RevAt(_rpm);
+
+            _engine.Received(2).RevAt(_rpm);
+        }
+
+        [Test]
+        public void Throw_when_expected_call_was_not_received_a_specific_number_of_times_with_expected_argument()
+        {
+            _engine.RevAt(_rpm);
+            _engine.RevAt(_rpm);
+
+            Assert.Throws<CallNotReceivedException>(() => _engine.Received(2).RevAt(_rpm + 2));
+        }
+
+        [Test]
+        public void Check_call_received_a_specific_number_of_times_with_any_arguments()
+        {
+            _engine.RevAt(1);
+            _engine.RevAt(2);
+            _engine.RevAt(3);
+
+            _engine.ReceivedWithAnyArgs(3).RevAt(_rpm + 100);
+        }
+
+        [Test]
+        public void Throw_when_call_was_not_received_a_specific_number_of_times_with_any_arguments()
+        {
+            _engine.RevAt(1);
+            _engine.RevAt(2);
+            _engine.RevAt(3);
+            _engine.RevAt(4);
+
+            Assert.Throws<CallNotReceivedException>(() => _engine.ReceivedWithAnyArgs(2).RevAt(0));
         }
     }
 }
