@@ -4,13 +4,15 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecification : IArgumentSpecification
     {
-        private readonly Type _forType;
-        private readonly IArgumentMatcher _matcher;
+        readonly Type _forType;
+        readonly IArgumentMatcher _matcher;
+        readonly IArgumentMatcher _compatibleMatcher;
 
         public ArgumentSpecification(Type forType, IArgumentMatcher matcher)
         {
             _forType = forType;
             _matcher = matcher;
+            _compatibleMatcher = new AnyArgumentMatcher(forType);
             Action = x => { };
         }
 
@@ -27,10 +29,7 @@ namespace NSubstitute.Core.Arguments
 
         private bool ArgumentIsCompatibleWithType(object argument) 
         {
-            var requiredType = (ForType.IsByRef) ? ForType.GetElementType() : ForType;
-            return argument == null ? TypeCanBeNull(requiredType) : requiredType.IsAssignableFrom(argument.GetType());
+            return _compatibleMatcher.IsSatisfiedBy(argument);
         }
-
-        private bool TypeCanBeNull(Type type) { return !type.IsValueType; }
     }
 }
