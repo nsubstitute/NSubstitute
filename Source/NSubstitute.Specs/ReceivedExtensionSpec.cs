@@ -18,7 +18,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_set_tell_the_substitute_to_assert_that_the_next_call_has_been_received_with_specified_arguments()
             {
-                _routerForSubstitute.received(x => x.SetRoute<CheckCallReceivedRoute>(MatchArgs.AsSpecifiedInCall));
+                _routerForSubstitute.received(x => x.SetRoute<CheckReceivedCallsRoute>(MatchArgs.AsSpecifiedInCall, Quantity.AtLeastOne()));
             }
 
             public override void Because()
@@ -34,7 +34,7 @@ namespace NSubstitute.Specs
 
                 _context.stub(x => x.GetCallRouterFor(_substitute)).Return(_routerForSubstitute);
 
-                temporarilyChange(() => SubstitutionContext.Current).to(_context);        
+                temporarilyChange(() => SubstitutionContext.Current).to(_context);
             }
         }
     }

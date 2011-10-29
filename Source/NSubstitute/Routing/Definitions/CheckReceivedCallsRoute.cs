@@ -4,13 +4,13 @@ using NSubstitute.Routing.Handlers;
 
 namespace NSubstitute.Routing.Definitions
 {
-    public class CheckCallReceivedRoute : IRouteDefinition
+    public class CheckReceivedCallsRoute : IRouteDefinition
     {
         public IEnumerable<Type> HandlerTypes
         {
             get { return new[] {
                     typeof (ClearUnusedCallSpecHandler),
-                    typeof (CheckReceivedCallHandler), 
+                    typeof (CheckReceivedCallsHandler), 
                     typeof (ReturnDefaultForReturnTypeHandler)}; }
         }
     }

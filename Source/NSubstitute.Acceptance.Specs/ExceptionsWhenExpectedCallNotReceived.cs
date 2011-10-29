@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
 {
-    public class CallNotReceivedExceptions
+    public class ExceptionsWhenExpectedCallNotReceived
     {
         public interface ISample
         {
@@ -196,7 +195,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             protected const string ExpectedCallMessagePrefix = "Expected to receive call:\n\t";
             protected ISample Sample;
-            private CallNotReceivedException _exception;
+            private ReceivedCallsException _exception;
 
             [SetUp]
             public void SetUp()
@@ -207,7 +206,7 @@ namespace NSubstitute.Acceptance.Specs
                 {
                     ExpectedCall();
                 } 
-                catch (CallNotReceivedException ex)
+                catch (ReceivedCallsException ex)
                 {
                     _exception = ex;
                 }

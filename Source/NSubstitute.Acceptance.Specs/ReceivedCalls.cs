@@ -29,7 +29,7 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Throw_when_expected_call_was_not_received()
         {
-            Assert.Throws<CallNotReceivedException>(() =>
+            Assert.Throws<ReceivedCallsException>(() =>
                     _engine.Received().Idle()
                 );
         }
@@ -47,7 +47,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             _engine.RevAt(_rpm);
 
-            Assert.Throws<CallNotReceivedException>(() =>
+            Assert.Throws<ReceivedCallsException>(() =>
                     _engine.Received().RevAt(_rpm + 2)
                 );
         }
@@ -65,9 +65,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             _engine.RevAt(_rpm);
 
-            Assert.Throws<CallReceivedException>(() =>
-                _engine.DidNotReceive().RevAt(_rpm)
-                );
+            Assert.Throws<ReceivedCallsException>(() => _engine.DidNotReceive().RevAt(_rpm) );
         }
 
         [Test]
@@ -81,9 +79,7 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Throw_when_call_was_expected_with_any_arguments()
         {
-            Assert.Throws<CallNotReceivedException>(() =>
-                _engine.ReceivedWithAnyArgs().FillPetrolTankTo(10)
-                );
+            Assert.Throws<ReceivedCallsException>(() => _engine.ReceivedWithAnyArgs().FillPetrolTankTo(10) );
         }
 
         [Test]
@@ -97,9 +93,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             _engine.RevAt(_rpm);
 
-            Assert.Throws<CallReceivedException>(() =>
-                _engine.DidNotReceiveWithAnyArgs().RevAt(0)
-                );
+            Assert.Throws<ReceivedCallsException>(() => _engine.DidNotReceiveWithAnyArgs().RevAt(0) );
         }
 
         [Test]
@@ -162,7 +156,7 @@ namespace NSubstitute.Acceptance.Specs
             _engine.Idle();
             _engine.Idle();
 
-            Assert.Throws<CallNotReceivedException>(() => _engine.Received(5).Idle());
+            Assert.Throws<ReceivedCallsException>(() => _engine.Received(5).Idle());
         }
 
         [Test]
@@ -172,14 +166,14 @@ namespace NSubstitute.Acceptance.Specs
             _engine.Idle();
             _engine.Idle();
 
-            Assert.Throws<CallNotReceivedException>(() => _engine.Received(2).Idle());
+            Assert.Throws<ReceivedCallsException>(() => _engine.Received(2).Idle());
         }
 
         [Test]
         public void Throw_when_expected_call_was_not_received_exactly_zero_times()
         {
             _engine.Idle();
-            Assert.Throws<CallNotReceivedException>(() => _engine.Received(0).Idle());
+            Assert.Throws<ReceivedCallsException>(() => _engine.Received(0).Idle());
         }
 
         [Test]
@@ -199,7 +193,7 @@ namespace NSubstitute.Acceptance.Specs
             _engine.RevAt(_rpm);
             _engine.RevAt(_rpm);
 
-            Assert.Throws<CallNotReceivedException>(() => _engine.Received(2).RevAt(_rpm + 2));
+            Assert.Throws<ReceivedCallsException>(() => _engine.Received(2).RevAt(_rpm + 2));
         }
 
         [Test]
@@ -220,7 +214,7 @@ namespace NSubstitute.Acceptance.Specs
             _engine.RevAt(3);
             _engine.RevAt(4);
 
-            Assert.Throws<CallNotReceivedException>(() => _engine.ReceivedWithAnyArgs(2).RevAt(0));
+            Assert.Throws<ReceivedCallsException>(() => _engine.ReceivedWithAnyArgs(2).RevAt(0));
         }
     }
 }

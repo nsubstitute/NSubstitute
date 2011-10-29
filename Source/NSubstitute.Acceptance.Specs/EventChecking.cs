@@ -15,7 +15,7 @@ namespace NSubstitute.Acceptance.Specs
             Action someOtherHandler = () => { };
             engine.Started += handler;
             engine.Received().Started += handler;
-            Assert.Throws<CallNotReceivedException>(() => engine.Received().Started += someOtherHandler);
+            Assert.Throws<ReceivedCallsException>(() => engine.Received().Started += someOtherHandler);
         }
     }
 }

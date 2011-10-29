@@ -7,28 +7,30 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs
 {
-    public class CallNotReceivedExceptionThrowerSpecs
+    public class ReceivedCallsExceptionThrowerSpecs
     {
-        public class Concern : ConcernFor<CallNotReceivedExceptionThrower>
+        public class Concern : ConcernFor<ReceivedCallsExceptionThrower>
         {
             protected const string DescriptionOfCall = "SomeSampleMethod(args)";
             protected ICallSpecification _callSpecification;
-            protected CallNotReceivedException _exception;
+            protected ReceivedCallsException _exception;
             protected ICallFormatter _callFormatter;
             protected IEnumerable<ICall> _actualCalls;
+            protected Quantity _requiredQuantity = Quantity.AtLeastOne();
 
             public override void Because()
             {
                 try
                 {
-                    sut.Throw(_callSpecification, _actualCalls);
+                    _requiredQuantity = null;
+                    sut.Throw(_callSpecification, _actualCalls, _requiredQuantity);
                 }
-                catch (CallNotReceivedException ex)
+                catch (ReceivedCallsException ex)
                 {
                     _exception = ex;
                     return;
                 }
-                throw new AssertionException("Expected a CallNotFoundException to be thrown.");
+                throw new AssertionException("Expected a matching exception to be thrown.");
             }
 
             public override void Context()
@@ -39,9 +41,9 @@ namespace NSubstitute.Specs
                 _callSpecification.stub(x => x.Format(_callFormatter)).Return(DescriptionOfCall);
             }
 
-            public override CallNotReceivedExceptionThrower CreateSubjectUnderTest()
+            public override ReceivedCallsExceptionThrower CreateSubjectUnderTest()
             {
-                return new CallNotReceivedExceptionThrower(_callFormatter);
+                return new ReceivedCallsExceptionThrower(_callFormatter);
             }
         }
 

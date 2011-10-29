@@ -7,7 +7,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 {
     public class CheckReceivedCallHandlerSpecs
     {
-        public abstract class Concern : ConcernFor<CheckReceivedCallHandler>
+        public abstract class Concern : ConcernFor<CheckReceivedCallsHandler>
         {
             protected int _valueToReturn;
             protected ISubstitutionContext _context;
@@ -15,8 +15,9 @@ namespace NSubstitute.Specs.Routing.Handlers
             protected IReceivedCalls _receivedCalls;
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
-            protected ICallNotReceivedExceptionThrower _exceptionThrower;
-            MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
+            protected IReceivedCallsExceptionThrower _exceptionThrower;
+            protected MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
+            protected Quantity _quantity = Quantity.AtLeastOne();
 
             public override void Context()
             {
@@ -26,13 +27,13 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _call = mock<ICall>();
                 _callSpecification = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
-                _exceptionThrower = mock<ICallNotReceivedExceptionThrower>();
+                _exceptionThrower = mock<IReceivedCallsExceptionThrower>();
                 _callSpecificationFactory.stub(x => x.CreateFrom(_call, _argMatching)).Return(_callSpecification);
             }
 
-            public override CheckReceivedCallHandler CreateSubjectUnderTest()
+            public override CheckReceivedCallsHandler CreateSubjectUnderTest()
             {
-                return new CheckReceivedCallHandler(_receivedCalls, _callSpecificationFactory, _exceptionThrower, _argMatching);
+                return new CheckReceivedCallsHandler(_receivedCalls, _callSpecificationFactory, _exceptionThrower, _argMatching, _quantity);
             } 
         }
 
@@ -43,7 +44,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Should_return_without_exception()
             {
-                _exceptionThrower.did_not_receive_with_any_args(x => x.Throw(null, null));
+                _exceptionThrower.did_not_receive_with_any_args(x => x.Throw(null, null, null));
             }
 
             [Test]
@@ -72,7 +73,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Should_throw_exception()
             {
-                _exceptionThrower.received(x => x.Throw(_callSpecification, _actualCalls));
+                _exceptionThrower.received(x => x.Throw(_callSpecification, _actualCalls, _quantity));
             }
 
             public override void Because()

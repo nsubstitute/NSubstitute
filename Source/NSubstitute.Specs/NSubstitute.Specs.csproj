@@ -201,7 +201,7 @@
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallInfoSpecs.cs" />
-    <Compile Include="CallNotReceivedExceptionThrowerSpecs.cs" />
+    <Compile Include="ReceivedCallsExceptionThrowerSpecs.cs" />
     <Compile Include="CallRouterFactorySpecs.cs" />
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallRouterResolverSpecs.cs" />
@@ -229,7 +229,6 @@
     <Compile Include="Routing\AutoValues\AutoArrayProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProviderSpecs.cs" />
-    <Compile Include="Routing\Handlers\CheckDidNotReceiveCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckReceivedCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\DoActionsCallHandlerSpecs.cs" />
     <Compile Include="EventHandlerRegistrySpec.cs" />

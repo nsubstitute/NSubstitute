@@ -70,7 +70,7 @@ namespace NSubstitute.Acceptance.Specs
             var foo = Substitute.For<IFoo>();
             foo.Name = "This name";
             foo.Received().Name = "This name";
-            Assert.Throws<CallNotReceivedException>(() => foo.Received().Name = "Other name");
+            Assert.Throws<ReceivedCallsException>(() => foo.Received().Name = "Other name");
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace NSubstitute.Acceptance.Specs
             var foo = Substitute.For<IFoo>();
             _ignored = foo.Name;
             _ignored = foo.Received().Name;
-            Assert.Throws<CallNotReceivedException>(() => { _ignored = foo.Received().Now; });
+            Assert.Throws<ReceivedCallsException>(() => { _ignored = foo.Received().Now; });
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace NSubstitute.Acceptance.Specs
             var foo = Substitute.For<IFoo>();
             foo.WriteOnly = somethingToWrite;
             foo.Received().WriteOnly = somethingToWrite;
-            Assert.Throws<CallNotReceivedException>(() => foo.Received().WriteOnly = "non-fancy writable stuff");
+            Assert.Throws<ReceivedCallsException>(() => foo.Received().WriteOnly = "non-fancy writable stuff");
         }
     }
 }

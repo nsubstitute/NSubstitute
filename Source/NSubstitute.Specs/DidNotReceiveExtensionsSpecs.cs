@@ -16,7 +16,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_tell_substitute_to_assert_next_call_was_not_received_with_specified_arguments()
             {
-                _routerForSubstitute.received(x => x.SetRoute<CheckCallNotReceivedRoute>(MatchArgs.AsSpecifiedInCall));
+                _routerForSubstitute.received(x => x.SetRoute<CheckReceivedCallsRoute>(MatchArgs.AsSpecifiedInCall, Quantity.None()));
             }
 
             public override void Because()

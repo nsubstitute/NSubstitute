@@ -53,42 +53,42 @@ namespace NSubstitute
         public static T Received<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckCallReceivedRoute>(MatchArgs.AsSpecifiedInCall);
+            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.AsSpecifiedInCall, Quantity.AtLeastOne());
             return substitute;
         }
 
-        public static T Received<T>(this T substitute, int expectedCount) where T : class
+        public static T Received<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckCallReceivedExactlyRoute>(MatchArgs.AsSpecifiedInCall, expectedCount);
+            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.AsSpecifiedInCall, Quantity.Exactly(requiredNumberOfCalls));
             return substitute;
         }
 
         public static T DidNotReceive<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckCallNotReceivedRoute>(MatchArgs.AsSpecifiedInCall);
+            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.AsSpecifiedInCall, Quantity.None());
             return substitute;
         }
 
         public static T ReceivedWithAnyArgs<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckCallReceivedRoute>(MatchArgs.Any);
+            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.Any, Quantity.AtLeastOne());
             return substitute;
         }
 
-        public static T ReceivedWithAnyArgs<T>(this T substitute, int expectedCount) where T : class
+        public static T ReceivedWithAnyArgs<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckCallReceivedExactlyRoute>(MatchArgs.Any, expectedCount);
+            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.Any, Quantity.Exactly(requiredNumberOfCalls));
             return substitute;
         }
         
         public static T DidNotReceiveWithAnyArgs<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckCallNotReceivedRoute>(MatchArgs.Any);
+            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.Any, Quantity.None());
             return substitute;
         }
 
