@@ -1,4 +1,5 @@
 unreleased changes
+* [NEW] Support for Received(times) to assert a call was received a certain number of times. Thanks to Abi Bellamkonda for this contribution. (#63)
 * [NEW] Silverlight 4 support
 
 1.2.1 (Oct 2011)
