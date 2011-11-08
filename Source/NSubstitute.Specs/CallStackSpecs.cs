@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -72,9 +73,9 @@ namespace NSubstitute.Specs
             private IEnumerable<ICall> _result;
 
             [Test]
-            public void Should_return_calls_that_satisfy_specification()
+            public void Should_return_calls_that_satisfy_specification_in_the_order_they_were_received()
             {
-                Assert.That(_result, Is.EquivalentTo(new[] { _callThatMatchesSpec, _anotherCallThatMatchesSpec })); 
+                Assert.That(_result.ToArray(), Is.EqualTo(new[] { _callThatMatchesSpec, _anotherCallThatMatchesSpec })); 
             }
 
             public override void Because()
@@ -104,9 +105,9 @@ namespace NSubstitute.Specs
             private ICall _secondCall;
 
             [Test]
-            public void Should_return_all_calls()
+            public void Should_return_all_calls_in_the_order_they_were_received()
             {
-                Assert.That(_result, Is.EquivalentTo(new[] { _firstCall, _secondCall })); 
+                Assert.That(_result.ToArray(), Is.EqualTo(new[] { _firstCall, _secondCall })); 
             }
 
             public override void Because()

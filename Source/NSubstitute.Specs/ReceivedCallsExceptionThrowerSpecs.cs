@@ -16,14 +16,15 @@ namespace NSubstitute.Specs
             protected ReceivedCallsException _exception;
             protected ICallFormatter _callFormatter;
             protected IEnumerable<ICall> _actualCalls;
+            protected IEnumerable<ICall> _relatedCalls;
             protected Quantity _requiredQuantity = Quantity.AtLeastOne();
 
             public override void Because()
             {
                 try
                 {
-                    _requiredQuantity = null;
-                    sut.Throw(_callSpecification, _actualCalls, _requiredQuantity);
+                    _requiredQuantity = Quantity.AtLeastOne();
+                    sut.Throw(_callSpecification, _actualCalls, _relatedCalls, _requiredQuantity);
                 }
                 catch (ReceivedCallsException ex)
                 {
@@ -38,6 +39,7 @@ namespace NSubstitute.Specs
                 base.Context();
                 _callSpecification = mock<ICallSpecification>();
                 _callFormatter = mock<ICallFormatter>();
+                _relatedCalls = new ICall[0];
                 _callSpecification.stub(x => x.Format(_callFormatter)).Return(DescriptionOfCall);
             }
 
@@ -86,7 +88,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Exception_should_state_no_calls_to_member_received()
             {
-                Assert.That(_exception.Message, Is.StringContaining("Actually received no calls that resemble the expected call."));
+                Assert.That(_exception.Message, Is.StringContaining("Actually received no matching calls."));
             }
 
             public override void Context()

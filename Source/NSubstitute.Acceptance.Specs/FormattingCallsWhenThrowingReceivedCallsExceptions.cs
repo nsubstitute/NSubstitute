@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
 {
-    public class ExceptionsWhenExpectedCallNotReceived
+    public class FormattingCallsWhenThrowingReceivedCallsExceptions
     {
         public interface ISample
         {
@@ -56,8 +56,9 @@ namespace NSubstitute.Acceptance.Specs
             }
 
             [Test]
-            public void Should_report_actual_calls()
+            public void Should_report_actual_related_calls()
             {
+                ExceptionMessageContains("Received 2 related calls (non-matching arguments indicated with '*' characters):");
                 ExceptionMessageContains("SampleMethod(*1*)");
                 ExceptionMessageContains("SampleMethod(*2*)");
             }
@@ -89,6 +90,73 @@ namespace NSubstitute.Acceptance.Specs
             {
                 ExceptionMessageContains("SampleMethod(*\"different\"*, 1, *List<String>*)");
                 ExceptionMessageContains("SampleMethod(\"string\", *7*, *List<String>*)");
+            }
+        }
+
+        public class When_not_enough_matching_calls_were_made_to_a_method : Context
+        {
+            protected override void ConfigureContext()
+            {
+                Sample.SampleMethod(1);
+                Sample.SampleMethod(2);
+            }
+
+            protected override void ExpectedCall()
+            {
+                Sample.Received(2).SampleMethod(2);
+            }
+
+            [Test]
+            public void Should_show_expected_call()
+            {
+                ExceptionMessageContains("Expected to receive exactly 2 calls matching:\n\t" + "SampleMethod(2)");
+            }
+
+            [Test]
+            public void Should_list_matching_calls()
+            {
+                ExceptionMessageContains("Actually received 1 matching call:\r\n\t" + "SampleMethod(2)");
+            }
+
+            [Test]
+            public void Should_list_actual_related_calls()
+            {
+                ExceptionMessageContains("Received 1 related call (non-matching arguments indicated with '*' characters):\r\n\t" + "SampleMethod(*1*)");
+            }
+        }
+
+        public class When_too_many_matching_calls_were_made_to_a_method : Context
+        {
+            protected override void ConfigureContext()
+            {
+                Sample.SampleMethod(1);
+                Sample.SampleMethod(2);
+                Sample.SampleMethod(2);
+                Sample.SampleMethod(2);
+            }
+
+            protected override void ExpectedCall()
+            {
+                Sample.Received(2).SampleMethod(2);
+            }
+
+            [Test]
+            public void Should_show_expected_call()
+            {
+                ExceptionMessageContains("Expected to receive exactly 2 calls matching:\n\t" + "SampleMethod(2)");
+            }
+
+            [Test]
+            public void Should_list_matching_calls()
+            {
+                ExceptionMessageContains("Actually received 3 matching calls:\r\n\t" + "SampleMethod(2)");
+            }
+
+            [Test]
+            public void Should_not_list_actual_related_calls()
+            {
+                ExceptionMessageDoesNotContain("Received 1 related call"); 
+                ExceptionMessageDoesNotContain("SampleMethod(*1*)");
             }
         }
 
@@ -193,7 +261,8 @@ namespace NSubstitute.Acceptance.Specs
 
         public abstract class Context
         {
-            protected const string ExpectedCallMessagePrefix = "Expected to receive call:\n\t";
+            protected const string ExpectedCallMessagePrefix = "Expected to receive a call matching:\n\t";
+
             protected ISample Sample;
             private ReceivedCallsException _exception;
 
@@ -217,6 +286,10 @@ namespace NSubstitute.Acceptance.Specs
             protected void ExceptionMessageContains(string expected)
             {
                 Assert.That(_exception.Message, Is.StringContaining(expected));
+            }
+            protected void ExceptionMessageDoesNotContain(string s)
+            {
+                Assert.That(_exception.Message, Is.Not.StringContaining(s));
             }
             protected void ExceptionMessageMatchesRegex(string pattern)
             {

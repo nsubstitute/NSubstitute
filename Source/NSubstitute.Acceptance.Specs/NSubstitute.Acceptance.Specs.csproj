@@ -173,7 +173,8 @@
     <Compile Include="ArgumentInvocationFromMatchers.cs" />
     <Compile Include="ArgDoFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
-    <Compile Include="ExceptionsWhenExpectedCallNotReceived.cs" />
+    <Compile Include="ExceptionsWhenCheckingReceivedCalls.cs" />
+    <Compile Include="FormattingCallsWhenThrowingReceivedCallsExceptions.cs" />
     <Compile Include="ClearCalls.cs" />
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />

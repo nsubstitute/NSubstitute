@@ -29,12 +29,12 @@ namespace NSubstitute.Core
 
         public IEnumerable<ICall> FindMatchingCalls(ICallSpecification callSpecification)
         {
-            return _stack.Where(x => callSpecification.IsSatisfiedBy(x));
+            return AllCalls().Where(x => callSpecification.IsSatisfiedBy(x));
         }
 
         public IEnumerable<ICall> AllCalls()
         {
-            return _stack;
+            return _stack.Reverse();
         }
 
         public void Clear()

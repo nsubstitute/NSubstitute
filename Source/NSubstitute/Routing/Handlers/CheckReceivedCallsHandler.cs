@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
@@ -27,12 +28,12 @@ namespace NSubstitute.Routing.Handlers
 
             if (!_requiredQuantity.Matches(matchingCalls))
             {
-                _exceptionThrower.Throw(callSpecification, GetAllReceivedCallsToMethod(call), _requiredQuantity);
+                _exceptionThrower.Throw(callSpecification, matchingCalls, GetAllRelatedCallsToMethod(call).Except(matchingCalls), _requiredQuantity);
             }
             return RouteAction.Continue();
         }
 
-        private IEnumerable<ICall> GetAllReceivedCallsToMethod(ICall call)
+        private IEnumerable<ICall> GetAllRelatedCallsToMethod(ICall call)
         {
             var allCallsToMethodSpec = _callSpecificationFactory.CreateFrom(call, MatchArgs.Any);
             return _receivedCalls.FindMatchingCalls(allCallsToMethodSpec);

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Routing.Handlers;
 using NSubstitute.Specs.Infrastructure;
@@ -9,32 +12,31 @@ namespace NSubstitute.Specs.Routing.Handlers
     {
         public abstract class Concern : ConcernFor<CheckReceivedCallsHandler>
         {
-            protected int _valueToReturn;
+            protected const int ValueToReturn = 7;
             protected ISubstitutionContext _context;
             protected ICall _call;
             protected IReceivedCalls _receivedCalls;
             protected ICallSpecification _callSpecification;
             protected ICallSpecificationFactory _callSpecificationFactory;
-            protected IReceivedCallsExceptionThrower _exceptionThrower;
+            protected FakeExceptionThrower _exceptionThrower;
             protected MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
-            protected Quantity _quantity = Quantity.AtLeastOne();
+            protected Quantity _quantity;
 
             public override void Context()
             {
-                _valueToReturn = 7;
                 _context = mock<ISubstitutionContext>();
                 _receivedCalls = mock<IReceivedCalls>();
                 _call = mock<ICall>();
                 _callSpecification = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
-                _exceptionThrower = mock<IReceivedCallsExceptionThrower>();
+                _exceptionThrower = new FakeExceptionThrower();
                 _callSpecificationFactory.stub(x => x.CreateFrom(_call, _argMatching)).Return(_callSpecification);
             }
 
             public override CheckReceivedCallsHandler CreateSubjectUnderTest()
             {
                 return new CheckReceivedCallsHandler(_receivedCalls, _callSpecificationFactory, _exceptionThrower, _argMatching, _quantity);
-            } 
+            }
         }
 
         public class When_handling_call_that_has_been_received : Concern
@@ -44,7 +46,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Should_return_without_exception()
             {
-                _exceptionThrower.did_not_receive_with_any_args(x => x.Throw(null, null, null));
+                _exceptionThrower.ShouldNotHaveBeenToldToThrow();
             }
 
             [Test]
@@ -52,7 +54,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             {
                 Assert.That(_result, Is.SameAs(RouteAction.Continue()));
             }
-            
+
             public override void Because()
             {
                 _result = sut.Handle(_call);
@@ -61,19 +63,21 @@ namespace NSubstitute.Specs.Routing.Handlers
             public override void Context()
             {
                 base.Context();
-                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new [] {_call});
+                _quantity = Quantity.AtLeastOne();
+                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new[] { _call });
             }
         }
 
-        public class When_handling_call_that_has_not_been_received : Concern
+        public class When_handling_call_that_has_not_been_received_in_the_correct_quantity : Concern
         {
             ICallSpecification _callSpecWithAnyArguments;
             private ICall[] _actualCalls;
+            private ICall[] _relatedCallsWithoutActualCalls;
 
             [Test]
-            public void Should_throw_exception()
+            public void Should_throw_exception_with_actual_calls_and_related_calls()
             {
-                _exceptionThrower.received(x => x.Throw(_callSpecification, _actualCalls, _quantity));
+                _exceptionThrower.ShouldHaveBeenToldToThrowWith(_callSpecification, _actualCalls, _relatedCallsWithoutActualCalls, _quantity);
             }
 
             public override void Because()
@@ -86,9 +90,44 @@ namespace NSubstitute.Specs.Routing.Handlers
                 base.Context();
                 _callSpecWithAnyArguments = mock<ICallSpecification>();
                 _callSpecificationFactory.stub(x => x.CreateFrom(_call, MatchArgs.Any)).Return(_callSpecWithAnyArguments);
-                _actualCalls = new ICall[0];
-                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new ICall[0]);
-                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecWithAnyArguments)).Return(_actualCalls);
+
+                _quantity = Quantity.AtLeast(2);
+                _actualCalls = new[] { _call };
+                _relatedCallsWithoutActualCalls = new[] { mock<ICall>() };
+                var allRelatedCalls = _actualCalls.Concat(_relatedCallsWithoutActualCalls);
+                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(_actualCalls);
+                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecWithAnyArguments)).Return(allRelatedCalls);
+            }
+        }
+
+        public class FakeExceptionThrower : IReceivedCallsExceptionThrower
+        {
+            private ICallSpecification _callSpecification;
+            private IEnumerable<ICall> _matchingCalls;
+            private IEnumerable<ICall> _relatedCalls;
+            private Quantity _requiredQuantity;
+            private bool _wasCalled;
+
+            public void Throw(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> relatedCalls, Quantity requiredQuantity)
+            {
+                _wasCalled = true;
+                _callSpecification = callSpecification;
+                _matchingCalls = matchingCalls;
+                _relatedCalls = relatedCalls;
+                _requiredQuantity = requiredQuantity;
+            }
+
+            public void ShouldHaveBeenToldToThrowWith(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> relatedCalls, Quantity requiredQuantity)
+            {
+                Assert.That(_callSpecification, Is.EqualTo(callSpecification));
+                Assert.That(_matchingCalls.ToArray(), Is.EquivalentTo(matchingCalls.ToArray()));
+                Assert.That(_relatedCalls.ToArray(), Is.EquivalentTo(relatedCalls.ToArray()));
+                Assert.That(_requiredQuantity, Is.EqualTo(requiredQuantity));
+            }
+
+            public void ShouldNotHaveBeenToldToThrow()
+            {
+                Assert.False(_wasCalled);
             }
         }
     }

@@ -5,20 +5,24 @@ namespace NSubstitute.Core
 {
     public abstract class Quantity
     {
-        public static Quantity Exactly(int number) { return new ExactQuantity(number); }
-        public static Quantity AtLeastOne() { return new AtLeastQuantity(1); }
+        public static Quantity Exactly(int number) { return number == 0 ? None() : new ExactQuantity(number); }
+        public static Quantity AtLeastOne() { return new AnyNonZeroQuantity(); }
         public static Quantity AtLeast(int number) { return new AtLeastQuantity(number); }
         public static Quantity None() { return new NoneQuantity(); }
 
         public abstract bool Matches<T>(IEnumerable<T> items);
+        public abstract bool IsMoreThan(IEnumerable<ICall> items);
+        public abstract string Describe(string singularNoun, string pluralNoun);
 
         private class ExactQuantity : Quantity
         {
             private readonly int _number;
             public ExactQuantity(int number) { _number = number; }
-            public override bool Matches<T>(IEnumerable<T> items)
+            public override bool Matches<T>(IEnumerable<T> items) { return _number == items.Count(); }
+            public override bool IsMoreThan(IEnumerable<ICall> items) { return _number > items.Count(); }
+            public override string Describe(string singularNoun, string pluralNoun)
             {
-                return _number == items.Count();
+                return string.Format("exactly {0} {1}", _number, _number == 1 ? singularNoun : pluralNoun);
             }
 
             public bool Equals(ExactQuantity other)
@@ -39,6 +43,34 @@ namespace NSubstitute.Core
             public override int GetHashCode() { return _number; }
         }
 
+        private class AnyNonZeroQuantity : Quantity {
+            public override bool Matches<T>(IEnumerable<T> items) { return items.Any(); }
+            public override bool IsMoreThan(IEnumerable<ICall> items) { return !items.Any(); }
+
+            public override string Describe(string singularNoun, string pluralNoun)
+            {
+                return string.Format("a {0}", singularNoun);
+            }
+
+            public bool Equals(AnyNonZeroQuantity other)
+            {
+                return !ReferenceEquals(null, other);
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj)) return false;
+                if (ReferenceEquals(this, obj)) return true;
+                if (obj.GetType() != typeof (AnyNonZeroQuantity)) return false;
+                return Equals((AnyNonZeroQuantity) obj);
+            }
+
+            public override int GetHashCode()
+            {
+                return 0;
+            }
+        }
+
         private class AtLeastQuantity : Quantity
         {
             private readonly int _number;
@@ -46,6 +78,12 @@ namespace NSubstitute.Core
             public override bool Matches<T>(IEnumerable<T> items)
             {
                 return _number == items.Take(_number).Count();
+            }
+            public override bool IsMoreThan(IEnumerable<ICall> items) { return items.Take(_number).Any(); }
+
+            public override string Describe(string singularNoun, string pluralNoun)
+            {
+                return string.Format("at least {0} {1}", _number, _number == 1 ? singularNoun : pluralNoun);
             }
 
             public bool Equals(AtLeastQuantity other)
@@ -69,6 +107,11 @@ namespace NSubstitute.Core
         private class NoneQuantity : Quantity
         {
             public override bool Matches<T>(IEnumerable<T> items) { return !items.Any(); }
+            public override bool IsMoreThan(IEnumerable<ICall> items) { return false; }
+            public override string Describe(string singularNoun, string pluralNoun)
+            {
+                return "no " + pluralNoun;
+            }
 
             public bool Equals(NoneQuantity other)
             {
