@@ -56,9 +56,9 @@ namespace NSubstitute.Acceptance.Specs
             }
 
             [Test]
-            public void Should_report_actual_related_calls()
+            public void Should_report_non_matching_calls()
             {
-                ExceptionMessageContains("Received 2 related calls (non-matching arguments indicated with '*' characters):");
+                ExceptionMessageContains("Received 2 non-matching calls (non-matching arguments indicated with '*' characters):");
                 ExceptionMessageContains("SampleMethod(*1*)");
                 ExceptionMessageContains("SampleMethod(*2*)");
             }
@@ -66,7 +66,7 @@ namespace NSubstitute.Acceptance.Specs
 
         public class When_calls_have_been_made_to_expected_member_but_with_some_different_args : Context
         {
-            readonly IList<string> _strings = new List<string> { "a", "b"};
+            readonly IList<string> _strings = new List<string> { "a", "b" };
 
             protected override void ConfigureContext()
             {
@@ -121,7 +121,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_list_actual_related_calls()
             {
-                ExceptionMessageContains("Received 1 related call (non-matching arguments indicated with '*' characters):\r\n\t" + "SampleMethod(*1*)");
+                ExceptionMessageContains("Received 1 non-matching call (non-matching arguments indicated with '*' characters):\r\n\t" + "SampleMethod(*1*)");
             }
         }
 
@@ -153,9 +153,9 @@ namespace NSubstitute.Acceptance.Specs
             }
 
             [Test]
-            public void Should_not_list_actual_related_calls()
+            public void Should_not_list_non_matching_calls()
             {
-                ExceptionMessageDoesNotContain("Received 1 related call"); 
+                ExceptionMessageDoesNotContain("Received 1 related call");
                 ExceptionMessageDoesNotContain("SampleMethod(*1*)");
             }
         }
@@ -222,11 +222,11 @@ namespace NSubstitute.Acceptance.Specs
             }
 
             [Test]
-            public void Should_list_actual_calls()
+            public void Should_list_non_matching_calls()
             {
-                ExceptionMessageContains("this[*\"c\"*, *\"d\"*] = 5"); 
-                ExceptionMessageContains("this[\"a\", *\"z\"*] = *2*"); 
-                ExceptionMessageContains("this[\"a\", \"b\"] = *1*"); 
+                ExceptionMessageContains("this[*\"c\"*, *\"d\"*] = 5");
+                ExceptionMessageContains("this[\"a\", *\"z\"*] = *2*");
+                ExceptionMessageContains("this[\"a\", \"b\"] = *1*");
             }
         }
 
@@ -252,10 +252,10 @@ namespace NSubstitute.Acceptance.Specs
             }
 
             [Test]
-            public void Should_list_actual_calls()
+            public void Should_list_non_matching_calls()
             {
-                ExceptionMessageContains("this[*\"c\"*, *\"d\"*]"); 
-                ExceptionMessageContains("this[\"a\", *\"d\"*]"); 
+                ExceptionMessageContains("this[*\"c\"*, *\"d\"*]");
+                ExceptionMessageContains("this[\"a\", *\"d\"*]");
             }
         }
 
@@ -274,7 +274,7 @@ namespace NSubstitute.Acceptance.Specs
                 try
                 {
                     ExpectedCall();
-                } 
+                }
                 catch (ReceivedCallsException ex)
                 {
                     _exception = ex;
@@ -282,7 +282,7 @@ namespace NSubstitute.Acceptance.Specs
             }
 
             protected abstract void ExpectedCall();
-            protected virtual void ConfigureContext() {}
+            protected virtual void ConfigureContext() { }
             protected void ExceptionMessageContains(string expected)
             {
                 Assert.That(_exception.Message, Is.StringContaining(expected));
@@ -295,6 +295,6 @@ namespace NSubstitute.Acceptance.Specs
             {
                 Assert.That(_exception.Message, Is.StringMatching(pattern));
             }
-        }        
+        }
     }
 }

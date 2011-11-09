@@ -71,13 +71,13 @@ namespace NSubstitute.Specs.Routing.Handlers
         public class When_handling_call_that_has_not_been_received_in_the_correct_quantity : Concern
         {
             ICallSpecification _callSpecWithAnyArguments;
-            private ICall[] _actualCalls;
-            private ICall[] _relatedCallsWithoutActualCalls;
+            private ICall[] _matchingCalls;
+            private ICall[] _nonMatchingCalls;
 
             [Test]
             public void Should_throw_exception_with_actual_calls_and_related_calls()
             {
-                _exceptionThrower.ShouldHaveBeenToldToThrowWith(_callSpecification, _actualCalls, _relatedCallsWithoutActualCalls, _quantity);
+                _exceptionThrower.ShouldHaveBeenToldToThrowWith(_callSpecification, _matchingCalls, _nonMatchingCalls, _quantity);
             }
 
             public override void Because()
@@ -91,11 +91,11 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _callSpecWithAnyArguments = mock<ICallSpecification>();
                 _callSpecificationFactory.stub(x => x.CreateFrom(_call, MatchArgs.Any)).Return(_callSpecWithAnyArguments);
 
-                _quantity = Quantity.AtLeast(2);
-                _actualCalls = new[] { _call };
-                _relatedCallsWithoutActualCalls = new[] { mock<ICall>() };
-                var allRelatedCalls = _actualCalls.Concat(_relatedCallsWithoutActualCalls);
-                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(_actualCalls);
+                _quantity = Quantity.Exactly(2);
+                _matchingCalls = new[] { _call };
+                _nonMatchingCalls = new[] { mock<ICall>() };
+                var allRelatedCalls = _matchingCalls.Concat(_nonMatchingCalls);
+                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(_matchingCalls);
                 _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecWithAnyArguments)).Return(allRelatedCalls);
             }
         }
@@ -104,24 +104,24 @@ namespace NSubstitute.Specs.Routing.Handlers
         {
             private ICallSpecification _callSpecification;
             private IEnumerable<ICall> _matchingCalls;
-            private IEnumerable<ICall> _relatedCalls;
+            private IEnumerable<ICall> _nonMatchingCalls;
             private Quantity _requiredQuantity;
             private bool _wasCalled;
 
-            public void Throw(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> relatedCalls, Quantity requiredQuantity)
+            public void Throw(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> nonMatchingCalls, Quantity requiredQuantity)
             {
                 _wasCalled = true;
                 _callSpecification = callSpecification;
                 _matchingCalls = matchingCalls;
-                _relatedCalls = relatedCalls;
+                _nonMatchingCalls = nonMatchingCalls;
                 _requiredQuantity = requiredQuantity;
             }
 
-            public void ShouldHaveBeenToldToThrowWith(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> relatedCalls, Quantity requiredQuantity)
+            public void ShouldHaveBeenToldToThrowWith(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> nonMatchingCalls, Quantity requiredQuantity)
             {
                 Assert.That(_callSpecification, Is.EqualTo(callSpecification));
                 Assert.That(_matchingCalls.ToArray(), Is.EquivalentTo(matchingCalls.ToArray()));
-                Assert.That(_relatedCalls.ToArray(), Is.EquivalentTo(relatedCalls.ToArray()));
+                Assert.That(_nonMatchingCalls.ToArray(), Is.EquivalentTo(nonMatchingCalls.ToArray()));
                 Assert.That(_requiredQuantity, Is.EqualTo(requiredQuantity));
             }
 

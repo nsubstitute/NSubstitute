@@ -14,32 +14,33 @@ namespace NSubstitute.Core
             _callFormatter = callFormatter;
         }
 
-        public void Throw(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> relatedCalls, Quantity requiredQuantity)
+        public void Throw(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> nonMatchingCalls, Quantity requiredQuantity)
         {
             var builder = new StringBuilder();
             builder.AppendLine(string.Format("Expected to receive {0} matching:\n\t{1}", requiredQuantity.Describe("call", "calls"), callSpecification.Format(_callFormatter)));
 
             AppendMatchingCalls(callSpecification, matchingCalls, builder);
 
-            if (requiredQuantity.IsMoreThan(matchingCalls))
+            if (requiredQuantity.RequiresMoreThan(matchingCalls))
             {
-                AppendRelatedCalls(callSpecification, relatedCalls, builder);
+                AppendNonMatchingCalls(callSpecification, nonMatchingCalls, builder);
             }
             throw new ReceivedCallsException(builder.ToString());
         }
 
-        private void AppendRelatedCalls(ICallSpecification callSpecification, IEnumerable<ICall> relatedCalls, StringBuilder builder)
+        private void AppendNonMatchingCalls(ICallSpecification callSpecification, IEnumerable<ICall> nonMatchingCalls, StringBuilder builder)
         {
-            if (relatedCalls.Any())
+            if (nonMatchingCalls.Any())
             {
-                var numberOfRelatedCalls = relatedCalls.Count();
+                var numberOfRelatedCalls = nonMatchingCalls.Count();
                 builder.AppendLine(
                     string.Format(
-                        "Received {0} related {1} (non-matching arguments indicated with '*' characters):",
+                        "Received {0} non-matchin" +
+                        "g {1} (non-matching arguments indicated with '*' characters):",
                         numberOfRelatedCalls,
                         numberOfRelatedCalls == 1 ? "call" : "calls")
                     );
-                WriteCallsWithRespectToCallSpec(callSpecification, relatedCalls, builder);
+                WriteCallsWithRespectToCallSpec(callSpecification, nonMatchingCalls, builder);
             }
         }
 
