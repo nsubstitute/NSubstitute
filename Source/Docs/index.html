@@ -37,9 +37,10 @@ calculator.PoweringUp += Raise.Event();
         <h2>Helpful exceptions</h2>
         <div class="highlight">
             <pre>
-CallNotReceivedException : Expected to receive call:
+ReceivedCallsException : Expected to receive a call matching:
     Add(1, 2)
-Actually received (non-matching arguments indicated with '*' characters):
+Actually received no matching calls.
+Received 2 non-matching calls (non-matching arguments indicated with '*' characters):
     Add(*4*, *7*)
     Add(1, *5*)</pre>
         </div>

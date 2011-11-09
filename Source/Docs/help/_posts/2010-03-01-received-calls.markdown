@@ -31,7 +31,7 @@ public void Should_execute_command() {
 }
 {% endexamplecode %}
 
-In this case `command` did receive a call to `Execute()`, and so will complete successfully. If `Execute()` has not been received NSubstitute will throw a `CallNotReceivedException` and let you know what call was expected and with which arguments, as well as listing actual calls to that method and which the arguments differed.
+In this case `command` did receive a call to `Execute()`, and so will complete successfully. If `Execute()` has not been received NSubstitute will throw a `ReceivedCallsException` and let you know what call was expected and with which arguments, as well as listing actual calls to that method and which the arguments differed.
 
 ## Check a call was not received
 NSubstitute can also make sure a call was not received using the `DidNotReceive()` extension method.
@@ -44,6 +44,37 @@ something.DontDoAnything();
 //Assert
 command.DidNotReceive().Execute();
 {% endexamplecode %}
+
+## Check a call was received a specific number of times
+
+The `Received()` extension method will assert that at least one call was made to a member, and `DidNotReceive()` asserts that zero calls were made. NSubstitute also gives you the option of asserting a specific number of calls were received by passing an integer to `Received()`. This will throw if the substitute does not receive *exactly* that many matching calls. Too few, or too many, and the assertion will fail.
+
+{% examplecode csharp %}
+public class CommandRepeater {
+    ICommand command;
+    int numberOfTimesToCall;
+    public CommandRepeater(ICommand command, int numberOfTimesToCall) {
+      this.command = command;
+      this.numberOfTimesToCall = numberOfTimesToCall;
+    }
+
+    public void Execute() { 
+      for (var i=0; i<numberOfTimesToCall; i++) command.Execute();
+    }
+}
+
+[Test]
+public void Should_execute_command_the_number_of_times_specified() {
+  var command = Substitute.For<ICommand>();
+  var repeater = new CommandRepeater(command, 3);
+  //Act
+  repeater.Execute();
+  //Assert
+  command.Received(3).Execute(); // << This will fail if 2 or 4 calls were received
+}
+{% endexamplecode %}
+
+We can also use `Received(1)` to check a call was received once and only once. This differs from the standard `Received()` call, which checks a call was received *at least* once. `Received(0)` behaves the same as `DidNotReceive()`.
 
 ## Received (or not) with specific arguments
 
