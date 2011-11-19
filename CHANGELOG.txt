@@ -1,6 +1,6 @@
-unreleased changes
+1.3.0 (Nov 2011)
 * [NEW] Support for Received(times) to assert a call was received a certain number of times. Thanks to Abi Bellamkonda for this contribution. (#63)
-* [NEW] Silverlight 4 support
+* [FIX] Improved support for calling substitutes from multiple threads. (#62)
 
 1.2.1 (Oct 2011)
 * [FIX] Some combinations of Arg.Do and Returns() caused incorrect values to be returned. (#59)
