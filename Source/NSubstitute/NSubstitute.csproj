@@ -182,6 +182,7 @@
     <Compile Include="Arg.cs" />
     <Compile Include="Core\Argument.cs" />
     <Compile Include="Core\Arguments\AnyArgumentMatcher.cs" />
+    <Compile Include="Core\Arguments\ArgumentAction.cs" />
     <Compile Include="Core\Arguments\ArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\ArgumentsFormatter.cs" />
     <Compile Include="Core\Arguments\ArgumentSpecificationFactory.cs" />

@@ -74,16 +74,9 @@ namespace NSubstitute.Core
 
         private void RunActionIfTypeIsCompatible(object argument, Action<object> action, Type requiredType)
         {
-            if (!IsArgumentCompatibleWithType(argument, requiredType)) return;
+            if (!argument.IsCompatibleWith(requiredType)) return;
             action(argument);
         }
-
-        private bool IsArgumentCompatibleWithType(object argument, Type type)
-        {
-            return argument == null ? TypeCanBeNull(type) : type.IsAssignableFrom(argument.GetType());
-        }
-
-        private bool TypeCanBeNull(Type type) { return !type.IsValueType; }
 
         private bool HasDifferentNumberOfArguments(ICall call)
         {

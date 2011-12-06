@@ -1,3 +1,4 @@
+using System.Collections;
 using NSubstitute.Core;
 using NUnit.Framework;
 
@@ -15,6 +16,36 @@ namespace NSubstitute.Specs
 
                 var zipped = ints.Zip(strings, (i, s) => i + s);
                 Assert.That(zipped, Is.EqualTo(new[] { "1a", "2b", "3c" }));
+            }
+        }
+
+        public class IsCompatibleWithExtension
+        {
+            [Test]
+            public void Compatible_types()
+            {
+                var s = "a string";
+                Assert.That(s.IsCompatibleWith(typeof(IEnumerable)));
+            }
+
+            [Test]
+            public void Incompatible_types()
+            {
+                Assert.False(3.IsCompatibleWith(typeof(string)));
+            }
+
+            [Test]
+            public void Null_with_reference_type()
+            {
+                string s = null;
+                Assert.That(s.IsCompatibleWith(typeof(object)));
+            }
+
+            [Test]
+            public void Null_with_value_type()
+            {
+                string s = null;
+                Assert.False(s.IsCompatibleWith(typeof(int)));
             }
         }
     }

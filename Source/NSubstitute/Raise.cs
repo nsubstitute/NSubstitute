@@ -173,7 +173,7 @@ namespace NSubstitute
                 sender = call.Target();
                 eventArgs = GetDefaultForEventArgType(eventArgsType);
             }
-            else if (IsArgCompatibleWithRequiredType(_providedArguments[0], eventArgsType))
+            else if (_providedArguments[0].IsCompatibleWith(eventArgsType))
             {
                 sender = call.Target();
                 eventArgs = _providedArguments[0];
@@ -193,15 +193,9 @@ namespace NSubstitute
             {
                 var requiredArgType = requiredArgs[i].ParameterType;
                 var providedArg = providedArgs[i];
-                if (!IsArgCompatibleWithRequiredType(providedArg, requiredArgType)) return false;
+                if (!providedArg.IsCompatibleWith(requiredArgType)) return false;
             }
             return true;
-        }
-
-        bool IsArgCompatibleWithRequiredType(object arg, Type requiredType)
-        {
-            if (arg == null) return !requiredType.IsValueType;
-            return requiredType.IsAssignableFrom(arg.GetType());
         }
 
         void ThrowBecauseRequiredArgsNotProvided(ParameterInfo[] requiredArgs)

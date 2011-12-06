@@ -15,15 +15,7 @@ namespace NSubstitute.Core.Arguments
 
         public bool IsSatisfiedBy(object argument)
         {
-            return ArgumentIsCompatibleWithType(argument);
+            return argument.IsCompatibleWith(_typeArgMustBeCompatibleWith);
         }
-
-        private bool ArgumentIsCompatibleWithType(object argument) 
-        {
-            var requiredType = (_typeArgMustBeCompatibleWith.IsByRef) ? _typeArgMustBeCompatibleWith.GetElementType() : _typeArgMustBeCompatibleWith;
-            return argument == null ? TypeCanBeNull(requiredType) : requiredType.IsAssignableFrom(argument.GetType());
-        }
-
-        private bool TypeCanBeNull(Type type) { return !type.IsValueType; }
     }
 }
