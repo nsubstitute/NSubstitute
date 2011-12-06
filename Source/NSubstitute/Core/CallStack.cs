@@ -1,8 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+// ReSharper disable RedundantUsingDirective. Used for StackForSilverlight<T>.
 using System.Threading;
+// ReSharper restore RedundantUsingDirective
 
 namespace NSubstitute.Core
 {
@@ -27,14 +28,9 @@ namespace NSubstitute.Core
             return call;
         }
 
-        public IEnumerable<ICall> FindMatchingCalls(ICallSpecification callSpecification)
-        {
-            return AllCalls().Where(x => callSpecification.IsSatisfiedBy(x));
-        }
-
         public IEnumerable<ICall> AllCalls()
         {
-            return _stack.Reverse();
+            return _stack.ToArray().Reverse();
         }
 
         public void Clear()
@@ -43,19 +39,10 @@ namespace NSubstitute.Core
         }
 
 #if SILVERLIGHT
-        private class StackForSilverlight<T> : IEnumerable<T>
+        private class StackForSilverlight<T>
         {
             readonly object _lock = new object();
             readonly Stack<T> _stack = new Stack<T>();
-
-            public IEnumerator<T> GetEnumerator()
-            {
-                IEnumerable<T> clone = null;
-                LockedAction(() => clone = _stack.ToArray());
-                return clone.GetEnumerator();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
 
             public void Clear() { LockedAction(() => _stack.Clear()); }
 
@@ -68,6 +55,8 @@ namespace NSubstitute.Core
                 item = poppedItem;
                 return true;
             }
+
+            public T[] ToArray() { LockedAction(() => _stack.ToArray()); }
 
             private void LockedAction(Action action)
             {

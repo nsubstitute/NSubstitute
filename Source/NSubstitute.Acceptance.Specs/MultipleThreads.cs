@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Threading;
+using NSubstitute.Acceptance.Specs.Infrastructure;
+using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -41,7 +43,8 @@ namespace NSubstitute.Acceptance.Specs
 
         [Test]
         [Ignore("Long running, non-deterministic test. Reproduced prob with using CallResults from multiple threads.")]
-        public void Call_substitute_method_that_needs_to_return_a_value_from_different_threads() {
+        public void Call_substitute_method_that_needs_to_return_a_value_from_different_threads()
+        {
             for (var i = 0; i < 1000; i++)
             {
                 var sub = Substitute.For<IFoo>();
@@ -53,7 +56,8 @@ namespace NSubstitute.Acceptance.Specs
 
         [Test]
         [Ignore("Long running, non-deterministic test. Reproduced prob with using CallStack from multiple threads.")]
-        public void Call_substitute_method_that_does_not_return_and_just_needs_to_be_recorded_from_different_threads() {
+        public void Call_substitute_method_that_does_not_return_and_just_needs_to_be_recorded_from_different_threads()
+        {
             for (var i = 0; i < 100000; i++)
             {
                 var sub = Substitute.For<IFoo>();
@@ -63,22 +67,30 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
-        private class Task {
-            readonly Action _start;
-            readonly Action _await;
-            private Exception _exception;
-            public Task(Action action) {
-                var thread = new Thread(() =>
+        [Test]
+        [Ignore("Long running, non-deterministic test. Reproduced prob with exception message reading 'Expected x calls, actually received x matching calls'.")]
+        public void Issue_64_check_received_while_calling_from_other_threads()
+        {
+            const int expected = 8;
+            for (var i = 0; i < 1000; i++)
+            {
+                var foo = Substitute.For<IFoo>();
+                var checkThread = new Task(() => foo.Received(expected).VoidMethod());
+                var callThreads = Enumerable.Range(1, expected).Select(x => new Task(() => { Thread.Sleep(0); foo.VoidMethod(); }));
+                var tasks = callThreads.Concat(new[] { checkThread }).ToArray();
+                Task.StartAll(tasks);
+                try { Task.AwaitAll(tasks); }
+                catch (Exception ex)
                 {
-                    try { action(); }
-                    catch (Exception ex) { _exception = ex; }
-                });
-                _await = () => { thread.Join(); ThrowIfError(); };
-                _start = () => thread.Start();
+                    if (ex.InnerException == null) throw;
+                    if (!(ex.InnerException is ReceivedCallsException)) throw;
+
+                    var receivedCallsEx = (ReceivedCallsException)ex.InnerException;
+                    Assert.That(receivedCallsEx.Message, Is.Not.ContainsSubstring("Actually received " + expected + " matching calls"), 
+                        "Should not throw received calls exception if it actually received the same number of calls as expected. " +
+                        "If we get that it means there was a race between checking the expected calls and accessing the calls to put in the exception message.");
+                }
             }
-            void ThrowIfError() { if (_exception != null) throw new Exception("Thread threw", _exception); }
-            public static void StartAll(Task[] tasks) { Array.ForEach(tasks, x => x._start()); }
-            public static void AwaitAll(Task[] tasks) { Array.ForEach(tasks, x => x._await()); }
         }
 
         public interface IFoo

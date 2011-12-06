@@ -16,7 +16,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             protected ISubstitutionContext _context;
             protected ICall _call;
             protected IReceivedCalls _receivedCalls;
-            protected ICallSpecification _callSpecification;
+            protected ICallSpecification _callSpecFromCall;
             protected ICallSpecificationFactory _callSpecificationFactory;
             protected FakeExceptionThrower _exceptionThrower;
             protected MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
@@ -27,10 +27,11 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _context = mock<ISubstitutionContext>();
                 _receivedCalls = mock<IReceivedCalls>();
                 _call = mock<ICall>();
-                _callSpecification = mock<ICallSpecification>();
+                _callSpecFromCall = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
                 _exceptionThrower = new FakeExceptionThrower();
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, _argMatching)).Return(_callSpecification);
+                _callSpecFromCall.stub(x => x.IsSatisfiedBy(_call)).Return(true);
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, _argMatching)).Return(_callSpecFromCall);
             }
 
             public override CheckReceivedCallsHandler CreateSubjectUnderTest()
@@ -64,7 +65,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             {
                 base.Context();
                 _quantity = Quantity.AtLeastOne();
-                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(new[] { _call });
+                _receivedCalls.stub(x => x.AllCalls()).Return(new[] { _call });
             }
         }
 
@@ -72,12 +73,12 @@ namespace NSubstitute.Specs.Routing.Handlers
         {
             ICallSpecification _callSpecWithAnyArguments;
             private ICall[] _matchingCalls;
-            private ICall[] _nonMatchingCalls;
+            private ICall[] _relatedNonMatchingCalls;
 
             [Test]
             public void Should_throw_exception_with_actual_calls_and_related_calls()
             {
-                _exceptionThrower.ShouldHaveBeenToldToThrowWith(_callSpecification, _matchingCalls, _nonMatchingCalls, _quantity);
+                _exceptionThrower.ShouldHaveBeenToldToThrowWith(_callSpecFromCall, _matchingCalls, _relatedNonMatchingCalls, _quantity);
             }
 
             public override void Because()
@@ -93,10 +94,13 @@ namespace NSubstitute.Specs.Routing.Handlers
 
                 _quantity = Quantity.Exactly(2);
                 _matchingCalls = new[] { _call };
-                _nonMatchingCalls = new[] { mock<ICall>() };
-                var allRelatedCalls = _matchingCalls.Concat(_nonMatchingCalls);
-                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecification)).Return(_matchingCalls);
-                _receivedCalls.stub(x => x.FindMatchingCalls(_callSpecWithAnyArguments)).Return(allRelatedCalls);
+                _relatedNonMatchingCalls = new[] { mock<ICall>() };
+                var completelyNonMatchingCalls = new[] { mock<ICall>() };
+
+                Array.ForEach(_relatedNonMatchingCalls, call => _callSpecWithAnyArguments.stub(x => x.IsSatisfiedBy(call)).Return(true));
+
+                var allRelatedCalls = _matchingCalls.Concat(_relatedNonMatchingCalls).Concat(completelyNonMatchingCalls);
+                _receivedCalls.stub(x => x.AllCalls()).Return(allRelatedCalls);
             }
         }
 

@@ -211,6 +211,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubbingForConcreteTypesAndMultipleInterfaces.cs" />
     <Compile Include="SubstituteTimingAndInteractions.cs" />
+    <Compile Include="Infrastructure\Task.cs" />
     <Compile Include="WhenCalledDo.cs" />
     <Compile Include="SubstitutingForDelegates.cs" />
   </ItemGroup>
