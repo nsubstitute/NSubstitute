@@ -1,23 +1,16 @@
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace NSubstitute.Core.Arguments
 {
-    public class ArrayContentsArgumentSpecification : IArgumentSpecification
+    public class ArrayContentsArgumentMatcher : IArgumentMatcher
     {
-        private readonly Type _forType;
         private readonly IEnumerable<IArgumentSpecification> _argumentSpecifications;
 
-        public ArrayContentsArgumentSpecification(IEnumerable<IArgumentSpecification> argumentSpecifications, Type forType)
+        public ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications)
         {
             _argumentSpecifications = argumentSpecifications;
-            _forType = forType;
-            Action = x => { };
         }
-
-        public Type ForType { get { return _forType; } }
-        public Action<object> Action { get; set; }
 
         public bool IsSatisfiedBy(object argument)
         {

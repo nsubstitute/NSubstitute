@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs.Arguments
 {
-    public class ExpressionArgumentMatchersSpecs 
+    public class ExpressionArgumentMatcherSpecs 
     {
         [Test]
         public void Should_use_expression_as_string_description()

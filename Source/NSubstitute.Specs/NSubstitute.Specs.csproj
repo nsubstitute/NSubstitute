@@ -185,12 +185,12 @@
     <Compile Include="ArgumentSpecs.cs" />
     <Compile Include="Arguments\ArgumentSpecificationSpecs.cs" />
     <Compile Include="Arguments\EqualsArgumentMatcherSpecs.cs" />
-    <Compile Include="Arguments\ExpressionArgumentMatchersSpecs.cs" />
+    <Compile Include="Arguments\ExpressionArgumentMatcherSpecs.cs" />
     <Compile Include="Arguments\ArgumentsFormatterSpecs.cs" />
     <Compile Include="Arguments\ArgumentSpecificationsFactorySpecs.cs" />
     <Compile Include="Arguments\ArgumentSpecificationFactorySpecs.cs" />
     <Compile Include="Arguments\ArrayArgumentSpecificationsFactorySpecs.cs" />
-    <Compile Include="Arguments\ArrayContentsArgumentSpecificationSpecs.cs" />
+    <Compile Include="Arguments\ArrayContentsArgumentMatcherSpecs.cs" />
     <Compile Include="Arguments\SuppliedArgumentSpecificationsFactorySpecs.cs" />
     <Compile Include="Arguments\ParameterInfosFromParamsArrayFactorySpecs.cs" />
     <Compile Include="Arguments\SuppliedArgumentSpecificationsSpecs.cs" />

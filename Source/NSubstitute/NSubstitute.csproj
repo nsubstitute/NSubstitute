@@ -188,7 +188,7 @@
     <Compile Include="Core\Arguments\ArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\ArgumentSpecificationQueue.cs" />
     <Compile Include="Core\Arguments\ArrayArgumentSpecificationsFactory.cs" />
-    <Compile Include="Core\Arguments\ArrayContentsArgumentSpecification.cs" />
+    <Compile Include="Core\Arguments\ArrayContentsArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ArrayContentsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\DefaultChecker.cs" />
     <Compile Include="Core\Arguments\EqualsArgumentMatcher.cs" />

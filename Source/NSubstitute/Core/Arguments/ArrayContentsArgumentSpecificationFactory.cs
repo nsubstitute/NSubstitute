@@ -7,7 +7,8 @@ namespace NSubstitute.Core.Arguments
     {
         public IArgumentSpecification Create(IEnumerable<IArgumentSpecification> contentsArgumentSpecifications, Type arrayType)
         {
-            return new ArrayContentsArgumentSpecification(contentsArgumentSpecifications, arrayType);
+            var matcher = new ArrayContentsArgumentMatcher(contentsArgumentSpecifications);
+            return new ArgumentSpecification(arrayType, matcher);
         }
     }
 }
