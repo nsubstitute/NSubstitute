@@ -58,7 +58,7 @@ namespace NSubstitute.Core
 
             for (var i = 0; i < arguments.Length; i++)
             {
-                argSpecs[i].Action(arguments[i]);
+                argSpecs[i].RunAction(arguments[i]);
             }
         }
 

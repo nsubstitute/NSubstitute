@@ -4,16 +4,20 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecification : IArgumentSpecification
     {
+        static readonly Action<object> NoOpAction = x => { };
         readonly Type _forType;
         readonly IArgumentMatcher _matcher;
         readonly IArgumentMatcher _compatibleTypeMatcher;
+        readonly Action<object> _action;
 
-        public ArgumentSpecification(Type forType, IArgumentMatcher matcher)
+        public ArgumentSpecification(Type forType, IArgumentMatcher matcher) : this(forType, matcher, NoOpAction) { }
+
+        public ArgumentSpecification(Type forType, IArgumentMatcher matcher, Action<object> action)
         {
             _forType = forType;
             _matcher = matcher;
             _compatibleTypeMatcher = new AnyArgumentMatcher(forType);
-            Action = x => { };
+            _action = action;
         }
 
         public bool IsSatisfiedBy(object argument)
@@ -24,18 +28,22 @@ namespace NSubstitute.Core.Arguments
         }
 
         public Type ForType { get { return _forType; } }
-        public Action<object> Action { get; set; }
         public override string ToString() { return _matcher.ToString(); }
 
         public IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType)
         {
-            return new ArgumentSpecification(requiredType, new AnyArgumentMatcher(requiredType)) { Action = RunActionIfTypeIsCompatible };
+            return new ArgumentSpecification(requiredType, new AnyArgumentMatcher(requiredType), RunActionIfTypeIsCompatible);
+        }
+
+        public void RunAction(object argument)
+        {
+            _action(argument);
         }
 
         private void RunActionIfTypeIsCompatible(object argument)
         {
             if (!argument.IsCompatibleWith(ForType)) return;
-            Action(argument);
+            _action(argument);
         }
     }
 }

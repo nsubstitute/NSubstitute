@@ -13,7 +13,7 @@ namespace NSubstitute.Core.Arguments
 
         public T EnqueueSpecFor<T>(IArgumentMatcher matcher, Action<object> action)
         {
-            return EnqueueSpecFor<T>(new ArgumentSpecification(typeof(T), matcher) { Action = action });
+            return EnqueueSpecFor<T>(new ArgumentSpecification(typeof(T), matcher, action));
         }
 
         public T EnqueueSpecFor<T>(IArgumentMatcher<T> matcher)
