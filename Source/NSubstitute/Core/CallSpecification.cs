@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -46,7 +45,7 @@ namespace NSubstitute.Core
                 .GetParameters()
                 .Zip(
                     _argumentSpecifications,
-                    (p, spec) => ConvertArgSpecToMatchAnyInstanceOfParameterType(p, spec)
+                    (p, spec) => spec.CreateCopyMatchingAnyArgOfType(p.ParameterType)
                 )
                 .ToArray();
             return new CallSpecification(_methodInfo, anyArgs);
@@ -61,21 +60,6 @@ namespace NSubstitute.Core
             {
                 argSpecs[i].Action(arguments[i]);
             }
-        }
-
-        private IArgumentSpecification ConvertArgSpecToMatchAnyInstanceOfParameterType(ParameterInfo parameter, IArgumentSpecification spec)
-        {
-            var requiredType = parameter.ParameterType;
-            return new ArgumentSpecification(requiredType, new AnyArgumentMatcher(requiredType))
-            {
-                Action = x => RunActionIfTypeIsCompatible(x, spec.Action, spec.ForType)
-            };
-        }
-
-        private void RunActionIfTypeIsCompatible(object argument, Action<object> action, Type requiredType)
-        {
-            if (!argument.IsCompatibleWith(requiredType)) return;
-            action(argument);
         }
 
         private bool HasDifferentNumberOfArguments(ICall call)

@@ -26,5 +26,16 @@ namespace NSubstitute.Core.Arguments
         public Type ForType { get { return _forType; } }
         public Action<object> Action { get; set; }
         public override string ToString() { return _matcher.ToString(); }
+
+        public IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType)
+        {
+            return new ArgumentSpecification(requiredType, new AnyArgumentMatcher(requiredType)) { Action = RunActionIfTypeIsCompatible };
+        }
+
+        private void RunActionIfTypeIsCompatible(object argument)
+        {
+            if (!argument.IsCompatibleWith(ForType)) return;
+            Action(argument);
+        }
     }
 }

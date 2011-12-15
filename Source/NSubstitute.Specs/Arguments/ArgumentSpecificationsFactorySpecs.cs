@@ -63,40 +63,34 @@ namespace NSubstitute.Specs.Arguments
 
         public class When_creating_arg_specs_that_match_any_arguments : When_creating_argument_specifications
         {
+            private IArgumentSpecification _anyArgsVersionOfIntSpec;
+            private IArgumentSpecification _anyArgsVersionOfStringSpec;
+
             public override void Context()
             {
                 base.Context();
                 _matchArgs = MatchArgs.Any;
 
-                _mixedArgumentSpecifications.Add(CreateSpecWith(typeof(int), x => { }));
-                _mixedArgumentSpecifications.Add(CreateSpecWith(typeof(string), x => { }));
+                _anyArgsVersionOfIntSpec = mock<IArgumentSpecification>();
+                _anyArgsVersionOfStringSpec = mock<IArgumentSpecification>();
+
+                _mixedArgumentSpecifications.Add(CreateSpecWith(typeof(int), _anyArgsVersionOfIntSpec));
+                _mixedArgumentSpecifications.Add(CreateSpecWith(typeof(string), _anyArgsVersionOfStringSpec));
             }
 
             [Test]
             public void Should_return_arg_specs_based_on_those_worked_out_by_mixed_arg_spec_factory()
             {
-                for (int i = 0; i < _mixedArgumentSpecifications.Count(); i++)
-                {
-                    var argSpec = _result.ElementAt(i);
-                    Assert.That(argSpec.IsSatisfiedBy(GetAnyValueFor(argSpec.ForType)), "Result should match any argument of compatible type");
-                    Assert.That(argSpec.ForType, Is.EqualTo(_mixedArgumentSpecifications[i].ForType), "Result should be for same arg type");
-                    Assert.That(argSpec.Action, Is.EqualTo(_mixedArgumentSpecifications[i].Action), "Result should have same specified action");
-                }
+                var resultArray = _result.ToArray();
+                Assert.That(resultArray[0], Is.EqualTo(_anyArgsVersionOfIntSpec), "Result should be a copy of original spec that matches any args");
+                Assert.That(resultArray[1], Is.SameAs(_anyArgsVersionOfStringSpec), "Result should be a copy of original spec that matches any args");
             }
 
-            private object GetAnyValueFor(Type t)
-            {
-                if (t == typeof(string)) return "sample value";
-                if (t == typeof(int)) return 123423;
-                throw new ArgumentOutOfRangeException("Was not expecting type " + t.Name + ". If you added another argument specification " +
-                    "for this type to the fixture context you'll also need to provide a sample value for it.");
-            }
-
-            private IArgumentSpecification CreateSpecWith(Type type, Action<object> action)
+            private IArgumentSpecification CreateSpecWith(Type type, IArgumentSpecification anyArgsVersionOfSpec)
             {
                 var spec = mock<IArgumentSpecification>();
                 spec.stub(x => x.ForType).Return(type);
-                spec.Action = action;
+                spec.stub(x => x.CreateCopyMatchingAnyArgOfType(type)).Return(anyArgsVersionOfSpec);
                 return spec;
             }
         }
