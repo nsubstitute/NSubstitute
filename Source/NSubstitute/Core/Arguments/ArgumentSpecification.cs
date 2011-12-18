@@ -22,12 +22,13 @@ namespace NSubstitute.Core.Arguments
 
         public bool IsSatisfiedBy(object argument)
         {
-            if (!_compatibleTypeMatcher.IsSatisfiedBy(argument)) return false;
+            if (!IsCompatibleType(argument)) return false;
             try { return _matcher.IsSatisfiedBy(argument); }
             catch { return false; }
         }
 
         public Type ForType { get { return _forType; } }
+
         public override string ToString() { return _matcher.ToString(); }
 
         public IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType)
@@ -38,6 +39,11 @@ namespace NSubstitute.Core.Arguments
         public void RunAction(object argument)
         {
             _action(argument);
+        }
+
+        private bool IsCompatibleType(object argument)
+        {
+            return _compatibleTypeMatcher.IsSatisfiedBy(argument);
         }
 
         private void RunActionIfTypeIsCompatible(object argument)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using NSubstitute.Core;
 using NUnit.Framework;
@@ -47,6 +48,27 @@ namespace NSubstitute.Specs
                 string s = null;
                 Assert.False(s.IsCompatibleWith(typeof(int)));
             }
+
+            [Test]
+            public void Compatible_type_passed_by_reference()
+            {
+                var intByRefType = GetIntByRefType();
+                Assert.That(3.IsCompatibleWith(intByRefType));
+            }
+
+            [Test]
+            public void Incompatible_type_passed_by_reference()
+            {
+                var intByRefType = GetIntByRefType();
+                Assert.False("hello".IsCompatibleWith(intByRefType));
+            }
+
+            private Type GetIntByRefType()
+            {
+                return GetType().GetMethod("MethodWithARefArg").GetParameters()[0].ParameterType;
+            }
+
+            public void MethodWithARefArg(ref int i) { }
         }
     }
 }
