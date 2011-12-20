@@ -175,6 +175,22 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Anything(new object()), Is.EqualTo(123));
         }
 
+        [Test]
+        public void With_custom_matcher()
+        {
+            _something.Add(1, 10);
+
+            _something.Received().Add(1, Arg.Matches(new LessThanMatcher(20)));
+            _something.DidNotReceive().Add(1, Arg.Matches(new LessThanMatcher(3)));
+        }
+
+        private class LessThanMatcher : IArgumentMatcher<int>
+        {
+            private readonly int _lessThan;
+            public LessThanMatcher(int lessThan) { _lessThan = lessThan; }
+            public bool IsSatisfiedBy(int argument) { return argument < _lessThan; }
+        }
+
         [SetUp]
         public void SetUp()
         {

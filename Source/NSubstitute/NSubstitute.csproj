@@ -193,7 +193,6 @@
     <Compile Include="Core\Arguments\DefaultChecker.cs" />
     <Compile Include="Core\Arguments\EqualsArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ExpressionArgumentMatcher.cs" />
-    <Compile Include="Core\Arguments\IArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\IArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\IArrayArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\Arguments\IArrayContentsArgumentSpecificationFactory.cs" />
@@ -231,6 +230,7 @@
     <Compile Include="Exceptions\CannotReturnNullForValueType.cs" />
     <Compile Include="Exceptions\CouldNotSetReturnException.cs" />
     <Compile Include="Exceptions\NullSubstituteReferenceException.cs" />
+    <Compile Include="IArgumentMatcher.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
