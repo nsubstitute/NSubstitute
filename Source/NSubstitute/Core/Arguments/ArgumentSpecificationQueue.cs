@@ -45,6 +45,11 @@ namespace NSubstitute.Core.Arguments
             {
                 return _genericMatcher.IsSatisfiedBy((T)argument);
             }
+
+            public override string ToString()
+            {
+                return _genericMatcher.ToString();
+            }
         }
     }
 }

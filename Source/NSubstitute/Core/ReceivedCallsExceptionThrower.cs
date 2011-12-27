@@ -35,8 +35,7 @@ namespace NSubstitute.Core
                 var numberOfRelatedCalls = nonMatchingCalls.Count();
                 builder.AppendLine(
                     string.Format(
-                        "Received {0} non-matchin" +
-                        "g {1} (non-matching arguments indicated with '*' characters):",
+                        "Received {0} non-matching {1} (non-matching arguments indicated with '*' characters):",
                         numberOfRelatedCalls,
                         numberOfRelatedCalls == 1 ? "call" : "calls")
                     );
