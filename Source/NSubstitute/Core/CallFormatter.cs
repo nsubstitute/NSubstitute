@@ -20,7 +20,7 @@ namespace NSubstitute.Core
 
         public string Format(ICall call, ICallSpecification withRespectToCallSpec)
         {
-            return Format(call.GetMethodInfo(), call.GetArguments(), withRespectToCallSpec.NonMatchingArgumentIndicies(call));
+            return Format(call.GetMethodInfo(), call.GetArguments(), withRespectToCallSpec.NonMatchingArguments(call).Select(x=> x.Index));
         }
 
         public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)

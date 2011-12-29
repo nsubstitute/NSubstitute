@@ -21,18 +21,13 @@ namespace NSubstitute.Core
         {
             if (_methodInfo != call.GetMethodInfo()) return false;
             if (HasDifferentNumberOfArguments(call)) return false;
-            if (NonMatchingArgumentIndicies(call).Any()) return false;
+            if (NonMatchingArguments(call).Any()) return false;
             return true;
         }
 
         public string Format(ICallFormatter callFormatter)
         {
             return callFormatter.Format(_methodInfo, _argumentSpecifications, new int[0]);
-        }
-
-        public IEnumerable<int> NonMatchingArgumentIndicies(ICall call)
-        {
-            return NonMatchingArguments(call).Select(x => x.Index);
         }
 
         public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)

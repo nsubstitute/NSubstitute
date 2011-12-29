@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
@@ -6,8 +7,8 @@ namespace NSubstitute.Core
     {
         bool IsSatisfiedBy(ICall call);
         string Format(ICallFormatter callFormatter);
-        IEnumerable<int> NonMatchingArgumentIndicies(ICall call);
         ICallSpecification CreateCopyThatMatchesAnyArguments();
         void InvokePerArgumentActions(CallInfo callInfo);
+        IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call);
     }
 }

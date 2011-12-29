@@ -80,9 +80,9 @@ namespace NSubstitute.Specs
             }
 
             [Test]
-            public void Non_matching_indicies_should_be_empty()
+            public void Non_matching_args_should_be_empty()
             {
-                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.Empty);
+                Assert.That(sut.NonMatchingArguments(_call).ToArray(), Is.Empty);
             }
         }
 
@@ -102,9 +102,9 @@ namespace NSubstitute.Specs
             }
 
             [Test]
-            public void Should_return_index_of_different_arguments()
+            public void Should_return_non_matching_arguments()
             {
-                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.EqualTo(new[] { 1 }));
+                Assert.That(sut.NonMatchingArguments(_call).ToArray(), Is.EqualTo(new[] { new ArgumentMatchInfo(1, secondArg, _secondArgSpec) }));
             }
         }
 
@@ -125,9 +125,9 @@ namespace NSubstitute.Specs
             }
 
             [Test]
-            public void Should_return_empty_for_non_matching_arg_index_because_args_that_are_specified_match()
+            public void Should_return_empty_for_non_matching_arg_because_args_that_are_specified_match()
             {
-                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.Empty);
+                Assert.That(sut.NonMatchingArguments(_call).ToArray(), Is.Empty);
             }
         }
 
