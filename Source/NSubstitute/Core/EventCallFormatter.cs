@@ -15,11 +15,11 @@ namespace NSubstitute.Core
         private readonly Func<MethodInfo, Predicate<EventInfo>> _eventsToFormat;
         private readonly string _eventOperator;
 
-        public EventCallFormatter(IArgumentsFormatter argumentsFormatter, Func<MethodInfo, Predicate<EventInfo>> eventsToFormat, string eventOperator)
+        public EventCallFormatter(IArgumentsFormatter argumentsFormatter, Func<MethodInfo, Predicate<EventInfo>> eventsToFormat)
         {
             _argumentsFormatter = argumentsFormatter;
             _eventsToFormat = eventsToFormat;
-            _eventOperator = eventOperator;
+            _eventOperator = (eventsToFormat == IsSubscription) ? "+=" : "-=";
         }
 
         public bool CanFormat(MethodInfo methodInfo)

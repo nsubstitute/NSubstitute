@@ -13,8 +13,8 @@ namespace NSubstitute.Core
         {
             _methodInfoFormatters = new IMethodInfoFormatter[] { 
                 new PropertyCallFormatter(argumentsFormatter), 
-                new EventCallFormatter(argumentsFormatter, EventCallFormatter.IsSubscription, "+="), 
-                new EventCallFormatter(argumentsFormatter, EventCallFormatter.IsUnsubscription, "-="), 
+                new EventCallFormatter(argumentsFormatter, EventCallFormatter.IsSubscription), 
+                new EventCallFormatter(argumentsFormatter, EventCallFormatter.IsUnsubscription), 
                 new MethodFormatter(argumentsFormatter) };
         }
 
