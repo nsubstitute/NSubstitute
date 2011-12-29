@@ -93,5 +93,43 @@ namespace NSubstitute.Specs.Arguments
 
             public void MethodWithARefArgument<T>(ref T arg) { }
         }
+
+        public class When_describing_why_an_argument_did_not_match
+        {
+            [Test]
+            public void Returns_empty_when_matcher_does_not_support_describing_non_matches()
+            {
+                var matcher = new MatcherNotSupportingDescribe();
+                var subject = new ArgumentSpecification(typeof(object), matcher);
+
+                var result = subject.DescribeNonMatch(new object());
+
+                Assert.That(result, Is.Empty);
+            }
+
+            [Test]
+            public void Returns_the_desription_when_the_matcher_supports_describing_non_matches()
+            {
+                var matcher = new MatcherSupportingDescribe();
+                var subject = new ArgumentSpecification(typeof(object), matcher);
+
+                var result = subject.DescribeNonMatch(new object());
+
+                Assert.That(result, Is.EqualTo(MatcherSupportingDescribe.Description));
+            }
+
+            private class MatcherSupportingDescribe : IArgumentMatcher, IDescribeNonMatches
+            {
+                public const string Description = "description from matcher";
+                public bool IsSatisfiedBy(object argument) { return false; }
+                public string DescribeFor(object argument) { return Description; }
+            }
+
+            private class MatcherNotSupportingDescribe : IArgumentMatcher
+            {
+                public bool IsSatisfiedBy(object argument) { return false; }
+            }
+
+        }
     }
 }

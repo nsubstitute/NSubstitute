@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -64,11 +63,6 @@ namespace NSubstitute.Core
         private bool HasDifferentNumberOfArguments(ICall call)
         {
             return _argumentSpecifications.Length != call.GetArguments().Length;
-        }
-
-        private bool ArgIsSpecifiedAndMatchesSpec(object argument, int argumentIndex)
-        {
-            return _argumentSpecifications[argumentIndex].IsSatisfiedBy(argument);
         }
     }
 }

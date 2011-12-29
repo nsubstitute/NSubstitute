@@ -27,6 +27,12 @@ namespace NSubstitute.Core.Arguments
             catch { return false; }
         }
 
+        public string DescribeNonMatch(object argument)
+        {
+            var describable = _matcher as IDescribeNonMatches;
+            return describable == null ? string.Empty : describable.DescribeFor(argument);
+        }
+
         public Type ForType { get { return _forType; } }
 
         public override string ToString() { return _matcher.ToString(); }

@@ -30,7 +30,7 @@ namespace NSubstitute.Specs.Infrastructure
 
         public static void did_not_receive<T>(this T mock, Action<T> call)
         {
-            mock.AssertWasNotCalled(call);    
+            mock.AssertWasNotCalled(call);
         }
 
         public static void did_not_receive_with_any_args<T>(this T mock, Action<T> call)

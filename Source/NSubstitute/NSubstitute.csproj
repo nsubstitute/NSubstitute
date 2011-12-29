@@ -196,6 +196,7 @@
     <Compile Include="Core\Arguments\IArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\IArrayArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\Arguments\IArrayContentsArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\IDescribeNonMatches.cs" />
     <Compile Include="Core\Arguments\INonParamsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\IParameterInfosFromParamsArrayFactory.cs" />
     <Compile Include="Core\Arguments\ISuppliedArgumentSpecificationsFactory.cs" />
