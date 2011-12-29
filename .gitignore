@@ -4,6 +4,7 @@
 *.orig
 *.swp
 *.swo
+*.dotcover
 bin/
 obj/
 Output/*
