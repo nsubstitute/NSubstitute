@@ -184,11 +184,12 @@ namespace NSubstitute.Acceptance.Specs
             _something.DidNotReceive().Add(1, Arg.Matches(new LessThanMatcher(3)));
         }
 
-        private class LessThanMatcher : IArgumentMatcher<int>
+        private class LessThanMatcher : IArgumentMatcher<int>, IDescribeNonMatches
         {
             private readonly int _lessThan;
             public LessThanMatcher(int lessThan) { _lessThan = lessThan; }
             public bool IsSatisfiedBy(int argument) { return argument < _lessThan; }
+            public string DescribeFor(object argument) { return string.Format("Expected less than {0}\nActually got {1}", _lessThan, argument); }
         }
 
         [SetUp]

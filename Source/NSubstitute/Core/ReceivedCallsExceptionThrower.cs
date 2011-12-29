@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
@@ -62,7 +63,19 @@ namespace NSubstitute.Core
             foreach (var call in relatedCalls)
             {
                 builder.AppendFormat("\t{0}\n", _callFormatter.Format(call, callSpecification));
+                var nonMatches = DescribeNonMatches(call, callSpecification).Trim();
+                if (!string.IsNullOrEmpty(nonMatches))
+                {
+                    builder.AppendFormat("\t\t{0}", nonMatches.Replace("\n", "\n\t\t"));
+                }
             }
+        }
+
+        private string DescribeNonMatches(ICall call, ICallSpecification callSpecification)
+        {
+            var nonMatches = callSpecification.NonMatchingArguments(call) ?? new ArgumentMatchInfo[0];
+            var nonMatchingArgDescriptions = nonMatches.Select(x => x.DescribeNonMatch()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            return string.Join("\n", nonMatchingArgDescriptions);
         }
     }
 }

@@ -8,5 +8,6 @@ namespace NSubstitute.Core.Arguments
         Type ForType { get; }
         IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType);
         void RunAction(object argument);
+        string DescribeNonMatch(object argument);
     }
 }

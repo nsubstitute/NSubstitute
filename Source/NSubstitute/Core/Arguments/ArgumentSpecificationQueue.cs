@@ -32,7 +32,7 @@ namespace NSubstitute.Core.Arguments
             return default(T);
         }
 
-        private class GenericToNonGenericArgumentMatcher<T> : IArgumentMatcher
+        private class GenericToNonGenericArgumentMatcher<T> : IArgumentMatcher, IDescribeNonMatches
         {
             private readonly IArgumentMatcher<T> _genericMatcher;
 
@@ -49,6 +49,12 @@ namespace NSubstitute.Core.Arguments
             public override string ToString()
             {
                 return _genericMatcher.ToString();
+            }
+
+            public string DescribeFor(object argument)
+            {
+                var describable = _genericMatcher as IDescribeNonMatches;
+                return describable == null ? string.Empty : describable.DescribeFor(argument);
             }
         }
     }

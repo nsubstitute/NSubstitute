@@ -15,6 +15,14 @@
 
         public bool IsMatch { get { return Specification.IsSatisfiedBy(Argument); } }
 
+        public string DescribeNonMatch()
+        {
+            var describeNonMatch = Specification.DescribeNonMatch(Argument);
+            if (string.IsNullOrEmpty(describeNonMatch)) return string.Empty;
+            var argIndexPrefix = "arg[" + Index + "]: ";
+            return string.Format("{0}{1}", argIndexPrefix, describeNonMatch.Replace("\n", "\n".PadRight(argIndexPrefix.Length + 1)));
+        }
+
         public bool Equals(ArgumentMatchInfo other)
         {
             if (ReferenceEquals(null, other)) return false;
