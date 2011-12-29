@@ -83,14 +83,9 @@ namespace NSubstitute.Specs
 
         private void AssertCallFormat(Action<ISample> callOnSubstitute, string expectedFormat)
         {
-            AssertCallFormat(callOnSubstitute, new int[0], expectedFormat);
-        }
-
-        private void AssertCallFormat(Action<ISample> callOnSubstitute, IEnumerable<int> argumentsToHighlight, string expectedFormat)
-        {
             callOnSubstitute(_sampleSub);
             var call =  _sampleSub.ReceivedCalls().First();
-            var format = sut.Format(call.GetMethodInfo(), call.GetArguments(), argumentsToHighlight);
+            var format = sut.Format(call.GetMethodInfo(), call.GetArguments(), new ArgumentMatchInfo[0]);
             Assert.That(format, Is.EqualTo(expectedFormat));
         }
 

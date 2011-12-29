@@ -20,14 +20,14 @@ namespace NSubstitute.Core
 
         public string Format(ICall call, ICallSpecification withRespectToCallSpec)
         {
-            return Format(call.GetMethodInfo(), call.GetArguments(), withRespectToCallSpec.NonMatchingArguments(call).Select(x=> x.Index));
+            return Format(call.GetMethodInfo(), call.GetArguments(), withRespectToCallSpec.NonMatchingArguments(call));
         }
 
-        public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
+        public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<ArgumentMatchInfo> nonMatchingArguments)
         {
             return _methodInfoFormatters
                         .First(x => x.CanFormat(methodInfoOfCall))
-                        .Format(methodInfoOfCall, arguments, argumentsToHighlight);
+                        .Format(methodInfoOfCall, arguments, nonMatchingArguments.Select(x => x.Index));
         }
     }
 }

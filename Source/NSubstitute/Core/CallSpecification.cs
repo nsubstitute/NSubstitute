@@ -27,7 +27,7 @@ namespace NSubstitute.Core
 
         public string Format(ICallFormatter callFormatter)
         {
-            return callFormatter.Format(_methodInfo, _argumentSpecifications, new int[0]);
+            return callFormatter.Format(_methodInfo, _argumentSpecifications, new ArgumentMatchInfo[0]);
         }
 
         public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
