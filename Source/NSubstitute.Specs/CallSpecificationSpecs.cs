@@ -131,29 +131,6 @@ namespace NSubstitute.Specs
             }
         }
 
-        public class When_call_has_more_arguments_than_specified : Concern
-        {
-            public override void Context()
-            {
-                base.Context();
-                _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
-                _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
-                _call = new Call(_methodInfoSpecified, new[] { firstArg, secondArg, new object() }, null, new IArgumentSpecification[0].ToList());
-            }
-
-            [Test]
-            public void Should_not_be_satisfied()
-            {
-                Assert.That(_result, Is.False);
-            }
-
-            [Test]
-            public void Should_return_index_of_arg_that_is_not_specified()
-            {
-                Assert.That(sut.NonMatchingArgumentIndicies(_call).ToArray(), Is.EqualTo(new[] { 2 }));
-            }
-        }
-
         public class When_formatting_call_as_string : Concern
         {
             private ICallFormatter _callFormatter;

@@ -199,6 +199,7 @@
     <Compile Include="Core\Arguments\INonParamsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\IParameterInfosFromParamsArrayFactory.cs" />
     <Compile Include="Core\Arguments\ISuppliedArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\Arguments\ArgumentMatchInfo.cs" />
     <Compile Include="Core\Arguments\NonParamsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\IDefaultChecker.cs" />
     <Compile Include="Core\Arguments\IParamsArgumentSpecificationFactory.cs" />

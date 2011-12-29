@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -31,12 +32,15 @@ namespace NSubstitute.Core
 
         public IEnumerable<int> NonMatchingArgumentIndicies(ICall call)
         {
+            return NonMatchingArguments(call).Select(x => x.Index);
+        }
+
+        public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
+        {
             var arguments = call.GetArguments();
-            for (var i = 0; i < arguments.Length; i++)
-            {
-                var argumentMatchesSpecification = ArgIsSpecifiedAndMatchesSpec(arguments[i], i);
-                if (!argumentMatchesSpecification) yield return i;
-            }
+            return arguments
+                    .Select((arg, index) => new ArgumentMatchInfo(index, arg, _argumentSpecifications[index]))
+                    .Where(x => !x.IsMatch);
         }
 
         public ICallSpecification CreateCopyThatMatchesAnyArguments()
@@ -69,7 +73,6 @@ namespace NSubstitute.Core
 
         private bool ArgIsSpecifiedAndMatchesSpec(object argument, int argumentIndex)
         {
-            if (argumentIndex >= _argumentSpecifications.Length) return false;
             return _argumentSpecifications[argumentIndex].IsSatisfiedBy(argument);
         }
     }
