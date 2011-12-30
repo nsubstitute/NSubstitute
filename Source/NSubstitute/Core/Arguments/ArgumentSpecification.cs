@@ -7,7 +7,6 @@ namespace NSubstitute.Core.Arguments
         static readonly Action<object> NoOpAction = x => { };
         readonly Type _forType;
         readonly IArgumentMatcher _matcher;
-        readonly IArgumentMatcher _compatibleTypeMatcher;
         readonly Action<object> _action;
 
         public ArgumentSpecification(Type forType, IArgumentMatcher matcher) : this(forType, matcher, NoOpAction) { }
@@ -16,13 +15,12 @@ namespace NSubstitute.Core.Arguments
         {
             _forType = forType;
             _matcher = matcher;
-            _compatibleTypeMatcher = new AnyArgumentMatcher(forType);
             _action = action;
         }
 
         public bool IsSatisfiedBy(object argument)
         {
-            if (!IsCompatibleType(argument)) return false;
+            if (!IsCompatibleWith(argument)) return false;
             try { return _matcher.IsSatisfiedBy(argument); }
             catch { return false; }
         }
@@ -30,7 +28,9 @@ namespace NSubstitute.Core.Arguments
         public string DescribeNonMatch(object argument)
         {
             var describable = _matcher as IDescribeNonMatches;
-            return describable == null ? string.Empty : describable.DescribeFor(argument);
+            if (describable == null) return string.Empty;
+
+            return IsCompatibleWith(argument) ? describable.DescribeFor(argument) : GetIncompatibleTypeMessage(argument);
         }
 
         public Type ForType { get { return _forType; } }
@@ -47,15 +47,21 @@ namespace NSubstitute.Core.Arguments
             _action(argument);
         }
 
-        private bool IsCompatibleType(object argument)
-        {
-            return _compatibleTypeMatcher.IsSatisfiedBy(argument);
-        }
-
         private void RunActionIfTypeIsCompatible(object argument)
         {
             if (!argument.IsCompatibleWith(ForType)) return;
             _action(argument);
+        }
+
+        private bool IsCompatibleWith(object argument)
+        {
+            return argument.IsCompatibleWith(ForType);
+        }
+
+        private string GetIncompatibleTypeMessage(object argument)
+        {
+            var argumentType = argument == null ? typeof(object) : argument.GetType();
+            return string.Format("Expected an argument compatible with type {0}. Actual type was {1}.", ForType, argumentType);
         }
     }
 }

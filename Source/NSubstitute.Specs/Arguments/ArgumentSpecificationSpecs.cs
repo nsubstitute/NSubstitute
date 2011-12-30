@@ -118,6 +118,29 @@ namespace NSubstitute.Specs.Arguments
                 Assert.That(result, Is.EqualTo(MatcherSupportingDescribe.Description));
             }
 
+            [Test]
+            public void Returns_arg_incompatible_without_calling_describable_matcher_when_specification_is_for_an_incompatible_type()
+            {
+                var matcher = new MatcherSupportingDescribe();
+                var subject = new ArgumentSpecification(typeof(int), matcher);
+
+                var result = subject.DescribeNonMatch("not an int");
+
+                var expectedResult = string.Format("Expected an argument compatible with type {0}. Actual type was {1}.", typeof(int), typeof(string));
+                Assert.That(result, Is.EqualTo(expectedResult));
+            }
+
+            [Test]
+            public void Returns_empty_for_non_describably_matcher_when_specification_is_for_an_incompatible_type()
+            {
+                var matcher = new MatcherNotSupportingDescribe();
+                var subject = new ArgumentSpecification(typeof(int), matcher);
+
+                var result = subject.DescribeNonMatch("not an int");
+
+                Assert.That(result, Is.Empty);
+            }
+
             private class MatcherSupportingDescribe : IArgumentMatcher, IDescribeNonMatches
             {
                 public const string Description = "description from matcher";
