@@ -5,19 +5,19 @@
         public ArgumentMatchInfo(int index, object argument, IArgumentSpecification specification)
         {
             Index = index;
-            Argument = argument;
-            Specification = specification;
+            _argument = argument;
+            _specification = specification;
         }
 
+        private readonly object _argument;
+        private readonly IArgumentSpecification _specification;
         public int Index { get; private set; }
-        public object Argument { get; private set; }
-        public IArgumentSpecification Specification { get; private set; }
 
-        public bool IsMatch { get { return Specification.IsSatisfiedBy(Argument); } }
+        public bool IsMatch { get { return _specification.IsSatisfiedBy(_argument); } }
 
         public string DescribeNonMatch()
         {
-            var describeNonMatch = Specification.DescribeNonMatch(Argument);
+            var describeNonMatch = _specification.DescribeNonMatch(_argument);
             if (string.IsNullOrEmpty(describeNonMatch)) return string.Empty;
             var argIndexPrefix = "arg[" + Index + "]: ";
             return string.Format("{0}{1}", argIndexPrefix, describeNonMatch.Replace("\n", "\n".PadRight(argIndexPrefix.Length + 1)));
@@ -27,7 +27,7 @@
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return other.Index == Index && Equals(other.Argument, Argument) && Equals(other.Specification, Specification);
+            return other.Index == Index && Equals(other._argument, _argument) && Equals(other._specification, _specification);
         }
 
         public override bool Equals(object obj)
@@ -43,8 +43,8 @@
             unchecked
             {
                 int result = Index;
-                result = (result*397) ^ (Argument != null ? Argument.GetHashCode() : 0);
-                result = (result*397) ^ (Specification != null ? Specification.GetHashCode() : 0);
+                result = (result*397) ^ (_argument != null ? _argument.GetHashCode() : 0);
+                result = (result*397) ^ (_specification != null ? _specification.GetHashCode() : 0);
                 return result;
             }
         }
