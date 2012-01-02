@@ -259,6 +259,79 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
+        public class When_using_custom_describable_matcher : Context
+        {
+            private Car _expectedCar;
+            private IGarage _sub;
+            private Car _delorean;
+            private Car _prius2010;
+
+            public class Car
+            {
+                public Car(string make, string model, int year) { Make = make; Model = model; Year = year; }
+                public string Make { get; set; }
+                public string Model { get; set; }
+                public int Year { get; set; }
+            }
+
+            public interface IGarage { void Add(Car c, int quantity); }
+
+            private class CarMatcher : IArgumentMatcher<Car>, IDescribeNonMatches
+            {
+                private readonly Car _expectedCar;
+                public CarMatcher(Car expectedCar) { _expectedCar = expectedCar; }
+
+                public bool IsSatisfiedBy(Car argument)
+                {
+                    return _expectedCar.Make == argument.Make && _expectedCar.Model == argument.Model && _expectedCar.Year == argument.Year;
+                }
+
+                public string DescribeFor(object argument)
+                {
+                    return "Expected: " + FormatCar(_expectedCar) + "\nActual: " + FormatCar((Car)argument);
+                }
+
+                public string FormatCar(Car c) { return string.Format("{0} {1} ({2})", c.Make, c.Model, c.Year); }
+                public override string ToString() { return "specific Car"; }
+            }
+
+            protected override void ConfigureContext()
+            {
+                _expectedCar = new Car("Toyota", "Prius", 2012);
+                _delorean = new Car("DeLorean", "DMC-12", 1981);
+                _prius2010 = new Car("Toyota", "Prius", 2010);
+
+                _sub = Substitute.For<IGarage>();
+                _sub.Add(_delorean, 1);
+                _sub.Add(_prius2010, 10);
+            }
+
+            protected override void ExpectedCall()
+            {
+                _sub.Received().Add(Arg.Matches(new CarMatcher(_expectedCar)), 10);
+            }
+
+            [Test]
+            public void Should_show_matcher_string_in_expected_call()
+            {
+                ExceptionMessageContains(ExpectedCallMessagePrefix + "Add(specific Car, 10)");
+            }
+
+            [Test]
+            public void Should_show_matcher_description_for_non_matching_Prius()
+            {
+                ExceptionMessageContains("arg[0]: Expected: Toyota Prius (2012)");
+                ExceptionMessageContains("Actual: Toyota Prius (2010)");
+            }
+
+            [Test]
+            public void Should_show_matcher_description_for_non_matching_DeLorean()
+            {
+                ExceptionMessageContains("arg[0]: Expected: Toyota Prius (2012)");
+                ExceptionMessageContains("Actual: DeLorean DMC-12 (1981)");
+            }
+        }
+
         public abstract class Context
         {
             protected const string ExpectedCallMessagePrefix = "Expected to receive a call matching:\n\t";
@@ -282,11 +355,16 @@ namespace NSubstitute.Acceptance.Specs
             }
 
             protected abstract void ExpectedCall();
-            protected virtual void ConfigureContext() { }
+
+            protected virtual void ConfigureContext()
+            {
+            }
+
             protected void ExceptionMessageContains(string expected)
             {
                 Assert.That(_exception.Message, Is.StringContaining(expected));
             }
+
             protected void ExceptionMessageDoesNotContain(string s)
             {
                 Assert.That(_exception.Message, Is.Not.StringContaining(s));

@@ -66,7 +66,7 @@ namespace NSubstitute.Core
                 var nonMatches = DescribeNonMatches(call, callSpecification).Trim();
                 if (!string.IsNullOrEmpty(nonMatches))
                 {
-                    builder.AppendFormat("\t\t{0}", nonMatches.Replace("\n", "\n\t\t"));
+                    builder.AppendFormat("\t\t{0}\n", nonMatches.Replace("\n", "\n\t\t"));
                 }
             }
         }
