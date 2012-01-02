@@ -57,9 +57,11 @@ We can check that our substitute received a call, and did not receive others:
 
 If our Received() assertion fails, NSubstitute tries to give us some help as to what the problem might be:
 
-    NSubstitute.Exceptions.CallNotReceivedException : Expected to receive call:
+
+    NSubstitute.Exceptions.ReceivedCallsException : Expected to receive a call matching:
         Add(1, 2)
-    Actually received (non-matching arguments indicated with '*' characters):
+    Actually received no matching calls.
+    Received 2 non-matching calls (non-matching arguments indicated with '*' characters):
         Add(1, *5*)
         Add(*4*, *7*)
 
