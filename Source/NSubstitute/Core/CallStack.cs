@@ -56,7 +56,12 @@ namespace NSubstitute.Core
                 return true;
             }
 
-            public T[] ToArray() { LockedAction(() => _stack.ToArray()); }
+            public T[] ToArray() 
+            { 
+                T[] array = null;
+                LockedAction(() => array = _stack.ToArray()); 
+                return array;
+            }
 
             private void LockedAction(Action action)
             {

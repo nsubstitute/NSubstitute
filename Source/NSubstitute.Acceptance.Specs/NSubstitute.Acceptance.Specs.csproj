@@ -246,7 +246,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
   <Target Name="AfterBuild" Condition="$(MSBuildTargets) == 'Silverlight 4.0'">
     <PropertyGroup>
-      <SilverlightLibraryPath>$(ProgramFiles32)\Microsoft Silverlight\4.0.60831.0</SilverlightLibraryPath>
+      <SilverlightLibraryPath>$(ProgramFiles32)\Reference Assemblies\Microsoft\Framework\Silverlight\v4.0</SilverlightLibraryPath>
     </PropertyGroup>
     <Message Text="Pulling in assemblies from $(SilverlightLibraryPath)" />
     <ItemGroup>

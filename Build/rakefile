@@ -9,12 +9,17 @@ ZIP_EXE = File.expand_path "../ThirdParty/7z/7z.exe"
 SOURCE_PATH = File.expand_path "../Source"
 OUTPUT_PATH = File.expand_path "../Output"
 
-#ALL_TARGETS = ["NET35", "NET40", "SL40"]
 ALL_TARGETS = ["NET35", "NET40"]
+EXPERIMENTAL_TARGETS = ["SL40"]
 
 ENV["config"] = "Debug" if ENV["config"].nil?
 ENV["target"] = ALL_TARGETS.first if ENV["target"].nil?
+
+def get_targets()
+  return ALL_TARGETS if ENV["target"]=="ALL"
+  (ALL_TARGETS + EXPERIMENTAL_TARGETS).select { |x| ENV["target"].split(',').include? x }
+end
 CONFIG = ENV["config"]
-TARGETS = ALL_TARGETS.select { |x| (ENV["target"].split(',').include? x) or ENV["target"]=="ALL" }
+TARGETS = get_targets()
 
 CLEAN.include(OUTPUT_PATH)
