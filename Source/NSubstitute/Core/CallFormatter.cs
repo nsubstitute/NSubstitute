@@ -8,9 +8,11 @@ namespace NSubstitute.Core
     public class CallFormatter : ICallFormatter
     {
         private readonly IEnumerable<IMethodInfoFormatter> _methodInfoFormatters;
+        private readonly IArgumentFormatInfoFactory _argumentFormatInfoFactory;
 
-        public CallFormatter(IArgumentsFormatter argumentsFormatter)
+        public CallFormatter(IArgumentsFormatter argumentsFormatter, IArgumentFormatInfoFactory argumentFormatInfoFactory)
         {
+            _argumentFormatInfoFactory = argumentFormatInfoFactory;
             _methodInfoFormatters = new IMethodInfoFormatter[] { 
                 new PropertyCallFormatter(argumentsFormatter), 
                 new EventCallFormatter(argumentsFormatter, EventCallFormatter.IsSubscription), 
@@ -25,9 +27,18 @@ namespace NSubstitute.Core
 
         public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<ArgumentMatchInfo> nonMatchingArguments)
         {
+            IEnumerable<IArgumentFormatInfo> argumentFormatInfos = CreateArgumentFormatInfos(methodInfoOfCall, arguments, nonMatchingArguments);
+
             return _methodInfoFormatters
                         .First(x => x.CanFormat(methodInfoOfCall))
-                        .Format(methodInfoOfCall, arguments, nonMatchingArguments.Select(x => x.Index));
+                        .Format(methodInfoOfCall, argumentFormatInfos);
+        }
+
+        private IEnumerable<IArgumentFormatInfo> CreateArgumentFormatInfos(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<ArgumentMatchInfo> nonMatchingArguments)
+        {
+            IEnumerable<int> argumentsToHighlight = nonMatchingArguments.Select(x => x.Index);
+
+            return _argumentFormatInfoFactory.CreateArgumentFormatInfos(methodInfoOfCall, arguments, argumentsToHighlight);
         }
     }
 }

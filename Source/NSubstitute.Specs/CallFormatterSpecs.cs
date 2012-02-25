@@ -13,6 +13,8 @@ namespace NSubstitute.Specs
         private ISample _sampleSub;
         private IArgumentsFormatter _argumentsFormatter;
         protected int _ignored;
+        private IArgumentFormatInfoFactory _argumentFormatInfoFactory;
+        private IArgumentFormatter _argumentFormatter;
 
         [Test]
         public void Should_format_method_name_and_arguments()
@@ -71,14 +73,31 @@ namespace NSubstitute.Specs
         public override void Context()
         {
             base.Context();
+
+            _argumentFormatter = mock<IArgumentFormatter>();
+
+            _argumentFormatInfoFactory = Substitute.For<IArgumentFormatInfoFactory>();
+            _argumentFormatInfoFactory.CreateArgumentFormatInfos(null, null, null).ReturnsForAnyArgs(CreateArgumentFormatInfoMocks);
+            
             _argumentsFormatter = mock<IArgumentsFormatter>();
-            _argumentsFormatter.stub(x => x.Format(null, null)).IgnoreArguments().Return("args");
+            _argumentsFormatter.stub(x => x.Format(null)).IgnoreArguments().Return("args");
             _sampleSub = Substitute.For<ISample>();
+        }
+
+        private IEnumerable<IArgumentFormatInfo> CreateArgumentFormatInfoMocks(CallInfo x)
+        {
+            for (int i = 0; i < x.Arg<IEnumerable<object>>().Count(); i++)
+            {           
+                IArgumentFormatInfo argumentFormatInfo = mock<IArgumentFormatInfo>();
+                argumentFormatInfo.stub(a => a.Format(_argumentFormatter)).Return("args");
+
+                yield return argumentFormatInfo;
+            }
         }
 
         public override CallFormatter CreateSubjectUnderTest()
         {
-            return new CallFormatter(_argumentsFormatter);
+            return new CallFormatter(_argumentsFormatter, _argumentFormatInfoFactory);
         }
 
         private void AssertCallFormat(Action<ISample> callOnSubstitute, string expectedFormat)

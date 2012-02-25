@@ -19,7 +19,7 @@ namespace NSubstitute.Core
 
         public bool IsParams
         {
-            get { return _parameterInfo.IsDefined(typeof(ParamArrayAttribute), false); }
+            get { return _parameterInfo.IsParams(); }
         }
     }
 }

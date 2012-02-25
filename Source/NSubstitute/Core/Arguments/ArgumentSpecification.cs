@@ -18,6 +18,11 @@ namespace NSubstitute.Core.Arguments
             _action = action;
         }
 
+        public IArgumentMatcher ArgumentMatcher
+        {
+            get { return _matcher; }
+        }
+
         public bool IsSatisfiedBy(object argument)
         {
             if (!IsCompatibleWith(argument)) return false;
