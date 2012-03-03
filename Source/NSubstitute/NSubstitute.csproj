@@ -181,7 +181,7 @@
   <ItemGroup>
     <Compile Include="Arg.cs" />
     <Compile Include="Core\Argument.cs" />
-    <Compile Include="Core\ArgumentFormatInfoFactory.cs" />
+    <Compile Include="Core\Arguments\ArgumentFormatInfoFactory.cs" />
     <Compile Include="Core\Arguments\AnyArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ArgumentAction.cs" />
     <Compile Include="Core\Arguments\ArgumentEqualsSpecificationFactory.cs" />
@@ -219,7 +219,7 @@
     <Compile Include="Core\EventCallFormatter.cs" />
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Extensions.cs" />
-    <Compile Include="Core\IArgumentFormatInfoFactory.cs" />
+    <Compile Include="Core\Arguments\IArgumentFormatInfoFactory.cs" />
     <Compile Include="Core\IParameterInfo.cs" />
     <Compile Include="Core\IPendingSpecification.cs" />
     <Compile Include="Core\ParameterInfoFromType.cs" />
