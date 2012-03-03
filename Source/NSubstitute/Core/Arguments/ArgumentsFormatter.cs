@@ -5,22 +5,16 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentsFormatter : IArgumentsFormatter
     {
-        private readonly IArgumentFormatter _argumentFormatter;
+        private IArgumentFormatter _argumentFormatter;
 
         public ArgumentsFormatter(IArgumentFormatter argumentFormatter)
         {
             _argumentFormatter = argumentFormatter;
         }
 
-        public string Format(IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
+        public string Format(IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
         {
-            return string.Join(", ", arguments.Select((argument, index) => FormatArg(argument, argumentsToHighlight.Contains(index))).ToArray());
-        }
-
-        private string FormatArg(object argument, bool highlight)
-        {
-            var argAsString = _argumentFormatter.Format(argument);
-            return highlight ? "*" + argAsString + "*" : argAsString;
+            return string.Join(", ", argumentFormatInfos.Select(arg => arg.Format(_argumentFormatter)).ToArray());
         }
     }
 }

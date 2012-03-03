@@ -8,12 +8,10 @@ namespace NSubstitute.Core
     public class MethodFormatter : IMethodInfoFormatter
     {
         IArgumentsFormatter _argumentsFormatter;
-        IArgumentParamsExtractorFactory _paramsExtractorFactory;
 
         public MethodFormatter(IArgumentsFormatter argumentsFormatter)
         {
             _argumentsFormatter = argumentsFormatter;
-            _paramsExtractorFactory = new ArgumentParamsExtractorFactory();
         }
 
         public bool CanFormat(MethodInfo methodInfo)
@@ -21,15 +19,11 @@ namespace NSubstitute.Core
             return true;
         }
 
-        public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
+        public string Format(MethodInfo methodInfoOfCall, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
         {
-            IArgumentParamsExtractor paramsExtractor = _paramsExtractorFactory.Create(methodInfoOfCall, arguments, argumentsToHighlight);
-
-            var argumentsWithParamsExtracted = paramsExtractor.GetWithExtractedArguments(arguments);
-            var argumentsToHighlightWithParamsExtracted = paramsExtractor.GetWithExtractedArgumentsToHighlight(arguments, argumentsToHighlight);
             string genericInfo = CreateGenericInfo(methodInfoOfCall);
 
-            return string.Format("{0}{1}({2})", methodInfoOfCall.Name, genericInfo, _argumentsFormatter.Format(argumentsWithParamsExtracted, argumentsToHighlightWithParamsExtracted));
+            return string.Format("{0}{1}({2})", methodInfoOfCall.Name, genericInfo, _argumentsFormatter.Format(argumentFormatInfos));
         }
 
         private string CreateGenericInfo(MethodInfo methodInfoOfCall)

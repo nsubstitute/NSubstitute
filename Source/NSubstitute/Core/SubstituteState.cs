@@ -25,7 +25,7 @@ namespace NSubstitute.Core
             var callSpecificationFactory = NewCallSpecificationFactory();
             var callActions = new CallActions(callInfoFactory);
 
-            var callFormatter = new CallFormatter(new ArgumentsFormatter(new ArgumentFormatter()));
+            var callFormatter = new CallFormatter(new ArgumentsFormatter(new ArgumentFormatter()), new ArgumentFormatInfoFactory());
 
             var state = new object[] 
             {
