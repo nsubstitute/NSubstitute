@@ -12,6 +12,11 @@ namespace NSubstitute.Core.Arguments
             _argumentSpecifications = argumentSpecifications;
         }
 
+        public IEnumerable<IArgumentSpecification> ArgumentSpecifications   
+        {
+            get { return _argumentSpecifications; }
+        }
+
         public bool IsSatisfiedBy(object argument)
         {
             if (argument != null)

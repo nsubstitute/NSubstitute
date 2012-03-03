@@ -27,15 +27,15 @@ namespace NSubstitute.Core
             return methodInfo.DeclaringType.GetEvents().Any(x => _eventsToFormat(methodInfo)(x));
         }
 
-        public string Format(MethodInfo methodInfo, IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
+        public string Format(MethodInfo methodInfo, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
         {
             var eventInfo = methodInfo.DeclaringType.GetEvents().First(x => _eventsToFormat(methodInfo)(x));
-            return Format(eventInfo, _eventOperator, arguments, argumentsToHighlight);
+            return Format(eventInfo, _eventOperator, argumentFormatInfos);
         }
 
-        private string Format(EventInfo eventInfo, string eventOperator, IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
+        private string Format(EventInfo eventInfo, string eventOperator, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
         {
-            return string.Format("{0} {1} {2}", eventInfo.Name, eventOperator, _argumentsFormatter.Format(arguments, argumentsToHighlight));
+            return string.Format("{0} {1} {2}", eventInfo.Name, eventOperator, _argumentsFormatter.Format(argumentFormatInfos));
         }
     }
 }

@@ -19,15 +19,24 @@ namespace NSubstitute.Core
             return true;
         }
 
-        public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<int> argumentsToHighlight)
+        public string Format(MethodInfo methodInfoOfCall, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
+        {
+            string genericInfo = CreateGenericInfo(methodInfoOfCall);
+
+            return string.Format("{0}{1}({2})", methodInfoOfCall.Name, genericInfo, _argumentsFormatter.Format(argumentFormatInfos));
+        }
+
+        private string CreateGenericInfo(MethodInfo methodInfoOfCall)
         {
             string genericInfo = null;
+
             if (methodInfoOfCall.IsGenericMethod)
             {
                 var genericArgs = methodInfoOfCall.GetGenericArguments();
                 genericInfo = "<" + string.Join(", ", genericArgs.Select(x => x.Name).ToArray()) + ">";
             }
-            return string.Format("{0}{1}({2})", methodInfoOfCall.Name, genericInfo, _argumentsFormatter.Format(arguments, argumentsToHighlight));
+
+            return genericInfo;
         }
     }
 }

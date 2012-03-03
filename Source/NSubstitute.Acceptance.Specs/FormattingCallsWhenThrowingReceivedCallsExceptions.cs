@@ -14,6 +14,7 @@ namespace NSubstitute.Acceptance.Specs
             void AnotherMethod(IList<string> strings);
             int AProperty { get; set; }
             int this[string a, string b] { get; set; }
+            void ParamsMethod(int a, params string[] strings);
         }
 
         public class When_no_calls_are_made_to_the_expected_member : Context
@@ -256,6 +257,36 @@ namespace NSubstitute.Acceptance.Specs
             {
                 ExceptionMessageContains("this[*\"c\"*, *\"d\"*]");
                 ExceptionMessageContains("this[\"a\", *\"d\"*]");
+            }
+        }
+
+        [Pending]
+        public class When_checking_call_to_method_with_params : Context
+        {
+            protected override void ConfigureContext()
+            {
+                Sample.ParamsMethod(2, "hello", "everybody");
+                Sample.ParamsMethod(1, new[] {"hello", "everybody"});
+                Sample.ParamsMethod(3, "1", "2", "3");
+            }
+
+            protected override void ExpectedCall()
+            {
+                Sample.Received().ParamsMethod(1, "hello", "world");
+            }
+
+            [Test]
+            public void Should_show_expected_call()
+            {
+                ExceptionMessageContains("ParamsMethod(1, \"hello\", \"world\")");
+            }
+
+            [Test]
+            public void Should_show_non_matching_calls_with_params_expanded()
+            {
+                ExceptionMessageContains("ParamsMethod(*2*, *\"hello\", \"everybody\"*)");
+                ExceptionMessageContains("ParamsMethod(1, *\"hello\", \"everybody\"*)");
+                ExceptionMessageContains("ParamsMethod(*3*, *\"1\", \"2\", \"3\"*)");
             }
         }
 
