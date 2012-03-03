@@ -44,6 +44,12 @@ namespace NSubstitute.Specs.Arguments
             Assert.That(sut.ToString(), Is.EqualTo(expected));
         }
 
+        [Test]
+        public void Should_return_argument_specifications_inside()
+        {
+            Assert.That(sut.ArgumentSpecifications, Is.EqualTo(_argumentSpecifications));
+        }
+
         public override void Context()
         {
             _argument = new[] { "blah", "meh" };

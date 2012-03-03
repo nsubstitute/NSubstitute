@@ -182,7 +182,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgumentSpecificationParamsExtractorSpecs.cs" />
     <Compile Include="ArgumentSpecs.cs" />
+    <Compile Include="Arguments\ArgumentParamsExtractorFactorySpecs.cs" />
     <Compile Include="Arguments\ArgumentSpecificationSpecs.cs" />
     <Compile Include="Arguments\EqualsArgumentMatcherSpecs.cs" />
     <Compile Include="Arguments\ExpressionArgumentMatcherSpecs.cs" />
@@ -202,7 +204,10 @@
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallInfoSpecs.cs" />
+    <Compile Include="ConcernForArgumentParamsExtractor.cs" />
     <Compile Include="MethodFormatterSpecs.cs" />
+    <Compile Include="ObjectArgumentParamsExtractorSpecs.cs" />
+    <Compile Include="PassthroughArgumentParamsExtractorSpecs.cs" />
     <Compile Include="QuantitySpecs.cs" />
     <Compile Include="ReceivedCallsExceptionThrowerSpecs.cs" />
     <Compile Include="CallRouterFactorySpecs.cs" />

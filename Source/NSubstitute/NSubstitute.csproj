@@ -181,6 +181,8 @@
   <ItemGroup>
     <Compile Include="Arg.cs" />
     <Compile Include="Core\Argument.cs" />
+    <Compile Include="Core\ArgumentParamsExtractor.cs" />
+    <Compile Include="Core\ArgumentSpecificationParamsExtractor.cs" />
     <Compile Include="Core\Arguments\AnyArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ArgumentAction.cs" />
     <Compile Include="Core\Arguments\ArgumentEqualsSpecificationFactory.cs" />
@@ -213,10 +215,15 @@
     <Compile Include="Core\EventCallFormatter.cs" />
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Extensions.cs" />
+    <Compile Include="Core\IArgumentParamsExtractor.cs" />
+    <Compile Include="Core\IArgumentParamsExtractorFactory.cs" />
     <Compile Include="Core\IParameterInfo.cs" />
     <Compile Include="Core\IPendingSpecification.cs" />
+    <Compile Include="Core\ArgumentParamsExtractorFactory.cs" />
+    <Compile Include="Core\ObjectArgumentParamsExtractor.cs" />
     <Compile Include="Core\ParameterInfoFromType.cs" />
     <Compile Include="Core\ParameterInfoWrapper.cs" />
+    <Compile Include="Core\PassthroughArgumentParamsExtractor.cs" />
     <Compile Include="Core\PendingSpecification.cs" />
     <Compile Include="Core\Quantity.cs" />
     <Compile Include="Core\RobustThreadLocal.cs" />

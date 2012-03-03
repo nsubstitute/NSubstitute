@@ -6,6 +6,7 @@ namespace NSubstitute.Core.Arguments
     {
         bool IsSatisfiedBy(object argument);
         Type ForType { get; }
+        IArgumentMatcher ArgumentMatcher { get; }
         IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType);
         void RunAction(object argument);
         string DescribeNonMatch(object argument);

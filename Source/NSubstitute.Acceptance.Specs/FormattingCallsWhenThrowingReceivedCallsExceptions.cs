@@ -287,6 +287,11 @@ namespace NSubstitute.Acceptance.Specs
                 ExceptionMessageContains("ParamsMethod(*2*, *\"hello\", \"everybody\"*)");
                 ExceptionMessageContains("ParamsMethod(1, *\"hello\", \"everybody\"*)");
                 ExceptionMessageContains("ParamsMethod(*3*, *\"1\", \"2\", \"3\"*)");
+
+                //Highlighting work like this atm.
+                //ExceptionMessageContains("ParamsMethod(*2*, *\"hello\"*, *\"everybody\"*)");
+                //ExceptionMessageContains("ParamsMethod(1, *\"hello\"*, *\"everybody\"*)");
+                //ExceptionMessageContains("ParamsMethod(*3*, *\"1\"*, *\"2\"*, *\"3\"*)");
             }
         }
 
