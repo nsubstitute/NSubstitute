@@ -17,6 +17,7 @@ namespace NSubstitute.Specs
             IArgumentSpecification[] _argSpecsFromFactory;
             ICallSpecification _result;
             MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
+            ISubstitutionContext _context;
 
             public override void Context()
             {
@@ -36,11 +37,13 @@ namespace NSubstitute.Specs
                                 _call.GetParameterInfos(),
                                 _argMatching))
                     .Return(_argSpecsFromFactory);
+
+                _context = mock<ISubstitutionContext>();
             }
 
             public override CallSpecificationFactory CreateSubjectUnderTest()
             {
-                return new CallSpecificationFactory(_argumentSpecificationsFactory);
+                return new CallSpecificationFactory(_context, _argumentSpecificationsFactory);
             }
 
             public override void Because()
@@ -79,6 +82,17 @@ namespace NSubstitute.Specs
                 var callWithOneArgNotMatching = CreateStubCall(specifiedMethod, args);
 
                 Assert.That(_result.IsSatisfiedBy(callWithOneArgNotMatching), Is.False);
+            }
+
+            [Test]
+            public void Resulting_spec_from_expression_should_be_satisfied_if_call_method_is_satisfied()
+            {
+                var callSpecification = sut.CreateFrom<When_creating_a_specification>(x => x.SampleMethod());
+                
+                var sampleMethod = _call.GetMethodInfo();
+                var callThatShouldMatch = CreateStubCall(sampleMethod, new object[0]);
+
+                Assert.That(callSpecification.IsSatisfiedBy(callThatShouldMatch), Is.True);
             }
 
             private ICall CreateStubCall(MethodInfo methodInfo, object[] arguments)

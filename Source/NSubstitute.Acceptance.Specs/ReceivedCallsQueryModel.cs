@@ -38,6 +38,17 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Query_returns_the_call_with_a_return_parameter()
+        {
+            _engine.GetCapacityInLitres();
+
+            IEnumerable<string> methodCallNames = GetReceivedCallMethodNames(x => x.GetCapacityInLitres());
+
+            Assert.That(methodCallNames.Count(), Is.EqualTo(1));
+            Assert.That(methodCallNames.Single(), Is.EqualTo("GetCapacityInLitres"));
+        }
+
+        [Test]
         public void Query_returns_an_empty_list_when_no_calls_are_found()
         {
             _engine.Rev();
@@ -72,6 +83,22 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Query_returns_call_with_matching_argument_from_a_method_call()
+        {
+            _engine.RevAt(_rpm);
+
+            IEnumerable<string> methodCallNames = GetReceivedCallMethodNames(x => x.RevAt(GetRpm()));
+
+            Assert.That(methodCallNames.Count(), Is.EqualTo(1));
+            Assert.That(methodCallNames.Single(), Is.EqualTo("RevAt"));
+        }
+
+        private int GetRpm()
+        {
+            return _rpm;
+        }
+
+        [Test]
         public void Query_returns_one_call_with_any_arguments()
         {
             _engine.Rev();
@@ -79,6 +106,18 @@ namespace NSubstitute.Acceptance.Specs
             _engine.RevAt(_rpm + 100);
 
             IEnumerable<string> methodCallNames = GetReceivedCallMethodNames(x => x.RevAt(Arg.Any<int>()));
+
+            Assert.That(methodCallNames.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Query_returns_one_call_with_specific_arguments()
+        {
+            _engine.Rev();
+            _engine.RevAt(_rpm);
+            _engine.RevAt(_rpm + 100);
+
+            IEnumerable<string> methodCallNames = GetReceivedCallMethodNames(x => x.RevAt(Arg.Is<int>(m => m >= _rpm)));
 
             Assert.That(methodCallNames.Count(), Is.EqualTo(2));
         }

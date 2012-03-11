@@ -22,7 +22,7 @@ namespace NSubstitute.Core
             var callStack = new CallStack();
             var pendingSpecification = new PendingSpecification();
             var callResults = new CallResults(callInfoFactory);
-            var callSpecificationFactory = NewCallSpecificationFactory();
+            var callSpecificationFactory = NewCallSpecificationFactory(substitutionContext);
             var callActions = new CallActions(callInfoFactory);
 
             var callFormatter = new CallFormatter(new ArgumentsFormatter(new ArgumentFormatter()));
@@ -75,10 +75,10 @@ namespace NSubstitute.Core
                 );
         }
 
-        private static ICallSpecificationFactory NewCallSpecificationFactory()
+        private static ICallSpecificationFactory NewCallSpecificationFactory(ISubstitutionContext substitutionContext)
         {
             return 
-                new CallSpecificationFactory(
+                new CallSpecificationFactory(substitutionContext,
                     new ArgumentSpecificationsFactory(
                         new MixedArgumentSpecificationsFactory(
                             new ArgumentSpecificationFactory(
