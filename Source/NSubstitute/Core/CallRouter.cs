@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
 using NSubstitute.Routing.Definitions;
@@ -42,6 +43,22 @@ namespace NSubstitute.Core
         public IEnumerable<ICall> ReceivedCalls()
         {
             return _receivedCalls.AllCalls();
+        }
+
+        public IEnumerable<ICall> ReceivedCalls<T>(Expression<Action<T>> call)
+        {
+            return _receivedCalls.AllCalls().Where(c => IsSatisfiedBy(c, call));
+        }
+
+        //TODO: Extract class?
+        private bool IsSatisfiedBy<T>(ICall call, Expression<Action<T>> matchingCall)
+        {
+            MethodCallExpression methodCall = (MethodCallExpression) matchingCall.Body;
+
+            //TODO: Create CallSpecification correctly with arguments
+            CallSpecification spec = new CallSpecification(methodCall.Method, new IArgumentSpecification[0]);
+
+            return spec.IsSatisfiedBy(call);
         }
 
         public object Route(ICall call)

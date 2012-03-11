@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using NSubstitute.Core;
 using NSubstitute.Routing.Definitions;
 
@@ -113,6 +114,11 @@ namespace NSubstitute
         public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class
         {
             return GetRouterForSubstitute(substitute).ReceivedCalls();
+        }
+
+        public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute, Expression<Action<T>> call) where T : class
+        {
+            return GetRouterForSubstitute(substitute).ReceivedCalls(call);
         }
 
         private static ICallRouter GetRouterForSubstitute<T>(T substitute)
