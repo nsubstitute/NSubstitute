@@ -209,6 +209,7 @@
     <Compile Include="Core\Arguments\SuppliedArgumentSpecifications.cs" />
     <Compile Include="Core\Arguments\SuppliedArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\CallFactory.cs" />
+    <Compile Include="Core\CallSequence.cs" />
     <Compile Include="Core\DefaultForType.cs" />
     <Compile Include="Core\EventCallFormatter.cs" />
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
