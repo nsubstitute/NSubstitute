@@ -11,12 +11,14 @@ namespace NSubstitute.Acceptance.Specs
     public class ReceivedCallsQueryModel
     {
         private IEngine _engine;
+        private Foo _foo;
         const int _rpm = 7000;
 
         [SetUp]
         public void SetUp()
         {
             _engine = Substitute.For<IEngine>();
+            _foo = Substitute.For<Foo>();
         }
 
         private IEnumerable<string> GetReceivedCallMethodNames(Expression<Action<IEngine>> call)
@@ -120,6 +122,21 @@ namespace NSubstitute.Acceptance.Specs
             IEnumerable<string> methodCallNames = GetReceivedCallMethodNames(x => x.RevAt(Arg.Is<int>(m => m >= _rpm)));
 
             Assert.That(methodCallNames.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Query_with_constant_argument_and_argument_spec()
+        {
+            _foo.Bar(1, 2);
+
+            var calls = _foo.ReceivedCalls(x => x.Bar(Arg.Any<int>(), 2));
+
+            Assert.That(calls.Count(), Is.EqualTo(1));
+        }
+
+        public interface Foo
+        {
+            void Bar(int a, int b);
         }
     }
 }

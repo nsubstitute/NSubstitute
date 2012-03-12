@@ -41,27 +41,32 @@ namespace NSubstitute.Core
         {
             List<IArgumentSpecification> argumentSpecifications = new List<IArgumentSpecification>();
 
-            argumentSpecifications.AddRange(GetConstantArguments(arguments));
-            argumentSpecifications.AddRange(GetMethodCallArguments(arguments));
+            foreach (Expression argument in arguments)
+            {
+                AddConstantArgument(argument, argumentSpecifications);
+                AddMethodCallArgument(argument, argumentSpecifications);
+            }
 
             return argumentSpecifications;
         }
 
-        private IEnumerable<IArgumentSpecification> GetMethodCallArguments(ReadOnlyCollection<Expression> arguments)
+        private void AddMethodCallArgument(Expression argument, List<IArgumentSpecification> argumentSpecifications)
         {
-            foreach (MethodCallExpression methodCall in arguments.OfType<MethodCallExpression>())
+            MethodCallExpression methodCall = argument as MethodCallExpression;
+
+            if(methodCall != null)
             {
                 object result = InvokeMethod(methodCall);
 
-                var argumentSpecifications = _context.DequeueAllArgumentSpecifications();
-                
-                if (argumentSpecifications.Any())
+                var argSpecs = _context.DequeueAllArgumentSpecifications();
+
+                if (argSpecs.Any())
                 {
-                    yield return argumentSpecifications.Single();
+                    argumentSpecifications.Add(argSpecs.Single());
                 }
                 else
                 {
-                    yield return new ArgumentSpecification(result.GetType(), new EqualsArgumentMatcher(result));
+                    argumentSpecifications.Add(new ArgumentSpecification(result.GetType(), new EqualsArgumentMatcher(result)));
                 }
             }
         }
@@ -73,11 +78,14 @@ namespace NSubstitute.Core
             return result;
         }
 
-        private IEnumerable<IArgumentSpecification> GetConstantArguments(ReadOnlyCollection<Expression> arguments)
+        private void AddConstantArgument(Expression argument, List<IArgumentSpecification> argumentSpecifications)
         {
-            foreach (ConstantExpression constant in arguments.OfType<ConstantExpression>())
+            ConstantExpression constantArgument = argument as ConstantExpression;
+
+            if(constantArgument != null)
             {
-                yield return new ArgumentSpecification(constant.Type, new EqualsArgumentMatcher(constant.Value));
+                argumentSpecifications.Add(new ArgumentSpecification(constantArgument.Type,
+                                                                     new EqualsArgumentMatcher(constantArgument.Value)));
             }
         }
     }
