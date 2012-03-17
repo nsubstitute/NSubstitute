@@ -202,6 +202,7 @@
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallInfoSpecs.cs" />
+    <Compile Include="Proxies\DelegateProxy\DelegateCallSpecs.cs" />
     <Compile Include="QuantitySpecs.cs" />
     <Compile Include="ReceivedCallsExceptionThrowerSpecs.cs" />
     <Compile Include="CallRouterFactorySpecs.cs" />

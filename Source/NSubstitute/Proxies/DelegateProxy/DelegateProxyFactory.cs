@@ -31,10 +31,11 @@ namespace NSubstitute.Proxies.DelegateProxy
         private object DelegateProxy(Type delegateType, ICallRouter callRouter)
         {
             var delegateMethodToProxy = delegateType.GetMethod("Invoke");
-            var invokeOnDelegateCall = DelegateCall.DelegateCallInvoke;
 
             var proxyParameterTypes = delegateMethodToProxy.GetParameters().Select(x => new ParameterInfoWrapper(x)).ToArray();
+            
             var delegateCall = new DelegateCall(callRouter, delegateMethodToProxy.ReturnType, proxyParameterTypes);
+            var invokeOnDelegateCall = delegateCall.DelegateCallInvoke;
 
             ParameterExpression[] proxyParameters = delegateMethodToProxy.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();
             Expression[] proxyParametersAsObjects = proxyParameters.Select(x => (Expression)Expression.Convert(x, typeof(object))).ToArray();
