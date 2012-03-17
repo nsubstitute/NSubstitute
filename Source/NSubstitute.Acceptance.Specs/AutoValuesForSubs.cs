@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -78,6 +79,30 @@ namespace NSubstitute.Acceptance.Specs
         {
             Assert.That(_sample.ListOfStrings, Is.Not.Null);
             Assert.That(_sample.ListOfStrings.Count(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Should_auto_return_a_function()
+        {
+            var x = Substitute.For<Func<ISample>>();
+
+            Assert.That(x(), Is.Not.Null);
+        }
+
+        [Test]
+        public void Should_auto_return_a_string_from_a_func()
+        {
+            var x = Substitute.For<Func<ISample, string>>();
+
+            Assert.That(x(_sample), Is.Not.Null);
+        }
+
+        [Test]
+        public void Should_auto_return_an_action()
+        {
+            var x = Substitute.For<Action<ISample>>();
+
+            Assert.That(x, Is.Not.Null);
         }
     }
 }
