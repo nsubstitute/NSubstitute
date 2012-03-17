@@ -45,15 +45,15 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
             private ICall DelegateCallWithArg(int arg)
             {
 #if SILVERLIGHT
-                return Arg<ICall>.Matches<ICall>(x => CalledWithOnlyOneArg(x, arg) && CallIsInvokeOnDelegateCall(x)); 
+                return Arg<ICall>.Matches<ICall>(x => CalledWithOnlyOneArg(x, arg) && CallIsInvokeOnDelegateCall<string>(x)); 
 #else
-                return Arg<ICall>.Matches(x => CalledWithOnlyOneArg(x, arg) && CallIsInvokeOnDelegateCall(x)); 
+                return Arg<ICall>.Matches(x => CalledWithOnlyOneArg(x, arg) && CallIsInvokeOnDelegateCall<string>(x)); 
 #endif
             }
 
-            private bool CallIsInvokeOnDelegateCall(ICall x)
+            private bool CallIsInvokeOnDelegateCall<T>(ICall x)
             {
-                return x.GetMethodInfo() == typeof(DelegateCall).GetMethod("Invoke");
+                return x.GetMethodInfo() == typeof(DelegateCall).GetMethod("GenericInvoke").MakeGenericMethod(typeof(T));
             }
 
             private bool CalledWithOnlyOneArg(ICall x, int arg)
