@@ -1,4 +1,5 @@
 unreleased changes
+* [NEW] Auto-substitute for types returned from substitutes of delegates/Funcs (follows same auto-substitute rules as for methods and properties). Thanks to Sauli T‰hk‰p‰‰ for implementing this feature. (#52)
 * [NEW] Show details of params arguments when displaying received calls. Thanks to Sauli T‰hk‰p‰‰ for implementing this feature. (#65)
 * [NEW] Detailed descriptions for custom argument matchers using IDescribeNonMatches interface.
 * [NEW] Custom argument matchers (Arg.Matches syntax).

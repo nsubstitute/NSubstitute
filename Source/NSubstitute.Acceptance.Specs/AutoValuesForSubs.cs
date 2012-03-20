@@ -11,6 +11,7 @@ namespace NSubstitute.Acceptance.Specs
 
         public class PureVirtualClass { public virtual void Foo() { } }
         public class NonVirtualClass { public void Bar() { } }
+        delegate ISample SampleFactory();
 
         public interface ISample
         {
@@ -82,27 +83,55 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Should_auto_return_a_function()
+        public void Should_auto_return_a_substitute_from_a_function_that_returns_an_interface()
         {
             var x = Substitute.For<Func<ISample>>();
-
-            Assert.That(x(), Is.Not.Null);
+            var returnedFromFunc = x();
+            Assert.That(returnedFromFunc, Is.Not.Null);
+            AssertObjectIsASubstitute(returnedFromFunc);
         }
 
         [Test]
-        public void Should_auto_return_a_string_from_a_func()
+        public void Should_auto_return_an_empty_string_from_a_func_that_returns_a_string()
         {
             var x = Substitute.For<Func<ISample, string>>();
 
-            Assert.That(x(_sample), Is.Not.Null);
+            Assert.That(x(_sample).Length, Is.EqualTo(0));
         }
 
         [Test]
-        public void Should_auto_return_an_action()
+        public void Should_auto_return_a_substitute_from_a_func_that_returns_a_pure_virtual_class()
         {
-            var x = Substitute.For<Action<ISample>>();
+            var x = Substitute.For<Func<PureVirtualClass>>();
+            var returnedFromFunc = x();
 
-            Assert.That(x, Is.Not.Null);
+            Assert.That(returnedFromFunc, Is.Not.Null);
+            AssertObjectIsASubstitute(returnedFromFunc);
+        }
+
+        [Test]
+        public void Should_not_auto_return_a_substitute_from_a_func_that_returns_a_non_virtual_class()
+        {
+            var x = Substitute.For<Func<NonVirtualClass>>();
+            var returnedFromFunc = x();
+
+            Assert.That(returnedFromFunc, Is.Null);
+        }
+
+        [Test]
+        public void Should_auto_return_a_substitute_from_a_delegate_that_returns_an_interface()
+        {
+            var x = Substitute.For<SampleFactory>();
+
+            var returnedFromFunc = x();
+
+            Assert.That(returnedFromFunc, Is.Not.Null);
+            AssertObjectIsASubstitute(returnedFromFunc);
+        }
+
+        private static void AssertObjectIsASubstitute<T>(T obj) where T : class
+        {
+            Assert.That(obj.ReceivedCalls(), Is.Empty);
         }
     }
 }
