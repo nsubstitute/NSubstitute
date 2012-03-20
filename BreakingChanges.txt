@@ -1,4 +1,22 @@
 ================================================================================================
+unreleased
+================================================================================================
+
+Auto-substitute from substitutes of `Func` delegates (following the same rules as auto-subbing
+for methods and properties). So the delegate returned from `Substitute.For<Func<IFoo>>()` will 
+return a substitute of `IFoo`. This means some substitutes for delegates that used to return
+null will now return a new substitute.
+
+Reason:
+Reduced setup when substituting for `Func` delegates, and consistency with behaviour for 
+properties and methods. 
+
+Fix:
+Explicitly return null from substitute delegates when required for a test.
+e.g. subFunc().Returns(x => null);
+
+
+================================================================================================
 1.2.0 Release
 ================================================================================================
 
