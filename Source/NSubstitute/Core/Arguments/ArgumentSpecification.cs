@@ -4,6 +4,7 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecification : IArgumentSpecification
     {
+        static readonly ArgumentFormatter Formatter = new ArgumentFormatter();
         static readonly Action<object> NoOpAction = x => { };
         readonly Type _forType;
         readonly IArgumentMatcher _matcher;
@@ -16,11 +17,6 @@ namespace NSubstitute.Core.Arguments
             _forType = forType;
             _matcher = matcher;
             _action = action;
-        }
-
-        public IArgumentMatcher ArgumentMatcher
-        {
-            get { return _matcher; }
         }
 
         public bool IsSatisfiedBy(object argument)
@@ -36,6 +32,13 @@ namespace NSubstitute.Core.Arguments
             if (describable == null) return string.Empty;
 
             return IsCompatibleWith(argument) ? describable.DescribeFor(argument) : GetIncompatibleTypeMessage(argument);
+        }
+
+        public string FormatArgument(object argument)
+        {
+            var isSatisfiedByArg = IsSatisfiedBy(argument);
+            var matcherFormatter = _matcher as IArgumentFormatter;
+            return (matcherFormatter == null) ? Formatter.Format(argument, !isSatisfiedByArg) : matcherFormatter.Format(argument, isSatisfiedByArg);
         }
 
         public Type ForType { get { return _forType; } }

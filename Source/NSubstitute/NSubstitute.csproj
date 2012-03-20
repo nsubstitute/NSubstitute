@@ -181,13 +181,10 @@
   <ItemGroup>
     <Compile Include="Arg.cs" />
     <Compile Include="Core\Argument.cs" />
-    <Compile Include="Core\Arguments\ArgumentFormatInfoFactory.cs" />
     <Compile Include="Core\Arguments\AnyArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ArgumentAction.cs" />
     <Compile Include="Core\Arguments\ArgumentEqualsSpecificationFactory.cs" />
-    <Compile Include="Core\Arguments\ArgumentsFormatter.cs" />
     <Compile Include="Core\Arguments\ArgumentSpecificationFactory.cs" />
-    <Compile Include="Core\Arguments\ArgumentSpecificationParamsArrayFormatInfo.cs" />
     <Compile Include="Core\Arguments\ArgumentSpecificationQueue.cs" />
     <Compile Include="Core\Arguments\ArrayArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\Arguments\ArrayContentsArgumentMatcher.cs" />
@@ -195,8 +192,6 @@
     <Compile Include="Core\Arguments\DefaultChecker.cs" />
     <Compile Include="Core\Arguments\EqualsArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ExpressionArgumentMatcher.cs" />
-    <Compile Include="Core\Arguments\ArgumentSpecificationFormatInfo.cs" />
-    <Compile Include="Core\Arguments\IArgumentFormatInfo.cs" />
     <Compile Include="Core\Arguments\IArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\IArrayArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\Arguments\IArrayContentsArgumentSpecificationFactory.cs" />
@@ -208,8 +203,6 @@
     <Compile Include="Core\Arguments\IDefaultChecker.cs" />
     <Compile Include="Core\Arguments\IParamsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\ISuppliedArgumentSpecifications.cs" />
-    <Compile Include="Core\Arguments\ObjectArgumentFormatInfo.cs" />
-    <Compile Include="Core\Arguments\ObjectParamsArrayArgumentFormatInfo.cs" />
     <Compile Include="Core\Arguments\ParameterInfosFromParamsArrayFactory.cs" />
     <Compile Include="Core\Arguments\ParamsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\SuppliedArgumentSpecifications.cs" />
@@ -219,7 +212,6 @@
     <Compile Include="Core\EventCallFormatter.cs" />
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Extensions.cs" />
-    <Compile Include="Core\Arguments\IArgumentFormatInfoFactory.cs" />
     <Compile Include="Core\IParameterInfo.cs" />
     <Compile Include="Core\IPendingSpecification.cs" />
     <Compile Include="Core\ParameterInfoFromType.cs" />
@@ -228,7 +220,6 @@
     <Compile Include="Core\Quantity.cs" />
     <Compile Include="Core\RobustThreadLocal.cs" />
     <Compile Include="Core\RouteAction.cs" />
-    <Compile Include="Core\Arguments\IArgumentsFormatter.cs" />
     <Compile Include="Core\IDefaultForType.cs" />
     <Compile Include="Core\IMethodInfoFormatter.cs" />
     <Compile Include="Core\ISubstituteState.cs" />
@@ -264,7 +255,6 @@
     <Compile Include="Core\MethodFormatter.cs" />
     <Compile Include="Core\Arguments\MixedArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\Arguments\IArgumentFormatter.cs" />
-    <Compile Include="Core\ICallFormatter.cs" />
     <Compile Include="Core\Arguments\IArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\ICallInfoFactory.cs" />
     <Compile Include="Core\IReceivedCallsExceptionThrower.cs" />

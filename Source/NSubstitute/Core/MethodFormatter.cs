@@ -1,42 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
     public class MethodFormatter : IMethodInfoFormatter
     {
-        IArgumentsFormatter _argumentsFormatter;
-
-        public MethodFormatter(IArgumentsFormatter argumentsFormatter)
-        {
-            _argumentsFormatter = argumentsFormatter;
-        }
-
         public bool CanFormat(MethodInfo methodInfo)
         {
             return true;
         }
 
-        public string Format(MethodInfo methodInfoOfCall, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
+        public string Format(MethodInfo methodInfo, IEnumerable<string> arguments)
         {
-            string genericInfo = CreateGenericInfo(methodInfoOfCall);
-
-            return string.Format("{0}{1}({2})", methodInfoOfCall.Name, genericInfo, _argumentsFormatter.Format(argumentFormatInfos));
+            return string.Format("{0}{1}({2})", methodInfo.Name, FormatGenericType(methodInfo), arguments.Join(", "));
         }
 
-        private string CreateGenericInfo(MethodInfo methodInfoOfCall)
+        private string FormatGenericType(MethodInfo methodInfoOfCall)
         {
-            string genericInfo = null;
-
-            if (methodInfoOfCall.IsGenericMethod)
-            {
-                var genericArgs = methodInfoOfCall.GetGenericArguments();
-                genericInfo = "<" + string.Join(", ", genericArgs.Select(x => x.Name).ToArray()) + ">";
-            }
-
-            return genericInfo;
+            if (!methodInfoOfCall.IsGenericMethod) return string.Empty;
+            var genericArgs = methodInfoOfCall.GetGenericArguments();
+            return "<" + string.Join(", ", genericArgs.Select(x => x.Name).ToArray()) + ">";
         }
     }
 }

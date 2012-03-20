@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NSubstitute.Core.Arguments;
@@ -8,28 +7,21 @@ namespace NSubstitute.Core
 {
     public class PropertyCallFormatter : IMethodInfoFormatter
     {
-        IArgumentsFormatter _argumentsFormatter;
-
-        public PropertyCallFormatter(IArgumentsFormatter argumentsFormatter)
-        {
-            _argumentsFormatter = argumentsFormatter;
-        }
-
         public bool CanFormat(MethodInfo methodInfo)
         {
             return GetPropertyFromGetterOrSetterCall(methodInfo) != null;
         }
 
-        public string Format(MethodInfo methodInfo, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
+        public string Format(MethodInfo methodInfo, IEnumerable<string> arguments)
         {
             var propertyInfo = GetPropertyFromGetterOrSetterCall(methodInfo);
             var numberOfIndexParams = propertyInfo.GetIndexParameters().Length;
             var propertyName =
                 (numberOfIndexParams == 0)
                     ? propertyInfo.Name
-                    : FormatPropertyIndexer(numberOfIndexParams, argumentFormatInfos);
+                    : FormatPropertyIndexer(numberOfIndexParams, arguments);
 
-            return propertyName + FormatArgsAfterIndexParamsAsSetterArgs(numberOfIndexParams, argumentFormatInfos);
+            return propertyName + FormatArgsAfterIndexParamsAsSetterArgs(numberOfIndexParams, arguments);
         }
 
         private PropertyInfo GetPropertyFromGetterOrSetterCall(MethodInfo methodInfoOfCall)
@@ -37,20 +29,20 @@ namespace NSubstitute.Core
             return methodInfoOfCall.GetPropertyFromSetterCallOrNull() ?? methodInfoOfCall.GetPropertyFromGetterCallOrNull();
         }
 
-        private string FormatPropertyIndexer(int numberofIndexParameters, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
+        private string FormatPropertyIndexer(int numberofIndexParameters, IEnumerable<string> arguments)
         {
-            return "this[" + _argumentsFormatter.Format(argumentFormatInfos.Take(numberofIndexParameters)) + "]";
+            return "this[" + arguments.Take(numberofIndexParameters).Join(", ") + "]";
         }
 
-        private bool OnlyHasIndexParameterArgs(int numberOfIndexParameters, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
+        private bool OnlyHasIndexParameterArgs(int numberOfIndexParameters, IEnumerable<string> arguments)
         {
-            return numberOfIndexParameters >= argumentFormatInfos.Count();
+            return numberOfIndexParameters >= arguments.Count();
         }
 
-        private string FormatArgsAfterIndexParamsAsSetterArgs(int numberOfIndexParameters, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
+        private string FormatArgsAfterIndexParamsAsSetterArgs(int numberOfIndexParameters, IEnumerable<string> arguments)
         {
-            if (OnlyHasIndexParameterArgs(numberOfIndexParameters, argumentFormatInfos)) return string.Empty;
-            return " = " + _argumentsFormatter.Format(argumentFormatInfos.Skip(numberOfIndexParameters));
+            if (OnlyHasIndexParameterArgs(numberOfIndexParameters, arguments)) return string.Empty;
+            return " = " + arguments.Skip(numberOfIndexParameters).Join(", ");
         }
     }
 }

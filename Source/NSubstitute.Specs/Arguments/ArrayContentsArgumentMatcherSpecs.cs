@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -9,7 +9,6 @@ namespace NSubstitute.Specs.Arguments
     {
         private IArgumentSpecification[] _argumentSpecifications;
         private string[] _argument;
-        private Type _forType;
 
         [Test]
         public void Should_match_when_all_argument_specs_match()
@@ -45,18 +44,50 @@ namespace NSubstitute.Specs.Arguments
         }
 
         [Test]
-        public void Should_return_argument_specifications_inside()
+        public void Should_format_each_spec_and_argument_when_they_are_the_same_length()
         {
-            Assert.That(sut.ArgumentSpecifications, Is.EqualTo(_argumentSpecifications));
+            _argumentSpecifications[0].stub(x => x.FormatArgument(_argument[0])).Return("first");
+            _argumentSpecifications[1].stub(x => x.FormatArgument(_argument[1])).Return("second");
+            var expected = "first, second";
+            var result = sut.Format(_argument, true);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Should_handle_formatting_when_there_are_more_arguments_than_specs()
+        {
+            _argumentSpecifications[0].stub(x => x.FormatArgument(_argument[0])).Return("first");
+            _argumentSpecifications[1].stub(x => x.FormatArgument(_argument[1])).Return("second");
+            var argsWithExtra = _argument.Concat(new[] { "doh" }).ToArray();
+            var expected = "first, second, " + DefaultFormat("doh", true);
+
+            var result = sut.Format(argsWithExtra, true);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Should_handle_formatting_when_there_are_less_arguments_than_specs()
+        {
+            _argumentSpecifications[0].stub(x => x.FormatArgument(_argument[0])).Return("first");
+            _argumentSpecifications[1].stub(x => x.FormatArgument(_argument[1])).Return("second");
+            var lessArgsThanSpecs = new[] { _argument[0] };
+            var expected = "first";
+
+            var result = sut.Format(lessArgsThanSpecs, true);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         public override void Context()
         {
             _argument = new[] { "blah", "meh" };
-            _forType = _argument.GetType();
             _argumentSpecifications = new[] { mock<IArgumentSpecification>(), mock<IArgumentSpecification>() };
             _argumentSpecifications[0].stub(x => x.IsSatisfiedBy(_argument[0])).Return(true);
-           _argumentSpecifications[1].stub(x => x.IsSatisfiedBy(_argument[1])).Return(true);
+            _argumentSpecifications[1].stub(x => x.IsSatisfiedBy(_argument[1])).Return(true);
+        }
+
+        private string DefaultFormat(string text, bool highlight)
+        {
+            return new ArgumentFormatter().Format(text, highlight);
         }
 
         public override ArrayContentsArgumentMatcher CreateSubjectUnderTest()

@@ -1,4 +1,5 @@
 unreleased changes
+* [NEW] Show details of params arguments when displaying received calls. Thanks to Sauli T‰hk‰p‰‰ for implementing this feature. (#65)
 * [NEW] Detailed descriptions for custom argument matchers using IDescribeNonMatches interface.
 * [NEW] Custom argument matchers (Arg.Matches syntax).
 * [FIX] Race condition between checking received calls and building the exception could cause nonsensical exception messages like "Expected 5, actually received 5" when called concurrently. (#64)

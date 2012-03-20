@@ -1,44 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
-    public class CallFormatter : ICallFormatter
+    public class CallFormatter : IMethodInfoFormatter
     {
         private readonly IEnumerable<IMethodInfoFormatter> _methodInfoFormatters;
-        private readonly IArgumentFormatInfoFactory _argumentFormatInfoFactory;
 
-        public CallFormatter(IArgumentsFormatter argumentsFormatter, IArgumentFormatInfoFactory argumentFormatInfoFactory)
+        public CallFormatter()
         {
-            _argumentFormatInfoFactory = argumentFormatInfoFactory;
             _methodInfoFormatters = new IMethodInfoFormatter[] { 
-                new PropertyCallFormatter(argumentsFormatter), 
-                new EventCallFormatter(argumentsFormatter, EventCallFormatter.IsSubscription), 
-                new EventCallFormatter(argumentsFormatter, EventCallFormatter.IsUnsubscription), 
-                new MethodFormatter(argumentsFormatter) };
+                new PropertyCallFormatter(), 
+                new EventCallFormatter(EventCallFormatter.IsSubscription), 
+                new EventCallFormatter(EventCallFormatter.IsUnsubscription), 
+                new MethodFormatter() };
         }
 
-        public string Format(ICall call, ICallSpecification withRespectToCallSpec)
+        public bool CanFormat(MethodInfo methodInfo) { return true; }
+        public string Format(MethodInfo methodInfoOfCall, IEnumerable<string> formattedArguments)
         {
-            return Format(call.GetMethodInfo(), call.GetArguments(), withRespectToCallSpec.NonMatchingArguments(call));
-        }
-
-        public string Format(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<ArgumentMatchInfo> nonMatchingArguments)
-        {
-            IEnumerable<IArgumentFormatInfo> argumentFormatInfos = CreateArgumentFormatInfos(methodInfoOfCall, arguments, nonMatchingArguments);
-
             return _methodInfoFormatters
                         .First(x => x.CanFormat(methodInfoOfCall))
-                        .Format(methodInfoOfCall, argumentFormatInfos);
-        }
-
-        private IEnumerable<IArgumentFormatInfo> CreateArgumentFormatInfos(MethodInfo methodInfoOfCall, IEnumerable<object> arguments, IEnumerable<ArgumentMatchInfo> nonMatchingArguments)
-        {
-            IEnumerable<int> argumentsToHighlight = nonMatchingArguments.Select(x => x.Index);
-
-            return _argumentFormatInfoFactory.CreateArgumentFormatInfos(methodInfoOfCall, arguments, argumentsToHighlight);
+                        .Format(methodInfoOfCall, formattedArguments);
         }
     }
 }

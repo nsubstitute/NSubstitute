@@ -11,10 +11,9 @@ namespace NSubstitute.Specs
     {
         public class Concern : ConcernFor<ReceivedCallsExceptionThrower>
         {
-            protected const string DescriptionOfCall = "SomeSampleMethod(args)";
+            protected string _descriptionOfCall;
             protected ICallSpecification _callSpecification;
             protected ReceivedCallsException _exception;
-            protected ICallFormatter _callFormatter;
             protected IEnumerable<ICall> _actualCalls;
             protected IEnumerable<ICall> _relatedCalls;
             protected Quantity _requiredQuantity = Quantity.AtLeastOne();
@@ -38,14 +37,13 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _callSpecification = mock<ICallSpecification>();
-                _callFormatter = mock<ICallFormatter>();
                 _relatedCalls = new ICall[0];
-                _callSpecification.stub(x => x.Format(_callFormatter)).Return(DescriptionOfCall);
+                _descriptionOfCall = _callSpecification.ToString();
             }
 
             public override ReceivedCallsExceptionThrower CreateSubjectUnderTest()
             {
-                return new ReceivedCallsExceptionThrower(_callFormatter);
+                return new ReceivedCallsExceptionThrower();
             }
         }
 
@@ -57,7 +55,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Exception_should_contain_description_of_expected_call()
             {
-                Assert.That(_exception.Message, Is.StringContaining(DescriptionOfCall));
+                Assert.That(_exception.Message, Is.StringContaining(_descriptionOfCall));
             }
 
             [Test]
@@ -71,8 +69,8 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _actualCalls = new[] {mock<ICall>(), mock<ICall>() };
-                _callFormatter.stub(x => x.Format(_actualCalls.First(), _callSpecification)).Return(FormattedFirstCall);
-                _callFormatter.stub(x => x.Format(_actualCalls.ElementAt(1), _callSpecification)).Return(FormattedSecondCall);
+                _callSpecification.stub(x => x.Format(_actualCalls.First())).Return(FormattedFirstCall);
+                _callSpecification.stub(x => x.Format(_actualCalls.ElementAt(1))).Return(FormattedSecondCall);
             }
         }
 
@@ -82,7 +80,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Exception_should_contain_description_of_expected_call()
             {
-                Assert.That(_exception.Message, Is.StringContaining(DescriptionOfCall));
+                Assert.That(_exception.Message, Is.StringContaining(_descriptionOfCall));
             }
 
             [Test]

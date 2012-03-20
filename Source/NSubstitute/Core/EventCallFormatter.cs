@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
@@ -11,13 +10,11 @@ namespace NSubstitute.Core
         public static readonly Func<MethodInfo, Predicate<EventInfo>> IsSubscription = call => (eventInfo => eventInfo.GetAddMethod() == call);
         public static readonly Func<MethodInfo, Predicate<EventInfo>> IsUnsubscription = call => (eventInfo => eventInfo.GetRemoveMethod() == call);
 
-        private readonly IArgumentsFormatter _argumentsFormatter;
         private readonly Func<MethodInfo, Predicate<EventInfo>> _eventsToFormat;
         private readonly string _eventOperator;
 
-        public EventCallFormatter(IArgumentsFormatter argumentsFormatter, Func<MethodInfo, Predicate<EventInfo>> eventsToFormat)
+        public EventCallFormatter(Func<MethodInfo, Predicate<EventInfo>> eventsToFormat)
         {
-            _argumentsFormatter = argumentsFormatter;
             _eventsToFormat = eventsToFormat;
             _eventOperator = (eventsToFormat == IsSubscription) ? "+=" : "-=";
         }
@@ -27,15 +24,15 @@ namespace NSubstitute.Core
             return methodInfo.DeclaringType.GetEvents().Any(x => _eventsToFormat(methodInfo)(x));
         }
 
-        public string Format(MethodInfo methodInfo, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
+        public string Format(MethodInfo methodInfo, IEnumerable<string> arguments)
         {
             var eventInfo = methodInfo.DeclaringType.GetEvents().First(x => _eventsToFormat(methodInfo)(x));
-            return Format(eventInfo, _eventOperator, argumentFormatInfos);
+            return Format(eventInfo, _eventOperator, arguments);
         }
 
-        private string Format(EventInfo eventInfo, string eventOperator, IEnumerable<IArgumentFormatInfo> argumentFormatInfos)
+        private string Format(EventInfo eventInfo, string eventOperator, IEnumerable<string> arguments)
         {
-            return string.Format("{0} {1} {2}", eventInfo.Name, eventOperator, _argumentsFormatter.Format(argumentFormatInfos));
+            return string.Format("{0} {1} {2}", eventInfo.Name, eventOperator, arguments.Join(", "));
         }
     }
 }

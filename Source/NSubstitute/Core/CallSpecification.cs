@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +8,9 @@ namespace NSubstitute.Core
 {
     public class CallSpecification : ICallSpecification
     {
+        static readonly IMethodInfoFormatter DefaultFormatter = new CallFormatter();
+        public IMethodInfoFormatter CallFormatter = DefaultFormatter;
+
         readonly MethodInfo _methodInfo;
         readonly IArgumentSpecification[] _argumentSpecifications;
 
@@ -24,17 +28,28 @@ namespace NSubstitute.Core
             return true;
         }
 
-        public string Format(ICallFormatter callFormatter)
-        {
-            return callFormatter.Format(_methodInfo, _argumentSpecifications, new ArgumentMatchInfo[0]);
-        }
-
         public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
         {
             var arguments = call.GetArguments();
             return arguments
                     .Select((arg, index) => new ArgumentMatchInfo(index, arg, _argumentSpecifications[index]))
                     .Where(x => !x.IsMatch);
+        }
+
+        public override string ToString()
+        {
+            var argSpecsAsStrings = Array.ConvertAll(_argumentSpecifications, x => x.ToString());
+            return CallFormatter.Format(_methodInfo, argSpecsAsStrings);
+        }
+
+        public string Format(ICall call)
+        {
+            return CallFormatter.Format(call.GetMethodInfo(), FormatArguments(call.GetArguments()));
+        }
+
+        private IEnumerable<string> FormatArguments(IEnumerable<object> arguments)
+        {
+            return arguments.Zip(_argumentSpecifications, (arg, spec) => spec.FormatArgument(arg)).ToArray();
         }
 
         public ICallSpecification CreateCopyThatMatchesAnyArguments()

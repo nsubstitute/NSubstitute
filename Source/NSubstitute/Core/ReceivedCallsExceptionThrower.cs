@@ -8,17 +8,10 @@ namespace NSubstitute.Core
 {
     public class ReceivedCallsExceptionThrower : IReceivedCallsExceptionThrower
     {
-        private readonly ICallFormatter _callFormatter;
-
-        public ReceivedCallsExceptionThrower(ICallFormatter callFormatter)
-        {
-            _callFormatter = callFormatter;
-        }
-
         public void Throw(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> nonMatchingCalls, Quantity requiredQuantity)
         {
             var builder = new StringBuilder();
-            builder.AppendLine(string.Format("Expected to receive {0} matching:\n\t{1}", requiredQuantity.Describe("call", "calls"), callSpecification.Format(_callFormatter)));
+            builder.AppendLine(string.Format("Expected to receive {0} matching:\n\t{1}", requiredQuantity.Describe("call", "calls"), callSpecification));
 
             AppendMatchingCalls(callSpecification, matchingCalls, builder);
 
@@ -62,7 +55,7 @@ namespace NSubstitute.Core
         {
             foreach (var call in relatedCalls)
             {
-                builder.AppendFormat("\t{0}\n", _callFormatter.Format(call, callSpecification));
+                builder.AppendFormat("\t{0}\n", callSpecification.Format(call));
                 var nonMatches = DescribeNonMatches(call, callSpecification).Trim();
                 if (!string.IsNullOrEmpty(nonMatches))
                 {

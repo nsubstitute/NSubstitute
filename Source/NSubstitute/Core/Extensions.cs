@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NSubstitute.Core
 {
@@ -43,6 +44,17 @@ namespace NSubstitute.Core
         {
             var requiredType = (type.IsByRef) ? type.GetElementType() : type;
             return instance == null ? TypeCanBeNull(requiredType) : requiredType.IsInstanceOfType(instance);
+        }
+
+        /// <summary>
+        /// Join the <paramref name="strings"/> using <paramref name="seperator"/>.
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <param name="seperator"></param>
+        /// <returns></returns>
+        public static string Join(this IEnumerable<string> strings, string seperator)
+        {
+            return string.Join(seperator, strings.ToArray());
         }
 
         private static bool TypeCanBeNull(Type type)

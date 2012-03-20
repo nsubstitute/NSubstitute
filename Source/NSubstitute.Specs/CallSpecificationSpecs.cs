@@ -133,28 +133,70 @@ namespace NSubstitute.Specs
 
         public class When_formatting_call_as_string : Concern
         {
-            private ICallFormatter _callFormatter;
+            private IMethodInfoFormatter _callFormatter;
             private string _specAsString;
             private const string FormattedCall = "Call(first, second)";
 
             public override void Context()
             {
                 base.Context();
-                _callFormatter = mock<ICallFormatter>();
+                _firstArgSpec.stub(x => x.FormatArgument(firstArg)).Return("first");
+                _secondArgSpec.stub(x => x.FormatArgument(secondArg)).Return("second");
+                _callFormatter = mock<IMethodInfoFormatter>();
                 _callFormatter
-                    .stub(x => x.Format(_methodInfoSpecified, new[] { _firstArgSpec, _secondArgSpec }, new ArgumentMatchInfo[0]))
+                    .stub(x => x.Format(_methodInfoSpecified, new[] { "first", "second" }))
                     .Return(FormattedCall);
+
+            }
+
+            public override void AfterContextEstablished()
+            {
+                base.AfterContextEstablished();
+                sut.CallFormatter = _callFormatter;
             }
 
             public override void Because()
             {
-                _specAsString = sut.Format(_callFormatter);
+                _specAsString = sut.Format(_call);
             }
 
             [Test]
             public void Should_return_formatted_call()
             {
                 Assert.That(_specAsString, Is.EqualTo(FormattedCall));
+            }
+        }
+
+        public class When_converting_call_spec_to_string : Concern
+        {
+            private IMethodInfoFormatter _callFormatter;
+            private string _specAsString;
+            private const string FormattedCallSpec = "CallSpec(first, second)";
+
+            public override void Context()
+            {
+                base.Context();
+                _callFormatter = mock<IMethodInfoFormatter>();
+                _callFormatter
+                    .stub(x => x.Format(_methodInfoSpecified, new[] { _firstArgSpec.ToString(), _secondArgSpec.ToString() }))
+                    .Return(FormattedCallSpec);
+            }
+
+            public override void AfterContextEstablished()
+            {
+                base.AfterContextEstablished();
+                sut.CallFormatter = _callFormatter;
+            }
+
+            public override void Because()
+            {
+                _specAsString = sut.ToString();
+            }
+
+            [Test]
+            public void Should_return_formatted_method_and_argument_specifications()
+            {
+                Assert.That(_specAsString, Is.EqualTo(FormattedCallSpec));
             }
         }
     }

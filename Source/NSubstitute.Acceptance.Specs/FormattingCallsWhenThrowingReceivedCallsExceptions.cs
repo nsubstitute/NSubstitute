@@ -260,13 +260,13 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
-        [Pending]
         public class When_checking_call_to_method_with_params : Context
         {
             protected override void ConfigureContext()
             {
                 Sample.ParamsMethod(2, "hello", "everybody");
                 Sample.ParamsMethod(1, new[] {"hello", "everybody"});
+                Sample.ParamsMethod(1, "hello");
                 Sample.ParamsMethod(3, "1", "2", "3");
             }
 
@@ -284,9 +284,35 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_show_non_matching_calls_with_params_expanded()
             {
-                ExceptionMessageContains("ParamsMethod(*2*, *\"hello\", \"everybody\"*)");
-                ExceptionMessageContains("ParamsMethod(1, *\"hello\", \"everybody\"*)");
-                ExceptionMessageContains("ParamsMethod(*3*, *\"1\", \"2\", \"3\"*)");
+                ExceptionMessageContains("ParamsMethod(*2*, \"hello\", *\"everybody\"*)");
+                ExceptionMessageContains("ParamsMethod(1, \"hello\", *\"everybody\"*)");
+                ExceptionMessageContains("ParamsMethod(1, \"hello\")");
+                ExceptionMessageContains("ParamsMethod(*3*, *\"1\"*, *\"2\"*, *\"3\"*)");
+            }
+        }
+
+        public class When_checking_call_to_method_with_params_specified_as_an_array : Context
+        {
+            protected override void ConfigureContext()
+            {
+                Sample.ParamsMethod(2, "hello", "everybody");
+            }
+
+            protected override void ExpectedCall()
+            {
+                Sample.Received().ParamsMethod(1, Arg.Is(new[] {"hello", "world"}));
+            }
+
+            [Test]
+            public void Should_show_expected_call()
+            {
+                ExceptionMessageContains("ParamsMethod(1, String[])");
+            }
+
+            [Test]
+            public void Should_show_non_matching_calls_as_per_specification_rather_than_as_individual_params()
+            {
+                ExceptionMessageContains("ParamsMethod(*2*, *String[]*)");
             }
         }
 

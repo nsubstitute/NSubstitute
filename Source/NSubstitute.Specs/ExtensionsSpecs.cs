@@ -70,5 +70,15 @@ namespace NSubstitute.Specs
 
             public void MethodWithARefArg(ref int i) { }
         }
+
+        public class JoinExtension
+        {
+            [Test]
+            public void Join_strings()
+            {
+                var strings = new[] { "hello", "world" };
+                Assert.That(strings.Join("; "), Is.EqualTo("hello; world"));
+            }
+        }
     }
 }

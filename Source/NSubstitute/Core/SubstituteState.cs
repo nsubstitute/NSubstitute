@@ -25,7 +25,7 @@ namespace NSubstitute.Core
             var callSpecificationFactory = NewCallSpecificationFactory();
             var callActions = new CallActions(callInfoFactory);
 
-            var callFormatter = new CallFormatter(new ArgumentsFormatter(new ArgumentFormatter()), new ArgumentFormatInfoFactory());
+            var callFormatter = new CallFormatter();
 
             var state = new object[] 
             {
@@ -39,7 +39,7 @@ namespace NSubstitute.Core
                 new PropertyHelper(),
                 new ResultSetter(callStack, pendingSpecification, callResults, callSpecificationFactory, callActions),
                 new EventHandlerRegistry(),
-                new ReceivedCallsExceptionThrower(callFormatter),
+                new ReceivedCallsExceptionThrower(),
                 new DefaultForType(),
                 new IAutoValueProvider[] { new AutoSubstituteProvider(substituteFactory), new AutoStringProvider(), new AutoArrayProvider()}
             };
