@@ -38,7 +38,7 @@ namespace NSubstitute.Core
 
         public override string ToString()
         {
-            var argSpecsAsStrings = Array.ConvertAll(_argumentSpecifications, x => x.ToString());
+            var argSpecsAsStrings = _argumentSpecifications.Select(x => x.ToString()).ToArray();
             return CallFormatter.Format(_methodInfo, argSpecsAsStrings);
         }
 
