@@ -46,30 +46,6 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Match an argument compatible with type <typeparamref name="T"/> that satisfies the given <paramref name="matcher" />.
-        /// If the <paramref name="matcher"/> throws an exception for an argument it will be treated as non-matching.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="matcher"></param>
-        /// <returns></returns>
-        public static T Matches<T>(IArgumentMatcher<T> matcher)
-        {
-            return ArgSpecQueue.EnqueueSpecFor(matcher);
-        }
-
-        /// <summary>
-        /// Match an argument compatible with type <typeparamref name="T"/> that satisfies the given <paramref name="matcher" />.
-        /// If the <paramref name="matcher"/> throws an exception for an argument it will be treated as non-matching.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="matcher"></param>
-        /// <returns></returns>
-        public static T Matches<T>(IArgumentMatcher matcher)
-        {
-            return ArgSpecQueue.EnqueueSpecFor<T>(matcher);
-        }
-
-        /// <summary>
         /// Invoke any <see cref="Action"/> argument as soon as a matching call is made to the substitute.
         /// </summary>
         /// <returns></returns>
