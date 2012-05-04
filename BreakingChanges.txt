@@ -1,5 +1,5 @@
 ================================================================================================
-unreleased
+1.4.0 Release
 ================================================================================================
 
 Auto-substitute from substitutes of `Func` delegates (following the same rules as auto-subbing
