@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using NSubstitute.Routing;
 
 namespace NSubstitute.Core
@@ -10,5 +12,6 @@ namespace NSubstitute.Core
         void SetRoute<TRouteDefinition>(params object[] routeArguments) where TRouteDefinition : IRouteDefinition;
         void ClearReceivedCalls();
         IEnumerable<ICall> ReceivedCalls();
+        IEnumerable<ICall> ReceivedCalls<T>(Expression<Action<T>> call);
     }
 }

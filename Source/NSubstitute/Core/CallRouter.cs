@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
 using NSubstitute.Routing.Definitions;
@@ -15,15 +17,17 @@ namespace NSubstitute.Core
         readonly IReceivedCalls _receivedCalls;
         readonly IResultSetter _resultSetter;
         readonly IRouteFactory _routeFactory;
+        readonly ICallSpecificationFactory _callSpecificationFactory;
         IRoute _currentRoute;
         bool _isSetToDefaultRoute;
 
-        public CallRouter(ISubstitutionContext context, IReceivedCalls receivedCalls, IResultSetter resultSetter, IRouteFactory routeFactory)
+        public CallRouter(ISubstitutionContext context, IReceivedCalls receivedCalls, IResultSetter resultSetter, IRouteFactory routeFactory, ICallSpecificationFactory callSpecificationFactory)
         {
             _context = context;
             _receivedCalls = receivedCalls;
             _resultSetter = resultSetter;
             _routeFactory = routeFactory;
+            _callSpecificationFactory = callSpecificationFactory;
 
             UseDefaultRouteForNextCall();
         }
@@ -42,6 +46,18 @@ namespace NSubstitute.Core
         public IEnumerable<ICall> ReceivedCalls()
         {
             return _receivedCalls.AllCalls();
+        }
+
+        public IEnumerable<ICall> ReceivedCalls<T>(Expression<Action<T>> call)
+        {
+            return ReceivedCalls().Where(c => IsSatisfiedBy(c, call));
+        }
+
+        private bool IsSatisfiedBy<T>(ICall actualCall, Expression<Action<T>> expectedCall)
+        {
+            ICallSpecification callSpecification = _callSpecificationFactory.CreateFrom(expectedCall);
+
+            return callSpecification.IsSatisfiedBy(actualCall);
         }
 
         public object Route(ICall call)
