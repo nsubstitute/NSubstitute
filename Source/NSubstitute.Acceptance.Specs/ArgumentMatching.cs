@@ -175,6 +175,15 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Anything(new object()), Is.EqualTo(123));
         }
 
+        [Test]
+        public void Nullable_args()
+        {
+            _something.WithNullableArg(Arg.Any<int?>()).ReturnsForAnyArgs(123);
+
+            Assert.That(_something.WithNullableArg(null), Is.EqualTo(123));
+            Assert.That(_something.WithNullableArg(234), Is.EqualTo(123));
+        }
+
         [SetUp]
         public void SetUp()
         {
