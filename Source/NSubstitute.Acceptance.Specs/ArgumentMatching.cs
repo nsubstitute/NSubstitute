@@ -176,11 +176,18 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Nullable_args()
+        public void Nullable_args_null_value()
         {
             _something.WithNullableArg(Arg.Any<int?>()).ReturnsForAnyArgs(123);
 
             Assert.That(_something.WithNullableArg(null), Is.EqualTo(123));
+        }
+
+        [Test]
+        public void Nullable_args_notnull_value()
+        {
+            _something.WithNullableArg(Arg.Any<int?>()).ReturnsForAnyArgs(123);
+
             Assert.That(_something.WithNullableArg(234), Is.EqualTo(123));
         }
 
