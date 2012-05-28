@@ -63,13 +63,6 @@ namespace NSubstitute.Core.Arguments
 
         private bool IsCompatibleWith(object argument)
         {
-            // fix when argument == null and ForType is nullable
-            // see: http://msdn.microsoft.com/en-us/library/ms366789.aspx
-            if (argument == null && (ForType.IsGenericType && ForType.GetGenericTypeDefinition() == typeof(Nullable<>)))
-            {
-                return true;
-            }
-
             return argument.IsCompatibleWith(ForType);
         }
 

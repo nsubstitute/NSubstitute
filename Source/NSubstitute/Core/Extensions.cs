@@ -59,7 +59,7 @@ namespace NSubstitute.Core
 
         private static bool TypeCanBeNull(Type type)
         {
-            return !type.IsValueType;
+            return !type.IsValueType || Nullable.GetUnderlyingType(type) != null;
         }
     }
 }
