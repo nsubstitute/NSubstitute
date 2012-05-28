@@ -1,3 +1,6 @@
+unreleased changes
+* [FIX] Fix matching Nullable<T> arguments when arg value is null. Thanks to Magnus Olstad Hansen (@maggedotno) for this contribution. (#78)
+
 1.4.0 (May 2012)
 * [NEW] [BREAKING] Auto-substitute for types returned from substitutes of delegates/Funcs (follows same auto-substitute rules as for methods and properties). Thanks to Sauli T‰hk‰p‰‰ for implementing this feature. (#52)
 * [NEW] Show details of params arguments when displaying received calls. Thanks to Sauli T‰hk‰p‰‰ for implementing this feature. (#65)
