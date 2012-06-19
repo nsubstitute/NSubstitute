@@ -65,6 +65,30 @@
     <NoWarn>1591</NoWarn>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET45-Debug|AnyCPU' ">
+    <OutputPath>..\..\Output\Debug\NET45\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Debug\NET45\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET45-Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\NET45\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Release\NET45\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL30-Debug|AnyCPU' ">
     <MSBuildTargets>Silverlight 3.0</MSBuildTargets>
     <OutputPath>..\..\Output\Debug\SL30\NSubstitute\</OutputPath>
@@ -142,10 +166,7 @@
     <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
-    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
-      <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet35\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">
+    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' OR '$(TargetFrameworkVersion)' == 'v4.5' ">
       <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet40\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
@@ -340,6 +361,7 @@
     </CreateItem>
     <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly)  &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v3.5'" />
     <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:v4,$(MSBuildToolsPath) &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.0'" />
+    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:v4,$(MSBuildToolsPath) &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.5'" />
     <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
   </Target>
 </Project>
