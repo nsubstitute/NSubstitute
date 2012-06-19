@@ -14,6 +14,7 @@ Global
 		NET40-Debug|Any CPU = NET40-Debug|Any CPU
 		NET40-Release|Any CPU = NET40-Release|Any CPU
 		NET45-Debug|Any CPU = NET45-Debug|Any CPU
+		NET45-Release|Any CPU = NET45-Release|Any CPU
 		SL30-Debug|Any CPU = SL30-Debug|Any CPU
 		SL30-Release|Any CPU = SL30-Release|Any CPU
 		SL40-Debug|Any CPU = SL40-Debug|Any CPU
