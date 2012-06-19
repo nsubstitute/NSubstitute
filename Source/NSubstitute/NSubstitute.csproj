@@ -80,7 +80,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\Output\Release\NET45\NSubstitute\</OutputPath>
-    <DefineConstants>TRACE;NET45</DefineConstants>
+    <DefineConstants>TRACE;NET40</DefineConstants>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -166,10 +166,7 @@
     <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
-    <Reference Include="Castle.Core" Condition=" ('$(TargetFrameworkVersion)' == 'v4.0' OR '$(TargetFrameworkVersion)' == 'v4.5') AND '$(Configuration)|$(Platform)' != 'NETFXCORE-Debug|AnyCPU' ">
-      <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet40\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core" Condition=" '$(Configuration)|$(Platform)' == 'NETFXCORE-Debug|AnyCPU' ">
+    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' OR '$(TargetFrameworkVersion)' == 'v4.5' ">
       <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet40\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
