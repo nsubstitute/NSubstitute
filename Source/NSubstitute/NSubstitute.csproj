@@ -52,17 +52,6 @@
     <NoWarn>1591</NoWarn>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET45-Debug|AnyCPU' ">
-    <OutputPath>..\..\Output\Debug\NET45\NSubstitute\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET4</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\Output\Debug\NET45\NSubstitute\NSubstitute.XML</DocumentationFile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <NoWarn>1591</NoWarn>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -73,6 +62,30 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>..\..\Output\Release\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET45-Debug|AnyCPU' ">
+    <OutputPath>..\..\Output\Debug\NET45\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Debug\NET45\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET45-Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\NET45\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Release\NET45\NSubstitute\NSubstitute.XML</DocumentationFile>
     <NoWarn>1591</NoWarn>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -153,9 +166,6 @@
     <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
-    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
-      <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet35\Castle.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' OR '$(TargetFrameworkVersion)' == 'v4.5' ">
       <HintPath>..\..\ThirdParty\Castle.Core.2.5.3\dotNet40\Castle.Core.dll</HintPath>
     </Reference>
