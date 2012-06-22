@@ -1,5 +1,5 @@
-Castle.DynamicProxy.CompositionInvocation
+Castle.DynamicProxy.Internal.CompositionInvocation
+Castle.DynamicProxy.Internal.InheritanceInvocation
 Castle.DynamicProxy.AbstractInvocation
-Castle.DynamicProxy.InheritanceInvocation
 Castle.DynamicProxy.IProxyTargetAccessor
 Castle.DynamicProxy.Generators.AttributesToAvoidReplicating
