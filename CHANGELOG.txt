@@ -1,5 +1,6 @@
-unreleased changes
+1.4.1 (June 2012)
 * [FIX] Fix matching Nullable<T> arguments when arg value is null. Thanks to Magnus Olstad Hansen (@maggedotno) for this contribution. (#78)
+* [UPDATE] Updated to Castle.Core 3.0.0.
 
 1.4.0 (May 2012)
 * [NEW] [BREAKING] Auto-substitute for types returned from substitutes of delegates/Funcs (follows same auto-substitute rules as for methods and properties). Thanks to Sauli T‰hk‰p‰‰ for implementing this feature. (#52)
