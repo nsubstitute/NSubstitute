@@ -1,3 +1,6 @@
+1.4.2 (July 2012)
+* [FIX] Issue using NET40 build on Mono (due to NET45 build tools incompatibility)
+
 1.4.1 (June 2012)
 * [FIX] Fix matching Nullable<T> arguments when arg value is null. Thanks to Magnus Olstad Hansen (@maggedotno) for this contribution. (#78)
 * [UPDATE] Updated to Castle.Core 3.0.0.
