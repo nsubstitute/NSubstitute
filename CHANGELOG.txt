@@ -1,3 +1,6 @@
+1.4.3 (August 2012)
+* [FIX] Updated to Castle.Core 3.1.0 to fix an issue proxying generic methods with a struct constraint (#83).
+
 1.4.2 (July 2012)
 * [FIX] Issue using NET40 build on Mono (due to NET45 build tools incompatibility)
 
