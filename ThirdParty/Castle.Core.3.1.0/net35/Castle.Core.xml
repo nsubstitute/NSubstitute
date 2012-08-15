@@ -250,6 +250,92 @@
             <value></value>
             <returns>An object that can be used to synchronize access to the <see cref="T:System.Collections.ICollection"></see>.</returns>
         </member>
+        <member name="T:Castle.Components.DictionaryAdapter.BindingList`1">
+            <summary>
+              Provides a generic collection that supports data binding.
+            </summary>
+            <remarks>
+              This class wraps the CLR <see cref="T:System.ComponentModel.BindingList`1"/>
+              in order to implement the Castle-specific <see cref="T:Castle.Components.DictionaryAdapter.IBindingList`1"/>.
+            </remarks>
+            <typeparam name="T">The type of elements in the list.</typeparam>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.BindingList`1.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:Castle.Components.DictionaryAdapter.BindingList`1"/> class
+              using default values.
+            </summary>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.BindingList`1.#ctor(System.Collections.Generic.IList{`0})">
+            <summary>
+              Initializes a new instance of the <see cref="T:Castle.Components.DictionaryAdapter.BindingList`1"/> class
+              with the specified list.
+            </summary>
+            <param name="list">
+              An <see cref="T:System.Collections.Generic.IList`1"/> of items
+              to be contained in the <see cref="T:Castle.Components.DictionaryAdapter.BindingList`1"/>.
+            </param>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.BindingList`1.#ctor(System.ComponentModel.BindingList{`0})">
+            <summary>
+              Initializes a new instance of the <see cref="T:Castle.Components.DictionaryAdapter.BindingList`1"/> class
+              wrapping the specified <see cref="T:System.ComponentModel.BindingList`1"/> instance.
+            </summary>
+            <param name="list">
+              A <see cref="T:System.ComponentModel.BindingList`1"/>
+              to be wrapped by the <see cref="T:Castle.Components.DictionaryAdapter.BindingList`1"/>.
+            </param>
+        </member>
+        <member name="T:Castle.Components.DictionaryAdapter.IDictionaryPropertyGetter">
+            <summary>
+            Defines the contract for retrieving dictionary values.
+            </summary>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryPropertyGetter.GetPropertyValue(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,System.Object,Castle.Components.DictionaryAdapter.PropertyDescriptor,System.Boolean)">
+            <summary>
+            Gets the effective dictionary value.
+            </summary>
+            <param name="dictionaryAdapter">The dictionary adapter.</param>
+            <param name="key">The key.</param>
+            <param name="storedValue">The stored value.</param>
+            <param name="property">The property.</param>
+            <param name="ifExists">true if return only existing.</param>
+            <returns>The effective property value.</returns>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.Xml.XmlAdapter.#ctor(Castle.Components.DictionaryAdapter.Xml.IXmlNode,Castle.Components.DictionaryAdapter.Xml.XmlReferenceManager)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Castle.Components.DictionaryAdapter.Xml.XmlAdapter"/> class
+            that represents a child object in a larger object graph.
+            </summary>
+            <param name="node"></param>
+            <param name="references"></param>
+        </member>
+        <member name="T:Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer">
+            <summary>
+             Contract for dictionary meta-data initialization.
+            </summary>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer.Initialize(Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory,Castle.Components.DictionaryAdapter.DictionaryAdapterMeta)">
+            <summary>
+            	Initializes the given <see cref="T:Castle.Components.DictionaryAdapter.DictionaryAdapterMeta"/> object.
+            </summary>
+            <param name="factory">The dictionary adapter factory.</param>
+            <param name="dictionaryMeta">The dictionary adapter meta.</param>
+            
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer.ShouldHaveBehavior(System.Object)">
+            <summary>
+            	Determines whether the given behavior should be included in a new
+            	<see cref="T:Castle.Components.DictionaryAdapter.DictionaryAdapterMeta"/> object.
+            </summary>
+            <param name="behavior">A dictionary behavior or annotation.</param>
+            <returns>True if the behavior should be included; otherwise, false.</returns>
+            <remarks>
+            	<see cref="T:Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer"/> behaviors are always included,
+            	regardless of the result of this method.
+            </remarks>
+            
+        </member>
         <member name="M:Castle.Core.Internal.CollectionExtensions.IsNullOrEmpty(System.Collections.IEnumerable)">
             <summary>
               Checks whether or not collection is null or empty. Assumes colleciton can be safely enumerated multiple times.
@@ -287,22 +373,6 @@
             <param name="key">The current key.</param>
             <param name="property">The property.</param>
             <returns>The updated key</returns>
-        </member>
-        <member name="T:Castle.Components.DictionaryAdapter.IDictionaryPropertyGetter">
-            <summary>
-            Defines the contract for retrieving dictionary values.
-            </summary>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryPropertyGetter.GetPropertyValue(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,System.Object,Castle.Components.DictionaryAdapter.PropertyDescriptor,System.Boolean)">
-            <summary>
-            Gets the effective dictionary value.
-            </summary>
-            <param name="dictionaryAdapter">The dictionary adapter.</param>
-            <param name="key">The key.</param>
-            <param name="storedValue">The stored value.</param>
-            <param name="property">The property.</param>
-            <param name="ifExists">true if return only existing.</param>
-            <returns>The effective property value.</returns>
         </member>
         <member name="P:Castle.Components.DictionaryAdapter.ComponentAttribute.NoPrefix">
             <summary>
@@ -384,6 +454,9 @@
             <summary>
             Assigns a prefix to the keyed properties of an interface.
             </summary>
+            <remarks>
+            Key prefixes are not inherited by sub-interfaces.
+            </remarks>
         </member>
         <member name="M:Castle.Components.DictionaryAdapter.KeyPrefixAttribute.#ctor">
             <summary>
@@ -426,11 +499,6 @@
         <member name="T:Castle.Components.DictionaryAdapter.OnDemandAttribute">
             <summary>
             Support for on-demand value resolution.
-            </summary>
-        </member>
-        <member name="T:Castle.Components.DictionaryAdapter.PropagateNotificationsAttribute">
-            <summary>
-            Suppress property change notifications.
             </summary>
         </member>
         <member name="T:Castle.Components.DictionaryAdapter.StringFormatAttribute">
@@ -563,6 +631,50 @@
             The type represented by T must be an interface with properties.
             </remarks>
         </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory.GetAdapter``1(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Gets a typed adapter bound to the <see cref="T:System.Collections.Specialized.NameValueCollection"/>.
+            </summary>
+            <typeparam name="T">The typed interface.</typeparam>
+            <param name="nameValues">The underlying source of properties.</param>
+            <returns>An implementation of the typed interface bound to the namedValues.</returns>
+            <remarks>
+            The type represented by T must be an interface with properties.
+            </remarks>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory.GetAdapter(System.Type,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Gets a typed adapter bound to the <see cref="T:System.Collections.Specialized.NameValueCollection"/>.
+            </summary>
+            <param name="type">The typed interface.</param>
+            <param name="nameValues">The underlying source of properties.</param>
+            <returns>An implementation of the typed interface bound to the namedValues.</returns>
+            <remarks>
+            The type represented by T must be an interface with properties.
+            </remarks>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory.GetAdapter``1(System.Xml.XmlNode)">
+            <summary>
+            Gets a typed adapter bound to the <see cref="T:System.Xml.XmlNode"/>.
+            </summary>
+            <typeparam name="T">The typed interface.</typeparam>
+            <param name="xmlNode">The underlying source of properties.</param>
+            <returns>An implementation of the typed interface bound to the <see cref="T:System.Xml.XmlNode"/>.</returns>
+            <remarks>
+            The type represented by T must be an interface with properties.
+            </remarks>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory.GetAdapter(System.Type,System.Xml.XmlNode)">
+            <summary>
+            Gets a typed adapter bound to the <see cref="T:System.Xml.XmlNode"/>.
+            </summary>
+            <param name="type">The typed interface.</param>
+            <param name="xmlNode">The underlying source of properties.</param>
+            <returns>An implementation of the typed interface bound to the <see cref="T:System.Xml.XmlNode"/>.</returns>
+            <remarks>
+            The type represented by T must be an interface with properties.
+            </remarks>
+        </member>
         <member name="M:Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory.GetAdapterMeta(System.Type)">
             <summary>
             Gets the <see cref="T:Castle.Components.DictionaryAdapter.DictionaryAdapterMeta"/> associated with the type.
@@ -576,6 +688,14 @@
             </summary>
             <param name="type">The typed interface.</param>
             <param name="descriptor">The property descriptor.</param>
+            <returns>The adapter meta-data.</returns>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory.GetAdapterMeta(System.Type,Castle.Components.DictionaryAdapter.DictionaryAdapterMeta)">
+            <summary>
+            Gets the <see cref="T:Castle.Components.DictionaryAdapter.DictionaryAdapterMeta"/> associated with the type.
+            </summary>
+            <param name="type">The typed interface.</param>
+            <param name="other">Another <see cref="T:Castle.Components.DictionaryAdapter.DictionaryAdapterMeta"/> from which to copy behaviors.</param>
             <returns>The adapter meta-data.</returns>
         </member>
         <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapter``1(System.Collections.IDictionary)">
@@ -593,11 +713,100 @@
         <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapter``1(System.Type,System.Collections.Generic.IDictionary{System.String,``0})">
             <inheritdoc />
         </member>
+        <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapter``1(System.Collections.Specialized.NameValueCollection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapter(System.Type,System.Collections.Specialized.NameValueCollection)">
+            <inheritdoc />
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapter``1(System.Xml.XmlNode)">
+            <inheritdoc />
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapter(System.Type,System.Xml.XmlNode)">
+            <inheritdoc />
+        </member>
         <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapterMeta(System.Type)">
             <inheritdoc />
         </member>
         <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapterMeta(System.Type,Castle.Components.DictionaryAdapter.PropertyDescriptor)">
             <inheritdoc />
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapterMeta(System.Type,Castle.Components.DictionaryAdapter.DictionaryAdapterMeta)">
+            <inheritdoc />
+        </member>
+        <member name="T:Castle.Components.DictionaryAdapter.IDictionaryValidator">
+            <summary>
+            Contract for dictionary validation.
+            </summary>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryValidator.IsValid(Castle.Components.DictionaryAdapter.IDictionaryAdapter)">
+            <summary>
+            Determines if <see cref="T:Castle.Components.DictionaryAdapter.IDictionaryAdapter"/> is valid.
+            </summary>
+            <param name="dictionaryAdapter">The dictionary adapter.</param>
+            <returns>true if valid.</returns>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryValidator.Validate(Castle.Components.DictionaryAdapter.IDictionaryAdapter)">
+            <summary>
+            Validates the <see cref="T:Castle.Components.DictionaryAdapter.IDictionaryAdapter"/>.
+            </summary>
+            <param name="dictionaryAdapter">The dictionary adapter.</param>
+            <returns>The error summary information.</returns>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryValidator.Validate(Castle.Components.DictionaryAdapter.IDictionaryAdapter,Castle.Components.DictionaryAdapter.PropertyDescriptor)">
+            <summary>
+            Validates the <see cref="T:Castle.Components.DictionaryAdapter.IDictionaryAdapter"/> for a property.
+            </summary>
+            <param name="dictionaryAdapter">The dictionary adapter.</param>
+            <param name="property">The property to validate.</param>
+            <returns>The property summary information.</returns>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryValidator.Invalidate(Castle.Components.DictionaryAdapter.IDictionaryAdapter)">
+            <summary>
+            Invalidates any results cached by the validator.
+            </summary>
+            <param name="dictionaryAdapter">The dictionary adapter.</param>
+        </member>
+        <member name="T:Castle.Components.DictionaryAdapter.NameValueCollectionAdapter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.NameValueCollectionAdapter.#ctor(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Castle.Components.DictionaryAdapter.NameValueCollectionAdapter"/> class.
+            </summary>
+            <param name="nameValues">The name values.</param>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.NameValueCollectionAdapter.Contains(System.Object)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.IDictionary"></see> object contains an element with the specified key.
+            </summary>
+            <param name="key">The key to locate in the <see cref="T:System.Collections.IDictionary"></see> object.</param>
+            <returns>
+            true if the <see cref="T:System.Collections.IDictionary"></see> contains an element with the key; otherwise, false.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">key is null. </exception>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.NameValueCollectionAdapter.Adapt(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Adapts the specified name values.
+            </summary>
+            <param name="nameValues">The name values.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.NameValueCollectionAdapter.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the <see cref="T:System.Collections.IDictionary"></see> object is read-only.
+            </summary>
+            <value></value>
+            <returns>true if the <see cref="T:System.Collections.IDictionary"></see> object is read-only; otherwise, false.</returns>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.NameValueCollectionAdapter.Item(System.Object)">
+            <summary>
+            Gets or sets the <see cref="T:System.Object"/> with the specified key.
+            </summary>
+            <value></value>
         </member>
         <member name="T:Castle.Components.DictionaryAdapter.PropertyDescriptor">
             <summary>
@@ -614,7 +823,7 @@
             Initializes a new instance of the <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/> class.
             </summary>
             <param name="property">The property.</param>
-            <param name="behaviors">The property behaviors.</param>
+            <param name="annotations">The annotations.</param>
         </member>
         <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.#ctor(System.Object[])">
             <summary>
@@ -637,25 +846,6 @@
             <param name="descriptor">The descriptor.</param>
             <returns></returns>
         </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddKeyBuilder(Castle.Components.DictionaryAdapter.IDictionaryKeyBuilder[])">
-            <summary>
-            Adds the key builder.
-            </summary>
-            <param name="builders">The builder.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddKeyBuilders(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryKeyBuilder})">
-            <summary>
-            Adds the key builders.
-            </summary>
-            <param name="builders">The builders.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.CopyKeyBuilders(Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Copies the key builders to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
         <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.GetPropertyValue(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,System.Object,Castle.Components.DictionaryAdapter.PropertyDescriptor,System.Boolean)">
             <summary>
             Gets the property value.
@@ -665,25 +855,6 @@
             <param name="storedValue">The stored value.</param>
             <param name="descriptor">The descriptor.</param>
             <param name="ifExists">true if return only existing.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddGetter(Castle.Components.DictionaryAdapter.IDictionaryPropertyGetter[])">
-            <summary>
-            Adds the dictionary getter.
-            </summary>
-            <param name="getters">The getter.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddGetters(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryPropertyGetter})">
-            <summary>
-            Adds the dictionary getters.
-            </summary>
-            <param name="gets">The getters.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.CopyGetters(Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Copies the property getters to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
             <returns></returns>
         </member>
         <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.SetPropertyValue(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,System.Object@,Castle.Components.DictionaryAdapter.PropertyDescriptor)">
@@ -696,45 +867,23 @@
             <param name="descriptor">The descriptor.</param>
             <returns></returns>
         </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddSetter(Castle.Components.DictionaryAdapter.IDictionaryPropertySetter[])">
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehavior(Castle.Components.DictionaryAdapter.IDictionaryBehavior)">
             <summary>
-            Adds the dictionary setter.
+            Adds a single behavior.
             </summary>
-            <param name="setters">The setter.</param>
+            <param name="behavior">The behavior.</param>
         </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddSetters(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryPropertySetter})">
-            <summary>
-            Adds the dictionary setters.
-            </summary>
-            <param name="sets">The setters.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.CopySetters(Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Copies the property setters to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehavior(Castle.Components.DictionaryAdapter.IDictionaryBehavior[])">
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehaviors(Castle.Components.DictionaryAdapter.IDictionaryBehavior[])">
             <summary>
             Adds the behaviors.
             </summary>
-            <param name="behaviors"></param>
-            <returns></returns>
+            <param name="behaviors">The behaviors.</param>
         </member>
         <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehaviors(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryBehavior})">
             <summary>
             Adds the behaviors.
             </summary>
-            <param name="behaviors"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehaviors(Castle.Components.DictionaryAdapter.IDictionaryBehaviorBuilder[])">
-            <summary>
-            Adds the behaviors from the builders.
-            </summary>
-            <param name="builders"></param>
-            <returns></returns>
+            <param name="behaviors">The behaviors.</param>
         </member>
         <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.CopyBehaviors(Castle.Components.DictionaryAdapter.PropertyDescriptor)">
             <summary>
@@ -795,7 +944,7 @@
             Determines if notifications should occur.
             </summary>
         </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Behaviors">
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Annotations">
             <summary>
             Gets the property behaviors.
             </summary>
@@ -810,6 +959,12 @@
             <summary>
             Gets the extended properties.
             </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Behaviors">
+            <summary>
+            Gets the setter.
+            </summary>
+            <value>The setter.</value>
         </member>
         <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.KeyBuilders">
             <summary>
@@ -829,101 +984,17 @@
             </summary>
             <value>The getter.</value>
         </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.AddInitializer(Castle.Components.DictionaryAdapter.IDictionaryInitializer[])">
-            <summary>
-            Adds the dictionary initializers.
-            </summary>
-            <param name="inits">The initializers.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.AddInitializers(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryInitializer})">
-            <summary>
-            Adds the dictionary initializers.
-            </summary>
-            <param name="inits">The initializers.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.CopyInitializers(Castle.Components.DictionaryAdapter.DictionaryDescriptor)">
-            <summary>
-            Copies the initializers to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.AddMetaInitializer(Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer[])">
-            <summary>
-            Adds the dictionary meta-data initializers.
-            </summary>
-            <param name="inits">The meta-data initializers.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.AddMetaInitializers(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer})">
-            <summary>
-            Adds the dictionary meta-data initializers.
-            </summary>
-            <param name="inits">The meta-data initializers.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.CopyMetaInitializers(Castle.Components.DictionaryAdapter.DictionaryDescriptor)">
-            <summary>
-            Copies the meta-initializers to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.DictionaryDescriptor.Initializers">
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Initializers">
             <summary>
             Gets the initializers.
             </summary>
             <value>The initializers.</value>
         </member>
-        <member name="P:Castle.Components.DictionaryAdapter.DictionaryDescriptor.MetaInitializers">
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.MetaInitializers">
             <summary>
             Gets the meta-data initializers.
             </summary>
             <value>The meta-data initializers.</value>
-        </member>
-        <member name="T:Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer">
-            <summary>
-             Contract for dictionary meta-data initialization.
-            </summary>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer.Initialize(Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory,Castle.Components.DictionaryAdapter.DictionaryAdapterMeta)">
-            <summary>
-            Performs any initialization of the dictionary adapter meta-data.
-            </summary>
-            <param name="factory">The dictionary adapter factory.</param>
-            <param name="dictionaryMeta">The dictionary adapter meta.</param>
-            
-        </member>
-        <member name="T:Castle.Components.DictionaryAdapter.IDictionaryValidator">
-            <summary>
-            Contract for dictionary validation.
-            </summary>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryValidator.IsValid(Castle.Components.DictionaryAdapter.IDictionaryAdapter)">
-            <summary>
-            Determines if <see cref="T:Castle.Components.DictionaryAdapter.IDictionaryAdapter"/> is valid.
-            </summary>
-            <param name="dictionaryAdapter">The dictionary adapter.</param>
-            <returns>true if valid.</returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryValidator.Validate(Castle.Components.DictionaryAdapter.IDictionaryAdapter)">
-            <summary>
-            Validates the <see cref="T:Castle.Components.DictionaryAdapter.IDictionaryAdapter"/>.
-            </summary>
-            <param name="dictionaryAdapter">The dictionary adapter.</param>
-            <returns>The error summary information.</returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryValidator.Validate(Castle.Components.DictionaryAdapter.IDictionaryAdapter,Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Validates the <see cref="T:Castle.Components.DictionaryAdapter.IDictionaryAdapter"/> for a property.
-            </summary>
-            <param name="dictionaryAdapter">The dictionary adapter.</param>
-            <param name="property">The property to validate.</param>
-            <returns>The property summary information.</returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryValidator.Invalidate(Castle.Components.DictionaryAdapter.IDictionaryAdapter)">
-            <summary>
-            Invalidates any results cached by the validator.
-            </summary>
-            <param name="dictionaryAdapter">The dictionary adapter.</param>
         </member>
         <member name="T:Castle.Core.Internal.AttributesUtil">
             <summary>
@@ -1219,6 +1290,11 @@
               Attributes can only accept simple types, so we return null for null,
               if the value is passed as string we call to string (should help with converting), 
               otherwise, we use the value as is (enums, integer, etc).
+            </summary>
+        </member>
+        <member name="T:Castle.DynamicProxy.Serialization.CacheMappingsAttribute">
+            <summary>
+              Applied to the assemblies saved by <see cref="T:Castle.DynamicProxy.ModuleScope"/> in order to persist the cache data included in the persisted assembly.
             </summary>
         </member>
         <member name="T:Castle.DynamicProxy.Generators.BaseProxyGenerator">
@@ -1646,6 +1722,55 @@
             </summary>
             <returns>A weak-named module generated by this scope.</returns>
         </member>
+        <member name="M:Castle.DynamicProxy.ModuleScope.SaveAssembly">
+            <summary>
+              Saves the generated assembly with the name and directory information given when this <see cref="T:Castle.DynamicProxy.ModuleScope"/> instance was created (or with
+              the <see cref="F:Castle.DynamicProxy.ModuleScope.DEFAULT_FILE_NAME"/> and current directory if none was given).
+            </summary>
+            <remarks>
+              <para>
+                This method stores the generated assembly in the directory passed as part of the module information specified when this instance was
+                constructed (if any, else the current directory is used). If both a strong-named and a weak-named assembly
+                have been generated, it will throw an exception; in this case, use the <see cref="M:Castle.DynamicProxy.ModuleScope.SaveAssembly(System.Boolean)"/> overload.
+              </para>
+              <para>
+                If this <see cref="T:Castle.DynamicProxy.ModuleScope"/> was created without indicating that the assembly should be saved, this method does nothing.
+              </para>
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">Both a strong-named and a weak-named assembly have been generated.</exception>
+            <returns>The path of the generated assembly file, or null if no file has been generated.</returns>
+        </member>
+        <member name="M:Castle.DynamicProxy.ModuleScope.SaveAssembly(System.Boolean)">
+            <summary>
+              Saves the specified generated assembly with the name and directory information given when this <see cref="T:Castle.DynamicProxy.ModuleScope"/> instance was created
+              (or with the <see cref="F:Castle.DynamicProxy.ModuleScope.DEFAULT_FILE_NAME"/> and current directory if none was given).
+            </summary>
+            <param name="strongNamed">True if the generated assembly with a strong name should be saved (see <see cref="P:Castle.DynamicProxy.ModuleScope.StrongNamedModule"/>);
+              false if the generated assembly without a strong name should be saved (see <see cref="P:Castle.DynamicProxy.ModuleScope.WeakNamedModule"/>.</param>
+            <remarks>
+              <para>
+                This method stores the specified generated assembly in the directory passed as part of the module information specified when this instance was
+                constructed (if any, else the current directory is used).
+              </para>
+              <para>
+                If this <see cref="T:Castle.DynamicProxy.ModuleScope"/> was created without indicating that the assembly should be saved, this method does nothing.
+              </para>
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">No assembly has been generated that matches the <paramref name="strongNamed"/> parameter.
+            </exception>
+            <returns>The path of the generated assembly file, or null if no file has been generated.</returns>
+        </member>
+        <member name="M:Castle.DynamicProxy.ModuleScope.LoadAssemblyIntoCache(System.Reflection.Assembly)">
+            <summary>
+              Loads the generated types from the given assembly into this <see cref="T:Castle.DynamicProxy.ModuleScope"/>'s cache.
+            </summary>
+            <param name="assembly">The assembly to load types from. This assembly must have been saved via <see cref="M:Castle.DynamicProxy.ModuleScope.SaveAssembly(System.Boolean)"/> or
+              <see cref="M:Castle.DynamicProxy.ModuleScope.SaveAssembly"/>, or it must have the <see cref="T:Castle.DynamicProxy.Serialization.CacheMappingsAttribute"/> manually applied.</param>
+            <remarks>
+              This method can be used to load previously generated and persisted proxy types from disk into this scope's type cache, eg. in order
+              to avoid the performance hit associated with proxy generation.
+            </remarks>
+        </member>
         <member name="P:Castle.DynamicProxy.ModuleScope.Lock">
             <summary>
               Users of this <see cref="T:Castle.DynamicProxy.ModuleScope"/> should use this lock when accessing the cache.
@@ -1663,6 +1788,14 @@
             </summary>
             <value>The file name of the strongly named module generated by this scope.</value>
         </member>
+        <member name="P:Castle.DynamicProxy.ModuleScope.StrongNamedModuleDirectory">
+            <summary>
+              Gets the directory where the strongly named module generated by this scope will be saved, or <see langword="null"/> if the current directory
+              is used.
+            </summary>
+            <value>The directory where the strongly named module generated by this scope will be saved when <see cref="M:Castle.DynamicProxy.ModuleScope.SaveAssembly"/> is called
+              (if this scope was created to save modules).</value>
+        </member>
         <member name="P:Castle.DynamicProxy.ModuleScope.WeakNamedModule">
             <summary>
               Gets the weak-named module generated by this scope, or <see langword = "null" /> if none has yet been generated.
@@ -1674,6 +1807,37 @@
               Gets the file name of the weakly named module generated by this scope.
             </summary>
             <value>The file name of the weakly named module generated by this scope.</value>
+        </member>
+        <member name="P:Castle.DynamicProxy.ModuleScope.WeakNamedModuleDirectory">
+            <summary>
+              Gets the directory where the weakly named module generated by this scope will be saved, or <see langword="null"/> if the current directory
+              is used.
+            </summary>
+            <value>The directory where the weakly named module generated by this scope will be saved when <see cref="M:Castle.DynamicProxy.ModuleScope.SaveAssembly"/> is called
+              (if this scope was created to save modules).</value>
+        </member>
+        <member name="T:Castle.DynamicProxy.PersistentProxyBuilder">
+            <summary>
+              ProxyBuilder that persists the generated type.
+            </summary>
+            <remarks>
+              The saved assembly contains just the last generated type.
+            </remarks>
+        </member>
+        <member name="M:Castle.DynamicProxy.PersistentProxyBuilder.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:Castle.DynamicProxy.PersistentProxyBuilder"/> class.
+            </summary>
+        </member>
+        <member name="M:Castle.DynamicProxy.PersistentProxyBuilder.SaveAssembly">
+            <summary>
+              Saves the generated assembly to a physical file. Note that this renders the <see cref="T:Castle.DynamicProxy.PersistentProxyBuilder"/> unusable.
+            </summary>
+            <returns>The path of the generated assembly file, or null if no assembly has been generated.</returns>
+            <remarks>
+              This method does not support saving multiple files. If both a signed and an unsigned module have been generated, use the 
+              respective methods of the <see cref="T:Castle.DynamicProxy.ModuleScope"/>.
+            </remarks>
         </member>
         <member name="M:Castle.DynamicProxy.ProxyGenerationOptions.#ctor(Castle.DynamicProxy.IProxyGenerationHook)">
             <summary>
@@ -1701,6 +1865,12 @@
             <summary>
               Initializes a new instance of the <see cref="T:Castle.DynamicProxy.ProxyGenerator"/> class.
             </summary>
+        </member>
+        <member name="M:Castle.DynamicProxy.ProxyGenerator.#ctor(System.Boolean)">
+            <summary>
+              Initializes a new instance of the <see cref="T:Castle.DynamicProxy.ProxyGenerator"/> class.
+            </summary>
+            <param name="disableSignedModule">If <c>true</c> forces all types to be generated into an unsigned module.</param>
         </member>
         <member name="M:Castle.DynamicProxy.ProxyGenerator.CreateInterfaceProxyWithTarget``1(``0,Castle.DynamicProxy.IInterceptor[])">
             <summary>
@@ -2572,16 +2742,85 @@
             </summary>
             <value>The proxy builder.</value>
         </member>
-        <member name="M:Castle.DynamicProxy.SilverlightExtensions.Extensions.IsNested(System.Type)">
+        <member name="M:Castle.DynamicProxy.Serialization.RemotableInvocation.Proceed">
             <summary>
-            The silverlight System.Type is missing the IsNested property so this exposes similar functionality.
             </summary>
-            <param name="type"></param>
             <returns></returns>
+        </member>
+        <member name="P:Castle.DynamicProxy.Serialization.RemotableInvocation.Method">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Castle.DynamicProxy.Serialization.RemotableInvocation.MethodInvocationTarget">
+            <summary>
+              For interface proxies, this will point to the
+              <see cref="T:System.Reflection.MethodInfo"/> on the target class
+            </summary>
+        </member>
+        <member name="T:Castle.DynamicProxy.Serialization.ProxyObjectReference">
+            <summary>
+              Handles the deserialization of proxies.
+            </summary>
+        </member>
+        <member name="M:Castle.DynamicProxy.Serialization.ProxyObjectReference.ResetScope">
+            <summary>
+              Resets the <see cref="P:Castle.DynamicProxy.Serialization.ProxyObjectReference.ModuleScope"/> used for deserialization to a new scope.
+            </summary>
+            <remarks>
+              This is useful for test cases.
+            </remarks>
+        </member>
+        <member name="M:Castle.DynamicProxy.Serialization.ProxyObjectReference.SetScope(Castle.DynamicProxy.ModuleScope)">
+            <summary>
+              Resets the <see cref="P:Castle.DynamicProxy.Serialization.ProxyObjectReference.ModuleScope"/> used for deserialization to a given <paramref name="scope"/>.
+            </summary>
+            <param name="scope">The scope to be used for deserialization.</param>
+            <remarks>
+              By default, the deserialization process uses a different scope than the rest of the application, which can lead to multiple proxies
+              being generated for the same type. By explicitly setting the deserialization scope to the application's scope, this can be avoided.
+            </remarks>
+        </member>
+        <member name="P:Castle.DynamicProxy.Serialization.ProxyObjectReference.ModuleScope">
+            <summary>
+              Gets the <see cref="P:Castle.DynamicProxy.Serialization.ProxyObjectReference.ModuleScope"/> used for deserialization.
+            </summary>
+            <value>As <see cref="T:Castle.DynamicProxy.Serialization.ProxyObjectReference"/> has no way of automatically determining the scope used by the application (and the application
+              might use more than one scope at the same time), <see cref="T:Castle.DynamicProxy.Serialization.ProxyObjectReference"/> uses a dedicated scope instance for deserializing proxy
+              types. This instance can be reset and set to a specific value via <see cref="M:Castle.DynamicProxy.Serialization.ProxyObjectReference.ResetScope"/> and <see cref="M:Castle.DynamicProxy.Serialization.ProxyObjectReference.SetScope(Castle.DynamicProxy.ModuleScope)"/>.</value>
         </member>
         <member name="T:Castle.DynamicProxy.Tokens.InvocationMethods">
             <summary>
               Holds <see cref="T:System.Reflection.MethodInfo"/> objects representing methods of <see cref="T:Castle.DynamicProxy.AbstractInvocation"/> class.
+            </summary>
+        </member>
+        <member name="T:Castle.DynamicProxy.Tokens.SerializationInfoMethods">
+            <summary>
+              Holds <see cref="T:System.Reflection.MethodInfo"/> objects representing methods of <see cref="T:System.Runtime.Serialization.SerializationInfo"/> class.
+            </summary>
+        </member>
+        <member name="F:Castle.DynamicProxy.Tokens.SerializationInfoMethods.AddValue_Bool">
+            <summary>
+              <see cref="M:System.Runtime.Serialization.SerializationInfo.AddValue(System.String,System.Boolean)"/>
+            </summary>
+        </member>
+        <member name="F:Castle.DynamicProxy.Tokens.SerializationInfoMethods.AddValue_Int32">
+            <summary>
+              <see cref="M:System.Runtime.Serialization.SerializationInfo.AddValue(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="F:Castle.DynamicProxy.Tokens.SerializationInfoMethods.AddValue_Object">
+            <summary>
+              <see cref="M:System.Runtime.Serialization.SerializationInfo.AddValue(System.String,System.Object)"/>
+            </summary>
+        </member>
+        <member name="F:Castle.DynamicProxy.Tokens.SerializationInfoMethods.GetValue">
+            <summary>
+              <see cref="M:System.Runtime.Serialization.SerializationInfo.GetValue(System.String,System.Type)"/>
+            </summary>
+        </member>
+        <member name="F:Castle.DynamicProxy.Tokens.SerializationInfoMethods.SetType">
+            <summary>
+              <see cref="M:System.Runtime.Serialization.SerializationInfo.SetType(System.Type)"/>
             </summary>
         </member>
         <member name="T:Castle.DynamicProxy.IInterceptorSelector">
@@ -2790,6 +3029,18 @@
             <param name = "fileName">i.e. log4net.config</param>
             <returns></returns>
         </member>
+        <member name="T:Castle.Core.Logging.TraceLoggerFactory">
+            <summary>
+              Used to create the TraceLogger implementation of ILogger interface. See <see cref="T:Castle.Core.Logging.TraceLogger"/>.
+            </summary>
+        </member>
+        <member name="M:Castle.Core.Logging.AbstractLoggerFactory.GetConfigFile(System.String)">
+            <summary>
+              Gets the configuration file.
+            </summary>
+            <param name = "fileName">i.e. log4net.config</param>
+            <returns></returns>
+        </member>
         <member name="T:Castle.Core.Logging.IContextProperties">
             <summary>
               Interface for Context Properties implementations
@@ -2816,13 +3067,6 @@
               </para>
             </remarks>
         </member>
-        <member name="M:Castle.Core.Logging.AbstractLoggerFactory.GetConfigFile(System.String)">
-            <summary>
-              Gets the configuration file.
-            </summary>
-            <param name = "fileName">i.e. log4net.config</param>
-            <returns></returns>
-        </member>
         <member name="T:Castle.Core.Logging.NullLogFactory">
             <summary>
             NullLogFactory used when logging is turned off.
@@ -2842,6 +3086,13 @@
             <param name = "name">Name.</param>
             <param name = "level">Level.</param>
             <returns></returns>
+        </member>
+        <member name="T:Castle.Core.Logging.StreamLoggerFactory">
+            <summary>
+              Creates <see cref="T:Castle.Core.Logging.StreamLogger"/> outputing 
+              to files. The name of the file is derived from the log name
+              plus the 'log' extension.
+            </summary>
         </member>
         <member name="T:Castle.Core.Logging.IExtendedLogger">
             <summary>
@@ -3188,6 +3439,12 @@
               Creates a new <c>LevelFilteredLogger</c>.
             </summary>
         </member>
+        <member name="M:Castle.Core.Logging.LevelFilteredLogger.InitializeLifetimeService">
+            <summary>
+            Keep the instance alive in a remoting scenario
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Castle.Core.Logging.LevelFilteredLogger.Debug(System.String)">
             <summary>
               Logs a debug message.
@@ -3509,6 +3766,32 @@
             </summary>
             <param name = "loggerName">The added hierarchical name.</param>
             <returns>A new <c>ConsoleLogger</c>.</returns>
+        </member>
+        <member name="T:Castle.Core.Logging.DiagnosticsLogger">
+            <summary>
+              The Logger using standart Diagnostics namespace.
+            </summary>
+        </member>
+        <member name="M:Castle.Core.Logging.DiagnosticsLogger.#ctor(System.String)">
+            <summary>
+              Creates a logger based on <see cref="T:System.Diagnostics.EventLog"/>.
+            </summary>
+            <param name="logName"><see cref="P:System.Diagnostics.EventLog.Log"/></param>
+        </member>
+        <member name="M:Castle.Core.Logging.DiagnosticsLogger.#ctor(System.String,System.String)">
+            <summary>
+              Creates a logger based on <see cref="T:System.Diagnostics.EventLog"/>.
+            </summary>
+            <param name="logName"><see cref="P:System.Diagnostics.EventLog.Log"/></param>
+            <param name="source"><see cref="P:System.Diagnostics.EventLog.Source"/></param>
+        </member>
+        <member name="M:Castle.Core.Logging.DiagnosticsLogger.#ctor(System.String,System.String,System.String)">
+            <summary>
+              Creates a logger based on <see cref="T:System.Diagnostics.EventLog"/>.
+            </summary>
+            <param name="logName"><see cref="P:System.Diagnostics.EventLog.Log"/></param>
+            <param name="machineName"><see cref="P:System.Diagnostics.EventLog.MachineName"/></param>
+            <param name="source"><see cref="P:System.Diagnostics.EventLog.Source"/></param>
         </member>
         <member name="T:Castle.Core.Logging.NullLogger">
             <summary>
@@ -3863,6 +4146,46 @@
             <param name = "name">The name of the log.</param>
             <param name = "writer">The <c>StreamWriter</c> the log will write to.</param>
         </member>
+        <member name="T:Castle.Core.Logging.TraceLogger">
+            <summary>
+              The TraceLogger sends all logging to the System.Diagnostics.TraceSource
+              built into the .net framework.
+            </summary>
+            <remarks>
+              Logging can be configured in the system.diagnostics configuration 
+              section. 
+            
+              If logger doesn't find a source name with a full match it will
+              use source names which match the namespace partially. For example you can
+              configure from all castle components by adding a source name with the
+              name "Castle". 
+            
+              If no portion of the namespace matches the source named "Default" will
+              be used.
+            </remarks>
+        </member>
+        <member name="M:Castle.Core.Logging.TraceLogger.#ctor(System.String)">
+            <summary>
+            Build a new trace logger based on the named TraceSource
+            </summary>
+            <param name="name">The name used to locate the best TraceSource. In most cases comes from the using type's fullname.</param>
+        </member>
+        <member name="M:Castle.Core.Logging.TraceLogger.#ctor(System.String,Castle.Core.Logging.LoggerLevel)">
+            <summary>
+            Build a new trace logger based on the named TraceSource
+            </summary>
+            <param name="name">The name used to locate the best TraceSource. In most cases comes from the using type's fullname.</param>
+            <param name="level">The default logging level at which this source should write messages. In almost all cases this
+            default value will be overridden in the config file. </param>
+        </member>
+        <member name="M:Castle.Core.Logging.TraceLogger.CreateChildLogger(System.String)">
+            <summary>
+            Create a new child logger.
+            The name of the child logger is [current-loggers-name].[passed-in-name]
+            </summary>
+            <param name="loggerName">The Subname of this logger.</param>
+            <returns>The New ILogger instance.</returns> 
+        </member>
         <member name="T:Castle.Core.Configuration.AbstractConfiguration">
             <summary>
               This is an abstract <see cref="T:Castle.Core.Configuration.IConfiguration"/> implementation
@@ -3993,6 +4316,19 @@
             <value>
             The Value of the <see cref="T:Castle.Core.Configuration.IConfiguration"/>.
             </value>
+        </member>
+        <member name="M:Castle.Core.Configuration.Xml.XmlConfigurationDeserializer.Deserialize(System.Xml.XmlNode)">
+            <summary>
+              Deserializes the specified node into an abstract representation of configuration.
+            </summary>
+            <param name = "node">The node.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Castle.Core.Configuration.Xml.XmlConfigurationDeserializer.GetConfigValue(System.String)">
+            <summary>
+              If a config value is an empty string we return null, this is to keep
+              backward compatibility with old code
+            </summary>
         </member>
         <member name="T:Castle.Core.Pair`2">
             <summary>
@@ -4273,6 +4609,11 @@
             
             </summary>
         </member>
+        <member name="T:Castle.Core.Resource.FileResourceFactory">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Castle.Core.Resource.StaticContentResource">
             <summary>
             Adapts a static string content as an <see cref="T:Castle.Core.Resource.IResource"/>
@@ -4282,6 +4623,134 @@
             <summary>
             Enable access to files on network shares
             </summary>
+        </member>
+        <member name="T:Castle.Core.Smtp.IEmailSender">
+            <summary>
+            Email sender abstraction.
+            </summary>
+        </member>
+        <member name="M:Castle.Core.Smtp.IEmailSender.Send(System.String,System.String,System.String,System.String)">
+            <summary>
+            Sends a mail message.
+            </summary>
+            <param name="from">From field</param>
+            <param name="to">To field</param>
+            <param name="subject">E-mail's subject</param>
+            <param name="messageText">message's body</param>
+        </member>
+        <member name="M:Castle.Core.Smtp.IEmailSender.Send(System.Net.Mail.MailMessage)">
+            <summary>
+            Sends a <see cref="T:System.Net.Mail.MailMessage">message</see>. 
+            </summary>
+            <param name="message"><see cref="T:System.Net.Mail.MailMessage">Message</see> instance</param>
+        </member>
+        <member name="M:Castle.Core.Smtp.IEmailSender.Send(System.Collections.Generic.IEnumerable{System.Net.Mail.MailMessage})">
+            <summary>
+            Sends multiple <see cref="T:System.Net.Mail.MailMessage">messages</see>. 
+            </summary>
+            <param name="messages">List of <see cref="T:System.Net.Mail.MailMessage">messages</see></param>
+        </member>
+        <member name="T:Castle.Core.Smtp.DefaultSmtpSender">
+            <summary>
+            Default <see cref="T:Castle.Core.Smtp.IEmailSender"/> implementation.
+            </summary>
+        </member>
+        <member name="M:Castle.Core.Smtp.DefaultSmtpSender.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Castle.Core.Smtp.DefaultSmtpSender"/> class based on the <see cref="T:System.Net.Mail.SmtpClient"/> configuration provided in the application configuration file.
+            </summary>
+            <remarks>
+            This constructor is based on the default <see cref="T:System.Net.Mail.SmtpClient"/> configuration in the application configuration file.
+            </remarks> 
+        </member>
+        <member name="M:Castle.Core.Smtp.DefaultSmtpSender.#ctor(System.String)">
+            <summary>
+            This service implementation
+            requires a host name in order to work
+            </summary>
+            <param name="hostname">The smtp server name</param>
+        </member>
+        <member name="M:Castle.Core.Smtp.DefaultSmtpSender.Send(System.String,System.String,System.String,System.String)">
+            <summary>
+            Sends a message. 
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If any of the parameters is null</exception>
+            <param name="from">From field</param>
+            <param name="to">To field</param>
+            <param name="subject">e-mail's subject</param>
+            <param name="messageText">message's body</param>
+        </member>
+        <member name="M:Castle.Core.Smtp.DefaultSmtpSender.Send(System.Net.Mail.MailMessage)">
+            <summary>
+            Sends a message. 
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If the message is null</exception>
+            <param name="message">Message instance</param>
+        </member>
+        <member name="M:Castle.Core.Smtp.DefaultSmtpSender.Configure(System.Net.Mail.SmtpClient)">
+            <summary>
+            Configures the sender
+            with port information and eventual credential
+            informed
+            </summary>
+            <param name="smtpClient">Message instance</param>
+        </member>
+        <member name="P:Castle.Core.Smtp.DefaultSmtpSender.Port">
+            <summary>
+            Gets or sets the port used to 
+            access the SMTP server
+            </summary>
+        </member>
+        <member name="P:Castle.Core.Smtp.DefaultSmtpSender.Hostname">
+            <summary>
+            Gets the hostname.
+            </summary>
+            <value>The hostname.</value>
+        </member>
+        <member name="P:Castle.Core.Smtp.DefaultSmtpSender.AsyncSend">
+            <summary>
+            Gets or sets a value which is used to 
+            configure if emails are going to be sent asynchronously or not.
+            </summary>
+        </member>
+        <member name="P:Castle.Core.Smtp.DefaultSmtpSender.Timeout">
+            <summary>
+            Gets or sets a value that specifies 
+            the amount of time after which a synchronous Send call times out.
+            </summary>
+        </member>
+        <member name="P:Castle.Core.Smtp.DefaultSmtpSender.UseSsl">
+            <summary>
+            Gets or sets a value indicating whether the email should be sent using 
+            a secure communication channel.
+            </summary>
+            <value><c>true</c> if should use SSL; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Castle.Core.Smtp.DefaultSmtpSender.Domain">
+            <summary>
+            Gets or sets the domain.
+            </summary>
+            <value>The domain.</value>
+        </member>
+        <member name="P:Castle.Core.Smtp.DefaultSmtpSender.UserName">
+            <summary>
+            Gets or sets the name of the user.
+            </summary>
+            <value>The name of the user.</value>
+        </member>
+        <member name="P:Castle.Core.Smtp.DefaultSmtpSender.Password">
+            <summary>
+            Gets or sets the password.
+            </summary>
+            <value>The password.</value>
+        </member>
+        <member name="P:Castle.Core.Smtp.DefaultSmtpSender.HasCredentials">
+            <summary>
+            Gets a value indicating whether credentials were informed.
+            </summary>
+            <value>
+            <see langword="true"/> if this instance has credentials; otherwise, <see langword="false"/>.
+            </value>
         </member>
     </members>
 </doc>

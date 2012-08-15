@@ -1,6 +1,27 @@
+3.1.0 (2012-08-05)
+==================
+
+- fixed DYNPROXY-174 - Unable to cast object of type 'System.Collections.ObjectModel.ReadOnlyCollection`1[System.Reflection.CustomAttributeTypedArgument]' to type 'System.Array'
+
+3.1.0 RC (2012-07-08)
+==================
+- support multiple inheritance of DA attributes on interfaces.
+- BREAKING CHANGE: removed propogate child notifications as it violated INotifyPropertyChanged contract
+- improved DictionaryAdapter performance
+- generalized IBindingList support for DictionaryAdapters
+- added reference support to XmlAdapter
+- BRAKING CHANGE: refactored XPathAdapter into XmlAdapter with much more flexibility to support other input like XLinq
+
+- implemented CORE-43 - Add option to skip configuring log4net/nlog
+
+- fixed CORE-44 - NLog logger does not preserver call site info
+- fixed DYNPROXY-171 - PEVerify error on generic method definition
+- fixed DYNPROXY-170 - Calls to properties inside non-intercepted methods are not forwarded to target object (regression from v2.5)
+- fixed DYNPROXY-169 - Support IChangeProxyTarget on additional interfaces and mixins when using CreateInterfaceProxyWithTargetInterface
+
 3.0.0 (2011-12-13)
 ==================
-no major changes
+no major changes since RC
 
 3.0.0 RC 1 (2011-11-20)
 ==================

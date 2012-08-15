@@ -8,7 +8,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public interface IService { T Get<T>(T arg) where T : struct; }
 
         [Test]
-        [Pending]
         public void TestGenericCalls()
         {
             var id = Guid.NewGuid();

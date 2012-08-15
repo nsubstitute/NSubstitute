@@ -1,9 +1,10 @@
+=== version 3.0
 ================================================================================================
 change - Removed overloads of logging methods that were taking format string from ILogger and
 	ILogger and IExtendedLogger and didn't have word Format in their name.
 	For example:
-    void Error(string format, params object[] args); // was removed
-    void ErrorFormat(string format, params object[] args); //use this one instead
+	void Error(string format, params object[] args); // was removed
+	void ErrorFormat(string format, params object[] args); //use this one instead
 
 
 impact - low
