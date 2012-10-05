@@ -13,5 +13,6 @@ namespace NSubstitute.Core
         object Target();
         IParameterInfo[] GetParameterInfos();
         IList<IArgumentSpecification> GetArgumentSpecifications();
+        int CallSequenceId { get; }
     }
 }

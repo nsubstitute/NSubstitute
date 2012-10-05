@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
 using NSubstitute.Routing.Definitions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace NSubstitute.Specs
 {
@@ -19,6 +21,7 @@ namespace NSubstitute.Specs
             protected IResultSetter _resultSetter;
             protected IRouteFactory _routeFactory;
             protected IReceivedCalls _receivedCalls;
+            protected ICallSpecificationFactory _callSpecificationFactory;
 
             public override void Context()
             {
@@ -27,11 +30,12 @@ namespace NSubstitute.Specs
                 _receivedCalls = mock<IReceivedCalls>();
                 _resultSetter = mock<IResultSetter>();
                 _routeFactory = mock<IRouteFactory>();
+                _callSpecificationFactory = mock<ICallSpecificationFactory>();
             }
 
             public override CallRouter CreateSubjectUnderTest()
             {
-                return new CallRouter(_context, _receivedCalls, _resultSetter, _routeFactory);
+                return new CallRouter(_context, _receivedCalls, _resultSetter, _routeFactory, _callSpecificationFactory);
             }
 
             protected IRoute CreateRouteThatReturns(object returnValue)
@@ -201,6 +205,37 @@ namespace NSubstitute.Specs
                 base.Context();
                 _allCalls = new ICall[0];
                 _receivedCalls.stub(x => x.AllCalls()).Return(_allCalls);
+            }
+        }
+
+        public class When_getting_specific_received_calls : Concern
+        {
+            private Expression<Action<Foo>> _expression;
+
+            public interface Foo
+            {
+                void Bar();
+            }
+
+            public override void Because()
+            {
+                _expression = x => x.Bar();
+
+                //Calling ToList() to force enumerating the ReceivedCalls and calling the CallSpecificationFactory.
+                sut.ReceivedCalls(_expression).ToList();
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _receivedCalls.stub(x => x.AllCalls()).Return(new[] { mock<ICall>()}.ToList());
+                _callSpecificationFactory.stub(x => x.CreateFrom(Arg<Expression<Action<Foo>>>.Is.Anything)).Return(mock<ICallSpecification>());
+            }
+
+            [Test]
+            public void Should_call_CallSpecificationFactory()
+            {
+                _callSpecificationFactory.AssertWasCalled(x => x.CreateFrom(_expression));
             }
         }
     }
