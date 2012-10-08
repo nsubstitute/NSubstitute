@@ -152,12 +152,10 @@
     <Compile Include="SubbingForEventHandler.cs" />
     <Compile Include="PropertyBehaviour.cs" />
     <Compile Include="ArgumentMatching.cs" />
-    <Compile Include="Infrastructure\IIgnition.cs" />
     <Compile Include="Infrastructure\PendingAttribute.cs" />
     <Compile Include="SimpleSubstituteExamples.cs" />
     <Compile Include="ReceivedCalls.cs" />
     <Compile Include="ReturningResults.cs" />
-    <Compile Include="Infrastructure\IEngine.cs" />
     <Compile Include="Infrastructure\ISomething.cs" />
     <Compile Include="SequenceChecking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

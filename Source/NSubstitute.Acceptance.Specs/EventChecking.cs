@@ -1,5 +1,4 @@
 using System;
-using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -16,6 +15,11 @@ namespace NSubstitute.Acceptance.Specs
             engine.Started += handler;
             engine.Received().Started += handler;
             Assert.Throws<ReceivedCallsException>(() => engine.Received().Started += someOtherHandler);
+        }
+
+        public interface IEngine
+        {
+            event Action Started;
         }
     }
 }

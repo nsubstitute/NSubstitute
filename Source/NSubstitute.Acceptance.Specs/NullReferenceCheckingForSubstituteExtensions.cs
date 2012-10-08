@@ -1,4 +1,4 @@
-using NSubstitute.Acceptance.Specs.Infrastructure;
+using System;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -54,6 +54,18 @@ namespace NSubstitute.Acceptance.Specs
         public void Call_to_received_calls()
         {
             Assert.Throws<NullSubstituteReferenceException>(() => _engine.ReceivedCalls());
+        }
+
+        public interface IEngine
+        {
+            void Start();
+            void Rev();
+            void Stop();
+            void Idle();
+            void RevAt(int rpm);
+            void FillPetrolTankTo(int percent);
+            float GetCapacityInLitres();
+            event Action Started;
         }
     }
 }
