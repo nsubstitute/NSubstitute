@@ -176,6 +176,41 @@ namespace NSubstitute.Acceptance.Specs
         }
 
 
+        [Test]
+        [Pending]
+        public void Check_auto_subbed_props()
+        {
+            _foo.Start();
+            _bar.Baz.Flurgle = "hi";
+            _foo.Finish();
+
+
+            Received.InOrder(() =>
+                             {
+                                 _foo.Start();
+                                 _bar.Baz.Flurgle = "hi";
+                                 _foo.Finish();
+                             });
+        }
+
+        [Test]
+        [Pending]
+        public void Fail_when_auto_subbed_prop_call_not_received()
+        {
+            _foo.Start();
+            _bar.Baz.Flurgle = "hi";
+            _foo.Finish();
+
+
+            Assert.Throws<CallSequenceNotFound>(() =>
+                Received.InOrder(() =>
+                                 {
+                                     _foo.Start();
+                                     _bar.Baz.Flurgle = "howdy";
+                                     _foo.Finish();
+                                 })
+             );
+        }
 
         [SetUp]
         public void SetUp()
@@ -208,5 +243,11 @@ namespace NSubstitute.Acceptance.Specs
     {
         void Begin();
         void End();
+        IBaz Baz { get; }
+    }
+
+    public interface IBaz
+    {
+        string Flurgle { get; set; }
     }
 }
