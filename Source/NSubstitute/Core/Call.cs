@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NSubstitute.Core.Arguments;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
@@ -58,6 +59,15 @@ namespace NSubstitute.Core
         public void AssignSequenceNumber(long number)
         {
             _sequenceNumber = number;
+        }
+
+        public long GetSequenceNumber()
+        {
+            if (_sequenceNumber == null)
+            {
+                throw new MissingSequenceNumberException();
+            }
+            return _sequenceNumber.Value;
         }
 
         public Type GetReturnType()

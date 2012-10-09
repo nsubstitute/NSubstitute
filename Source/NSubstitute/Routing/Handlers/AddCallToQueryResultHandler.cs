@@ -5,12 +5,12 @@ namespace NSubstitute.Routing.Handlers
 {
     public class AddCallToQueryResultHandler : ICallHandler
     {
-        private readonly Query _query;
+        private readonly ISubstitutionContext _context;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
 
-        public AddCallToQueryResultHandler(Func<Query> query, ICallSpecificationFactory callSpecificationFactory)
+        public AddCallToQueryResultHandler(ISubstitutionContext context, ICallSpecificationFactory callSpecificationFactory)
         {
-            _query = query();
+            _context = context;
             _callSpecificationFactory = callSpecificationFactory;
         }
 
@@ -18,7 +18,7 @@ namespace NSubstitute.Routing.Handlers
         {
             var target = call.Target();
             var callSpec = _callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
-            _query.Add(target, callSpec);
+            _context.AddToQuery(target, callSpec);
             return RouteAction.Continue();
         }
     }

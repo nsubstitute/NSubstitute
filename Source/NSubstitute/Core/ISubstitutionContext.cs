@@ -8,12 +8,14 @@ namespace NSubstitute.Core
     {
         ISubstituteFactory SubstituteFactory { get; }
         SequenceNumberGenerator SequenceNumberGenerator { get; }
-        Query Query { get; }
         void LastCallShouldReturn(IReturn value, MatchArgs matchArgs);
         void LastCallRouter(ICallRouter callRouter);
         ICallRouter GetCallRouterFor(object substitute);
         void EnqueueArgumentSpecification(IArgumentSpecification spec);
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
         void RaiseEventForNextCall(Func<ICall, object[]> getArguments);
+        IQueryResults RunQuery(Action calls);
+        bool IsQuerying { get; }
+        void AddToQuery(object target, ICallSpecification callSpecification);
     }
 }

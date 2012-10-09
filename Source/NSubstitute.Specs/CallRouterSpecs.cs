@@ -19,7 +19,6 @@ namespace NSubstitute.Specs
             protected IResultSetter _resultSetter;
             protected IRouteFactory _routeFactory;
             protected IReceivedCalls _receivedCalls;
-            protected Query _query;
 
             public override void Context()
             {
@@ -28,8 +27,6 @@ namespace NSubstitute.Specs
                 _receivedCalls = mock<IReceivedCalls>();
                 _resultSetter = mock<IResultSetter>();
                 _routeFactory = mock<IRouteFactory>();
-                _query = mock<Query>();
-                _context.stub(x => x.Query).Return(_query);
             }
 
             public override CallRouter CreateSubjectUnderTest()
@@ -215,9 +212,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _query.stub(x => x.IsRunning()).Return(true);
-                _context.stub(x => x.Query).Return(_query);
-
+                _context.stub(x => x.IsQuerying).Return(true);
                 _routeFactory.stub(x => x.Create<CallQueryRoute>()).Return(CreateRouteThatReturns(_resultFromQueryRoute));
             }
 

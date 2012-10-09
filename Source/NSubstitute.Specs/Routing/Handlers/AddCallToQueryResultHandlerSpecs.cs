@@ -12,16 +12,16 @@ namespace NSubstitute.Specs.Routing.Handlers
             private readonly object _target = new object();
             private ICall _call;
             private ICallSpecificationFactory _callSpecFactory;
-            private Query _query;
             private ICallSpecification _callSpec;
             private RouteAction _result;
+            private ISubstitutionContext _context;
 
             public override void Context()
             {
                 _callSpec = mock<ICallSpecification>();
                 _call = mock<ICall>();
                 _callSpecFactory = mock<ICallSpecificationFactory>();
-                _query = mock<Query>();
+                _context = mock<ISubstitutionContext>();
 
                 _call.stub(x => x.Target()).Return(_target);
                 _callSpecFactory.stub(x => x.CreateFrom(_call, MatchArgs.AsSpecifiedInCall)).Return(_callSpec);
@@ -35,7 +35,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Add_call_target_and_spec_to_query()
             {
-                _query.received(x => x.Add(_target, _callSpec));
+                _context.received(x => x.AddToQuery(_target, _callSpec));
             }
 
             [Test]
@@ -46,7 +46,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override AddCallToQueryResultHandler CreateSubjectUnderTest()
             {
-                return new AddCallToQueryResultHandler(() => _query, _callSpecFactory);
+                return new AddCallToQueryResultHandler(_context, _callSpecFactory);
             }
         }
     }

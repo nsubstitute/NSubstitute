@@ -14,5 +14,6 @@ namespace NSubstitute.Core
         IParameterInfo[] GetParameterInfos();
         IList<IArgumentSpecification> GetArgumentSpecifications();
         void AssignSequenceNumber(long number);
+        long GetSequenceNumber();
     }
 }

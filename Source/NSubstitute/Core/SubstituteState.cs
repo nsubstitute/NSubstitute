@@ -19,7 +19,6 @@ namespace NSubstitute.Core
         {
             var substituteFactory = substitutionContext.SubstituteFactory;
             var sequenceNumberGenerator = substitutionContext.SequenceNumberGenerator;
-            Func<Query> query = () => substitutionContext.Query;
             var callInfoFactory = new CallInfoFactory();
             var callStack = new CallStack();
             var pendingSpecification = new PendingSpecification();
@@ -29,6 +28,7 @@ namespace NSubstitute.Core
 
             var state = new object[] 
             {
+                substitutionContext,
                 callInfoFactory,
                 callStack,
                 pendingSpecification,
@@ -37,7 +37,6 @@ namespace NSubstitute.Core
                 substituteFactory,
                 callActions,
                 sequenceNumberGenerator,
-                query,
                 new PropertyHelper(),
                 new ResultSetter(callStack, pendingSpecification, callResults, callSpecificationFactory, callActions),
                 new EventHandlerRegistry(),

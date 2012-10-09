@@ -47,7 +47,7 @@ namespace NSubstitute.Core
         public object Route(ICall call)
         {
             _context.LastCallRouter(this);
-            if (_context.Query.IsRunning()) { UseQueryRouteForNextCall(); }
+            if (_context.IsQuerying) { UseQueryRouteForNextCall(); }
             else if (IsSpecifyingACall(call)) { UseRecordCallSpecRouteForNextCall(); }
 
             var routeToUseForThisCall = _currentRoute;

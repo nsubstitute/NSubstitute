@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSubstitute.Exceptions;
+using NSubstitute.Experimental;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -10,7 +11,6 @@ namespace NSubstitute.Acceptance.Specs
         private IBar _bar;
 
         [Test]
-        [Pending]
         public void Pass_when_checking_a_single_call_that_was_in_the_sequence()
         {
             _foo.Start();
@@ -18,17 +18,15 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Fail_when_checking_a_single_call_that_was_not_in_the_sequence()
         {
             _foo.Start();
-            Assert.Throws<CallSequenceNotFound>(() =>
+            Assert.Throws<CallSequenceNotFoundException>(() =>
                 Received.InOrder(() => _foo.Finish())
                 );
         }
 
         [Test]
-        [Pending]
         public void Pass_when_calls_match_exactly()
         {
             _foo.Start(2);
@@ -47,7 +45,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Fail_when_call_arg_does_not_match()
         {
             _foo.Start(1);
@@ -55,7 +52,7 @@ namespace NSubstitute.Acceptance.Specs
             _foo.Finish();
             _bar.End();
 
-            Assert.Throws<CallSequenceNotFound>(() =>
+            Assert.Throws<CallSequenceNotFoundException>(() =>
                 Received.InOrder(() =>
                                      {
                                          _foo.Start(2);
@@ -67,7 +64,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Use_arg_matcher()
         {
             _foo.Start(1);
@@ -86,13 +82,12 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Fail_when_calls_made_in_different_order()
         {
             _foo.Finish();
             _foo.Start();
 
-            Assert.Throws<CallSequenceNotFound>(() =>
+            Assert.Throws<CallSequenceNotFoundException>(() =>
                 Received.InOrder(() =>
                                  {
                                      _foo.Start();
@@ -102,13 +97,12 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Fail_when_one_of_the_calls_in_the_sequence_was_not_received()
         {
             _foo.Start();
             _foo.Finish();
 
-            Assert.Throws<CallSequenceNotFound>(() =>
+            Assert.Throws<CallSequenceNotFoundException>(() =>
                 Received.InOrder(() =>
                 {
                     _foo.Start();
@@ -119,7 +113,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Fail_when_additional_related_calls_at_start()
         {
             _foo.Start();
@@ -128,7 +121,7 @@ namespace NSubstitute.Acceptance.Specs
             _foo.Finish();
             _bar.End();
 
-            Assert.Throws<CallSequenceNotFound>(() =>
+            Assert.Throws<CallSequenceNotFoundException>(() =>
                 Received.InOrder(() =>
                 {
                     _foo.Start();
@@ -140,7 +133,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Fail_when_additional_related_calls_at_end()
         {
             _foo.Start();
@@ -149,7 +141,7 @@ namespace NSubstitute.Acceptance.Specs
             _bar.End();
             _foo.Start();
 
-            Assert.Throws<CallSequenceNotFound>(() =>
+            Assert.Throws<CallSequenceNotFoundException>(() =>
                 Received.InOrder(() =>
                 {
                     _foo.Start();
@@ -161,7 +153,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Ignore_unrelated_calls()
         {
             _foo.Start();
@@ -177,7 +168,6 @@ namespace NSubstitute.Acceptance.Specs
 
 
         [Test]
-        [Pending]
         public void Check_auto_subbed_props()
         {
             _foo.Start();
@@ -194,7 +184,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void Fail_when_auto_subbed_prop_call_not_received()
         {
             _foo.Start();
@@ -202,7 +191,7 @@ namespace NSubstitute.Acceptance.Specs
             _foo.Finish();
 
 
-            Assert.Throws<CallSequenceNotFound>(() =>
+            Assert.Throws<CallSequenceNotFoundException>(() =>
                 Received.InOrder(() =>
                                  {
                                      _foo.Start();
@@ -218,17 +207,6 @@ namespace NSubstitute.Acceptance.Specs
             _foo = Substitute.For<IFoo>();
             _bar = Substitute.For<IBar>();
         }
-    }
-
-    public static class Received
-    {
-        public static void InOrder(Action action)
-        {
-        }
-    }
-
-    public class CallSequenceNotFound : Exception
-    {
     }
 
     public interface IFoo

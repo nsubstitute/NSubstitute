@@ -18,7 +18,7 @@ namespace NSubstitute.Core
         readonly RobustThreadLocal<ICallRouter> _lastCallRouter = new RobustThreadLocal<ICallRouter>();
         readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
         readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
-        readonly RobustThreadLocal<Query> _query = new RobustThreadLocal<Query>(() => new Query());
+        readonly RobustThreadLocal<Query> _currentQuery = new RobustThreadLocal<Query>();
 
         static SubstitutionContext()
         {
@@ -42,7 +42,7 @@ namespace NSubstitute.Core
 
         public ISubstituteFactory SubstituteFactory { get { return _substituteFactory; } }
         public SequenceNumberGenerator SequenceNumberGenerator { get { return _sequenceNumberGenerator; } }
-        public Query Query { get { return _query.Value; } }
+        public bool IsQuerying { get { return _currentQuery.Value != null; } }
 
         public void LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
         {
@@ -86,6 +86,22 @@ namespace NSubstitute.Core
         public void RaiseEventForNextCall(Func<ICall, object[]> getArguments)
         {
             _getArgumentsForRaisingEvent.Value = getArguments;
+        }
+
+        public void AddToQuery(object target, ICallSpecification callSpecification)
+        {
+            var query = _currentQuery.Value;
+            if (query == null) { throw new NotRunningAQueryException(); }
+            query.Add(callSpecification, target);
+        }
+
+        public IQueryResults RunQuery(Action calls)
+        {
+            var query = new Query();
+            _currentQuery.Value = query;
+            calls();
+            _currentQuery.Value = null;
+            return query.Result();
         }
     }
 }
