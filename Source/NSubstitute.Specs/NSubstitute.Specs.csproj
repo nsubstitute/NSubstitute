@@ -188,6 +188,7 @@
     <Compile Include="Routing\AutoValues\AutoArrayProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProviderSpecs.cs" />
+    <Compile Include="Routing\Handlers\AddCallToQueryResultHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckReceivedCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\DoActionsCallHandlerSpecs.cs" />
     <Compile Include="EventHandlerRegistrySpec.cs" />
