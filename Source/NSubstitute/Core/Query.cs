@@ -6,6 +6,9 @@
         {
         }
 
-        public virtual bool IsRunning { get; private set; }
+        public virtual bool IsRunning()
+        {
+            return false;
+        }
     }
 }

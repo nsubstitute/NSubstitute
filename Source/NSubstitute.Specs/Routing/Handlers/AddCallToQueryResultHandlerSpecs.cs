@@ -46,7 +46,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override AddCallToQueryResultHandler CreateSubjectUnderTest()
             {
-                return new AddCallToQueryResultHandler(_query, _callSpecFactory);
+                return new AddCallToQueryResultHandler(() => _query, _callSpecFactory);
             }
         }
     }

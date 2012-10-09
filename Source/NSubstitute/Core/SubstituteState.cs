@@ -19,7 +19,7 @@ namespace NSubstitute.Core
         {
             var substituteFactory = substitutionContext.SubstituteFactory;
             var sequenceNumberGenerator = substitutionContext.SequenceNumberGenerator;
-            var query = substitutionContext.Query;
+            Func<Query> query = () => substitutionContext.Query;
             var callInfoFactory = new CallInfoFactory();
             var callStack = new CallStack();
             var pendingSpecification = new PendingSpecification();

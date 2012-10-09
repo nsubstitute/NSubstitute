@@ -19,7 +19,7 @@ namespace NSubstitute.Specs
 
             public override SubstitutionContext CreateSubjectUnderTest()
             {
-                return new SubstitutionContext(_substituteFactory, new Query());
+                return new SubstitutionContext(_substituteFactory);
             }
         }
 

@@ -18,7 +18,7 @@ namespace NSubstitute.Core
         readonly RobustThreadLocal<ICallRouter> _lastCallRouter = new RobustThreadLocal<ICallRouter>();
         readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
         readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
-        readonly RobustThreadLocal<Query> _query = new RobustThreadLocal<Query>();
+        readonly RobustThreadLocal<Query> _query = new RobustThreadLocal<Query>(() => new Query());
 
         static SubstitutionContext()
         {
@@ -35,10 +35,9 @@ namespace NSubstitute.Core
             _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver);
         }
 
-        public SubstitutionContext(ISubstituteFactory substituteFactory, Query query)
+        public SubstitutionContext(ISubstituteFactory substituteFactory)
         {
             _substituteFactory = substituteFactory;
-            _query.Value = query;
         }
 
         public ISubstituteFactory SubstituteFactory { get { return _substituteFactory; } }

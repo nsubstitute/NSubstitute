@@ -19,6 +19,7 @@ namespace NSubstitute.Specs
             protected IResultSetter _resultSetter;
             protected IRouteFactory _routeFactory;
             protected IReceivedCalls _receivedCalls;
+            protected Query _query;
 
             public override void Context()
             {
@@ -27,6 +28,8 @@ namespace NSubstitute.Specs
                 _receivedCalls = mock<IReceivedCalls>();
                 _resultSetter = mock<IResultSetter>();
                 _routeFactory = mock<IRouteFactory>();
+                _query = mock<Query>();
+                _context.stub(x => x.Query).Return(_query);
             }
 
             public override CallRouter CreateSubjectUnderTest()
@@ -201,6 +204,32 @@ namespace NSubstitute.Specs
                 base.Context();
                 _allCalls = new ICall[0];
                 _receivedCalls.stub(x => x.AllCalls()).Return(_allCalls);
+            }
+        }
+
+        public class When_handling_a_call_while_querying : Concern
+        {
+            private readonly object _resultFromQueryRoute = new object();
+            private object _result;
+
+            public override void Context()
+            {
+                base.Context();
+                _query.stub(x => x.IsRunning()).Return(true);
+                _context.stub(x => x.Query).Return(_query);
+
+                _routeFactory.stub(x => x.Create<CallQueryRoute>()).Return(CreateRouteThatReturns(_resultFromQueryRoute));
+            }
+
+            public override void Because()
+            {
+                _result = sut.Route(_call);
+            }
+
+            [Test]
+            public void Should_handle_via_query_route()
+            {
+                Assert.That(_result, Is.EqualTo(_resultFromQueryRoute));
             }
         }
     }
