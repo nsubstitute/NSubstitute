@@ -4,7 +4,8 @@
     {
         public virtual void Add(object target, ICallSpecification callSpecification)
         {
-            throw new System.NotImplementedException();
         }
+
+        public virtual bool IsRunning { get; private set; }
     }
 }

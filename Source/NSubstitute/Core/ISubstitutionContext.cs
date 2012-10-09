@@ -7,6 +7,8 @@ namespace NSubstitute.Core
     public interface ISubstitutionContext
     {
         ISubstituteFactory SubstituteFactory { get; }
+        SequenceNumberGenerator SequenceNumberGenerator { get; }
+        Query Query { get; }
         void LastCallShouldReturn(IReturn value, MatchArgs matchArgs);
         void LastCallRouter(ICallRouter callRouter);
         ICallRouter GetCallRouterFor(object substitute);

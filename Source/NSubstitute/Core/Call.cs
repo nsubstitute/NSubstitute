@@ -13,6 +13,7 @@ namespace NSubstitute.Core
         private object _target;
         private readonly IParameterInfo[] _parameterInfos;
         private IList<IArgumentSpecification> _argumentSpecifications;
+        private long? _sequenceNumber;
 
         public Call(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecsForCall) 
         {
@@ -52,6 +53,11 @@ namespace NSubstitute.Core
         public IList<IArgumentSpecification> GetArgumentSpecifications()
         {
             return _argumentSpecifications;
+        }
+
+        public void AssignSequenceNumber(long number)
+        {
+            _sequenceNumber = number;
         }
 
         public Type GetReturnType()

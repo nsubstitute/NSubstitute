@@ -14,9 +14,11 @@ namespace NSubstitute.Core
         public static ISubstitutionContext Current { get; set; }
 
         readonly ISubstituteFactory _substituteFactory;
+        readonly SequenceNumberGenerator _sequenceNumberGenerator = new SequenceNumberGenerator();
         readonly RobustThreadLocal<ICallRouter> _lastCallRouter = new RobustThreadLocal<ICallRouter>();
         readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
         readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
+        readonly RobustThreadLocal<Query> _query = new RobustThreadLocal<Query>();
 
         static SubstitutionContext()
         {
@@ -33,12 +35,15 @@ namespace NSubstitute.Core
             _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver);
         }
 
-        public SubstitutionContext(ISubstituteFactory substituteFactory)
+        public SubstitutionContext(ISubstituteFactory substituteFactory, Query query)
         {
             _substituteFactory = substituteFactory;
+            _query.Value = query;
         }
 
         public ISubstituteFactory SubstituteFactory { get { return _substituteFactory; } }
+        public SequenceNumberGenerator SequenceNumberGenerator { get { return _sequenceNumberGenerator; } }
+        public Query Query { get { return _query.Value; } }
 
         public void LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
         {

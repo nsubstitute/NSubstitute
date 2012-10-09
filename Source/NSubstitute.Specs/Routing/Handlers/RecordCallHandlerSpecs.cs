@@ -11,12 +11,19 @@ namespace NSubstitute.Specs.Routing.Handlers
         {
             ICall _call;
             ICallStack _callStack;
-            private RouteAction _result;
+            SequenceNumberGenerator _sequenceNumberGenerator;
+            RouteAction _result;
 
             [Test]
             public void Should_record_call()
             {
                 _callStack.received(x => x.Push(_call));
+            }
+
+            [Test]
+            public void Should_assign_sequence_number()
+            {
+                _call.received(x => x.AssignSequenceNumber(42));
             }
 
             [Test]
@@ -34,11 +41,13 @@ namespace NSubstitute.Specs.Routing.Handlers
             {
                 _callStack = mock<ICallStack>();
                 _call = mock<ICall>();
+                _sequenceNumberGenerator = mock<SequenceNumberGenerator>();
+                _sequenceNumberGenerator.stub(x => x.Next()).Return(42);
             }
 
             public override RecordCallHandler CreateSubjectUnderTest()
             {
-                return new RecordCallHandler(_callStack);
+                return new RecordCallHandler(_callStack, _sequenceNumberGenerator);
             } 
         }
     }

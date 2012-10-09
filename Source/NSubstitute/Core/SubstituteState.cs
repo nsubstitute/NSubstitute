@@ -18,14 +18,14 @@ namespace NSubstitute.Core
         public static SubstituteState Create(ISubstitutionContext substitutionContext)
         {
             var substituteFactory = substitutionContext.SubstituteFactory;
+            var sequenceNumberGenerator = substitutionContext.SequenceNumberGenerator;
+            var query = substitutionContext.Query;
             var callInfoFactory = new CallInfoFactory();
             var callStack = new CallStack();
             var pendingSpecification = new PendingSpecification();
             var callResults = new CallResults(callInfoFactory);
             var callSpecificationFactory = NewCallSpecificationFactory();
             var callActions = new CallActions(callInfoFactory);
-
-            var callFormatter = new CallFormatter();
 
             var state = new object[] 
             {
@@ -36,6 +36,8 @@ namespace NSubstitute.Core
                 callSpecificationFactory,
                 substituteFactory,
                 callActions,
+                sequenceNumberGenerator,
+                query,
                 new PropertyHelper(),
                 new ResultSetter(callStack, pendingSpecification, callResults, callSpecificationFactory, callActions),
                 new EventHandlerRegistry(),
