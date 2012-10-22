@@ -42,6 +42,8 @@ namespace NSubstitute.Core
             return CallFormatter.Format(_methodInfo, argSpecsAsStrings);
         }
 
+        public Type CallTargetType { get { return _methodInfo.DeclaringType; } }
+
         public string Format(ICall call)
         {
             return CallFormatter.Format(call.GetMethodInfo(), FormatArguments(call.GetArguments()));
