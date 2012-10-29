@@ -1,3 +1,7 @@
+unreleased changes
+* [EXPERIMENTAL] Asserting ordered call sequences
+* [FIX] Arg.Invoke with four arguments now passes fourth arg correctly (#88). Thanks to Ville Salonen (@VilleSalonen) for finding and patching this.
+
 1.4.3 (August 2012)
 * [FIX] Updated to Castle.Core 3.1.0 to fix an issue proxying generic methods with a struct constraint (#83).
 
