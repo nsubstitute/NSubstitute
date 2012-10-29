@@ -42,19 +42,34 @@ namespace NSubstitute.Acceptance.Specs
             sub.MethodWithCallbackWithArguments("test", action1);
             action1.Received().Invoke(1);
             sub.Received().MethodWithCallbackWithArguments("test", action1);
+        }
 
+        [Test]
+        public void Invoke_callback_with_two_arguments()
+        {
+            var sub = Substitute.For<IFoo>();
             var action2 = Substitute.For<Action<int, string>>();
             sub.MethodWithCallbackWithArguments("test", Arg.Invoke(1, "hello"));
             sub.MethodWithCallbackWithArguments("test", action2);
             action2.Received().Invoke(1, "hello");
             sub.Received().MethodWithCallbackWithArguments("test", action2);
+        }
 
+        [Test]
+        public void Invoke_callback_with_three_arguments()
+        {
+            var sub = Substitute.For<IFoo>();
             var action3 = Substitute.For<Action<int, string, double>>();
             sub.MethodWithCallbackWithArguments("test", Arg.Invoke(1, "hello", 3.14));
             sub.MethodWithCallbackWithArguments("test", action3);
             action3.Received().Invoke(1, "hello", 3.14);
             sub.Received().MethodWithCallbackWithArguments("test", action3);
+        }
 
+        [Test]
+        public void Invoke_callback_with_four_arguments()
+        {
+            var sub = Substitute.For<IFoo>();
             var action4 = Substitute.For<Action<int, string, double, char>>();
             sub.MethodWithCallbackWithArguments("test", Arg.Invoke(1, "hello", 3.14, '!'));
             sub.MethodWithCallbackWithArguments("test", action4);
