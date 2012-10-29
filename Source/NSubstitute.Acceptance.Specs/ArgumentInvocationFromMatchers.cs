@@ -11,10 +11,7 @@ namespace NSubstitute.Acceptance.Specs
         public interface IFoo
         {
             void MethodWithCallback(string something, Action callback);
-            void MethodWithCallbackWithArguments(string something, Action<int> callback);
             void MethodWithCallbackWithArguments(string something, Action<int, string> callback);
-            void MethodWithCallbackWithArguments(string something, Action<int, string, double> callback);
-            void MethodWithCallbackWithArguments(string something, Action<int, string, double, char> callback);
             void MethodWithDelegateCallback(string something, ActionCompatibleDelegate callback);
             int MethodWithCallbackWithArgumentsAndReturnValue(string something, Action<int, string> callback);
         }
@@ -35,31 +32,14 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Invoke_callback_with_arguments()
         {
+            var action = Substitute.For<Action<int, string>>();
             var sub = Substitute.For<IFoo>();
-
-            var action1 = Substitute.For<Action<int>>();
-            sub.MethodWithCallbackWithArguments("test", Arg.Invoke(1));
-            sub.MethodWithCallbackWithArguments("test", action1);
-            action1.Received().Invoke(1);
-            sub.Received().MethodWithCallbackWithArguments("test", action1);
-
-            var action2 = Substitute.For<Action<int, string>>();
             sub.MethodWithCallbackWithArguments("test", Arg.Invoke(1, "hello"));
-            sub.MethodWithCallbackWithArguments("test", action2);
-            action2.Received().Invoke(1, "hello");
-            sub.Received().MethodWithCallbackWithArguments("test", action2);
 
-            var action3 = Substitute.For<Action<int, string, double>>();
-            sub.MethodWithCallbackWithArguments("test", Arg.Invoke(1, "hello", 3.14));
-            sub.MethodWithCallbackWithArguments("test", action3);
-            action3.Received().Invoke(1, "hello", 3.14);
-            sub.Received().MethodWithCallbackWithArguments("test", action3);
+            sub.MethodWithCallbackWithArguments("test", action);
 
-            var action4 = Substitute.For<Action<int, string, double, char>>();
-            sub.MethodWithCallbackWithArguments("test", Arg.Invoke(1, "hello", 3.14, '!'));
-            sub.MethodWithCallbackWithArguments("test", action4);
-            action4.Received().Invoke(1, "hello", 3.14, '!');
-            sub.Received().MethodWithCallbackWithArguments("test", action4);
+            action.Received().Invoke(1, "hello");
+            sub.Received().MethodWithCallbackWithArguments("test", action);
         }
 
         [Test]
