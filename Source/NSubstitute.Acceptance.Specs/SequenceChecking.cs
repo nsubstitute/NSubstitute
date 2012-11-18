@@ -201,6 +201,23 @@ namespace NSubstitute.Acceptance.Specs
              );
         }
 
+        [Test]
+        public void Ordered_calls_should_ignore_property_getter_calls()
+        {
+            var baz = _bar.Baz;
+            baz.Wurgle();
+            baz.Slurgle();
+
+            Received.InOrder(() =>
+                             {
+                                 // This call spec should be regarded as matching the
+                                 // calling code above. So needs to ignore the get 
+                                 // request to _bar.Baz.
+                                 _bar.Baz.Wurgle();
+                                 _bar.Baz.Slurgle();
+                             });
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -227,5 +244,7 @@ namespace NSubstitute.Acceptance.Specs
     public interface IBaz
     {
         string Flurgle { get; set; }
+        void Wurgle();
+        void Slurgle();
     }
 }

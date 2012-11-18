@@ -11,7 +11,7 @@ namespace NSubstitute.Core
         static readonly IMethodInfoFormatter DefaultFormatter = new CallFormatter();
         public IMethodInfoFormatter CallFormatter = DefaultFormatter;
 
-        readonly MethodInfo _methodInfo;
+        private readonly MethodInfo _methodInfo;
         readonly IArgumentSpecification[] _argumentSpecifications;
 
         public CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications)
@@ -20,9 +20,14 @@ namespace NSubstitute.Core
             _argumentSpecifications = argumentSpecifications.ToArray();
         }
 
+        public MethodInfo GetMethodInfo()
+        {
+            return _methodInfo;
+        }
+
         public bool IsSatisfiedBy(ICall call)
         {
-            if (_methodInfo != call.GetMethodInfo()) return false;
+            if (GetMethodInfo() != call.GetMethodInfo()) return false;
             if (HasDifferentNumberOfArguments(call)) return false;
             if (NonMatchingArguments(call).Any()) return false;
             return true;
@@ -39,10 +44,8 @@ namespace NSubstitute.Core
         public override string ToString()
         {
             var argSpecsAsStrings = _argumentSpecifications.Select(x => x.ToString()).ToArray();
-            return CallFormatter.Format(_methodInfo, argSpecsAsStrings);
+            return CallFormatter.Format(GetMethodInfo(), argSpecsAsStrings);
         }
-
-        public Type CallTargetType { get { return _methodInfo.DeclaringType; } }
 
         public string Format(ICall call)
         {
@@ -56,14 +59,14 @@ namespace NSubstitute.Core
 
         public ICallSpecification CreateCopyThatMatchesAnyArguments()
         {
-            var anyArgs = _methodInfo
+            var anyArgs = GetMethodInfo()
                 .GetParameters()
                 .Zip(
                     _argumentSpecifications,
                     (p, spec) => spec.CreateCopyMatchingAnyArgOfType(p.ParameterType)
                 )
                 .ToArray();
-            return new CallSpecification(_methodInfo, anyArgs);
+            return new CallSpecification(GetMethodInfo(), anyArgs);
         }
 
         public void InvokePerArgumentActions(CallInfo callInfo)

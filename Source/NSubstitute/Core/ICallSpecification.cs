@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
@@ -11,6 +12,6 @@ namespace NSubstitute.Core
         ICallSpecification CreateCopyThatMatchesAnyArguments();
         void InvokePerArgumentActions(CallInfo callInfo);
         IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call);
-        Type CallTargetType { get; }
+        MethodInfo GetMethodInfo();
     }
 }

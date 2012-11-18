@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Reflection;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
@@ -14,8 +15,14 @@ namespace NSubstitute.Core
 
         public void Assert(IQueryResults queryResult)
         {
-            var matchingCallsInOrder = queryResult.MatchingCallsInOrder().ToArray();
-            var querySpec = queryResult.QuerySpecification().ToArray();
+            var matchingCallsInOrder = queryResult
+                .MatchingCallsInOrder()
+                .Where(x => IsNotPropertyGetterCall(x.GetMethodInfo()))
+                .ToArray();
+            var querySpec = queryResult
+                .QuerySpecification()
+                .Where(x => IsNotPropertyGetterCall(x.CallSpecification.GetMethodInfo()))
+                .ToArray();
 
             if (matchingCallsInOrder.Length != querySpec.Length)
             {
@@ -57,6 +64,11 @@ namespace NSubstitute.Core
         {
             return ReferenceEquals(call.Target(), specAndTarget.Target)
                    && specAndTarget.CallSpecification.IsSatisfiedBy(call);
+        }
+
+        private bool IsNotPropertyGetterCall(MethodInfo methodInfo)
+        {
+            return methodInfo.GetPropertyFromGetterCallOrNull() == null;
         }
     }
 }
