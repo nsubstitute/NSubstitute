@@ -1,4 +1,5 @@
-﻿using NSubstitute.Exceptions;
+﻿using System;
+using NSubstitute.Exceptions;
 using NSubstitute.Experimental;
 using NUnit.Framework;
 
@@ -218,33 +219,62 @@ namespace NSubstitute.Acceptance.Specs
                              });
         }
 
+        [Test]
+        public void Ordered_calls_with_delegates()
+        {
+            var func = Substitute.For<Func<string>>();
+            func();
+            func();
+
+            Received.InOrder(() =>
+                             {
+                                 func();
+                                 func();
+                             });
+        }
+
+        [Test]
+        public void Non_matching_ordered_calls_with_delegates()
+        {
+            var func = Substitute.For<Action>();
+            func();
+
+            Assert.Throws<CallSequenceNotFoundException>(() =>
+                 Received.InOrder(() =>
+                                  {
+                                      func();
+                                      func();
+                                  })
+                );
+        }
+
         [SetUp]
         public void SetUp()
         {
             _foo = Substitute.For<IFoo>();
             _bar = Substitute.For<IBar>();
         }
-    }
 
-    public interface IFoo
-    {
-        void Start();
-        void Start(int i);
-        void Finish();
-        void FunkyStuff(string s);
-    }
+        public interface IFoo
+        {
+            void Start();
+            void Start(int i);
+            void Finish();
+            void FunkyStuff(string s);
+        }
 
-    public interface IBar
-    {
-        void Begin();
-        void End();
-        IBaz Baz { get; }
-    }
+        public interface IBar
+        {
+            void Begin();
+            void End();
+            IBaz Baz { get; }
+        }
 
-    public interface IBaz
-    {
-        string Flurgle { get; set; }
-        void Wurgle();
-        void Slurgle();
+        public interface IBaz
+        {
+            string Flurgle { get; set; }
+            void Wurgle();
+            void Slurgle();
+        }
     }
 }

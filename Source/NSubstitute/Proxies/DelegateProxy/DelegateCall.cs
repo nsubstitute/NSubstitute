@@ -4,7 +4,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Proxies.DelegateProxy
 {
-    public class DelegateCall
+    public class DelegateCall : ICallRouterProvider
     {
         public static readonly MethodInfo InvokeMethodWithObjectOrVoidReturnType = typeof (DelegateCall).GetMethod("Invoke", BindingFlags.Instance | BindingFlags.NonPublic);
         public static readonly MethodInfo InvokeMethodWithGenericReturnType = typeof(DelegateCall).GetMethod("GenericInvoke", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -26,6 +26,7 @@ namespace NSubstitute.Proxies.DelegateProxy
             return ReturnsVoidType() ? InvokeMethodWithObjectOrVoidReturnType : InvokeMethodWithGenericReturnType.MakeGenericMethod(_returnType);
         }
 
+        public ICallRouter CallRouter { get { return _callRouter; } }
         public MethodInfo MethodToInvoke { get { return _methodToInvoke; } }
 
         protected object Invoke(object[] arguments)

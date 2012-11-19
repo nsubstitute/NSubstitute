@@ -47,6 +47,30 @@ namespace NSubstitute.Specs
             }
         }
 
+        public class When_getting_call_router_for_a_substitute_that_implements_call_router_provider : Concern
+        {
+            private ICallRouterProvider _substituteThatCanProviderARouter;
+            private ICallRouter _result;
+
+            [Test]
+            public void Should_cast_substitute_to_call_router()
+            {
+                Assert.That(_result, Is.SameAs(_routerForSubstitute));
+            }
+
+            public override void Because()
+            {
+                _result = sut.ResolveFor(_substituteThatCanProviderARouter);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _substituteThatCanProviderARouter = mock<ICallRouterProvider>();
+                _substituteThatCanProviderARouter.stub(x => x.CallRouter).Return(_routerForSubstitute);
+            }
+        }
+
         public class When_getting_call_router_for_substitute_that_does_not_implement_call_router_but_has_been_registered : Concern
         {
             private object _substitute;

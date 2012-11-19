@@ -68,7 +68,7 @@ namespace NSubstitute.Acceptance.Specs
                                 sub.Bar();
                                 sub.Zap();
                             };
-        
+
             ExpectMessageFromQuery(action, "!todo!");
         }
 
@@ -90,6 +90,30 @@ namespace NSubstitute.Acceptance.Specs
                                 sub1.Bar();
                                 sub1.Bar();
                                 sub1.Zap();
+                                sub0.Zap();
+                            };
+
+            ExpectMessageFromQuery(action, "!todo!");
+        }
+
+        [Test]
+        [Pending]
+        public void When_checking_across_multiple_subs_including_delegates()
+        {
+            var sub0 = Substitute.For<IFoo>();
+            var sub1 = Substitute.For<Func<string>>();
+            var sub2 = Substitute.For<IFoo>();
+
+            sub0.Bar();
+            sub1();
+            sub0.Zap();
+            sub2.Zap();
+
+            Action action = () =>
+                            {
+                                sub0.Bar();
+                                sub1();
+                                sub2.Zap();
                                 sub0.Zap();
                             };
 

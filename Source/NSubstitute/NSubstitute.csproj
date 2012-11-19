@@ -122,6 +122,7 @@
     <Compile Include="Core\EventCallFormatter.cs" />
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Extensions.cs" />
+    <Compile Include="Core\ICallRouterProvider.cs" />
     <Compile Include="Core\IParameterInfo.cs" />
     <Compile Include="Core\IPendingSpecification.cs" />
     <Compile Include="Core\IQueryResults.cs" />

@@ -108,6 +108,17 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Get_all_received_calls_on_delegate()
+        {
+            var f = Substitute.For<Func<string>>();
+            f();
+            f();
+
+            var calls = f.ReceivedCalls();
+            Assert.That(calls.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
         public void Should_receive_call_even_when_call_is_stubbed_to_throw_an_exception()
         {
             _engine.GetCapacityInLitres().Returns(x => { throw new InvalidOperationException(); });

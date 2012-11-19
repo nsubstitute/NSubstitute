@@ -12,6 +12,7 @@ namespace NSubstitute.Core
         {
             if (substitute == null) throw new NullSubstituteReferenceException();
             if (substitute is ICallRouter) return (ICallRouter)substitute;
+            if (substitute is ICallRouterProvider) return ((ICallRouterProvider) substitute).CallRouter;
             ICallRouter callRouter;
             if (_callRouterMappings.TryGetValue(substitute, out callRouter))
             {
@@ -23,6 +24,7 @@ namespace NSubstitute.Core
         public void Register(object proxy, ICallRouter callRouter)
         {
             if (proxy is ICallRouter) return;
+            if (proxy is ICallRouterProvider) return;
             _callRouterMappings.Add(proxy, callRouter);
         }
     }
