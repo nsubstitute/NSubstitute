@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -52,17 +53,44 @@ namespace NSubstitute.Core
         private string GetExceptionMessage(CallSpecAndTarget[] querySpec, ICall[] matchingCallsInOrder)
         {
             const string callDelimiter = "\n    ";
+            var instanceLookup = new TypeInstanceNumberLookup();
+            var isAcrossMultipleTargets = IsAcrossMultipleTargets(querySpec);
             var formattedQuery = string.Join(callDelimiter,
-                                             querySpec.Select(x => x.CallSpecification.ToString()).ToArray());
+                                             querySpec.Select(x => FormatCallSpec(x, isAcrossMultipleTargets, instanceLookup)).ToArray());
             var formattedCalls = string.Join(callDelimiter,
-                                             matchingCallsInOrder.Select(x => 
-                                                 _callFormatter.Format(x.GetMethodInfo(), FormatArgs(x.GetArguments()))).ToArray());
-            return string.Format("\nExpected to receive these calls in order:{0}{1}\n" + 
+                                             matchingCallsInOrder.Select(x => FormatCall(x, isAcrossMultipleTargets, instanceLookup)).ToArray());
+            return string.Format("\nExpected to receive these calls in order:{0}{1}\n" +
                                  "Actually received matching calls in this order:{0}{2}\n\n{3}",
                                  callDelimiter,
                                  formattedQuery,
                                  formattedCalls,
                                  "*** Note: calls to property getters are not considered part of the query. ***");
+        }
+
+        private string FormatCall(ICall call, bool isAcrossMultipleTargets, TypeInstanceNumberLookup instanceLookup)
+        {
+            var s = _callFormatter.Format(call.GetMethodInfo(), FormatArgs(call.GetArguments()));
+            if (!isAcrossMultipleTargets) return s;
+
+            var target = call.Target();
+            var methodInfo = call.GetMethodInfo();
+            return FormatCallForInstance(instanceLookup, target, methodInfo, s);
+        }
+
+        private string FormatCallSpec(CallSpecAndTarget callSpecAndTarget, bool isAcrossMultipleTargets, TypeInstanceNumberLookup instanceLookup)
+        {
+            var s = callSpecAndTarget.CallSpecification.ToString();
+            if (!isAcrossMultipleTargets) return s;
+
+            var target = callSpecAndTarget.Target;
+            var methodInfo = callSpecAndTarget.CallSpecification.GetMethodInfo();
+            return FormatCallForInstance(instanceLookup, target, methodInfo, s);
+        }
+
+        private static string FormatCallForInstance(TypeInstanceNumberLookup instanceLookup, object target, MethodInfo methodInfo, string s)
+        {
+            var instanceNumber = instanceLookup.GetInstanceNumberFor(target);
+            return string.Format("{0} #{1}.{2}", methodInfo.DeclaringType.Name, instanceNumber, s);
         }
 
         private bool IsAcrossMultipleTargets(CallSpecAndTarget[] querySpec)

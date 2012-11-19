@@ -138,6 +138,7 @@
     <Compile Include="Core\ISubstituteState.cs" />
     <Compile Include="Core\SequenceInOrderAssertion.cs" />
     <Compile Include="Core\SequenceNumberGenerator.cs" />
+    <Compile Include="Core\TypeInstanceNumberLookup.cs" />
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CallSequenceNotFoundException.cs" />
