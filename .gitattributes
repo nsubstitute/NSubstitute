@@ -1,2 +1,17 @@
-*.exe -crlf -diff -merge
-*.dll -crlf -diff -merge
+# These files are text and should be normalized (convert crlf => lf)
+*.cs      text diff=csharp
+*.xaml    text
+*.csproj  text
+*.sln     text
+*.tt      text
+*.ps1     text
+*.cmd     text
+*.msbuild text
+*.md      text
+
+# Images should be treated as binary
+# (binary is a macro for -text -diff)
+*.png     binary
+*.jpeg    binary
+*.exe 	  binary
+*.dll	  binary
