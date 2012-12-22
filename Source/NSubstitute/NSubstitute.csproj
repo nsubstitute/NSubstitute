@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">NET35-Debug</Configuration>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NSubstitute</RootNamespace>
     <AssemblyName>NSubstitute</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -22,6 +22,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Debug|AnyCPU' ">
     <OutputPath>..\..\Output\Debug\NET35\NSubstitute\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -34,6 +35,7 @@
     <Optimize>true</Optimize>
     <OutputPath>..\..\Output\Release\NET35\NSubstitute\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -48,7 +50,6 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>..\..\Output\Debug\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <NoWarn>1591</NoWarn>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -57,7 +58,6 @@
     <Optimize>true</Optimize>
     <OutputPath>..\..\Output\Release\NET40\NSubstitute\</OutputPath>
     <DefineConstants>TRACE;NET4</DefineConstants>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -65,72 +65,28 @@
     <NoWarn>1591</NoWarn>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Debug|AnyCPU' ">
-    <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-    <OutputPath>..\..\Output\Debug\SL40\NSubstitute\</OutputPath>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EB131150-3B00-4C0F-960B-C2DBCA1E68D4}</ProjectGuid>
-    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <SilverlightApplication>false</SilverlightApplication>
-    <ValidateXaml>true</ValidateXaml>
-    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;SL4</DefineConstants>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Release|AnyCPU' ">
-    <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-    <OutputPath>..\..\Output\Release\SL40\NSubstitute\</OutputPath>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>
-    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <SilverlightApplication>false</SilverlightApplication>
-    <ValidateXaml>true</ValidateXaml>
-    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-    <DefineConstants>TRACE;SILVERLIGHT;SL4</DefineConstants>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
+  <ItemGroup>
     <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
       <HintPath>..\..\ThirdParty\Castle.Core.3.1.0\net35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">
       <HintPath>..\..\ThirdParty\Castle.Core.3.1.0\net40\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Threading" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ThirdParty\Rx\System.Threading.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' " />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup Condition="$(MSBuildTargets) == 'Silverlight 4.0'">
-    <Reference Include="Castle.Core">
-      <HintPath>..\..\ThirdParty\Castle.Core.3.1.0\sl4\Castle.Core.dll</HintPath>
+  <ItemGroup Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
+    <Reference Include="System.Threading">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\Rx\System.Threading.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arg.cs" />
@@ -297,7 +253,6 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
   <Target Name="AfterBuild" Condition="(($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')) And '$(OS)' == 'Windows_NT'">
     <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
       <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
