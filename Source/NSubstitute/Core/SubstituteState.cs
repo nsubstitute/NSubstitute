@@ -26,6 +26,11 @@ namespace NSubstitute.Core
             var callSpecificationFactory = NewCallSpecificationFactory();
             var callActions = new CallActions(callInfoFactory);
 
+            var autoValueProviders = new IAutoValueProvider[] { new AutoSubstituteProvider(substituteFactory), new AutoStringProvider(), new AutoArrayProvider() };
+#if NET4
+            autoValueProviders = autoValueProviders.Concat(new[] {new AutoTaskProvider(autoValueProviders)}).ToArray();
+#endif
+
             var state = new object[] 
             {
                 substitutionContext,
@@ -42,7 +47,7 @@ namespace NSubstitute.Core
                 new EventHandlerRegistry(),
                 new ReceivedCallsExceptionThrower(),
                 new DefaultForType(),
-                new IAutoValueProvider[] { new AutoSubstituteProvider(substituteFactory), new AutoStringProvider(), new AutoArrayProvider()}
+                autoValueProviders
             };
 
             return new SubstituteState(state);
