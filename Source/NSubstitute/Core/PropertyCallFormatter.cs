@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {

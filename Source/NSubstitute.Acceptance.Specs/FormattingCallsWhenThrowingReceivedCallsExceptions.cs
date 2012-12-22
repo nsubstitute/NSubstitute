@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
@@ -313,6 +314,39 @@ namespace NSubstitute.Acceptance.Specs
             public void Should_show_non_matching_calls_as_per_specification_rather_than_as_individual_params()
             {
                 ExceptionMessageContains("ParamsMethod(*2*, *String[]*)");
+            }
+        }
+
+        public class When_checking_delegate_call : Context
+        {
+            private Func<int, string, string> _func;
+
+            protected override void ConfigureContext()
+            {
+                _func = Substitute.For<Func<int, string, string>>();
+                _func(1, "def");
+                _func(2, "def");
+                _func(3, "abc");
+            }
+
+            protected override void ExpectedCall()
+            {
+                _func.Received()(1, "abc");
+            }
+
+            [Test]
+            public void Should_show_expected_call()
+            {
+                ExceptionMessageContains("Invoke(1, \"abc\")");
+            }
+
+            [Test]
+            public void Should_show_non_matching_calls()
+            {
+                ExceptionMessageContains("Invoke(1, *\"def\"*)");
+                ExceptionMessageContains("Invoke(*2*, *\"def\"*)");
+                ExceptionMessageContains("Invoke(*3*, \"abc\")");
+                
             }
         }
 
