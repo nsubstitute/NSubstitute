@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
+using NSubstitute.Proxies.DelegateProxy;
 
 namespace NSubstitute.Core
 {
@@ -90,7 +91,9 @@ namespace NSubstitute.Core
         private static string FormatCallForInstance(TypeInstanceNumberLookup instanceLookup, object target, MethodInfo methodInfo, string s)
         {
             var instanceNumber = instanceLookup.GetInstanceNumberFor(target);
-            return string.Format("{0} #{1}.{2}", methodInfo.DeclaringType.Name, instanceNumber, s);
+            var declaringType = methodInfo.DeclaringType;
+            var declaringTypeName = declaringType == typeof (DelegateCall) ? target.ToString() : declaringType.Name;
+            return string.Format("{0} #{1}.{2}", declaringTypeName, instanceNumber, s);
         }
 
         private bool IsAcrossMultipleTargets(CallSpecAndTarget[] querySpec)
