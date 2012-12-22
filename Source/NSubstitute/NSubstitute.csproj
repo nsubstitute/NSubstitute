@@ -154,6 +154,7 @@
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
+    <Compile Include="Routing\AutoValues\AutoTaskProvider.cs" />
     <Compile Include="Routing\AutoValues\IAutoValueProvider.cs" />
     <Compile Include="Routing\Definitions\RecordCallSpecificationRoute.cs" />
     <Compile Include="Routing\Handlers\AddCallToQueryResultHandler.cs" />
