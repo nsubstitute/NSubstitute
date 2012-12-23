@@ -57,45 +57,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Debug|AnyCPU' ">
-    <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-    <OutputPath>..\..\Output\Debug\SL40\NSubstitute.Acceptance.Specs\</OutputPath>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <Optimize>true</Optimize>
-    <ProjectGuid>{EB131150-3B00-4C0F-960B-C2DBCA1E68D4}</ProjectGuid>
-    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <SilverlightApplication>false</SilverlightApplication>
-    <ValidateXaml>true</ValidateXaml>
-    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SL40-Release|AnyCPU' ">
-    <MSBuildTargets>Silverlight 4.0</MSBuildTargets>
-    <OutputPath>..\..\Output\Release\SL40\NSubstitute.Acceptance.Specs\</OutputPath>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F78923F8-6B25-495F-B251-5773D0C2D1D2}</ProjectGuid>
-    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <SilverlightApplication>false</SilverlightApplication>
-    <ValidateXaml>true</ValidateXaml>
-    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
   <PropertyGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
@@ -104,16 +65,6 @@
     <Reference Include="nunit.framework">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ThirdParty\NUnit\bin\net-2.0\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup Condition="$(MSBuildTargets) == 'Silverlight 4.0'">
-    <Reference Include="nunit.framework">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ThirdParty\NUnit.Silverlight\NUnit.Silverlight.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -192,19 +143,4 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v4.0\Microsoft.Silverlight.CSharp.targets" Condition="$(MSBuildTargets) == 'Silverlight 4.0'" />
-  <Target Name="AfterBuild" Condition="$(MSBuildTargets) == 'Silverlight 4.0'">
-    <PropertyGroup>
-      <SilverlightLibraryPath>$(ProgramFiles32)\Reference Assemblies\Microsoft\Framework\Silverlight\v4.0</SilverlightLibraryPath>
-    </PropertyGroup>
-    <Message Text="Pulling in assemblies from $(SilverlightLibraryPath)" />
-    <ItemGroup>
-      <Dependencies Include="$(SilverlightLibraryPath)\System.dll" />
-      <Dependencies Include="$(SilverlightLibraryPath)\System.Core.dll" />
-      <Dependencies Include="$(SilverlightLibraryPath)\System.ServiceModel.dll" />
-      <Dependencies Include="$(SilverlightLibraryPath)\System.Xml.dll" />
-      <Dependencies Include="$(SilverlightLibraryPath)\mscorlib.dll" />
-    </ItemGroup>
-    <Copy SourceFiles="@(Dependencies)" DestinationFolder="$(OutputPath)" />
-  </Target>
 </Project>
