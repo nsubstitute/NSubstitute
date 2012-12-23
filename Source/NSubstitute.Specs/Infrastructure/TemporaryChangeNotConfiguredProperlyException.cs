@@ -17,10 +17,8 @@ namespace NSubstitute.Specs.Infrastructure
         {
         }
 
-#if !SILVERLIGHT
         protected TemporaryChangeNotConfiguredProperlyException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-#endif
     }
 }

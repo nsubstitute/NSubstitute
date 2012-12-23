@@ -108,7 +108,6 @@
     <Compile Include="DidNotReceiveWithAnyArgsExtensionSpec.cs" />
     <Compile Include="ExceptionsSpecs.cs" />
     <Compile Include="ExtensionsSpecs.cs" />
-    <Compile Include="Infrastructure\IgnoreTestForSilverlight.cs" />
     <Compile Include="Infrastructure\Tests\ReflectionHelperSpecs.cs" />
     <Compile Include="Infrastructure\ReflectionHelper.cs" />
     <Compile Include="PendingSpecificationSpecs.cs" />
@@ -167,9 +166,6 @@
       <Project>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</Project>
       <Name>NSubstitute</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\nsubstitute.snk" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

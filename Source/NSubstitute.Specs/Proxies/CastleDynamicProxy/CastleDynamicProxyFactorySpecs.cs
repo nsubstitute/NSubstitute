@@ -33,11 +33,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             public void Should_generate_a_proxy_that_forwards_to_call_router()
             {
                 _result.Goo();
-#if SILVERLIGHT
-                var call = Arg<ICall>.Matches<ICall>(c => CallWasToMethodNamed(c, "Goo"));
-#else
                 var call = Arg<ICall>.Matches(c => CallWasToMethodNamed(c, "Goo"));
-#endif
                 _callRouter.received(x => x.Route(call));
             }
 
@@ -55,11 +51,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
                 const string aString = "Some string";
                 const string returnFromRoute = "value from route";
 
-#if SILVERLIGHT
-                var call = Arg<ICall>.Matches<ICall>(c => CallWasToMethodNamed(c, "Bar") && CallArgsWere(c, new object[] {aNumber, aString}));
-#else
                 var call = Arg<ICall>.Matches(c => CallWasToMethodNamed(c, "Bar") && CallArgsWere(c, new object[] {aNumber, aString}));
-#endif
 
                 _callRouter.stub(x => x.Route(call)).Return(returnFromRoute);
 

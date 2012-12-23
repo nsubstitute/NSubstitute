@@ -57,10 +57,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
     <Reference Include="nunit.framework">
       <SpecificVersion>False</SpecificVersion>
@@ -95,7 +91,6 @@
     <Compile Include="FieldReports\Issue57_SettingVirtualPropertyInCtor.cs" />
     <Compile Include="FieldReports\SubbingSynchronizationContext.cs" />
     <Compile Include="MultipleThreads.cs" />
-    <Compile Include="IgnoreTestForSilverlightAttribute.cs" />
     <Compile Include="NotASubstituteExceptions.cs" />
     <Compile Include="NullReferenceCheckingForSubstituteExtensions.cs" />
     <Compile Include="OutAndRefParameters.cs" />
@@ -121,9 +116,6 @@
       <Project>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</Project>
       <Name>NSubstitute</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\nsubstitute.snk" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

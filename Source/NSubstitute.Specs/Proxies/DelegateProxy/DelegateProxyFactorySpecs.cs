@@ -28,11 +28,7 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
 
             protected ICall CallToMethodWithArg(MethodInfo method, int arg)
             {
-#if SILVERLIGHT
-                return Arg<ICall>.Matches<ICall>(x => x.GetMethodInfo() == method && CalledWithOnlyOneArg(x, arg));
-#else
                 return Arg<ICall>.Matches(x => x.GetMethodInfo() == method && CalledWithOnlyOneArg(x, arg));
-#endif
             }
 
             private bool CalledWithOnlyOneArg(ICall x, int arg)

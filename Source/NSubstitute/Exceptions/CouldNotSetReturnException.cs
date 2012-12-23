@@ -11,8 +11,6 @@ namespace NSubstitute.Exceptions
                 "Return values cannot be configured for non-virtual/non-abstract members.";
 
         public CouldNotSetReturnException() : base(WhatProbablyWentWrong) { }
-#if !SILVERLIGHT
         protected CouldNotSetReturnException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-#endif
     }
 }

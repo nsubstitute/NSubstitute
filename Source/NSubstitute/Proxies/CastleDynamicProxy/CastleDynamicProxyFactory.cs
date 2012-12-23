@@ -90,13 +90,11 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
             AttributesToAvoidReplicating.Add<System.ServiceModel.ServiceContractAttribute>();
 
-#if !SILVERLIGHT
             AttributesToAvoidReplicating.Add<ReflectionPermissionAttribute>();
             AttributesToAvoidReplicating.Add<PermissionSetAttribute>();
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.MarshalAsAttribute>();
 #if NET4
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.TypeIdentifierAttribute>();
-#endif
 #endif
         }
     }
