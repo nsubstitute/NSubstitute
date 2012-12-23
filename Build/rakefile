@@ -1,3 +1,6 @@
+require "rubygems"
+require "bundler/setup"
+
 require 'rake/clean'
 require File.expand_path('rakelib/lib/examples_to_code.rb', File.dirname(__FILE__))
 require 'date'

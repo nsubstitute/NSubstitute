@@ -2,7 +2,7 @@ desc "Generates documentation for the website"
 task :generate_docs => [:all, :check_examples] do
     output = File.expand_path("#{OUTPUT_PATH}/nsubstitute.github.com", File.dirname(__FILE__))
     FileUtils.cd "../Source/Docs" do
-        sh "jekyll \"#{output}\""
+        sh "bundle exec jekyll \"#{output}\""
     end
 end
 
