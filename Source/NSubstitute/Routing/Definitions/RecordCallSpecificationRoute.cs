@@ -15,6 +15,7 @@ namespace NSubstitute.Routing.Definitions
                                typeof (PropertySetterHandler),
                                typeof (ReturnConfiguredResultHandler),
                                typeof (ReturnAutoValueForThisAndSubsequentCallsHandler),
+                               typeof (ReturnOriginalResultCallHandler),
                                typeof (ReturnDefaultForReturnTypeHandler)
                            };
             }

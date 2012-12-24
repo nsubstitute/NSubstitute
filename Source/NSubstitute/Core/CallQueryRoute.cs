@@ -17,6 +17,7 @@ namespace NSubstitute.Core
                                typeof (AddCallToQueryResultHandler), 
                                typeof (ReturnConfiguredResultHandler), 
                                typeof (ReturnAutoValueForThisAndSubsequentCallsHandler),
+                               typeof (ReturnOriginalResultCallHandler),
                                typeof (ReturnDefaultForReturnTypeHandler)
                            };
             }

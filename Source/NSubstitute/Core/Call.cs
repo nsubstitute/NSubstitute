@@ -15,6 +15,7 @@ namespace NSubstitute.Core
         private readonly IParameterInfo[] _parameterInfos;
         private IList<IArgumentSpecification> _argumentSpecifications;
         private long? _sequenceNumber;
+        private static readonly object OriginalMethod = new object();
 
         public Call(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecsForCall) 
         {
@@ -68,6 +69,11 @@ namespace NSubstitute.Core
                 throw new MissingSequenceNumberException();
             }
             return _sequenceNumber.Value;
+        }
+
+        public object CallOriginalMethod()
+        {
+            return OriginalMethod;
         }
 
         public Type GetReturnType()

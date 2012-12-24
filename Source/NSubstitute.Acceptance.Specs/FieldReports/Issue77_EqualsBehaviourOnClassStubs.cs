@@ -2,6 +2,7 @@
 
 namespace NSubstitute.Acceptance.Specs.FieldReports
 {
+    // todo: rename this to reflect the fact it's not just equals
     public class Issue77_EqualsBehaviourOnClassSubs
     {
         [Test]
@@ -27,7 +28,12 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             }
         }
 
+        // todo: check class with more complicated equals
+        // todo: check gethashcode and tostring work
+        // todo: check that a substitute within a collection can be discovered
+
         [Test]
+        [Pending]
         public void ArgumentMatchers_should_work_with_substituted_equals()
         {
             var firstSub = Substitute.For<AClassThatOverwritesEquals>();
