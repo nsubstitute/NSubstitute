@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
@@ -34,7 +32,7 @@ namespace NSubstitute.Core
             var setterArgs = callToSetter.GetArguments();
             var getter = propertyInfo.GetGetMethod();
             var getterArgs = setterArgs.Take(setterArgs.Length - 1).ToArray();
-            return new Call(getter, getterArgs, callToSetter.Target(), callToSetter.GetArgumentSpecifications());
+            return new Call(getter, getterArgs, callToSetter.Target(), callToSetter.GetArgumentSpecifications(), Call.HasNoOriginalMethod);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
@@ -16,16 +17,18 @@ namespace NSubstitute.Specs
             protected object[] _args;
             protected object _target;
             protected ICall _result;
+            protected Func<object> _originalMethodCall;
 
             public override void Context()
             {
+                _originalMethodCall = mock<Func<object>>();
                 _context = mock<ISubstitutionContext>();
                 _target = new object();
             }
 
             public override void Because()
             {
-                _result = sut.Create(_method, _args, _target);
+                _result = sut.Create(_method, _args, _target, _originalMethodCall);
             }
 
             [Test]
@@ -34,6 +37,9 @@ namespace NSubstitute.Specs
                 Assert.That(_result.GetMethodInfo(), Is.EqualTo(_method));
                 Assert.That(_result.GetArguments(), Is.EqualTo(_args));
                 Assert.That(_result.Target(), Is.SameAs(_target));
+                _originalMethodCall.did_not_receive(a => a());
+                _result.CallOriginalMethod();
+                _originalMethodCall.received(a => a());
             }
 
             public override CallFactory CreateSubjectUnderTest()

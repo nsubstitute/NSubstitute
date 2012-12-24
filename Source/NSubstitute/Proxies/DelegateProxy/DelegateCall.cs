@@ -34,7 +34,7 @@ namespace NSubstitute.Proxies.DelegateProxy
 
         protected object Invoke(object[] arguments)
         {
-            var call = new Call(MethodToInvoke, arguments, this, _parameterInfos);
+            var call = new Call(MethodToInvoke, arguments, this, _parameterInfos, Call.HasNoOriginalMethod);
             var result = _callRouter.Route(call);
             return EnsureResultCompatibleWithReturnType(result);
         }
