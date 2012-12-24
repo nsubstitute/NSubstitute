@@ -4,7 +4,7 @@ task :all => [:compile, :test, :specs]
 desc "Update assembly versions, build, generate docs and create directory for packaging"
 task :deploy => [:version_assemblies, :default, :package, :nuget, :zip, :zip_docs, :zip_website]
 
-task :automated_deploy => [:get_build_number] do
+task :automated_deploy => [:checkBundle, :get_build_number] do
 	puts "##teamcity[buildNumber '#{@@build_number}']"
 	
 	puts "Building version v" + @@build_number
@@ -16,3 +16,8 @@ task :automated_deploy => [:get_build_number] do
 
 	Rake::Task["deploy"].invoke
 end
+
+task :checkBundle do
+	sh "bundle install"
+end
+
