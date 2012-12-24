@@ -100,6 +100,7 @@
     <Compile Include="NullReferenceCheckingForSubstituteExtensions.cs" />
     <Compile Include="OutAndRefParameters.cs" />
     <Compile Include="RecursiveSubs.cs" />
+    <Compile Include="ReturnValueInTask.cs" />
     <Compile Include="SubbingForEventHandler.cs" />
     <Compile Include="PropertyBehaviour.cs" />
     <Compile Include="ArgumentMatching.cs" />

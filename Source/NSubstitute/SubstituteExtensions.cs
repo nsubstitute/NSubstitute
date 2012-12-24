@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using NSubstitute.Core;
 using NSubstitute.Routing.Definitions;
 
@@ -16,6 +17,24 @@ namespace NSubstitute
         public static void Returns<T>(this T value, Func<CallInfo,T> returnThis)
         {
             Returns(MatchArgs.AsSpecifiedInCall, returnThis);
+        }
+
+        public static void ReturnsValueAsTask<T>(this Task<T> value, T returnThis, params T[] returnThese)
+        {
+            Returns(MatchArgs.AsSpecifiedInCall, ToCompletedTask(returnThis), returnThese.Select(ToCompletedTask).ToArray());
+        }
+
+        public static void ReturnsValueAsTask<T>(this Task<T> value, Func<CallInfo, T> returnThis)
+        {
+            Returns(MatchArgs.AsSpecifiedInCall, c => ToCompletedTask(returnThis(c)));
+        }
+
+        private static Task<T> ToCompletedTask<T>(T value)
+        {
+            var taskCompletionSource = new TaskCompletionSource<T>();
+            taskCompletionSource.SetResult(value);
+
+            return taskCompletionSource.Task;
         }
 
         public static void ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese)
