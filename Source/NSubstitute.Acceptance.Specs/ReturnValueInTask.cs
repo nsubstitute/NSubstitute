@@ -7,7 +7,7 @@ namespace NSubstitute.Acceptance.Specs
     public class ReturnValueInTask
     {
         [Test]
-        public void Test()
+        public void ReturnValueAsTaskMethod_SetsUpReturnForTaskOfT()
         {
             var foo = Substitute.For<IFoo2>();
             foo.GetStringAsync().ReturnsValueAsTask("Bar");
