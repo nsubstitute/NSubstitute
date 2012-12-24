@@ -16,18 +16,7 @@ namespace NSubstitute.Routing.AutoValues
 
         public bool CanProvideValueFor(Type type)
         {
-            if (typeof(Task).IsAssignableFrom(type))
-            {
-                if (type.IsGenericType)
-                {
-                    var taskType = type.GetGenericArguments()[0];
-                    return _autoValueProviders.Any(vp => vp.CanProvideValueFor(taskType));
-                }
-
-                return true;
-            }
-
-            return false;
+            return typeof (Task).IsAssignableFrom(type);
         }
 
         public object GetValue(Type type)

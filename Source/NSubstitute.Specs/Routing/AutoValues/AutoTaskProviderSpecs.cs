@@ -18,31 +18,52 @@ namespace NSubstitute.Specs.Routing.AutoValues
             _testValuesProvider.stub(x => x.CanProvideValueFor(typeof(string))).Return(true);
             _testValuesProvider.stub(x => x.GetValue(typeof(string))).Return(autoValue);
 
-            Assert.That(((Task<string>)sut.GetValue(typeof(Task<string>))).Result, Is.SameAs(autoValue));
+            var type = typeof (Task<string>);
+            Assert.True(sut.CanProvideValueFor(type));
+            Assert.That(((Task<string>)sut.GetValue(type)).Result, Is.SameAs(autoValue));
         }
 
         [Test]
         public void Should_create_substitute_for_task_of_string()
         {
-            Assert.That(((Task<string>)sut.GetValue(typeof(Task<string>))).Result, Is.Null);
+            var type = typeof (Task<string>);
+            Assert.True(sut.CanProvideValueFor(type));
+            Assert.That(((Task<string>)sut.GetValue(type)).Result, Is.Null);
         }
 
         [Test]
         public void Should_create_substitute_for_task_of_value_type()
         {
-            Assert.That(((Task<int>)sut.GetValue(typeof(Task<int>))).Result, Is.EqualTo(default(int)));
+            var type = typeof (Task<int>);
+            Assert.True(sut.CanProvideValueFor(type));
+            Assert.That(((Task<int>)sut.GetValue(type)).Result, Is.EqualTo(default(int)));
         }
 
         [Test]
         public void Should_create_substitute_for_task_of_complex_type()
         {
-            Assert.That(((Task<List<string>>)sut.GetValue(typeof(Task<List<string>>))).Result, Is.Null);
+            var type = typeof (Task<List<string>>);
+            Assert.True(sut.CanProvideValueFor(type));
+            Assert.That(((Task<List<string>>)sut.GetValue(type)).Result, Is.Null);
         }
 
         [Test]
         public void Should_create_substitute_for_task()
         {
-            Assert.True(((Task)sut.GetValue(typeof(Task))).IsCompleted);
+            var type = typeof (Task);
+            Assert.True(sut.CanProvideValueFor(type));
+            Assert.True(((Task)sut.GetValue(type)).IsCompleted);
+        }
+
+        [Test]
+        public void Substitute_should_automock_task()
+        {
+            var foo2 = Substitute.For<IFoo2>();
+
+            var task = foo2.GetObjectAsync();
+
+            Assert.NotNull(task);
+            Assert.Null(task.Result);
         }
 
         public override void Context()
@@ -53,6 +74,11 @@ namespace NSubstitute.Specs.Routing.AutoValues
         public override AutoTaskProvider CreateSubjectUnderTest()
         {
             return new AutoTaskProvider(new[] { _testValuesProvider });
+        }
+
+        public interface IFoo2
+        {
+            Task<object> GetObjectAsync();
         }
     }
 }
