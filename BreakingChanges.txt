@@ -1,4 +1,34 @@
 ================================================================================================
+1.4.XXX Release
+================================================================================================
+
+The base object methods (Equals, GetHashCode and ToString) for substitute objects of classes that
+extend those methods now return the result of calling the actual implementation of those methods
+rather than the default value for the return type. This means that places where you relied on
+.Equals returning false, .ToString returning null and .GetHashCode returning 0 because the actual
+methods weren't called will now call the actual implementation.
+
+Reason:
+Substitute objects that were used as parameters for setting up return values or checking received
+calls weren't able to be directly used within the call, e.g. instead of:
+
+someObject.SomeCall(aSubstitute).Returns(1);
+
+You previously needed to have:
+
+someObject.SomeCall(Arg.Is<TypeBeingSubstituted>(a => a == aSubstitute)).Returns(1);
+
+But, now you can use the former, which is much more terse and consistent with the way other
+Returns or Received calls work.
+
+Fix:
+Explicitly return the default value the base object methods, e.g.
+
+aSubstitute.Equals(Arg.Any<TypeBeingSubstituted>()).Returns(false);
+aSubstitute.GetHashCode().Returns(0);
+aSubstitute.ToString().Returns(null);
+
+================================================================================================
 1.4.0 Release
 ================================================================================================
 
