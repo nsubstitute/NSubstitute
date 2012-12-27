@@ -9,28 +9,38 @@ namespace NSubstitute.Core
 {
     public class Call : ICall
     {
+        public static Func<object>  HasNoOriginalMethod
+        {
+            get
+            {
+                return () => { throw new InvalidOperationException("Attempt to call original method for call that has no such call. This should never get invoked! Please report an issue at http://github.com/nsubstitute/NSubstitute/issues."); };
+            }
+        }
+
         private MethodInfo _methodInfo;
         private object[] _arguments;
         private object _target;
         private readonly IParameterInfo[] _parameterInfos;
         private IList<IArgumentSpecification> _argumentSpecifications;
         private long? _sequenceNumber;
-        private static readonly object OriginalMethod = new object();
+        private readonly Func<object> _originalMethodCall;
 
-        public Call(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecsForCall) 
+        public Call(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecsForCall, Func<object> originalMethodCall) 
         {
             _methodInfo = methodInfo;
             _arguments = arguments;
             _target = target;
             _parameterInfos = GetParameterInfosFrom(_methodInfo);
             _argumentSpecifications = argumentSpecsForCall;
+            _originalMethodCall = originalMethodCall;
         }
 
-        public Call(MethodInfo methodInfo, object[] arguments, object target, IParameterInfo[] parameterInfos)
+        public Call(MethodInfo methodInfo, object[] arguments, object target, IParameterInfo[] parameterInfos, Func<object> originalMethodCall)
         {
             _methodInfo = methodInfo;
             _arguments = arguments;
             _target = target;
+            _originalMethodCall = originalMethodCall;
             _parameterInfos = parameterInfos ?? GetParameterInfosFrom(_methodInfo);
             _argumentSpecifications = (_parameterInfos.Length == 0) ? EmptyList() : SubstitutionContext.Current.DequeueAllArgumentSpecifications();
         }
@@ -73,7 +83,7 @@ namespace NSubstitute.Core
 
         public object CallOriginalMethod()
         {
-            return OriginalMethod;
+            return _originalMethodCall();
         }
 
         public Type GetReturnType()
