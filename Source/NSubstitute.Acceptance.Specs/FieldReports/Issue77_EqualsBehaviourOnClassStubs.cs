@@ -155,22 +155,5 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         {
             int AMethod(AClassThatOverwritesBaseObjectMethods aClassThatOverwritesBaseObjectMethods);
         }
-
-        [Test]
-        [Pending]
-        public void ArgumentMatchers_should_work_with_substituted_equals()
-        {
-            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
-            substitute.Equals(Arg.Is<object>(x => ReferenceEquals(x, substitute))).Returns(true);
-            var substitute2 = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
-            substitute2.Equals(Arg.Is<object>(x => ReferenceEquals(x, substitute2))).Returns(true);
-
-            var service = Substitute.For<IService>();
-            service.AMethod(substitute).Returns(1);
-            service.AMethod(substitute2).Returns(2);
-
-            Assert.That(service.AMethod(substitute), Is.EqualTo(1));
-            Assert.That(service.AMethod(substitute2), Is.EqualTo(2));
-        }
     }
 }
