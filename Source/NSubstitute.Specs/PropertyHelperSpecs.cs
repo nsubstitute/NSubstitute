@@ -17,7 +17,7 @@ namespace NSubstitute.Specs
 
         private Call CreateCall(MethodInfo methodInfo, object[] args)
         {
-            return new Call(methodInfo, args, null, new List<IArgumentSpecification>());
+            return new Call(methodInfo, args, null, new List<IArgumentSpecification>(), Call.HasNoOriginalMethod);
         }
 
         [Test]
@@ -58,6 +58,7 @@ namespace NSubstitute.Specs
             var callToGetter = sut.CreateCallToPropertyGetterFromSetterCall(callToSetter);
             Assert.That(callToGetter.GetMethodInfo(), Is.EqualTo(GetIndexerPropertyGetter()));
             Assert.That(callToGetter.GetArguments(), Is.EqualTo(new[] { index }));
+            Assert.Throws<InvalidOperationException>(() => callToGetter.CallOriginalMethod(), "There is no original method call for a property getter");
         }
 
         [Test]

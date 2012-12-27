@@ -72,6 +72,7 @@
     <Compile Include="ArgDoFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
     <Compile Include="ExceptionsWhenCheckingReceivedCalls.cs" />
+    <Compile Include="FieldReports\Issue77_EqualsBehaviourOnClassStubs.cs" />
     <Compile Include="FieldReports\Issue83_MethodsWithGenericStructConstraint.cs" />
     <Compile Include="FormattingCallsWhenThrowingReceivedCallsExceptions.cs" />
     <Compile Include="ClearCalls.cs" />

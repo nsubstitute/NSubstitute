@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NSubstitute.Core.Arguments;
 
@@ -15,10 +16,10 @@ namespace NSubstitute.Core
             _context = context;
         }
 
-        public ICall Create(MethodInfo methodInfo, object[] arguments, object target)
+        public ICall Create(MethodInfo methodInfo, object[] arguments, object target, Func<object> originalMethodCall)
         {
             var argSpecs = (methodInfo.GetParameters().Length == 0) ? EmptyList() : _context.DequeueAllArgumentSpecifications();
-            return new Call(methodInfo, arguments, target, argSpecs);
+            return new Call(methodInfo, arguments, target, argSpecs, originalMethodCall);
         }
 
         private IList<IArgumentSpecification> EmptyList()
