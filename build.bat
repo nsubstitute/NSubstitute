@@ -1,4 +1,4 @@
 @echo off
 cd Build
-rake %*
+bundle exec rake %*
 cd ..
