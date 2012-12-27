@@ -90,10 +90,20 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
 
-            // Can't do substitute.Equals(substitute).Returns(false) because it causes an infinite loop!
-            substitute.Equals(Arg.Is<AClassThatOverwritesBaseObjectMethods>(a => a == substitute)).Returns(false);
+            substitute.Equals(substitute).Returns(false);
 
             Assert.That(substitute.Equals(substitute), Is.False);
+        }
+
+        [Test]
+        public void Should_be_able_to_mock_equals_on_a_sub_that_overrides_equals_against_another_substitute()
+        {
+            var first = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            var second = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+
+            first.Equals(second).Returns(false);
+
+            Assert.That(first.Equals(second), Is.False);
         }
 
         [Test]

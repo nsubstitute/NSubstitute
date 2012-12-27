@@ -10,6 +10,9 @@ namespace NSubstitute.Core.Arguments
         public override string ToString() { return DefaultArgumentFormatter.Format(_value, false); }
         public bool IsSatisfiedBy(object argument)
         {
+            //Skip base equality comparison if refs are equal. This is to prevent infinite
+            //loops when calling sub.Equals(sub).
+            if (ReferenceEquals(_value, argument)) return true;
             return EqualityComparer<object>.Default.Equals(_value, argument);
         }
     }

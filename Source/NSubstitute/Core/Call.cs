@@ -9,7 +9,7 @@ namespace NSubstitute.Core
 {
     public class Call : ICall
     {
-        public static Func<object>  HasNoOriginalMethod
+        public static Func<object> HasNoOriginalMethod
         {
             get
             {
