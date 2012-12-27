@@ -2,7 +2,6 @@
 
 namespace NSubstitute.Routing.Handlers
 {
-    // todo: unit test this
     public class ReturnOriginalResultCallHandler : ICallHandler
     {
         public RouteAction Handle(ICall call)
