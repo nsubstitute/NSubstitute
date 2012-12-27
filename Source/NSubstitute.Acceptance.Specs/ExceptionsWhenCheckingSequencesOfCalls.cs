@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Text.RegularExpressions;
+using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Experimental;
 using NUnit.Framework;
+using System.Linq;
 
 namespace NSubstitute.Acceptance.Specs
 {
@@ -21,7 +24,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
         public void When_missing_a_call()
         {
             var sub = Substitute.For<IFoo>();
@@ -32,11 +34,15 @@ namespace NSubstitute.Acceptance.Specs
                                 sub.Bar();
                                 sub.Zap();
                             };
-            ExpectMessageFromQuery(action, "!todo!");
+            ExpectMessageFromQuery(action, @"
+Expected to receive these calls in order:
+    Bar()
+    Zap()
+Actually received matching calls in this order:
+    Bar()");
         }
 
         [Test]
-        [Pending]
         public void When_non_matching_args()
         {
             var anObject = new object();
@@ -51,11 +57,15 @@ namespace NSubstitute.Acceptance.Specs
                                 sub.Slop(anObject, "hi");
                                 sub.Gloop(123);
                             };
-            ExpectMessageFromQuery(action, "!todo!");
+            ExpectMessageFromQuery(action, @"Expected to receive these calls in order:
+    Gloop(2)
+    Slop(Object, ""hi"")
+    Gloop(123)
+Actually received matching calls in this order:
+    Gloop(2)");
         }
 
         [Test]
-        [Pending]
         public void When_extra_call()
         {
             var sub = Substitute.For<IFoo>();
@@ -69,11 +79,17 @@ namespace NSubstitute.Acceptance.Specs
                                 sub.Zap();
                             };
 
-            ExpectMessageFromQuery(action, "!todo!");
+            ExpectMessageFromQuery(action, @"Expected to receive these calls in order:
+    Bar()
+    Zap()
+Actually received matching calls in this order:
+    Bar()
+    Bar()
+    Zap()
+");
         }
 
         [Test]
-        [Pending]
         public void When_checking_across_multiple_subs()
         {
             var sub0 = Substitute.For<IFoo>();
@@ -93,37 +109,61 @@ namespace NSubstitute.Acceptance.Specs
                                 sub0.Zap();
                             };
 
-            ExpectMessageFromQuery(action, "!todo!");
+            ExpectMessageFromQuery(action, @"Expected to receive these calls in order:
+    IFoo #1.Bar()
+    IFoo #2.Bar()
+    IFoo #2.Bar()
+    IFoo #2.Zap()
+    IFoo #1.Zap()
+Actually received matching calls in this order:
+    IFoo #1.Bar()
+    IFoo #2.Bar()
+    IFoo #1.Zap()
+    IFoo #2.Zap()");
         }
 
         [Test]
-        [Pending]
         public void When_checking_across_multiple_subs_including_delegates()
         {
             var sub0 = Substitute.For<IFoo>();
-            var sub1 = Substitute.For<Func<string>>();
+            var sub1 = Substitute.For<Func<int, string>>();
             var sub2 = Substitute.For<IFoo>();
 
             sub0.Bar();
-            sub1();
+            sub1(2);
             sub0.Zap();
             sub2.Zap();
 
             Action action = () =>
                             {
                                 sub0.Bar();
-                                sub1();
+                                sub1(2);
                                 sub2.Zap();
                                 sub0.Zap();
                             };
 
-            ExpectMessageFromQuery(action, "!todo!");
+            ExpectMessageFromQuery(action, @"Expected to receive these calls in order:
+    IFoo #1.Bar()
+    Func<Int32, String> #1.Invoke(2)
+    IFoo #2.Zap()
+    IFoo #1.Zap()
+Actually received matching calls in this order:
+    IFoo #1.Bar()
+    Func<Int32, String> #1.Invoke(2)
+    IFoo #1.Zap()
+    IFoo #2.Zap()");
         }
 
         private void ExpectMessageFromQuery(Action query, string message)
         {
             var actualMessage = Assert.Throws<CallSequenceNotFoundException>(() => Received.InOrder(query)).Message;
-            Assert.That(actualMessage, Is.StringContaining(message));
+
+            Assert.That(TrimAndFixLineEndings(actualMessage), Is.StringStarting(TrimAndFixLineEndings(message)));
+        }
+
+        private string TrimAndFixLineEndings(string s)
+        {
+            return s.Trim().Replace("\r\n", "\n");
         }
     }
 }
