@@ -8,38 +8,38 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         [Test]
         public void Equals_should_return_true_for_same_reference_for_class_substitutes_that_overwrite_equals()
         {
-            var firstSub = Substitute.For<AClassThatOverwritesEquals>();
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
 
-            Assert.That(firstSub.Equals(firstSub), Is.True);
+            Assert.That(substitute.Equals(substitute), Is.True);
         }
 
         [Test]
         public void Equals_should_return_true_for_same_object_for_class_substitutes_that_overwrite_equals()
         {
-            var firstSub = Substitute.For<AClassThatOverwritesEquals>();
-            firstSub.Id = 1;
-            var secondSub = Substitute.For<AClassThatOverwritesEquals>();
-            secondSub.Id = 1;
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute.Id = 1;
+            var substitute2 = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute2.Id = 1;
 
-            Assert.That(firstSub.Equals(secondSub), Is.True);
+            Assert.That(substitute.Equals(substitute2), Is.True);
         }
 
         [Test]
         public void Equals_should_return_false_for_different_objects_for_class_substitutes_that_overwrite_equals()
         {
-            var firstSub = Substitute.For<AClassThatOverwritesEquals>();
-            firstSub.Id = 1;
-            var secondSub = Substitute.For<AClassThatOverwritesEquals>();
-            secondSub.Id = 2;
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute.Id = 1;
+            var substitute2 = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute2.Id = 2;
 
-            Assert.That(firstSub.Equals(secondSub), Is.False);
+            Assert.That(substitute.Equals(substitute2), Is.False);
         }
 
         [Test]
         public void Should_be_able_to_setup_return_for_call_taking_class_substitutes_that_overwrite_equals()
         {
             var service = Substitute.For<IService>();
-            var substitute = Substitute.For<AClassThatOverwritesEquals>();
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
 
             service.AMethod(substitute).Returns(1);
 
@@ -50,7 +50,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public void Should_be_able_to_check_received_call_when_taking_class_substitutes_that_overwrite_equals()
         {
             var service = Substitute.For<IService>();
-            var substitute = Substitute.For<AClassThatOverwritesEquals>();
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
 
             service.AMethod(substitute);
 
@@ -60,9 +60,9 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         [Test]
         public void Should_be_able_to_find_a_substitute_that_overrides_equals_in_a_collection()
         {
-            var substitute = Substitute.For<AClassThatOverwritesEquals>();
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
             substitute.Id = 2;
-            var classes = new [] {new AClassThatOverwritesEquals { Id = 1 }, substitute, new AClassThatOverwritesEquals { Id = 3 }};
+            var classes = new [] {new AClassThatOverwritesBaseObjectMethods { Id = 1 }, substitute, new AClassThatOverwritesBaseObjectMethods { Id = 3 }};
 
             Assert.That(classes.Contains(substitute), Is.True);
         }
@@ -70,7 +70,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         [Test]
         public void Should_be_able_to_call_tostring_on_substitute_that_overrides_tostring()
         {
-            var substitute = Substitute.For<AClassThatOverwritesEquals>();
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
             substitute.Id = 2;
 
             Assert.That(substitute.ToString(), Is.EqualTo("{Id=2}"));
@@ -79,19 +79,19 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         [Test]
         public void Should_be_able_to_call_gethashcode_on_substitute_that_overrides_gethashcode()
         {
-            var substitute = Substitute.For<AClassThatOverwritesEquals>();
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
             substitute.Id = 2;
 
             Assert.That(substitute.GetHashCode(), Is.EqualTo(2.GetHashCode()));
         }
 
-        public class AClassThatOverwritesEquals
+        public class AClassThatOverwritesBaseObjectMethods
         {
             public int Id { get; set; }
 
             public override bool Equals(object obj)
             {
-                var aClassThatOverwritesEquals = obj as AClassThatOverwritesEquals;
+                var aClassThatOverwritesEquals = obj as AClassThatOverwritesBaseObjectMethods;
                 if (aClassThatOverwritesEquals == null)
                     return false;
 
@@ -111,24 +111,24 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
 
         public interface IService
         {
-            int AMethod(AClassThatOverwritesEquals aClassThatOverwritesEquals);
+            int AMethod(AClassThatOverwritesBaseObjectMethods aClassThatOverwritesBaseObjectMethods);
         }
 
         [Test]
         [Pending]
         public void ArgumentMatchers_should_work_with_substituted_equals()
         {
-            var firstSub = Substitute.For<AClassThatOverwritesEquals>();
-            firstSub.Equals(Arg.Is<object>(x => ReferenceEquals(x, firstSub))).Returns(true);
-            var secondSub = Substitute.For<AClassThatOverwritesEquals>();
-            secondSub.Equals(Arg.Is<object>(x => ReferenceEquals(x, secondSub))).Returns(true);
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute.Equals(Arg.Is<object>(x => ReferenceEquals(x, substitute))).Returns(true);
+            var substitute2 = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute2.Equals(Arg.Is<object>(x => ReferenceEquals(x, substitute2))).Returns(true);
 
             var service = Substitute.For<IService>();
-            service.AMethod(firstSub).Returns(1);
-            service.AMethod(secondSub).Returns(2);
+            service.AMethod(substitute).Returns(1);
+            service.AMethod(substitute2).Returns(2);
 
-            Assert.That(service.AMethod(firstSub), Is.EqualTo(1));
-            Assert.That(service.AMethod(secondSub), Is.EqualTo(2));
+            Assert.That(service.AMethod(substitute), Is.EqualTo(1));
+            Assert.That(service.AMethod(substitute2), Is.EqualTo(2));
         }
     }
 }
