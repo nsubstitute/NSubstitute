@@ -28,7 +28,7 @@ namespace NSubstitute.Specs
                 _methodInfoSpecified = _methodInfoOfCall;
                 firstArg = "something";
                 secondArg = 123;
-                _call = new Call(_methodInfoOfCall, new object[] { firstArg, secondArg }, null, new IArgumentSpecification[0].ToList(), Call.HasNoOriginalMethod);
+                _call = new Call(_methodInfoOfCall, new object[] { firstArg, secondArg }, null, new IArgumentSpecification[0].ToList());
             }
 
             public override void Because()
@@ -115,7 +115,7 @@ namespace NSubstitute.Specs
                 base.Context();
                 _firstArgSpec.stub(x => x.IsSatisfiedBy(firstArg)).Return(true);
                 _secondArgSpec.stub(x => x.IsSatisfiedBy(secondArg)).Return(true);
-                _call = new Call(_methodInfoSpecified, new object[] { firstArg }, null, new IArgumentSpecification[0].ToList(), Call.HasNoOriginalMethod);
+                _call = new Call(_methodInfoSpecified, new object[] { firstArg }, null, new IArgumentSpecification[0].ToList());
             }
 
             [Test]

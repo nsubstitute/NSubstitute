@@ -19,8 +19,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         {
             if (!_isIntercepting) return;
             var mappedInvocation = _invocationMapper.Map(invocation);
-            var returnValue = _callRouter.Route(mappedInvocation);
-            invocation.ReturnValue = returnValue;
+            invocation.ReturnValue = _callRouter.Route(mappedInvocation);
         }
 
         public void StartIntercepting() { _isIntercepting = true; }

@@ -32,7 +32,7 @@ namespace NSubstitute.Core
             var setterArgs = callToSetter.GetArguments();
             var getter = propertyInfo.GetGetMethod();
             var getterArgs = setterArgs.Take(setterArgs.Length - 1).ToArray();
-            return new Call(getter, getterArgs, callToSetter.Target(), callToSetter.GetArgumentSpecifications(), Call.HasNoOriginalMethod);
+            return new Call(getter, getterArgs, callToSetter.Target(), callToSetter.GetArgumentSpecifications());
         }
     }
 }
