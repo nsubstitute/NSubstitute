@@ -36,17 +36,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
-        public void Should_be_able_to_setup_return_for_call_taking_class_substitutes_that_overwrite_equals()
-        {
-            var service = Substitute.For<IService>();
-            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
-
-            service.AMethod(substitute).Returns(1);
-
-            Assert.That(service.AMethod(substitute), Is.EqualTo(1));
-        }
-
-        [Test]
         public void Should_be_able_to_check_received_call_when_taking_class_substitutes_that_overwrite_equals()
         {
             var service = Substitute.For<IService>();
@@ -137,6 +126,95 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(substitute.ToString(), Is.EqualTo("aString"));
         }
 
+        [Test]
+        public void Should_be_able_to_check_equality_of_substitute_that_overrides_base_object_methods_from_return()
+        {
+            var service = Substitute.For<IService>();
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute.Id = 1;
+            
+            service.ReturnClassOverridingBaseObjectMethods(1).Returns(substitute);
+
+            Assert.That(service.ReturnClassOverridingBaseObjectMethods(1), Is.EqualTo(substitute));
+            Assert.That(service.ReturnClassOverridingBaseObjectMethods(2), Is.Not.EqualTo(substitute));
+        }
+
+        [Test]
+        [Pending]
+        public void Should_be_able_to_setup_return_for_call_taking_equal_class_substitutes_that_overwrite_equals()
+        {
+            var service = Substitute.For<IService>();
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute.Id = 1;
+            var substitute1 = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute1.Id = 1;
+            var substitute2 = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute2.Id = 1;
+
+            service.AMethod(substitute).Returns(1);
+            service.AMethod(substitute2).Returns(2);
+
+            // Reference for substitute takes preference over substitute2.Equals(substitute)
+            Assert.That(service.AMethod(substitute), Is.EqualTo(1));
+            // substitute1 and substitute2 are equal
+            Assert.That(service.AMethod(substitute1), Is.EqualTo(2));
+            Assert.That(service.AMethod(substitute2), Is.EqualTo(2));
+        }
+
+        [Test]
+        [Pending]
+        public void Should_be_able_to_setup_return_for_call_taking_class_substitutes_that_overwrite_equals()
+        {
+            var service = Substitute.For<IService>();
+            var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute.Id = 1;
+            var substitute2 = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
+            substitute2.Id = 2;
+
+            service.AMethod(substitute).Returns(1);
+            service.AMethod(substitute2).Returns(2);
+
+            Assert.That(service.AMethod(substitute), Is.EqualTo(1));
+            Assert.That(service.AMethod(substitute2), Is.EqualTo(2));
+        }
+
+        [Test]
+        [Pending]
+        public void Should_be_able_to_setup_return_for_call_taking_class_substitutes_that_overwrite_equals_as_base_equals()
+        {
+            var substitute = Substitute.For<AClassThatOverridesEquals>();
+            var substitute2 = Substitute.For<AClassThatOverridesEquals>();
+
+            var service = Substitute.For<IService>();
+            service.AMethod(substitute).Returns(1);
+            service.AMethod(substitute2).Returns(2);
+
+            Assert.That(service.AMethod(substitute), Is.EqualTo(1));
+            Assert.That(service.AMethod(substitute2), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Should_be_able_to_setup_return_for_call_taking_class_substitutes_that_dont_override_equals()
+        {
+            var substitute = Substitute.For<AClassThatDoesntOverrideEquals>();
+            var substitute2 = Substitute.For<AClassThatDoesntOverrideEquals>();
+
+            var service = Substitute.For<IService>();
+            service.AMethod(substitute).Returns(1);
+            service.AMethod(substitute2).Returns(2);
+
+            Assert.That(service.AMethod(substitute), Is.EqualTo(1));
+            Assert.That(service.AMethod(substitute2), Is.EqualTo(2));
+        }
+
+        public class AClassThatOverridesEquals
+        {
+            public override bool Equals(object obj) { return base.Equals(obj); }
+            public override int GetHashCode() { return 0; }
+        }
+
+        public class AClassThatDoesntOverrideEquals {}
+
         public class AClassThatOverwritesBaseObjectMethods
         {
             public int Id { get; set; }
@@ -164,6 +242,9 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public interface IService
         {
             int AMethod(AClassThatOverwritesBaseObjectMethods aClassThatOverwritesBaseObjectMethods);
+            int AMethod(AClassThatOverridesEquals aClassThatOverridesEquals);
+            int AMethod(AClassThatDoesntOverrideEquals aClassThatDoesntOverrideEquals);
+            AClassThatOverwritesBaseObjectMethods ReturnClassOverridingBaseObjectMethods(int i);
         }
     }
 }
