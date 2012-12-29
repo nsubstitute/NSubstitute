@@ -9,8 +9,9 @@ rather than the default value for the return type. This means that places where 
 methods weren't called will now call the actual implementation.
 
 Reason:
-Substitute objects that were used as parameters for setting up return values or checking received
-calls weren't able to be directly used within the call, e.g. instead of:
+Substitute objects of classes that overrode those methods that were used as parameters for
+setting up return values or checking received calls weren't able to be directly used within the
+call, e.g. instead of:
 
 someObject.SomeCall(aSubstitute).Returns(1);
 
@@ -18,15 +19,16 @@ You previously needed to have:
 
 someObject.SomeCall(Arg.Is<TypeBeingSubstituted>(a => a == aSubstitute)).Returns(1);
 
-But, now you can use the former, which is much more terse and consistent with the way other
+However, now you can use the former, which is much more terse and consistent with the way other
 Returns or Received calls work.
 
-Fix:
-Explicitly return the default value the base object methods, e.g.
+This means that substitute objects will now always work like .NET objects rather than being
+inconsistent when the class being substituted overrode any of those base object methods.
 
-aSubstitute.Equals(Arg.Any<TypeBeingSubstituted>()).Returns(false);
-aSubstitute.GetHashCode().Returns(0);
-aSubstitute.ToString().Returns(null);
+Fix:
+There is no workaround to change the behaviour of .Equals, .GetHashCode or .ToString. If you have
+a use case to change the behaviour of these methods please lodge an issue at the NSubstitute
+Github site.
 
 ================================================================================================
 1.4.0 Release

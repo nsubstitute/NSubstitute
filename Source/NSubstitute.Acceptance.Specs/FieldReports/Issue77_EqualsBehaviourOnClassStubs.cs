@@ -75,6 +75,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
+        [Pending]
         public void Should_be_able_to_mock_equals_against_same_object_on_substitute_that_overrides_equals()
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
@@ -85,6 +86,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
+        [Pending]
         public void Should_be_able_to_mock_equals_on_a_sub_that_overrides_equals_against_another_substitute()
         {
             var first = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
@@ -96,6 +98,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
+        [Pending]
         public void Should_be_able_to_mock_equals_on_substitute_that_overrides_equals()
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
@@ -107,6 +110,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
+        [Pending]
         public void Should_be_able_to_mock_gethashcode_on_substitute_that_overrides_equals()
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
@@ -117,6 +121,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
+        [Pending]
         public void Should_be_able_to_mock_tostring_on_substitute_that_overrides_equals()
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
@@ -140,7 +145,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
-        [Pending]
         public void Should_be_able_to_setup_return_for_call_taking_equal_class_substitutes_that_overwrite_equals()
         {
             var service = Substitute.For<IService>();
@@ -154,15 +158,13 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             service.AMethod(substitute).Returns(1);
             service.AMethod(substitute2).Returns(2);
 
-            // Reference for substitute takes preference over substitute2.Equals(substitute)
-            Assert.That(service.AMethod(substitute), Is.EqualTo(1));
-            // substitute1 and substitute2 are equal
+            // Reference for substitute doesn't take preference over substitute2.Equals(substitute)
+            Assert.That(service.AMethod(substitute), Is.EqualTo(2));
             Assert.That(service.AMethod(substitute1), Is.EqualTo(2));
             Assert.That(service.AMethod(substitute2), Is.EqualTo(2));
         }
 
         [Test]
-        [Pending]
         public void Should_be_able_to_setup_return_for_call_taking_class_substitutes_that_overwrite_equals()
         {
             var service = Substitute.For<IService>();
@@ -179,7 +181,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
-        [Pending]
         public void Should_be_able_to_setup_return_for_call_taking_class_substitutes_that_overwrite_equals_as_base_equals()
         {
             var substitute = Substitute.For<AClassThatOverridesEquals>();

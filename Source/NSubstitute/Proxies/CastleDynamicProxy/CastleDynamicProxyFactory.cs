@@ -57,12 +57,19 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         {
             public override bool ShouldInterceptMethod(Type type, MethodInfo methodInfo)
             {
-                return IsNotCallRouterMethod(methodInfo) && base.ShouldInterceptMethod(type, methodInfo);
+                return IsNotCallRouterMethod(methodInfo)
+                    && IsNotBaseObjectMethod(methodInfo)
+                    && base.ShouldInterceptMethod(type, methodInfo);
             }
 
             private static bool IsNotCallRouterMethod(MethodInfo methodInfo)
             {
                 return methodInfo.DeclaringType != typeof(ICallRouter);
+            }
+
+            private static bool IsNotBaseObjectMethod(MethodInfo methodInfo)
+            {
+                return methodInfo.GetBaseDefinition().DeclaringType != typeof (object);
             }
         }
 
