@@ -17,5 +17,6 @@ namespace NSubstitute.Core
         IQueryResults RunQuery(Action calls);
         bool IsQuerying { get; }
         void AddToQuery(object target, ICallSpecification callSpecification);
+        void ClearLastCallRouter();
     }
 }

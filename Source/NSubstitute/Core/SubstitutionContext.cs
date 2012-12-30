@@ -48,6 +48,11 @@ namespace NSubstitute.Core
         {
             if (_lastCallRouter.Value == null) throw new CouldNotSetReturnException();
             _lastCallRouter.Value.LastCallShouldReturn(value, matchArgs);
+            ClearLastCallRouter();
+        }
+
+        public void ClearLastCallRouter()
+        {
             _lastCallRouter.Value = null;
         }
 

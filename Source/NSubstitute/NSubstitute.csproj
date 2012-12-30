@@ -157,6 +157,7 @@
     <Compile Include="Routing\AutoValues\IAutoValueProvider.cs" />
     <Compile Include="Routing\Definitions\RecordCallSpecificationRoute.cs" />
     <Compile Include="Routing\Handlers\AddCallToQueryResultHandler.cs" />
+    <Compile Include="Routing\Handlers\ClearLastCallRouterHandler.cs" />
     <Compile Include="Routing\Handlers\ClearUnusedCallSpecHandler.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
     <Compile Include="Routing\Handlers\RecordCallSpecificationHandler.cs" />
