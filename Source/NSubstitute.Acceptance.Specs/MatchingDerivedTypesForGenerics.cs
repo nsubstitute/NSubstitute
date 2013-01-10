@@ -13,7 +13,6 @@ namespace NSubstitute.Acceptance.Specs
 			_sub = Substitute.For<IGenMethod>();
 		}
 
-
 		[Test]
 		public void Calls_to_generic_types_with_derived_parameters_should_be_matched ()
 		{
@@ -22,7 +21,6 @@ namespace NSubstitute.Acceptance.Specs
 
 			_sub.Received(2).Call(Arg.Any<IGMParam>());
 		}
-
 
 		public interface IGenMethod
 		{

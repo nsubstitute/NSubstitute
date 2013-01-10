@@ -27,13 +27,43 @@ namespace NSubstitute.Core
 
         public bool IsSatisfiedBy(ICall call)
         {
-            if (GetMethodInfo() != call.GetMethodInfo()) return false;
+			if (!AreComparable(GetMethodInfo(), call.GetMethodInfo())) return false;
             if (HasDifferentNumberOfArguments(call)) return false;
             if (NonMatchingArguments(call).Any()) return false;
             return true;
         }
 
-        public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
+	    bool AreComparable(MethodInfo a, MethodInfo b)
+	    {
+			return
+				   AreEquivalentDefinitions(a, b)
+				&& TypesAreAllEquivalent(ParameterTypes(a), ParameterTypes(b))
+				&& TypesAreAllEquivalent(a.GetGenericArguments(), b.GetGenericArguments());
+		}
+
+		Type[] ParameterTypes(MethodInfo info)
+		{
+			return info.GetParameters().Select(p=>p.ParameterType).ToArray();
+		}
+
+	    static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
+	    {
+		    return
+				aArgs.Length == bArgs.Length
+				&&
+				!aArgs.Where((t, i) => !t.IsAssignableFrom(bArgs[i]) && !bArgs[i].IsAssignableFrom(t)).Any();
+	    }
+
+	    bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
+	    {
+		    return 
+				   a.Name.Equals(b.Name, StringComparison.Ordinal)
+				&& a.ReturnType == b.ReturnType
+				&& a.IsGenericMethod == b.IsGenericMethod;
+	    }
+
+
+	    public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
         {
             var arguments = call.GetArguments();
             return arguments
