@@ -25,9 +25,9 @@ namespace NSubstitute.Routing.Handlers
             var callSpecification = _callSpecificationFactory.CreateFrom(call, _matchArgs);
             var allCallsToMethodSpec = _callSpecificationFactory.CreateFrom(call, MatchArgs.Any);
 
-            var allCalls = _receivedCalls.AllCalls();
-            var matchingCalls = allCalls.Where(x => callSpecification.IsSatisfiedBy(x));
-            var relatedCalls = allCalls.Where(x => allCallsToMethodSpec.IsSatisfiedBy(x)).Except(matchingCalls);
+            var allCalls = _receivedCalls.AllCalls().ToList();
+            var matchingCalls = allCalls.Where(callSpecification.IsSatisfiedBy).ToList();
+            var relatedCalls = allCalls.Where(allCallsToMethodSpec.IsSatisfiedBy).Except(matchingCalls);
 
             if (!_requiredQuantity.Matches(matchingCalls))
             {
