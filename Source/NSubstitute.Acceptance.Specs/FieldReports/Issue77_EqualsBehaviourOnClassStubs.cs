@@ -74,7 +74,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(substitute.GetHashCode(), Is.EqualTo(2.GetHashCode()));
         }
 
-        [Test]
+        [Test, Explicit]
         [Pending]
         public void Should_be_able_to_mock_equals_against_same_object_on_substitute_that_overrides_equals()
         {
@@ -85,7 +85,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(substitute.Equals(substitute), Is.False);
         }
 
-        [Test]
+        [Test, Explicit]
         [Pending]
         public void Should_be_able_to_mock_equals_on_a_sub_that_overrides_equals_against_another_substitute()
         {
@@ -97,7 +97,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(first.Equals(second), Is.False);
         }
 
-        [Test]
+        [Test, Explicit]
         [Pending]
         public void Should_be_able_to_mock_equals_on_substitute_that_overrides_equals()
         {
@@ -109,7 +109,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(substitute.Equals(x), Is.True);
         }
 
-        [Test]
+        [Test, Explicit]
         [Pending]
         public void Should_be_able_to_mock_gethashcode_on_substitute_that_overrides_equals()
         {
@@ -120,7 +120,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(substitute.GetHashCode(), Is.EqualTo(5));
         }
 
-        [Test]
+        [Test, Explicit]
         [Pending]
         public void Should_be_able_to_mock_tostring_on_substitute_that_overrides_equals()
         {

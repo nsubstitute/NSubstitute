@@ -21,7 +21,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             sub.Received().Method(Arg.Any<int>(), stealer.StealMatcherBeforeUsedElsewhere);
         } 
 
-        [Test]
+        [Test, Explicit]
         [Pending]
         public void Use_arg_matcher_then_access_another_sub_with_args_before_call_spec_is_created()
         {
