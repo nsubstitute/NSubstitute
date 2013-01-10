@@ -93,6 +93,7 @@
     <Compile Include="FieldReports\Issue47_RaisingEventsWithNullArg.cs" />
     <Compile Include="FieldReports\Issue57_SettingVirtualPropertyInCtor.cs" />
     <Compile Include="FieldReports\SubbingSynchronizationContext.cs" />
+    <Compile Include="MatchingDerivedTypesForGenerics.cs" />
     <Compile Include="MultipleThreads.cs" />
     <Compile Include="NotASubstituteExceptions.cs" />
     <Compile Include="NullReferenceCheckingForSubstituteExtensions.cs" />
