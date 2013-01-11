@@ -63,7 +63,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(request.Get(null), Is.EqualTo("?"));
         }
 
-        [Test]
+        [Test, Explicit]
         [Pending]
         public void Multiple_conditions_with_multiple_returns()
         {

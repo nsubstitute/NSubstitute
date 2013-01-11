@@ -55,7 +55,7 @@ namespace NSubstitute.Acceptance.Specs
             public interface IWidget { string GetName(); }
             public interface IWidgetFactory { IWidget CreateWidget(); }
 
-            [Test]
+            [Test, Explicit]
             [Pending]
             public void Should_set_both_calls_to_return_the_specified_values()
             {

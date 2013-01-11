@@ -17,6 +17,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             protected ICall _call;
             protected IReceivedCalls _receivedCalls;
             protected ICallSpecification _callSpecFromCall;
+            protected ICallSpecification _callSpecFromMethodSpec;
             protected ICallSpecificationFactory _callSpecificationFactory;
             protected FakeExceptionThrower _exceptionThrower;
             protected MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
@@ -28,10 +29,15 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _receivedCalls = mock<IReceivedCalls>();
                 _call = mock<ICall>();
                 _callSpecFromCall = mock<ICallSpecification>();
+                _callSpecFromMethodSpec = mock<ICallSpecification>();
                 _callSpecificationFactory = mock<ICallSpecificationFactory>();
+
                 _exceptionThrower = new FakeExceptionThrower();
+
                 _callSpecFromCall.stub(x => x.IsSatisfiedBy(_call)).Return(true);
-                _callSpecificationFactory.stub(x => x.CreateFrom(_call, _argMatching)).Return(_callSpecFromCall);
+                _callSpecFromMethodSpec.stub(x=>x.IsSatisfiedBy(_call)).Return(false);
+				
+				_callSpecificationFactory.stub(x => x.CreateFrom(_call, _argMatching)).Return(_callSpecFromCall);
             }
 
             public override CheckReceivedCallsHandler CreateSubjectUnderTest()
@@ -66,6 +72,7 @@ namespace NSubstitute.Specs.Routing.Handlers
                 base.Context();
                 _quantity = Quantity.AtLeastOne();
                 _receivedCalls.stub(x => x.AllCalls()).Return(new[] { _call });
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, MatchArgs.Any)).Return(_callSpecFromMethodSpec);
             }
         }
 
