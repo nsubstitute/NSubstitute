@@ -41,9 +41,27 @@ namespace NSubstitute.Acceptance.Specs
 			_sub.Received(1).Call(gmParam1);
 		}
 
+	    [Test]
+	    public void Stub_generic_method()
+	    {
+	        _sub.IntCall(Arg.Any<IGMParam>()).Returns(42);
+
+	        Assert.That(_sub.IntCall(new GMParam2()), Is.EqualTo(42));
+	    }
+
+	    [Test]
+	    public void Stub_generic_method_with_specific_subtype()
+	    {
+	        _sub.IntCall(Arg.Any<GMParam2>()).Returns(42);
+
+	        Assert.That(_sub.IntCall(new GMParam2()), Is.EqualTo(42));
+	        Assert.That(_sub.IntCall(new GMParam1()), Is.EqualTo(default(int)));
+	    }
+
 		public interface IGenMethod
 		{
 			void Call<T>(T param) where T : IGMParam;
+			int IntCall<T>(T param) where T : IGMParam;
 		}
 		public interface IGMParam { }
 		public class GMParam1 : IGMParam { }
