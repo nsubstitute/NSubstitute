@@ -74,8 +74,8 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(substitute.GetHashCode(), Is.EqualTo(2.GetHashCode()));
         }
 
-        [Test, Explicit]
-        [Pending]
+        [Test]
+        [Pending, Explicit]
         public void Should_be_able_to_mock_equals_against_same_object_on_substitute_that_overrides_equals()
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
@@ -85,8 +85,8 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(substitute.Equals(substitute), Is.False);
         }
 
-        [Test, Explicit]
-        [Pending]
+        [Test]
+        [Pending, Explicit]
         public void Should_be_able_to_mock_equals_on_a_sub_that_overrides_equals_against_another_substitute()
         {
             var first = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
@@ -97,8 +97,8 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(first.Equals(second), Is.False);
         }
 
-        [Test, Explicit]
-        [Pending]
+        [Test]
+        [Pending, Explicit]
         public void Should_be_able_to_mock_equals_on_substitute_that_overrides_equals()
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
@@ -109,8 +109,8 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(substitute.Equals(x), Is.True);
         }
 
-        [Test, Explicit]
-        [Pending]
+        [Test]
+        [Pending, Explicit]
         public void Should_be_able_to_mock_gethashcode_on_substitute_that_overrides_equals()
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
@@ -120,8 +120,8 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.That(substitute.GetHashCode(), Is.EqualTo(5));
         }
 
-        [Test, Explicit]
-        [Pending]
+        [Test]
+        [Pending, Explicit]
         public void Should_be_able_to_mock_tostring_on_substitute_that_overrides_equals()
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();

@@ -68,8 +68,8 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Echo(123), Is.EqualTo(123.ToString()));
         }
 
-        [Test, Explicit]
-        [Pending]
+        [Test]
+        [Pending, Explicit]
         public void Return_specific_value_for_tostring()
         {
             _something.ToString().Returns("this string");

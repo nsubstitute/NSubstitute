@@ -51,7 +51,9 @@ namespace NSubstitute.Core
 		    return
 				aArgs.Length == bArgs.Length
 				&&
-				!aArgs.Where((t, i) => !t.IsAssignableFrom(bArgs[i]) && !bArgs[i].IsAssignableFrom(t)).Any();
+                aArgs
+                    .Zip(bArgs, (a,b) => new { First = a, Second = b})
+                    .All(types => types.First.IsAssignableFrom(types.Second) || types.Second.IsAssignableFrom(types.First));
 	    }
 
 	    bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)

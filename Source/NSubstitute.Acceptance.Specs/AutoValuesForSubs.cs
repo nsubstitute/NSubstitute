@@ -74,8 +74,8 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_sample.NonVirtualClass, Is.Null);
         }
 
-        [Test, Explicit]
-        [Pending]
+        [Test]
+        [Pending, Explicit]
         public void Should_auto_return_empty_string_list()
         {
             Assert.That(_sample.ListOfStrings, Is.Not.Null);

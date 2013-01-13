@@ -41,7 +41,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending]
+        [Pending, Explicit]
         public void Working_with_nonvirtual_members_of_partial_sub()
         {
             var sub = Substitute.For<Partial>();
