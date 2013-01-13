@@ -129,6 +129,30 @@ namespace NSubstitute.Acceptance.Specs
             AssertObjectIsASubstitute(returnedFromFunc);
         }
 
+#if NET4
+        [Test]
+        public void Should_auto_return_a_value_from_a_task() {
+            var sub = Substitute.For<IFooWithTasks>();
+            Assert.That(sub.GetIntAsync().Result, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Should_auto_return_an_autosub_from_a_task() {
+            var sub = Substitute.For<IFooWithTasks>();
+            var sample = sub.GetSample().Result;
+            AssertObjectIsASubstitute(sample);
+
+            sample.Name = "test";
+            Assert.That(sample.Name, Is.EqualTo("test"));
+        }
+
+        public interface IFooWithTasks 
+        {
+            System.Threading.Tasks.Task<ISample> GetSample();
+            System.Threading.Tasks.Task<int> GetIntAsync();
+        }
+#endif
+
         private static void AssertObjectIsASubstitute<T>(T obj) where T : class
         {
             Assert.That(obj.ReceivedCalls(), Is.Empty);
