@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
-using NSubstitute.Routing.Definitions;
 
 namespace NSubstitute.Core
 {
@@ -11,6 +10,7 @@ namespace NSubstitute.Core
     {
         static readonly object[] EmptyArgs = new object[0];
         static readonly IList<IArgumentSpecification> EmptyArgSpecs = new List<IArgumentSpecification>();
+        readonly ISubstituteState _substituteState;
         readonly ISubstitutionContext _context;
         readonly IReceivedCalls _receivedCalls;
         readonly IResultSetter _resultSetter;
@@ -18,20 +18,22 @@ namespace NSubstitute.Core
         IRoute _currentRoute;
         bool _isSetToDefaultRoute;
 
-        public CallRouter(ISubstitutionContext context, IReceivedCalls receivedCalls, IResultSetter resultSetter, IRouteFactory routeFactory)
+        public CallRouter(ISubstituteState substituteState, ISubstitutionContext context, IRouteFactory routeFactory)
         {
+            _substituteState = substituteState;
             _context = context;
-            _receivedCalls = receivedCalls;
-            _resultSetter = resultSetter;
             _routeFactory = routeFactory;
+            _receivedCalls = substituteState.ReceivedCalls;
+            _resultSetter = substituteState.ResultSetter;
 
             UseDefaultRouteForNextCall();
         }
 
-        public void SetRoute<TRouteDefinition>(params object[] routeArguments) where TRouteDefinition : IRouteDefinition
+        public void SetRoute(Func<ISubstituteState, IRoute> getRoute)
         {
-            _isSetToDefaultRoute = typeof(TRouteDefinition) == typeof(RecordReplayRoute);
-            _currentRoute = _routeFactory.Create<TRouteDefinition>(routeArguments);
+            var route = getRoute(_substituteState);
+            _isSetToDefaultRoute = route.IsRecordReplayRoute;
+            _currentRoute = route;
         }
 
         public void ClearReceivedCalls()
@@ -69,17 +71,17 @@ namespace NSubstitute.Core
 
         private void UseDefaultRouteForNextCall()
         {
-            SetRoute<RecordReplayRoute>();
+            SetRoute(x => _routeFactory.RecordReplay(x));
         }
 
         private void UseRecordCallSpecRouteForNextCall()
         {
-            SetRoute<RecordCallSpecificationRoute>();
+            SetRoute(x => _routeFactory.RecordCallSpecification(x));
         }
 
         private void UseQueryRouteForNextCall()
         {
-            SetRoute<CallQueryRoute>();
+            SetRoute(x => _routeFactory.CallQuery(x));
         }
     }
 }

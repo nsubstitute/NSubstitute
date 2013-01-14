@@ -1,56 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NSubstitute.Routing.AutoValues;
+﻿using NSubstitute.Routing.AutoValues;
 using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
     public class SubstituteState : ISubstituteState
     {
-        private readonly IEnumerable<object> _state;
+        public ISubstitutionContext SubstitutionContext { get; private set; }
+        public ICallInfoFactory CallInfoFactory { get; private set; }
+        public ICallStack CallStack { get; private set; }
+        public IReceivedCalls ReceivedCalls { get; private set; }
+        public IPendingSpecification PendingSpecification { get; private set; }
+        public ICallResults CallResults { get; private set; }
+        public ICallSpecificationFactory CallSpecificationFactory { get; private set; }
+        public ISubstituteFactory SubstituteFactory { get; private set; }
+        public ICallActions CallActions { get; private set; }
+        public SequenceNumberGenerator SequenceNumberGenerator { get; private set; }
+        public IPropertyHelper PropertyHelper { get; private set; }
+        public IResultSetter ResultSetter { get; private set; }
+        public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
+        public IReceivedCallsExceptionThrower ReceivedCallsExceptionThrower { get; private set; }
+        public IDefaultForType DefaultForType { get; private set; }
+        public IAutoValueProvider[] AutoValueProviders { get; private set; }
 
-        public SubstituteState(IEnumerable<object> state)
+        public SubstituteState(ISubstitutionContext substitutionContext)
         {
-            _state = state;
-        }
-
-        public static SubstituteState Create(ISubstitutionContext substitutionContext)
-        {
-            var substituteFactory = substitutionContext.SubstituteFactory;
-            var sequenceNumberGenerator = substitutionContext.SequenceNumberGenerator;
-            var callInfoFactory = new CallInfoFactory();
+            SubstitutionContext = substitutionContext;
+            SubstituteFactory = substitutionContext.SubstituteFactory;
+            SequenceNumberGenerator = substitutionContext.SequenceNumberGenerator;
+            CallInfoFactory = new CallInfoFactory();
             var callStack = new CallStack();
-            var pendingSpecification = new PendingSpecification();
-            var callResults = new CallResults(callInfoFactory);
-            var callSpecificationFactory = NewCallSpecificationFactory();
-            var callActions = new CallActions(callInfoFactory);
+            CallStack = callStack;
+            ReceivedCalls = callStack;
+            PendingSpecification = new PendingSpecification();
+            CallResults = new CallResults(CallInfoFactory);
+            CallSpecificationFactory = NewCallSpecificationFactory();
+            CallActions = new CallActions(CallInfoFactory);
 
-            var autoValueProviders = new IAutoValueProvider[] { new AutoSubstituteProvider(substituteFactory), new AutoStringProvider(), new AutoArrayProvider() };
+            PropertyHelper = new PropertyHelper();
+            ResultSetter = new ResultSetter(CallStack, PendingSpecification, CallResults, CallSpecificationFactory, CallActions);
+            EventHandlerRegistry = new EventHandlerRegistry();
+            ReceivedCallsExceptionThrower = new ReceivedCallsExceptionThrower();
+            DefaultForType = new DefaultForType();
+            AutoValueProviders = new IAutoValueProvider[] { 
 #if NET4
-            autoValueProviders = autoValueProviders.Concat(new[] {new AutoTaskProvider(autoValueProviders)}).ToArray();
+                new AutoTaskProvider(() => AutoValueProviders),
 #endif
-
-            var state = new object[] 
-            {
-                substitutionContext,
-                callInfoFactory,
-                callStack,
-                pendingSpecification,
-                callResults,
-                callSpecificationFactory,
-                substituteFactory,
-                callActions,
-                sequenceNumberGenerator,
-                new PropertyHelper(),
-                new ResultSetter(callStack, pendingSpecification, callResults, callSpecificationFactory, callActions),
-                new EventHandlerRegistry(),
-                new ReceivedCallsExceptionThrower(),
-                new DefaultForType(),
-                autoValueProviders
+                new AutoSubstituteProvider(SubstituteFactory), 
+                new AutoStringProvider(), 
+                new AutoArrayProvider() 
             };
-
-            return new SubstituteState(state);
         }
 
         private static IDefaultChecker NewDefaultChecker()
@@ -60,7 +58,7 @@ namespace NSubstitute.Core
 
         private static IParamsArgumentSpecificationFactory NewParamsArgumentSpecificationFactory()
         {
-            return 
+            return
                 new ParamsArgumentSpecificationFactory(
                     NewDefaultChecker(),
                     new ArgumentEqualsSpecificationFactory(),
@@ -83,7 +81,7 @@ namespace NSubstitute.Core
 
         private static ICallSpecificationFactory NewCallSpecificationFactory()
         {
-            return 
+            return
                 new CallSpecificationFactory(
                     new ArgumentSpecificationsFactory(
                         new MixedArgumentSpecificationsFactory(
@@ -95,13 +93,6 @@ namespace NSubstitute.Core
                         )
                     )
                 );
-        }
-
-        public object FindInstanceFor(Type type, object[] additionalArguments)
-        {
-            return _state
-                    .Concat(additionalArguments ?? new object[0])
-                    .FirstOrDefault(x => x != null && type.IsAssignableFrom(x.GetType()));
         }
     }
 }

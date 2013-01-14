@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core;
-using NSubstitute.Routing.Definitions;
+using NSubstitute.Routing;
 
 namespace NSubstitute
 {
@@ -53,42 +53,42 @@ namespace NSubstitute
         public static T Received<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.AsSpecifiedInCall, Quantity.AtLeastOne());
+            router.SetRoute(x => RouteFactory().CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, Quantity.AtLeastOne()));
             return substitute;
         }
 
         public static T Received<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.AsSpecifiedInCall, Quantity.Exactly(requiredNumberOfCalls));
+            router.SetRoute(x => RouteFactory().CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, Quantity.Exactly(requiredNumberOfCalls)));
             return substitute;
         }
 
         public static T DidNotReceive<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.AsSpecifiedInCall, Quantity.None());
+            router.SetRoute(x => RouteFactory().CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, Quantity.None()));
             return substitute;
         }
 
         public static T ReceivedWithAnyArgs<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.Any, Quantity.AtLeastOne());
+            router.SetRoute(x => RouteFactory().CheckReceivedCalls(x, MatchArgs.Any, Quantity.AtLeastOne()));
             return substitute;
         }
 
         public static T ReceivedWithAnyArgs<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.Any, Quantity.Exactly(requiredNumberOfCalls));
+            router.SetRoute(x => RouteFactory().CheckReceivedCalls(x, MatchArgs.Any, Quantity.Exactly(requiredNumberOfCalls)));
             return substitute;
         }
         
         public static T DidNotReceiveWithAnyArgs<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.SetRoute<CheckReceivedCallsRoute>(MatchArgs.Any, Quantity.None());
+            router.SetRoute(x => RouteFactory().CheckReceivedCalls(x, MatchArgs.Any, Quantity.None()));
             return substitute;
         }
 
@@ -119,6 +119,11 @@ namespace NSubstitute
         {
             var context = SubstitutionContext.Current;
             return context.GetCallRouterFor(substitute);
+        }
+
+        private static IRouteFactory RouteFactory()
+        {
+            return SubstitutionContext.Current.GetRouteFactory();
         }
     }
 }

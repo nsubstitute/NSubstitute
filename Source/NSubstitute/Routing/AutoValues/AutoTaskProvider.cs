@@ -7,9 +7,9 @@ namespace NSubstitute.Routing.AutoValues
 {
     public class AutoTaskProvider : IAutoValueProvider
     {
-        private readonly IAutoValueProvider[] _autoValueProviders;
+        private readonly Func<IAutoValueProvider[]> _autoValueProviders;
 
-        public AutoTaskProvider(IAutoValueProvider[] autoValueProviders)
+        public AutoTaskProvider(Func<IAutoValueProvider[]> autoValueProviders)
         {
             _autoValueProviders = autoValueProviders;
         }
@@ -27,7 +27,7 @@ namespace NSubstitute.Routing.AutoValues
             if (type.IsGenericType)
             {
                 var taskType = type.GetGenericArguments()[0];
-                var valueProvider = _autoValueProviders.FirstOrDefault(vp => vp.CanProvideValueFor(taskType));
+                var valueProvider = _autoValueProviders().FirstOrDefault(vp => vp.CanProvideValueFor(taskType));
 
                 var value = valueProvider == null ? GetDefault(type) : valueProvider.GetValue(taskType);
                 var taskCompletionSourceType = typeof(TaskCompletionSource<>).MakeGenericType(taskType);

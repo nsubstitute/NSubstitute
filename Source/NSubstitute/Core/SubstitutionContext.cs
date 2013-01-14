@@ -5,7 +5,7 @@ using NSubstitute.Exceptions;
 using NSubstitute.Proxies;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NSubstitute.Proxies.DelegateProxy;
-using NSubstitute.Routing.Definitions;
+using NSubstitute.Routing;
 
 namespace NSubstitute.Core
 {
@@ -56,6 +56,8 @@ namespace NSubstitute.Core
             _lastCallRouter.Value = null;
         }
 
+        public IRouteFactory GetRouteFactory() { return new RouteFactory(); }
+
         public void LastCallRouter(ICallRouter callRouter)
         {
             _lastCallRouter.Value = callRouter;
@@ -66,7 +68,8 @@ namespace NSubstitute.Core
         {
             if (_getArgumentsForRaisingEvent.Value != null)
             {
-                callRouter.SetRoute<RaiseEventRoute>(_getArgumentsForRaisingEvent.Value);
+                var routes = new RouteFactory();
+                callRouter.SetRoute(x => routes.RaiseEvent(x, _getArgumentsForRaisingEvent.Value));
                 _getArgumentsForRaisingEvent.Value = null;
             }
         }

@@ -6,11 +6,8 @@ namespace NSubstitute.Core
     {
         public ICallRouter Create(ISubstitutionContext substitutionContext)
         {
-            var substituteState = SubstituteState.Create(substitutionContext);
-            var receivedCalls = (IReceivedCalls) substituteState.FindInstanceFor(typeof(IReceivedCalls), null);
-            var resultsSetter = (IResultSetter) substituteState.FindInstanceFor(typeof(IResultSetter), null);
-            var callHandlerFactory = new CallHandlerFactory();
-            return new CallRouter(substitutionContext, receivedCalls, resultsSetter, new RouteFactory(substituteState, callHandlerFactory));
+            var substituteState = new SubstituteState(substitutionContext);
+            return new CallRouter(substituteState, substitutionContext, new RouteFactory());
         }
     }
 }

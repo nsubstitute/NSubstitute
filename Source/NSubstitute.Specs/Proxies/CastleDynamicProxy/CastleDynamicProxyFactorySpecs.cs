@@ -2,7 +2,6 @@ using System;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Proxies.CastleDynamicProxy;
-using NSubstitute.Routing;
 using NSubstitute.Specs.Infrastructure;
 using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;
@@ -83,8 +82,9 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
             protected void AssertCallsMadeToResultsCallRouterAreForwardedToOriginalRouter(object result)
             {
                 var resultsCallRouter = (ICallRouter) result;
-                resultsCallRouter.SetRoute<IRouteDefinition>();
-                _callRouter.received(x => x.SetRoute<IRouteDefinition>());
+                var newCall = mock<ICall>();
+                resultsCallRouter.Route(newCall);
+                _callRouter.received(x => x.Route(newCall));
             }
         }
 

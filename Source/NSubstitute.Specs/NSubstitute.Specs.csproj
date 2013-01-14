@@ -94,6 +94,7 @@
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallInfoSpecs.cs" />
+    <Compile Include="Infrastructure\TestCallRouter.cs" />
     <Compile Include="QuantitySpecs.cs" />
     <Compile Include="ReceivedCallsExceptionThrowerSpecs.cs" />
     <Compile Include="CallRouterFactorySpecs.cs" />
@@ -117,7 +118,6 @@
     <Compile Include="ReceivedCallsExtensionSpec.cs" />
     <Compile Include="ReceivedWithAnyArgsExtensionSpec.cs" />
     <Compile Include="ReflectionExtensionsSpecs.cs" />
-    <Compile Include="CallHandlerFactorySpecs.cs" />
     <Compile Include="ReturnValueFromFuncSpec.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProviderSpecs.cs" />
@@ -145,11 +145,9 @@
     <Compile Include="ReturnExtensionSpec.cs" />
     <Compile Include="CallRouterSpecs.cs" />
     <Compile Include="ResultSetterSpecs.cs" />
-    <Compile Include="RouteFactorySpecs.cs" />
     <Compile Include="Routing\RouteSpecs.cs" />
     <Compile Include="Routing\Handlers\SetActionsForCallHandlerSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />
-    <Compile Include="SubstituteStateSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="SubstituteFactorySpecs.cs" />
     <Compile Include="Infrastructure\BaseConcern.cs" />

@@ -4,7 +4,6 @@ using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
-using NSubstitute.Routing.Definitions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
@@ -14,24 +13,33 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<CallRouter>
         {
+            protected readonly object _returnValueFromRecordReplayRoute = "value from record replay route";
             protected ISubstitutionContext _context;
             protected ICall _call;
             protected IResultSetter _resultSetter;
             protected IRouteFactory _routeFactory;
             protected IReceivedCalls _receivedCalls;
+            protected ISubstituteState _state;
 
             public override void Context()
             {
                 _context = mock<ISubstitutionContext>();
                 _call = mock<ICall>();
+                _state = mock<ISubstituteState>();
                 _receivedCalls = mock<IReceivedCalls>();
                 _resultSetter = mock<IResultSetter>();
                 _routeFactory = mock<IRouteFactory>();
+                _state.stub(x => x.ReceivedCalls).Return(_receivedCalls);
+                _state.stub(x => x.ResultSetter).Return(_resultSetter);
+
+                var recordReplayRoute = CreateRouteThatReturns(_returnValueFromRecordReplayRoute);
+                recordReplayRoute.stub(x => x.IsRecordReplayRoute).Return(true);
+                _routeFactory.stub(x => x.RecordReplay(_state)).Return(recordReplayRoute);
             }
 
             public override CallRouter CreateSubjectUnderTest()
             {
-                return new CallRouter(_context, _receivedCalls, _resultSetter, _routeFactory);
+                return new CallRouter(_state, _context, _routeFactory);
             }
 
             protected IRoute CreateRouteThatReturns(object returnValue)
@@ -45,10 +53,8 @@ namespace NSubstitute.Specs
         public class When_a_route_is_set_and_a_member_is_called : Concern
         {
             readonly object _returnValueFromRoute = new object();
-            readonly object _returnValueFromRecordReplayRoute = new object();
             object _result;
             IRoute _route;
-            IRoute _recordReplayRoute;
 
             [Test]
             public void Should_update_last_call_router_on_substitution_context()
@@ -71,28 +77,20 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                sut.SetRoute<SampleRoute>();
+                sut.SetRoute(x => _route);
                 _result = sut.Route(_call);
             }
 
             public override void Context()
             {
                 base.Context();
-                _recordReplayRoute = CreateRouteThatReturns(_returnValueFromRecordReplayRoute);
                 _route = CreateRouteThatReturns(_returnValueFromRoute);
-                
-                _routeFactory.stub(x => x.Create<SampleRoute>()).Return(_route);
-                _routeFactory.stub(x => x.Create<RecordReplayRoute>()).Return(_recordReplayRoute);
             }
-
-            abstract class SampleRoute : IRouteDefinition { public abstract IEnumerable<Type> HandlerTypes { get; } }
         }
 
         public class When_using_default_route : Concern
         {
             readonly object _returnValueFromRecordCallSpecRoute = "value from call spec route";
-            readonly object _returnValueFromRecordReplayRoute = "value from record replay route";
-            IRoute _recordReplayRoute;
             IRoute _recordCallSpecRoute;
 
             [Test]
@@ -131,11 +129,9 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 base.Context();
-                _recordReplayRoute = CreateRouteThatReturns(_returnValueFromRecordReplayRoute);
                 _recordCallSpecRoute = CreateRouteThatReturns(_returnValueFromRecordCallSpecRoute);
                 
-                _routeFactory.stub(x => x.Create<RecordReplayRoute>()).Return(_recordReplayRoute);
-                _routeFactory.stub(x => x.Create<RecordCallSpecificationRoute>()).Return(_recordCallSpecRoute);
+                _routeFactory.stub(x => x.RecordCallSpecification(_state)).Return(_recordCallSpecRoute);
             }
 
             IList<IArgumentSpecification> CreateArgSpecs(int count)
@@ -146,8 +142,8 @@ namespace NSubstitute.Specs
 
         public class When_setting_result_of_last_call : Concern
         {
+            readonly MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
             IReturn _returnValue;
-            MatchArgs _argMatching = MatchArgs.AsSpecifiedInCall;
 
             [Test]
             public void Should_set_result()
@@ -213,7 +209,7 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _context.stub(x => x.IsQuerying).Return(true);
-                _routeFactory.stub(x => x.Create<CallQueryRoute>()).Return(CreateRouteThatReturns(_resultFromQueryRoute));
+                _routeFactory.stub(x => x.CallQuery(_state)).Return(CreateRouteThatReturns(_resultFromQueryRoute));
             }
 
             public override void Because()

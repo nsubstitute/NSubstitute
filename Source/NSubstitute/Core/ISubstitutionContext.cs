@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NSubstitute.Core.Arguments;
+using NSubstitute.Routing;
 
 namespace NSubstitute.Core
 {
@@ -18,5 +19,6 @@ namespace NSubstitute.Core
         bool IsQuerying { get; }
         void AddToQuery(object target, ICallSpecification callSpecification);
         void ClearLastCallRouter();
+        IRouteFactory GetRouteFactory();
     }
 }
