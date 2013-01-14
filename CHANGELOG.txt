@@ -2,7 +2,7 @@ unreleased changes
 * [EXPERIMENTAL] Asserting ordered call sequences
 * [FIX] Arg.Invoke with four arguments now passes fourth arg correctly (#88). Thanks to Ville Salonen (@VilleSalonen) for finding and patching this.
 * [FIX] Substitute objects now use actual implementation for base object methods (Equals, GetHashCode, ToString). Thanks to Robert Moore (@robdmoore) for this contribution. (#77)
-* [NEW] Auto-substitute for Task/Task<T>. Task<T> will use substitute rules that T would use
+* [NEW] Auto-substitute for Task/Task<T>. Task<T> will use substitute rules that T would use. Thanks to Jake Ginnivan (@JakeGinnivan) for this contribution.
 * [NEW] Match derived types for generic calls (#97). Thanks to Iain Ballard for this contribution.
 
 1.4.3 (August 2012)
