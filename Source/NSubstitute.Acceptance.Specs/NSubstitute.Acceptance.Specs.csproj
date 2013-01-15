@@ -98,6 +98,7 @@
     <Compile Include="NotASubstituteExceptions.cs" />
     <Compile Include="NullReferenceCheckingForSubstituteExtensions.cs" />
     <Compile Include="OutAndRefParameters.cs" />
+    <Compile Include="PerfTests.cs" />
     <Compile Include="RecursiveSubs.cs" />
     <Compile Include="SubbingForEventHandler.cs" />
     <Compile Include="PropertyBehaviour.cs" />

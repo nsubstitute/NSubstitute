@@ -27,7 +27,7 @@ namespace NSubstitute.Core
 
         public bool IsSatisfiedBy(ICall call)
         {
-			if (!AreComparable(GetMethodInfo(), call.GetMethodInfo())) return false;
+            if (!AreComparable(GetMethodInfo(), call.GetMethodInfo())) return false;
             if (HasDifferentNumberOfArguments(call)) return false;
             if (NonMatchingArguments(call).Any()) return false;
             return true;
@@ -35,13 +35,20 @@ namespace NSubstitute.Core
 
 	    bool AreComparable(MethodInfo a, MethodInfo b)
 	    {
+            if (a == b) return true;
+	        if (a.IsGenericMethod && b.IsGenericMethod) return CanCompareGenericMethods(a, b);
+	        return false;
+		}
+
+        bool CanCompareGenericMethods(MethodInfo a, MethodInfo b)
+        {
 			return
 				   AreEquivalentDefinitions(a, b)
 				&& TypesAreAllEquivalent(ParameterTypes(a), ParameterTypes(b))
 				&& TypesAreAllEquivalent(a.GetGenericArguments(), b.GetGenericArguments());
-		}
+        }
 
-		Type[] ParameterTypes(MethodInfo info)
+        Type[] ParameterTypes(MethodInfo info)
 		{
 			return info.GetParameters().Select(p=>p.ParameterType).ToArray();
 		}
@@ -58,12 +65,10 @@ namespace NSubstitute.Core
 
 	    bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
 	    {
-		    return 
-				   a.Name.Equals(b.Name, StringComparison.Ordinal)
-				&& a.ReturnType == b.ReturnType
-				&& a.IsGenericMethod == b.IsGenericMethod;
+		    return a.IsGenericMethod == b.IsGenericMethod
+                   && a.ReturnType == b.ReturnType
+                   && a.Name.Equals(b.Name, StringComparison.Ordinal);
 	    }
-
 
 	    public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
         {
