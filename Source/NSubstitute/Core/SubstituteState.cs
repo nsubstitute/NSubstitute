@@ -42,12 +42,12 @@ namespace NSubstitute.Core
             ReceivedCallsExceptionThrower = new ReceivedCallsExceptionThrower();
             DefaultForType = new DefaultForType();
             AutoValueProviders = new IAutoValueProvider[] { 
+                new AutoSubstituteProvider(SubstituteFactory), 
+                new AutoStringProvider(), 
+                new AutoArrayProvider(),
 #if NET4
                 new AutoTaskProvider(() => AutoValueProviders),
 #endif
-                new AutoSubstituteProvider(SubstituteFactory), 
-                new AutoStringProvider(), 
-                new AutoArrayProvider() 
             };
         }
 

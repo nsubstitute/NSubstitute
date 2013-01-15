@@ -55,12 +55,16 @@ namespace NSubstitute.Core
 
 	    static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
 	    {
-		    return
-				aArgs.Length == bArgs.Length
-				&&
-                aArgs
-                    .Zip(bArgs, (a,b) => new { First = a, Second = b})
-                    .All(types => types.First.IsAssignableFrom(types.Second) || types.Second.IsAssignableFrom(types.First));
+	        if (aArgs.Length != bArgs.Length) return false;
+	        for (var i = 0; i < aArgs.Length; i++)
+	        {
+	            var first = aArgs[i];
+	            var second = bArgs[i];
+
+	            var areEquivalent = first.IsAssignableFrom(second) || second.IsAssignableFrom(first);
+	            if (!areEquivalent) return false;
+	        }
+	        return true;
 	    }
 
 	    bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
