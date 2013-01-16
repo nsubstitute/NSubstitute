@@ -110,16 +110,16 @@ Actually received matching calls in this order:
                             };
 
             ExpectMessageFromQuery(action, @"Expected to receive these calls in order:
-    IFoo #1.Bar()
-    IFoo #2.Bar()
-    IFoo #2.Bar()
-    IFoo #2.Zap()
-    IFoo #1.Zap()
+    IFoo#1.Bar()
+    IFoo#2.Bar()
+    IFoo#2.Bar()
+    IFoo#2.Zap()
+    IFoo#1.Zap()
 Actually received matching calls in this order:
-    IFoo #1.Bar()
-    IFoo #2.Bar()
-    IFoo #1.Zap()
-    IFoo #2.Zap()");
+    IFoo#1.Bar()
+    IFoo#2.Bar()
+    IFoo#1.Zap()
+    IFoo#2.Zap()");
         }
 
         [Test]
@@ -143,15 +143,15 @@ Actually received matching calls in this order:
                             };
 
             ExpectMessageFromQuery(action, @"Expected to receive these calls in order:
-    IFoo #1.Bar()
-    Func<Int32, String> #1.Invoke(2)
-    IFoo #2.Zap()
-    IFoo #1.Zap()
+    IFoo#1.Bar()
+    Func<Int32, String>#1.Invoke(2)
+    IFoo#2.Zap()
+    IFoo#1.Zap()
 Actually received matching calls in this order:
-    IFoo #1.Bar()
-    Func<Int32, String> #1.Invoke(2)
-    IFoo #1.Zap()
-    IFoo #2.Zap()");
+    IFoo#1.Bar()
+    Func<Int32, String>#1.Invoke(2)
+    IFoo#1.Zap()
+    IFoo#2.Zap()");
         }
 
         private void ExpectMessageFromQuery(Action query, string message)

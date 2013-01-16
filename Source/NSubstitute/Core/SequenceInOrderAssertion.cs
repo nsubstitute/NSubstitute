@@ -93,7 +93,7 @@ namespace NSubstitute.Core
             var instanceNumber = instanceLookup.GetInstanceNumberFor(target);
             var declaringType = methodInfo.DeclaringType;
             var declaringTypeName = declaringType == typeof (DelegateCall) ? target.ToString() : declaringType.Name;
-            return string.Format("{0} #{1}.{2}", declaringTypeName, instanceNumber, s);
+            return string.Format("{0}#{1}.{2}", declaringTypeName, instanceNumber, s);
         }
 
         private bool IsAcrossMultipleTargets(CallSpecAndTarget[] querySpec)
