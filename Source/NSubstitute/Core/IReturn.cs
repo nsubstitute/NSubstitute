@@ -54,4 +54,31 @@ namespace NSubstitute.Core
             yield return lastValue;
         }
     }
+
+    public class ReturnMultipleFuncsValues<T> : IReturn
+    {
+        private readonly IEnumerator<Func<CallInfo, T>> _valuesToReturn;
+        public ReturnMultipleFuncsValues(IEnumerable<Func<CallInfo, T>> funcs)
+        {
+            _valuesToReturn = ValuesToReturn(funcs).GetEnumerator();
+        }
+        public object ReturnFor(CallInfo info) { return GetNext(info); }
+
+        private T GetNext(CallInfo info)
+        {
+            _valuesToReturn.MoveNext();
+            return _valuesToReturn.Current(info);
+        }
+
+        private IEnumerable<Func<CallInfo, T>> ValuesToReturn(IEnumerable<Func<CallInfo, T>> specifiedFuncs)
+        {
+            Func<CallInfo, T> lastValue = default(Func<CallInfo, T>);
+            foreach (var value in specifiedFuncs)
+            {
+                lastValue = value;
+                yield return value;
+            }
+            yield return lastValue;
+        }
+    }
 }

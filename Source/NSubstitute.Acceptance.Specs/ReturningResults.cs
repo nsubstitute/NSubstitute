@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
@@ -38,6 +39,42 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Count(), Is.EqualTo(2), "Second return");
             Assert.That(_something.Count(), Is.EqualTo(3), "Third return");
             Assert.That(_something.Count(), Is.EqualTo(3), "Fourth return");
+        }
+
+        [Test]
+        public void Return_multiple_results_from_funcs()
+        {
+            _something.Count().Returns(
+                _ => 1,
+                _ => 2,
+                _ => 3);
+
+            Assert.That(_something.Count(), Is.EqualTo(1), "First return");
+            Assert.That(_something.Count(), Is.EqualTo(2), "Second return");
+            Assert.That(_something.Count(), Is.EqualTo(3), "Third return");
+            Assert.That(_something.Count(), Is.EqualTo(3), "Fourth return");
+        }
+
+        [Test]
+        public void Return_multiple_results_from_funcs_throws_exception()
+        {
+            _something.Count().Returns(
+                _ => 1,
+                _ => { throw new Exception("Count() execution failed."); },
+                _ => 3);
+
+            Assert.That(_something.Count(), Is.EqualTo(1), "First return");
+            Assert.Throws<Exception>(() => this._something.Count());
+            Assert.That(_something.Count(), Is.EqualTo(3), "Third return");
+        }
+
+        [Test]
+        public void Return_multiple_results_from_funcs_for_any_arguments()
+        {
+            _something.Echo(1).ReturnsForAnyArgs(_ => "first", _ => "second");
+
+            Assert.That(_something.Echo(2), Is.EqualTo("first"));
+            Assert.That(_something.Echo(724), Is.EqualTo("second"));
         }
 
         [Test]
