@@ -13,9 +13,9 @@ namespace NSubstitute
             Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
-        public static void Returns<T>(this T value, Func<CallInfo,T> returnThis)
+        public static void Returns<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
-            Returns(MatchArgs.AsSpecifiedInCall, returnThis);
+            Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
         public static void ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese)
@@ -23,9 +23,9 @@ namespace NSubstitute
             Returns(MatchArgs.Any, returnThis, returnThese);
         }
 
-        public static void ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis)
+        public static void ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
-            Returns(MatchArgs.Any, returnThis);
+            Returns(MatchArgs.Any, returnThis, returnThese);
         }
 
         private static void Returns<T>(MatchArgs matchArgs, T returnThis, params T[] returnThese)
@@ -43,10 +43,19 @@ namespace NSubstitute
             context.LastCallShouldReturn(returnValue, matchArgs);
         }
 
-        private static void Returns<T>(MatchArgs matchArgs, Func<CallInfo,T> returnThis)
+        private static void Returns<T>(MatchArgs matchArgs, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
             var context = SubstitutionContext.Current;
-            var returnValue = new ReturnValueFromFunc<T>(returnThis);
+            IReturn returnValue;
+            if (returnThese == null || returnThese.Length == 0)
+            {
+                returnValue = new ReturnValueFromFunc<T>(returnThis);
+            }
+            else
+            {
+                returnValue = new ReturnMultipleFuncsValues<T>(new[] { returnThis }.Concat(returnThese));
+            }
+
             context.LastCallShouldReturn(returnValue, matchArgs);
         }
 
