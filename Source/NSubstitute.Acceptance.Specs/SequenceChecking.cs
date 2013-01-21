@@ -248,6 +248,17 @@ namespace NSubstitute.Acceptance.Specs
                 );
         }
 
+        [Test]
+        public void Event_subscription()
+        {
+            _foo.OnFoo += () => { };
+
+            Received.InOrder(() =>
+                             {
+                                 _foo.OnFoo += Arg.Any<Action>();
+                             });
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -261,6 +272,7 @@ namespace NSubstitute.Acceptance.Specs
             void Start(int i);
             void Finish();
             void FunkyStuff(string s);
+            event Action OnFoo;
         }
 
         public interface IBar

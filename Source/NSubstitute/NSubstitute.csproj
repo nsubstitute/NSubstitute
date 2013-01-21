@@ -122,6 +122,8 @@
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\ICallRouterProvider.cs" />
+    <Compile Include="Core\SequenceChecking\InstanceTracker.cs" />
+    <Compile Include="Core\SequenceChecking\SequenceFormatter.cs" />
     <Compile Include="Core\IParameterInfo.cs" />
     <Compile Include="Core\IPendingSpecification.cs" />
     <Compile Include="Core\IQueryResults.cs" />
@@ -135,9 +137,8 @@
     <Compile Include="Core\IDefaultForType.cs" />
     <Compile Include="Core\IMethodInfoFormatter.cs" />
     <Compile Include="Core\ISubstituteState.cs" />
-    <Compile Include="Core\SequenceInOrderAssertion.cs" />
+    <Compile Include="Core\SequenceChecking\SequenceInOrderAssertion.cs" />
     <Compile Include="Core\SequenceNumberGenerator.cs" />
-    <Compile Include="Core\TypeInstanceNumberLookup.cs" />
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CallSequenceNotFoundException.cs" />
@@ -245,6 +246,7 @@
       <Link>Core\nsubstitute.snk</Link>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
   <Target Name="AfterBuild" Condition="(($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')) And '$(OS)' == 'Windows_NT'">
     <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">

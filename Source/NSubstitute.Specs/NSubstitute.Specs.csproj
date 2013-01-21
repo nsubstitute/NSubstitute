@@ -147,6 +147,7 @@
     <Compile Include="ResultSetterSpecs.cs" />
     <Compile Include="Routing\RouteSpecs.cs" />
     <Compile Include="Routing\Handlers\SetActionsForCallHandlerSpecs.cs" />
+    <Compile Include="SequenceChecking\InstanceTrackerSpecs.cs" />
     <Compile Include="SubstituteSpecs.cs" />
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="SubstituteFactorySpecs.cs" />
@@ -161,7 +162,6 @@
     <Compile Include="Infrastructure\Tests\BaseConcernSpecs.cs" />
     <Compile Include="SampleStructures\Foo.cs" />
     <Compile Include="SampleStructures\IFoo.cs" />
-    <Compile Include="TypeInstanceNumberLookupSpecs.cs" />
     <Compile Include="WhenCalledSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
