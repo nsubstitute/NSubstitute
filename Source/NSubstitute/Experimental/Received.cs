@@ -7,7 +7,7 @@ namespace NSubstitute.Experimental
     public class Received
     {
         /// <summary>
-        /// *EXPERIMENTAL:* Asserts the calls to the substitutes contained in the given Action were
+        /// *EXPERIMENTAL* Asserts the calls to the substitutes contained in the given Action were
         /// received by these substitutes in the same order. Calls to property getters are not included
         /// in the assertion.
         /// </summary>
