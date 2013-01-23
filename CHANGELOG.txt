@@ -4,6 +4,7 @@ unreleased changes
 * [FIX] Substitute objects now use actual implementation for base object methods (Equals, GetHashCode, ToString). Thanks to Robert Moore (@robdmoore) for this contribution. (#77)
 * [NEW] Auto-substitute for Task/Task<T>. Task<T> will use substitute rules that T would use. Thanks to Jake Ginnivan (@JakeGinnivan) for this contribution.
 * [NEW] Match derived types for generic calls (#97). Thanks to Iain Ballard for this contribution.
+* [NEW] Returns now supports passing multiple callbacks, which makes it easier to combine stubbing multiple return values followed by throwing an exception (#99). Thanks to Alexandr Nikitin for this contribution.
 
 1.4.3 (August 2012)
 * [FIX] Updated to Castle.Core 3.1.0 to fix an issue proxying generic methods with a struct constraint (#83).

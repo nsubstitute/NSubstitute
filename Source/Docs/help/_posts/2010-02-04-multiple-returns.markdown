@@ -22,3 +22,14 @@ Assert.AreEqual("BIN", calculator.Mode);
 {% endexamplecode %}
 
 This can also be achieved by [returning from a function](/help/return-from-function), but passing multiple values to `Returns()` is simpler and reads better.
+
+## Multiple returns using callbacks
+
+`Returns()` also supports passing multiple [functions to return from](/help/return-from-function), which allows one call in a sequence to throw an exception or perform some other action. 
+
+{% examplecode csharp %}
+calculator.Mode.Returns(x => "DEC", x => "HEX", x => { throw new Exception(); });
+Assert.AreEqual("DEC", calculator.Mode);
+Assert.AreEqual("HEX", calculator.Mode);
+Assert.Throws<Exception>(() => { var result = calculator.Mode; });
+{% endexamplecode %}
