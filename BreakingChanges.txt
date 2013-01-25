@@ -1,5 +1,5 @@
 ================================================================================================
-1.4.XXX Release
+1.5.0 Release
 ================================================================================================
 
 The base object methods (Equals, GetHashCode and ToString) for substitute objects of classes that
@@ -29,6 +29,17 @@ Fix:
 There is no workaround to change the behaviour of .Equals, .GetHashCode or .ToString. If you have
 a use case to change the behaviour of these methods please lodge an issue at the NSubstitute
 Github site.
+
+------------------------------------------------------------------------------------------------
+
+In rare cases the new `Returns()` and `ReturnsForAnyArgs()` overloads can cause compilation to fail due to the call being ambiguous (CS0121). 
+
+Reason:
+The new overloads allow a sequence of callbacks to be used for return values. A common example is return several values, then throwing an exception.
+
+Fix:
+Remove the ambiguity by explicitly casting the arguments types or by using lambda syntax.
+e.g. sub.Call().Returns(x => null, x => null);
 
 ================================================================================================
 1.4.0 Release

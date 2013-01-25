@@ -1,4 +1,4 @@
-unreleased changes
+1.5.0 (January 2013)
 * [EXPERIMENTAL] Asserting ordered call sequences
 * [FIX] Arg.Invoke with four arguments now passes fourth arg correctly (#88). Thanks to Ville Salonen (@VilleSalonen) for finding and patching this.
 * [FIX] Substitute objects now use actual implementation for base object methods (Equals, GetHashCode, ToString). Thanks to Robert Moore (@robdmoore) for this contribution. (#77)
