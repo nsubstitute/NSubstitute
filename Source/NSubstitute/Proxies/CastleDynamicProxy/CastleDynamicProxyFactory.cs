@@ -103,6 +103,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 #if NET4
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.TypeIdentifierAttribute>();
 #endif
+            AttributesToAvoidReplicating.Add<UIPermissionAttribute>();
         }
     }
 }
