@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NSubstitute.Core.Arguments
@@ -17,7 +18,7 @@ namespace NSubstitute.Core.Arguments
         {
             if (argument != null)
             {
-                var argumentArray = (IEnumerable<object>) argument;
+                var argumentArray = ((IEnumerable) argument).Cast<object>();
                 if (argumentArray.Count() == _argumentSpecifications.Count())
                 {
                     return
