@@ -10,6 +10,8 @@ namespace NSubstitute.Acceptance.Specs
     {
         private ICar _car;
         const int Rpm = 7000;
+        private static readonly object[] Luggage = new [] { new object(), new object() };
+        private static readonly DateTime[] ServiceDates = new[] {new DateTime(2001, 01, 01), new DateTime(2002, 02, 02)};
 
         [SetUp]
         public void SetUp()
@@ -229,6 +231,22 @@ namespace NSubstitute.Acceptance.Specs
             Assert.Throws<ReceivedCallsException>(() => _car.ReceivedWithAnyArgs(2).RevAt(0));
         }
 
+        [Test]
+        public void Check_when_call_was_received_with_reference_type_params_array()
+        {
+            _car.StoreLuggage(Luggage);
+
+            _car.Received().StoreLuggage(Luggage);
+        }
+
+        [Test]
+        public void Check_when_call_was_received_with_value_type_params_array()
+        {
+            _car.RecordServiceDates(ServiceDates);
+
+            _car.Received().RecordServiceDates(ServiceDates);
+        }
+
         public interface ICar
         {
             void Start();
@@ -237,6 +255,8 @@ namespace NSubstitute.Acceptance.Specs
             void Idle();
             void RevAt(int rpm);
             void FillPetrolTankTo(int percent);
+            void StoreLuggage(params object[] luggage);
+            void RecordServiceDates(params DateTime[] serviceDates);
             float GetCapacityInLitres();
             event Action Started;
         }
