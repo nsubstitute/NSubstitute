@@ -10,7 +10,7 @@ namespace NSubstitute.Core.Arguments
         public IEnumerable<IParameterInfo> Create(object paramsArrayArgument, Type paramsArrayType)
         {
             var elementType = paramsArrayType.GetElementType();
-            var arrayElements = (IEnumerable<object>)paramsArrayArgument;
+            var arrayElements = ((IEnumerable)paramsArrayArgument).Cast<object>();
             return arrayElements.Select<object, IParameterInfo>(x => new ParameterInfoFromType(elementType));
         }
     }
