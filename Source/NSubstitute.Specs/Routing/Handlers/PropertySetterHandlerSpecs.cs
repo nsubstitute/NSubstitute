@@ -12,13 +12,13 @@ namespace NSubstitute.Specs.Routing.Handlers
             protected readonly object _setValue = new object();
             protected ICall _call;
             protected IPropertyHelper _propertyHelper;
-            protected IResultSetter _resultSetter;
+            protected IConfigureCall ConfigureCall;
             protected ICall _propertyGetter;
 
             public override void Context()
             {
                 _propertyHelper = mock<IPropertyHelper>();
-                _resultSetter = mock<IResultSetter>();
+                ConfigureCall = mock<IConfigureCall>();
                 _call = mock<ICall>();
                 _propertyGetter = mock<ICall>();
 
@@ -29,7 +29,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override PropertySetterHandler CreateSubjectUnderTest()
             {
-                return new PropertySetterHandler(_propertyHelper, _resultSetter);
+                return new PropertySetterHandler(_propertyHelper, ConfigureCall);
             }
         }
 
@@ -59,7 +59,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             {
                 base.Context();
                 _propertyHelper.stub(x => x.IsCallToSetAReadWriteProperty(_call)).Return(true);
-                _resultSetter
+                ConfigureCall
                     .stub(x => x.SetResultForCall(It.Is(_propertyGetter), It.IsAny<IReturn>(), It.Is(MatchArgs.AsSpecifiedInCall)))
                     .WhenCalled(x => _returnPassedToResultSetter = (ReturnValue)x.Arguments[1]);
             }
@@ -72,7 +72,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Should_not_add_any_values_to_configured_results()
             {
-                _resultSetter.did_not_receive(x => x.SetResultForCall(It.Is(_propertyGetter), It.IsAny<IReturn>(), It.Is(MatchArgs.AsSpecifiedInCall)));
+                ConfigureCall.did_not_receive(x => x.SetResultForCall(It.Is(_propertyGetter), It.IsAny<IReturn>(), It.Is(MatchArgs.AsSpecifiedInCall)));
             }
 
             [Test]

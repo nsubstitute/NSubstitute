@@ -94,6 +94,7 @@
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallInfoSpecs.cs" />
+    <Compile Include="GetCallSpecSpecs.cs" />
     <Compile Include="Infrastructure\TestCallRouter.cs" />
     <Compile Include="QuantitySpecs.cs" />
     <Compile Include="ReceivedCallsExceptionThrowerSpecs.cs" />
@@ -144,7 +145,7 @@
     <Compile Include="Routing\Handlers\ReturnDefaultForReturnTypeHandlerSpecs.cs" />
     <Compile Include="ReturnExtensionSpec.cs" />
     <Compile Include="CallRouterSpecs.cs" />
-    <Compile Include="ResultSetterSpecs.cs" />
+    <Compile Include="ConfigureCallSpecs.cs" />
     <Compile Include="Routing\RouteSpecs.cs" />
     <Compile Include="Routing\Handlers\SetActionsForCallHandlerSpecs.cs" />
     <Compile Include="SequenceChecking\InstanceTrackerSpecs.cs" />

@@ -9,62 +9,67 @@ namespace NSubstitute.Routing
         public IRoute CallQuery(ISubstituteState state)
         {
             return new Route(new ICallHandler[] {
-                new ClearUnusedCallSpecHandler(state.PendingSpecification)
+                new ClearUnusedCallSpecHandler(state)
                 , new AddCallToQueryResultHandler(state.SubstitutionContext, state.CallSpecificationFactory)
                 , new ReturnConfiguredResultHandler(state.CallResults)
-                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ResultSetter)
-                , new ReturnDefaultForReturnTypeHandler(state.DefaultForType)
+                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
+                , ReturnDefaultForReturnTypeHandler()
             });
         }
         public IRoute CheckReceivedCalls(ISubstituteState state, MatchArgs matchArgs, Quantity requiredQuantity)
         {
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(state.SubstitutionContext)
-                , new ClearUnusedCallSpecHandler(state.PendingSpecification)
-                , new CheckReceivedCallsHandler(state.ReceivedCalls, state.CallSpecificationFactory, state.ReceivedCallsExceptionThrower, matchArgs, requiredQuantity)
-                , new ReturnDefaultForReturnTypeHandler(state.DefaultForType)
+                , new ClearUnusedCallSpecHandler(state)
+                , new CheckReceivedCallsHandler(state.ReceivedCalls, state.CallSpecificationFactory, new ReceivedCallsExceptionThrower(), matchArgs, requiredQuantity)
+                , ReturnDefaultForReturnTypeHandler()
             });
         }
         public IRoute DoWhenCalled(ISubstituteState state, Action<CallInfo> doAction, MatchArgs matchArgs)
         {
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(state.SubstitutionContext)
-                , new ClearUnusedCallSpecHandler(state.PendingSpecification)
+                , new ClearUnusedCallSpecHandler(state)
                 , new SetActionForCallHandler(state.CallSpecificationFactory, state.CallActions, doAction, matchArgs)
-                , new ReturnDefaultForReturnTypeHandler(state.DefaultForType)
+                , ReturnDefaultForReturnTypeHandler()
             });
         }
         public IRoute RaiseEvent(ISubstituteState state, Func<ICall, object[]> getEventArguments)
         {
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(state.SubstitutionContext)
-                , new ClearUnusedCallSpecHandler(state.PendingSpecification)
+                , new ClearUnusedCallSpecHandler(state)
                 , new RaiseEventHandler(state.EventHandlerRegistry, getEventArguments)
-                , new ReturnDefaultForReturnTypeHandler(state.DefaultForType)
+                , ReturnDefaultForReturnTypeHandler()
             });
         }
         public IRoute RecordCallSpecification(ISubstituteState state)
         {
             return new Route(new ICallHandler[] {
                 new RecordCallSpecificationHandler(state.PendingSpecification, state.CallSpecificationFactory, state.CallActions)
-                , new PropertySetterHandler(state.PropertyHelper, state.ResultSetter)
+                , new PropertySetterHandler(new PropertyHelper(), state.ConfigureCall)
                 , new ReturnConfiguredResultHandler(state.CallResults)
-                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ResultSetter)
-                , new ReturnDefaultForReturnTypeHandler(state.DefaultForType)
+                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
+                , ReturnDefaultForReturnTypeHandler()
             });
         }
         public IRoute RecordReplay(ISubstituteState state)
         {
             return new Route(RouteType.RecordReplay, new ICallHandler[] {
-                new ClearUnusedCallSpecHandler(state.PendingSpecification)
+                new ClearUnusedCallSpecHandler(state)
                 , new RecordCallHandler(state.CallStack, state.SequenceNumberGenerator)
                 , new EventSubscriptionHandler(state.EventHandlerRegistry)
-                , new PropertySetterHandler(state.PropertyHelper, state.ResultSetter)
+                , new PropertySetterHandler(new PropertyHelper(), state.ConfigureCall)
                 , new DoActionsCallHandler(state.CallActions)
                 , new ReturnConfiguredResultHandler(state.CallResults)
-                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ResultSetter)
-                , new ReturnDefaultForReturnTypeHandler(state.DefaultForType)
+                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
+                , ReturnDefaultForReturnTypeHandler()
             });
+        }
+
+        private static ReturnDefaultForReturnTypeHandler ReturnDefaultForReturnTypeHandler()
+        {
+            return new ReturnDefaultForReturnTypeHandler(new DefaultForType());
         }
     }
 }

@@ -44,11 +44,12 @@ namespace NSubstitute.Core
         public SequenceNumberGenerator SequenceNumberGenerator { get { return _sequenceNumberGenerator; } }
         public bool IsQuerying { get { return _currentQuery.Value != null; } }
 
-        public void LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
+        public ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
         {
             if (_lastCallRouter.Value == null) throw new CouldNotSetReturnException();
-            _lastCallRouter.Value.LastCallShouldReturn(value, matchArgs);
+            var configuredCall = _lastCallRouter.Value.LastCallShouldReturn(value, matchArgs);
             ClearLastCallRouter();
+            return configuredCall;
         }
 
         public void ClearLastCallRouter()

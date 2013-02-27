@@ -13,7 +13,7 @@ namespace NSubstitute.Core
         readonly ISubstituteState _substituteState;
         readonly ISubstitutionContext _context;
         readonly IReceivedCalls _receivedCalls;
-        readonly IResultSetter _resultSetter;
+        readonly IConfigureCall ConfigureCall;
         readonly IRouteFactory _routeFactory;
         IRoute _currentRoute;
         bool _isSetToDefaultRoute;
@@ -24,7 +24,7 @@ namespace NSubstitute.Core
             _context = context;
             _routeFactory = routeFactory;
             _receivedCalls = substituteState.ReceivedCalls;
-            _resultSetter = substituteState.ResultSetter;
+            ConfigureCall = substituteState.ConfigureCall;
 
             UseDefaultRouteForNextCall();
         }
@@ -57,9 +57,9 @@ namespace NSubstitute.Core
             return routeToUseForThisCall.Handle(call);
         }
 
-        public void LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
+        public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
         {
-            _resultSetter.SetResultForLastCall(returnValue, matchArgs);
+            return ConfigureCall.SetResultForLastCall(returnValue, matchArgs);
         }
 
         private bool IsSpecifyingACall(ICall call)

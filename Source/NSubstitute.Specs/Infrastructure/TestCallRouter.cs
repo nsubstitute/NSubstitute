@@ -7,7 +7,10 @@ namespace NSubstitute.Specs.Infrastructure
 {
     public class TestCallRouter : ICallRouter
     {
-        public void LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs) { }
+        public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
+        {
+            return new ConfiguredCall(x => { });
+        }
         public void ClearReceivedCalls() { }
         public IEnumerable<ICall> ReceivedCalls() { return new ICall[0]; }
 

@@ -8,27 +8,27 @@ namespace NSubstitute
 {
     public static class SubstituteExtensions
     {
-        public static void Returns<T>(this T value, T returnThis, params T[] returnThese)
+        public static ConfiguredCall Returns<T>(this T value, T returnThis, params T[] returnThese)
         {
-            Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
+            return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
-        public static void Returns<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+        public static ConfiguredCall Returns<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
-            Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
+            return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
-        public static void ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese)
+        public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese)
         {
-            Returns(MatchArgs.Any, returnThis, returnThese);
+            return Returns(MatchArgs.Any, returnThis, returnThese);
         }
 
-        public static void ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+        public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
-            Returns(MatchArgs.Any, returnThis, returnThese);
+            return Returns(MatchArgs.Any, returnThis, returnThese);
         }
 
-        private static void Returns<T>(MatchArgs matchArgs, T returnThis, params T[] returnThese)
+        private static ConfiguredCall Returns<T>(MatchArgs matchArgs, T returnThis, params T[] returnThese)
         {
             var context = SubstitutionContext.Current;
             IReturn returnValue;
@@ -40,10 +40,10 @@ namespace NSubstitute
             {            
                 returnValue = new ReturnMultipleValues<T>(new[] {returnThis}.Concat(returnThese));
             }
-            context.LastCallShouldReturn(returnValue, matchArgs);
+            return context.LastCallShouldReturn(returnValue, matchArgs);
         }
 
-        private static void Returns<T>(MatchArgs matchArgs, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+        private static ConfiguredCall Returns<T>(MatchArgs matchArgs, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
             var context = SubstitutionContext.Current;
             IReturn returnValue;
@@ -56,7 +56,7 @@ namespace NSubstitute
                 returnValue = new ReturnMultipleFuncsValues<T>(new[] { returnThis }.Concat(returnThese));
             }
 
-            context.LastCallShouldReturn(returnValue, matchArgs);
+            return context.LastCallShouldReturn(returnValue, matchArgs);
         }
 
         public static T Received<T>(this T substitute) where T : class

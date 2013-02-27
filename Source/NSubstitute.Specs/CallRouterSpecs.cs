@@ -16,7 +16,7 @@ namespace NSubstitute.Specs
             protected readonly object _returnValueFromRecordReplayRoute = "value from record replay route";
             protected ISubstitutionContext _context;
             protected ICall _call;
-            protected IResultSetter _resultSetter;
+            protected IConfigureCall ConfigureCall;
             protected IRouteFactory _routeFactory;
             protected IReceivedCalls _receivedCalls;
             protected ISubstituteState _state;
@@ -27,10 +27,10 @@ namespace NSubstitute.Specs
                 _call = mock<ICall>();
                 _state = mock<ISubstituteState>();
                 _receivedCalls = mock<IReceivedCalls>();
-                _resultSetter = mock<IResultSetter>();
+                ConfigureCall = mock<IConfigureCall>();
                 _routeFactory = mock<IRouteFactory>();
                 _state.stub(x => x.ReceivedCalls).Return(_receivedCalls);
-                _state.stub(x => x.ResultSetter).Return(_resultSetter);
+                _state.stub(x => x.ConfigureCall).Return(ConfigureCall);
 
                 var recordReplayRoute = CreateRouteThatReturns(_returnValueFromRecordReplayRoute);
                 recordReplayRoute.stub(x => x.IsRecordReplayRoute).Return(true);
@@ -148,7 +148,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_set_result()
             {
-                _resultSetter.received(x => x.SetResultForLastCall(_returnValue, _argMatching));
+                ConfigureCall.received(x => x.SetResultForLastCall(_returnValue, _argMatching));
             }
 
             public override void Because()

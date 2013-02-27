@@ -26,6 +26,7 @@ namespace NSubstitute.Specs
                 _substitutionContext
                     .stub(x => x.LastCallShouldReturn(It.IsAny<IReturn>(), It.IsAny<MatchArgs>()))
                     .IgnoreArguments()
+                    .Return(new ConfiguredCall(x => { }))
                     .WhenCalled(x => _returnValueSet = (IReturn) x.Arguments[0]);
                 temporarilyChange(() => SubstitutionContext.Current).to(_substitutionContext);
             }

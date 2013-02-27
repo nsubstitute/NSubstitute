@@ -1,8 +1,8 @@
 namespace NSubstitute.Core
 {
-    public interface IResultSetter
+    public interface IConfigureCall
     {
-        void SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs);
+        ConfiguredCall SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs);
         void SetResultForCall(ICall call, IReturn valueToReturn, MatchArgs matchArgs);
     }
 }

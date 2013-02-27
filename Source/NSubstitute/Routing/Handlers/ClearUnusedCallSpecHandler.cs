@@ -4,16 +4,16 @@ namespace NSubstitute.Routing.Handlers
 {
     public class ClearUnusedCallSpecHandler : ICallHandler
     {
-        private readonly IPendingSpecification _pendingSpecification;
+        private readonly ISubstituteState _state;
 
-        public ClearUnusedCallSpecHandler(IPendingSpecification pendingSpecification)
+        public ClearUnusedCallSpecHandler(ISubstituteState state)
         {
-            _pendingSpecification = pendingSpecification;
+            _state = state;
         }
 
         public RouteAction Handle(ICall call)
         {
-            _pendingSpecification.Clear();
+            _state.ClearUnusedCallSpecs();
             return RouteAction.Continue();
         }
     }
