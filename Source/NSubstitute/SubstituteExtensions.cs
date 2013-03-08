@@ -8,21 +8,53 @@ namespace NSubstitute
 {
     public static class SubstituteExtensions
     {
+        /// <summary>
+        /// Set a return value for a method call on this substitute
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="returnThis"></param>
+        /// <param name="returnThese"></param>
+        /// <returns></returns>
         public static ConfiguredCall Returns<T>(this T value, T returnThis, params T[] returnThese)
         {
             return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
+        /// <summary>
+        /// Set a return value for a method call on this substitute
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="returnThis"></param>
+        /// <param name="returnThese"></param>
+        /// <returns></returns>
         public static ConfiguredCall Returns<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
             return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
+        /// <summary>
+        /// Set a return value for a method call on this substitute, ignoring arguments
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="returnThis"></param>
+        /// <param name="returnThese"></param>
+        /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese)
         {
             return Returns(MatchArgs.Any, returnThis, returnThese);
         }
 
+        /// <summary>
+        /// Set a return value for a method call on this substitute, ignoring arguments
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="returnThis"></param>
+        /// <param name="returnThese"></param>
+        /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
             return Returns(MatchArgs.Any, returnThis, returnThese);
@@ -59,6 +91,12 @@ namespace NSubstitute
             return context.LastCallShouldReturn(returnValue, matchArgs);
         }
 
+        /// <summary>
+        /// Checks that the substitute has received a specific call
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <returns></returns>
         public static T Received<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
@@ -66,6 +104,13 @@ namespace NSubstitute
             return substitute;
         }
 
+        /// <summary>
+        /// Checks that the substitute has received a specific call a specified number of times
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <param name="requiredNumberOfCalls"></param>
+        /// <returns></returns>
         public static T Received<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
@@ -73,6 +118,12 @@ namespace NSubstitute
             return substitute;
         }
 
+        /// <summary>
+        /// Checks that the substitute has not received a specific call
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <returns></returns>
         public static T DidNotReceive<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
@@ -80,6 +131,12 @@ namespace NSubstitute
             return substitute;
         }
 
+        /// <summary>
+        /// Checks that the substitute has received a specific call, ignoring arguments
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <returns></returns>
         public static T ReceivedWithAnyArgs<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
@@ -87,6 +144,13 @@ namespace NSubstitute
             return substitute;
         }
 
+        /// <summary>
+        /// Checks that the substitute has received a specific call a specified number of times, ignoring arguments
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <param name="requiredNumberOfCalls"></param>
+        /// <returns></returns>
         public static T ReceivedWithAnyArgs<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
@@ -94,6 +158,12 @@ namespace NSubstitute
             return substitute;
         }
         
+        /// <summary>
+        /// Checks that the substitute has not received a specific call, ignoring arguments
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <returns></returns>
         public static T DidNotReceiveWithAnyArgs<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
@@ -101,24 +171,52 @@ namespace NSubstitute
             return substitute;
         }
 
+        /// <summary>
+        /// Forget all the calls previously made to this substitute
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <remarks>
+        /// Note that this will not clear any results set up for the substitute using Returns()
+        /// </remarks>
         public static void ClearReceivedCalls<T>(this T substitute) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
             router.ClearReceivedCalls();
         }
 
+        /// <summary>
+        /// Used in conjuction with Do() to get callbacks for void members
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <param name="substituteCall"></param>
+        /// <returns></returns>
         public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
             return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.AsSpecifiedInCall);            
         }
 
+        /// <summary>
+        /// Used in conjunction with Do() to get callbacks for void members, matching any arguments
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <param name="substituteCall"></param>
+        /// <returns></returns>
         public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
             return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.Any);            
         }
 
+        /// <summary>
+        /// Returns list of calls received by this object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <returns></returns>
         public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class
         {
             return GetRouterForSubstitute(substitute).ReceivedCalls();
