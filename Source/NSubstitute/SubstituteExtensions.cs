@@ -9,12 +9,12 @@ namespace NSubstitute
     public static class SubstituteExtensions
     {
         /// <summary>
-        /// Set a return value for a method call on this substitute
+        /// Set a return value for this call.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <param name="returnThis"></param>
-        /// <param name="returnThese"></param>
+        /// <param name="returnThis">Value to return</param>
+        /// <param name="returnThese">Optionally return these values next</param>
         /// <returns></returns>
         public static ConfiguredCall Returns<T>(this T value, T returnThis, params T[] returnThese)
         {
@@ -22,12 +22,12 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Set a return value for a method call on this substitute
+        /// Set a return value for this call, calculated by the provided function.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <param name="returnThis"></param>
-        /// <param name="returnThese"></param>
+        /// <param name="returnThis">Function to calculate the return value</param>
+        /// <param name="returnThese">Optionally use these functions next</param>
         /// <returns></returns>
         public static ConfiguredCall Returns<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
@@ -35,12 +35,12 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Set a return value for a method call on this substitute, ignoring arguments
+        /// Set a return value for this call made with any arguments.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <param name="returnThis"></param>
-        /// <param name="returnThese"></param>
+        /// <param name="returnThis">Value to return</param>
+        /// <param name="returnThese">Optionally return these values next</param>
         /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese)
         {
@@ -48,12 +48,12 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Set a return value for a method call on this substitute, ignoring arguments
+        /// Set a return value for this call made with any arguments, calculated by the provided function.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
-        /// <param name="returnThis"></param>
-        /// <param name="returnThese"></param>
+        /// <param name="returnThis">Function to calculate the return value</param>
+        /// <param name="returnThese">Optionally use these functions next</param>
         /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
@@ -92,7 +92,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Checks that the substitute has received a specific call
+        /// Checks this substitute has received the following call.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>
@@ -105,7 +105,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Checks that the substitute has received a specific call a specified number of times
+        /// Checks this substitute has received the following call the required number of times.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>
@@ -119,7 +119,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Checks that the substitute has not received a specific call
+        /// Checks this substitute has not received the following call.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>
@@ -132,7 +132,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Checks that the substitute has received a specific call, ignoring arguments
+        /// Checks this substitute has received the following call with any arguments.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>
@@ -145,7 +145,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Checks that the substitute has received a specific call a specified number of times, ignoring arguments
+        /// Checks this substitute has received the following call with any arguments the required number of times.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>
@@ -159,7 +159,7 @@ namespace NSubstitute
         }
         
         /// <summary>
-        /// Checks that the substitute has not received a specific call, ignoring arguments
+        /// Checks this substitute has not received the following call with any arguments.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>
@@ -172,12 +172,12 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Forget all the calls previously made to this substitute
+        /// Forget all the calls this substitute has received.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>
         /// <remarks>
-        /// Note that this will not clear any results set up for the substitute using Returns()
+        /// Note that this will not clear any results set up for the substitute using Returns().
         /// </remarks>
         public static void ClearReceivedCalls<T>(this T substitute) where T : class
         {
@@ -186,7 +186,8 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Used in conjuction with Do() to get callbacks for void members
+        /// Perform an action when this member is called. 
+        /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>
@@ -199,7 +200,8 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Used in conjunction with Do() to get callbacks for void members, matching any arguments
+        /// Perform an action when this member is called with any arguments. 
+        /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>
@@ -212,7 +214,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Returns list of calls received by this object
+        /// Returns the calls received by this substitute.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="substitute"></param>

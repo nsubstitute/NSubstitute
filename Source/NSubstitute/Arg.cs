@@ -46,7 +46,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Invoke any <see cref="Action"/> argument as soon as a matching call is made to the substitute.
+        /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
         /// </summary>
         /// <returns></returns>
         public static Action Invoke()
@@ -55,7 +55,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Invoke any <see cref="Action&lt;T&gt;"/> argument with specified argument as soon as a matching call is made to the substitute.
+        /// Invoke any <see cref="Action&lt;T&gt;"/> argument with specified argument whenever a matching call is made to the substitute.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="arg"></param>
@@ -66,7 +66,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Invoke any <see cref="Action&lt;T1,T2&gt;"/> argument with specified arguments as soon as a matching call is made to the substitute.
+        /// Invoke any <see cref="Action&lt;T1,T2&gt;"/> argument with specified arguments whenever a matching call is made to the substitute.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -79,7 +79,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Invoke any <see cref="Action&lt;T1,T2,T3&gt;"/> argument with specified arguments as soon as a matching call is made to the substitute.
+        /// Invoke any <see cref="Action&lt;T1,T2,T3&gt;"/> argument with specified arguments whenever a matching call is made to the substitute.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -94,7 +94,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Invoke any <see cref="Action&lt;T1,T2,T3,T4&gt;"/> argument with specified arguments as soon as a matching call is made to the substitute.
+        /// Invoke any <see cref="Action&lt;T1,T2,T3,T4&gt;"/> argument with specified arguments whenever a matching call is made to the substitute.
         /// </summary>
         /// <typeparam name="T1"></typeparam>
         /// <typeparam name="T2"></typeparam>
@@ -111,7 +111,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Invoke any <typeparamref name="TDelegate"/> argument with specified arguments as soon as a matching call is made to the substitute.
+        /// Invoke any <typeparamref name="TDelegate"/> argument with specified arguments whenever a matching call is made to the substitute.
         /// </summary>
         /// <typeparam name="TDelegate"></typeparam>
         /// <param name="arguments">Arguments to pass to delegate.</param>
@@ -123,7 +123,7 @@ namespace NSubstitute
 
         /// <summary>
         /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function 
-        /// as soon as a matching call is made to the substitute.
+        /// whenever a matching call is made to the substitute.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="useArgument"></param>

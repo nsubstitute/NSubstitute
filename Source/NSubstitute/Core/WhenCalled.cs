@@ -20,6 +20,10 @@ namespace NSubstitute.Core
             _routeFactory = context.GetRouteFactory();
         }
 
+        /// <summary>
+        /// Perform this action when called.
+        /// </summary>
+        /// <param name="callbackWithArguments"></param>
         public void Do(Action<CallInfo> callbackWithArguments)
         {
             _callRouter.SetRoute(x => _routeFactory.DoWhenCalled(x, callbackWithArguments, _matchArgs));
