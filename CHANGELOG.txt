@@ -1,3 +1,9 @@
+1.6.0 (April 2013)
+* [NEW] .AndDoes() method for chaining a callback after a Returns(). (#98)
+* [FIX] Handling calls with params argument of value types, thanks to Eric Winkler.
+* [FIX] Can now substitute for interfaces implementing System.Windows.IDataObject, thanks to Johan Appelgren.
+* [UPDATE] Improved XML doc comments, thanks to David Gardiner.
+
 1.5.0 (January 2013)
 * [EXPERIMENTAL] Asserting ordered call sequences
 * [FIX] Arg.Invoke with four arguments now passes fourth arg correctly (#88). Thanks to Ville Salonen (@VilleSalonen) for finding and patching this.
