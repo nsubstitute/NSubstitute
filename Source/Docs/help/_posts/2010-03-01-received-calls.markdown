@@ -8,6 +8,7 @@ In some cases (particularly for `void` methods) it is useful to check that a spe
 {% examplecode csharp %}
 public interface ICommand {
     void Execute();
+    event EventHandler Executed;
 }
 
 public class SomethingThatNeedsACommand {
@@ -142,3 +143,47 @@ dictionary["test"] = 1;
 dictionary.Received()["test"] = 1;
 dictionary.Received()["test"] = Arg.Is<int>(x => x < 5);
 {% endexamplecode %}
+
+## Checking event subscriptions
+
+As with properties, we'd normally favour testing the required behaviour over checking subscriptions to particular event handlers. We can do that by [raising an event on the substitute](/help/raising-events/) and asserting our class performs the correct behaviour in response:
+
+{% examplecode csharp %} 
+public class CommandWatcher {
+    ICommand command;
+    public CommandWatcher(ICommand command) { 
+    	command.Executed += OnExecuted;
+    }
+    public bool DidStuff { get; private set; }
+    public void OnExecuted(object o, EventArgs e) { DidStuff = true; }
+} 
+
+[Test]
+public void ShouldDoStuffWhenCommandExecutes() {
+  var command = Substitute.For<ICommand>();
+  var watcher = new CommandWatcher(command);
+
+  command.Executed += Raise.Event();
+
+  Assert.That(watcher.DidStuff);
+}
+{% endexamplecode %} 
+
+If required though, `Received` will let us assert that the subscription was received:
+
+{% examplecode csharp %}
+[Test]
+public void MakeSureWatcherSubscribesToCommandExecuted() {
+  var command = Substitute.For<ICommand>();
+  var watcher = new CommandWatcher(command);
+
+  // Not recommended. Favour testing behaviour over implementation specifics.
+  // Can check subscription:
+  command.Received().Executed += watcher.OnExecuted;
+  // Or, if the handler is not accessible:
+  command.Received().Executed += Arg.Any<EventHandler>();
+}
+{% endexamplecode %}
+
+
+
