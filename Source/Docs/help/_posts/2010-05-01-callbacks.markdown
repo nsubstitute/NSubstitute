@@ -3,7 +3,7 @@ title: Callbacks, void calls and When..Do
 layout: post
 ---
 
-Sometimes it is useful to execute some arbitrary code whenever a particular call is made. We have already seen an example of this when [passing functions to `Returns()`](/help/return-from-function).
+Sometimes it is useful to execute some arbitrary code whenever a particular call is made. We have already seen an example of this when [passing functions to `Returns()`](/help/return-from-function/#callbacks).
 
 {% requiredcode %}
 public interface ICalculator {
