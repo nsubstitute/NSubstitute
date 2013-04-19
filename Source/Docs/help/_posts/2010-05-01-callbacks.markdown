@@ -18,9 +18,9 @@ ICalculator calculator;
 var counter = 0;
 calculator
     .Add(0,0)
-    .ReturnsForAnyArgs(x => {
-        counter++; return 0;
-    });
+    .ReturnsForAnyArgs(x => 0)
+    .AndDoes(x => counter++);
+
 calculator.Add(7,3);
 calculator.Add(2,2);
 calculator.Add(11,-3);

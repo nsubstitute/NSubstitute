@@ -61,3 +61,17 @@ calculator.Add(2,2);
 calculator.Add(11,-3);
 Assert.AreEqual(counter, 3);
 {% endexamplecode %}
+
+Alternatively the callback can be specified after the `Returns` using `AndDoes`:
+
+{% examplecode csharp %}
+var counter = 0;
+calculator
+    .Add(0, 0)
+    .ReturnsForAnyArgs(x => 0)
+    .AndDoes(x => counter++);
+
+calculator.Add(7,3);
+calculator.Add(2,2);
+Assert.AreEqual(counter, 2);
+{% endexamplecode %}
