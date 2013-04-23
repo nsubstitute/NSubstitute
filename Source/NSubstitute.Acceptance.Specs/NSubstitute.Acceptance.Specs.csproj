@@ -71,6 +71,7 @@
     <Compile Include="ArgumentInvocationFromMatchers.cs" />
     <Compile Include="ArgDoFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
+    <Compile Include="FieldReports\CallingIntoNewSubWithinReturns.cs" />
     <Compile Include="ReturnsAndDoes.cs" />
     <Compile Include="ExceptionsWhenCheckingReceivedCalls.cs" />
     <Compile Include="ExceptionsWhenCheckingSequencesOfCalls.cs" />
