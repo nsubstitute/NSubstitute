@@ -116,20 +116,16 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Throw_when_blatantly_misusing_returns()
         {
-            const string expectedMessage = 
-                "Could not find a call to return from.\n"+
-                "Make sure you called Returns() after calling your substitute (for example: mySub.SomeMethod().Returns(value)).\n" +
-                "If you substituted for a class rather than an interface, check that the call to your substitute was on a virtual/abstract member.\n" +
-                "Return values cannot be configured for non-virtual/non-abstract members.";
+            const string expectedMessagePrefix = "Could not find a call to return from.";
 
-            var exception = Assert.Throws<CouldNotSetReturnException>(() =>
+            var exception = Assert.Throws<CouldNotSetReturnDueToNoLastCallException>(() =>
               {
                   //Start with legitimate call to Returns (so the static context will not have any residual calls stored).
                   _something.Echo(1).Returns("one");
                   //Now we'll misuse Returns.
                   "".Returns("I shouldn't be calling returns like this!");
               });
-            Assert.That(exception.Message, Contains.Substring(expectedMessage));
+            Assert.That(exception.Message, Is.StringContaining(expectedMessagePrefix));
         }
 
         [SetUp]

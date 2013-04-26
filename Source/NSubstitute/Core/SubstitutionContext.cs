@@ -46,7 +46,7 @@ namespace NSubstitute.Core
 
         public ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
         {
-            if (_lastCallRouter.Value == null) throw new CouldNotSetReturnException();
+            if (_lastCallRouter.Value == null) throw new CouldNotSetReturnDueToNoLastCallException();
             var configuredCall = _lastCallRouter.Value.LastCallShouldReturn(value, matchArgs);
             ClearLastCallRouter();
             return configuredCall;

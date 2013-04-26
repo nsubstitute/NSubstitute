@@ -38,7 +38,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw_if_trying_to_set_another_return_value_before_another_call_is_made_on_a_substitute()
             {
-                Assert.Throws<CouldNotSetReturnException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
+                Assert.Throws<CouldNotSetReturnDueToNoLastCallException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
             }
 
             public override void Because()
@@ -60,7 +60,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_throw()
             {
-                Assert.Throws<CouldNotSetReturnException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
+                Assert.Throws<CouldNotSetReturnDueToNoLastCallException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
             }
         }
 

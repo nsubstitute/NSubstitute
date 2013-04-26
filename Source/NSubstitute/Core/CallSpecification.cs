@@ -20,10 +20,9 @@ namespace NSubstitute.Core
             _argumentSpecifications = argumentSpecifications.ToArray();
         }
 
-        public MethodInfo GetMethodInfo()
-        {
-            return _methodInfo;
-        }
+        public MethodInfo GetMethodInfo() { return _methodInfo; }
+
+        public Type ReturnType() { return _methodInfo.ReturnType; }
 
         public bool IsSatisfiedBy(ICall call)
         {

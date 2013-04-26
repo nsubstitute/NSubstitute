@@ -1,5 +1,6 @@
 using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
@@ -12,7 +13,7 @@ namespace NSubstitute.Specs
             protected ICallActions _callActions;
             protected ICallResults _configuredResults;
             protected IGetCallSpec _getCallSpec;
-            protected IReturn _returnValue;
+            protected IReturn _compatibleReturnValue;
 
             public override void Context()
             {
@@ -20,7 +21,8 @@ namespace NSubstitute.Specs
                 _callActions = mock<ICallActions>();
                 _getCallSpec = mock<IGetCallSpec>();
 
-                _returnValue = mock<IReturn>();
+                _compatibleReturnValue = mock<IReturn>();
+                _compatibleReturnValue.stub(x => x.CanBeAssignedTo(It.IsAny<Type>())).Return(true);
             }
 
             public override ConfigureCall CreateSubjectUnderTest()
@@ -37,9 +39,9 @@ namespace NSubstitute.Specs
                 var lastCallSpec = mock<ICallSpecification>();
                 _getCallSpec.stub(x => x.FromLastCall(MatchArgs.AsSpecifiedInCall)).Return(lastCallSpec);
 
-                sut.SetResultForLastCall(_returnValue, MatchArgs.AsSpecifiedInCall);
+                sut.SetResultForLastCall(_compatibleReturnValue, MatchArgs.AsSpecifiedInCall);
 
-                _configuredResults.received(x => x.SetResult(lastCallSpec, _returnValue));
+                _configuredResults.received(x => x.SetResult(lastCallSpec, _compatibleReturnValue));
             }
         }
 
@@ -52,9 +54,9 @@ namespace NSubstitute.Specs
                 var callSpec = mock<ICallSpecification>();
                 _getCallSpec.stub(x => x.FromCall(call, MatchArgs.AsSpecifiedInCall)).Return(callSpec);
 
-                sut.SetResultForCall(call, _returnValue, MatchArgs.AsSpecifiedInCall);
+                sut.SetResultForCall(call, _compatibleReturnValue, MatchArgs.AsSpecifiedInCall);
 
-                _configuredResults.received(x => x.SetResult(callSpec, _returnValue));
+                _configuredResults.received(x => x.SetResult(callSpec, _compatibleReturnValue));
             }
         }
 
@@ -68,7 +70,7 @@ namespace NSubstitute.Specs
                 var lastCallSpec = mock<ICallSpecification>();
                 _getCallSpec.stub(x => x.FromLastCall(MatchArgs.AsSpecifiedInCall)).Return(lastCallSpec);
 
-                var config = sut.SetResultForLastCall(_returnValue, MatchArgs.AsSpecifiedInCall);
+                var config = sut.SetResultForLastCall(_compatibleReturnValue, MatchArgs.AsSpecifiedInCall);
                 config
                     .AndDoes(firstAction)
                     .AndDoes(secondAction);
@@ -77,5 +79,27 @@ namespace NSubstitute.Specs
                 _callActions.received(x => x.Add(lastCallSpec, secondAction));
             }
         }
+
+        public class When_setting_incompatible_result_for_call : Concern
+        {
+            [Test]
+            public void Configure_result_for_last_specified_call()
+            {
+                var lastCallSpec = mock<ICallSpecification>();
+                _getCallSpec.stub(x => x.FromLastCall(MatchArgs.AsSpecifiedInCall)).Return(lastCallSpec);
+                lastCallSpec.stub(x => x.GetMethodInfo()).Return(ReflectionHelper.GetMethod(() => SomeType.SampleMethod()));
+
+                var incompatibleReturn = mock<IReturn>();
+                incompatibleReturn.stub(x => x.CanBeAssignedTo(It.IsAny<Type>())).Return(false);
+                incompatibleReturn.stub(x => x.TypeOrNull()).Return(typeof (SomeType));
+
+                Assert.Throws<CouldNotSetReturnDueToTypeMismatchException>(
+                        () => sut.SetResultForLastCall(incompatibleReturn, MatchArgs.AsSpecifiedInCall)
+                    );
+                _configuredResults.did_not_receive(x => x.SetResult(lastCallSpec, incompatibleReturn));
+            }
+        }
+
+        private class SomeType { public static SomeType SampleMethod() { return null; } }
     }
 }

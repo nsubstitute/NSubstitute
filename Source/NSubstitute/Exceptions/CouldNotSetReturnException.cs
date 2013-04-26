@@ -1,16 +1,49 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
-    public class CouldNotSetReturnException : SubstituteException
+    public abstract class CouldNotSetReturnException : SubstituteException
     {
-        const string WhatProbablyWentWrong = 
-                "Could not find a call to return from.\n"+
-                "Make sure you called Returns() after calling your substitute (for example: mySub.SomeMethod().Returns(value)).\n" +
+        protected const string WhatProbablyWentWrong = 
+                "Make sure you called Returns() after calling your substitute (for example: mySub.SomeMethod().Returns(value)),\n" +
+                "and that you are not configuring other substitutes within Returns() (for example, avoid this: mySub.SomeMethod().Returns(ConfigOtherSub())).\n" +
+                "\n" +
                 "If you substituted for a class rather than an interface, check that the call to your substitute was on a virtual/abstract member.\n" +
-                "Return values cannot be configured for non-virtual/non-abstract members.";
+                "Return values cannot be configured for non-virtual/non-abstract members.\n" +
+                "\n" +
+                "Correct use:\n" +
+                "\tmySub.SomeMethod().Returns(returnValue);\n" +
+                "\n" +
+                "Potentially problematic use:\n" +
+                "\tmySub.SomeMethod().Returns(ConfigOtherSub());\n" +
+                "Instead try:\n" +
+                "\tvar returnValue = ConfigOtherSub();\n" +
+                "\tmySub.SomeMethod().Returns(returnValue);\n" +
+                "";
 
-        public CouldNotSetReturnException() : base(WhatProbablyWentWrong) { }
+        protected CouldNotSetReturnException(string s) : base(s + "\n\n" + WhatProbablyWentWrong) { }
         protected CouldNotSetReturnException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+    }
+
+    public class CouldNotSetReturnDueToNoLastCallException : CouldNotSetReturnException
+    {
+        public CouldNotSetReturnDueToNoLastCallException() : base("Could not find a call to return from.") { }
+        protected CouldNotSetReturnDueToNoLastCallException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+    }
+
+    public class CouldNotSetReturnDueToTypeMismatchException : CouldNotSetReturnException
+    {
+        public CouldNotSetReturnDueToTypeMismatchException(Type returnType, MethodInfo member) : base(DescribeProblem(returnType, member)) { }
+
+        private static string DescribeProblem(Type typeOfReturnValueOrNull, MethodInfo member)
+        {
+            return typeOfReturnValueOrNull == null 
+                ? String.Format("Can not return null for {0}.{1} (expected type {2}).", member.DeclaringType.Name, member.Name, member.ReturnType.Name) 
+                : String.Format("Can not return value of type {0} for {1}.{2} (expected type {3}).", typeOfReturnValueOrNull.Name, member.DeclaringType.Name, member.Name, member.ReturnType.Name);
+        }
+
+        protected CouldNotSetReturnDueToTypeMismatchException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

@@ -16,7 +16,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         [Test]
         public void Test_1_affected_by_test_0()
         {
-            Assert.Throws<CouldNotSetReturnException>(() => 2.Returns(2));
+            Assert.Throws<CouldNotSetReturnDueToNoLastCallException>(() => 2.Returns(2));
         }
 
         public interface IFoo { }

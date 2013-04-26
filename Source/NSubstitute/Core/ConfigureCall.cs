@@ -1,4 +1,4 @@
-using System;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
@@ -18,14 +18,25 @@ namespace NSubstitute.Core
         public ConfiguredCall SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs)
         {
             var spec = _getCallSpec.FromLastCall(matchArgs);
+            CheckResultIsCompatibleWithCall(valueToReturn, spec);
             _configuredResults.SetResult(spec, valueToReturn);
             return new ConfiguredCall(action => _callActions.Add(spec, action));
         }
 
         public void SetResultForCall(ICall call, IReturn valueToReturn, MatchArgs matchArgs)
         {
-            var callSpecification = _getCallSpec.FromCall(call, matchArgs);
-            _configuredResults.SetResult(callSpecification, valueToReturn);
+            var spec = _getCallSpec.FromCall(call, matchArgs);
+            CheckResultIsCompatibleWithCall(valueToReturn, spec);
+            _configuredResults.SetResult(spec, valueToReturn);
+        }
+
+        private static void CheckResultIsCompatibleWithCall(IReturn valueToReturn, ICallSpecification spec)
+        {
+            var requiredReturnType = spec.ReturnType();
+            if (!valueToReturn.CanBeAssignedTo(requiredReturnType))
+            {
+                throw new CouldNotSetReturnDueToTypeMismatchException(valueToReturn.TypeOrNull(), spec.GetMethodInfo());
+            }
         }
     }
 }

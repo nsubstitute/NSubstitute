@@ -13,5 +13,6 @@ namespace NSubstitute.Core
         void InvokePerArgumentActions(CallInfo callInfo);
         IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call);
         MethodInfo GetMethodInfo();
+        Type ReturnType();
     }
 }
