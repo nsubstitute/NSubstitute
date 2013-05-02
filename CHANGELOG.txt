@@ -1,3 +1,6 @@
+unreleased changes
+* [FIX] Detect and throw on type mismatches in Returns() caused by Returns(ConfigureOtherSub()).
+
 1.6.0 (April 2013)
 * [NEW] .AndDoes() method for chaining a callback after a Returns(). (#98)
 * [FIX] Handling calls with params argument of value types, thanks to Eric Winkler.
