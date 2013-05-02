@@ -98,15 +98,15 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Get_all_received_calls()
+        public void Get_all_received_calls_returns_all_calls_in_order_received()
         {
+            _car.Idle();
             _car.Rev();
-            _car.RevAt(Rpm);
 
             var calls = _car.ReceivedCalls();
-            var callNames = calls.Select(x => x.GetMethodInfo().Name);
-            Assert.That(callNames, Has.Member("Rev"));
-            Assert.That(callNames, Has.Member("RevAt"));
+            var callNames = string.Join(",", calls.Select(x => x.GetMethodInfo().Name).ToArray());
+
+            Assert.That(callNames, Is.EqualTo("Idle,Rev"));
         }
 
         [Test]
