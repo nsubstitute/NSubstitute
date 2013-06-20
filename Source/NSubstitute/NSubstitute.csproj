@@ -188,6 +188,7 @@
     <Compile Include="Core\IReturn.cs" />
     <Compile Include="Core\PropertyCallFormatter.cs" />
     <Compile Include="Core\ReflectionExtensions.cs" />
+    <Compile Include="Routing\Handlers\ReturnBaseResultCallHandler.cs" />
     <Compile Include="Routing\IRouteFactory.cs" />
     <Compile Include="Routing\Route.cs" />
     <Compile Include="Exceptions\ArgumentNotFoundException.cs" />

@@ -92,6 +92,19 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <returns></returns>
+        public static T CallBaseWhen<T>(this T substitute) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.SetRoute(x => RouteFactory().CallBase(x));
+            return substitute;
+        }
+
+        /// <summary>
         /// Checks this substitute has received the following call.
         /// </summary>
         /// <typeparam name="T"></typeparam>

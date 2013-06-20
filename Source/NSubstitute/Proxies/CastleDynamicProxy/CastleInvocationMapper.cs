@@ -1,3 +1,4 @@
+using System;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
 
@@ -9,7 +10,13 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         public virtual ICall Map(IInvocation castleInvocation)
         {
-            return CallFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy);
+            Func<object> baseMethod = () =>
+            {
+                castleInvocation.Proceed();
+                return castleInvocation.ReturnValue;
+            };
+
+            return CallFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy, baseMethod);
         }
     }
 }
