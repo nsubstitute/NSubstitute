@@ -18,9 +18,15 @@ namespace NSubstitute.Core
             _callRouterResolver = callRouterResolver;
         }
 
-        public object Create(Type[] typesToProxy, object[] constructorArguments)  
+        public object Create(Type[] typesToProxy, object[] constructorArguments)
+        {
+            return Create(typesToProxy, constructorArguments, callBaseByDefault: false);
+        }
+
+        public object Create(Type[] typesToProxy, object[] constructorArguments, bool callBaseByDefault)  
         {
             var callRouter = _callRouterFactory.Create(_context);
+            callRouter.CallBaseByDefault(callBaseByDefault);
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
             var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
             var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);

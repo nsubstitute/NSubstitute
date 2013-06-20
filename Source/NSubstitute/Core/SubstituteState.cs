@@ -11,6 +11,8 @@ namespace NSubstitute.Core
         public ICallResults CallResults { get; private set; }
         public ICallSpecificationFactory CallSpecificationFactory { get; private set; }
         public ICallActions CallActions { get; private set; }
+        public ICallBaseSpecifications CallBaseSpecifications { get; private set; }
+        public bool CallBaseByDefault { get; set; }
         public SequenceNumberGenerator SequenceNumberGenerator { get; private set; }
         public IConfigureCall ConfigureCall { get; private set; }
         public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
@@ -29,10 +31,11 @@ namespace NSubstitute.Core
             CallResults = new CallResults(callInfoFactory);
             CallSpecificationFactory = CallSpecificationFactoryFactoryYesThatsRight.CreateCallSpecFactory();
             CallActions = new CallActions(callInfoFactory);
+            CallBaseSpecifications = new CallBaseSpecifications();
 
             var getCallSpec = new GetCallSpec(callStack, PendingSpecification, CallSpecificationFactory, CallActions);
 
-            ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec);
+            ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec, CallBaseSpecifications);
             EventHandlerRegistry = new EventHandlerRegistry();
             AutoValueProviders = new IAutoValueProvider[] { 
                 new AutoSubstituteProvider(substituteFactory), 

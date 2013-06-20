@@ -157,7 +157,7 @@ namespace NSubstitute
             router.SetRoute(x => RouteFactory().CheckReceivedCalls(x, MatchArgs.Any, Quantity.Exactly(requiredNumberOfCalls)));
             return substitute;
         }
-        
+
         /// <summary>
         /// Checks this substitute has not received the following call with any arguments.
         /// </summary>
@@ -222,6 +222,26 @@ namespace NSubstitute
         public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class
         {
             return GetRouterForSubstitute(substitute).ReceivedCalls();
+        }
+
+        /// <summary>
+        /// Calls base implementation for the specified member called with any args.
+        /// </summary>
+        public static T CallBaseWithAnyArgsFor<T>(this T substitute) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.SetRoute(x => RouteFactory().CallBase(x, MatchArgs.Any));
+            return substitute;
+        }
+
+        /// <summary>
+        /// Calls base implementation for the specified member.
+        /// </summary>
+        public static T CallBaseFor<T>(this T substitute) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.SetRoute(x => RouteFactory().CallBase(x, MatchArgs.AsSpecifiedInCall));
+            return substitute;
         }
 
         private static ICallRouter GetRouterForSubstitute<T>(T substitute)
