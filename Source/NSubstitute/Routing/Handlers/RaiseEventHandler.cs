@@ -43,12 +43,11 @@ namespace NSubstitute.Routing.Handlers
         private void PreserveStackTrace(Exception exception)
         {
             var context = new StreamingContext(StreamingContextStates.CrossAppDomain);
-            var objectManager = new ObjectManager(null, context);
-            var serializationInfo = new SerializationInfo(exception.GetType(), new FormatterConverter());
+            var serializationInfo = new SerializationInfo(typeof(Exception), new FormatterConverter());
+            var constructor = typeof(Exception).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { typeof(SerializationInfo), typeof(StreamingContext) }, null);
 
             exception.GetObjectData(serializationInfo, context);
-            objectManager.RegisterObject(exception, 1, serializationInfo); 
-            objectManager.DoFixups();
+            constructor.Invoke(exception, new object[] { serializationInfo, context });
         }
     }
 }

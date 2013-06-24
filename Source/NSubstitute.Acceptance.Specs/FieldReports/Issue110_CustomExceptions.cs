@@ -11,7 +11,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public interface IDoStuff { event Action StuffDone; }
 
         [Test]
-        [Pending]
         public void ThrowExceptionWithoutSerialisationConstructor()
         {
             var ithrow = Substitute.For<IThrow>();
