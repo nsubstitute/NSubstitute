@@ -15,16 +15,17 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Check_when_call_was_received()
+        public void Check_that_base_is_called()
         {
             _car.CallBaseWhen().Start();
+            _car.Start();
             Assert.IsTrue(_car.IsStarted);
         }
 
         public class Car
         {
             public bool IsStarted { get; set; }
-            public void Start()
+            public virtual void Start()
             {
                 IsStarted = true;
             }
