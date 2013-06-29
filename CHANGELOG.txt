@@ -1,5 +1,6 @@
 unreleased changes
 * [FIX] Detect and throw on type mismatches in Returns() caused by Returns(ConfigureOtherSub()).
+* [FIX] Support raising exceptions that do not implement a serialisation constructor (#110). Thanks to Alexandr Nikitin for this contribution.
 
 1.6.0 (April 2013)
 * [NEW] .AndDoes() method for chaining a callback after a Returns(). (#98)
