@@ -1,4 +1,4 @@
-unreleased changes
+1.6.1 (June 2013)
 * [FIX] Detect and throw on type mismatches in Returns() caused by Returns(ConfigureOtherSub()).
 * [FIX] Support raising exceptions that do not implement a serialisation constructor (#110). Thanks to Alexandr Nikitin for this contribution.
 
