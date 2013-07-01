@@ -30,5 +30,12 @@ namespace NSubstitute.Core
             _call(_substitute);
         }
 
+        /// <summary>
+        /// Call base implementation when called.
+        /// </summary>
+        public void CallBase()
+        {
+            _callRouter.SetRoute(x => _routeFactory.CallBase(x));
+        }
     }
 }
