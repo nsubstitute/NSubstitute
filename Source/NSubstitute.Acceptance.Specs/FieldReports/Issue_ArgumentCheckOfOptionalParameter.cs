@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Acceptance.Specs.FieldReports
 {
-    public class PossibleIssue_ArgumentCheckOfOptionalParameter
+    public class Issue_ArgumentCheckOfOptionalParameter
     {
         public interface IInterface
         {
@@ -10,6 +10,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
+        [Pending, Explicit]
         public void PassArgumentCheckForOptionalParameter()
         {
             var substitute = Substitute.For<IInterface>();
