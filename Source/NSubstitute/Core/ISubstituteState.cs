@@ -12,6 +12,8 @@ namespace NSubstitute.Core
         ICallResults CallResults { get; }
         ICallSpecificationFactory CallSpecificationFactory { get; }
         ICallActions CallActions { get; }
+        ICallBaseSpecifications CallBaseSpecifications { get; }
+        bool CallBaseByDefault { get; set; }
         SequenceNumberGenerator SequenceNumberGenerator { get; }
         IConfigureCall ConfigureCall { get; }
         IEventHandlerRegistry EventHandlerRegistry { get; }

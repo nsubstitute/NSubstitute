@@ -6,12 +6,12 @@ namespace NSubstitute.Routing
 {
     public class RouteFactory : IRouteFactory
     {
-        public IRoute CallBase(ISubstituteState state)
+        public IRoute CallBase(ISubstituteState state, MatchArgs matchArgs)
         {
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(state.SubstitutionContext)
                 , new ClearUnusedCallSpecHandler(state)
-                , new ReturnBaseResultCallHandler()
+                , new SetBaseForCallHandler(state.CallSpecificationFactory, state.CallBaseSpecifications, matchArgs)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
@@ -71,7 +71,9 @@ namespace NSubstitute.Routing
                 , new EventSubscriptionHandler(state.EventHandlerRegistry)
                 , new PropertySetterHandler(new PropertyHelper(), state.ConfigureCall)
                 , new DoActionsCallHandler(state.CallActions)
+                , new ReturnBaseResultCallHandler(state.CallBaseSpecifications)
                 , new ReturnConfiguredResultHandler(state.CallResults)
+                , new ReturnBaseResultByDefaultCallHandler(state)
                 , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });

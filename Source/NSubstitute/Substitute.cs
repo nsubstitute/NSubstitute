@@ -70,5 +70,19 @@ namespace NSubstitute
             var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
             return substituteFactory.Create(typesToProxy, constructorArguments);
         }
+
+        /// <summary>
+        /// Substitute for a class that calls it's implementation if not overwritten.
+        /// <para>Be careful when specifying a class, as all non-virtual members will actually be executed.</para>
+        /// </summary>
+        /// <typeparam name="T">The type of a class to substitute.</typeparam>
+        /// <param name="constructorArguments">Arguments required to construct a class being substituted. Not required for classes with default constructors.</param>
+        /// <returns>A substitute for the class.</returns>
+        public static T Partial<T>(params object[] constructorArguments)
+            where T : class
+        {
+            var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
+            return (T) substituteFactory.Create(new[] { typeof(T) }, constructorArguments, callBaseByDefault: true);
+        }
     }
 }

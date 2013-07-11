@@ -74,7 +74,8 @@ namespace NSubstitute.Core
 
         public object CallBase()
         {
-            return _baseMethod();
+            if (_baseMethod != null) return _baseMethod();
+            throw new CouldNotCallBaseException(_methodInfo);
         }
 
         public Type GetReturnType()

@@ -35,7 +35,8 @@ namespace NSubstitute.Core
         /// </summary>
         public void CallBase()
         {
-            _callRouter.SetRoute(x => _routeFactory.CallBase(x));
+            _callRouter.SetRoute(x => _routeFactory.CallBase(x, _matchArgs));
+            _call(_substitute);
         }
     }
 }
