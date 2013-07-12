@@ -7,12 +7,14 @@ namespace NSubstitute.Core
         private readonly ICallResults _configuredResults;
         private readonly ICallActions _callActions;
         private readonly IGetCallSpec _getCallSpec;
+        private readonly ICallBaseSpecifications _callBaseSpecifications;
 
-        public ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec)
+        public ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec, ICallBaseSpecifications callBaseSpecifications)
         {
             _configuredResults = configuredResults;
             _callActions = callActions;
             _getCallSpec = getCallSpec;
+            _callBaseSpecifications = callBaseSpecifications;
         }
 
         public ConfiguredCall SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs)
@@ -20,6 +22,7 @@ namespace NSubstitute.Core
             var spec = _getCallSpec.FromLastCall(matchArgs);
             CheckResultIsCompatibleWithCall(valueToReturn, spec);
             _configuredResults.SetResult(spec, valueToReturn);
+            _callBaseSpecifications.Remove(spec);
             return new ConfiguredCall(action => _callActions.Add(spec, action));
         }
 

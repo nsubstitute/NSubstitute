@@ -35,7 +35,7 @@ namespace NSubstitute.Core
 
             var getCallSpec = new GetCallSpec(callStack, PendingSpecification, CallSpecificationFactory, CallActions);
 
-            ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec);
+            ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec, CallBaseSpecifications);
             EventHandlerRegistry = new EventHandlerRegistry();
             AutoValueProviders = new IAutoValueProvider[] { 
                 new AutoSubstituteProvider(substituteFactory), 

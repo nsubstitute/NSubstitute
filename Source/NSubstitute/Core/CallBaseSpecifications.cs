@@ -7,9 +7,14 @@ namespace NSubstitute.Core
     {
         readonly List<ICallSpecification> _callSpecifications = new List<ICallSpecification>();
 
-        public void Add(ICallSpecification callSpec)
+        public void Add(ICallSpecification callSpecification)
         {
-            _callSpecifications.Add(callSpec);
+            _callSpecifications.Add(callSpecification);
+        }
+
+        public void Remove(ICallSpecification callSpecification)
+        {
+            _callSpecifications.RemoveAll(cs => cs.IsEqualsTo(callSpecification));
         }
 
         public bool DoesCallBase(ICall callInfo)

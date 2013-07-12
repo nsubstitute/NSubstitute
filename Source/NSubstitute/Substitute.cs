@@ -23,6 +23,21 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Substitute for an interface or class.
+        /// <para>Be careful when specifying a class, as all non-virtual members will actually be executed. Only virtual members 
+        /// can be recorded or have return values specified.</para>
+        /// </summary>
+        /// <typeparam name="T">The type of interface or class to substitute.</typeparam>
+        /// <param name="callBaseBehavior">Represents default substitute behavior. If <see cref="ThatCallsBase.ByDefault"/> is passed then the substitute calls base implementation by default. </param>
+        /// <param name="constructorArguments">Arguments required to construct a class being substituted. Not required for interfaces or classes with default constructors.</param>
+        /// <returns>A substitute for the interface or class.</returns>
+        public static T For<T>(ThatCallsBase callBaseBehavior, params object[] constructorArguments) 
+            where T : class
+        {
+            return (T)For(new[] { typeof(T) }, constructorArguments, callBaseBehavior == ThatCallsBase.ByDefault);
+        }
+
+        /// <summary>
         /// <para>Substitute for multiple interfaces or a class that implements an interface. At most one class can be specified.</para>
         /// <para>Be careful when specifying a class, as all non-virtual members will actually be executed. Only virtual members 
         /// can be recorded or have return values specified.</para>
@@ -72,17 +87,18 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Substitute for a class that calls it's implementation if not overwritten.
-        /// <para>Be careful when specifying a class, as all non-virtual members will actually be executed.</para>
+        /// <para>Substitute for multiple interfaces or a class that implements multiple interfaces. At most one class can be specified.</para>
+        /// <para>Be careful when specifying a class, as all non-virtual members will actually be executed. Only virtual members 
+        /// can be recorded or have return values specified.</para>
         /// </summary>
-        /// <typeparam name="T">The type of a class to substitute.</typeparam>
-        /// <param name="constructorArguments">Arguments required to construct a class being substituted. Not required for classes with default constructors.</param>
-        /// <returns>A substitute for the class.</returns>
-        public static T Partial<T>(params object[] constructorArguments)
-            where T : class
+        /// <param name="typesToProxy">The types of interfaces or a type of class and multiple interfaces the substitute should implement.</param>
+        /// <param name="constructorArguments">Arguments required to construct a class being substituted. Not required for interfaces or classes with default constructors.</param>
+        /// <param name="callBaseByDefault">If true the substitute calls base implementation by default if it's not overwritten</param>
+        /// <returns>A substitute implementing the specified types.</returns>
+        private static object For(Type[] typesToProxy, object[] constructorArguments, bool callBaseByDefault) 
         {
             var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
-            return (T) substituteFactory.Create(new[] { typeof(T) }, constructorArguments, callBaseByDefault: true);
+            return substituteFactory.Create(typesToProxy, constructorArguments, callBaseByDefault);
         }
     }
 }
