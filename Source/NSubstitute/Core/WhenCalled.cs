@@ -29,6 +29,5 @@ namespace NSubstitute.Core
             _callRouter.SetRoute(x => _routeFactory.DoWhenCalled(x, callbackWithArguments, _matchArgs));
             _call(_substitute);
         }
-
     }
 }

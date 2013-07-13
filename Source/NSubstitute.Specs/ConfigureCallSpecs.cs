@@ -11,6 +11,7 @@ namespace NSubstitute.Specs
         public abstract class Concern : ConcernFor<ConfigureCall>
         {
             protected ICallActions _callActions;
+            protected ICallBaseSpecifications _callBaseSpecifications;
             protected ICallResults _configuredResults;
             protected IGetCallSpec _getCallSpec;
             protected IReturn _compatibleReturnValue;
@@ -20,6 +21,7 @@ namespace NSubstitute.Specs
                 _configuredResults = mock<ICallResults>();
                 _callActions = mock<ICallActions>();
                 _getCallSpec = mock<IGetCallSpec>();
+                _callBaseSpecifications = mock<ICallBaseSpecifications>();
 
                 _compatibleReturnValue = mock<IReturn>();
                 _compatibleReturnValue.stub(x => x.CanBeAssignedTo(It.IsAny<Type>())).Return(true);
@@ -27,7 +29,7 @@ namespace NSubstitute.Specs
 
             public override ConfigureCall CreateSubjectUnderTest()
             {
-                return new ConfigureCall(_configuredResults, _callActions, _getCallSpec);
+                return new ConfigureCall(_configuredResults, _callActions, _getCallSpec, _callBaseSpecifications);
             }
         }
 

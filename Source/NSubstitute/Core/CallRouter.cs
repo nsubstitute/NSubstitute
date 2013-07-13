@@ -36,6 +36,11 @@ namespace NSubstitute.Core
             _currentRoute = route;
         }
 
+        public void CallBaseByDefault(bool callBaseByDefault)
+        {
+            _substituteState.CallBaseByDefault = callBaseByDefault;
+        }
+
         public void ClearReceivedCalls()
         {
             _receivedCalls.Clear();

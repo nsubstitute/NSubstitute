@@ -71,6 +71,8 @@
     <Compile Include="ArgumentInvocationFromMatchers.cs" />
     <Compile Include="ArgDoFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
+    <Compile Include="SubstituteTests.cs" />
+    <Compile Include="SubstituteExtensionsTests.cs" />
     <Compile Include="FieldReports\CallingIntoNewSubWithinReturns.cs" />
     <Compile Include="FieldReports\Issue110_CustomExceptions.cs" />
     <Compile Include="FieldReports\Issue_ArgumentCheckOfOptionalParameter.cs" />

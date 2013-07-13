@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arg.cs" />
+    <Compile Include="ThatCallsBase.cs" />
     <Compile Include="Core\Argument.cs" />
     <Compile Include="Core\Arguments\AnyArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ArgumentAction.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Core\Arguments\ParamsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\SuppliedArgumentSpecifications.cs" />
     <Compile Include="Core\Arguments\SuppliedArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\CallBaseSpecifications.cs" />
     <Compile Include="Core\CallFactory.cs" />
     <Compile Include="Core\CallSpecAndTarget.cs" />
     <Compile Include="Core\CallSpecificationFactoryFactoryYesThatsRight.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\GetCallSpec.cs" />
+    <Compile Include="Core\ICallBaseSpecifications.cs" />
     <Compile Include="Core\ICallRouterProvider.cs" />
     <Compile Include="Core\IGetCallSpec.cs" />
     <Compile Include="Core\SequenceChecking\InstanceTracker.cs" />
@@ -146,6 +149,7 @@
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CallSequenceNotFoundException.cs" />
+    <Compile Include="Exceptions\CouldNotCallBaseException.cs" />
     <Compile Include="Exceptions\CannotCreateEventArgsException.cs" />
     <Compile Include="Exceptions\CannotReturnNullForValueType.cs" />
     <Compile Include="Exceptions\CouldNotSetReturnException.cs" />
@@ -188,6 +192,8 @@
     <Compile Include="Core\IReturn.cs" />
     <Compile Include="Core\PropertyCallFormatter.cs" />
     <Compile Include="Core\ReflectionExtensions.cs" />
+    <Compile Include="Routing\Handlers\ReturnBaseResultCallHandler.cs" />
+    <Compile Include="Routing\Handlers\SetBaseForCallHandler.cs" />
     <Compile Include="Routing\IRouteFactory.cs" />
     <Compile Include="Routing\Route.cs" />
     <Compile Include="Exceptions\ArgumentNotFoundException.cs" />
