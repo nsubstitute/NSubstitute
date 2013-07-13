@@ -29,14 +29,5 @@ namespace NSubstitute.Core
             _callRouter.SetRoute(x => _routeFactory.DoWhenCalled(x, callbackWithArguments, _matchArgs));
             _call(_substitute);
         }
-
-        /// <summary>
-        /// Call base implementation when called.
-        /// </summary>
-        public void CallBase()
-        {
-            _callRouter.SetRoute(x => _routeFactory.CallBase(x, _matchArgs));
-            _call(_substitute);
-        }
     }
 }

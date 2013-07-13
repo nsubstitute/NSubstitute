@@ -22,7 +22,6 @@ namespace NSubstitute.Core
             var spec = _getCallSpec.FromLastCall(matchArgs);
             CheckResultIsCompatibleWithCall(valueToReturn, spec);
             _configuredResults.SetResult(spec, valueToReturn);
-            _callBaseSpecifications.Remove(spec);
             return new ConfiguredCall(action => _callActions.Add(spec, action));
         }
 

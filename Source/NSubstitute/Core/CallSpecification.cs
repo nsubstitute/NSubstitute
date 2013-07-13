@@ -24,13 +24,6 @@ namespace NSubstitute.Core
 
         public Type ReturnType() { return _methodInfo.ReturnType; }
 
-        public bool IsEqualsTo(ICallSpecification callSpecification)
-        {
-            // todo we need to compare IArgumentSpecification here
-            return AreMethodEquals(_methodInfo, callSpecification.GetMethodInfo()) &&
-                   ToString() == callSpecification.ToString();
-        }
-
         public bool IsSatisfiedBy(ICall call)
         {
             if (!AreComparable(GetMethodInfo(), call.GetMethodInfo())) return false;
@@ -130,30 +123,6 @@ namespace NSubstitute.Core
         private bool HasDifferentNumberOfArguments(ICall call)
         {
             return _argumentSpecifications.Length != call.GetArguments().Length;
-        }
-        
-        private static bool AreMethodEquals(MethodInfo left, MethodInfo right)
-        {
-            if (left.Equals(right))
-                return true;
-            // GetHashCode calls to RuntimeMethodHandle.StripMethodInstantiation()
-            // which is needed to fix issues with method equality from generic types.
-            if (left.GetHashCode() != right.GetHashCode())
-                return false;
-            if (left.DeclaringType != right.DeclaringType)
-                return false;
-            ParameterInfo[] leftParams = left.GetParameters();
-            ParameterInfo[] rightParams = right.GetParameters();
-            if (leftParams.Length != rightParams.Length)
-                return false;
-            for (int i = 0; i < leftParams.Length; i++)
-            {
-                if (leftParams[i].ParameterType != rightParams[i].ParameterType)
-                    return false;
-            }
-            if (left.ReturnType != right.ReturnType)
-                return false;
-            return true;
         }
     }
 }

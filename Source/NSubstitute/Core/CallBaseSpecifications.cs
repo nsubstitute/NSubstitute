@@ -12,11 +12,6 @@ namespace NSubstitute.Core
             _callSpecifications.Add(callSpecification);
         }
 
-        public void Remove(ICallSpecification callSpecification)
-        {
-            _callSpecifications.RemoveAll(cs => cs.IsEqualsTo(callSpecification));
-        }
-
         public bool DoesCallBase(ICall callInfo)
         {
             return _callSpecifications.Any(cs => cs.IsSatisfiedBy(callInfo));

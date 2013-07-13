@@ -72,7 +72,7 @@
     <Compile Include="ArgDoFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
     <Compile Include="SubstituteTests.cs" />
-    <Compile Include="WhenCallBase.cs" />
+    <Compile Include="SubstituteExtensionsTests.cs" />
     <Compile Include="FieldReports\CallingIntoNewSubWithinReturns.cs" />
     <Compile Include="FieldReports\Issue110_CustomExceptions.cs" />
     <Compile Include="ReturnsAndDoes.cs" />

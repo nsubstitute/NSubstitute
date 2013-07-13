@@ -7,7 +7,6 @@ namespace NSubstitute.Core
 {
     public interface ICallSpecification
     {
-        bool IsEqualsTo(ICallSpecification callSpecification);
         bool IsSatisfiedBy(ICall call);
         string Format(ICall call);
         ICallSpecification CreateCopyThatMatchesAnyArguments();

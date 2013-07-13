@@ -192,7 +192,6 @@
     <Compile Include="Core\IReturn.cs" />
     <Compile Include="Core\PropertyCallFormatter.cs" />
     <Compile Include="Core\ReflectionExtensions.cs" />
-    <Compile Include="Routing\Handlers\ReturnBaseResultByDefaultCallHandler.cs" />
     <Compile Include="Routing\Handlers\ReturnBaseResultCallHandler.cs" />
     <Compile Include="Routing\Handlers\SetBaseForCallHandler.cs" />
     <Compile Include="Routing\IRouteFactory.cs" />
