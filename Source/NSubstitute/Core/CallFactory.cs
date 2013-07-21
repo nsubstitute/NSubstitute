@@ -16,7 +16,7 @@ namespace NSubstitute.Core
             _context = context;
         }
 
-        public ICall Create(MethodInfo methodInfo, object[] arguments, object target, Func<object> baseMethod = null)
+        public ICall Create(MethodInfo methodInfo, object[] arguments, object target, Func<object> baseMethod)
         {
             var argSpecs = (methodInfo.GetParameters().Length == 0) ? EmptyList() : _context.DequeueAllArgumentSpecifications();
             return new Call(methodInfo, arguments, target, argSpecs, baseMethod);

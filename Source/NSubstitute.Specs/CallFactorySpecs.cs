@@ -26,7 +26,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _result = sut.Create(_method, _args, _target);
+                _result = sut.Create(_method, _args, _target, () => null);
             }
 
             [Test]

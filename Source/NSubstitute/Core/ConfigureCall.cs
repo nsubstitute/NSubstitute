@@ -7,14 +7,12 @@ namespace NSubstitute.Core
         private readonly ICallResults _configuredResults;
         private readonly ICallActions _callActions;
         private readonly IGetCallSpec _getCallSpec;
-        private readonly ICallBaseSpecifications _callBaseSpecifications;
 
-        public ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec, ICallBaseSpecifications callBaseSpecifications)
+        public ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec)
         {
             _configuredResults = configuredResults;
             _callActions = callActions;
             _getCallSpec = getCallSpec;
-            _callBaseSpecifications = callBaseSpecifications;
         }
 
         public ConfiguredCall SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs)
