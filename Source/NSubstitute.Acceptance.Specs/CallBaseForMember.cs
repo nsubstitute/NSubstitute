@@ -10,40 +10,36 @@ namespace NSubstitute.Acceptance.Specs
         public void Given_SubstituteForInterface_When_MethodIsCalled_Then_ShouldThrowException()
         {
             var testAbstractClass = Substitute.For<ITestInterface>();
-            testAbstractClass.CallBaseFor().TestMethod();
-            Assert.Throws<CouldNotCallBaseException>(testAbstractClass.TestMethod);
+            Assert.Throws<CouldNotCallBaseException>(() => testAbstractClass.CallBaseFor().TestMethod());
         }
 
         [Test]
         public void Given_SubstituteForAbstractClass_When_AbstractMethodIsCalled_Then_ShouldThrowException()
         {
             var testAbstractClass = Substitute.For<TestAbstractClass>();
-            testAbstractClass.CallBaseFor().AbstractMethod();
-            Assert.Throws<CouldNotCallBaseException>(testAbstractClass.AbstractMethod);
+            Assert.Throws<CouldNotCallBaseException>(() => testAbstractClass.CallBaseFor().AbstractMethod());
         }
 
         [Test]
         public void Given_SubstituteForAction_When_ActionIsCalled_Then_ShouldThrowException()
         {
             var action = Substitute.For<Action>();
-            action.CallBaseFor().Invoke();
-            Assert.Throws<CouldNotCallBaseException>(() => action());
+            Assert.Throws<CouldNotCallBaseException>(() => action.CallBaseFor().Invoke());
         }
 
         [Test]
         public void Given_SubstituteForFunc_When_FuncIsCalled_Then_ShouldThrowException()
         {
             var func = Substitute.For<Func<int>>();
-            func.CallBaseFor().Invoke();
-            Assert.Throws<CouldNotCallBaseException>(() => func());
+            Assert.Throws<CouldNotCallBaseException>(() => func.CallBaseFor().Invoke());
         }
 
         [Test]
         public void Given_SubstituteForEventHandler_When_EventHandlerIsCalled_Then_ShouldThrowException()
         {
             var eventHandler = Substitute.For<EventHandler>();
-            eventHandler.CallBaseFor().Invoke(Arg.Any<object>(), Arg.Any<EventArgs>());
-            Assert.Throws<CouldNotCallBaseException>(() => eventHandler.Invoke(null, null));
+            Assert.Throws<CouldNotCallBaseException>(() =>
+                eventHandler.CallBaseFor().Invoke(Arg.Any<object>(), Arg.Any<EventArgs>()));
         }
 
         [Test]
@@ -66,11 +62,24 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Given_SubstituteForClass_When_CallBaseUsed_ShouldNotCallRealImplementation()
+        {
+            var testClass = Substitute.For<TestClass>();
+            testClass.CallBaseFor().VirtualMethod();
+            testClass.CallBaseFor().VirtualMethod();
+
+            Assert.That(testClass.CalledTimes, Is.EqualTo(0));
+        }
+
+        [Test]
         public void Given_SubstituteForClass_When_VirtualMethodIsSetupTwice_Then_ShouldSetupCorrectly()
         {
             var testClass = Substitute.For<TestClass>();
             testClass.CallBaseFor().VirtualMethod();
             testClass.CallBaseFor().VirtualMethod();
+
+            testClass.VirtualMethod();
+            Assert.That(testClass.CalledTimes, Is.EqualTo(1));
         }
 
         [Test]
@@ -80,17 +89,6 @@ namespace NSubstitute.Acceptance.Specs
             testClass.CallBaseFor().AbstractMethod();
             testClass.AbstractMethod();
             Assert.That(testClass.CalledTimes, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void
-            Given_SubstituteForClass_When_NotVirtualMethodIsSetup_And_NotVirtualMethodIsCalled_Then_ShouldCallBaseImplementationTwice
-            ()
-        {
-            var testClass = Substitute.For<TestClass>();
-            testClass.CallBaseFor().NotVirtualMethodReturnsSameInt(Arg.Any<int>());
-            testClass.NotVirtualMethodReturnsSameInt(1);
-            Assert.That(testClass.CalledTimes, Is.EqualTo(2));
         }
 
         [Test]
@@ -126,8 +124,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        [Pending, Explicit]
-        // test fails only when executed with all tests, don't understand why by now.
         public void
             Given_SubstituteForClass_And_ObjectReturnValueIsOverwritten_When_VirtualMethodIsCalled_Then_ShouldReturnOverwrittenValue
             ()
@@ -199,7 +195,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             public abstract void AbstractMethod();
 
-            public int MethodWithImplementation(int i)
+            public virtual int MethodWithImplementation(int i)
             {
                 return i;
             }
@@ -224,12 +220,6 @@ namespace NSubstitute.Acceptance.Specs
             public virtual void VirtualMethod()
             {
                 CalledTimes++;
-            }
-
-            public int NotVirtualMethodReturnsSameInt(int i)
-            {
-                CalledTimes++;
-                return i;
             }
 
             public override void AbstractMethod()

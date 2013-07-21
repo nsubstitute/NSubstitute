@@ -1,4 +1,7 @@
+using System;
+using System.Reflection;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Routing.Handlers
 {
@@ -17,9 +20,19 @@ namespace NSubstitute.Routing.Handlers
 
         public RouteAction Handle(ICall call)
         {
+            var method = call.GetMethodInfo();
+            if (!CanCallBase(method))
+            {
+                throw new CouldNotCallBaseException(method);
+            }
             var callSpec = _callSpecificationFactory.CreateFrom(call, _matchArgs);
             _callBaseSpecifications.Add(callSpec);
             return RouteAction.Continue();
+        }
+
+        private bool CanCallBase(MethodInfo methodInfo)
+        {
+            return methodInfo.IsVirtual && !methodInfo.IsFinal && !methodInfo.IsAbstract;
         }
     }
 }

@@ -15,7 +15,6 @@ namespace NSubstitute.Routing
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
-
         public IRoute CallQuery(ISubstituteState state)
         {
             return new Route(new ICallHandler[] {
