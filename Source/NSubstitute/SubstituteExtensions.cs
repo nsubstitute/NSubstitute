@@ -224,26 +224,6 @@ namespace NSubstitute
             return GetRouterForSubstitute(substitute).ReceivedCalls();
         }
 
-        /// <summary>
-        /// Calls base implementation for the specified member called with any args.
-        /// </summary>
-        public static T CallBaseWithAnyArgsFor<T>(this T substitute) where T : class
-        {
-            var router = GetRouterForSubstitute(substitute);
-            router.SetRoute(x => RouteFactory().CallBase(x, MatchArgs.Any));
-            return substitute;
-        }
-
-        /// <summary>
-        /// Calls base implementation for the specified member.
-        /// </summary>
-        public static T CallBaseFor<T>(this T substitute) where T : class
-        {
-            var router = GetRouterForSubstitute(substitute);
-            router.SetRoute(x => RouteFactory().CallBase(x, MatchArgs.AsSpecifiedInCall));
-            return substitute;
-        }
-
         private static ICallRouter GetRouterForSubstitute<T>(T substitute)
         {
             var context = SubstitutionContext.Current;

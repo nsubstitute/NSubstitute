@@ -6,15 +6,6 @@ namespace NSubstitute.Routing
 {
     public class RouteFactory : IRouteFactory
     {
-        public IRoute CallBase(ISubstituteState state, MatchArgs matchArgs)
-        {
-            return new Route(new ICallHandler[] {
-                new ClearLastCallRouterHandler(state.SubstitutionContext)
-                , new ClearUnusedCallSpecHandler(state)
-                , new SetBaseForCallHandler(state.CallSpecificationFactory, state.CallResults, matchArgs)
-                , ReturnDefaultForReturnTypeHandler()
-            });
-        }
         public IRoute CallQuery(ISubstituteState state)
         {
             return new Route(new ICallHandler[] {
