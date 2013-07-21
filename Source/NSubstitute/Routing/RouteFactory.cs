@@ -11,7 +11,7 @@ namespace NSubstitute.Routing
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(state.SubstitutionContext)
                 , new ClearUnusedCallSpecHandler(state)
-                , new SetBaseForCallHandler(state.CallSpecificationFactory, state.CallBaseSpecifications, matchArgs)
+                , new SetBaseForCallHandler(state.CallSpecificationFactory, state.CallResults, matchArgs)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
@@ -71,7 +71,6 @@ namespace NSubstitute.Routing
                 , new PropertySetterHandler(new PropertyHelper(), state.ConfigureCall)
                 , new DoActionsCallHandler(state.CallActions)
                 , new ReturnConfiguredResultHandler(state.CallResults)
-                , new ReturnBaseResultCallHandler(state, state.CallBaseSpecifications)
                 , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });

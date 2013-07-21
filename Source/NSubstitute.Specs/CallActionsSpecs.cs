@@ -23,7 +23,7 @@ namespace NSubstitute.Specs
             public override void Context()
             {
                 _call = mock<ICall>();
-                _callInfo = new CallInfo(new Argument[0]);
+                _callInfo = new CallInfo(new Argument[0], null);
                 _callInfoFactory = mock<ICallInfoFactory>();
                 _callInfoFactory.stub(x => x.Create(_call)).Return(_callInfo);
             }

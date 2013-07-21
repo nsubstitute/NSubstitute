@@ -63,7 +63,7 @@ namespace NSubstitute.Specs
 
             public override CallInfo CreateSubjectUnderTest()
             {
-                return new CallInfo(_arguments);
+                return new CallInfo(_arguments, null);
             }
         }
 
@@ -72,7 +72,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Match_argument_by_declared_type_when_an_exact_match_is_found()
             {
-                var sut = new CallInfo(new[] { CreateArg<object>("hello"), CreateArg("world") });
+                var sut = new CallInfo(new[] { CreateArg<object>("hello"), CreateArg("world") }, null);
 
                 Assert.That(sut.Arg<object>(), Is.EqualTo("hello"));
                 Assert.That(sut.Arg<string>(), Is.EqualTo("world"));
@@ -81,7 +81,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Match_argument_by_actual_type_when_no_declared_type_match_is_found()
             {
-                var sut = new CallInfo(new[] { CreateArg<object>(123), CreateArg<object>("hello") });
+                var sut = new CallInfo(new[] { CreateArg<object>(123), CreateArg<object>("hello") }, null);
 
                 Assert.That(sut.Arg<string>(), Is.EqualTo("hello"));
                 Assert.That(sut.Arg<int>(), Is.EqualTo(123));
@@ -91,7 +91,7 @@ namespace NSubstitute.Specs
             public void Match_argument_by_actual_type_when_no_declared_type_match_is_found_and_when_a_compatible_argument_is_provided()
             {
                 var list = new List<int>();
-                var sut = new CallInfo(new[] { CreateArg<object>("asdf"), CreateArg<object>(list) });
+                var sut = new CallInfo(new[] { CreateArg<object>("asdf"), CreateArg<object>(list) }, null);
                 Assert.That(sut.Arg<IEnumerable<int>>(), Is.SameAs(list));
             }
 
@@ -99,7 +99,7 @@ namespace NSubstitute.Specs
             public void Match_by_ref_type_arguments_when_argument_that_is_the_non_by_ref_type_is_provided()
             {
                 const int expectedResult = 5;
-                var sut = new CallInfo(new[] { CreateArg<object>("aasdf"), new ByRefArgument<int>(expectedResult) });
+                var sut = new CallInfo(new[] { CreateArg<object>("aasdf"), new ByRefArgument<int>(expectedResult) }, null);
                 Assert.That(sut.Arg<int>(), Is.EqualTo(expectedResult));
             }
 
@@ -107,14 +107,14 @@ namespace NSubstitute.Specs
             public void Match_by_ref_type_arguments_when_argument_compatbile_non_by_ref_type_is_provided()
             {
                 var list = new List<int>();
-                var sut = new CallInfo(new[] { CreateArg<object>("aasdf"), new ByRefArgument<List<int>>(list) });
+                var sut = new CallInfo(new[] { CreateArg<object>("aasdf"), new ByRefArgument<List<int>>(list) }, null);
                 Assert.That(sut.Arg<IEnumerable<int>>(), Is.EqualTo(list));
             }
 
             [Test]
             public void Throw_when_there_is_no_declared_type_match_but_multiple_compatible_arguments()
             {
-                var sut = new CallInfo(new[] { CreateArg<object>("a"), CreateArg<object>("b") });
+                var sut = new CallInfo(new[] { CreateArg<object>("a"), CreateArg<object>("b") }, null);
                 Assert.Throws<AmbiguousArgumentsException>(() => sut.Arg<string>());
             }
         }
@@ -124,7 +124,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Throw_when_setting_argument_that_is_not_passed_by_ref()
             {
-                var sut = new CallInfo(new[] { CreateArg(1) });
+                var sut = new CallInfo(new[] { CreateArg(1) }, null);
 
                 Assert.Throws<ArgumentIsNotOutOrRefException>(() => sut[0] = 123);
             }
@@ -132,7 +132,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Throw_when_setting_by_ref_argument_with_an_incompatible_value()
             {
-                var sut = new CallInfo(new[] { new ByRefArgument<object>("needs a string") });
+                var sut = new CallInfo(new[] { new ByRefArgument<object>("needs a string") }, null);
 
                 Assert.Throws<ArgumentSetWithIncompatibleValueException>(() => sut[0] = new object());
             }

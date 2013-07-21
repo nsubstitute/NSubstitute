@@ -1,5 +1,4 @@
-﻿using System;
-using NSubstitute.Routing.AutoValues;
+﻿using NSubstitute.Routing.AutoValues;
 
 namespace NSubstitute.Core
 {
@@ -12,7 +11,6 @@ namespace NSubstitute.Core
         ICallResults CallResults { get; }
         ICallSpecificationFactory CallSpecificationFactory { get; }
         ICallActions CallActions { get; }
-        ICallBaseSpecifications CallBaseSpecifications { get; }
         bool CallBaseByDefault { get; set; }
         SequenceNumberGenerator SequenceNumberGenerator { get; }
         IConfigureCall ConfigureCall { get; }

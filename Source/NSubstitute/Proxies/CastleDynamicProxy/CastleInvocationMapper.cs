@@ -10,17 +10,22 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         public virtual ICall Map(IInvocation castleInvocation)
         {
-            Func<object> baseMethod = null;
-            if (castleInvocation.InvocationTarget != null &&
-                castleInvocation.MethodInvocationTarget.IsAbstract != true)
-            {
-                baseMethod = () =>
-                    {
+            //Func<object> baseMethod = null;
+            //if (castleInvocation.InvocationTarget != null &&
+            //    castleInvocation.MethodInvocationTarget.IsAbstract != true)
+            //{
+            //    baseMethod = () =>
+            //        {
+            //            castleInvocation.Proceed();
+            //            return castleInvocation.ReturnValue;
+            //        };
+            //}
 
+            Func<object> baseMethod = () =>
+                    {
                         castleInvocation.Proceed();
                         return castleInvocation.ReturnValue;
                     };
-            }
 
             return CallFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy, baseMethod);
         }
