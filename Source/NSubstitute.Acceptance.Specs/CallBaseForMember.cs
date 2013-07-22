@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
 {
-    // todo move tests to proper place, add more?
     public class CallBaseForMember
     {
         public class WhenCalledDoCallBase
@@ -69,20 +69,6 @@ namespace NSubstitute.Acceptance.Specs
             }
 
             [Test]
-            public void Given_SubstituteForClass_When_VirtualMethodIsSetupTwice_Then_ShouldSetupCorrectly()
-            {
-                var testClass = Substitute.For<TestClass>();
-                testClass.When(x => x.VoidVirtualMethod()).Do(x => x.CallBase());
-                testClass.When(x => x.VoidVirtualMethod()).Do(x => x.CallBase());
-
-                testClass.VoidVirtualMethod();
-                // I doubt that we should call base implementation just once here
-                // as .When().Do() syntax purpose is to invoke actions and not Return/Callbase
-                // and just by accident we have two actions that call base implemenation
-                Assert.That(testClass.CalledTimes, Is.EqualTo(2));
-            }
-
-            [Test]
             public void Given_SubstituteForClass_When_AbstractMethodIsCalled_Then_ShouldCallBaseImplementation()
             {
                 var testClass = Substitute.For<TestClass>();
@@ -110,6 +96,22 @@ namespace NSubstitute.Acceptance.Specs
                 Assert.That(testAbstractClass.MethodReturnsSameInt(1), Is.EqualTo(default(int)));
                 // but it calls base implementation
                 Assert.That(testAbstractClass.CalledTimes, Is.EqualTo(1));
+            }
+
+            [Test]
+            public void OnlyCallBaseOncePerCall()
+            {
+                var sub = Substitute.For<TestAbstractClass>();
+                var list = new List<int>();
+                sub.MethodReturnsSameInt(Arg.Any<int>()).Returns(x => x.CallBase());
+                sub.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).Do(x => list.Add((int) x.CallBase()));
+                sub.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).Do(x => list.Add((int) x.CallBase()));
+
+                sub.MethodReturnsSameInt(10);
+
+                //Actions still performed twice, but base only called once
+                Assert.That(list, Is.EquivalentTo(new[] {10, 10}));
+                Assert.That(sub.CalledTimes, Is.EqualTo(1));
             }
         }
 

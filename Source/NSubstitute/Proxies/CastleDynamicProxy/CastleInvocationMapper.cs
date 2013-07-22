@@ -16,11 +16,9 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 !castleInvocation.MethodInvocationTarget.IsAbstract &&
                 !castleInvocation.MethodInvocationTarget.IsFinal)
             {
-                baseMethod = () =>
-                    {
-                        castleInvocation.Proceed();
-                        return castleInvocation.ReturnValue;
-                    };
+                Func<object> baseResult = () => { castleInvocation.Proceed(); return castleInvocation.ReturnValue; };
+                var result = new Lazy<object>(baseResult);
+                baseMethod = () => result.Value;
             }
 
             return CallFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy, baseMethod);
