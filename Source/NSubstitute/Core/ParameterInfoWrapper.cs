@@ -21,5 +21,10 @@ namespace NSubstitute.Core
         {
             get { return _parameterInfo.IsParams(); }
         }
+
+        public bool IsOptional
+        {
+            get { return _parameterInfo.IsOptional; }
+        }
     }
 }
