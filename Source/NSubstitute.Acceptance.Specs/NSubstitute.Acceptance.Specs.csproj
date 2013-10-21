@@ -74,6 +74,7 @@
     <Compile Include="CallBaseForMember.cs" />
     <Compile Include="FieldReports\CallingIntoNewSubWithinReturns.cs" />
     <Compile Include="FieldReports\Issue110_CustomExceptions.cs" />
+    <Compile Include="FieldReports\Issue111_ArgMatchesWithRefAndOutParams.cs" />
     <Compile Include="FieldReports\Issue_ArgumentCheckOfOptionalParameter.cs" />
     <Compile Include="ReturnsAndDoes.cs" />
     <Compile Include="ExceptionsWhenCheckingReceivedCalls.cs" />
@@ -118,7 +119,6 @@
     <Compile Include="SubbingForConcreteTypesAndMultipleInterfaces.cs" />
     <Compile Include="SubstituteTimingAndInteractions.cs" />
     <Compile Include="Infrastructure\Task.cs" />
-    <Compile Include="TestRefAndOutArgAnyWithWhenDo.cs" />
     <Compile Include="WhenCalledDo.cs" />
     <Compile Include="SubstitutingForDelegates.cs" />
   </ItemGroup>
