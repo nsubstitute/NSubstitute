@@ -20,5 +20,10 @@ namespace NSubstitute.Core
         {
             get { return false; }
         }
+
+        public bool IsOptional
+        {
+            get { return false; }
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace NSubstitute.Core.Arguments
             {
                 return suppliedArgumentSpecifications.Dequeue();
             }
-            if (!suppliedArgumentSpecifications.AnyFor(argument, parameterInfo.ParameterType))
+            if (!suppliedArgumentSpecifications.AnyFor(argument, parameterInfo.ParameterType) || parameterInfo.IsOptional)
             {
                 return _argumentEqualsSpecificationFactory.Create(argument, parameterInfo.ParameterType);
             }
