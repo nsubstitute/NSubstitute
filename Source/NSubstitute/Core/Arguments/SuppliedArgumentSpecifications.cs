@@ -54,7 +54,8 @@ namespace NSubstitute.Core.Arguments
 
         private bool AreTypesCompatible(Type argumentType, Type typeArgSpecIsFor)
         {
-            return argumentType.IsAssignableFrom(typeArgSpecIsFor);
+            return argumentType.IsAssignableFrom(typeArgSpecIsFor) ||
+                (argumentType.IsByRef && !typeArgSpecIsFor.IsByRef && argumentType.IsAssignableFrom(typeArgSpecIsFor.MakeByRefType()));
         }
     }
 }
