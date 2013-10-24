@@ -1,3 +1,19 @@
+
+================================================================================================
+1.X.X Release
+================================================================================================
+
+Auto-substitute for pure virtual classes with at least one public static method, which
+means some methods and properties on substitutes that used to return null by default will now
+return a new substitute of that type.
+
+Reason:
+Keep consistency with the behaviour of other pure virtual classes.
+
+Fix:
+Explicitly return null from methods and property getters when required for a test.
+e.g. sub.Method().Returns(x => null);
+
 ================================================================================================
 1.5.0 Release
 ================================================================================================

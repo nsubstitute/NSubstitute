@@ -1,3 +1,6 @@
+1.X.X (XXX 2013)
+* [FIX] The default return value for any call that returns a concrete type that is purely virtual, but also has at least one public static method in it will be a substitute rather than null. Thanks to Robert Moore (@robdmoore) for this contribution. (#118)
+
 1.6.1 (June 2013)
 * [FIX] Detect and throw on type mismatches in Returns() caused by Returns(ConfigureOtherSub()).
 * [FIX] Support raising exceptions that do not implement a serialisation constructor (#110). Thanks to Alexandr Nikitin for this contribution.
