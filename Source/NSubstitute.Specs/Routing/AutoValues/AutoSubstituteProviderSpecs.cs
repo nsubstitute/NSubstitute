@@ -29,6 +29,9 @@ namespace NSubstitute.Specs.Routing.AutoValues
         [TestCase(typeof(TestClasses.PureVirtualClassWithVirtualInterfaceImpl), true)]
         [TestCase(typeof(TestClasses.PureDescendentOfPureVirtualClass), true)]
         [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicField), true)]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticMethod), true)]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticField), true)]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticProperty), true)]
         [TestCase(typeof(TestClasses.PureVirtualClassWithoutParameterlessConstructor), false)]
         [TestCase(typeof(TestClasses.ClassWithANonVirtualPublicMember), false)]
         [TestCase(typeof(TestClasses.ClassWithNonVirtualInterfaceImpl), false)]
@@ -132,6 +135,21 @@ namespace NSubstitute.Specs.Routing.AutoValues
             }
 
             public class VirtualClassWithInternalConstructor { internal VirtualClassWithInternalConstructor() { } }
+
+            public class PureVirtualClassWithAPublicStaticMethod
+            {
+                public static void StaticMethod() {}
+            }
+
+            public class PureVirtualClassWithAPublicStaticProperty
+            {
+                public static string StaticProperty { get; set; }
+            }
+
+            public class PureVirtualClassWithAPublicStaticField
+            {
+                public string StaticField;
+            }
         }
     }
 }

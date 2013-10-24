@@ -47,6 +47,18 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
 
             Assert.That(returnedClass, Is.SameAs(obj));
         }
+
+        [Test]
+        public void Substitute_of_concrete_with_static_member_should_allow_setup_of_return_value()
+        {
+            const string value = "test";
+            var sub = Substitute.For<ConcreteWithPublicStaticMethod>();
+            sub.AProperty.Returns(value);
+
+            var returnedValue = sub.AProperty;
+
+            Assert.That(returnedValue, Is.EqualTo(value));
+        }
     }
 
     public class ConcreteWithPublicStaticMethod
