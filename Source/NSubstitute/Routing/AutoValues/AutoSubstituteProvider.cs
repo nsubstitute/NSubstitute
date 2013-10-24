@@ -45,7 +45,7 @@ namespace NSubstitute.Routing.AutoValues
 
         private bool IsPureVirtualType(Type type)
         {
-            var methods = type.GetMethods().Where(NotMethodFromObject);
+            var methods = type.GetMethods().Where(NotMethodFromObject).Where(NotStaticMethod);
             return methods.All(IsOverridable);
         }
 
@@ -62,6 +62,11 @@ namespace NSubstitute.Routing.AutoValues
         private bool NotMethodFromObject(MethodInfo methodInfo)
         {
             return methodInfo.DeclaringType != typeof(object);
+        }
+
+        private bool NotStaticMethod(MethodInfo methodInfo)
+        {
+            return !methodInfo.IsStatic;
         }
     }
 }
