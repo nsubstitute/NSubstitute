@@ -1,3 +1,14 @@
+3.2.1 (2013-10-06)
+==================
+- fixed #32 - Improve configuration of SmtpClient in sync sending - contributed by Artur Dorochowicz (@ArturDorochowicz)
+- fixed #31 - [DynamicProxy] Preserve DefaultValues of proxied method's parameters (in .NET 4.5)
+- fixed #30 - tailoring InternalsVisibleTo message based on assembly of inaccessible type - contributed by Blair Conrad (@blairconrad)
+- fixed #27 - Allow dynamic proxy of generic interfaces which have generic methods, under Mono 2.10.8 and Mono 3.0.6 - contributed by Iain Ballard (@i-e-b)
+- fixed #26 - Proxy of COM class issue, reference count incremented - contributed by Jean-Claude Viau (@jcviau)
+- fixed DYNPROXY-188 - CreateInterfaceProxyWithoutTarget fails with interface containing member with 'ref UIntPtr' - contributed by Pier Janssen (@Pjanssen)
+- fixed DYNPROXY-186 - .Net remoting (transparent proxy) cannot be proxied - contributed by Jean-Claude Viau (@jcviau)
+- fixed DYNPROXY-185 - ProxyUtil.GetUnproxiedInstance returns proxy object for ClassProxyWithTarget instead of its target - contributed by Dmitry Xlestkov (@d-s-x)
+
 3.2.0 (2013-02-16)
 ==================
 - fixed DYNPROXY-179 - Exception when creating a generic proxy (from cache)
