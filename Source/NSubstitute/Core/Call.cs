@@ -9,11 +9,11 @@ namespace NSubstitute.Core
 {
     public class Call : ICall
     {
-        private MethodInfo _methodInfo;
-        private object[] _arguments;
-        private object _target;
+        private readonly MethodInfo _methodInfo;
+        private readonly object[] _arguments;
+        private readonly object _target;
         private readonly IParameterInfo[] _parameterInfos;
-        private IList<IArgumentSpecification> _argumentSpecifications;
+        private readonly IList<IArgumentSpecification> _argumentSpecifications;
         private long? _sequenceNumber;
         private readonly Func<object> _baseMethod;
 
@@ -74,8 +74,12 @@ namespace NSubstitute.Core
 
         public object CallBase()
         {
-            if (_baseMethod != null) return _baseMethod();
-            throw new CouldNotCallBaseException(_methodInfo);
+            return TryCallBase().ValueOr(() => { throw new CouldNotCallBaseException(_methodInfo); });
+        }
+
+        public Maybe<object> TryCallBase()
+        {
+            return _baseMethod == null ? Maybe<object>.Nothing() : new Maybe<object>(_baseMethod());
         }
 
         public Type GetReturnType()

@@ -17,9 +17,10 @@ namespace NSubstitute.Core
         public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
         public IAutoValueProvider[] AutoValueProviders { get; private set; }
 
-        public SubstituteState(ISubstitutionContext substitutionContext)
+        public SubstituteState(ISubstitutionContext substitutionContext, bool callBaseByDefault)
         {
             SubstitutionContext = substitutionContext;
+            CallBaseByDefault = callBaseByDefault;
             SequenceNumberGenerator = substitutionContext.SequenceNumberGenerator;
             var substituteFactory = substitutionContext.SubstituteFactory;
             var callInfoFactory = new CallInfoFactory();

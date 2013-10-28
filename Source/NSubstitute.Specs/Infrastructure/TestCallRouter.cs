@@ -29,10 +29,5 @@ namespace NSubstitute.Specs.Infrastructure
         {
             FactoryMethodUsedToSetRoute = getRoute;
         }
-
-        public void CallBaseByDefault(bool callBaseByDefault)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

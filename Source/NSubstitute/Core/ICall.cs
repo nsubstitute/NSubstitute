@@ -16,5 +16,6 @@ namespace NSubstitute.Core
         void AssignSequenceNumber(long number);
         long GetSequenceNumber();
         object CallBase();
+        Maybe<object> TryCallBase();
     }
 }

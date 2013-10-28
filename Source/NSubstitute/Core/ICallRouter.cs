@@ -11,6 +11,5 @@ namespace NSubstitute.Core
         void ClearReceivedCalls();
         IEnumerable<ICall> ReceivedCalls();
         void SetRoute(Func<ISubstituteState, IRoute> getRoute);
-        void CallBaseByDefault(bool callBaseByDefault);
     }
 }

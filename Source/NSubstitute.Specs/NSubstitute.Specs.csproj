@@ -98,7 +98,6 @@
     <Compile Include="Infrastructure\TestCallRouter.cs" />
     <Compile Include="QuantitySpecs.cs" />
     <Compile Include="ReceivedCallsExceptionThrowerSpecs.cs" />
-    <Compile Include="CallRouterFactorySpecs.cs" />
     <Compile Include="CallResultsSpecs.cs" />
     <Compile Include="CallRouterResolverSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />

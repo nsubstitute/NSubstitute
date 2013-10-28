@@ -83,6 +83,17 @@ namespace NSubstitute.Acceptance.Specs
 
                 Assert.That(result, Is.EqualTo(15));
             }
+
+            [Test]
+            public void ShouldSumAllNumberInFileWithPartialSub()
+            {
+                var reader = Substitute.ForPartsOf<SummingReader>();
+                reader.ReadFile().Returns("1,2,3,4,5");
+
+                var result = reader.Read();
+
+                Assert.That(result, Is.EqualTo(15));
+            }
         }
 
         public class UnderlyingListExample
@@ -113,7 +124,6 @@ namespace NSubstitute.Acceptance.Specs
             public void AddTask()
             {
                 var list = Substitute.For<TaskList>();
-                // TODO: Substitute.OnDemandFor<TaskList>() (call base by default, override to opt out. Handling voids?)
                 list.WhenForAnyArgs(x => x.Add("")).Do(x => x.CallBase());
                 list.ToArray().Returns(x => x.CallBase());
 
@@ -127,6 +137,19 @@ namespace NSubstitute.Acceptance.Specs
                 Assert.That(view.DisplayedTasks, Is.EqualTo(new[] { "write example" }));
             }
 
+            [Test]
+            public void AddTaskUsingPartialSub()
+            {
+                var list = Substitute.ForPartsOf<TaskList>();
+                var view = new TaskView(list);
+                view.TaskEntryField = "write example";
+
+                view.ClickButton();
+
+                // list substitute functions as test spy
+                list.Received().Add("write example");
+                Assert.That(view.DisplayedTasks, Is.EqualTo(new[] { "write example" }));
+            }
         }
     }
 }

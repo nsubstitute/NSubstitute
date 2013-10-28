@@ -18,15 +18,33 @@ namespace NSubstitute.Core
             _callRouterResolver = callRouterResolver;
         }
 
+        /// <summary>
+        /// Create a substitute for the given types.
+        /// </summary>
+        /// <param name="typesToProxy"></param>
+        /// <param name="constructorArguments"></param>
+        /// <returns></returns>
         public object Create(Type[] typesToProxy, object[] constructorArguments)
         {
-            return Create(typesToProxy, constructorArguments, callBaseByDefault: false);
+            return Create(typesToProxy, constructorArguments, false);
         }
 
-        public object Create(Type[] typesToProxy, object[] constructorArguments, bool callBaseByDefault)  
+        /// <summary>
+        /// Create an instance of the given types, with calls configured to call the base implementation
+        /// where possible. Parts of the instance can be substituted using 
+        /// <see cref="SubstituteExtensions.Returns{T}(T,T,T[])">Returns()</see>.
+        /// </summary>
+        /// <param name="typesToProxy"></param>
+        /// <param name="constructorArguments"></param>
+        /// <returns></returns>
+        public object CreatePartial(Type[] typesToProxy, object[] constructorArguments)
         {
-            var callRouter = _callRouterFactory.Create(_context);
-            callRouter.CallBaseByDefault(callBaseByDefault);
+            return Create(typesToProxy, constructorArguments, true);
+        }
+
+        private object Create(Type[] typesToProxy, object[] constructorArguments, bool callBaseByDefault)  
+        {
+            var callRouter = _callRouterFactory.Create(_context, callBaseByDefault);
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
             var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
             var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);

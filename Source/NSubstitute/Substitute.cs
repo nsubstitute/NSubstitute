@@ -70,5 +70,21 @@ namespace NSubstitute
             var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
             return substituteFactory.Create(typesToProxy, constructorArguments);
         }
+
+        /// <summary>
+        /// Create a substitute for a class that behaves just like the real class, but also
+        /// records calls made to its virtual members and allows for specific members to be 
+        /// out by <see cref="SubstituteExtensions.Returns{T}(T,T,T[])">setting a value to return</see>
+        /// for that member.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="constructorArguments"></param>
+        /// <returns></returns>
+        public static T ForPartsOf<T>(params object[] constructorArguments) 
+            where T : class
+        {
+            var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
+            return (T) substituteFactory.CreatePartial(new[] {typeof (T)}, constructorArguments);
+        }
     }
 }
