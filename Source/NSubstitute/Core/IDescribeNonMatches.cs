@@ -1,4 +1,4 @@
-namespace NSubstitute
+namespace NSubstitute.Core
 {
     public interface IDescribeNonMatches
     {

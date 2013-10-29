@@ -1,4 +1,4 @@
-namespace NSubstitute
+namespace NSubstitute.Core.Arguments
 {
     /// <summary>
     /// Provides a specification for arguments for use with <see ctype="Arg.Matches (IArgumentMatcher)" />.

@@ -1,4 +1,5 @@
-﻿using NSubstitute.Core.Arguments;
+﻿using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 

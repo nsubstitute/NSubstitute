@@ -143,6 +143,8 @@
     <Compile Include="Core\ISubstituteState.cs" />
     <Compile Include="Core\SequenceChecking\SequenceInOrderAssertion.cs" />
     <Compile Include="Core\SequenceNumberGenerator.cs" />
+    <Compile Include="Core\Events\DelegateEventWrapper.cs" />
+    <Compile Include="Core\Events\EventHandlerWrapper.cs" />
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CallSequenceNotFoundException.cs" />
@@ -154,8 +156,9 @@
     <Compile Include="Exceptions\NotRunningAQueryException.cs" />
     <Compile Include="Exceptions\NullSubstituteReferenceException.cs" />
     <Compile Include="Experimental\Received.cs" />
-    <Compile Include="IArgumentMatcher.cs" />
-    <Compile Include="IDescribeNonMatches.cs" />
+    <Compile Include="Core\Arguments\IArgumentMatcher.cs" />
+    <Compile Include="Core\IDescribeNonMatches.cs" />
+    <Compile Include="Core\Events\RaiseEventWrapper.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
@@ -219,7 +222,6 @@
     <Compile Include="Core\ICall.cs" />
     <Compile Include="Core\ICallRouter.cs" />
     <Compile Include="Core\IEventHandlerRegistry.cs" />
-    <Compile Include="Core\IEventRaiser.cs" />
     <Compile Include="Core\IProxyFactory.cs" />
     <Compile Include="Core\IPropertyHelper.cs" />
     <Compile Include="Core\IConfigureCall.cs" />
