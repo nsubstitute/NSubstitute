@@ -1,4 +1,6 @@
 1.X.X (XXX 2013)
+* [FIX] Argument matching with optional parameters. Thanks to Peter Wiles. (#111)
+* [FIX] Argument matching with out/ref. Thanks to Kevin Bosman. (#111)
 * [FIX] The default return value for any call that returns a concrete type that is purely virtual, but also has at least one public static method in it will be a substitute rather than null. Thanks to Robert Moore (@robdmoore) for this contribution. (#118)
 
 1.6.1 (June 2013)
