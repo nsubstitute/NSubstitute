@@ -11,6 +11,7 @@ namespace NSubstitute.Acceptance.Specs
 
         public class PureVirtualClass { public virtual void Foo() { } }
         public class NonVirtualClass { public void Bar() { } }
+        public sealed class SealedClass { }
         delegate ISample SampleFactory();
 
         public interface ISample
@@ -22,8 +23,9 @@ namespace NSubstitute.Acceptance.Specs
             int? GetNullableNumber();
             PureVirtualClass VirtualClass { get; set; }
             NonVirtualClass NonVirtualClass { get; set; }
+            SealedClass SealedClass { get; set; }
         }
-
+        
         [SetUp]
         public void SetUp()
         {
@@ -46,13 +48,13 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Should_auto_return_empty_string()
         {
-            Assert.That(_sample.Name.Length, Is.EqualTo(0)); 
+            Assert.That(_sample.Name.Length, Is.EqualTo(0));
         }
 
         [Test]
         public void Should_return_null_for_nullables()
         {
-            Assert.That(_sample.GetNullableNumber(), Is.Null); 
+            Assert.That(_sample.GetNullableNumber(), Is.Null);
         }
 
         [Test]
@@ -72,6 +74,12 @@ namespace NSubstitute.Acceptance.Specs
         public void Should_return_default_value_for_non_virtual_class()
         {
             Assert.That(_sample.NonVirtualClass, Is.Null);
+        }
+
+        [Test]
+        public void Should_return_default_value_for_sealed_class()
+        {
+            Assert.That(_sample.SealedClass, Is.Null);
         }
 
         [Test]

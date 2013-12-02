@@ -37,6 +37,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
         [TestCase(typeof(TestClasses.ClassWithNonVirtualInterfaceImpl), false)]
         [TestCase(typeof(TestClasses.ImpureDescendentOfPureVirtualClass), false)]
         [TestCase(typeof(TestClasses.VirtualClassWithInternalConstructor), false)]
+        [TestCase(typeof(TestClasses.SealedClassWithoutMethods), false)]
         public void Can_provide_value_for_class_type(Type type, bool shouldProvideValue)
         {
             Assert.That(sut.CanProvideValueFor(type), Is.EqualTo(shouldProvideValue));
@@ -149,6 +150,10 @@ namespace NSubstitute.Specs.Routing.AutoValues
             public class PureVirtualClassWithAPublicStaticField
             {
                 public string StaticField;
+            }
+
+            public sealed class SealedClassWithoutMethods
+            {
             }
         }
     }

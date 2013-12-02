@@ -45,6 +45,7 @@ namespace NSubstitute.Routing.AutoValues
 
         private bool IsPureVirtualType(Type type)
         {
+            if (type.IsSealed) return false;
             var methods = type.GetMethods().Where(NotMethodFromObject).Where(NotStaticMethod);
             return methods.All(IsOverridable);
         }
