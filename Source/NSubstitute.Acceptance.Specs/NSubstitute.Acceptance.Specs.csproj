@@ -77,6 +77,7 @@
     <Compile Include="FieldReports\Issue118_ConcreteClassWithPublicStaticMethod.cs" />
     <Compile Include="FieldReports\Issue111_ArgMatchesWithRefAndOutParams.cs" />
     <Compile Include="FieldReports\Issue114_ArgumentCheckOfOptionalParameter.cs" />
+    <Compile Include="FieldReports\Issue125_MethodWithSealedClassReturnType.cs" />
     <Compile Include="PartialSubExamples.cs" />
     <Compile Include="ReturnsAndDoes.cs" />
     <Compile Include="ExceptionsWhenCheckingReceivedCalls.cs" />
