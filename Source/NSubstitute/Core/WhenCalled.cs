@@ -29,5 +29,11 @@ namespace NSubstitute.Core
             _callRouter.SetRoute(x => _routeFactory.DoWhenCalled(x, callbackWithArguments, _matchArgs));
             _call(_substitute);
         }
+
+        public WhenCalled<T> DoNotCallBase()
+        {
+            //TODO: stop this call from going through to base
+            return this;
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
@@ -39,6 +40,11 @@ namespace NSubstitute.Core
         /// <returns></returns>
         public object CreatePartial(Type[] typesToProxy, object[] constructorArguments)
         {
+            var primaryProxyType = GetPrimaryProxyType(typesToProxy);
+            if (primaryProxyType.IsSubclassOf(typeof (Delegate)) || !primaryProxyType.IsClass)
+            {
+                throw new CanNotPartiallySubForInterfaceOrDelegateException(primaryProxyType);
+            }
             return Create(typesToProxy, constructorArguments, true);
         }
 

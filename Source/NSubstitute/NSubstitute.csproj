@@ -149,9 +149,10 @@
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CallSequenceNotFoundException.cs" />
-    <Compile Include="Exceptions\CouldNotCallBaseException.cs" />
+    <Compile Include="Exceptions\CanNotPartiallySubForInterfaceOrDelegateException.cs" />
     <Compile Include="Exceptions\CannotCreateEventArgsException.cs" />
     <Compile Include="Exceptions\CannotReturnNullForValueType.cs" />
+    <Compile Include="Exceptions\CouldNotCallBaseException.cs" />
     <Compile Include="Exceptions\CouldNotSetReturnException.cs" />
     <Compile Include="Exceptions\MissingSequenceNumberException.cs" />
     <Compile Include="Exceptions\NotRunningAQueryException.cs" />

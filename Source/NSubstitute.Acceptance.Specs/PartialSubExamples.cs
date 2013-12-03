@@ -36,8 +36,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void ValidFormSubmission()
             {
-                var form = Substitute.For<Form>();
-                form.Submit().Returns(x => x.CallBase());
+                var form = Substitute.ForPartsOf<Form>();
                 form.Validate().Returns(new FormResult() { IsValid = true });
 
                 var result = form.Submit();
@@ -49,8 +48,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void InvalidFormSubmission()
             {
-                var form = Substitute.For<Form>();
-                form.Submit().Returns(x => x.CallBase());
+                var form = Substitute.ForPartsOf<Form>();
                 form.Validate().Returns(new FormResult() { IsValid = false });
 
                 var result = form.Submit();
@@ -74,18 +72,6 @@ namespace NSubstitute.Acceptance.Specs
 
             [Test]
             public void ShouldSumAllNumbersInFile()
-            {
-                var reader = Substitute.For<SummingReader>();
-                reader.Read().Returns(x => x.CallBase());
-                reader.ReadFile().Returns("1,2,3,4,5");
-
-                var result = reader.Read();
-
-                Assert.That(result, Is.EqualTo(15));
-            }
-
-            [Test]
-            public void ShouldSumAllNumberInFileWithPartialSub()
             {
                 var reader = Substitute.ForPartsOf<SummingReader>();
                 reader.ReadFile().Returns("1,2,3,4,5");
@@ -122,23 +108,6 @@ namespace NSubstitute.Acceptance.Specs
 
             [Test]
             public void AddTask()
-            {
-                var list = Substitute.For<TaskList>();
-                list.WhenForAnyArgs(x => x.Add("")).Do(x => x.CallBase());
-                list.ToArray().Returns(x => x.CallBase());
-
-                var view = new TaskView(list);
-                view.TaskEntryField = "write example";
-
-                view.ClickButton();
-
-                // list substitute functions as test spy
-                list.Received().Add("write example");
-                Assert.That(view.DisplayedTasks, Is.EqualTo(new[] { "write example" }));
-            }
-
-            [Test]
-            public void AddTaskUsingPartialSub()
             {
                 var list = Substitute.ForPartsOf<TaskList>();
                 var view = new TaskView(list);

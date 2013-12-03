@@ -17,7 +17,7 @@ namespace NSubstitute.Specs
 
             public override void Context()
             {
-                 _callInfo = new CallInfo(new Argument[0], null);
+                 _callInfo = new CallInfo(new Argument[0]);
                 _func = mock<Func<CallInfo, string>>();
                 _func.stub(x => x(_callInfo)).Return(ValueToReturn);
             }
@@ -44,7 +44,7 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_return_null()
             {
-                Assert.That(sut.ReturnFor(new CallInfo(new Argument[0], null)), Is.Null);
+                Assert.That(sut.ReturnFor(new CallInfo(new Argument[0])), Is.Null);
             }
 
             public override ReturnValueFromFunc<string> CreateSubjectUnderTest()

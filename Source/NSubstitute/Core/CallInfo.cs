@@ -8,12 +8,10 @@ namespace NSubstitute.Core
     public class CallInfo
     {
         private readonly Argument[] _callArguments;
-        private readonly Func<object> _callBase;
 
-        public CallInfo(Argument[] callArguments, Func<object> callBase)
+        public CallInfo(Argument[] callArguments)
         {
             _callArguments = callArguments;
-            _callBase = callBase;
         }
 
         /// <summary>
@@ -75,15 +73,6 @@ namespace NSubstitute.Core
             if (TryGetArg(x => x.IsDeclaredTypeEqualToOrByRefVersionOf(typeof(T)), out arg)) return arg;
             if (TryGetArg(x => x.IsValueAssignableTo(typeof(T)), out arg)) return arg;
             throw new ArgumentNotFoundException("Can not find an argument of type " + typeof(T).FullName + " to this call.");
-        }
-
-        /// <summary>
-        /// Call the underlying base implementation of this call, if this is for a virtual member.
-        /// </summary>
-        /// <returns></returns>
-        public object CallBase()
-        {
-            return _callBase();
         }
 
         private bool TryGetArg<T>(Func<Argument, bool> condition, out T value)

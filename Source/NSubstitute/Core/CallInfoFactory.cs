@@ -9,7 +9,7 @@ namespace NSubstitute.Core
         public CallInfo Create(ICall call)
         {
             var arguments = GetArgumentsFromCall(call).ToArray();
-            return new CallInfo(arguments, call.CallBase);
+            return new CallInfo(arguments);
         }
 
         private static IEnumerable<Argument> GetArgumentsFromCall(ICall call)
