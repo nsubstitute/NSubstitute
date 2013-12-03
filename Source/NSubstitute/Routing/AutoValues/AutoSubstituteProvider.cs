@@ -30,6 +30,7 @@ namespace NSubstitute.Routing.AutoValues
         {
             if (type == typeof(object)) return false;
             if (!type.IsClass) return false;
+            if (type.IsSealed) return false;
             if (!IsPureVirtualType(type)) return false;
             if (!HasParameterlessConstructor(type)) return false;
             return true;
