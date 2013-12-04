@@ -91,5 +91,37 @@ namespace NSubstitute.Acceptance.Specs
             foo.Received().WriteOnly = somethingToWrite;
             Assert.Throws<ReceivedCallsException>(() => foo.Received().WriteOnly = "non-fancy writable stuff");
         }
+
+        [Test]
+        public void Check_a_property_getter_was_called_using_lambda_override()
+        {
+            var foo = Substitute.For<IFoo>();
+            _ignored = foo.Name;
+            foo.Received(f => f.Name);
+        }
+
+        [Test]
+        public void Check_a_property_getter_using_lambda_override_fails_if_not_called()
+        {
+            var foo = Substitute.For<IFoo>();
+            Assert.Throws<ReceivedCallsException>(() => foo.Received(f => f.Name));
+        }
+
+        [Test]
+        public void Check_a_property_get_count_using_lambda_override()
+        {
+            var foo = Substitute.For<IFoo>();
+            _ignored = foo.Name;
+            _ignored = foo.Name;
+            foo.Received(2, f => f.Name);
+        }
+
+        [Test]
+        public void Check_a_property_get_count_using_lambda_override_fails_if_wrong_count()
+        {
+            var foo = Substitute.For<IFoo>();
+            _ignored = foo.Name;
+            Assert.Throws<ReceivedCallsException>(() => foo.Received(2, f => f.Name));
+        }
     }
 }
