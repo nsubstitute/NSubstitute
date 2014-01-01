@@ -72,14 +72,15 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Create a substitute for a class that behaves just like the real class, but also
-        /// records calls made to its virtual members and allows for specific members to be 
-        /// out by <see cref="SubstituteExtensions.Returns{T}(T,T,T[])">setting a value to return</see>
-        /// for that member.
+        /// Create a substitute for a class that behaves just like a real instance of the class, but also
+        /// records calls made to its virtual members and allows for specific members to be substituted
+        /// by using <see cref="WhenCalled{T}.DoNotCallBase()">When(() => call).DoNotCallBase()</see> or by
+        /// <see cref="SubstituteExtensions.Returns{T}(T,T,T[])">setting a value to return value</see> for that member.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type to substitute for parts of. Must be a class; not a delegate, interface, or abstract class.</typeparam>
         /// <param name="constructorArguments"></param>
-        /// <returns></returns>
+        /// <returns>An instance of the class that will execute real methods when called, but allows parts to be selectively 
+        /// overridden via `Returns` and `When..DoNotCallBase`.</returns>
         public static T ForPartsOf<T>(params object[] constructorArguments) 
             where T : class
         {
