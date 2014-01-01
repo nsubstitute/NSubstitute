@@ -3,8 +3,6 @@ title: Checking call order
 layout: post
 ---
 
-**NOTE: This feature is currently in the `NSubstitute.Experimental` namespace while we experiment with its API and behaviour. You are welcome to try it out, but be aware that it may change in later releases. Please leave feedback on the [discussion group](https://groups.google.com/group/nsubstitute).**
-
 Sometimes calls need to be made in a specific order. Depending on the timing of calls like this is known as _temporal coupling_. Ideally we'd change our design to remove this coupling, but for times when we can't NSubstitute lets us resort to asserting the order of calls.
 
 {% examplecode csharp %}
@@ -43,12 +41,6 @@ public void SubscribeToEventBeforeOpeningConnection() {
 {% endexamplecode %}
 
 {% requiredcode %}
-
-//Wrapper to call Experimental namespace
-public class Received {
-  public static void InOrder(Action calls) { Experimental.Received.InOrder(calls); }
-}
-
 public class Controller {
   IConnection connection;
   ICommand cmd;

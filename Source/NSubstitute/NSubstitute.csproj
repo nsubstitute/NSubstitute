@@ -163,6 +163,7 @@
     <Compile Include="Core\Arguments\IArgumentMatcher.cs" />
     <Compile Include="Core\IDescribeNonMatches.cs" />
     <Compile Include="Core\Events\RaiseEventWrapper.cs" />
+    <Compile Include="Received.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
