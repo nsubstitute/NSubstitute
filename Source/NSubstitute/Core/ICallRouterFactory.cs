@@ -2,6 +2,6 @@ namespace NSubstitute.Core
 {
     public interface ICallRouterFactory
     {
-        ICallRouter Create(ISubstitutionContext substitutionContext, bool callBaseByDefault);
+        ICallRouter Create(ISubstitutionContext substitutionContext, SubstituteConfig config);
     }
 }

@@ -61,7 +61,7 @@ namespace NSubstitute.Specs
                 _proxy = new object();
                 _constructorArgs = new[] { new object() };
                 _callRouter = mock<ICallRouter>();
-                _callRouterFactory.stub(x => x.Create(_context, false)).Return(_callRouter);
+                _callRouterFactory.stub(x => x.Create(_context, SubstituteConfig.OverrideAllCalls)).Return(_callRouter);
             }
 
             protected void ShouldReturnProxyWhenFactoryCalledWith(Type typeOfProxy, Type[] additionalTypes)

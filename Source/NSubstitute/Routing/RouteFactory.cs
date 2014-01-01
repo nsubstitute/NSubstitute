@@ -71,7 +71,7 @@ namespace NSubstitute.Routing
                 , new PropertySetterHandler(new PropertyHelper(), state.ConfigureCall)
                 , new DoActionsCallHandler(state.CallActions)
                 , new ReturnConfiguredResultHandler(state.CallResults)
-                , new ReturnFromBaseIfRequired(state.CallBaseByDefault, state.CallBaseExclusions)
+                , new ReturnFromBaseIfRequired(state.SubstituteConfig, state.CallBaseExclusions)
                 , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });

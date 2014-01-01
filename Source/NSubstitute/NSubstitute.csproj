@@ -148,6 +148,7 @@
     <Compile Include="Core\SequenceNumberGenerator.cs" />
     <Compile Include="Core\Events\DelegateEventWrapper.cs" />
     <Compile Include="Core\Events\EventHandlerWrapper.cs" />
+    <Compile Include="Core\SubstituteConfig.cs" />
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CallSequenceNotFoundException.cs" />

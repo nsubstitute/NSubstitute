@@ -7,9 +7,9 @@ namespace NSubstitute.Routing.Handlers
         private readonly bool _required;
         private readonly ICallBaseExclusions _callBaseExclusions;
 
-        public ReturnFromBaseIfRequired(bool required, ICallBaseExclusions callBaseExclusions)
+        public ReturnFromBaseIfRequired(SubstituteConfig config, ICallBaseExclusions callBaseExclusions)
         {
-            _required = required;
+            _required = config == SubstituteConfig.CallBaseByDefault;
             _callBaseExclusions = callBaseExclusions;
         }
 

@@ -12,16 +12,16 @@ namespace NSubstitute.Core
         public ICallSpecificationFactory CallSpecificationFactory { get; private set; }
         public ICallActions CallActions { get; private set; }
         public ICallBaseExclusions CallBaseExclusions { get; private set; }
-        public bool CallBaseByDefault { get; set; }
+        public SubstituteConfig SubstituteConfig { get; set; }
         public SequenceNumberGenerator SequenceNumberGenerator { get; private set; }
         public IConfigureCall ConfigureCall { get; private set; }
         public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
         public IAutoValueProvider[] AutoValueProviders { get; private set; }
 
-        public SubstituteState(ISubstitutionContext substitutionContext, bool callBaseByDefault)
+        public SubstituteState(ISubstitutionContext substitutionContext, SubstituteConfig option)
         {
             SubstitutionContext = substitutionContext;
-            CallBaseByDefault = callBaseByDefault;
+            SubstituteConfig = option;
             SequenceNumberGenerator = substitutionContext.SequenceNumberGenerator;
             var substituteFactory = substitutionContext.SubstituteFactory;
             var callInfoFactory = new CallInfoFactory();
