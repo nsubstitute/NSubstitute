@@ -86,7 +86,9 @@ func().Returns("hello");
 Assert.AreEqual("hello", func());
 {% endexamplecode %}
 
+## Partial substitutes and test spies
 
+When required we can also create substitutes that run real code by default, letting us replace [specific parts of a class with substitute behaviour](/help/partial-subs/).
 
 
 

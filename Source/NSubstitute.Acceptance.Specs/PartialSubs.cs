@@ -122,6 +122,31 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(testClass.CalledTimes, Is.EqualTo(0));
         }
 
+        [Test]
+        public void DoNotCallBaseWhenConfiguringReturnsIfAnArgMatcherIsPresent()
+        {
+            var testClass = Substitute.ForPartsOf<TestClass>();
+            testClass.MethodReturnsSameInt(Arg.Is(2)).Returns(4);
+
+            var result = testClass.MethodReturnsSameInt(2);
+
+            Assert.That(testClass.CalledTimes, Is.EqualTo(0), "should not call base as NSub guesses we are specifying a call");
+            Assert.That(result, Is.EqualTo(4));
+        }
+
+        [Test]
+        public void DoNotCallBaseWhenUsingWhenDoNotCallBase()
+        {
+            var testClass = Substitute.ForPartsOf<TestClass>();
+            testClass.When(x => x.MethodReturnsSameInt(2)).DoNotCallBase();
+
+            var result = testClass.MethodReturnsSameInt(2);
+
+            Assert.That(testClass.CalledTimes, Is.EqualTo(0), "should not call base");
+            Assert.That(result, Is.EqualTo(default(int)));
+        
+        }
+
         public interface ITestInterface
         {
             void VoidTestMethod();

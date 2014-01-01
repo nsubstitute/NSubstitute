@@ -77,7 +77,7 @@ namespace NSubstitute
         /// by using <see cref="WhenCalled{T}.DoNotCallBase()">When(() => call).DoNotCallBase()</see> or by
         /// <see cref="SubstituteExtensions.Returns{T}(T,T,T[])">setting a value to return value</see> for that member.
         /// </summary>
-        /// <typeparam name="T">The type to substitute for parts of. Must be a class; not a delegate, interface, or abstract class.</typeparam>
+        /// <typeparam name="T">The type to substitute for parts of. Must be a class; not a delegate or interface.</typeparam>
         /// <param name="constructorArguments"></param>
         /// <returns>An instance of the class that will execute real methods when called, but allows parts to be selectively 
         /// overridden via `Returns` and `When..DoNotCallBase`.</returns>
