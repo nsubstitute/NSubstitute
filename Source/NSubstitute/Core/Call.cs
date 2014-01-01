@@ -72,11 +72,6 @@ namespace NSubstitute.Core
             return _sequenceNumber.Value;
         }
 
-        public object CallBase()
-        {
-            return TryCallBase().ValueOr(() => { throw new CouldNotCallBaseException(_methodInfo); });
-        }
-
         public Maybe<object> TryCallBase()
         {
             return _baseMethod == null ? Maybe<object>.Nothing() : new Maybe<object>(_baseMethod());
