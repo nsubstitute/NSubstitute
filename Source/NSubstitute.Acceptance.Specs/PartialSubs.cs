@@ -69,8 +69,9 @@ namespace NSubstitute.Acceptance.Specs
             var wasCalled = false;
             var testClass = Substitute.ForPartsOf<TestClass>();
             testClass.When(x => x.VoidAbstractMethod())
-                .DoNotCallBase()
                 .Do(x => wasCalled = true);
+            testClass.When(x => x.VoidAbstractMethod())
+                .DoNotCallBase();
             testClass.VoidAbstractMethod();
             Assert.That(testClass.CalledTimes, Is.EqualTo(0));
             Assert.That(wasCalled);

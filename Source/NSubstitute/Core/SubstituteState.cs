@@ -11,6 +11,7 @@ namespace NSubstitute.Core
         public ICallResults CallResults { get; private set; }
         public ICallSpecificationFactory CallSpecificationFactory { get; private set; }
         public ICallActions CallActions { get; private set; }
+        public ICallBaseExclusions CallBaseExclusions { get; private set; }
         public bool CallBaseByDefault { get; set; }
         public SequenceNumberGenerator SequenceNumberGenerator { get; private set; }
         public IConfigureCall ConfigureCall { get; private set; }
@@ -31,6 +32,7 @@ namespace NSubstitute.Core
             CallResults = new CallResults(callInfoFactory);
             CallSpecificationFactory = CallSpecificationFactoryFactoryYesThatsRight.CreateCallSpecFactory();
             CallActions = new CallActions(callInfoFactory);
+            CallBaseExclusions = new CallBaseExclusions();
 
             var getCallSpec = new GetCallSpec(callStack, PendingSpecification, CallSpecificationFactory, CallActions);
 
@@ -50,6 +52,5 @@ namespace NSubstitute.Core
         {
             PendingSpecification.Clear();
         }
-
     }
 }

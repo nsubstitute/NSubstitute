@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using NSubstitute.Acceptance.Specs.Infrastructure;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs

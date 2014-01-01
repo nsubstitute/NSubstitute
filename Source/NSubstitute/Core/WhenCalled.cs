@@ -30,10 +30,13 @@ namespace NSubstitute.Core
             _call(_substitute);
         }
 
-        public WhenCalled<T> DoNotCallBase()
+        /// <summary>
+        /// Do not call the base implementation on future calls. For us with partial substitutes.
+        /// </summary>
+        public void DoNotCallBase()
         {
-            //TODO: stop this call from going through to base
-            return this;
+            _callRouter.SetRoute(x => _routeFactory.DoNotCallBase(x, _matchArgs));
+            _call(_substitute);
         }
     }
 }

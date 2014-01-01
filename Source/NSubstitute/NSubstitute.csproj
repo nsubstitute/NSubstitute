@@ -115,6 +115,7 @@
     <Compile Include="Core\Arguments\ParamsArgumentSpecificationFactory.cs" />
     <Compile Include="Core\Arguments\SuppliedArgumentSpecifications.cs" />
     <Compile Include="Core\Arguments\SuppliedArgumentSpecificationsFactory.cs" />
+    <Compile Include="Core\CallBaseExclusions.cs" />
     <Compile Include="Core\CallFactory.cs" />
     <Compile Include="Core\CallSpecAndTarget.cs" />
     <Compile Include="Core\CallSpecificationFactoryFactoryYesThatsRight.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\GetCallSpec.cs" />
+    <Compile Include="Core\ICallBaseExclusions.cs" />
     <Compile Include="Core\ICallRouterProvider.cs" />
     <Compile Include="Core\IGetCallSpec.cs" />
     <Compile Include="Core\Maybe.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="Routing\Handlers\AddCallToQueryResultHandler.cs" />
     <Compile Include="Routing\Handlers\ClearLastCallRouterHandler.cs" />
     <Compile Include="Routing\Handlers\ClearUnusedCallSpecHandler.cs" />
+    <Compile Include="Routing\Handlers\DoNotCallBaseForCallHandler.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
     <Compile Include="Routing\Handlers\RecordCallSpecificationHandler.cs" />
     <Compile Include="Core\MatchArgs.cs" />

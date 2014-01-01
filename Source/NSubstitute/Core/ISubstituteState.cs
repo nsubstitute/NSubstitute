@@ -16,6 +16,7 @@ namespace NSubstitute.Core
         IConfigureCall ConfigureCall { get; }
         IEventHandlerRegistry EventHandlerRegistry { get; }
         IAutoValueProvider[] AutoValueProviders { get; }
+        ICallBaseExclusions CallBaseExclusions { get; }
         void ClearUnusedCallSpecs();
     }
 }

@@ -34,6 +34,15 @@ namespace NSubstitute.Routing
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
+        public IRoute DoNotCallBase(ISubstituteState state, MatchArgs matchArgs)
+        {
+            return new Route(new ICallHandler[] {
+                new ClearLastCallRouterHandler(state.SubstitutionContext)
+                , new ClearUnusedCallSpecHandler(state)
+                , new DoNotCallBaseForCallHandler(state.CallSpecificationFactory, state.CallBaseExclusions, matchArgs)
+                , ReturnDefaultForReturnTypeHandler()
+            });
+        }
         public IRoute RaiseEvent(ISubstituteState state, Func<ICall, object[]> getEventArguments)
         {
             return new Route(new ICallHandler[] {
@@ -62,7 +71,7 @@ namespace NSubstitute.Routing
                 , new PropertySetterHandler(new PropertyHelper(), state.ConfigureCall)
                 , new DoActionsCallHandler(state.CallActions)
                 , new ReturnConfiguredResultHandler(state.CallResults)
-                , new ReturnFromBaseIfRequired(state.CallBaseByDefault)
+                , new ReturnFromBaseIfRequired(state.CallBaseByDefault, state.CallBaseExclusions)
                 , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });
