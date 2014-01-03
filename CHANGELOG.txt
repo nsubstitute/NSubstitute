@@ -1,4 +1,4 @@
-1.X.X (XXX 2014)
+1.7.0 (January 2014)
 * [NEW] Partial subs (Substitute.ForPartsOf<T>()). Thanks to Alexandr Nikitin for tonnes of hard work on this feature (and for putting up with a vacillating project owner :)).
 * [UPDATE] Received.InOrder moved out of Experimental namespace.
 * [FIX] Argument matching with optional parameters. Thanks to Peter Wiles. (#111)

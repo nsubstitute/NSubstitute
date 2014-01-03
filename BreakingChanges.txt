@@ -1,6 +1,6 @@
 
 ================================================================================================
-1.X.X Release
+1.7.0 Release
 ================================================================================================
 
 Auto-substitute for pure virtual classes with at least one public static method, which
@@ -16,13 +16,17 @@ e.g. sub.Method().Returns(x => null);
 
 ------------------------------------------------------------------------------------------------
 
-Obsoleted `NSubstitute.Experimental.Received`.
+Moved `Received.InOrder` feature from `NSubstitute.Experimental` to main `NSubstitute` namespace.
+Obsoleted original `NSubstitute.Experimental.Received`.
+
+This can result in ambiguous reference compiler errors and obsolete member compiler earnings.
 
 Reason:
-Promoted experimental feature to core library.
+Promoted experimental Received feature to core library.
 
 Fix:
 Import `NSubstitute` namespace instead of `NSubstitute.Experimental`.
+(If `NSubstitute` is already imported just delete the `using NSubstitute.Experimental;` line from your fixtures.)
 
 ================================================================================================
 1.5.0 Release

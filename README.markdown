@@ -112,12 +112,6 @@ Finally, we can raise events on our substitutes (unfortunately C# dramatically r
 
 ### Building
 
-If you have Visual Studio 2008 or 2010 you should be able to compile NSubstitute and run the unit tests using the NUnit GUI or console test runner (see the ThirdParty directory).
+If you have Visual Studio 2008, 2010, 2012, or 2013 you should be able to compile NSubstitute and run the unit tests using the NUnit GUI or console test runner (see the ThirdParty directory).
 To do full builds you'll also need Ruby and rake to run the rakefile.
-
-### NOTE: Framework Multi-Targeting
-
-[Brendan](https://github.com/shiftkey) is updating the build process to [support multiple framework versions](https://github.com/nsubstitute/NSubstitute/wiki/Silverlight-port), including Silverlight. See the [Silverlight port](https://github.com/nsubstitute/NSubstitute/wiki/Silverlight-port) wiki page for current status.
-
-
 
