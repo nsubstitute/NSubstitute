@@ -26,5 +26,10 @@ namespace NSubstitute.Core
         {
             get { return _parameterInfo.IsOptional; }
         }
+
+        public bool IsOut
+        {
+            get { return _parameterInfo.IsOut; }
+        }
     }
 }
