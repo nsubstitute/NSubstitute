@@ -10,7 +10,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
-        [Pending, Explicit]
         public void Test()
         {
             string someType;

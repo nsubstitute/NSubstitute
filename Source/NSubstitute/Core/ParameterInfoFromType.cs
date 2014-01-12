@@ -25,5 +25,10 @@ namespace NSubstitute.Core
         {
             get { return false; }
         }
+
+        public bool IsOut
+        {
+            get { return false; }
+        }
     }
 }
