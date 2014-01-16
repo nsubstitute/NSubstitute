@@ -73,7 +73,28 @@ namespace NSubstitute.Specs.Arguments
             }
         }
 
-        public abstract class When_next_arg_spec_does_not_work_for_this_arg_but_other_supplied_specs_do : BaseConcern
+        public class When_next_arg_spec_does_not_work_for_out_arg : BaseConcern
+        {
+            private IArgumentSpecification _argumentEqualsSpecification;
+
+            public override void Context()
+            {
+                base.Context();
+                _argumentEqualsSpecification = mock<IArgumentSpecification>();
+                _argumentEqualsSpecificationFactory.stub(x => x.Create(_argument, _parameterInfo.ParameterType)).Return(_argumentEqualsSpecification);
+                _suppliedArgumentSpecifications.stub(x => x.IsNextFor(_argument, _parameterInfo.ParameterType)).Return(false);
+                _suppliedArgumentSpecifications.stub(x => x.AnyFor(_argument, _parameterInfo.ParameterType)).Return(true);
+                _parameterInfo.stub(x => x.IsOut).Return(true);
+            }
+
+            [Test]
+            public void Should_return_equals_specification()
+            {
+                Assert.That(_result, Is.EqualTo(_argumentEqualsSpecification));
+            }
+        }
+
+        public class When_next_arg_spec_does_not_work_for_this_arg_but_other_supplied_specs_do : BaseConcern
         {
             private Exception _capturedException;
 
