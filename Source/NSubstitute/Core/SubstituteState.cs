@@ -44,6 +44,7 @@ namespace NSubstitute.Core
                 new AutoArrayProvider(),
 #if NET4
                 new AutoTaskProvider(() => AutoValueProviders),
+                new AutoDynamicProvider(ReceivedCalls), 
 #endif
             };
         }
