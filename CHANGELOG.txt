@@ -1,3 +1,6 @@
+1.7.1 (January 2014)
+* [FIX] Ambiguous arg exception with out/ref parameters. Thanks to Alexandr Nikitin. (#129)
+
 1.7.0 (January 2014)
 * [NEW] Partial subs (Substitute.ForPartsOf<T>()). Thanks to Alexandr Nikitin for tonnes of hard work on this feature (and for putting up with a vacillating project owner :)).
 * [UPDATE] Received.InOrder moved out of Experimental namespace.
