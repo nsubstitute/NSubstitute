@@ -11,11 +11,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NSubstitute.Acceptance.Specs</RootNamespace>
     <AssemblyName>NSubstitute.Acceptance.Specs</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Debug|AnyCPU' ">
     <OutputPath>..\..\Output\Debug\NET35\NSubstitute.Acceptance.Specs\</OutputPath>
@@ -72,6 +73,7 @@
     <Compile Include="ArgDoFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
     <Compile Include="FieldReports\Issue129_AmbiguousArgsWithOutRef.cs" />
+    <Compile Include="FieldReports\Issue75_DoesNotWorkWithMembersThatUseDynamic.cs" />
     <Compile Include="PartialSubs.cs" />
     <Compile Include="FieldReports\CallingIntoNewSubWithinReturns.cs" />
     <Compile Include="FieldReports\Issue110_CustomExceptions.cs" />
@@ -148,6 +150,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
 </Project>

@@ -60,7 +60,7 @@ namespace NSubstitute
             return Returns(MatchArgs.Any, returnThis, returnThese);
         }
 
-        private static ConfiguredCall Returns<T>(MatchArgs matchArgs, T returnThis, params T[] returnThese)
+        internal static ConfiguredCall Returns<T>(MatchArgs matchArgs, T returnThis, params T[] returnThese)
         {
             var context = SubstitutionContext.Current;
             IReturn returnValue;
@@ -75,7 +75,7 @@ namespace NSubstitute
             return context.LastCallShouldReturn(returnValue, matchArgs);
         }
 
-        private static ConfiguredCall Returns<T>(MatchArgs matchArgs, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+        internal static ConfiguredCall Returns<T>(MatchArgs matchArgs, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
             var context = SubstitutionContext.Current;
             IReturn returnValue;
