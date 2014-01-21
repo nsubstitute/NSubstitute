@@ -181,6 +181,20 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(sample.Name, Is.EqualTo("test"));
         }
 
+        [Test]
+        public void Multiple_calls_to_observable_method()
+        {
+            var sub = Substitute.For<IFooWithObservable>();
+            ISample sample1 = null;
+            ISample sample2 = null;
+            sub.GetSamples().Subscribe(new AnonymousObserver<ISample>(x => sample1 = x));
+            sub.GetSamples().Subscribe(new AnonymousObserver<ISample>(x => sample2 = x));
+            AssertObjectIsASubstitute(sample1);
+            AssertObjectIsASubstitute(sample2);
+
+            Assert.That(sample1, Is.SameAs(sample2));
+        }
+
         public interface IFooWithObservable 
         {
             IObservable<int> GetInts();
