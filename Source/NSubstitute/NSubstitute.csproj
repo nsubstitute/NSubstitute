@@ -159,6 +159,7 @@
     <Compile Include="Core\ICallRouterProvider.cs" />
     <Compile Include="Core\IGetCallSpec.cs" />
     <Compile Include="Core\Maybe.cs" />
+    <Compile Include="Core\ReturnObservable.cs" />
     <Compile Include="Core\SequenceChecking\InstanceTracker.cs" />
     <Compile Include="Core\SequenceChecking\SequenceFormatter.cs" />
     <Compile Include="Core\IParameterInfo.cs" />
