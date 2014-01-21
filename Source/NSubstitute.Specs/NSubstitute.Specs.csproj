@@ -99,6 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnonymousObserver.cs" />
     <Compile Include="ArgumentSpecs.cs" />
     <Compile Include="Arguments\ArgumentSpecificationSpecs.cs" />
     <Compile Include="Arguments\EqualsArgumentMatcherSpecs.cs" />
@@ -211,6 +212,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
 </Project>
