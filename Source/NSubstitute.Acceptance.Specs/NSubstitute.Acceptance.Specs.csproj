@@ -59,9 +59,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET45-Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\NET45-Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NET4</DefineConstants>
+    <OutputPath>..\..\Output\Debug\NET45\NSubstitute.Acceptance.Specs\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NET4;NET45</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -69,9 +71,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET45-Release|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\NET45-Release\</OutputPath>
-    <DefineConstants>TRACE;NET4</DefineConstants>
+    <OutputPath>..\..\Output\Release\NET45\NSubstitute.Acceptance.Specs\</OutputPath>
+    <DefineConstants>TRACE;NET4;NET45</DefineConstants>
     <Optimize>true</Optimize>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
