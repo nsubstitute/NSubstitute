@@ -300,11 +300,8 @@
       <Output TaskParameter="FullFrameworkReferenceAssemblyPaths" PropertyName="FrameworkReferenceAssemblyPath" />
     </GetReferenceAssemblyPaths>
     <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly)  &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v3.5'" />
-
     <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:&quot;v4,$(FrameworkReferenceAssemblyPath).&quot; &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.0'" />
-
-    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:&quot;v4.5,$(FrameworkReferenceAssemblyPath).&quot; &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.5'" />
-
+    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:&quot;v4,$(FrameworkReferenceAssemblyPath).&quot; &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.5'" />
     <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
   </Target>
 </Project>
