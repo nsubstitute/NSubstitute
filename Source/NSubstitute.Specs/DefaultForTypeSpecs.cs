@@ -24,6 +24,13 @@ namespace NSubstitute.Specs
             Assert.That(sut.GetDefaultFor(typeof(void)), Is.Null);
         }
 
+#if NET45
+        [Test]
+        public void Should_not_return_null_for_iobservable()
+        {
+        }
+#endif
+
         public override DefaultForType CreateSubjectUnderTest()
         {
             return new DefaultForType();
