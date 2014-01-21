@@ -1,10 +1,11 @@
 #r @"ThirdParty\FAKE\FAKE.Core\tools\FakeLib.dll"
-open Fake 
+open Fake
+open Fake.AssemblyInfoFile
 open System
 
 let EXPERIMENTAL_TARGETS = []
 
-let buildNumber = "1.8.0.0"
+let version = "1.8.0.0"
 
 let buildMode = getBuildParamOrDefault "buildMode" "Debug"
 
@@ -12,6 +13,17 @@ let OUTPUT_PATH = "./Output"
 
 Target "Clean" (fun _ ->
     CleanDirs [ OUTPUT_PATH ]
+)
+
+Target "Version" (fun _ ->
+    CreateCSharpAssemblyInfo "Source/NSubstitute/Properties/AssemblyInfo.cs"
+        [Attribute.Title "NSubstitute"
+         Attribute.Description "A simple substitute for .NET mocking frameworks."
+         Attribute.Guid "f1571463-8354-493c-b67c-cd9cec9adf78"
+         Attribute.Product "NSubstitute"
+         Attribute.Copyright @"Copyright \u00A9  2009 NSubstitute Team"
+         Attribute.Version version
+         Attribute.FileVersion version]
 )
 
 Target "BuildSolution" (fun _ ->
@@ -58,7 +70,7 @@ Target "NuGet" (fun _ ->
         {p with
             OutputPath = outputBasePath
             WorkingDir = workingDir
-            Version = buildNumber
+            Version = version
              }) "Build/NSubstitute.nuspec"
 )
 
@@ -86,6 +98,7 @@ Target "Documentation" DoNothing
 Target "Release" DoNothing
 
 "Clean"
+   ==> "Version"
    ==> "BuildSolution"
    ==> "Test"
    ==> "Default"
