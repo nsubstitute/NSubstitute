@@ -1,4 +1,4 @@
-#if NET4
+#if (NET4 || NET45)
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +21,7 @@ namespace NSubstitute.Routing.AutoValues
 
         public object GetValue(Type type)
         {
-            if (!typeof(Task).IsAssignableFrom(type))
+            if (!CanProvideValueFor(type))
                 throw new InvalidOperationException();
 
             if (type.IsGenericType)
@@ -43,13 +43,9 @@ namespace NSubstitute.Routing.AutoValues
             }
         }
 
-        public static object GetDefault(Type type)
+        private static object GetDefault(Type type)
         {
-            if (type.IsValueType)
-            {
-                return Activator.CreateInstance(type);
-            }
-            return null;
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
     }
 }

@@ -100,7 +100,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             AttributesToAvoidReplicating.Add<ReflectionPermissionAttribute>();
             AttributesToAvoidReplicating.Add<PermissionSetAttribute>();
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.MarshalAsAttribute>();
-#if NET4
+#if (NET4 || NET45)
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.TypeIdentifierAttribute>();
 #endif
             AttributesToAvoidReplicating.Add<UIPermissionAttribute>();

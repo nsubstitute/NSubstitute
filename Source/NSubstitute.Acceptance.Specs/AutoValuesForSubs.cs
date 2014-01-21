@@ -25,7 +25,7 @@ namespace NSubstitute.Acceptance.Specs
             NonVirtualClass NonVirtualClass { get; set; }
             SealedClass SealedClass { get; set; }
         }
-        
+
         [SetUp]
         public void SetUp()
         {
@@ -137,7 +137,7 @@ namespace NSubstitute.Acceptance.Specs
             AssertObjectIsASubstitute(returnedFromFunc);
         }
 
-#if NET4
+#if (NET4 || NET45)
         [Test]
         public void Should_auto_return_a_value_from_a_task() {
             var sub = Substitute.For<IFooWithTasks>();
@@ -158,6 +158,52 @@ namespace NSubstitute.Acceptance.Specs
         {
             System.Threading.Tasks.Task<ISample> GetSample();
             System.Threading.Tasks.Task<int> GetIntAsync();
+        }
+#endif
+
+#if NET45
+        [Test]
+        public void Should_auto_return_an_observable() {
+            var sub = Substitute.For<IFooWithObservable>();
+            int sample = -42;
+            sub.GetInts().Subscribe(new AnonymousObserver<int>(x => sample = x));
+            Assert.That(sample, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Should_auto_return_an_autosub_from_an_observable() {
+            var sub = Substitute.For<IFooWithObservable>();
+            ISample sample = null;
+            sub.GetSamples().Subscribe(new AnonymousObserver<ISample>(x => sample = x));
+            AssertObjectIsASubstitute(sample);
+
+            sample.Name = "test";
+            Assert.That(sample.Name, Is.EqualTo("test"));
+        }
+
+        public interface IFooWithObservable 
+        {
+            IObservable<int> GetInts();
+            IObservable<ISample> GetSamples();
+        }
+
+        //Copied from NSubstitute.Specs.AnonymousObserver (PR #137)
+        private class AnonymousObserver<T> : IObserver<T>
+        {
+            Action<T> _onNext;
+            Action<Exception> _onError;
+            Action _onCompleted;
+
+            public AnonymousObserver(Action<T> onNext, Action<Exception> onError = null, Action onCompleted = null)
+            {
+                _onNext = onNext ?? (_ => { });
+                _onError = onError ?? (_ => { });
+                _onCompleted = onCompleted ?? (() => {});
+            }
+
+            public void OnNext(T value) { _onNext(value); }
+            public void OnError(Exception error) { _onError(error); }
+            public void OnCompleted() { _onCompleted(); }
         }
 #endif
 

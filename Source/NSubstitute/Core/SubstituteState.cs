@@ -39,10 +39,13 @@ namespace NSubstitute.Core
             ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec);
             EventHandlerRegistry = new EventHandlerRegistry();
             AutoValueProviders = new IAutoValueProvider[] { 
+#if NET45
+                new AutoObservableProvider(() => AutoValueProviders),
+#endif
                 new AutoSubstituteProvider(substituteFactory), 
                 new AutoStringProvider(), 
                 new AutoArrayProvider(),
-#if NET4
+#if (NET4 || NET45)
                 new AutoTaskProvider(() => AutoValueProviders),
 #endif
             };

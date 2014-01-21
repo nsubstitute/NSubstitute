@@ -1,4 +1,4 @@
-﻿#if NET4
+﻿#if (NET4 || NET45)
 using System.Threading.Tasks;
 using NSubstitute.Routing.AutoValues;
 using NSubstitute.Specs.Infrastructure;
