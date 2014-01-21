@@ -9,11 +9,13 @@ namespace NSubstitute.Core
             if (IsVoid(type)) return null;
             if (type.IsValueType) return DefaultInstanceOfValueType(type);
 
+#if NET45
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IObservable<>)) 
             {
                 Type innerType = type.GetGenericArguments()[0];
                 return Activator.CreateInstance(typeof(ReturnObservable<>).MakeGenericType(innerType));
             }
+#endif
 
             return null;
         }

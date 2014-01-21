@@ -5,6 +5,7 @@ using System.Text;
 
 namespace NSubstitute.Specs
 {
+#if NET45
     public class AnonymousObserver<T> : IObserver<T>
     {
         Action<T> _onNext;
@@ -33,4 +34,5 @@ namespace NSubstitute.Specs
             _onCompleted();
         }
     }
+#endif
 }
