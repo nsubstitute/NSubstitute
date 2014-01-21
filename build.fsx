@@ -35,6 +35,8 @@ Target "Test" (fun _ ->
                 OutputFile = outputDir + "TestResults.xml"}) // TODO: different file name based on path
 )
 
+Target "Default" DoNothing
+
 let outputBasePath =  String.Format("{0}/{1}/", OUTPUT_PATH, buildMode);
 let workingDir = String.Format("{0}package/", outputBasePath)
 
@@ -60,12 +62,35 @@ Target "NuGet" (fun _ ->
              }) "Build/NSubstitute.nuspec"
 )
 
-Target "Default" DoNothing
+
+Target "Zip" (fun _ ->
+    //CreateDir workingDir
+    CreateDir net35binariesDir
+    CreateDir net40binariesDir
+
+    // Copy binaries into lib path
+    CopyFile net35binariesDir net35binary
+    CopyFile net40binariesDir net40binary
+//
+//	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+//	
+//	zip_path = "#{output_base_path}/zip"
+//	mkdir_p zip_path
+//
+//	sh "\"#{ZIP_EXE}\" a -r \"#{zip_path}/NSubstitute-#{@@build_number}.zip\" \"#{output_base_path}/NSubstitute-#{@@build_number}\""
+)
+
+// TODO
+Target "Documentation" DoNothing
+
+Target "Release" DoNothing
 
 "Clean"
    ==> "BuildSolution"
    ==> "Test"
-   ==> "NuGet"
    ==> "Default"
+   ==> "NuGet"
+   ==> "Documentation"
+   ==> "Release"
 
 RunTargetOrDefault "Default"
