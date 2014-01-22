@@ -74,22 +74,28 @@ Target "NuGet" (fun _ ->
              }) "Build/NSubstitute.nuspec"
 )
 
-
+// TODO: this is crazy hideous
 Target "Zip" (fun _ ->
-    //CreateDir workingDir
+
+    // acknowledgements.markdown
+    CopyFile (workingDir+"acknowledgements.txt") "acknowledgements.markdown"
+    CopyFile workingDir "BreakingChanges.txt"
+    CopyFile workingDir "ChangeLog.txt"
+    CopyFile workingDir "LICENSE.txt"
+    // README.markdown
+    CopyFile (workingDir+"README.txt") "README.markdown"
+
     CreateDir net35binariesDir
     CreateDir net40binariesDir
 
-    // Copy binaries into lib path
     CopyFile net35binariesDir net35binary
     CopyFile net40binariesDir net40binary
-//
-//	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
-//	
-//	zip_path = "#{output_base_path}/zip"
-//	mkdir_p zip_path
-//
-//	sh "\"#{ZIP_EXE}\" a -r \"#{zip_path}/NSubstitute-#{@@build_number}.zip\" \"#{output_base_path}/NSubstitute-#{@@build_number}\""
+
+    let outputZip =  (outputBasePath + "NSubstitute." + version + ".zip")
+
+    !! (workingDir + "/**/*.*")
+        -- "*.zip"
+        |>Zip workingDir outputZip
 )
 
 // TODO
@@ -103,6 +109,7 @@ Target "Release" DoNothing
    ==> "Test"
    ==> "Default"
    ==> "NuGet"
+   ==> "Zip"
    ==> "Documentation"
    ==> "Release"
 
