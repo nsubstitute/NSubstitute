@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NSubstitute.Acceptance.Specs</RootNamespace>
     <AssemblyName>NSubstitute.Acceptance.Specs</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -67,6 +67,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+	<Reference Include="Microsoft.CSharp" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' " />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentInvocationFromMatchers.cs" />
@@ -150,9 +151,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
 </Project>

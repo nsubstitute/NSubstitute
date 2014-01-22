@@ -1,3 +1,4 @@
+#if NET4
 using System;
 
 using NUnit.Framework;
@@ -46,3 +47,4 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
     }
 }
+#endif
