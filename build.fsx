@@ -27,10 +27,11 @@ Target "Version" (fun _ ->
 )
 
 Target "BuildSolution" (fun _ ->
-  let seqBuild = Seq.map (fun config -> 
+  let seqBuild = Seq.map (fun config ->
       MSBuild null "Build" ["Configuration", config] ["./Source/NSubstitute.2010.sln"]
           |> Log "Build: " )
 
+  // TODO: this is a kludge but I don't really care about the result here
   Seq.last (seqBuild [ "NET35-"+buildMode ; "NET40-"+buildMode ])
 )
 
@@ -44,7 +45,7 @@ Target "Test" (fun _ ->
                 DisableShadowCopy = true;
                 Framework = "net-4.0";
                 ExcludeCategory = "Pending";
-                OutputFile = outputDir + "TestResults.xml"}) // TODO: different file name based on path
+                OutputFile = outputDir + "TestResults.xml"}) // TODO: different file name based on test assembly
 )
 
 Target "Default" DoNothing
@@ -58,11 +59,9 @@ let net35binariesDir = String.Format("{0}lib/net35", workingDir)
 let net40binariesDir = String.Format("{0}lib/net40", workingDir)
 
 Target "NuGet" (fun _ ->
-    //CreateDir workingDir
     CreateDir net35binariesDir
     CreateDir net40binariesDir
 
-    // Copy binaries into lib path
     CopyFile net35binariesDir net35binary
     CopyFile net40binariesDir net40binary
 
@@ -77,12 +76,11 @@ Target "NuGet" (fun _ ->
 // TODO: this is crazy hideous
 Target "Zip" (fun _ ->
 
-    // acknowledgements.markdown
+    // porting markdown files as-is
     CopyFile (workingDir+"acknowledgements.txt") "acknowledgements.markdown"
     CopyFile workingDir "BreakingChanges.txt"
     CopyFile workingDir "ChangeLog.txt"
     CopyFile workingDir "LICENSE.txt"
-    // README.markdown
     CopyFile (workingDir+"README.txt") "README.markdown"
 
     CreateDir net35binariesDir
@@ -101,6 +99,7 @@ Target "Zip" (fun _ ->
 // TODO
 Target "Documentation" DoNothing
 
+// empty target to encompass doing everything
 Target "Release" DoNothing
 
 "Clean"
