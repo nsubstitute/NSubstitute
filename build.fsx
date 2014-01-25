@@ -2,6 +2,18 @@
 open Fake
 open Fake.AssemblyInfoFile
 open System
+open System.IO
+
+module FileFinder =
+    let Find directory pattern =
+        !! (directory + pattern)
+
+module FileReaderWriter =
+    let Read file =
+        File.ReadAllText(file)
+
+    let Write file text =
+        File.WriteAllText(file, text)
 
 let EXPERIMENTAL_TARGETS = []
 
@@ -21,7 +33,7 @@ Target "Version" (fun _ ->
          Attribute.Description "A simple substitute for .NET mocking frameworks."
          Attribute.Guid "f1571463-8354-493c-b67c-cd9cec9adf78"
          Attribute.Product "NSubstitute"
-         Attribute.Copyright @"Copyright \u00A9  2009 NSubstitute Team"
+         Attribute.Copyright @"Copyright \u00A9 2009 NSubstitute Team"
          Attribute.Version version
          Attribute.FileVersion version]
 )
