@@ -1,3 +1,6 @@
+### 1.8.0 (January 2014)
+* [UPDATE] Move along nothing to see here
+
 ### 1.7.1 (January 2014)
 * [FIX] Ambiguous arg exception with out/ref parameters. Thanks to Alexandr Nikitin. (#129)
 
