@@ -126,23 +126,26 @@ Target "Zip" (fun _ ->
         |>Zip workingDir outputZip
 )
 
-Target "Documentation" (fun _ -> 
-    let outputPath = String.Format("{0}/{1}/", OUTPUT_PATH, "CodeFromDocs")
+// TODO: could we use Pretzel here?
+Target "Documentation" DoNothing
 
-    CreateDir outputPath
+Target "CodeFromDocumentation" (fun _ -> 
+    let outputCodePath = String.Format("{0}/{1}/", OUTPUT_PATH, "CodeFromDocs")
+
+    CreateDir outputCodePath
 
     // generate samples from docs
-    ExamplesToCode.Convert [ "./Source/Docs/"; "./Source/Docs/help/_posts/"; "./" ] outputPath
+    ExamplesToCode.Convert [ "./Source/Docs/"; "./Source/Docs/help/_posts/"; "./" ] outputCodePath
 
     // compile code samples
     let basePath = (OUTPUT_PATH + "/" + buildMode + "/NET35")
     let references = [ 
         for x in [ "NSubstitute.dll"; "nunit.framework.dll"] 
             -> String.Format("{0}/NSubstitute.Specs/{1}", basePath, x)]
-    CopyFiles outputPath references
-    CopyFile outputPath "./Build/samples.csproj"
+    CopyFiles outputCodePath references
+    CopyFile outputCodePath "./Build/samples.csproj"
 
-    MSBuild null "Build" ["TargetFrameworkVersion", "v3.5"] [ outputPath + "/samples.csproj"]
+    MSBuild null "Build" ["TargetFrameworkVersion", "v3.5"] [ outputCodePath + "/samples.csproj"]
           |> Log "Build: "
 )
 
@@ -157,6 +160,7 @@ Target "Release" DoNothing
    ==> "NuGet"
    ==> "Zip"
    ==> "Documentation"
+   ==> "CodeFromDocumentation"
    ==> "Release"
 
 RunTargetOrDefault "Default"
