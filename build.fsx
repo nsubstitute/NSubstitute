@@ -21,14 +21,17 @@ module ExamplesToCode =
          // TODO: thing the thing
          // @converter.convert(file, target)
 
-    let Convert exampleDir targetDir =
-        trace (String.Format("Convert from {0} to {1}", exampleDir, targetDir))
+    let Convert paths targetDir =
+        let paths = paths |> Seq.toList
 
-        let mdFiles = !! (exampleDir + "*.markdown") |> Seq.toList
-        let htmlFiles = !! (exampleDir + "*.html") |> Seq.toList
+        for p in paths do
+            trace (String.Format("Convert from {0} to {1}", p, targetDir))
 
-        for file in List.append mdFiles htmlFiles do
-            ConvertFile file targetDir
+            let mdFiles = !! (p + "*.markdown") |> Seq.toList
+            let htmlFiles = !! (p + "*.html") |> Seq.toList
+
+            for file in List.append mdFiles htmlFiles do
+                ConvertFile file targetDir
 
 let EXPERIMENTAL_TARGETS = []
 
@@ -129,12 +132,7 @@ Target "Documentation" (fun _ ->
     CreateDir outputPath
 
     // generate samples from docs
-    ExamplesToCode.Convert "./Source/Docs/" outputPath
-       |> ignore
-    ExamplesToCode.Convert "./Source/Docs/help/_posts/" outputPath
-       |> ignore
-    ExamplesToCode.Convert "./" outputPath
-       |> ignore
+    ExamplesToCode.Convert [ "./Source/Docs/"; "./Source/Docs/help/_posts/"; "./" ] outputPath
 
     // compile code samples
     let basePath = (OUTPUT_PATH + "/" + buildMode + "/NET35")
@@ -142,7 +140,6 @@ Target "Documentation" (fun _ ->
         for x in [ "NSubstitute.dll"; "nunit.framework.dll"] 
             -> String.Format("{0}/NSubstitute.Specs/{1}", basePath, x)]
     CopyFiles outputPath references
-
     CopyFile outputPath "./Build/samples.csproj"
 
     MSBuild null "Build" ["TargetFrameworkVersion", "v3.5"] [ outputPath + "/samples.csproj"]
