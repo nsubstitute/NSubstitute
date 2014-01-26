@@ -4,9 +4,6 @@ open Fake.AssemblyInfoFile
 open System
 open System.IO
 
-module FileFinder =
-    let Find directory pattern =
-        !! (directory + pattern)
 
 module FileReaderWriter =
     let Read file =
@@ -14,6 +11,24 @@ module FileReaderWriter =
 
     let Write file text =
         File.WriteAllText(file, text)
+
+module ExamplesToCode =
+
+    let ConvertFile file targetDir =
+         let fileName = Path.GetFileName(file)
+         let target = (String.Format("{0}/{1}.cs", targetDir, fileName))
+         log (String.Format("Converting {0} to {1}", file, target))
+         // TODO: thing the thing
+         // @converter.convert(file, target)
+
+    let Convert exampleDir targetDir =
+        trace (String.Format("Convert from {0} to {1}", exampleDir, targetDir))
+
+        let mdFiles = !! (exampleDir + "*.markdown") |> Seq.toList
+        let htmlFiles = !! (exampleDir + "*.html") |> Seq.toList
+
+        for file in List.append mdFiles htmlFiles do
+            ConvertFile file targetDir
 
 let EXPERIMENTAL_TARGETS = []
 
@@ -108,8 +123,16 @@ Target "Zip" (fun _ ->
         |>Zip workingDir outputZip
 )
 
-// TODO
-Target "Documentation" DoNothing
+Target "Documentation" (fun _ -> 
+    let outputPath = String.Format("{0}/{1}", OUTPUT_PATH, "CodeFromDocs")
+
+    ExamplesToCode.Convert "./Source/Docs/" outputPath
+       |> ignore
+    ExamplesToCode.Convert "./Source/Docs/help/_posts/" outputPath
+       |> ignore
+    ExamplesToCode.Convert "./" outputPath
+       |> ignore
+)
 
 // empty target to encompass doing everything
 Target "Release" DoNothing
