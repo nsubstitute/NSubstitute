@@ -16,7 +16,7 @@ module ExamplesToCode =
 
     let ConvertFile file targetDir =
          let fileName = Path.GetFileName(file)
-         let target = (String.Format("{0}/{1}.cs", targetDir, fileName))
+         let target = (String.Format("{0}{1}.cs", targetDir, fileName))
          log (String.Format("Converting {0} to {1}", file, target))
          // TODO: thing the thing
          // @converter.convert(file, target)
@@ -124,14 +124,29 @@ Target "Zip" (fun _ ->
 )
 
 Target "Documentation" (fun _ -> 
-    let outputPath = String.Format("{0}/{1}", OUTPUT_PATH, "CodeFromDocs")
+    let outputPath = String.Format("{0}/{1}/", OUTPUT_PATH, "CodeFromDocs")
 
+    CreateDir outputPath
+
+    // generate samples from docs
     ExamplesToCode.Convert "./Source/Docs/" outputPath
        |> ignore
     ExamplesToCode.Convert "./Source/Docs/help/_posts/" outputPath
        |> ignore
     ExamplesToCode.Convert "./" outputPath
        |> ignore
+
+    // compile code samples
+    let basePath = (OUTPUT_PATH + "/" + buildMode + "/NET35")
+    let references = [ 
+        for x in [ "NSubstitute.dll"; "nunit.framework.dll"] 
+            -> String.Format("{0}/NSubstitute.Specs/{1}", basePath, x)]
+    CopyFiles outputPath references
+
+    CopyFile outputPath "./Build/samples.csproj"
+
+    MSBuild null "Build" ["TargetFrameworkVersion", "v3.5"] [ outputPath + "/samples.csproj"]
+          |> Log "Build: "
 )
 
 // empty target to encompass doing everything
