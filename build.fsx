@@ -126,8 +126,15 @@ Target "Zip" (fun _ ->
         |>Zip workingDir outputZip
 )
 
-// TODO: could we use Pretzel here?
-Target "Documentation" DoNothing
+Target "Documentation" (fun _ -> 
+    log "building site..."
+    let result = ExecProcess (fun info ->
+           info.FileName <- "../../ThirdParty/pretzel/pretzel.exe"
+           info.WorkingDirectory <- "./Source/Docs/"
+           info.Arguments <- "bake -d ./")
+
+    log ("returned" + result.ToString())
+)
 
 Target "CodeFromDocumentation" (fun _ -> 
     let outputCodePath = String.Format("{0}/{1}/", OUTPUT_PATH, "CodeFromDocs")
