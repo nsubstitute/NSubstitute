@@ -35,11 +35,15 @@ module ExamplesToCode =
 
 let EXPERIMENTAL_TARGETS = []
 
-let version = "1.8.0.0"
-
 let buildMode = getBuildParamOrDefault "buildMode" "Debug"
 
 let OUTPUT_PATH = "./Output"
+
+let releaseNotes =
+    ReadFile "CHANGELOG.txt" 
+    |> ReleaseNotesHelper.parseReleaseNotes
+
+let version = releaseNotes.AssemblyVersion
 
 Target "Clean" (fun _ ->
     CleanDirs [ OUTPUT_PATH ]
@@ -100,6 +104,7 @@ Target "NuGet" (fun _ ->
             OutputPath = outputBasePath
             WorkingDir = workingDir
             Version = version
+            ReleaseNotes = toLines releaseNotes.Notes
              }) "Build/NSubstitute.nuspec"
 )
 
