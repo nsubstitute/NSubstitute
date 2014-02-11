@@ -91,12 +91,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' Or '$(TargetFrameworkVersion)' == 'v4.5' " />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentInvocationFromMatchers.cs" />
     <Compile Include="ArgDoFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
     <Compile Include="FieldReports\Issue129_AmbiguousArgsWithOutRef.cs" />
+    <Compile Include="FieldReports\Issue75_DoesNotWorkWithMembersThatUseDynamic.cs" />
     <Compile Include="PartialSubs.cs" />
     <Compile Include="FieldReports\CallingIntoNewSubWithinReturns.cs" />
     <Compile Include="FieldReports\Issue110_CustomExceptions.cs" />
