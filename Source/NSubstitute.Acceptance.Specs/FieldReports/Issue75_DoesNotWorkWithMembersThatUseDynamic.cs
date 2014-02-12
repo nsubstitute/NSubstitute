@@ -4,6 +4,67 @@ using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports
 {
+    public class Issue75_DynamicTests
+    {
+#if (NET4 || NET45)
+        public interface IInterface
+        {
+            dynamic ReturnsDynamic(string a);
+            dynamic ReturnsAndGetsDynamic(dynamic a);
+            int GetsDynamic(dynamic a);
+            dynamic DynamicProperty { get; set; }
+        }
+
+        [Test]
+        [Pending, Explicit]
+        public void MethodGetsDynamic()
+        {
+            var sut = Substitute.For<IInterface>();
+            sut.GetsDynamic(Arg.Any<dynamic>()).Returns(1);
+
+            dynamic expando = new System.Dynamic.ExpandoObject();
+            var result = sut.GetsDynamic(expando);
+
+            Assert.That(result, Is.EqualTo(1));
+        } 
+        
+        [Test]
+        public void DynamicProperty()
+        {
+            var sut = Substitute.For<IInterface>();
+            sut.DynamicProperty.Returns(1);
+
+            var result = sut.DynamicProperty;
+
+            Assert.That(result, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void MethodGetsDynamicAsAnArgumentAndReturnsDynamic()
+        {
+            var sut = Substitute.For<IInterface>();
+            sut.ReturnsAndGetsDynamic(Arg.Any<dynamic>()).Returns(1);
+
+            dynamic expando = new System.Dynamic.ExpandoObject();
+            var result = sut.ReturnsAndGetsDynamic(expando);
+
+            Assert.That(result, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void MethodReturnsDynamic()
+        {
+            var sut = Substitute.For<IInterface>();
+            sut.ReturnsDynamic(Arg.Any<string>()).Returns(1);
+
+            var result = sut.ReturnsDynamic("");
+
+            Assert.That(result, Is.EqualTo(1));
+        }
+#endif
+    }
+
+    //todo 75 remove redundant tests below?
     public class Issue75_DoesNotWorkWithMembersThatUseDynamic
     {
 #if (NET4 || NET45)
