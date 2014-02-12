@@ -17,10 +17,28 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
 
         [Test]
         [Pending, Explicit]
-        public void MethodGetsDynamic()
+        public void MethodGetsDynamicAndSpecifiedWithDynamic()
         {
             var sut = Substitute.For<IInterface>();
+            // Fails
+            // Because dynamic typing doesn't support extension methods
+            // We can't do much here, I see only two options:
+            // 1. Good documentation. Tell people to use exact type instead of dynamic or use static Returns method.
+            // 2. Try to catch calls with dynamic typing and throw descriptive exception. Can be made via StackTrace. A bit hacky and risky.
+            // TBD
             sut.GetsDynamic(Arg.Any<dynamic>()).Returns(1);
+
+            dynamic expando = new System.Dynamic.ExpandoObject();
+            var result = sut.GetsDynamic(expando);
+
+            Assert.That(result, Is.EqualTo(1));
+        } 
+
+        [Test]
+        public void MethodGetsDynamicButSpecifiedWithExplicitType()
+        {
+            var sut = Substitute.For<IInterface>();
+            sut.GetsDynamic(Arg.Any<object>()).Returns(1);
 
             dynamic expando = new System.Dynamic.ExpandoObject();
             var result = sut.GetsDynamic(expando);
