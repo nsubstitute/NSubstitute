@@ -58,7 +58,11 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         {
             // Adapted from: http://stackoverflow.com/questions/13182007/nsubstitute-mock-generic-method/
             var settingsUtil = Substitute.For<ISettingsUtil>();
-            var maxImageSize = settingsUtil.GetConfig<long>("maxImageSize", Arg.Any<dynamic>()).Returns(100L);
+            // This works:
+            //SubstituteExtensions.Returns(settingsUtil.GetConfig<long>("maxImageSize", Arg.Any<dynamic>()), 100L);
+
+            // This fails, with RuntimeBinderException: 'long' does not contain a definition for 'Returns':
+            settingsUtil.GetConfig<long>("maxImageSize", Arg.Any<dynamic>()).Returns(100L);
 
             dynamic settings = new System.Dynamic.ExpandoObject();
             var result = settingsUtil.GetConfig<long>("maxImageSize", settings);
