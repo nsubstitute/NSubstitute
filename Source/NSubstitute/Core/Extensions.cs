@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace NSubstitute.Core
 {
@@ -60,6 +61,12 @@ namespace NSubstitute.Core
         private static bool TypeCanBeNull(Type type)
         {
             return !type.IsValueType || Nullable.GetUnderlyingType(type) != null;
+        }
+
+        public static Maybe<T> FirstOrNothing<T>(this IEnumerable<T> items)
+        {
+            var enumerator = items.GetEnumerator();
+            return enumerator.MoveNext() ? Maybe.Just(enumerator.Current) : Maybe.Nothing<T>();
         }
     }
 }

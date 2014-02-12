@@ -20,14 +20,20 @@ namespace NSubstitute.Routing.Handlers
         public RouteAction Handle(ICall call)
         {
             var type = call.GetReturnType();
-            var compatibleProviders = _autoValueProviders.Where(x => x.CanProvideValueFor(type));
-            if (compatibleProviders.Any())
+            var compatibleProviders = _autoValueProviders.Where(x => x.CanProvideValueFor(type)).FirstOrNothing();
+            return compatibleProviders.Fold(
+                RouteAction.Continue,
+                ReturnValueUsingProvider(call, type));
+        }
+
+        private Func<IAutoValueProvider, RouteAction> ReturnValueUsingProvider(ICall call, Type type)
+        {
+            return provider =>
             {
-                    var valueToReturn = compatibleProviders.First().GetValue(type);
-                    ConfigureCall.SetResultForCall(call, new ReturnValue(valueToReturn), MatchArgs.AsSpecifiedInCall);
-                    return RouteAction.Return(valueToReturn);
-            }
-            return RouteAction.Continue();
+                var valueToReturn = provider.GetValue(type);
+                ConfigureCall.SetResultForCall(call, new ReturnValue(valueToReturn), MatchArgs.AsSpecifiedInCall);
+                return RouteAction.Return(valueToReturn);
+            };
         }
     }
 }

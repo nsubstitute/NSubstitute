@@ -74,7 +74,7 @@ namespace NSubstitute.Core
 
         public Maybe<object> TryCallBase()
         {
-            return _baseMethod == null ? Maybe<object>.Nothing() : new Maybe<object>(_baseMethod());
+            return _baseMethod == null ? Maybe.Nothing<object>() : Maybe.Just(_baseMethod());
         }
 
         public Type GetReturnType()

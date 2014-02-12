@@ -197,7 +197,6 @@
     <Compile Include="Received.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoObservableProvider.cs" />
-    <Compile Include="Routing\AutoValues\AutoDynamicProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoTaskProvider.cs" />
@@ -231,6 +230,7 @@
     <Compile Include="Core\IReturn.cs" />
     <Compile Include="Core\PropertyCallFormatter.cs" />
     <Compile Include="Core\ReflectionExtensions.cs" />
+    <Compile Include="Routing\Handlers\ReturnFromAndConfigureDynamicCall.cs" />
     <Compile Include="Routing\Handlers\ReturnFromBaseIfRequired.cs" />
     <Compile Include="Routing\IRouteFactory.cs" />
     <Compile Include="Routing\Route.cs" />
