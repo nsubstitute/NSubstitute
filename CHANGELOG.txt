@@ -1,3 +1,7 @@
+1.7.2 (March 2014)
+* [FIX] Basic support for types that return dynamic. Thanks to Alexandr Nikitin. (#75)
+* [NEW] Auto-subbing for observables. Thanks to Paul Betts.
+
 1.7.1 (January 2014)
 * [FIX] Ambiguous arg exception with out/ref parameters. Thanks to Alexandr Nikitin. (#129)
 
