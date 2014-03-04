@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+
 using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
@@ -30,15 +33,27 @@ namespace NSubstitute.Routing.Handlers
         private bool ReturnsDynamic(ICall call)
         {
 #if (NET4 || NET45)
-            var returnParameter = call.GetMethodInfo().ReturnParameter;
+            var methodInfo = call.GetMethodInfo();
+            var returnParameter = methodInfo.ReturnParameter;
             if (returnParameter == null) return false;
-            var dynamicAttribute = typeof (System.Runtime.CompilerServices.DynamicAttribute);
-            var isDynamic = returnParameter.GetCustomAttributes(dynamicAttribute, false).Any();
-            return isDynamic;
+            if (returnParameter.ParameterType.IsValueType) return false;
+
+            var parameters = methodInfo.GetParameters();
+
+            var allParameters = new[] { returnParameter }.Concat(parameters);
+            return IsAnyOfParameterDynamic(allParameters);
 #else
             return false;
 #endif
         }
+
+#if (NET4 || NET45)
+        private bool IsAnyOfParameterDynamic(IEnumerable<ParameterInfo> customAttributeProviders)
+        {
+            var dynamicAttribute = typeof(System.Runtime.CompilerServices.DynamicAttribute);
+            return customAttributeProviders.Any(x => x.GetCustomAttributes(dynamicAttribute, false).Any());
+        }
+#endif
 
         public class DynamicStub
         {

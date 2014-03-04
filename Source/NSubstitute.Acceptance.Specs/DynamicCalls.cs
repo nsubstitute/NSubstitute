@@ -10,13 +10,14 @@ namespace NSubstitute.Acceptance.Specs
         {
             dynamic ReturnsDynamic(string a);
             dynamic ReturnsAndGetsDynamic(dynamic a);
-            int GetsDynamic(dynamic a);
+            int GetsDynamicReturnsValueType(dynamic a);
+            object GetsDynamicReturnsObject(dynamic a);
             dynamic DynamicProperty { get; set; }
         }
 
         [Test]
         [Pending, Explicit]
-        public void MethodGetsDynamicAndSpecifiedWithDynamic()
+        public void MethodGetsDynamicAndSpecifiedWithDynamicAndReturnsValueType()
         {
             var sut = Substitute.For<IInterface>();
             // Fails
@@ -25,22 +26,34 @@ namespace NSubstitute.Acceptance.Specs
             // 1. Good documentation. Tell people to use exact type instead of dynamic or use static Returns method.
             // 2. Try to catch calls with dynamic typing and throw descriptive exception. Can be made via StackTrace. A bit hacky and risky.
             // TBD
-            sut.GetsDynamic(Arg.Any<dynamic>()).Returns(1);
+            sut.GetsDynamicReturnsValueType(Arg.Any<dynamic>()).Returns(1);
 
             dynamic expando = new System.Dynamic.ExpandoObject();
-            var result = sut.GetsDynamic(expando);
+            var result = sut.GetsDynamicReturnsValueType(expando);
 
             Assert.That(result, Is.EqualTo(1));
-        }
+        }       
+        
+        [Test]
+        public void MethodGetsDynamicAndSpecifiedWithDynamicAndReturnsObject()
+        {
+            var sut = Substitute.For<IInterface>();
+            sut.GetsDynamicReturnsObject(Arg.Any<dynamic>()).Returns(1);
+
+            dynamic expando = new System.Dynamic.ExpandoObject();
+            var result = sut.GetsDynamicReturnsObject(expando);
+
+            Assert.That(result, Is.EqualTo(1));
+        }        
 
         [Test]
         public void MethodGetsDynamicButSpecifiedWithExplicitType()
         {
             var sut = Substitute.For<IInterface>();
-            sut.GetsDynamic(Arg.Any<object>()).Returns(1);
+            sut.GetsDynamicReturnsValueType(Arg.Any<object>()).Returns(1);
 
             dynamic expando = new System.Dynamic.ExpandoObject();
-            var result = sut.GetsDynamic(expando);
+            var result = sut.GetsDynamicReturnsValueType(expando);
 
             Assert.That(result, Is.EqualTo(1));
         }
