@@ -1,9 +1,10 @@
 #r @"ThirdParty\FAKE\FAKE.Core\tools\FakeLib.dll"
+#load @"Build\ExtractDocs.fsx"
 open Fake
 open Fake.AssemblyInfoFile
 open System
 open System.IO
-
+open ExtractDocs
 
 module FileReaderWriter =
     let Read file =
@@ -13,13 +14,17 @@ module FileReaderWriter =
         File.WriteAllText(file, text)
 
 module ExamplesToCode =
+    let inline curry f a b = f(a,b)
+    let TransformFile file target (f : string -> string) =
+        File.ReadAllText file
+        |> f
+        |> curry File.WriteAllText target
 
     let ConvertFile file targetDir =
-         let fileName = Path.GetFileName(file)
+         let fileName = Path.GetFileNameWithoutExtension(file)
          let target = (String.Format("{0}{1}.cs", targetDir, fileName))
          log (String.Format("Converting {0} to {1}", file, target))
-         // TODO: thing the thing
-         // @converter.convert(file, target)
+         TransformFile file target (ExtractDocs.strToFixture fileName)
 
     let Convert paths targetDir =
         let paths = paths |> Seq.toList
