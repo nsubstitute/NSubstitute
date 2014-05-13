@@ -128,6 +128,26 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(exception.Message, Is.StringContaining(expectedMessagePrefix));
         }
 
+        [Test]
+        public void Return_correct_value_for_first_call_and_null_for_second()
+        {
+            _something.Echo(1).ReturnForFirst("always");
+
+            Assert.That(_something.Echo(1), Is.EqualTo("always"));
+            Assert.That(_something.Echo(1), Is.Null);
+        }
+
+        [Test]
+        public void Return_correct_value_for_first_call_and_null_for_all_calls_after_first()
+        {
+            _something.Echo(1).ReturnForFirst("always");
+
+            Assert.That(_something.Echo(1), Is.EqualTo("always"));
+            Assert.That(_something.Echo(1), Is.Null);
+            Assert.That(_something.Echo(1), Is.Null);
+            Assert.That(_something.Echo(1), Is.Null);
+        }
+
         [SetUp]
         public void SetUp()
         {

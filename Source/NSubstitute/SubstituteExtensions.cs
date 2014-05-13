@@ -22,6 +22,18 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Set a return value for this call, if called multiple times will return null for all except first.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="returnThis">Value to return</param>
+        /// <returns></returns>
+        public static ConfiguredCall ReturnForFirst<T>(this T value, T returnThis)
+        {
+            return Returns(MatchArgs.AsSpecifiedInCall, returnThis, new [] {default(T)});
+        }
+
+        /// <summary>
         /// Set a return value for this call, calculated by the provided function.
         /// </summary>
         /// <typeparam name="T"></typeparam>
