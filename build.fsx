@@ -120,14 +120,24 @@ Target "Zip" <| fun _ ->
     !!(deployPath @@ "**" @@ "*.*") -- "*.zip"
     |> Zip deployPath outputZip
 
-Target "Documentation" (fun _ -> 
+Target "Documentation" <| fun _ -> 
     log "building site..."
+    let workingDir = "./Source/Docs/"
+    let docOutputRelativeToWorkingDir = ".." @@ ".." @@ outputBasePath @@ "nsubstitute.github.com"
+    let pathEnv = Environment.GetEnvironmentVariable("PATH")
+    "PATH: " + pathEnv |> log
     let result = 
-        ExecProcess(fun info -> 
-            info.FileName <- "bundle exec jekyll"
-            info.WorkingDirectory <- "./Source/Docs/"
-            info.Arguments <- "\"" + outputBasePath @@ "nsubstitute.github.com" + "\"")
-    log ("returned" + result.ToString()))
+        ExecProcess (fun info -> 
+                        info.UseShellExecute <- true
+                        info.FileName <- "bundle"
+                        info.WorkingDirectory <- workingDir
+                        info.Arguments <- "exec jekyll \"" + docOutputRelativeToWorkingDir + "\""
+                        (*setEnvironmentVariables info (Seq.singleton ("PATH", pathEnv))*))
+                    (TimeSpan.FromMinutes 5.)
+    if result = 0 then
+        "site built in " + docOutputRelativeToWorkingDir |> log
+    else
+        "failed to build site" |> failwith
 
 Target "CodeFromDocumentation" <| fun _ -> 
     let outputCodePath = outputBasePath @@ "CodeFromDocs"
