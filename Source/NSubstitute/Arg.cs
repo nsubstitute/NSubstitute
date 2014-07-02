@@ -46,6 +46,17 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Match argument that has matching public property values in <paramref name="value"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static T PropertyEquals<T>(T value)
+        {
+            return ArgSpecQueue.EnqueueSpecFor<T>(new PropertyEqualsArgumentMatcher(value));
+        }
+
+        /// <summary>
         /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
         /// </summary>
         /// <returns></returns>

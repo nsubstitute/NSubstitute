@@ -108,6 +108,7 @@
     <Compile Include="Arguments\ArgumentSpecificationFactorySpecs.cs" />
     <Compile Include="Arguments\ArrayArgumentSpecificationsFactorySpecs.cs" />
     <Compile Include="Arguments\ArrayContentsArgumentMatcherSpecs.cs" />
+    <Compile Include="Arguments\PropertyEqualsArgumentMatcherSpecs.cs" />
     <Compile Include="Arguments\SuppliedArgumentSpecificationsFactorySpecs.cs" />
     <Compile Include="Arguments\ParameterInfosFromParamsArrayFactorySpecs.cs" />
     <Compile Include="Arguments\SuppliedArgumentSpecificationsSpecs.cs" />
