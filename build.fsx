@@ -120,14 +120,11 @@ Target "Zip" <| fun _ ->
     !!(deployPath @@ "**" @@ "*.*") -- "*.zip"
     |> Zip deployPath outputZip
 
-let findExecutable (exe:String) (paths:String seq) =
-    Seq.append ["."] paths
-    |> Seq.map (fun p -> p @@ exe)
-    |> Seq.tryFind (File.Exists)
-
 let findExecutableInPath (exe:String) =
     Environment.GetEnvironmentVariable("PATH").Split([| Path.PathSeparator |])
-    |> findExecutable exe
+    |> Seq.append ["."]
+    |> Seq.map (fun p -> p @@ exe)
+    |> Seq.tryFind (File.Exists)
 
 Target "Documentation" <| fun _ -> 
     log "building site..."
