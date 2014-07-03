@@ -125,12 +125,14 @@ let findExecutable (exe:String) (paths:String seq) =
     |> Seq.map (fun p -> p @@ exe)
     |> Seq.tryFind (File.Exists)
 
+let findExecutableInPath (exe:String) =
+    Environment.GetEnvironmentVariable("PATH").Split([| Path.PathSeparator |])
+    |> findExecutable exe
+
 Target "Documentation" <| fun _ -> 
     log "building site..."
-    let paths = Environment.GetEnvironmentVariable("PATH").Split( [| Path.PathSeparator |] )
-
     let exe = [ "bundle.bat"; "bundle" ]
-                |> Seq.map (fun exe -> findExecutable exe paths)
+                |> Seq.map findExecutableInPath
                 |> Seq.collect (Option.toList)
                 |> Seq.tryFind (fun _ -> true)
                 |> function | Some x -> log ("using " + x); x
