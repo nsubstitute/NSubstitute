@@ -120,19 +120,31 @@ Target "Zip" <| fun _ ->
     !!(deployPath @@ "**" @@ "*.*") -- "*.zip"
     |> Zip deployPath outputZip
 
+let findExecutable (exe:String) (paths:String seq) =
+    Seq.append ["."] paths
+    |> Seq.map (fun p -> p @@ exe)
+    |> Seq.tryFind (File.Exists)
+
 Target "Documentation" <| fun _ -> 
     log "building site..."
+    let paths = Environment.GetEnvironmentVariable("PATH").Split( [| Path.PathSeparator |] )
+
+    let exe = [ "bundle.bat"; "bundle" ]
+                |> Seq.map (fun exe -> findExecutable exe paths)
+                |> Seq.collect (Option.toList)
+                |> Seq.tryFind (fun _ -> true)
+                |> function | Some x -> log ("using " + x); x
+                            | None   -> log ("count not find exe"); "bundle"
+
     let workingDir = "./Source/Docs/"
     let docOutputRelativeToWorkingDir = ".." @@ ".." @@ outputBasePath @@ "nsubstitute.github.com"
-    let pathEnv = Environment.GetEnvironmentVariable("PATH")
-    "PATH: " + pathEnv |> log
     let result = 
         ExecProcess (fun info -> 
-                        info.UseShellExecute <- true
-                        info.FileName <- "bundle"
+                        info.UseShellExecute <- false
+                        info.CreateNoWindow <- true
+                        info.FileName <- exe
                         info.WorkingDirectory <- workingDir
-                        info.Arguments <- "exec jekyll \"" + docOutputRelativeToWorkingDir + "\""
-                        (*setEnvironmentVariables info (Seq.singleton ("PATH", pathEnv))*))
+                        info.Arguments <- "exec jekyll \"" + docOutputRelativeToWorkingDir + "\"")
                     (TimeSpan.FromMinutes 5.)
     if result = 0 then
         "site built in " + docOutputRelativeToWorkingDir |> log
