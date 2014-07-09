@@ -81,6 +81,18 @@ Target "Test" <| fun _ ->
                                             OutputFile = workingDir @@ "TestResults.xml" })
                    )
 
+Target "TestExamples" <| fun _ -> 
+    targets
+    |> List.iter (fun config -> 
+                   let workingDir = outputBasePath
+                   let testDlls = !!(workingDir @@ "CodeFromDocs" @@ "NSubstitute.Samples.dll")
+                   testDlls |> NUnit(fun p -> 
+                                   { p with DisableShadowCopy = true
+                                            Framework = "net-4.0"
+                                            ExcludeCategory = "Pending"
+                                            OutputFile = workingDir @@ "TestResults-codesamples.xml" })
+                   )
+
 Target "Default" DoNothing
 
 Target "Package" <| fun _ -> 
@@ -163,21 +175,22 @@ Target "CodeFromDocumentation" <| fun _ ->
     MSBuild null "Build" [ "TargetFrameworkVersion", "v3.5" ] [ outputCodePath + "/samples.csproj" ] |> Log "Build: "
 
 // empty target to encompass doing everything
-Target "Release" DoNothing
+Target "All" DoNothing
 
 // list targets, similar to `rake -T`
 Target "-T" PrintTargets
 
-"Clean"
-    ==> "Version"
-    ==> "BuildSolution"
-    ==> "Test"
-    ==> "Default"
+// Build
+"Clean" ==> "Version" ==> "BuildSolution" ==> "Test" ==> "Default"
+
+// Full build
+"Default"
+    ==> "CodeFromDocumentation"
+    ==> "TestExamples"
     ==> "Package"
     ==> "NuGet"
     ==> "Zip" 
-    ==> "CodeFromDocumentation"
     ==> "Documentation"
-    ==> "Release"
+    ==> "All"
 
 RunTargetOrDefault "Default"
