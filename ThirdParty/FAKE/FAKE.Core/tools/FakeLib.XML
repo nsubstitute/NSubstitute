@@ -47,7 +47,7 @@
  Runs the target given by the build script parameter or the given default target
 </summary>
 </member>
-<member name="P:Fake.AdditionalSyntax.Run">
+<member name="M:Fake.AdditionalSyntax.Run(System.String)">
 <summary>
  Runs a Target and its dependencies
 </summary>
@@ -79,7 +79,151 @@
 </member>
 <member name="T:Fake.AdditionalSyntax">
 <summary>
- Provides functions and operatores to deal with FAKE targets and target dependencies.
+ Provides functions and operators to deal with FAKE targets and target dependencies.
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.RepoScm">
+<summary>
+ git or mercurial
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.RepoProvider">
+<summary>
+ GitHub, BitBucket or Kiln
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.RepoName">
+<summary>
+ Repository name in format owner-name/repo-name
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.RepoCommitTimestamp">
+<summary>
+ Commit date/time
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.RepoCommitMessage">
+<summary>
+ Commit message
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.RepoCommitAuthorEmail">
+<summary>
+ Commit author&apos;s email address
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.RepoCommitAuthor">
+<summary>
+ Commit author&apos;s name
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.RepoCommit">
+<summary>
+ Commit ID (SHA)
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.RepoBranch">
+<summary>
+ Build branch
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.ProjectSlug">
+<summary>
+ Project slug (as seen in project details URL)
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.ProjectName">
+<summary>
+ Project name
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.ProjectId">
+<summary>
+ AppVeyor unique project ID
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.JobId">
+<summary>
+ AppVeyor unique job ID
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.BuildVersion">
+<summary>
+ Build version
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.BuildNumber">
+<summary>
+ Build number
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.BuildId">
+<summary>
+ AppVeyor unique build ID
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.BuildFolder">
+<summary>
+ Path to clone directory
+</summary>
+</member>
+<member name="P:Fake.AppVeyor.AppVeyorEnvironment.ApiUrl">
+<summary>
+ AppVeyor Build Agent API URL
+</summary>
+</member>
+<member name="T:Fake.AppVeyor.AppVeyorEnvironment">
+<summary>
+ AppVeyor environment variables as [described](http://www.appveyor.com/docs/environment-variables)
+</summary>
+</member>
+<member name="M:Fake.AppVeyor.FinishTestCase(System.String,System.String,System.TimeSpan)">
+<summary>
+ Finishes the test case.
+</summary>
+</member>
+<member name="M:Fake.AppVeyor.TestSucceeded(System.String,System.String)">
+<summary>
+ Reports a succeeded test.
+</summary>
+</member>
+<member name="M:Fake.AppVeyor.IgnoreTestCase``1(System.String,System.String,``0)">
+<summary>
+ Ignores the test case.      
+</summary>
+</member>
+<member name="M:Fake.AppVeyor.TestFailed(System.String,System.String,System.String,System.String)">
+<summary>
+ Reports a failed test.
+</summary>
+</member>
+<member name="M:Fake.AppVeyor.StartTestCase(System.String,System.String)">
+<summary>
+ Starts the test case.
+</summary>
+</member>
+<member name="M:Fake.AppVeyor.StartTestSuite``1(``0)">
+<summary>
+ Starts the test suite.
+</summary>
+</member>
+<member name="M:Fake.AppVeyor.FinishTestSuite``1(``0)">
+<summary>
+ Finishes the test suite.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.AppVeyor">
+<summary>
+ Contains code to configure FAKE for AppVeyor integration
 </summary>
 </member>
 <member name="">
@@ -123,6 +267,11 @@
 <member name="M:Fake.AssemblyInfoFile.Attribute.Product(System.String)">
 <summary>
  Creates an attribute which holds the product name
+</summary>
+</member>
+<member name="M:Fake.AssemblyInfoFile.Attribute.Metadata(System.String,System.String)">
+<summary>
+ Create an attribute which specifies metadata about the assembly
 </summary>
 </member>
 <member name="M:Fake.AssemblyInfoFile.Attribute.KeyName(System.String)">
@@ -211,10 +360,17 @@
 <member name="">
 
 </member>
-<member name="F:Fake.AssemblyInfoFile.AssemblyInfoFileConfig.GenerateClass">
-<summary>
- If true, a module (for F#) or static class (for C#), which contains the assembly version, will be generated
-</summary>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
 </member>
 <member name="">
 
@@ -222,6 +378,12 @@
 <member name="T:Fake.AssemblyInfoFile.AssemblyInfoFileConfig">
 <summary>
  Represents options for configuring the emission of AssemblyInfo
+</summary>
+</member>
+<member name="M:Fake.AssemblyInfoFile.CreateVisualBasicAssemblyInfo(System.String,System.Collections.Generic.IEnumerable{Fake.AssemblyInfoFile.Attribute})">
+<summary>
+ Creates a VB AssemblyInfo file with the given attributes.
+ The generated AssemblyInfo file contains an AssemblyVersionInformation class which can be used to retrieve the current version no. from inside of an assembly.
 </summary>
 </member>
 <member name="M:Fake.AssemblyInfoFile.CreateFSharpAssemblyInfo(System.String,System.Collections.Generic.IEnumerable{Fake.AssemblyInfoFile.Attribute})">
@@ -233,6 +395,12 @@
 <member name="M:Fake.AssemblyInfoFile.CreateCSharpAssemblyInfo(System.String,System.Collections.Generic.IEnumerable{Fake.AssemblyInfoFile.Attribute})">
 <summary>
  Creates a C# AssemblyInfo file with the given attributes.
+ The generated AssemblyInfo file contains an AssemblyVersionInformation class which can be used to retrieve the current version no. from inside of an assembly.
+</summary>
+</member>
+<member name="M:Fake.AssemblyInfoFile.CreateVisualBasicAssemblyInfoWithConfig(System.String,System.Collections.Generic.IEnumerable{Fake.AssemblyInfoFile.Attribute},Fake.AssemblyInfoFile.AssemblyInfoFileConfig)">
+<summary>
+ Creates a VB AssemblyInfo file with the given attributes and configuration.
  The generated AssemblyInfo file contains an AssemblyVersionInformation class which can be used to retrieve the current version no. from inside of an assembly.
 </summary>
 </member>
@@ -362,6 +530,22 @@
 <member name="">
 
 </member>
+<member name="M:Fake.AssemblyInfoHelper.BulkReplaceAssemblyInfoVersions(System.String,Microsoft.FSharp.Core.FSharpFunc{Fake.AssemblyInfoHelper.AssemblyInfoReplacementParams,Fake.AssemblyInfoHelper.AssemblyInfoReplacementParams})">
+<summary>
+ Update all AssemblyInfo.[fs|cs|vb] files in the specified directory and its subdirectories
+ ## Parameters
+
+ - &apos;dir&apos; - The directory (subdirectories will be included), which inhabits the AssemblyInfo files.
+ - &apos;replacementParameters&apos; - The replacement parameters for the AssemblyInfo files.
+
+ ## Sample
+
+        BulkReplaceAssemblyInfoVersions &quot;test/&quot; (fun f -&gt; 
+                                                   {f with
+                                                       AssemblyVersion = &quot;1.1.1.1&quot;
+                                                       AssemblyInformationalVersion = &quot;1.1.1.1&quot;})
+</summary>
+</member>
 <member name="">
 
 </member>
@@ -390,6 +574,73 @@
 <summary>
  Generates an AssemblyInfo file
  **Obsolete - Please use the new AssemblyInfoFile tasks**
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.AzureHelper.AzureEmulatorParams">
+<summary>
+ A type for the controlling parameter
+</summary>
+</member>
+<member name="M:Fake.AzureHelper.ResetDevStorage``1(``0)">
+<summary>
+ Resets the devstore (BLOB, Queues and Tables)
+</summary>
+</member>
+<member name="M:Fake.AzureHelper.StartComputeEmulator``1(``0)">
+<summary>
+ Starts the compute emulator
+</summary>
+</member>
+<member name="M:Fake.AzureHelper.StopComputeEmulator``1(``0)">
+<summary>
+ Stops the compute emulator
+</summary>
+</member>
+<member name="M:Fake.AzureHelper.StartStorageEmulator``1(``0)">
+<summary>
+ Starts the staorage emulator
+</summary>
+</member>
+<member name="M:Fake.AzureHelper.StopStorageEmulator``1(``0)">
+<summary>
+ Stops the storage emulator
+</summary>
+</member>
+<member name="P:Fake.AzureHelper.AzureEmulatorDefaults">
+<summary>
+ The default parameter of emulator
+</summary>
+</member>
+<member name="T:Fake.AzureHelper">
+<summary>
+ Contains tasks to control the local Azure Emulator
 </summary>
 </member>
 <member name="">
@@ -438,37 +689,37 @@
  Stage of execution for a boot system.
 </summary>
 </member>
-<member name="F:Fake.Boot.Config.SourceDirectory">
+<member name="P:Fake.Boot.Config.SourceDirectory">
 <summary>
  The full path to the root folder.
 </summary>
 </member>
-<member name="F:Fake.Boot.Config.NuGetSourceUrl">
+<member name="P:Fake.Boot.Config.NuGetSourceUrl">
 <summary>
  The URL of the NuGet source to use.
 </summary>
 </member>
-<member name="F:Fake.Boot.Config.NuGetPackagesDirectory">
+<member name="P:Fake.Boot.Config.NuGetPackagesDirectory">
 <summary>
  Full path to the `packages` directory for storing NuGet packages.
 </summary>
 </member>
-<member name="F:Fake.Boot.Config.NuGetDependencies">
+<member name="P:Fake.Boot.Config.NuGetDependencies">
 <summary>
  List of automatically installed and NuGet dependencies.
 </summary>
 </member>
-<member name="F:Fake.Boot.Config.NuGetCredentials">
+<member name="P:Fake.Boot.Config.NuGetCredentials">
 <summary>
  The credentials to use when authenticating to NuGet, if any.
 </summary>
 </member>
-<member name="F:Fake.Boot.Config.IncludesFile">
+<member name="P:Fake.Boot.Config.IncludesFile">
 <summary>
  Full path to the auto-generated fsx file with include statements.
 </summary>
 </member>
-<member name="F:Fake.Boot.Config.FrameworkName">
+<member name="P:Fake.Boot.Config.FrameworkName">
 <summary>
  Framework name for assembly resolution.
 </summary>
@@ -483,12 +734,12 @@
  Configures the boostrapping process.
 </summary>
 </member>
-<member name="F:Fake.Boot.NuGetDependency.Version">
+<member name="P:Fake.Boot.NuGetDependency.Version">
 <summary>
  The version specification.
 </summary>
 </member>
-<member name="F:Fake.Boot.NuGetDependency.PackageId">
+<member name="P:Fake.Boot.NuGetDependency.PackageId">
 <summary>
  The identifer of the package, such as &quot;FAKE&quot;.
 </summary>
@@ -532,6 +783,11 @@
 <member name="M:Fake.Boot.ParseCommandLine(System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Detects boot-specific commands.
+</summary>
+</member>
+<member name="M:Fake.Boot.HandlerForArgs(Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ Creates the CommandHandler from the 
 </summary>
 </member>
 <member name="">
@@ -678,6 +934,9 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="T:Fake.BuildServerHelper.BuildServer">
 <summary>
  The server type option.
@@ -696,6 +955,12 @@
 <member name="P:Fake.BuildServerHelper.buildServer">
 <summary>
  The current build server
+</summary>
+</member>
+<member name="P:Fake.BuildServerHelper.appVeyorBuildNumber">
+<summary>
+ AppVeyor build number
+ [omit]
 </summary>
 </member>
 <member name="P:Fake.BuildServerHelper.ccBuildLabel">
@@ -777,6 +1042,19 @@
   - `fileName` - The file name of the config file.     
 </summary>
 </member>
+<member name="M:Fake.ConfigurationHelper.updateApplicationSetting(System.String,System.String,System.String)">
+<summary>
+ Reads a config file from the given file name, replaces the Application Setting (as opposed to AppSetting) value and writes it back.
+ ## Parameters
+  - `settingName` - The ApplicationSetting name for which the value should be replaced.
+  - `value` - The new ApplicationSetting value.
+  - `fileName` - The file name of the config file.
+
+ ## Sample
+
+     updateApplicationSetting &quot;DatabaseName&quot; targetDatabase (navServicePath @@ &quot;CustomSettings.config&quot;)
+</summary>
+</member>
 <member name="M:Fake.ConfigurationHelper.updateAppSetting(System.String,System.String,System.String)">
 <summary>
  Reads a config file from the given file name, replaces the app setting value and writes it back.
@@ -830,22 +1108,22 @@
  Contains functions which allow to read and write config files.
 </summary>
 </member>
-<member name="F:Fake.DocuHelper.DocuParams.OutputPath">
+<member name="P:Fake.DocuHelper.DocuParams.OutputPath">
 <summary>
  The output path of the generated docs. The default is &quot;./output/&quot;.
 </summary>
 </member>
-<member name="F:Fake.DocuHelper.DocuParams.TimeOut">
+<member name="P:Fake.DocuHelper.DocuParams.TimeOut">
 <summary>
  Allows to specify a timeout for docu. The default is 5 minutes.
 </summary>
 </member>
-<member name="F:Fake.DocuHelper.DocuParams.TemplatesPath">
+<member name="P:Fake.DocuHelper.DocuParams.TemplatesPath">
 <summary>
  The HTML templates for the generated docs.
 </summary>
 </member>
-<member name="F:Fake.DocuHelper.DocuParams.ToolPath">
+<member name="P:Fake.DocuHelper.DocuParams.ToolPath">
 <summary>
  The tool path - FAKE tries to find docu.exe automatically in any sub folder.
 </summary>
@@ -872,6 +1150,193 @@
 <member name="T:Fake.DocuHelper">
 <summary>
  Contains helper functions to run the XML documentation tool &quot;docu&quot;.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.DotCover.DotCoverParams">
+<summary>
+ The DotCover parameter type for running coverage
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.DotCover.DotCoverMSpec(Microsoft.FSharp.Core.FSharpFunc{Fake.DotCover.DotCoverParams,Fake.DotCover.DotCoverParams},Microsoft.FSharp.Core.FSharpFunc{Fake.MSpecHelper.MSpecParams,Fake.MSpecHelper.MSpecParams},System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Runs the DotCover &quot;cover&quot; command against the MSpec test runner.
+ ## Parameters
+
+  - `setDotCoverParams` - Function used to overwrite the DotCover report default parameters.
+  - `setMSpecParams` - Function used to overwrite the MSpec default parameters.
+
+ ## Sample
+
+     !! (buildDir @@ buildMode @@ &quot;/*.Unit.Tests.dll&quot;) 
+         |&gt; DotCoverMSpec 
+             (fun dotCoverOptions -&gt; { dotCoverOptions with 
+                     Output = artifactsDir @@ &quot;MSpecDotCover.snapshot&quot; }) 
+             (fun mSpecOptions -&gt; { mSpecOptions with
+                     Silent = true })
+</summary>
+</member>
+<member name="M:Fake.DotCover.DotCoverNUnit(Microsoft.FSharp.Core.FSharpFunc{Fake.DotCover.DotCoverParams,Fake.DotCover.DotCoverParams},Microsoft.FSharp.Core.FSharpFunc{Fake.NUnitCommon.NUnitParams,Fake.NUnitCommon.NUnitParams},System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Runs the DotCover &quot;cover&quot; command against the NUnit test runner.
+ ## Parameters
+
+  - `setDotCoverParams` - Function used to overwrite the DotCover report default parameters.
+  - `setNUnitParams` - Function used to overwrite the NUnit default parameters.
+
+ ## Sample
+
+     !! (buildDir @@ buildMode @@ &quot;/*.Unit.Tests.dll&quot;) 
+         |&gt; DotCoverNUnit 
+             (fun dotCoverOptions -&gt; { dotCoverOptions with 
+                     Output = artifactsDir @@ &quot;NUnitDotCover.snapshot&quot; }) 
+             (fun nUnitOptions -&gt; { nUnitOptions with
+                     DisableShadowCopy = true })
+</summary>
+</member>
+<member name="M:Fake.DotCover.DotCoverReport(Microsoft.FSharp.Core.FSharpFunc{Fake.DotCover.DotCoverReportParams,Fake.DotCover.DotCoverReportParams})">
+<summary>
+ Runs the DotCover &quot;report&quot; command. This generates a report from a DotCover snapshot
+ ## Parameters
+
+  - `setParams` - Function used to overwrite the DotCover report default parameters.
+
+ ## Sample
+
+     DotCoverReport (fun p -&gt; { p with 
+                         Source = artifactsDir @@ &quot;DotCover.snapshot&quot;
+                         Output = artifactsDir @@ &quot;DotCover.xml&quot;
+                         ReportType = DotCoverReportType.Xml })
+</summary>
+</member>
+<member name="M:Fake.DotCover.DotCoverMerge(Microsoft.FSharp.Core.FSharpFunc{Fake.DotCover.DotCoverMergeParams,Fake.DotCover.DotCoverMergeParams})">
+<summary>
+ Runs the DotCover &quot;merge&quot; command. This combines dotCover snaphots into a single
+ snapshot, enabling you to merge test coverage from multiple test running frameworks
+ ## Parameters
+
+  - `setParams` - Function used to overwrite the DotCover merge default parameters.
+
+ ## Sample
+
+     DotCoverMerge (fun p -&gt; { p with 
+                         Source = [artifactsDir @@ &quot;NUnitDotCover.snapshot&quot;
+                                   artifactsDir @@ &quot;MSpecDotCover.snapshot&quot;]
+                         Output = artifactsDir @@ &quot;DotCover.snapshot&quot; }) 
+</summary>
+</member>
+<member name="M:Fake.DotCover.DotCover(Microsoft.FSharp.Core.FSharpFunc{Fake.DotCover.DotCoverParams,Fake.DotCover.DotCoverParams})">
+<summary>
+ Runs the DotCover &quot;cover&quot; command, using a target executable (such as NUnit or MSpec) and generates a snapshot file.
+
+ ## Parameters
+
+  - `setParams` - Function used to overwrite the DotCover default parameters.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="P:Fake.DotCover.DotCoverDefaults">
+<summary>
+ The DotCover defaeult parameters
+</summary>
+</member>
+<member name="T:Fake.DotCover">
+<summary>
+ Contains a task which can be used to run [DotCover](http://www.jetbrains.com/dotcover/) on .NET assemblies.
 </summary>
 </member>
 <member name="">
@@ -937,6 +1402,11 @@
  A Dynamics NAV server type
 </summary>
 </member>
+<member name="M:Fake.DynamicsNav.analyzeXmlTestResults(System.String,System.String)">
+<summary>
+ Analyzes the XML-based Dynamics NAV test results from XMLPort 130021
+</summary>
+</member>
 <member name="M:Fake.DynamicsNav.analyzeTestResults(System.String)">
 <summary>
  Analyzes the Dynamics NAV test results
@@ -996,6 +1466,16 @@
  Imports the given .txt or .fob file into the Dynamics NAV client
 </summary>
 </member>
+<member name="M:Fake.DynamicsNav.ExportAllObjects(Fake.DynamicsNav.DynamicsNavParams,System.String)">
+<summary>
+ Exports all objects from the Dynamics NAV client to the given .txt or .fob file
+</summary>
+</member>
+<member name="M:Fake.DynamicsNav.ExportObjects(Fake.DynamicsNav.DynamicsNavParams,System.String,System.String)">
+<summary>
+ Exports objects from the Dynamics NAV client based on the given filter to the given .txt or .fob file
+</summary>
+</member>
 <member name="">
 
 </member>
@@ -1023,6 +1503,38 @@
 <member name="T:Fake.DynamicsNav">
 <summary>
  Contains helper function which allow to interact with Microsoft Dynamics NAV.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.DynamicsNavFile.NavObject">
+<summary>
+ A type definition of a Dynamics NAV object.
+</summary>
+</member>
+<member name="M:Fake.DynamicsNavFile.splitNavisionFiles(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Splits the given files into individual object files in the specified destination directory.
+</summary>
+</member>
+<member name="M:Fake.DynamicsNavFile.fileNameFromObject(Fake.DynamicsNavFile.NavObject,System.String)">
+<summary>
+ Returns a standardized filename based on the given NavObject.
+</summary>
+</member>
+<member name="M:Fake.DynamicsNavFile.objectsInObjectString(System.String)">
+<summary>
+ Splits an object string into multiple Dynamics NAV objects of type NavObject.
 </summary>
 </member>
 <member name="M:Fake.DynamicsNavFile.setVersionTags(System.Collections.Generic.IEnumerable{System.String},System.Boolean,System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.Boolean,System.DateTime,System.Collections.Generic.IEnumerable{System.String})">
@@ -1079,17 +1591,35 @@
 </member>
 <member name="M:Fake.DynamicsNavFile.getVersionTagList(System.String)">
 <summary>
- Returns the version tag list from Dynamics NAV object
+ Returns the version tag list from Dynamics NAV object.
 </summary>
 </member>
 <member name="M:Fake.DynamicsNavFile.removeModifiedFlag(System.String)">
 <summary>
- Removes the modified flag from a Dynamics NAV object
+ Removes the modified flag from a Dynamics NAV object.
 </summary>
 </member>
 <member name="M:Fake.DynamicsNavFile.replaceDateTimeInString(System.DateTime,System.String)">
 <summary>
- Replaces the timestamp in a Dynamics NAV object
+ Replaces the timestamp in a Dynamics NAV object.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="P:Fake.DynamicsNavFile.NavObjectDateFormat">
+<summary>
+ A NAV culture-specific date format.
+</summary>
+</member>
+<member name="P:Fake.DynamicsNavFile.ObjectSplitRegex">
+<summary>
+ A Regex which allows to find objects in a Dynamics NAV file.
+</summary>
+</member>
+<member name="P:Fake.DynamicsNavFile.ObjectRegex">
+<summary>
+ A Regex which allows to parse objects in a Dynamics NAV file.
 </summary>
 </member>
 <member name="P:Fake.DynamicsNavFile.TimeRegex">
@@ -1201,6 +1731,11 @@
  Modifies the ProcessStartInfo according to the platform semantics
 </summary>
 </member>
+<member name="P:Fake.EnvironmentHelper.monoArguments">
+<summary>
+ Arguments on the Mono executable
+</summary>
+</member>
 <member name="P:Fake.EnvironmentHelper.isMono">
 <summary>
  Determines if the current system is a mono system
@@ -1299,14 +1834,33 @@
  This module contains functions which allow to read and write environment variables and build parameters
 </summary>
 </member>
-<member name="M:Fake.FSIHelper.runBuildScript(System.Boolean,System.String,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.FSIHelper.runBuildScript(System.Boolean,System.String,Microsoft.FSharp.Collections.FSharpList{System.String},System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
 <summary>
  Run the given buildscript with fsi.exe
 </summary>
 </member>
-<member name="M:Fake.FSIHelper.runBuildScriptAt(System.String,System.Boolean,System.String,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
+<member name="M:Fake.FSIHelper.runBuildScriptAt``1(``0,System.Boolean,System.String,Microsoft.FSharp.Collections.FSharpList{System.String},System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
 <summary>
  Run the given buildscript with fsi.exe at the given working directory.
+</summary>
+</member>
+<member name="M:Fake.FSIHelper.runBuildScriptWithFsiArgsAt``1(``0,System.Boolean,Fake.FSIHelper.FsiArgs,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
+<summary>
+ Run the given buildscript with fsi.exe at the given working directory.  Provides full access to Fsi options and args.
+</summary>
+</member>
+<member name="M:Fake.FSIHelper.executeFSIWithScriptArgsAndReturnMessages``1(``0,System.String,System.String[])">
+<summary>
+ Run the given build script with fsi.exe and allows for extra arguments to the script. Returns output.
 </summary>
 </member>
 <member name="M:Fake.FSIHelper.executeFSIWithArgs(System.String,System.String,Microsoft.FSharp.Collections.FSharpList{System.String},System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
@@ -1319,7 +1873,7 @@
  Run the given buildscript with fsi.exe
 </summary>
 </member>
-<member name="M:Fake.FSIHelper.fsiStartInfo(System.String,System.String,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
+<member name="M:Fake.FSIHelper.fsiStartInfo(System.String,System.String,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.Diagnostics.ProcessStartInfo)">
 <summary>
  Creates a ProcessStartInfo which is configured to the F# Interactive.
 </summary>
@@ -1359,6 +1913,67 @@
 <member name="T:Fake.FSharpFormatting">
 <summary>
  Contains tasks which allow to run FSharp.Formatting for generating documentation.
+</summary>
+</member>
+<member name="M:Fake.FileHelper.directory(System.String)">
+<summary>
+ Get the directory of the specified path
+ ## Parameters
+
+ - &apos;path&apos; - The path from which the directory is retrieved.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.FileHelper.fileNameWithoutExt(System.String)">
+<summary>
+ Get the filename for the specified path without it&apos;s extension
+ ## Parameters
+
+ - &apos;path&apos; - The path from which the filename is retrieved.
+</summary>
+</member>
+<member name="M:Fake.FileHelper.filename(System.String)">
+<summary>
+ Get the filename for the specified path
+ ## Parameters
+
+ - &apos;path&apos; - The path from which the filename is retrieved.
+</summary>
+</member>
+<member name="M:Fake.FileHelper.hasExt(System.String,System.String)">
+<summary>
+ Tests whether the file has specified extensions (containing the leading &apos;.&apos;)
+ ## Parameters
+
+ - &apos;extension&apos; - The extension to fine containing the leading &apos;.&apos;.
+ - &apos;fileName&apos; - Name of the file from which the extension is retrieved.
+</summary>
+</member>
+<member name="M:Fake.FileHelper.changeExt(System.String,System.String)">
+<summary>
+ Change the extension of the file.
+ ## Parameters
+
+ - &apos;extension&apos; - The new extension containing the leading &apos;.&apos;.
+ - &apos;fileName&apos; - Name of the file from which the extension is retrieved.
+</summary>
+</member>
+<member name="M:Fake.FileHelper.ext(System.String)">
+<summary>
+ Get the filename extension including the leading &apos;.&apos;, or an empty string if the file has no extension.
+ ## Parameters
+
+ - &apos;fileName&apos; - Name of the file from which the extension is retrieved.
+</summary>
+</member>
+<member name="M:Fake.FileHelper.FileVersion(System.String)">
+<summary>
+ Get the version a file.
+ ## Parameters
+
+  - &apos;fileName&apos; - Name of file from which the version is retrieved. The path can be relative.
 </summary>
 </member>
 <member name="M:Fake.FileHelper.ReplaceInFiles(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.Collections.Generic.IEnumerable{System.String})">
@@ -1882,9 +2497,11 @@
  Contains helpers which allow to interact with the file system.
 </summary>
 </member>
-<member name="P:Fake.FileUtils.mv">
+<member name="M:Fake.FileUtils.mv(System.String,System.String)">
 <summary>
  Like &quot;mv&quot; in a shell. Moves/renames a file
+ &lt;param name=&quot;src&quot;&gt;The source&lt;/param&gt;
+ &lt;param name=&quot;dest&quot;&gt;The destination&lt;/param&gt;
 </summary>
 </member>
 <member name="M:Fake.FileUtils.pwd">
@@ -1892,7 +2509,7 @@
  Gets working directory
 </summary>
 </member>
-<member name="P:Fake.FileUtils.cd">
+<member name="M:Fake.FileUtils.cd(System.String)">
 <summary>
  Changes working directory
 </summary>
@@ -1902,9 +2519,11 @@
  Changes working directory
 </summary>
 </member>
-<member name="P:Fake.FileUtils.cp">
+<member name="M:Fake.FileUtils.cp(System.String,System.String)">
 <summary>
  Like &quot;cp&quot; in a shell. Copies a single file.
+ &lt;param name=&quot;src&quot;&gt;The source&lt;/param&gt;
+ &lt;param name=&quot;dest&quot;&gt;The destination&lt;/param&gt;
 </summary>
 </member>
 <member name="M:Fake.FileUtils.cp_r(System.String,System.String)">
@@ -1914,7 +2533,7 @@
  <param name="src">The source</param>
  <param name="dest">The destination</param>
 </member>
-<member name="P:Fake.FileUtils.mkdir">
+<member name="M:Fake.FileUtils.mkdir(System.String)">
 <summary>
  Creates a directory if it doesn&apos;t exist.
 </summary>
@@ -1924,35 +2543,32 @@
  Like &quot;rm -rf&quot; in a shell. Removes files recursively, ignoring nonexisting files
 </summary>
 </member>
-<member name="P:Fake.FileUtils.rm">
+<member name="M:Fake.FileUtils.rm(System.String)">
 <summary>
  Deletes a file if it exists
 </summary>
-</member>
-<member name="">
-
 </member>
 <member name="T:Fake.FileUtils">
 <summary>
  Shell-like functions. Similar to [Ruby&apos;s FileUtils](http://www.ruby-doc.org/stdlib-2.0.0/libdoc/rake/rdoc/FileUtils.html).
 </summary>
 </member>
-<member name="F:Fake.FixieHelper.FixieParams.TimeOut">
+<member name="P:Fake.FixieHelper.FixieParams.TimeOut">
 <summary>
  A timeout for the test runner
 </summary>
 </member>
-<member name="F:Fake.FixieHelper.FixieParams.CustomOptions">
+<member name="P:Fake.FixieHelper.FixieParams.CustomOptions">
 <summary>
  Custom options to pass to Fixie runner
 </summary>
 </member>
-<member name="F:Fake.FixieHelper.FixieParams.WorkingDir">
+<member name="P:Fake.FixieHelper.FixieParams.WorkingDir">
 <summary>
  Working directory (optional)
 </summary>
 </member>
-<member name="F:Fake.FixieHelper.FixieParams.ToolPath">
+<member name="P:Fake.FixieHelper.FixieParams.ToolPath">
 <summary>
  FileName of the Fixie runner
 </summary>
@@ -1985,6 +2601,251 @@
 <summary>
  Contains tasks to run [Fixie](http://patrick.lioi.net/fixie/) unit tests.
 </summary>
+</member>
+<member name="P:Fake.FscHelper.FscParams.OtherParams">
+<summary>
+ Specifies other params for the compilation. Freeform strings.
+</summary>
+</member>
+<member name="P:Fake.FscHelper.FscParams.Debug">
+<summary>
+ Specifies whether to emit debug information (default is false).
+</summary>
+</member>
+<member name="P:Fake.FscHelper.FscParams.References">
+<summary>
+ Specifies files to reference for the compilation.
+</summary>
+</member>
+<member name="P:Fake.FscHelper.FscParams.Platform">
+<summary>
+ Specifies the compiled artifact target platform.
+</summary>
+</member>
+<member name="P:Fake.FscHelper.FscParams.FscTarget">
+<summary>
+ Specifies the compiled artifact target type.
+</summary>
+</member>
+<member name="P:Fake.FscHelper.FscParams.Output">
+<summary>
+ Specifies the output file name and path.
+</summary>
+</member>
+<member name="P:Fake.FscHelper.FscParams.Default">
+<summary>
+ The default parameters to the compiler service.
+</summary>
+</member>
+<member name="T:Fake.FscHelper.FscParams">
+<summary>
+ &apos;fsc.exe&apos; command line parameters
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.FscHelper.FscPlatform">
+<summary>
+ The &apos;fsc.exe&apos; output platforms
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.FscHelper.FscTarget">
+<summary>
+ The &apos;fsc.exe&apos; output target types
+</summary>
+</member>
+<member name="M:Fake.FscHelper.Fsc(Microsoft.FSharp.Core.FSharpFunc{Fake.FscHelper.FscParams,Fake.FscHelper.FscParams},Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ Compiles one or more F# source files with the specified parameters.
+ ## Parameters
+
+  - `setParams` - Function used to overwrite the default Fsc parameters.
+  - `inputFiles` - The F# input files.
+
+ ## Sample
+
+     [&quot;file1.fs&quot;; &quot;file2.fs&quot;]
+     |&gt; Fsc (fun parameters -&gt;
+                   { parameters with Output = ...
+                                     FscTarget = ...
+                                     ... })
+</summary>
+</member>
+<member name="M:Fake.FscHelper.fsc(Microsoft.FSharp.Core.FSharpFunc{Fake.FscHelper.FscParams,Fake.FscHelper.FscParams},Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ Compiles the given F# source files with the specified parameters.
+
+ ## Parameters
+
+  - `setParams` - Function used to overwrite the default Fsc parameters.
+  - `inputFiles` - The F# input files.
+
+ ## Returns
+
+ The exit status code of the compile process.
+
+ ## Sample
+
+     [&quot;file1.fs&quot;; &quot;file2.fs&quot;]
+     |&gt; fsc (fun parameters -&gt;
+              { parameters with Output = ...
+                                FscTarget = ...
+                                ... })
+</summary>
+</member>
+<member name="M:Fake.FscHelper.fscList(Microsoft.FSharp.Collections.FSharpList{System.String},Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ Compiles the given source file with the given options. If no options
+ given (i.e. the second argument is an empty list), by default tries
+ to behave the same way as would the command-line &apos;fsc.exe&apos; tool.
+</summary>
+</member>
+<member name="T:Fake.FscHelper">
+<summary>
+ Contains tasks to compiles F# source file with the [FSharp.Compiler.Service](https://github.com/fsharp/FSharp.Compiler.Service).
+ There is also a tutorial about the [F# compiler tasks](../fsc.html) available.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.FtpHelper.uploadAFolder(System.String,System.String,System.String,System.String,System.String)">
+<summary>
+ Uploads a given local folder to a given root dir on a FTP server.
+ ## Parameters
+  - `srcPath` - The local server path from which files need to be uploaded
+  - `rootDir` - The remote root dir where files need to be uploaded, leave this as empty, if files need to be uploaded to root dir of FTP server
+  - `server` - FTP Server name (ex: &quot;ftp://10.100.200.300:21/&quot;)
+  - `user` - FTP Server login name (ex: &quot;joebloggs&quot;)
+  - `pwd` - FTP Server login password (ex: &quot;J0Eblogg5&quot;)
+</summary>
+</member>
+<member name="M:Fake.FtpHelper.createAFolder(System.String,System.String,System.String,System.String)">
+<summary>
+ Creates a matching folder in FTP folder, if not already present.
+ ## Parameters
+  - `destPath` - The full name of folder which needs to be created, including all its parent folders
+  - `server` - FTP Server name (ex: &quot;ftp://10.100.200.300:21/&quot;)
+  - `user` - FTP Server login name (ex: &quot;joebloggs&quot;)
+  - `pwd` - FTP Server login password (ex: &quot;J0Eblogg5&quot;)
+</summary>
+</member>
+<member name="M:Fake.FtpHelper.isFolderPresent(System.String,System.String,System.String,System.String)">
+<summary>
+ Given a folder path, will check if that folder is present at a given root directory of a FTP server.
+ ## Parameters
+  - `destPath` - The full name of folder which needs to be checked for existance, including all its parent folders
+  - `server` - FTP Server name (ex: &quot;ftp://10.100.200.300:21/&quot;)
+  - `user` - FTP Server login name (ex: &quot;joebloggs&quot;)
+  - `pwd` - FTP Server login password (ex: &quot;J0Eblogg5&quot;)
+</summary>
+</member>
+<member name="M:Fake.FtpHelper.checkInExistingDirList(System.String,System.String,System.String,System.String,System.String)">
+<summary>
+ Given a folder name, will check if that folder is present at a given root directory of a FTP server.
+ ## Parameters
+  - `server` - FTP Server name (ex: &quot;ftp://10.100.200.300:21/&quot;)
+  - `user` - FTP Server login name (ex: &quot;joebloggs&quot;)
+  - `pwd` - FTP Server login password (ex: &quot;J0Eblogg5&quot;)
+</summary>
+</member>
+<member name="M:Fake.FtpHelper.uploadAFile(System.String,System.String,System.String,System.String,System.String)">
+<summary>
+ Uploads a single file from local directory into remote FTP folder.
+ ## Parameters
+  - `destPath` - The full local file path that needs to be uploaded
+  - `srcPath` - The full path to file which needs to be created, including all its parent folders
+  - `server` - FTP Server name (ex: &quot;ftp://10.100.200.300:21/&quot;)
+  - `user` - FTP Server login name (ex: &quot;joebloggs&quot;)
+  - `pwd` - FTP Server login password (ex: &quot;J0Eblogg5&quot;)
+</summary>
+</member>
+<member name="M:Fake.FtpHelper.getFtpDirContents(System.String,System.String,System.String,System.String)">
+<summary>
+ Gets the contents/listing of files and folders in a given FTP server folder
+ ## Parameters
+  - `dirPath` - The full name of folder whose content need to be listed
+  - `server` - FTP Server name (ex: &quot;ftp://10.100.200.300:21/&quot;)
+  - `user` - FTP Server login name (ex: &quot;joebloggs&quot;)
+  - `pwd` - FTP Server login password (ex: &quot;J0Eblogg5&quot;)
+</summary>
+</member>
+<member name="M:Fake.FtpHelper.regexCheck(System.String,System.String)">
+<summary>
+ Checks to see if the `ftp content` string containts the string `&lt;DIR&gt;    Given_Folder_Name`
+</summary>
+</member>
+<member name="M:Fake.FtpHelper.dirNameIsValid(System.String)">
+<summary>
+Partial validation for folder name, based on http://msdn.microsoft.com/en-us/library/aa365247.aspx
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.FtpHelper.writeChunkToReqStream(System.Byte[],System.IO.Stream,System.IO.BinaryReader)">
+<summary>
+ Writes given byte array into the given stream
+</summary>
+</member>
+<member name="M:Fake.FtpHelper.getServerInfo(System.String,System.String,System.String,System.String)">
+<summary>
+ Gets a connection to the FTP server
+</summary>
+</member>
+<member name="T:Fake.FtpHelper">
+<summary>
+ Contains helpers which allow to upload a whole folder/specific file into a FTP Server. 
+ Uses `Passive Mode` FTP and handles all files as binary (and not ASCII).
+ Assumes direct network connectivity to destination FTP server (not via a proxy).
+ Does not support FTPS and SFTP.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
 </member>
 <member name="">
 
@@ -2484,14 +3345,20 @@
  Returns the SHA1 of the current HEAD
 </summary>
 </member>
-<member name="M:Fake.Git.Information.getVersion(System.String)">
-<summary>
- Gets the git version
-</summary>
-</member>
 <member name="M:Fake.Git.Information.getBranchName(System.String)">
 <summary>
  Gets the git branch name
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.Git.Information.getVersion(System.String)">
+<summary>
+ Gets the git version
 </summary>
 </member>
 <member name="T:Fake.Git.Information">
@@ -2865,6 +3732,21 @@
  Contains helper functions which allow to deal with git submodules.
 </summary>
 </member>
+<member name="M:Fake.GuardedAwaitObservable.Async.GuardedAwaitObservable.Static``1(System.IObservable{``0},Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Behaves like AwaitObservable, but calls the specified guarding function
+ after a subscriber is registered with the observable.
+</summary>
+</member>
+<member name="M:Fake.GuardedAwaitObservable.synchronize``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.Unit},``0})">
+<summary>
+ Helper that can be used for writing CPS-style code that resumes
+ on the same thread where the operation was started.
+</summary>
+</member>
+<member name="T:Fake.GuardedAwaitObservable">
+
+</member>
 <member name="M:Fake.HTMLHelpWorkShopHelper.CompileHTMLHelpProject(System.String,System.String)">
 <summary>
  Uses the HTML Help Workshop to compile a help project and returns the generated file names of the generated files.
@@ -2879,12 +3761,12 @@
  Contains a task which allows to use [HTML Help Workshop](http://msdn.microsoft.com/en-us/library/windows/desktop/ms670169(v=vs.85).aspx) in order to compile a help project.
 </summary>
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.XmlDocs">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.XmlDocs">
 <summary>
  True -&gt; XML documentation files are merged to produce an XML documentation file for the target assembly.
 </summary>
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.UnionMerge">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.UnionMerge">
 <summary>
  True -&gt; types with the same name are all merged into a single type in the target assembly.
 </summary>
@@ -2892,12 +3774,12 @@
 <member name="">
 
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.TargetPlatform">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.TargetPlatform">
 <summary>
  v1 or v1.1 or v2 or v4 or version,platform
 </summary>
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.SearchDirectories">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.SearchDirectories">
 <summary>
  Directories to be used to search for input assemblies
 </summary>
@@ -2914,7 +3796,7 @@
 <member name="">
 
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.DebugInfo">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.DebugInfo">
 <summary>
  True (default) -&gt; creates a .pdb file for the output assembly and merges into it any .pdb files found for input assemblies.
 </summary>
@@ -2922,12 +3804,12 @@
 <member name="">
 
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.Closed">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.Closed">
 <summary>
  True -&gt; transitive closure of the input assemblies is computed and added to the list of input assemblies.
 </summary>
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.AttributeFile">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.AttributeFile">
 <summary>
  Path to an assembly that will be used to get all of the assembly-level attributes
 </summary>
@@ -2935,22 +3817,22 @@
 <member name="">
 
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.AllowWildcards">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.AllowWildcards">
 <summary>
  Wild cards in file names are expanded and all matching files will be used as input.
 </summary>
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.AllowMultipleAssemblyLevelAttributes">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.AllowMultipleAssemblyLevelAttributes">
 <summary>
  Assembly-level attributes names that have the same type are copied over into the target directory
 </summary>
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.AllowDuplicateTypes">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.AllowDuplicateTypes">
 <summary>
  Duplicate types policy
 </summary>
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.Libraries">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.Libraries">
 <summary>
  Assemblies to merge with the primary assembly
 </summary>
@@ -2958,12 +3840,12 @@
 <member name="">
 
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.Version">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.Version">
 <summary>
  Version to use for the merged assembly
 </summary>
 </member>
-<member name="F:Fake.ILMergeHelper.ILMergeParams.ToolPath">
+<member name="P:Fake.ILMergeHelper.ILMergeParams.ToolPath">
 <summary>
  Path to ILMerge.exe
 </summary>
@@ -3045,46 +3927,6 @@
 <member name="T:Fake.ILMergeHelper">
 <summary>
  Contains task a task which allows to merge .NET assemblies with [ILMerge](http://research.microsoft.com/en-us/people/mbarnett/ilmerge.aspx).
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="T:Fake.Json.UnionTypeConverter">
-<summary>
- Newtonsoft.Json converter for union types
-</summary>
-</member>
-<member name="M:Fake.Json.deserializeFile``1">
-<summary>
- Deserializes a file into a object of type &apos;a
-</summary>
-</member>
-<member name="M:Fake.Json.deserialize``1(System.String)">
-<summary>
- Deserializes a text into a object of type &apos;a
-</summary>
-</member>
-<member name="M:Fake.Json.serialize``1(``0)">
-<summary>
- Serializes a object to json
-</summary>
-</member>
-<member name="">
-
-</member>
-<member name="T:Fake.Json">
-<summary>
- Contains extensions for Newtonsoft.Json. **Don&apos;t use it directly. It&apos;s likely to be changed in further versions.**
 </summary>
 </member>
 <member name="">
@@ -3296,6 +4138,9 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="T:Fake.MSBuildHelper.MSBuildParams">
 <summary>
  A type for MSBuild task parameters
@@ -3390,59 +4235,106 @@
  An type to represent MSBuild project files.
 </summary>
 </member>
-<member name="M:Fake.MSBuildHelper.MSBuildReleaseExt(System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}},System.String)">
+<member name="M:Fake.MSBuildHelper.BuildWebsites(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Builds the given web project files in debug mode and copies them to the given websiteDir.
+ ## Parameters
+  - `outputPath` - The output path.
+  - `projectFiles` - The project file paths.
+</summary>
+</member>
+<member name="M:Fake.MSBuildHelper.BuildWebsite(System.String,System.String)">
+<summary>
+ Builds the given web project file in debug mode and copies it to the given websiteDir.
+ ## Parameters
+  - `outputPath` - The output path.
+  - `projectFile` - The project file path.
+</summary>
+</member>
+<member name="M:Fake.MSBuildHelper.MSBuildReleaseExt(System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}},System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Builds the given project files or solution files in release mode and collects the output files.
  ## Parameters
-  - `outputpath` - If it is null or empty then the project settings are used.
+  - `outputPath` - If it is null or empty then the project settings are used.
   - `properties` - A list with tuples of property name and property values.
   - `targets` - A string with the target names which should be run by MSBuild.
+  - `projects` - A list of project or solution files.
 </summary>
 </member>
-<member name="M:Fake.MSBuildHelper.MSBuildWithDefaults(System.String)">
+<member name="M:Fake.MSBuildHelper.MSBuildWithDefaults(System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Builds the given project files or solution files in release mode to the default outputs.
  ## Parameters
   - `targets` - A string with the target names which should be run by MSBuild.
+  - `projects` - A list of project or solution files.
 </summary>
 </member>
-<member name="M:Fake.MSBuildHelper.MSBuildRelease(System.String,System.String)">
+<member name="M:Fake.MSBuildHelper.MSBuildRelease(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Builds the given project files or solution files and collects the output files.
  ## Parameters
-  - `outputpath` - If it is null or empty then the project settings are used.
+  - `outputPath` - If it is null or empty then the project settings are used.
   - `targets` - A string with the target names which should be run by MSBuild.
+  - `projects` - A list of project or solution files.
 </summary>
 </member>
-<member name="M:Fake.MSBuildHelper.MSBuildDebug(System.String,System.String)">
+<member name="M:Fake.MSBuildHelper.MSBuildDebug(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Builds the given project files or solution files and collects the output files.
  ## Parameters
-  - `outputpath` - If it is null or empty then the project settings are used.
+  - `outputPath` - If it is null or empty then the project settings are used.
   - `targets` - A string with the target names which should be run by MSBuild.
+  - `projects` - A list of project or solution files.
 </summary>
 </member>
-<member name="M:Fake.MSBuildHelper.MSBuild(System.String,System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}})">
+<member name="M:Fake.MSBuildHelper.MSBuild(System.String,System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}},System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Builds the given project files or solution files and collects the output files.
  ## Parameters
-  - `outputpath` - If it is null or empty then the project settings are used.
+  - `outputPath` - If it is null or empty then the project settings are used.
   - `targets` - A string with the target names which should be run by MSBuild.
   - `properties` - A list with tuples of property name and property values.
+  - `projects` - A list of project or solution files.
 </summary>
 </member>
 <member name="M:Fake.MSBuildHelper.MSBuildWithProjectProperties(System.String,System.String,Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}}},System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Builds the given project files and collects the output files.
  ## Parameters
-  - `outputpath` - If it is null or empty then the project settings are used.
+  - `outputPath` - If it is null or empty then the project settings are used.
   - `targets` - A string with the target names which should be run by MSBuild.
   - `properties` - A list with tuples of property name and property values.
+  - `projects` - A list of project or solution files.
 </summary>
 </member>
 <member name="M:Fake.MSBuildHelper.build(Microsoft.FSharp.Core.FSharpFunc{Fake.MSBuildHelper.MSBuildParams,Fake.MSBuildHelper.MSBuildParams},System.String)">
 <summary>
  Runs a MSBuild project
+ ## Parameters
+  - `setParams` - A function that overwrites the default MsBuildParams
+  - `project` - A string with the path to the project file to build.
+
+ ## Sample
+
+     let buildMode = getBuildParamOrDefault &quot;buildMode&quot; &quot;Release&quot;
+     let setParams defaults =
+             { defaults with
+                 Verbosity = Some(Quiet)
+                 Targets = [&quot;Build&quot;]
+                 Properties =
+                     [
+                         &quot;Optimize&quot;, &quot;True&quot;
+                         &quot;DebugSymbols&quot;, &quot;True&quot;
+                         &quot;Configuration&quot;, buildMode
+                     ]
+              }
+     build setParams &quot;./MySolution.sln&quot;
+           |&gt; DoNothing
+</summary>
+</member>
+<member name="P:Fake.MSBuildHelper.MSBuildLoggers">
+<summary>
+ Defines the loggers to use for MSBuild task
 </summary>
 </member>
 <member name="">
@@ -3463,7 +4355,10 @@
  [omit]
 </summary>
 </member>
-<member name="M:Fake.MSBuildHelper.getAllParameters``1(``0,``0,``0,``0,``0,Microsoft.FSharp.Collections.FSharpList{``0},Microsoft.FSharp.Collections.FSharpList{``0})">
+<member name="">
+
+</member>
+<member name="M:Fake.MSBuildHelper.getAllParameters``1(``0,``0,``0,``0,``0,``0,Microsoft.FSharp.Collections.FSharpList{``0},Microsoft.FSharp.Collections.FSharpList{``0})">
 <summary>
  [omit]
 </summary>
@@ -3519,9 +4414,6 @@
 <member name="">
 
 </member>
-<member name="">
-
-</member>
 <member name="T:Fake.MSBuildHelper.BuildException">
 <summary>
  An exception type to signal build errors.
@@ -3531,6 +4423,9 @@
 <summary>
  Contains tasks which allow to use MSBuild (or xBuild on Linux/Unix) to build .NET project files or solution files.
 </summary>
+</member>
+<member name="">
+
 </member>
 <member name="">
 
@@ -3580,37 +4475,47 @@
  Contains tasks which allow to run msiexec in order to install or uninstall msi files.
 </summary>
 </member>
-<member name="F:Fake.MSTest.MSTestParams.ErrorLevel">
+<member name="P:Fake.MSTest.MSTestParams.NoIsolation">
+<summary>
+ Run tests in isolation (optional).
+</summary>
+</member>
+<member name="P:Fake.MSTest.MSTestParams.ErrorLevel">
 <summary>
  Option which allow to specify if a MSTest error should break the build.
 </summary>
 </member>
-<member name="F:Fake.MSTest.MSTestParams.ToolPath">
+<member name="P:Fake.MSTest.MSTestParams.ToolPath">
 <summary>
  Path to MSTest.exe 
 </summary>
 </member>
-<member name="F:Fake.MSTest.MSTestParams.TimeOut">
+<member name="P:Fake.MSTest.MSTestParams.TimeOut">
 <summary>
  A timeout for the test runner (optional)
 </summary>
 </member>
-<member name="F:Fake.MSTest.MSTestParams.WorkingDir">
+<member name="P:Fake.MSTest.MSTestParams.WorkingDir">
 <summary>
  Working directory (optional)
 </summary>
 </member>
-<member name="F:Fake.MSTest.MSTestParams.TestMetadataPath">
+<member name="P:Fake.MSTest.MSTestParams.TestSettingsPath">
+<summary>
+ Path to the Test Settings file (.testsettings)  (optional)
+</summary>
+</member>
+<member name="P:Fake.MSTest.MSTestParams.TestMetadataPath">
 <summary>
  Path to the Test Metadata file (.vdmdi)  (optional)
 </summary>
 </member>
-<member name="F:Fake.MSTest.MSTestParams.ResultsDir">
+<member name="P:Fake.MSTest.MSTestParams.ResultsDir">
 <summary>
  Test results directory (optional)
 </summary>
 </member>
-<member name="F:Fake.MSTest.MSTestParams.Category">
+<member name="P:Fake.MSTest.MSTestParams.Category">
 <summary>
  Test category filter  (optional). The test category filter consists of one or more test category names separated by the logical operators &apos;&amp;&apos;, &apos;|&apos;, &apos;!&apos;, &apos;&amp;!&apos;. The logical operators &apos;&amp;&apos; and &apos;|&apos; cannot be used together to create a test category filter.
 </summary>
@@ -3641,7 +4546,7 @@
      )
 </summary>
 </member>
-<member name="M:Fake.MSTest.commandLineBuilder``1(Fake.MSTest.MSTestParams,``0)">
+<member name="M:Fake.MSTest.buildMSTestArgs``1(Fake.MSTest.MSTestParams,``0)">
 <summary>
  Builds the command line arguments from the given parameter record and the given assemblies.
  [omit]
@@ -3667,42 +4572,42 @@
  Contains tasks to run [MSTest](http://en.wikipedia.org/wiki/Visual_Studio_Unit_Testing_Framework/) unit tests.
 </summary>
 </member>
-<member name="F:Fake.MSpecHelper.MSpecParams.ErrorLevel">
+<member name="P:Fake.MSpecHelper.MSpecParams.ErrorLevel">
 <summary>
  An error level setting to specify whether a failed test should break the build
 </summary>
 </member>
-<member name="F:Fake.MSpecHelper.MSpecParams.TimeOut">
+<member name="P:Fake.MSpecHelper.MSpecParams.TimeOut">
 <summary>
  A timeout for the test runner
 </summary>
 </member>
-<member name="F:Fake.MSpecHelper.MSpecParams.IncludeTags">
+<member name="P:Fake.MSpecHelper.MSpecParams.IncludeTags">
 <summary>
  Tests with theses tags are included by MSpec
 </summary>
 </member>
-<member name="F:Fake.MSpecHelper.MSpecParams.ExcludeTags">
+<member name="P:Fake.MSpecHelper.MSpecParams.ExcludeTags">
 <summary>
  Tests with theses tags are ignored by MSpec
 </summary>
 </member>
-<member name="F:Fake.MSpecHelper.MSpecParams.Silent">
+<member name="P:Fake.MSpecHelper.MSpecParams.Silent">
 <summary>
  Can be used to run MSpec in silent mode.
 </summary>
 </member>
-<member name="F:Fake.MSpecHelper.MSpecParams.WorkingDir">
+<member name="P:Fake.MSpecHelper.MSpecParams.WorkingDir">
 <summary>
  Working directory (optional)
 </summary>
 </member>
-<member name="F:Fake.MSpecHelper.MSpecParams.HtmlOutputDir">
+<member name="P:Fake.MSpecHelper.MSpecParams.HtmlOutputDir">
 <summary>
  Output directory for html reports (optional).
 </summary>
 </member>
-<member name="F:Fake.MSpecHelper.MSpecParams.ToolPath">
+<member name="P:Fake.MSpecHelper.MSpecParams.ToolPath">
 <summary>
  FileName of the mspec runner exe. Use mspec-clr4.exe if you are on .NET 4.0 or above.
 </summary>
@@ -3724,6 +4629,12 @@
 
      !! (testDir @@ &quot;Test.*.dll&quot;) 
        |&gt; MSpec (fun p -&gt; {p with ExcludeTags = [&quot;HTTP&quot;]; HtmlOutputDir = reportDir})
+</summary>
+</member>
+<member name="M:Fake.MSpecHelper.buildMSpecArgs(Fake.MSpecHelper.MSpecParams,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Builds the command line arguments from the given parameter record and the given assemblies.
+ [omit]
 </summary>
 </member>
 <member name="P:Fake.MSpecHelper.MSpecDefaults">
@@ -3983,7 +4894,7 @@
 </member>
 <member name="M:Fake.MsBuildLogger.MSBuildLogger.RegisterEvents(Microsoft.Build.Framework.IEventSource)">
 <summary>
- Abstract fucntion which registers a event listener.
+ Abstract function which registers an event listener.
 </summary>
 </member>
 <member name="">
@@ -4100,9 +5011,58 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
 <member name="T:Fake.NUnitCommon.NUnitParams">
 <summary>
  Parameter type for NUnit.
+</summary>
+</member>
+<member name="T:Fake.NUnitCommon.NUnitDomainModel.MultipleDomainModel">
+<summary>
+ A separate test domain is created for each assembly
+</summary>
+</member>
+<member name="T:Fake.NUnitCommon.NUnitDomainModel.SingleDomainModel">
+<summary>
+ A test domain is created - this is how NUnit worked prior to version 2.4
+</summary>
+</member>
+<member name="T:Fake.NUnitCommon.NUnitDomainModel.DefaultDomainModel">
+<summary>
+ No domain is created - the tests are run in the primary domain. This normally requires copying the NUnit assemblies into the same directory as your tests.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.NUnitCommon.NUnitDomainModel">
+<summary>
+ The /domain option controls of the creation of AppDomains for running tests. See http://www.nunit.org/index.php?p=consoleCommandLine&amp;r=2.4.6
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.NUnitCommon.NUnitProcessModel">
+<summary>
+ Process model for nunit to use, see http://www.nunit.org/index.php?p=projectEditor&amp;r=2.5
 </summary>
 </member>
 <member name="T:Fake.NUnitCommon.NUnitErrorLevel">
@@ -4374,59 +5334,168 @@
  Contains types and functions for working with [NUnit](http://www.nunit.org/) unit tests result xml.
 </summary>
 </member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.ConfigFile">
+<member name="P:Fake.NuGet.Install.NugetInstallParams.ConfigFile">
 <summary>
  NuGet configuration file. Default `None`.
 </summary>
 </member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.NonInteractive">
+<member name="P:Fake.NuGet.Install.NugetInstallParams.NoCache">
+<summary>
+ Disable looking up packages from local machine cache. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Install.NugetInstallParams.NonInteractive">
 <summary>
  Do not prompt for user input or confirmations. Default `true`.
 </summary>
 </member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.Prerelease">
+<member name="P:Fake.NuGet.Install.NugetInstallParams.Verbosity">
+<summary>
+ Display this amount of details in the output: normal, quiet, detailed. Default `normal`.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Install.NugetInstallParams.OutputDirectory">
+<summary>
+ Specifies the directory in which packages will be installed. Default  `./packages/`.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Install.NugetInstallParams.Prerelease">
 <summary>
  Allows updating to prerelease versions. Default `false`.
 </summary>
 </member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.Safe">
+<member name="P:Fake.NuGet.Install.NugetInstallParams.ExcludeVersion">
 <summary>
- Looks for updates with the highest version available within the same major and minor version as the installed package. Default `false`.
+ If set, the destination directory will contain only the package name, not the version number. Default `false`.
 </summary>
 </member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.RepositoryPath">
+<member name="P:Fake.NuGet.Install.NugetInstallParams.Version">
 <summary>
- Folder to store packages in. Default `./packages`.
+ The version of the package to install.
 </summary>
 </member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.Ids">
-<summary>
- Packages to update. Update all if empty.
-</summary>
-</member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.Sources">
+<member name="P:Fake.NuGet.Install.NugetInstallParams.Sources">
 <summary>
  Nuget feeds to search updates in. Use default if empty.
 </summary>
 </member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.Retries">
+<member name="P:Fake.NuGet.Install.NugetInstallParams.Retries">
 <summary>
  Number of retries if update fails.
 </summary>
 </member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.TimeOut">
+<member name="P:Fake.NuGet.Install.NugetInstallParams.TimeOut">
 <summary>
  Timeout for the update.
 </summary>
 </member>
-<member name="F:Fake.NuGet.Update.NugetUpdateParams.ToolPath">
+<member name="P:Fake.NuGet.Install.NugetInstallParams.ToolPath">
+<summary>
+ Path to the nuget.exe.
+</summary>
+</member>
+<member name="T:Fake.NuGet.Install.NugetInstallParams">
+<summary>
+ Nuget install parameters.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.NuGet.Install.NugetInstallVerbosity">
+<summary>
+ Nuget install verbosity mode.
+</summary>
+</member>
+<member name="M:Fake.NuGet.Install.NugetInstall(Microsoft.FSharp.Core.FSharpFunc{Fake.NuGet.Install.NugetInstallParams,Fake.NuGet.Install.NugetInstallParams},System.String)">
+<summary>
+ Installs the given package.
+
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default parameters.
+  - `packagesFile` - Path to the `*.sln`, `*.*proj` or `packages.config` file.
+</summary>
+</member>
+<member name="M:Fake.NuGet.Install.buildArgs(Fake.NuGet.Install.NugetInstallParams)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.NuGet.Install.argList(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.NuGet.Install.NugetInstallDefaults">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.NuGet.Install">
+<summary>
+ Contains tasks for installing NuGet packages using the [nuget.exe install command](http://docs.nuget.org/docs/reference/command-line-reference#Install_Command).
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.ConfigFile">
+<summary>
+ NuGet configuration file. Default `None`.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.NonInteractive">
+<summary>
+ Do not prompt for user input or confirmations. Default `true`.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.Prerelease">
+<summary>
+ Allows updating to prerelease versions. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.Safe">
+<summary>
+ Looks for updates with the highest version available within the same major and minor version as the installed package. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.RepositoryPath">
+<summary>
+ Folder to store packages in. Default `./packages`.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.Ids">
+<summary>
+ Packages to update. Update all if empty.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.Sources">
+<summary>
+ Nuget feeds to search updates in. Use default if empty.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.Retries">
+<summary>
+ Number of retries if update fails.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.TimeOut">
+<summary>
+ Timeout for the update.
+</summary>
+</member>
+<member name="P:Fake.NuGet.Update.NugetUpdateParams.ToolPath">
 <summary>
  Path to the nuget.exe.
 </summary>
 </member>
 <member name="T:Fake.NuGet.Update.NugetUpdateParams">
 <summary>
- Nuget update parameters. All optional.
+ Nuget update parameters.
 </summary>
 </member>
 <member name="M:Fake.NuGet.Update.NugetUpdate(Microsoft.FSharp.Core.FSharpFunc{Fake.NuGet.Update.NugetUpdateParams,Fake.NuGet.Update.NugetUpdateParams},System.String)">
@@ -4442,11 +5511,6 @@
 </summary>
 </member>
 <member name="M:Fake.NuGet.Update.buildArgs(Fake.NuGet.Update.NugetUpdateParams)">
-<summary>
- [omit]
-</summary>
-</member>
-<member name="M:Fake.NuGet.Update.argList(System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  [omit]
 </summary>
@@ -4589,9 +5653,39 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
 <member name="T:Fake.NuGetHelper.NuGetParams">
 <summary>
  Nuget parameter type
+</summary>
+</member>
+<member name="F:Fake.NuGetHelper.NugetSymbolPackage.Nuspec">
+<summary>
+ Build a symbol package using the nuspec file
+</summary>
+</member>
+<member name="F:Fake.NuGetHelper.NugetSymbolPackage.ProjectFile">
+<summary>
+ Build a symbol package using a project file, if provided
+</summary>
+</member>
+<member name="F:Fake.NuGetHelper.NugetSymbolPackage.None">
+<summary>
+ Do not build symbol packages
 </summary>
 </member>
 <member name="">
@@ -4605,6 +5699,34 @@
 </member>
 <member name="">
 
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.NuGetHelper.getDependencies(System.String)">
+<summary>
+ loads the dependences from specified packages.config file
+</summary>
+</member>
+<member name="M:Fake.NuGetHelper.argList(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ [omit]
+</summary>
 </member>
 <member name="M:Fake.NuGetHelper.downloadPackage(System.String,Fake.NuGetHelper.NuSpecPackage)">
 <summary>
@@ -4703,13 +5825,11 @@
 </member>
 <member name="M:Fake.NuGetHelper.pack(Fake.NuGetHelper.NuGetParams,System.String)">
 <summary>
- create package
+ create package (including symbols package if enabled)
 </summary>
 </member>
-<member name="M:Fake.NuGetHelper.packSymbols(Fake.NuGetHelper.NuGetParams)">
-<summary>
- create symbols package
-</summary>
+<member name="">
+
 </member>
 <member name="">
 
@@ -4845,6 +5965,9 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="T:Fake.OctoTools.CreateReleaseOptions">
 <summary>
  Options for creating a new release
@@ -4900,6 +6023,11 @@
  [omit]
 </summary>
 </member>
+<member name="M:Fake.OctoTools.stringListParam``1(System.String,System.Collections.Generic.IEnumerable{``0})">
+<summary>
+ [omit]
+</summary>
+</member>
 <member name="M:Fake.OctoTools.optionalObjParam``1(System.String,Microsoft.FSharp.Core.FSharpOption{``0})">
 <summary>
  [omit]
@@ -4939,6 +6067,84 @@
 <summary>
  Contains tasks which can be used for automated deployment via [Octopus Deploy](http://octopusdeploy.com/).
  There is also a tutorial about the [Octopus deployment helper](../octopusdeploy.html) available.
+</summary>
+</member>
+<member name="P:Fake.OpenCoverHelper.OpenCoverParams.WorkingDir">
+<summary>
+ The directory where the OpenCover process will be started.
+</summary>
+</member>
+<member name="P:Fake.OpenCoverHelper.OpenCoverParams.TimeOut">
+<summary>
+ The timeout for the OpenCover process.
+</summary>
+</member>
+<member name="P:Fake.OpenCoverHelper.OpenCoverParams.Filter">
+<summary>
+ A list of filters to apply to selectively include or exclude assemblies and classes from coverage results.
+</summary>
+</member>
+<member name="P:Fake.OpenCoverHelper.OpenCoverParams.Register">
+<summary>
+ Use this to register and de-register the code coverage profiler.
+</summary>
+</member>
+<member name="P:Fake.OpenCoverHelper.OpenCoverParams.Output">
+<summary>
+ The location and name of the output xml file. 
+ If no value is supplied then the current directory 
+ will be used and the output filename will be results.xml.
+</summary>
+</member>
+<member name="P:Fake.OpenCoverHelper.OpenCoverParams.TestRunnerExePath">
+<summary>
+ (Required) Path to the NUnit/XUnit console runner
+</summary>
+</member>
+<member name="P:Fake.OpenCoverHelper.OpenCoverParams.ExePath">
+<summary>
+ (Required) Path to the OpenCover console application
+</summary>
+</member>
+<member name="T:Fake.OpenCoverHelper.OpenCoverParams">
+<summary>
+ OpenCover parameters, for more details see: https://github.com/OpenCover/opencover/wiki/Usage#console-application-usage.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.OpenCoverHelper.OpenCover(Microsoft.FSharp.Core.FSharpFunc{Fake.OpenCoverHelper.OpenCoverParams,Fake.OpenCoverHelper.OpenCoverParams},System.String)">
+<summary>
+ Runs OpenCover on a group of assemblies.
+ ## Parameters
+
+  - `setParams` - Function used to overwrite the default OpenCover parameters.
+  - `targetArgs` - Test runner arguments.
+
+ ## Sample
+
+      OpenCover (fun p -&gt; { p with TestRunnerExePath = &quot;./Tools/NUnit/nunit-console.exe&quot; }) 
+         &quot;project-file.nunit /config:Release /noshadow /xml:artifacts/nunit.xml /framework:net-4.0&quot;
+</summary>
+</member>
+<member name="P:Fake.OpenCoverHelper.OpenCoverDefaults">
+<summary>
+ OpenCover default parameters
+</summary>
+</member>
+<member name="T:Fake.OpenCoverHelper">
+<summary>
+ Contains a task which can be used to run [OpenCover](https://github.com/sawilde/opencover) on .NET assemblies.
 </summary>
 </member>
 <member name="M:Fake.PermissionsHelper.requiresAdmin``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0})">
@@ -4997,7 +6203,7 @@
  Allows to exec shell operations synchronously and asynchronously.
 </summary>
 </member>
-<member name="F:Fake.ProcessHelper.ExecParams.Args">
+<member name="P:Fake.ProcessHelper.ExecParams.Args">
 <summary>
  Command-line argument pairs. The value will be quoted if it contains
  a string, and the result will be appended to the CommandLine property.
@@ -5005,17 +6211,17 @@
  the key and the value.
 </summary>
 </member>
-<member name="F:Fake.ProcessHelper.ExecParams.CommandLine">
+<member name="P:Fake.ProcessHelper.ExecParams.CommandLine">
 <summary>
  Command-line parameters in a string.
 </summary>
 </member>
-<member name="F:Fake.ProcessHelper.ExecParams.WorkingDirectory">
+<member name="P:Fake.ProcessHelper.ExecParams.WorkingDirectory">
 <summary>
  The working directory for the program. Defaults to &quot;&quot;.
 </summary>
 </member>
-<member name="F:Fake.ProcessHelper.ExecParams.Program">
+<member name="P:Fake.ProcessHelper.ExecParams.Program">
 <summary>
  The path to the executable, without arguments. 
 </summary>
@@ -5059,7 +6265,7 @@
  A record type which captures console messages
 </summary>
 </member>
-<member name="P:Fake.ProcessHelper.shellExec">
+<member name="M:Fake.ProcessHelper.shellExec(Fake.ProcessHelper.ExecParams)">
 <summary>
  Execute an external program and return the exit code.
  [omit]
@@ -5075,7 +6281,12 @@
 </member>
 <member name="M:Fake.ProcessHelper.killAllCreatedProcesses">
 <summary>
- Kills all processes that are created by the FAKE build script.
+ Kills all processes that are created by the FAKE build script unless &quot;donotkill&quot; flag was set.
+</summary>
+</member>
+<member name="P:Fake.ProcessHelper.killCreatedProcesses">
+<summary>
+ [omit]
 </summary>
 </member>
 <member name="M:Fake.ProcessHelper.killMSBuild">
@@ -5114,12 +6325,6 @@
  logging output and error messages to FAKE output. You can compose the result
  with Async.Parallel to run multiple external programs at once, but be
  sure that none of them depend on the output of another.
-</summary>
-</member>
-<member name="M:Fake.ProcessHelper.guard``2(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Control.IEvent{``0,``1})">
-<summary>
- See: http://stackoverflow.com/questions/2649161/need-help-regarding-async-and-fsi/
- [omit]
 </summary>
 </member>
 <member name="">
@@ -5209,19 +6414,34 @@
  [omit]
 </summary>
 </member>
+<member name="M:Fake.ProcessHelper.StartRemoteService(System.String,System.String)">
+<summary>
+ Starts a remote windows service. Waits up to two minutes for a response.
+</summary>
+</member>
 <member name="M:Fake.ProcessHelper.StartService(System.String)">
 <summary>
- Starts a windows service
+ Starts a local windows service. Waits up to two minutes for a response.
+</summary>
+</member>
+<member name="M:Fake.ProcessHelper.StopRemoteService(System.String,System.String)">
+<summary>
+ Stops a remote windows service. Waits up to two minutes for a response.
 </summary>
 </member>
 <member name="M:Fake.ProcessHelper.StopService(System.String)">
 <summary>
- Stops a windows service
+ Stops a local windows service. Waits up to two minutes for a response.
 </summary>
 </member>
 <member name="M:Fake.ProcessHelper.RunService(System.String,System.String)">
 <summary>
- Sends a command to a windows service.
+ Sends a command to a local windows service.
+</summary>
+</member>
+<member name="M:Fake.ProcessHelper.RunRemoteService(System.String,System.String,System.String)">
+<summary>
+ Sends a command to a remote windows service.
 </summary>
 </member>
 <member name="M:Fake.ProcessHelper.StartProcess(Microsoft.FSharp.Core.FSharpFunc{System.Diagnostics.ProcessStartInfo,Microsoft.FSharp.Core.Unit})">
@@ -5269,6 +6489,14 @@
 
   - `configProcessStartInfoF` - A function which overwrites the default ProcessStartInfo.
   - `timeOut` - The timeout for the process.
+ ## Sample
+
+     let result = ExecProcess (fun info -&gt;  
+                       info.FileName &lt;- &quot;c:/MyProc.exe&quot;
+                       info.WorkingDirectory &lt;- &quot;c:/workingDirectory&quot;
+                       info.Arguments &lt;- &quot;-v&quot;) (TimeSpan.FromMinutes 5.0)
+     
+     if result &lt;&gt; 0 then failwithf &quot;MyProc.exe returned with a non-zero exit code&quot;
 </summary>
 </member>
 <member name="M:Fake.ProcessHelper.execProcess3(Microsoft.FSharp.Core.FSharpFunc{System.Diagnostics.ProcessStartInfo,Microsoft.FSharp.Core.Unit},System.TimeSpan)">
@@ -5342,15 +6570,76 @@
  [omit]
 </summary>
 </member>
-<member name="">
-
+<member name="M:Fake.ProcessHelper.start(System.Diagnostics.Process)">
+<summary>
+ [omit]
+</summary>
 </member>
-<member name="">
-
+<member name="P:Fake.ProcessHelper.startedProcesses">
+<summary>
+ [omit]
+</summary>
 </member>
 <member name="T:Fake.ProcessHelper">
 <summary>
  Contains functions which can be used to start other tools.
+</summary>
+</member>
+<member name="P:Fake.ProcessTestRunner.ProcessTestRunnerParams.ErrorLevel">
+<summary>
+ Option which allows to specify if a test runner error should break the build.
+</summary>
+</member>
+<member name="P:Fake.ProcessTestRunner.ProcessTestRunnerParams.TimeOut">
+<summary>
+ If the timeout is reached the xUnit task will be killed. Default is 5 minutes.
+</summary>
+</member>
+<member name="P:Fake.ProcessTestRunner.ProcessTestRunnerParams.WorkingDir">
+<summary>
+ The working directory (optional).
+</summary>
+</member>
+<member name="T:Fake.ProcessTestRunner.ProcessTestRunnerParams">
+<summary>
+ The ProcessTestRunner parameter type.
+</summary>
+</member>
+<member name="M:Fake.ProcessTestRunner.RunConsoleTests(Microsoft.FSharp.Core.FSharpFunc{Fake.ProcessTestRunner.ProcessTestRunnerParams,Fake.ProcessTestRunner.ProcessTestRunnerParams},System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
+<summary>
+ Runs the given processes and returns the process results.
+ ## Parameters
+ 
+  - `setParams` - Function used to manipulate the default parameter value.
+  - `processes` - Sequence of one or more filenames and arguments to run.
+ 
+ ## Sample usage
+
+     Target &quot;Test&quot; (fun _ -&gt;
+         [&quot;process1.exe&quot;,&quot;argument1&quot;
+          &quot;process2.exe&quot;,&quot;argument2&quot;]
+           |&gt; RunConsoleTests (fun p -&gt; {p with TimeOut = TimeSpan.FromMinutes 1. })
+     )
+</summary>
+</member>
+<member name="M:Fake.ProcessTestRunner.runConsoleTests(Fake.ProcessTestRunner.ProcessTestRunnerParams,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
+<summary>
+ Runs the given processes and returns the process result messages.
+</summary>
+</member>
+<member name="M:Fake.ProcessTestRunner.RunConsoleTest(Fake.ProcessTestRunner.ProcessTestRunnerParams,System.String,System.String)">
+<summary>
+ Runs the given process and returns the process result.
+</summary>
+</member>
+<member name="P:Fake.ProcessTestRunner.ProcessTestRunnerDefaults">
+<summary>
+ The ProcessTestRunner defeaults.
+</summary>
+</member>
+<member name="T:Fake.ProcessTestRunner">
+<summary>
+ Allows to execute processes as unit tests.
 </summary>
 </member>
 <member name="">
@@ -5462,14 +6751,35 @@
  Registry base keys.
 </summary>
 </member>
+<member name="M:Fake.RegistryHelper.deleteRegistryValue(Fake.RegistryHelper.RegistryBaseKey,System.String,System.String)">
+<summary>
+ Deletes the registry value from its key
+</summary>
+</member>
+<member name="M:Fake.RegistryHelper.setRegistryValue``1(Fake.RegistryHelper.RegistryBaseKey,System.String,System.String,``0)">
+<summary>
+ Sets a registry value
+</summary>
+</member>
+<member name="M:Fake.RegistryHelper.createRegistrySubKey(Fake.RegistryHelper.RegistryBaseKey,System.String)">
+<summary>
+ create a registry subKey
+</summary>
+</member>
 <member name="M:Fake.RegistryHelper.getRegistryValue(Fake.RegistryHelper.RegistryBaseKey,System.String,System.String)">
 <summary>
  Gets a registy value as string
 </summary>
 </member>
-<member name="M:Fake.RegistryHelper.getRegistryKey(Fake.RegistryHelper.RegistryBaseKey,System.String)">
+<member name="M:Fake.RegistryHelper.getRegistryKey(Fake.RegistryHelper.RegistryBaseKey,System.String,System.Boolean)">
 <summary>
- Gets a registy key.
+ Gets a registy key and falls back to 32 bit if the 64bit key is not there
+</summary>
+</member>
+<member name="M:Fake.RegistryHelper.get32BitKey(Fake.RegistryHelper.RegistryBaseKey)">
+<summary>
+ Maps the RegistryBaseKey to a RegistryKey for a 32bit System
+ [omit]
 </summary>
 </member>
 <member name="M:Fake.RegistryHelper.getKey(Fake.RegistryHelper.RegistryBaseKey)">
@@ -5480,23 +6790,23 @@
 </member>
 <member name="T:Fake.RegistryHelper">
 <summary>
- Contains function which allow to retrieve information from the registry.
+ Contains functions which allow to read and write information from/to the registry.
 </summary>
 </member>
 <member name="">
 
 </member>
-<member name="F:Fake.ReleaseNotesHelper.ReleaseNotes.SemVer">
+<member name="P:Fake.ReleaseNotesHelper.ReleaseNotes.SemVer">
 <summary>
  Semantic version
 </summary>
 </member>
-<member name="F:Fake.ReleaseNotesHelper.ReleaseNotes.NugetVersion">
+<member name="P:Fake.ReleaseNotesHelper.ReleaseNotes.NugetVersion">
 <summary>
  The nuget package version.
 </summary>
 </member>
-<member name="F:Fake.ReleaseNotesHelper.ReleaseNotes.AssemblyVersion">
+<member name="P:Fake.ReleaseNotesHelper.ReleaseNotes.AssemblyVersion">
 <summary>
  The parsed version.
 </summary>
@@ -5510,6 +6820,14 @@
 <member name="T:Fake.ReleaseNotesHelper.ReleaseNotes">
 <summary>
  Contains the parsed information of the release notes text file.
+</summary>
+</member>
+<member name="M:Fake.ReleaseNotesHelper.LoadReleaseNotes(System.String)">
+<summary>
+ Parses a Release Notes text file and returns the lastest release notes.
+
+ ## Parameters
+  - `fileName` - Release notes text file name
 </summary>
 </member>
 <member name="M:Fake.ReleaseNotesHelper.parseReleaseNotes(System.Collections.Generic.IEnumerable{System.String})">
@@ -5582,10 +6900,120 @@
      )
 </summary>
 </member>
+<member name="P:Fake.ReportGeneratorHelper.ReportGeneratorParams.TimeOut">
+<summary>
+ The timeout for the ReportGenerator process.
+</summary>
+</member>
+<member name="P:Fake.ReportGeneratorHelper.ReportGeneratorParams.WorkingDir">
+<summary>
+ The directory where the ReportGenerator process will be started.
+</summary>
+</member>
+<member name="P:Fake.ReportGeneratorHelper.ReportGeneratorParams.LogVerbosity">
+<summary>
+ The verbosity level of the log messages.
+</summary>
+</member>
+<member name="P:Fake.ReportGeneratorHelper.ReportGeneratorParams.Filters">
+<summary>
+ Optional list of assemblies that should be included or excluded
+ in the report. Exclusion filters take precedence over inclusion 
+ filters. Wildcards are allowed.
+</summary>
+</member>
+<member name="P:Fake.ReportGeneratorHelper.ReportGeneratorParams.SourceDirs">
+<summary>
+ Optional directories which contain the corresponding source code.
+</summary>
+</member>
+<member name="P:Fake.ReportGeneratorHelper.ReportGeneratorParams.ReportTypes">
+<summary>
+ The output formats and scope.
+</summary>
+</member>
+<member name="P:Fake.ReportGeneratorHelper.ReportGeneratorParams.TargetDir">
+<summary>
+ (Required) The directory where the generated report should be saved.
+</summary>
+</member>
+<member name="P:Fake.ReportGeneratorHelper.ReportGeneratorParams.ExePath">
+<summary>
+ (Required) Path to the ReportGenerator exe file.
+</summary>
+</member>
+<member name="T:Fake.ReportGeneratorHelper.ReportGeneratorParams">
+<summary>
+ ReportGenerator parameters, for more details see: https://reportgenerator.codeplex.com.
+</summary>
+</member>
 <member name="">
 
 </member>
-<member name="F:Fake.RestorePackageHelper.RestoreSinglePackageParams.Retries">
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Fake.ReportGeneratorHelper.ReportGenerator(Microsoft.FSharp.Core.FSharpFunc{Fake.ReportGeneratorHelper.ReportGeneratorParams,Fake.ReportGeneratorHelper.ReportGeneratorParams},Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ Runs ReportGenerator on one or more coverage reports.
+ ## Parameters
+
+  - `setParams` - Function used to overwrite the default ReportGenerator parameters.
+  - `reports` - Coverage reports.
+
+ ## Sample
+
+      ReportGenerator (fun p -&gt; { p with TargetDir = &quot;c:/reports/&quot; }) [ &quot;c:/opencover.xml&quot; ]
+</summary>
+</member>
+<member name="P:Fake.ReportGeneratorHelper.ReportGeneratorDefaultParams">
+<summary>
+ ReportGenerator default parameters
+</summary>
+</member>
+<member name="T:Fake.ReportGeneratorHelper">
+<summary>
+ Contains a task which can be used to run [ReportGenerator](https://reportgenerator.codeplex.com),
+ which converts XML reports generated by PartCover, OpenCover or NCover into a readable report in various formats.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="P:Fake.RestorePackageHelper.RestoreSinglePackageParams.Retries">
 <summary>
  Specifies how often nuget should try to restore the packages - default is 5
 </summary>
@@ -5616,7 +7044,7 @@
 <member name="">
 
 </member>
-<member name="F:Fake.RestorePackageHelper.RestorePackageParams.Retries">
+<member name="P:Fake.RestorePackageHelper.RestorePackageParams.Retries">
 <summary>
  Specifies how often nuget should try to restore the packages - default is 5
 </summary>
@@ -5675,18 +7103,230 @@
  RestorePackage defaults parameters
 </summary>
 </member>
+<member name="M:Fake.RestorePackageHelper.findNuget(System.String)">
+<summary>
+ Looks for a tool in all subfolders - returns the tool file name.
+</summary>
+</member>
 <member name="T:Fake.RestorePackageHelper">
 <summary>
  Contains tasks which allow to restore NuGet packages from a NuGet package feed like [nuget.org](http://www.nuget.org).
  There is also a tutorial about [nuget package restore](../nuget.html) available.
 </summary>
 </member>
-<member name="F:Fake.SCPHelper.SCPParams.PrivateKeyPath">
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.TimeOut">
+<summary>
+ A timeout for the runner.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.WorkingDir">
+<summary>
+ Working directory (optional).
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.ToolPath">
+<summary>
+ FileName of the Roundhouse runner.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.WarnOnOneTimeScriptChanges">
+<summary>
+ Instructs RH to execute changed one time scripts (DDL/DML in Up folder) that have previously been run against the database instead of failing. A warning is logged for each one time scripts that is rerun.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.PermissionsFolderName">
+<summary>
+ The name of the folder where you keep your permissions scripts.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.RunAfterOtherAnyTimeScriptsFolderName">
+<summary>
+ The name of the folder where you keep scripts that will be run after all of the other any time scripts complete.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.IndexesFolderName">
+<summary>
+ The name of the folder where you keep your indexes.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.SprocsFolderName">
+<summary>
+ The name of the folder where you keep your stored procedures.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.ViewsFolderName">
+<summary>
+ The name of the folder where you keep your views.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.FunctionsFolderName">
+<summary>
+ The name of the folder where you keep your functions.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.RunFirstAfterUpdateFolderName">
+<summary>
+ The name of the folder where you keep any functions, views, or sprocs that are order dependent. If you have a function that depends on a view, you definitely need the view in this folder.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.UpFolderName">
+<summary>
+ The name of the folder where you keep your update scripts.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.RunBeforeUpFolderName">
+<summary>
+ The name of the folder where you keep scripts that you want to run before your update scripts.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.RunAfterCreateDatabaseFolderName">
+<summary>
+ The name of the folder where you will keep scripts that ONLY run after a database is created.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.AlterDatabaseFolderName">
+<summary>
+ The name of the folder where you keep your alter database scripts. Read up on token replacement. You will want to use {{DatabaseName}} here instead of specifying a database name.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.Silent">
+<summary>
+ Tells RH not to ask for any input when it runs.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.Restore">
+<summary>
+ This instructs RH to do a restore (with the restorefrompath parameter) of a database before running migration scripts.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.WithTransaction">
+<summary>
+ This instructs RH to run inside of a transaction.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.Simple">
+<summary>
+ This instructs RH to set the database recovery mode to simple recovery. Only works with SqlServer.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.Drop">
+<summary>
+ This instructs RH to remove a database and not run migration scripts.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.RestoreFilePath">
+<summary>
+ File path of back when Restore is set to true
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.CustomCreateScript">
+<summary>
+ This instructs RH to use this script for creating a database instead of the default based on the SQLType.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.Environment">
+<summary>
+ This allows RH to be environment aware and only run scripts that are in a particular environment based on the namingof the script. LOCAL.something**.ENV.**sql would only be run in the LOCAL environment.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.RepositoryPath">
+<summary>
+ Path to code repository to be able to correlate versions
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.VersionXPath">
+<summary>
+ Works in conjunction with an XML version file.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.VersionFile">
+<summary>
+ Path to the file to use for versioning. Either a .XML file, a .DLL or a .TXT file that a version can be resolved from.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.OutputPath">
+<summary>
+ Output path. Path to where migration artifacts are stored.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.DatabaseType">
+<summary>
+ Database Type (fully qualified class name implementing [roundhouse.sql.Database, roundhouse])
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.CommandTimeoutAdmin">
+<summary>
+ This is the timeout when administration commands are run (except for restore, which has its own). 
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.CommandTimeout">
+<summary>
+ This is the timeout when commands are run. This is not for admin commands or restore.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.ConnectionStringAdmin">
+<summary>
+ This is used for connecting to master when you may have a different uid and password than normal.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.ConnectionString">
+<summary>
+ As an alternative to ServerName and Database - You can provide an entire connection string instead.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.ServerDatabase">
+<summary>
+ The server and instance you would like to run on. (local) and (local)\SQL2008 are both valid values. 
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.SqlFilesDirectory">
+<summary>
+ The directory where your SQL scripts are.
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseParams.DatabaseName">
+<summary>
+ The database you want to create/migrate.
+</summary>
+</member>
+<member name="T:Fake.RoundhouseHelper.RoundhouseParams">
+<summary>
+ Parameter type to configure the RoundhousE runner
+</summary>
+</member>
+<member name="M:Fake.RoundhouseHelper.Roundhouse(Microsoft.FSharp.Core.FSharpFunc{Fake.RoundhouseHelper.RoundhouseParams,Fake.RoundhouseHelper.RoundhouseParams})">
+<summary>
+ This task to can be used to run [RoundhousE](http://projectroundhouse.org/) for database migrations.
+ ## Parameters
+
+  - `setParams` - Function used to overwrite the Roundhouse default parameters.
+
+ ## Sample
+
+     Roundhouse (fun p -&gt; { p with 
+        SqlFilesDirectory = &quot;.\database&quot;
+        ServerDatabase = &quot;(local)&quot;
+        DatabaseName = &quot;atxc&quot;
+        WarnOnOneTimeScriptChanges = true })
+
+</summary>
+</member>
+<member name="P:Fake.RoundhouseHelper.RoundhouseDefaults">
+<summary>
+ Roundhouse default parameters - tries to locate rh.exe in any subfolder.
+</summary>
+</member>
+<member name="T:Fake.RoundhouseHelper">
+<summary>
+ Contains tasks to run [RoundhousE](http://projectroundhouse.org/) database migrations.
+</summary>
+</member>
+<member name="P:Fake.SCPHelper.SCPParams.PrivateKeyPath">
 <summary>
  Path of the private key file (optional)
 </summary>
 </member>
-<member name="F:Fake.SCPHelper.SCPParams.ToolPath">
+<member name="P:Fake.SCPHelper.SCPParams.ToolPath">
 <summary>
  Path of the scp.exe 
 </summary>
@@ -5720,27 +7360,27 @@
  Conatins a task which allows to perform file copies using [SCP](http://en.wikipedia.org/wiki/Secure_copy), which is based on the Secure Shell (SSH) protocol.
 </summary>
 </member>
-<member name="F:Fake.SemVerHelper.SemVerInfo.Build">
+<member name="P:Fake.SemVerHelper.SemVerInfo.Build">
 <summary>
  The optional build no.
 </summary>
 </member>
-<member name="F:Fake.SemVerHelper.SemVerInfo.PreRelease">
+<member name="P:Fake.SemVerHelper.SemVerInfo.PreRelease">
 <summary>
  The optional PreRelease version
 </summary>
 </member>
-<member name="F:Fake.SemVerHelper.SemVerInfo.Patch">
+<member name="P:Fake.SemVerHelper.SemVerInfo.Patch">
 <summary>
  PATCH version when you make backwards-compatible bug fixes.
 </summary>
 </member>
-<member name="F:Fake.SemVerHelper.SemVerInfo.Minor">
+<member name="P:Fake.SemVerHelper.SemVerInfo.Minor">
 <summary>
  MINOR version when you add functionality in a backwards-compatible manner.
 </summary>
 </member>
-<member name="F:Fake.SemVerHelper.SemVerInfo.Major">
+<member name="P:Fake.SemVerHelper.SemVerInfo.Major">
 <summary>
  MAJOR version when you make incompatible API changes.
 </summary>
@@ -5795,7 +7435,7 @@
      parse &quot;1.0.0-rc.1&quot;     &lt; parse &quot;1.0.0&quot;          // true
      parse &quot;1.2.3-alpha&quot;    &gt; parse &quot;1.2.2&quot;          // true
      parse &quot;1.2.3-alpha2&quot;   &gt; parse &quot;1.2.3-alpha&quot;    // true
-     parse &quot;1.2.3-alpha002&quot; &gt; parse &quot;1.2.3-alpha1&quot; // true
+     parse &quot;1.2.3-alpha002&quot; &gt; parse &quot;1.2.3-alpha1&quot;   // true
      parse &quot;1.5.0-beta.2&quot;   &gt; parse &quot;1.5.0-rc.1&quot;     // false
 </summary>
 </member>
@@ -5806,59 +7446,125 @@
 </member>
 <member name="M:Fake.ServiceControllerHelpers.ensureServiceHasStopped(System.String,System.TimeSpan)">
 <summary>
- Waits until the service with the given name has been stopped or fails after given timeout
+ Waits until the local service with the given name has been stopped or fails after given timeout
  ## Parameters
+  - `name` - The name of the service in question.
+  - `timeout` - The timespan to time out after.
+</summary>
+</member>
+<member name="M:Fake.ServiceControllerHelpers.ensureRemoteServiceHasStopped(System.String,System.String,System.TimeSpan)">
+<summary>
+ Waits until the remote service with the given name has been stopped or fails after given timeout
+ ## Parameters
+  - `host` - The hostname of the remote machine.
   - `name` - The name of the service in question.
   - `timeout` - The timespan to time out after.
 </summary>
 </member>
 <member name="M:Fake.ServiceControllerHelpers.ensureServiceHasStarted(System.String,System.TimeSpan)">
 <summary>
- Waits until the service with the given name has been started or fails after given timeout
+ Waits until the local service with the given name has been started or fails after given timeout
  ## Parameters
+  - `name` - The name of the service in question.
+  - `timeout` - The timespan to time out after.
+</summary>
+</member>
+<member name="M:Fake.ServiceControllerHelpers.ensureRemoteServiceHasStarted(System.String,System.String,System.TimeSpan)">
+<summary>
+ Waits until the remote service with the given name has been started or fails after given timeout
+ ## Parameters
+  - `host` - The hostname of the remote machine.
   - `name` - The name of the service in question.
   - `timeout` - The timespan to time out after.
 </summary>
 </member>
 <member name="M:Fake.ServiceControllerHelpers.stopService(System.String)">
 <summary>
+ Stops all local services with given name.
+ ## Parameters
+  - `name` - The name of the services in question.
+</summary>
+</member>
+<member name="M:Fake.ServiceControllerHelpers.stopRemoteService(System.String,System.String)">
+<summary>
  Stops all services with given name.
  ## Parameters
+  - `host` - The hostname of the remote machine.
   - `name` - The name of the services in question.
 </summary>
 </member>
 <member name="M:Fake.ServiceControllerHelpers.startService(System.String)">
 <summary>
- Starts all services with given name.
+ Starts all local services with given name.
  ## Parameters
+  - `name` - The name of the services in question.
+</summary>
+</member>
+<member name="M:Fake.ServiceControllerHelpers.startRemoteService(System.String,System.String)">
+<summary>
+ Starts all remote services with given name.
+ ## Parameters
+  - `host` - The hostname of the remote machine.
   - `name` - The name of the services in question.
 </summary>
 </member>
 <member name="M:Fake.ServiceControllerHelpers.getServiceStatus(System.String)">
 <summary>
- Returns status of the service with given name or fails when service is not found.
+ Returns status of the local service with given name or fails when service is not found.
  ## Parameters
+  - `name` - The name of the service in question.
+</summary>
+</member>
+<member name="M:Fake.ServiceControllerHelpers.getRemoteServiceStatus(System.String,System.String)">
+<summary>
+ Returns status of the remote service with given name or fails when service is not found.
+ ## Parameters
+  - `host` - The hostname of the remote machine.
   - `name` - The name of the service in question.
 </summary>
 </member>
 <member name="M:Fake.ServiceControllerHelpers.checkServiceExists(System.String)">
 <summary>
- Returns whether a service with the given name exists.
+ Returns whether a local service with the given name exists.
  ## Parameters
+  - `name` - The name of the service in question.
+</summary>
+</member>
+<member name="M:Fake.ServiceControllerHelpers.checkRemoteServiceExists(System.String,System.String)">
+<summary>
+ Returns whether a remote service with the given name exists.
+ ## Parameters
+  - `host` - The hostname of the remote machine.
   - `name` - The name of the service in question.
 </summary>
 </member>
 <member name="M:Fake.ServiceControllerHelpers.getService(System.String)">
 <summary>
- Returns the first service with given name or None.
+ Returns the first local service with given name or None.
  ## Parameters
+  - `name` - The name of the service in question.
+</summary>
+</member>
+<member name="M:Fake.ServiceControllerHelpers.getRemoteService(System.String,System.String)">
+<summary>
+ Returns the first remote service with given name or None.
+ ## Parameters
+  - `host` - The hostname of the remote machine.
   - `name` - The name of the service in question.
 </summary>
 </member>
 <member name="M:Fake.ServiceControllerHelpers.getServices(System.String)">
 <summary>
- Returns sequence of services with given name.
+ Returns sequence of local services with given name.
  ## Parameters
+  - `name` - The name of the services in question.
+</summary>
+</member>
+<member name="M:Fake.ServiceControllerHelpers.getRemoteServices(System.String,System.String)">
+<summary>
+ Returns sequence of remote services with given name.
+ ## Parameters
+  - `host` - The hostname of the remote machine.
   - `name` - The name of the services in question.
 </summary>
 </member>
@@ -5867,7 +7573,17 @@
  Returns whether the given service has the given name as display or service name.
  ## Parameters
   - `name` - The name to check for.
-  - `s` - The service in question.
+  - `service` - The service in question.
+</summary>
+</member>
+<member name="M:Fake.ServiceControllerHelpers.friendlyName(System.String,System.String)">
+<summary>
+ Get friendly service name for displaying in logs
+</summary>
+</member>
+<member name="P:Fake.ServiceControllerHelpers.localhost">
+<summary>
+ Host value used for querying local services.
 </summary>
 </member>
 <member name="T:Fake.ServiceControllerHelpers">
@@ -5939,6 +7655,9 @@
 <summary>
  SpecFlow default execution parameters.
 </summary>
+</member>
+<member name="">
+
 </member>
 <member name="T:Fake.SpecFlowHelper">
 <summary>
@@ -6092,6 +7811,16 @@
  Lifts a string to an option
 </summary>
 </member>
+<member name="M:Fake.StringHelper.trimEndChars(System.Char[],System.String)">
+<summary>
+ Trims the end of the given string
+</summary>
+</member>
+<member name="M:Fake.StringHelper.trimStartChars(System.Char[],System.String)">
+<summary>
+ Trims the start of the given string
+</summary>
+</member>
 <member name="M:Fake.StringHelper.trimChars(System.Char[],System.String)">
 <summary>
  Trims the given string
@@ -6187,9 +7916,22 @@
  Appends a text if the predicate is false.
 </summary>
 </member>
+<member name="">
+
+</member>
 <member name="M:Fake.StringHelper.appendIfTrue(System.Boolean,System.String,System.Text.StringBuilder)">
 <summary>
  Appends a text if the predicate is true.
+</summary>
+</member>
+<member name="M:Fake.StringHelper.appendIfSome``1(Microsoft.FSharp.Core.FSharpOption{``0},Microsoft.FSharp.Core.FSharpFunc{``0,System.String},System.Text.StringBuilder)">
+<summary>
+ Appends string of function value if option has some value
+</summary>
+</member>
+<member name="M:Fake.StringHelper.appendWithoutQuotes(System.String,System.Text.StringBuilder)">
+<summary>
+ Appends a text to a StringBuilder without surrounding quotes.
 </summary>
 </member>
 <member name="M:Fake.StringHelper.append(System.String,System.Text.StringBuilder)">
@@ -6321,6 +8063,16 @@
  Registers a final target (not activated).
 </summary>
 </member>
+<member name="M:Fake.TargetHelper.ActivateBuildFailureTarget(System.String)">
+<summary>
+ Activates the BuildFailureTarget.
+</summary>
+</member>
+<member name="M:Fake.TargetHelper.BuildFailureTarget(System.String,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Registers a BuildFailureTarget (not activated).
+</summary>
+</member>
 <member name="M:Fake.TargetHelper.run(System.String)">
 <summary>
  Runs a target and its dependencies.
@@ -6356,6 +8108,12 @@
 <member name="M:Fake.TargetHelper.PrintTargets">
 <summary>
  Prints all targets.
+</summary>
+</member>
+<member name="M:Fake.TargetHelper.runBuildFailureTargets">
+<summary>
+ Runs all build failure targets.
+ [omit]
 </summary>
 </member>
 <member name="M:Fake.TargetHelper.runFinalTargets">
@@ -6413,13 +8171,13 @@
  Backwards dependencies operator - y is dependend on x.
 </summary>
 </member>
-<member name="M:Fake.TargetHelper.Dependencies(System.String)">
+<member name="M:Fake.TargetHelper.Dependencies(System.String,Microsoft.FSharp.Collections.FSharpList{System.String})">
 <summary>
  Adds the dependencies to the list of dependencies.
  [omit]
 </summary>
 </member>
-<member name="P:Fake.TargetHelper.dependency">
+<member name="M:Fake.TargetHelper.dependency(System.String,System.String)">
 <summary>
  Adds the dependency to the list of dependencies.
  [omit]
@@ -6448,11 +8206,6 @@
  Do nothing - fun () -&gt; () - Can be used to define empty targets.
 </summary>
 </member>
-<member name="M:Fake.TargetHelper.getAllTargetsNames">
-<summary>
- Returns a list with all target names.
-</summary>
-</member>
 <member name="M:Fake.TargetHelper.dependencyString``1(Fake.TargetHelper.TargetTemplate{``0})">
 <summary>
  Returns the DependencyString for the given target.
@@ -6461,6 +8214,11 @@
 <member name="M:Fake.TargetHelper.getTarget(System.String)">
 <summary>
  Gets a target with the given name from the target dictionary.
+</summary>
+</member>
+<member name="M:Fake.TargetHelper.getAllTargetsNames">
+<summary>
+ Returns a list with all target names.
 </summary>
 </member>
 <member name="P:Fake.TargetHelper.ExecutedTargetTimes">
@@ -6472,6 +8230,11 @@
 <member name="P:Fake.TargetHelper.ExecutedTargets">
 <summary>
  The executed targets.
+</summary>
+</member>
+<member name="P:Fake.TargetHelper.BuildFailureTargets">
+<summary>
+ BuildFailureTargets - stores build failure targets and if they are activated.
 </summary>
 </member>
 <member name="P:Fake.TargetHelper.FinalTargets">
@@ -6591,7 +8354,10 @@
  Sets the TeamCity build number.
 </summary>
 </member>
-<member name="M:Fake.TeamCityHelper.PublishArticfact(System.String)">
+<member name="">
+
+</member>
+<member name="M:Fake.TeamCityHelper.PublishArtifact(System.String)">
 <summary>
  Publishes an artifact on the TeamcCity build server.
 </summary>
@@ -6767,7 +8533,7 @@
 </member>
 <member name="M:Fake.TeamCityRESTHelper.getProjects(System.String,System.String,System.String)">
 <summary>
- Gets all projects on the TeamCity.
+ Gets all projects on the TeamCity server.
 </summary>
 </member>
 <member name="M:Fake.TeamCityRESTHelper.getProject(System.String,System.String,System.String,System.String)">
@@ -6777,7 +8543,7 @@
 </member>
 <member name="M:Fake.TeamCityRESTHelper.getBuildConfig(System.String,System.String,System.String,System.String)">
 <summary>
- Gets information about a build configartion from the TeamCity server.
+ Gets information about a build configuration from the TeamCity server.
 </summary>
 </member>
 <member name="M:Fake.TeamCityRESTHelper.getFirstNode(System.String,System.String,System.String,System.String)">
@@ -6825,8 +8591,82 @@
  Contains basic templating functions. Used in other helpers.
 </summary>
 </member>
-<member name="">
-
+<member name="P:Fake.TestFlightHelper.TestFlightParams.Replace">
+<summary>
+ Replace binary for an existing build if one is found with the same name/bundle version
+</summary>
+</member>
+<member name="P:Fake.TestFlightHelper.TestFlightParams.Notify">
+<summary>
+ Notify permitted teammates to install the build
+</summary>
+</member>
+<member name="P:Fake.TestFlightHelper.TestFlightParams.DistributionLists">
+<summary>
+ Distribution list names which will receive access to the build
+</summary>
+</member>
+<member name="P:Fake.TestFlightHelper.TestFlightParams.DSym">
+<summary>
+ iOS ONLY - the .dSYM corresponding to the build
+</summary>
+</member>
+<member name="P:Fake.TestFlightHelper.TestFlightParams.Notes">
+<summary>
+ Release notes for the build
+</summary>
+</member>
+<member name="P:Fake.TestFlightHelper.TestFlightParams.File">
+<summary>
+ (Required) file data for the build (.ipa or .apk)
+</summary>
+</member>
+<member name="P:Fake.TestFlightHelper.TestFlightParams.TeamToken">
+<summary>
+ (Required) Team token from testflightapp.com/dashboard/team/edit
+</summary>
+</member>
+<member name="P:Fake.TestFlightHelper.TestFlightParams.ApiToken">
+<summary>
+ (Required) API token from testflightapp.com/account/#api
+</summary>
+</member>
+<member name="T:Fake.TestFlightHelper.TestFlightParams">
+<summary>
+ The TestFlight parameter type.
+</summary>
+</member>
+<member name="M:Fake.TestFlightHelper.TestFlight(Microsoft.FSharp.Core.FSharpFunc{Fake.TestFlightHelper.TestFlightParams,Fake.TestFlightHelper.TestFlightParams})">
+<summary>
+ Uploads the app build to TestFlight.
+ ## Parameters
+  - `setParams` - Function used to manipulate the default TestFlightParams value.
+</summary>
+</member>
+<member name="M:Fake.TestFlightHelper.toCurlArgs(Fake.TestFlightHelper.TestFlightParams)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.TestFlightHelper.validateParams(Fake.TestFlightHelper.TestFlightParams)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.TestFlightHelper.TestFlightDefaults">
+<summary>
+ The default TestFlight upload parameters.
+</summary>
+</member>
+<member name="T:Fake.TestFlightHelper">
+<summary>
+ Contains tasks to upload apps to [TestFlight](http://testflightapp.com)
+</summary>
+</member>
+<member name="M:Fake.TraceHelper.logToConsole(System.String,System.Diagnostics.EventLogEntryType)">
+<summary>
+ Traces the message to the console
+</summary>
 </member>
 <member name="">
 
@@ -7082,9 +8922,127 @@
  Defines default listeners for build output traces
 </summary>
 </member>
+<member name="P:Fake.TypeScript.TypeScriptParams.TimeOut">
+<summary>
+ Specifies the timeout for the TypeScript compiler.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.OutputPath">
+<summary>
+ Specifies the TypeScript compiler output path.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.ToolPath">
+<summary>
+ Specifies the TypeScript compiler path.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.RemoveComments">
+<summary>
+ Specifies if the TypeScript compiler should remove comments. Default is false.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.NoLib">
+<summary>
+ Specifies if the TypeScript compiler should not use libs. Default is false.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.EmitSourceMaps">
+<summary>
+ Specifies if the TypeScript compiler should emit source maps. Default is false.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.ModuleGeneration">
+<summary>
+ Specifies which JavaScript module type the TypeScript compiler should generate. Default is CommonJs.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.EmitDeclarations">
+<summary>
+ Specifies if the TypeScript compiler should generate declarations. Default is false.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.OutputSingleFile">
+<summary>
+ Specifies if the TypeScript compiler should generate a single output file and its filename.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.EmitComments">
+<summary>
+ Specifies if the TypeScript compiler should generate comments. Default is false.
+</summary>
+</member>
+<member name="P:Fake.TypeScript.TypeScriptParams.ECMAScript">
+<summary>
+ Specifies which ECMAScript version the TypeScript compiler should generate. Default is ES3.
+</summary>
+</member>
+<member name="T:Fake.TypeScript.TypeScriptParams">
+<summary>
+ TypeScript task parameter type
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.TypeScript.ModuleGeneration">
+<summary>
+ Generated JavaScript module type
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.TypeScript.ECMAScript">
+<summary>
+ Generated ECMAScript version
+</summary>
+</member>
+<member name="M:Fake.TypeScript.TypeScriptCompiler(Microsoft.FSharp.Core.FSharpFunc{Fake.TypeScript.TypeScriptParams,Fake.TypeScript.TypeScriptParams},System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ This task to can be used to call the [TypeScript](http://www.typescriptlang.org/) compiler.
+ There is also a [tutorial](../typescript.html) for this task available.
+ ## Parameters
+
+  - `setParams` - Function used to overwrite the TypeScript compiler flags.
+  - `files` - The type script files to compile.
+
+ ## Sample
+
+         !! &quot;src/**/*.ts&quot;
+             |&gt; TypeScriptCompiler (fun p -&gt; { p with TimeOut = TimeSpan.MaxValue }) 
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="P:Fake.TypeScript.TypeScriptDefaultParams">
+<summary>
+ Default parameters for the TypeScript task
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.TypeScript">
+<summary>
+ Contains code to call the typescript compiler. There is also a [tutorial](../typescript.html) for this task available.
+</summary>
+</member>
 <member name="T:Fake.UnitTestCommon.TestRunnerErrorLevel.DontFailBuild">
 <summary>
  With this option set, no exception is thrown if a test is broken.
+</summary>
+</member>
+<member name="T:Fake.UnitTestCommon.TestRunnerErrorLevel.FailOnFirstError">
+<summary>
+ This option instructs FAKE to break the build if a test runner finds the first error.
 </summary>
 </member>
 <member name="T:Fake.UnitTestCommon.TestRunnerErrorLevel.Error">
@@ -7152,9 +9110,14 @@
  Reports the given test results to the detected build server
 </summary>
 </member>
+<member name="M:Fake.UnitTestHelper.reportToAppVeyor(Fake.UnitTestHelper.TestResults)">
+<summary>
+ Reports the given test results to [AppVeyor](http://www.appveyor.com/).
+</summary>
+</member>
 <member name="M:Fake.UnitTestHelper.reportToTeamCity(Fake.UnitTestHelper.TestResults)">
 <summary>
- Reports the given test results to [TeamCity](http://www.jetbrains.com/teamcity/)
+ Reports the given test results to [TeamCity](http://www.jetbrains.com/teamcity/).
 </summary>
 </member>
 <member name="T:Fake.UnitTestHelper">
@@ -7176,6 +9139,55 @@
 <summary>
  Contains helper functions for [Microsoft Visual SourceSafe](http://en.wikipedia.org/wiki/Microsoft_Visual_SourceSafe)
 </summary>
+</member>
+<member name="P:Fake.VersionHelper.VerInfo.Patch">
+<summary>
+ PATCH version when you make backwards-compatible bug fixes.
+</summary>
+</member>
+<member name="P:Fake.VersionHelper.VerInfo.Minor">
+<summary>
+ MINOR version when you add functionality in a backwards-compatible manner.
+</summary>
+</member>
+<member name="P:Fake.VersionHelper.VerInfo.Major">
+<summary>
+ MAJOR version when you make incompatible API changes.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.VersionHelper.VerInfo">
+<summary>
+ Contains the version information.
+</summary>
+</member>
+<member name="M:Fake.VersionHelper.GetAssemblyVersionString(System.String)">
+<summary>
+ Gets file assembly version in form of major.minor.build.revision.
+ ## Parameters
+  - `assemblyFile` - The assembly file path.
+</summary>
+</member>
+<member name="M:Fake.VersionHelper.GetAssemblyVersion(System.String)">
+<summary>
+ Gets file assembly version.
+ ## Parameters
+  - `assemblyFile` - The assembly file path.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Fake.VersionHelper">
+
 </member>
 <member name="">
 
@@ -7432,57 +9444,67 @@
  Contains functions to read and write XML files.
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.ErrorLevel">
+<member name="P:Fake.XUnitHelper.XUnitParams.ExcludeTraits">
+<summary>
+ Exclude named traits with comma separated values
+</summary>
+</member>
+<member name="P:Fake.XUnitHelper.XUnitParams.IncludeTraits">
+<summary>
+ Include named traits with comma separated values
+</summary>
+</member>
+<member name="P:Fake.XUnitHelper.XUnitParams.ErrorLevel">
 <summary>
  Test runner error level. Option which allows to specify if an xUnit error should break the build.
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.OutputDir">
+<member name="P:Fake.XUnitHelper.XUnitParams.OutputDir">
 <summary>
  The output directory. It&apos;s the current directoy if nothing else is specified.
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.TimeOut">
+<member name="P:Fake.XUnitHelper.XUnitParams.TimeOut">
 <summary>
  If the timeout is reached the xUnit task will be killed. Default is 5 minutes.
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.Verbose">
+<member name="P:Fake.XUnitHelper.XUnitParams.Verbose">
 <summary>
  If set to true xUnit will generate verbose output.
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.ShadowCopy">
+<member name="P:Fake.XUnitHelper.XUnitParams.ShadowCopy">
 <summary>
  If set to true xUnit will run in ShadowCopy mode.
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.WorkingDir">
+<member name="P:Fake.XUnitHelper.XUnitParams.WorkingDir">
 <summary>
  The working directory (optional).
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.XmlOutput">
+<member name="P:Fake.XUnitHelper.XUnitParams.XmlOutput">
 <summary>
  If set to true XML output will be generated.
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.NUnitXmlOutput">
+<member name="P:Fake.XUnitHelper.XUnitParams.NUnitXmlOutput">
 <summary>
  If set to true a HTML output file will be generated in NUnit format.
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.HtmlOutput">
+<member name="P:Fake.XUnitHelper.XUnitParams.HtmlOutput">
 <summary>
  If set to true a HTML output file will be generated.
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.ConfigFile">
+<member name="P:Fake.XUnitHelper.XUnitParams.ConfigFile">
 <summary>
  The file name of the config file (optional).
 </summary>
 </member>
-<member name="F:Fake.XUnitHelper.XUnitParams.ToolPath">
+<member name="P:Fake.XUnitHelper.XUnitParams.ToolPath">
 <summary>
  The path to the xunit.console.clr4.exe - FAKE will scan all subfolders to find it automatically.
 </summary>
@@ -7518,7 +9540,16 @@
      )
 </summary>
 </member>
-<member name="P:Fake.XUnitHelper.XUnitDefaults">
+<member name="M:Fake.XUnitHelper.buildXUnitArgs(Fake.XUnitHelper.XUnitParams,System.String)">
+<summary>
+ Builds the command line arguments from the given parameter record and the given assemblies.
+ [omit]
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="P:Fake.XUnitHelper.emptyTrait">
 <summary>
  The xUnit default parameters
 </summary>
@@ -7661,7 +9692,7 @@
   - `targetFileName` - The file to zip.
 </summary>
 </member>
-<member name="M:Fake.ZipHelper.Zip(System.String,System.String)">
+<member name="M:Fake.ZipHelper.Zip(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
 <summary>
  Creates a zip file with the given files.
  ## Parameters

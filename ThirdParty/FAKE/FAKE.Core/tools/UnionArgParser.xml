@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>UnionArgParser</name></assembly>
+<members>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.AltCommandLineAttribute">
+<summary>
+ Sets alternative command line names.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="P:Nessos.UnionArgParser.ArgParseResults`1.IsUsageRequested">
+<summary>
+ Returns true if &apos;--help&apos; parameter has been specified in the command line.
+</summary>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.Usage(Microsoft.FSharp.Core.FSharpOption{System.String})">
+ <summary>Returns the usage string.</summary>
+ <param name="message">The message to be displayed on top of the usage string.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.TryPostProcessResult``2(Microsoft.FSharp.Quotations.FSharpExpr{Microsoft.FSharp.Core.FSharpFunc{``0,`0}},Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Returns the *last* specified parameter of given type. 
+          Command line parameters have precedence over AppSettings parameters.
+          Results are passed to a post-processing function that is error handled by the parser.
+ </summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="parser">The post-processing parser.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.TryGetResult``1(Microsoft.FSharp.Quotations.FSharpExpr{Microsoft.FSharp.Core.FSharpFunc{``0,`0}},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Returns the *last* specified parameter of given type, if it exists. 
+          Command line parameters have precedence over AppSettings parameters.</summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.TryGetResult(Microsoft.FSharp.Quotations.FSharpExpr{`0},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Returns the *last* specified parameter of given type, if it exists. 
+          Command line parameters have precedence over AppSettings parameters.</summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.Raise``1(System.Exception,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Boolean})">
+ <summary>Raise an error through the argument parser's exiter mechanism. Display usage optionally.</summary>
+ <param name="e">The error to be displayed.</param>
+ <param name="errorCode">The error code to returned.</param>
+ <param name="showUsage">Print usage together with error message.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.Raise``1(System.String,Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Boolean})">
+ <summary>Raise an error through the argument parser's exiter mechanism. Display usage optionally.</summary>
+ <param name="msg">The error message to be displayed.</param>
+ <param name="errorCode">The error code to returned.</param>
+ <param name="showUsage">Print usage together with error message.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.PostProcessResults``2(Microsoft.FSharp.Quotations.FSharpExpr{Microsoft.FSharp.Core.FSharpFunc{``0,`0}},Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Query parse results for given argument kind.
+          Command line parameters have precedence over AppSettings parameters.
+          Results are passed to a post-processing function that is error handled by the parser.
+ </summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="parser">The post-processing parser.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.PostProcessResult``2(Microsoft.FSharp.Quotations.FSharpExpr{Microsoft.FSharp.Core.FSharpFunc{``0,`0}},Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Returns the *last* specified parameter of given type. 
+          Command line parameters have precedence over AppSettings parameters.
+          Results are passed to a post-processing function that is error handled by the parser.
+ </summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="parser">The post-processing parser.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.GetResults``1(Microsoft.FSharp.Quotations.FSharpExpr{Microsoft.FSharp.Core.FSharpFunc{``0,`0}},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Query parse results for argument with parameters.</summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.GetResults(Microsoft.FSharp.Quotations.FSharpExpr{`0},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Query parse results for parameterless argument.</summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.GetResult``1(Microsoft.FSharp.Quotations.FSharpExpr{Microsoft.FSharp.Core.FSharpFunc{``0,`0}},Microsoft.FSharp.Core.FSharpOption{``0},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Returns the *last* specified parameter of given type. 
+          Command line parameters have precedence over AppSettings parameters.</summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="defaultValue">Return this of no parameter of specific kind has been specified.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.GetResult(Microsoft.FSharp.Quotations.FSharpExpr{`0},Microsoft.FSharp.Core.FSharpOption{`0},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Returns the *last* specified parameter of given type. 
+          Command line parameters have precedence over AppSettings parameters.</summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="defaultValue">Return this of no parameter of specific kind has been specified.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.GetAllResults(Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Gets all parse results.</summary>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.Contains``1(Microsoft.FSharp.Quotations.FSharpExpr{Microsoft.FSharp.Core.FSharpFunc{``0,`0}},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Checks if parameter of specific kind has been specified.</summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.Contains(Microsoft.FSharp.Quotations.FSharpExpr{`0},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.ParseSource})">
+ <summary>Checks if parameter of specific kind has been specified.</summary>
+ <param name="expr">The name of the parameter, expressed as quotation of DU constructor.</param>
+ <param name="source">Optional source restriction: AppSettings or CommandLine.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.ArgParseResults`1.Catch``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Boolean})">
+ <summary>Handles any raised exception through the argument parser's exiter mechanism. Display usage optionally.</summary>
+ <param name="f">The operation to be executed.</param>
+ <param name="errorCode">The error code to returned.</param>
+ <param name="showUsage">Print usage together with error message.</param>
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.ArgParseResults`1">
+<summary>
+ Argument parsing result holder.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.CustomAppSettingsAttribute">
+<summary>
+ Sets a custom AppSettings key name.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.CustomCommandLineAttribute">
+<summary>
+ Sets a custom command line name.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.FirstAttribute">
+<summary>
+ Argument can only be placed at the beginning of the command line.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.GatherAllSourcesAttribute">
+<summary>
+ Gathers all parsed results from both AppSettings and command line.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.HiddenAttribute">
+<summary>
+ Hide from command line argument documentation.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.IExiter">
+<summary>
+ An interface for error handling in the argument parser
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.MandatoryAttribute">
+<summary>
+ Demands at least one parsed result for this branch; an exception is raised otherwise.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.NoAppSettingsAttribute">
+<summary>
+ Disable AppSettings parsing for this branch.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.NoCommandLineAttribute">
+<summary>
+ Disable command line parsing for this branch.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.ParseCSVAttribute">
+<summary>
+ Parse comma separated values in AppSettings
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.RestAttribute">
+<summary>
+ Consume all remaining command line arguments.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:Nessos.UnionArgParser.UnionArgParser`1.Usage(Microsoft.FSharp.Core.FSharpOption{System.String})">
+ <summary>Returns the usage string.</summary>
+ <param name="message">The message to be displayed on top of the usage string.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.UnionArgParser`1.PrintCommandLineFlat(Microsoft.FSharp.Collections.FSharpList{`0})">
+ <summary>Prints parameters in command line format. Useful for argument string generation.</summary>
+</member>
+<member name="M:Nessos.UnionArgParser.UnionArgParser`1.PrintCommandLine(Microsoft.FSharp.Collections.FSharpList{`0})">
+ <summary>Prints parameters in command line format. Useful for argument string generation.</summary>
+</member>
+<member name="M:Nessos.UnionArgParser.UnionArgParser`1.PrintAppSettings(Microsoft.FSharp.Collections.FSharpList{`0},Microsoft.FSharp.Core.FSharpOption{System.Boolean})">
+ <summary>Prints parameters in App.Config format.</summary>
+ <param name="args">The parameters that fill out the XML document.</param>
+ <param name="printComments">Print XML comments over every configuration entry.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.UnionArgParser`1.ParseCommandLine(Microsoft.FSharp.Core.FSharpOption{System.String[]},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.IExiter},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean})">
+ <summary>Parse command line arguments only.</summary>
+ <param name="inputs">The command line input. Taken from System.Environment if not specified.</param>
+ <param name="errorHandler">The implementation of IExiter used for error handling. ArgumentException is default.</param>
+ <param name="ignoreMissing">Ignore errors caused by the Mandatory attribute.</param>
+ <param name="raiseOnUsage">Treat '--help' parameters as parse errors.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.UnionArgParser`1.ParseAppSettings(System.Reflection.Assembly,Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.IExiter},Microsoft.FSharp.Core.FSharpOption{System.Boolean})">
+ <summary>Parse AppSettings section of XML configuration of given assembly.</summary>
+ <param name="assembly">assembly to get application configuration from.</param>
+ <param name="errorHandler">The implementation of IExiter used for error handling. ArgumentException is default.</param>
+ <param name="ignoreMissing">Ignore errors caused by the Mandatory attribute.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.UnionArgParser`1.ParseAppSettings(Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.IExiter},Microsoft.FSharp.Core.FSharpOption{System.Boolean})">
+ <summary>Parse AppSettings section of XML configuration only.</summary>
+ <param name="xmlConfigurationFile">If specified, parse AppSettings configuration from given xml configuration file.</param>
+ <param name="errorHandler">The implementation of IExiter used for error handling. ArgumentException is default.</param>
+ <param name="ignoreMissing">Ignore errors caused by the Mandatory attribute.</param>
+</member>
+<member name="M:Nessos.UnionArgParser.UnionArgParser`1.Parse(Microsoft.FSharp.Core.FSharpOption{System.String[]},Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Core.FSharpOption{Nessos.UnionArgParser.IExiter},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean})">
+ <summary>Parse both command line args and AppSettings section of XML configuration.
+          Results are merged with command line args overriding XML config.</summary>
+ <param name="inputs">The command line input. Taken from System.Environment if not specified.</param>
+ <param name="xmlConfigurationFile">If specified, parse AppSettings configuration from given configuration file.</param>
+ <param name="errorHandler">The implementation of IExiter used for error handling. ArgumentException is default.</param>
+ <param name="ignoreMissing">Ignore errors caused by the Mandatory attribute.</param>
+ <param name="raiseOnUsage">Treat '--help' parameters as parse errors.</param>
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.UnionArgParser`1">
+<summary>
+ The UnionArgParser type generates an argument parser given a type argument
+ that is an F# discriminated union. It can then be used to parse command line arguments
+ or XML configuration.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.ArgInfo.ArgId">
+<summary>
+ IComparable UnionCaseInfo wrapper
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.ArgInfo">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.Parsers">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.UnParsers">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.Utils.AppSettingsReplacement">
+<summary>
+ AppSettings replacement type
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.Utils.ProjectionComparison`2">
+<summary>
+ inherit this type for easy comparison semantics
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.Utils.Unchecked">
+<summary>
+ reflected version of Unchecked.defaultof
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.Utils.String">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.Utils.Boolean">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.UnionArgParser.Utils.List">
+
+</member>
+<member name="T:Nessos.UnionArgParser.Utils">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:System.AssemblyVersionInformation">
+
+</member>
+</members>
+</doc>
