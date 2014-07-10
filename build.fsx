@@ -7,18 +7,18 @@ open Fake.FileUtils
 open System
 open System.IO
 open ExtractDocs
+open System.Text.RegularExpressions
 
 module FileReaderWriter = 
     let Read file = File.ReadAllText(file)
     let Write file text = File.WriteAllText(file, text)
-
-module ExamplesToCode = 
-    open FileReaderWriter
-    
     let TransformFile file target (f : string -> string) = 
         Read file
         |> f
         |> Write target
+
+module ExamplesToCode = 
+    open FileReaderWriter
     
     let ConvertFile file targetDir = 
         let fileName = Path.GetFileNameWithoutExtension(file)
@@ -96,6 +96,10 @@ Target "TestExamples" <| fun _ ->
 Target "Default" DoNothing
 
 Target "Package" <| fun _ -> 
+    let transform = FileReaderWriter.TransformFile
+    let stripHtmlComments (s:string) =
+        let commentRegex = Regex.Escape("<!--") + "(.*?)" + Regex.Escape("-->")
+        Regex.Replace(s, commentRegex, "", RegexOptions.Singleline)
     targets
     |> List.map (fun x -> x, deployPath @@ "lib" @@ x.ToLower())
     |> List.iter (fun (target, path) -> 
@@ -103,15 +107,13 @@ Target "Package" <| fun _ ->
            CreateDir path
            CopyFiles path nsubDlls
     )
-    cp "README.markdown" (deployPath @@ "README.txt")
     cp "LICENSE.txt" deployPath
     cp "CHANGELOG.txt" deployPath
     cp "BreakingChanges.txt" deployPath
+    cp "README.markdown" (deployPath @@ "README.txt")
     cp "acknowledgements.markdown" (deployPath @@ "acknowledgements.txt")
-(*
-    tidyUpTextFileFromMarkdown("#{deploy_path}/README.txt")
-    tidyUpTextFileFromMarkdown("#{deploy_path}/acknowledgements.txt")
-    *)
+    transform "README.markdown" (deployPath @@ "README.txt") stripHtmlComments
+    transform "acknowledgements.markdown" (deployPath @@ "acknowledgements.txt") stripHtmlComments
 
 Target "NuGet" <| fun _ -> 
     let nugetPath = outputBasePath @@ "nuget"
