@@ -84,7 +84,7 @@ calculator.Multiply(123, 42);
 Assert.AreEqual(42, argumentUsed);
 {% endexamplecode %}
 
-Here we specify that a call to `Multiple` with any first argument should pass the second argument and put it in the `argumentUsed` variable. This can be quite useful when we want to assert several properties on an argument (for types more complex than `int` that is).
+Here we specify that a call to `Multiply` with any first argument should pass the second argument and put it in the `argumentUsed` variable. This can be quite useful when we want to assert several properties on an argument (for types more complex than `int` that is).
 
 {% examplecode csharp %}
 var firstArgsBeingMultiplied = new List<int>();
