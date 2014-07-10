@@ -57,7 +57,7 @@ Target "Version" <| fun _ ->
           Attribute.Description "A simple substitute for .NET mocking libraries." 
           Attribute.Guid "f1571463-8354-493c-b67c-cd9cec9adf78"
           Attribute.Product "NSubstitute" 
-          Attribute.Copyright @"Copyright © 2009 NSubstitute Team"
+          Attribute.Copyright "Copyright \u00A9 2009 NSubstitute Team"
           Attribute.Version version
           Attribute.FileVersion version ]
 
