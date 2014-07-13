@@ -99,6 +99,7 @@
     <Compile Include="AutoValuesForSubs.cs" />
     <Compile Include="DynamicCalls.cs" />
     <Compile Include="FieldReports\Issue129_AmbiguousArgsWithOutRef.cs" />
+    <Compile Include="FieldReports\Issue149_ArgMatcherInReturns.cs" />
     <Compile Include="FieldReports\Issue75_DoesNotWorkWithMembersThatUseDynamic.cs" />
     <Compile Include="PartialSubs.cs" />
     <Compile Include="FieldReports\CallingIntoNewSubWithinReturns.cs" />
