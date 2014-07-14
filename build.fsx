@@ -188,12 +188,10 @@ Target "All" DoNothing
 Target "-T" PrintTargets
 
 // Build
-"Clean" ==> "BuildSolution" ==> "Test" ==> "Default"
+"Clean" ==> "Version" ==> "BuildSolution" ==> "Test" ==> "Default"
 
 // Full build
-"Clean"
-    ==> "Version"
-    ==> "Default"
+"Default"
     ==> "CodeFromDocumentation"
     ==> "TestExamples"
     ==> "Package"
