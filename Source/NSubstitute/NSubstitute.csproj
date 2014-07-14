@@ -186,6 +186,7 @@
     <Compile Include="Exceptions\CanNotPartiallySubForInterfaceOrDelegateException.cs" />
     <Compile Include="Exceptions\CannotCreateEventArgsException.cs" />
     <Compile Include="Exceptions\CannotReturnNullForValueType.cs" />
+    <Compile Include="Exceptions\CouldNotRaiseEventException.cs" />
     <Compile Include="Exceptions\CouldNotSetReturnException.cs" />
     <Compile Include="Exceptions\MissingSequenceNumberException.cs" />
     <Compile Include="Exceptions\NotRunningAQueryException.cs" />

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Routing.Handlers
 {
@@ -20,8 +21,9 @@ namespace NSubstitute.Routing.Handlers
         public RouteAction Handle(ICall call)
         {
             var methodInfo = call.GetMethodInfo();
-            var eventInfo = methodInfo.DeclaringType.GetEvents().First(
+            var eventInfo = methodInfo.DeclaringType.GetEvents().FirstOrDefault(
                 x => (x.GetAddMethod() == methodInfo) || (x.GetRemoveMethod() == methodInfo));
+            if (eventInfo == null) throw new CouldNotRaiseEventException();
             var handlers = _eventHandlerRegistry.GetHandlers(eventInfo.Name);
             var eventArguments = _getEventArguments(call);
             foreach (Delegate handler in handlers)
