@@ -36,16 +36,21 @@ module ExamplesToCode =
 
 let ALL_TARGETS = [ "NET35"; "NET40"; "NET45" ]
 let buildMode = getBuildParamOrDefault "mode" "Debug"
-
 let targets = 
     match getBuildParamOrDefault "targets" "" with
     | "" -> [ ALL_TARGETS.Head ]
     | "ALL" -> ALL_TARGETS
     | s -> s.Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) |> Array.toList
 
+let getVersion () =
+    let tag = Git.CommandHelper.runSimpleGitCommand "" "describe --tags --long --match v*"
+    let result = Regex.Match(tag, @"v(\d+)\.(\d+)\.(\d+)\-(\d+)").Groups
+    let getMatch (i:int) = result.[i].Value
+    sprintf "%s.%s.%s.%s" (getMatch 1) (getMatch 2) (getMatch 3) (getMatch 4)
+
 let OUTPUT_PATH = "Output"
 let releaseNotes = ReadFile "CHANGELOG.txt" |> ReleaseNotesHelper.parseReleaseNotes
-let version = releaseNotes.AssemblyVersion
+let version = getVersion ()
 let outputBasePath = OUTPUT_PATH @@ buildMode
 let deployPath = outputBasePath @@ "NSubstitute-" + version
 
@@ -62,12 +67,12 @@ Target "Version" <| fun _ ->
           Attribute.FileVersion version ]
 
 Target "BuildSolution" <| fun _ -> 
-    let build config mode = 
+    let build config = 
         MSBuild null "Build"
             [ "Configuration", config + "-" + buildMode ] // e.g. NET35-Debug
             [ "./Source/NSubstitute.2010.sln" ]
             |> ignore
-    targets |> List.iter (fun config -> build config buildMode)
+    targets |> List.iter build
 
 Target "Test" <| fun _ -> 
     targets
@@ -183,10 +188,12 @@ Target "All" DoNothing
 Target "-T" PrintTargets
 
 // Build
-"Clean" ==> "Version" ==> "BuildSolution" ==> "Test" ==> "Default"
+"Clean" ==> "BuildSolution" ==> "Test" ==> "Default"
 
 // Full build
-"Default"
+"Clean"
+    ==> "Version"
+    ==> "Default"
     ==> "CodeFromDocumentation"
     ==> "TestExamples"
     ==> "Package"
