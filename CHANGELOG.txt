@@ -1,3 +1,6 @@
+### 1.7.3 (*** UNRELEASED ***)
+* [FIX] Throw exception when arg matcher used within Returns. (#149)
+
 ### 1.7.2 (March 2014)
 * [FIX] Basic support for types that return dynamic. Thanks to Alexandr Nikitin. (#75)
 * [NEW] Auto-subbing for observables. Thanks to Paul Betts.

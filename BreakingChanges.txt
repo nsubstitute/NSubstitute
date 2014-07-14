@@ -1,3 +1,18 @@
+================================================================================================
+unreleased 
+================================================================================================
+
+Incorrect use of argument matchers outside of a member call, particularly within a
+Returns(), will now throw an exception (instead of causing unexpected behaviour
+in other tests: see https://github.com/nsubstitute/NSubstitute/issues/149).
+
+Reason:
+Prevent accidental incorrect use from causing hard-to-find errors in unrelated tests.
+
+Fix:
+Do not use argument matchers in Returns() or outside of where an argument is normally used.
+Correct use:   sub.Method(Arg.Any<string>()).Returns("hi")
+Incorrect use: sub.Method().Returns(Arg.Any<string>())
 
 ================================================================================================
 1.7.0 Release

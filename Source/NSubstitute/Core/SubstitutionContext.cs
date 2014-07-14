@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.Proxies;
@@ -47,6 +48,12 @@ namespace NSubstitute.Core
         public ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
         {
             if (_lastCallRouter.Value == null) throw new CouldNotSetReturnDueToNoLastCallException();
+            if (_argumentSpecifications.Value.Any())
+            {
+                //Clear invalid arg specs so they will not affect other tests
+                _argumentSpecifications.Value.Clear();
+                throw new UnexpectedArgumentMatcherException();
+            }
             var configuredCall = _lastCallRouter.Value.LastCallShouldReturn(value, matchArgs);
             ClearLastCallRouter();
             return configuredCall;

@@ -190,6 +190,7 @@
     <Compile Include="Exceptions\MissingSequenceNumberException.cs" />
     <Compile Include="Exceptions\NotRunningAQueryException.cs" />
     <Compile Include="Exceptions\NullSubstituteReferenceException.cs" />
+    <Compile Include="Exceptions\UnexpectedArgumentMatcherException.cs" />
     <Compile Include="Experimental\Received.cs" />
     <Compile Include="Core\Arguments\IArgumentMatcher.cs" />
     <Compile Include="Core\IDescribeNonMatches.cs" />
