@@ -1,4 +1,6 @@
-﻿using NSubstitute.Routing.AutoValues;
+﻿using System;
+
+using NSubstitute.Routing.AutoValues;
 
 namespace NSubstitute.Core
 {
@@ -17,12 +19,14 @@ namespace NSubstitute.Core
         public IConfigureCall ConfigureCall { get; private set; }
         public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
         public IAutoValueProvider[] AutoValueProviders { get; private set; }
+        public Func<ICall, RouteAction>[] CustomCallHandlers { get; private set; }
 
         public SubstituteState(ISubstitutionContext substitutionContext, SubstituteConfig option)
         {
             SubstitutionContext = substitutionContext;
             SubstituteConfig = option;
             SequenceNumberGenerator = substitutionContext.SequenceNumberGenerator;
+            CustomCallHandlers = substitutionContext.CustomCallHandlers;
             var substituteFactory = substitutionContext.SubstituteFactory;
             var callInfoFactory = new CallInfoFactory();
             var callStack = new CallStack();

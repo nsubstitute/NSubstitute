@@ -206,6 +206,7 @@
     <Compile Include="Routing\Handlers\AddCallToQueryResultHandler.cs" />
     <Compile Include="Routing\Handlers\ClearLastCallRouterHandler.cs" />
     <Compile Include="Routing\Handlers\ClearUnusedCallSpecHandler.cs" />
+    <Compile Include="Routing\Handlers\CustomCallHandlers.cs" />
     <Compile Include="Routing\Handlers\DoNotCallBaseForCallHandler.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
     <Compile Include="Routing\Handlers\RecordCallSpecificationHandler.cs" />

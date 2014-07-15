@@ -20,5 +20,7 @@ namespace NSubstitute.Core
         void AddToQuery(object target, ICallSpecification callSpecification);
         void ClearLastCallRouter();
         IRouteFactory GetRouteFactory();
+        Func<ICall, RouteAction>[] CustomCallHandlers { get; }
+        void EnqueueCustomCallHandler(Func<ICall, RouteAction> customCallHandler);
     }
 }

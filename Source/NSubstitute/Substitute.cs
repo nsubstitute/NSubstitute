@@ -88,8 +88,12 @@ namespace NSubstitute
             return (T) substituteFactory.CreatePartial(new[] {typeof (T)}, constructorArguments);
         }
 
-        public static void Configure(params Func<ICall, RouteAction>[] callConfigurers)
+        public static void Configure(params Func<ICall, RouteAction>[] customCallHandlers)
         {
+            foreach (var customCallHandler in customCallHandlers)
+            {
+                SubstitutionContext.Current.EnqueueCustomCallHandler(customCallHandler);
+            }
         }
     }
 }
