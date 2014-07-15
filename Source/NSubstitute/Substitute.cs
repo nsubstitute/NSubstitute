@@ -87,5 +87,9 @@ namespace NSubstitute
             var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
             return (T) substituteFactory.CreatePartial(new[] {typeof (T)}, constructorArguments);
         }
+
+        public static void Configure(params Func<ICall, RouteAction>[] callConfigurers)
+        {
+        }
     }
 }

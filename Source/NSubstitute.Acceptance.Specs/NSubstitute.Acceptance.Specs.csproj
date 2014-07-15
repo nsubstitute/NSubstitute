@@ -97,6 +97,7 @@
     <Compile Include="ArgumentInvocationFromMatchers.cs" />
     <Compile Include="ArgDoFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
+    <Compile Include="Configure.cs" />
     <Compile Include="DynamicCalls.cs" />
     <Compile Include="FieldReports\Issue129_AmbiguousArgsWithOutRef.cs" />
     <Compile Include="FieldReports\Issue149_ArgMatcherInReturns.cs" />
