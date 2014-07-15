@@ -13,7 +13,7 @@ namespace NSubstitute.Acceptance.Specs
 
         [Test]
         [Pending]
-        public void CanNotCreatePartialSubForInterface()
+        public void AllSubstitutesWideConfiguration()
         {
             Substitute.Configure(call => call.GetReturnType() == typeof(int) ? RouteAction.Return(5) : RouteAction.Continue());
 
