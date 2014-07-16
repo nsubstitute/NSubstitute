@@ -57,6 +57,7 @@ let deployPath = outputBasePath @@ "NSubstitute-" + version
 Target "Clean" <| fun _ -> CleanDirs [ OUTPUT_PATH ]
 
 Target "Version" <| fun _ ->
+    printfn "##teamcity[buildNumber '%s']" version
     CreateCSharpAssemblyInfo "Source/NSubstitute/Properties/AssemblyInfo.cs"
         [ Attribute.Title "NSubstitute"
           Attribute.Description "A simple substitute for .NET mocking libraries." 
