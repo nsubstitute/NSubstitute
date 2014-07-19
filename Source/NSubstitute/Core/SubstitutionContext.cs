@@ -20,7 +20,6 @@ namespace NSubstitute.Core
         readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
         readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
         readonly RobustThreadLocal<Query> _currentQuery = new RobustThreadLocal<Query>();
-        readonly RobustThreadLocal<IList<Func<ICall, RouteAction>>> _customCallHandlers = new RobustThreadLocal<IList<Func<ICall, RouteAction>>>(() => new List<Func<ICall, RouteAction>>());
 
         static SubstitutionContext()
         {
@@ -34,7 +33,8 @@ namespace NSubstitute.Core
             var delegateFactory = new DelegateProxyFactory();
             var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
             var callRouteResolver = new CallRouterResolver();
-            _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver);
+            var substituteContextResolver = new SubstituteContextResolver();
+            _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver, substituteContextResolver);
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory)
@@ -67,13 +67,6 @@ namespace NSubstitute.Core
 
         public IRouteFactory GetRouteFactory() { return new RouteFactory(); }
 
-        public Func<ICall, RouteAction>[] CustomCallHandlers { get { return _customCallHandlers.Value.ToArray(); } }
-
-        public void EnqueueCustomCallHandler(Func<ICall, RouteAction> customCallHandler)
-        {
-            _customCallHandlers.Value.Add(customCallHandler);
-        }
-
         public void LastCallRouter(ICallRouter callRouter)
         {
             _lastCallRouter.Value = callRouter;
@@ -93,6 +86,11 @@ namespace NSubstitute.Core
         public ICallRouter GetCallRouterFor(object substitute)
         {
             return SubstituteFactory.GetCallRouterCreatedFor(substitute);
+        }
+
+        public ISubstituteContext GetSubstituteContextFor(object substitute)
+        {
+            return SubstituteFactory.GetSubstituteContextFor(substitute);
         }
 
         public void EnqueueArgumentSpecification(IArgumentSpecification spec)

@@ -6,16 +6,16 @@ namespace NSubstitute.Routing.Handlers
 {
     public class CustomCallHandlers : ICallHandler
     {
-        private readonly Func<ICall, RouteAction>[] _customCallHandlers;
+        private readonly ISubstitutionContext _substitutionContext;
 
-        public CustomCallHandlers(Func<ICall, RouteAction>[] customCallHandlers)
+        public CustomCallHandlers(ISubstitutionContext substitutionContext)
         {
-            _customCallHandlers = customCallHandlers;
+            _substitutionContext = substitutionContext;
         }
 
         public RouteAction Handle(ICall call)
         {
-            foreach (var customCallHandler in _customCallHandlers)
+            foreach (var customCallHandler in _substitutionContext.GetSubstituteContextFor(call.Target()).CustomCallHandlers)
             {
                 var routeAction = customCallHandler(call);
                 if (routeAction.HasReturnValue)

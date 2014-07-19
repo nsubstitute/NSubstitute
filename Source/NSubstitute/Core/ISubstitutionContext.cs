@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
 
@@ -12,6 +13,7 @@ namespace NSubstitute.Core
         ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs);
         void LastCallRouter(ICallRouter callRouter);
         ICallRouter GetCallRouterFor(object substitute);
+        ISubstituteContext GetSubstituteContextFor(object substitute);
         void EnqueueArgumentSpecification(IArgumentSpecification spec);
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
         void RaiseEventForNextCall(Func<ICall, object[]> getArguments);
@@ -20,7 +22,5 @@ namespace NSubstitute.Core
         void AddToQuery(object target, ICallSpecification callSpecification);
         void ClearLastCallRouter();
         IRouteFactory GetRouteFactory();
-        Func<ICall, RouteAction>[] CustomCallHandlers { get; }
-        void EnqueueCustomCallHandler(Func<ICall, RouteAction> customCallHandler);
     }
 }

@@ -20,6 +20,5 @@ namespace NSubstitute.Core
         IAutoValueProvider[] AutoValueProviders { get; }
         ICallBaseExclusions CallBaseExclusions { get; }
         void ClearUnusedCallSpecs();
-        Func<ICall, RouteAction>[] CustomCallHandlers { get; }
     }
 }
