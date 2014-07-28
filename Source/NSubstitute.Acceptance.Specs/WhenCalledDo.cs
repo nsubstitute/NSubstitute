@@ -1,4 +1,6 @@
+using System;
 using NSubstitute.Acceptance.Specs.Infrastructure;
+using NSubstitute.Core;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -64,6 +66,46 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(called, Is.False, "Called");
             _something.Echo(1234);
             Assert.That(called, Is.True, "Called");
+        }
+
+        [Test]
+        public void Throw_exception_when_Throw_with_generic_exception()
+        {
+            int called = 0;
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(x => called++);
+            _something.When(x => x.Echo(Arg.Any<int>())).Throw<ArgumentException>();
+
+            Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
+            Assert.Throws<ArgumentException>(() => _something.Echo(1234));
+            Assert.That(called, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Throw_exception_when_Throw_with_specific_exception()
+        {
+            var exception = new IndexOutOfRangeException("Test");
+            int called = 0;
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(x => called++);
+            _something.When(x => x.Echo(Arg.Any<int>())).Throw(exception);
+
+            Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
+            IndexOutOfRangeException thrownException = Assert.Throws<IndexOutOfRangeException>(() => _something.Echo(1234));
+            Assert.That(thrownException, Is.EqualTo(exception));
+            Assert.That(called, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Throw_exception_when_Throw_with_exception_generator()
+        {
+            Func<CallInfo, Exception> createException = ci => new ArgumentException("Argument: " + ci.Args()[0]);
+            int called = 0;
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(x => called++);
+            _something.When(x => x.Echo(Arg.Any<int>())).Throw(createException);
+
+            Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
+            ArgumentException thrownException = Assert.Throws<ArgumentException>(() => _something.Echo(1234));
+            Assert.That(thrownException.Message, Is.EqualTo("Argument: 1234"));
+            Assert.That(called, Is.EqualTo(1));
         }
 
         [SetUp]
