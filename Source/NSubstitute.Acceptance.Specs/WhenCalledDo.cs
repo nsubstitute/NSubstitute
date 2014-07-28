@@ -73,10 +73,11 @@ namespace NSubstitute.Acceptance.Specs
         {
             int called = 0;
             _something.When(x => x.Echo(Arg.Any<int>())).Do(x => called++);
-            _something.When(x => x.Echo(Arg.Any<int>())).Throw<ArgumentException>();
+            var expectedException = _something.When(x => x.Echo(Arg.Any<int>())).Throw<ArgumentException>();
 
             Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
-            Assert.Throws<ArgumentException>(() => _something.Echo(1234));
+            ArgumentException actualException = Assert.Throws<ArgumentException>(() => _something.Echo(1234));
+            Assert.That(actualException, Is.EqualTo(expectedException));
             Assert.That(called, Is.EqualTo(1));
         }
 

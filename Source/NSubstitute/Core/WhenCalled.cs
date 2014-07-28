@@ -52,9 +52,14 @@ namespace NSubstitute.Core
         /// <summary>
         /// Throw an exception of the given type when called.
         /// </summary>
-        public void Throw<TException>() where TException : Exception, new()
+        public TException Throw<TException>() where TException : Exception, new()
         {
-            Do(ci => { throw new TException(); });
+            TException exception = new TException();
+            Do(ci =>
+            {
+                throw exception;
+            });
+            return exception;
         }
 
 
