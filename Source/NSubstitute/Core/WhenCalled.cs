@@ -31,7 +31,7 @@ namespace NSubstitute.Core
         }
 
         /// <summary>
-        /// Do not call the base implementation on future calls. For us with partial substitutes.
+        /// Do not call the base implementation on future calls. For use with partial substitutes.
         /// </summary>
         public void DoNotCallBase()
         {
@@ -54,7 +54,7 @@ namespace NSubstitute.Core
         /// </summary>
         public TException Throw<TException>() where TException : Exception, new()
         {
-            TException exception = new TException();
+            var exception = new TException();
             Do(ci =>
             {
                 throw exception;
