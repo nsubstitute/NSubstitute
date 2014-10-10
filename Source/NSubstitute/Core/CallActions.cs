@@ -42,6 +42,11 @@ namespace NSubstitute.Core
             }
         }
 
+	    public void Clear()
+	    {
+		    _actions.Clear();
+	    }
+
         class CallAction
         {
             public CallAction(ICallSpecification callSpecification, Action<CallInfo> action)

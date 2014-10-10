@@ -151,6 +151,7 @@
     <Compile Include="Core\CallSpecificationFactoryFactoryYesThatsRight.cs" />
     <Compile Include="Core\ConfiguredCall.cs" />
     <Compile Include="Core\DefaultForType.cs" />
+    <Compile Include="Core\EmptyMixinFactory.cs" />
     <Compile Include="Core\EventCallFormatter.cs" />
     <Compile Include="Core\Arguments\IArgumentEqualsSpecificationFactory.cs" />
     <Compile Include="Core\Extensions.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Core\ICallBaseExclusions.cs" />
     <Compile Include="Core\ICallRouterProvider.cs" />
     <Compile Include="Core\IGetCallSpec.cs" />
+    <Compile Include="Core\IMixinFactory.cs" />
     <Compile Include="Core\Maybe.cs" />
     <Compile Include="Core\ReturnObservable.cs" />
     <Compile Include="Core\SequenceChecking\InstanceTracker.cs" />

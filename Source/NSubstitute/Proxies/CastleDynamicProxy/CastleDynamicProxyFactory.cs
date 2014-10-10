@@ -9,25 +9,25 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy
 {
-    public class CastleDynamicProxyFactory : IProxyFactory
+	using System.Collections.Generic;
+
+	public class CastleDynamicProxyFactory : IProxyFactory
     {
         readonly ProxyGenerator _proxyGenerator;
-        readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook;
 
         public CastleDynamicProxyFactory()
         {
             ConfigureDynamicProxyToAvoidReplicatingProblematicAttributes();
 
             _proxyGenerator = new ProxyGenerator();
-            _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
         }
 
-        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
+        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments, object[] mixins)
         {
             VerifyClassHasNotBeenPassedAsAnAdditionalInterface(additionalInterfaces);
 
             var interceptor = new CastleForwardingInterceptor(new CastleInvocationMapper(), callRouter);
-            var proxyGenerationOptions = GetOptionsToMixinCallRouter(callRouter);
+            var proxyGenerationOptions = GetOptionsToMixinCallRouter(new [] {callRouter}.Concat(mixins).ToList());
             var proxy = CreateProxyUsingCastleProxyGenerator(typeToProxy, additionalInterfaces, constructorArguments, interceptor, proxyGenerationOptions);
             interceptor.StartIntercepting();
             return proxy;
@@ -46,31 +46,55 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             return _proxyGenerator.CreateClassProxy(typeToProxy, additionalInterfaces, proxyGenerationOptions, constructorArguments, interceptor);
         }
 
-        private ProxyGenerationOptions GetOptionsToMixinCallRouter(ICallRouter callRouter)
+        private ProxyGenerationOptions GetOptionsToMixinCallRouter(IList<object> mixins)
         {
-            var options = new ProxyGenerationOptions(_allMethodsExceptCallRouterCallsHook);
-            options.AddMixinInstance(callRouter);
+			var options = new ProxyGenerationOptions(new AllMethodsExceptMixinsCallsHook(mixins));
+			foreach (var mixin in mixins)
+	        {
+				options.AddMixinInstance(mixin);
+			}
             return options;
         }
 
-        private class AllMethodsExceptCallRouterCallsHook : AllMethodsHook
+        private class AllMethodsExceptMixinsCallsHook : AllMethodsHook
         {
-            public override bool ShouldInterceptMethod(Type type, MethodInfo methodInfo)
+			private readonly HashSet<Type> mixinTypes;
+
+	        public AllMethodsExceptMixinsCallsHook(IEnumerable<object> mixins)
+	        {
+		        this.mixinTypes = new HashSet<Type>(mixins.Select(m => m.GetType()).SelectMany(GetAllTypes));
+	        }
+
+	        public override bool ShouldInterceptMethod(Type type, MethodInfo methodInfo)
             {
-                return IsNotCallRouterMethod(methodInfo)
+                return IsNotMixinMethod(methodInfo)
                     && IsNotBaseObjectMethod(methodInfo)
                     && base.ShouldInterceptMethod(type, methodInfo);
             }
 
-            private static bool IsNotCallRouterMethod(MethodInfo methodInfo)
+            private bool IsNotMixinMethod(MethodInfo methodInfo)
             {
-                return methodInfo.DeclaringType != typeof(ICallRouter);
+                return !mixinTypes.Contains(methodInfo.DeclaringType);
             }
 
             private static bool IsNotBaseObjectMethod(MethodInfo methodInfo)
             {
                 return methodInfo.GetBaseDefinition().DeclaringType != typeof (object);
             }
+
+	        private static IEnumerable<Type> GetAllTypes(Type type)
+			{
+				foreach (var i in type.GetInterfaces())
+				{
+					yield return i;
+				}
+
+				while (type != typeof(object))
+				{
+					yield return type;
+					type = type.BaseType;
+				}
+	        }
         }
 
         private void VerifyNoConstructorArgumentsGivenForInterface(object[] constructorArguments)

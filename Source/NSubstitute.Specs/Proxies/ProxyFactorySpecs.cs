@@ -43,14 +43,14 @@ namespace NSubstitute.Specs.Proxies
 
             public override void Because()
             {
-                _result = sut.GenerateProxy(_callRouter, _delegateProxy.GetType(), _additionalInterfaces, _ctorArgs);
+                _result = sut.GenerateProxy(_callRouter, _delegateProxy.GetType(), _additionalInterfaces, _ctorArgs, new object[] {});
             }
 
             public override void Context()
             {
                 base.Context();
                 _delegateProxy = x => x.ToString();
-                _delegateFactory.stub(x => x.GenerateProxy(_callRouter, _delegateProxy.GetType(), _additionalInterfaces, _ctorArgs)).Return(_delegateProxy);
+                _delegateFactory.stub(x => x.GenerateProxy(_callRouter, _delegateProxy.GetType(), _additionalInterfaces, _ctorArgs, new object[] {})).Return(_delegateProxy);
             }
         }
         
@@ -67,14 +67,14 @@ namespace NSubstitute.Specs.Proxies
 
             public override void Because()
             {
-                _result = sut.GenerateProxy(_callRouter, _dynamicProxy.GetType(), _additionalInterfaces, _ctorArgs);
+                _result = sut.GenerateProxy(_callRouter, _dynamicProxy.GetType(), _additionalInterfaces, _ctorArgs, new object[] {});
             }
 
             public override void Context()
             {
                 base.Context();
                 _dynamicProxy = new object();
-                _dynamicProxyFactory.stub(x => x.GenerateProxy(_callRouter, _dynamicProxy.GetType(), _additionalInterfaces, _ctorArgs)).Return(_dynamicProxy);
+                _dynamicProxyFactory.stub(x => x.GenerateProxy(_callRouter, _dynamicProxy.GetType(), _additionalInterfaces, _ctorArgs, new object[] {})).Return(_dynamicProxy);
             }
         }
     }

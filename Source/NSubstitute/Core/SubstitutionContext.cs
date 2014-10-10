@@ -23,17 +23,15 @@ namespace NSubstitute.Core
 
         static SubstitutionContext()
         {
-            Current = new SubstitutionContext();
+			var dynamicProxyFactory = new CastleDynamicProxyFactory();
+			var delegateFactory = new DelegateProxyFactory();
+			var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
+			Current = new SubstitutionContext(new CallRouterFactory(), proxyFactory, new CallRouterResolver(), new EmptyMixinFactory());
         }
 
-        SubstitutionContext()
+		public SubstitutionContext(CallRouterFactory callRouterFactory, IProxyFactory proxyFactory, ICallRouterResolver callRouteResolver, IMixinFactory mixinFactory)
         {
-            var callRouterFactory = new CallRouterFactory();
-            var dynamicProxyFactory = new CastleDynamicProxyFactory();
-            var delegateFactory = new DelegateProxyFactory();
-            var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
-            var callRouteResolver = new CallRouterResolver();
-            _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver);
+			_substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver, mixinFactory);
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory)

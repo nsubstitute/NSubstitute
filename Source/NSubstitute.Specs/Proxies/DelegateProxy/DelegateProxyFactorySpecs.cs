@@ -43,7 +43,7 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
             [Test]
             public void Proxy_should_forward_calls_with_generic_return_type_to_call_router_so_router_knows_exact_return_type_expected()
             {
-                var result = (Func<int, string>)sut.GenerateProxy(_callRouter, typeof(Func<int, string>), null, null);
+				var result = (Func<int, string>)sut.GenerateProxy(_callRouter, typeof(Func<int, string>), null, null, null);
                 result(12);
 
                 _callRouter.received(x =>
@@ -57,7 +57,7 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
             [Test]
             public void Proxy_should_forward_action_calls_to_call_router()
             {
-                var result = (Action<int>)sut.GenerateProxy(_callRouter, typeof(Action<int>), null, null);
+                var result = (Action<int>)sut.GenerateProxy(_callRouter, typeof(Action<int>), null, null, null);
                 result(12);
                 _callRouter.received(x => x.Route(CallToMethodWithArg(DelegateCall.InvokeMethodWithObjectOrVoidReturnType, 12)));
             }
@@ -68,7 +68,7 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
             [Test]
             public void Should_throw_substitute_exception()
             {
-                Assert.Throws<SubstituteException>(() => sut.GenerateProxy(_callRouter, typeof(Func<int>), new[] { typeof(IFoo) }, null));
+                Assert.Throws<SubstituteException>(() => sut.GenerateProxy(_callRouter, typeof(Func<int>), new[] { typeof(IFoo) }, null, new object[] {}));
             }
         }
 
@@ -77,7 +77,7 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
             [Test]
             public void Should_throw_substitute_exception()
             {
-                Assert.Throws<SubstituteException>(() => sut.GenerateProxy(_callRouter, typeof(Func<int>), null, new[] { new object() }));
+                Assert.Throws<SubstituteException>(() => sut.GenerateProxy(_callRouter, typeof(Func<int>), null, new[] { new object() }, new object[] {}));
             }
         }
 

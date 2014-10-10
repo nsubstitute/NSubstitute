@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Linq;
 
 namespace NSubstitute.Core
@@ -5,8 +6,7 @@ namespace NSubstitute.Core
     public class CallResults : ICallResults
     {
         readonly ICallInfoFactory _callInfoFactory;
-        readonly System.Collections.Concurrent.ConcurrentQueue<ResultForCallSpec> _results 
-            = new System.Collections.Concurrent.ConcurrentQueue<ResultForCallSpec>();
+        readonly ConcurrentQueue<ResultForCallSpec> _results = new ConcurrentQueue<ResultForCallSpec>();
 
         public CallResults(ICallInfoFactory callInfoFactory)
         {
@@ -31,6 +31,12 @@ namespace NSubstitute.Core
                     .First(x => x.IsResultFor(call))
                     .GetResult(_callInfoFactory.Create(call));
         }
+
+	    public void ClearResults()
+	    {
+		    ResultForCallSpec _;
+		    while (_results.TryDequeue(out _)) {}
+	    }
 
         bool ReturnsVoidFrom(ICall call)
         {

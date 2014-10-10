@@ -10,13 +10,15 @@ namespace NSubstitute.Core
         readonly ICallRouterFactory _callRouterFactory;
         readonly IProxyFactory _proxyFactory;
         readonly ICallRouterResolver _callRouterResolver;
+		readonly IMixinFactory _mixinFactory;
 
-        public SubstituteFactory(ISubstitutionContext context, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory, ICallRouterResolver callRouterResolver)
+        public SubstituteFactory(ISubstitutionContext context, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory, ICallRouterResolver callRouterResolver, IMixinFactory mixinFactory)
         {
             _context = context;
             _callRouterFactory = callRouterFactory;
             _proxyFactory = proxyFactory;
             _callRouterResolver = callRouterResolver;
+	        _mixinFactory = mixinFactory;
         }
 
         /// <summary>
@@ -50,10 +52,14 @@ namespace NSubstitute.Core
 
         private object Create(Type[] typesToProxy, object[] constructorArguments, SubstituteConfig config)  
         {
-            var callRouter = _callRouterFactory.Create(_context, config);
+			var substituteState = new SubstituteState(_context, config);
+
+            var callRouter = _callRouterFactory.Create(_context, substituteState);
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
             var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
-            var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);
+			var mixins = _mixinFactory.Create(primaryProxyType, additionalTypes, _context, substituteState);
+
+			var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments, mixins);
             _callRouterResolver.Register(proxy, callRouter);
             return proxy;
         }
