@@ -29,7 +29,7 @@ namespace NSubstitute.Core
             Current = new SubstitutionContext(new CallRouterFactory(), proxyFactory, new CallRouterResolver(), new EmptyMixinFactory());
         }
 
-		public SubstitutionContext(CallRouterFactory callRouterFactory, IProxyFactory proxyFactory, ICallRouterResolver callRouteResolver, IMixinFactory mixinFactory)
+        public SubstitutionContext(CallRouterFactory callRouterFactory, IProxyFactory proxyFactory, ICallRouterResolver callRouteResolver, IMixinFactory mixinFactory)
         {
             _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver, mixinFactory);
         }

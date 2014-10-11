@@ -52,7 +52,7 @@ namespace NSubstitute.Core
 
         private object Create(Type[] typesToProxy, object[] constructorArguments, SubstituteConfig config)  
         {
-			var substituteState = new SubstituteState(_context, config);
+            var substituteState = new SubstituteState(_context, config);
 
             var callRouter = _callRouterFactory.Create(_context, substituteState);
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);

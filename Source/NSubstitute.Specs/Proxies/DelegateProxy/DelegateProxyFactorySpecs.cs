@@ -43,7 +43,7 @@ namespace NSubstitute.Specs.Proxies.DelegateProxy
             [Test]
             public void Proxy_should_forward_calls_with_generic_return_type_to_call_router_so_router_knows_exact_return_type_expected()
             {
-				var result = (Func<int, string>)sut.GenerateProxy(_callRouter, typeof(Func<int, string>), null, null, null);
+                var result = (Func<int, string>)sut.GenerateProxy(_callRouter, typeof(Func<int, string>), null, null, null);
                 result(12);
 
                 _callRouter.received(x =>
