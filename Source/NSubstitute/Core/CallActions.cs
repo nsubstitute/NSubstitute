@@ -42,10 +42,10 @@ namespace NSubstitute.Core
             }
         }
 
-	    public void Clear()
-	    {
-		    _actions.Clear();
-	    }
+        public void Clear()
+        {
+            _actions.Clear();
+        }
 
         class CallAction
         {

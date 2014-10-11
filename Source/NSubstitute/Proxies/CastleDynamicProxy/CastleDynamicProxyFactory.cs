@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security.Permissions;
@@ -9,9 +10,7 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy
 {
-	using System.Collections.Generic;
-
-	public class CastleDynamicProxyFactory : IProxyFactory
+    public class CastleDynamicProxyFactory : IProxyFactory
     {
         readonly ProxyGenerator _proxyGenerator;
 
@@ -48,24 +47,24 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private ProxyGenerationOptions GetOptionsToMixinCallRouter(IList<object> mixins)
         {
-			var options = new ProxyGenerationOptions(new AllMethodsExceptMixinsCallsHook(mixins));
-			foreach (var mixin in mixins)
-	        {
-				options.AddMixinInstance(mixin);
-			}
+            var options = new ProxyGenerationOptions(new AllMethodsExceptMixinsCallsHook(mixins));
+            foreach (var mixin in mixins)
+            {
+                options.AddMixinInstance(mixin);
+            }
             return options;
         }
 
         private class AllMethodsExceptMixinsCallsHook : AllMethodsHook
         {
-			private readonly HashSet<Type> mixinTypes;
+            private readonly HashSet<Type> mixinTypes;
 
-	        public AllMethodsExceptMixinsCallsHook(IEnumerable<object> mixins)
-	        {
-		        this.mixinTypes = new HashSet<Type>(mixins.Select(m => m.GetType()).SelectMany(GetAllTypes));
-	        }
+            public AllMethodsExceptMixinsCallsHook(IEnumerable<object> mixins)
+            {
+                this.mixinTypes = new HashSet<Type>(mixins.Select(m => m.GetType()).SelectMany(GetAllTypes));
+            }
 
-	        public override bool ShouldInterceptMethod(Type type, MethodInfo methodInfo)
+            public override bool ShouldInterceptMethod(Type type, MethodInfo methodInfo)
             {
                 return IsNotMixinMethod(methodInfo)
                     && IsNotBaseObjectMethod(methodInfo)
@@ -82,19 +81,19 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 return methodInfo.GetBaseDefinition().DeclaringType != typeof (object);
             }
 
-	        private static IEnumerable<Type> GetAllTypes(Type type)
-			{
-				foreach (var i in type.GetInterfaces())
-				{
-					yield return i;
-				}
+            private static IEnumerable<Type> GetAllTypes(Type type)
+            {
+                foreach (var i in type.GetInterfaces())
+                {
+                    yield return i;
+                }
 
-				while (type != typeof(object))
-				{
-					yield return type;
-					type = type.BaseType;
-				}
-	        }
+                while (type != typeof(object))
+                {
+                    yield return type;
+                    type = type.BaseType;
+                }
+            }
         }
 
         private void VerifyNoConstructorArgumentsGivenForInterface(object[] constructorArguments)

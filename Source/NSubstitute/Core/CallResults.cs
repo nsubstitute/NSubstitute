@@ -32,11 +32,11 @@ namespace NSubstitute.Core
                     .GetResult(_callInfoFactory.Create(call));
         }
 
-	    public void ClearResults()
-	    {
-		    ResultForCallSpec _;
-		    while (_results.TryDequeue(out _)) {}
-	    }
+        public void ClearResults()
+        {
+            ResultForCallSpec _;
+            while (_results.TryDequeue(out _)) {}
+        }
 
         bool ReturnsVoidFrom(ICall call)
         {
