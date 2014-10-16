@@ -94,6 +94,7 @@
     <Reference Include="Microsoft.CSharp" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' Or '$(TargetFrameworkVersion)' == 'v4.5' " />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgCaptureMatcher.cs" />
     <Compile Include="ArgumentInvocationFromMatchers.cs" />
     <Compile Include="ArgDoFromMatcher.cs" />
     <Compile Include="AutoValuesForSubs.cs" />
