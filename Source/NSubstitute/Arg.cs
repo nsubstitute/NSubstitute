@@ -1,5 +1,7 @@
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
+
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 
@@ -44,6 +46,7 @@ namespace NSubstitute
         {
             return ArgSpecQueue.EnqueueSpecFor<T>(new ExpressionArgumentMatcher<T>(predicate));
         }
+
 
         /// <summary>
         /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
@@ -119,6 +122,32 @@ namespace NSubstitute
         public static TDelegate InvokeDelegate<TDelegate>(params object[] arguments)
         {
             return ArgSpecQueue.EnqueueSpecFor<TDelegate>(new AnyArgumentMatcher(typeof(TDelegate)), InvokeDelegateAction(arguments));
+        }
+
+        public static T CaptureTo<T>(Expression<Func<T>> memberAccessor)
+        {
+            return Do<T>((x) => Set(memberAccessor, x));
+        }
+
+        public static void Set<TValue>(
+            Expression<Func<TValue>> propertyGetExpression, TValue value)
+        {
+            var target = GetTargetObject(propertyGetExpression);
+            string propertyName = (propertyGetExpression.Body as MemberExpression).Member.Name;
+
+            Type type = target.GetType();
+            var flags = BindingFlags.NonPublic | BindingFlags.Instance;
+            var field = type.GetField(propertyName, flags);
+            field.SetValue(target, value);
+        }
+
+
+        private static object GetTargetObject<TValue>(Expression<Func<TValue>> propertyGetExpression)
+        {
+            var entityParameterExpression = (((MemberExpression)(propertyGetExpression.Body)).Expression);
+
+            Delegate l = Expression.Lambda(entityParameterExpression).Compile();
+            return l.DynamicInvoke();
         }
 
         /// <summary>
