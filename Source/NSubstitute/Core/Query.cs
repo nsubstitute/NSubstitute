@@ -7,7 +7,7 @@ namespace NSubstitute.Core
     {
         readonly List<CallSpecAndTarget> _querySpec = new List<CallSpecAndTarget>();
         readonly HashSet<ICall> _matchingCalls = new HashSet<ICall>(new CallSequenceNumberComparer());
-        
+
         public void Add(ICallSpecification callSpecification, object target)
         {
             _querySpec.Add(new CallSpecAndTarget(callSpecification, target));

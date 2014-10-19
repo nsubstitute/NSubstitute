@@ -6,7 +6,7 @@ namespace NSubstitute.Core
 {
     public class CallRouterResolver : ICallRouterResolver
     {
-        IDictionary<object, ICallRouter> _callRouterMappings = new Dictionary<object, ICallRouter>();
+        readonly IDictionary<object, ICallRouter> _callRouterMappings = new Dictionary<object, ICallRouter>();
 
         public ICallRouter ResolveFor(object substitute)
         {

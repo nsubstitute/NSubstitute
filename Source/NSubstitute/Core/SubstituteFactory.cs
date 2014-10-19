@@ -48,7 +48,7 @@ namespace NSubstitute.Core
             return Create(typesToProxy, constructorArguments, SubstituteConfig.CallBaseByDefault);
         }
 
-        private object Create(Type[] typesToProxy, object[] constructorArguments, SubstituteConfig config)  
+        private object Create(Type[] typesToProxy, object[] constructorArguments, SubstituteConfig config)
         {
             var callRouter = _callRouterFactory.Create(_context, config);
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
