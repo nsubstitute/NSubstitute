@@ -10,7 +10,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
-        [Pending, Explicit]
         public void Method_Works()
         {
             var test = Substitute.For<ITest>();
