@@ -11,7 +11,9 @@ namespace NSubstitute.Routing.AutoValues
 
         public object GetValue(Type type)
         {
-            return Array.CreateInstance(type.GetElementType(), 0);
+            var rank = type.GetArrayRank();
+            var dimensionLengths = new int[rank];
+            return Array.CreateInstance(type.GetElementType(), dimensionLengths);
         }
     }
 }
