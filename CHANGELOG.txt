@@ -1,3 +1,6 @@
+### 1.8.1 (December 2014)
+* [FIX] Fix for methods returning multidimensional arrays. Thanks to Alexandr Nikitin. (#170)
+
 ### 1.8.0 (November 2014)
 * [NEW] Convenience methods for throwing exceptions with When-Do. Thanks to Geir Sagberg for this contribution.
 * [FIX] Throw exception when arg matcher used within Returns. (#149)
