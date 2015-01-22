@@ -39,7 +39,7 @@ Now the real `Read` method will execute, but `ReadFile` will return our substitu
 
 Note the **CAUTION** comment. If we had not used an [argument matcher](/help/argument-matchers/) here the real `ReadFile` method would have executed before we had a chance to override the behaviour. This is because `reader.ReadFile("foo.txt")` would run before `.Returns(...)`. In some cases this may not be a problem, but if in doubt make sure you specify an argument matcher (`Arg.Is`, `Arg.Any` etc) so NSubstitute knows you are configuring a call and don't want to run any real code. To play it extra safe, use `When .. DoNotCallBase` as described below.
 
-## Void methods, and the play-it-self approach to partial subs
+## Void methods, and the play-it-safe approach to partial subs
 
 We can't use `.Returns()` with void methods, but we can stop a void method from calling the real method using `When .. DoNotCallBase`. This also works with non-void methods and can be handy when we want to have a little more confidence we're not going to run real code (a *little* more confidence -- remember, NSubstitute will not prevent non-virtual calls from executing). The previous example can be rewritten to use this approach:
 
