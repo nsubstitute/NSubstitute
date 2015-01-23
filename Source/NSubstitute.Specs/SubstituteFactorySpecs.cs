@@ -26,7 +26,7 @@ namespace NSubstitute.Specs
 
             public override SubstituteFactory CreateSubjectUnderTest()
             {
-                return new SubstituteFactory(_context, _callRouterFactory, _proxyFactory, _callRouterResolver);
+                return new SubstituteFactory(_context, _callRouterFactory, _proxyFactory, _callRouterResolver, null);
             }
         }
 

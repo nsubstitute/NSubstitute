@@ -158,6 +158,8 @@
     <Compile Include="Core\ICallBaseExclusions.cs" />
     <Compile Include="Core\ICallRouterProvider.cs" />
     <Compile Include="Core\IGetCallSpec.cs" />
+    <Compile Include="Core\ISubstituteContext.cs" />
+    <Compile Include="Core\ISubstituteContextResolver.cs" />
     <Compile Include="Core\Maybe.cs" />
     <Compile Include="Core\ReturnObservable.cs" />
     <Compile Include="Core\SequenceChecking\InstanceTracker.cs" />
@@ -180,6 +182,8 @@
     <Compile Include="Core\Events\DelegateEventWrapper.cs" />
     <Compile Include="Core\Events\EventHandlerWrapper.cs" />
     <Compile Include="Core\SubstituteConfig.cs" />
+    <Compile Include="Core\SubstituteContext.cs" />
+    <Compile Include="Core\SubstituteContextResolver.cs" />
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CallSequenceNotFoundException.cs" />
@@ -206,6 +210,7 @@
     <Compile Include="Routing\Handlers\AddCallToQueryResultHandler.cs" />
     <Compile Include="Routing\Handlers\ClearLastCallRouterHandler.cs" />
     <Compile Include="Routing\Handlers\ClearUnusedCallSpecHandler.cs" />
+    <Compile Include="Routing\Handlers\CustomCallHandlers.cs" />
     <Compile Include="Routing\Handlers\DoNotCallBaseForCallHandler.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
     <Compile Include="Routing\Handlers\RecordCallSpecificationHandler.cs" />

@@ -33,7 +33,8 @@ namespace NSubstitute.Core
             var delegateFactory = new DelegateProxyFactory();
             var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
             var callRouteResolver = new CallRouterResolver();
-            _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver);
+            var substituteContextResolver = new SubstituteContextResolver();
+            _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver, substituteContextResolver);
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory)
@@ -85,6 +86,11 @@ namespace NSubstitute.Core
         public ICallRouter GetCallRouterFor(object substitute)
         {
             return SubstituteFactory.GetCallRouterCreatedFor(substitute);
+        }
+
+        public ISubstituteContext GetSubstituteContextFor(object substitute)
+        {
+            return SubstituteFactory.GetSubstituteContextFor(substitute);
         }
 
         public void EnqueueArgumentSpecification(IArgumentSpecification spec)

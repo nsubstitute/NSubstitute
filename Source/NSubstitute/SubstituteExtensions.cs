@@ -224,10 +224,27 @@ namespace NSubstitute
             return GetRouterForSubstitute(substitute).ReceivedCalls();
         }
 
+        public static T Configure<T>(this T substitute, params Func<ICall, RouteAction>[] customCallHandlers)
+        {
+            var substituteContext = GetSubstituteContextFor(substitute);
+            foreach (var customCallHandler in customCallHandlers)
+            {
+                substituteContext.EnqueueCustomCallHandler(customCallHandler);
+            }
+
+            return substitute;
+        }
+
         private static ICallRouter GetRouterForSubstitute<T>(T substitute)
         {
             var context = SubstitutionContext.Current;
             return context.GetCallRouterFor(substitute);
+        }
+
+        private static ISubstituteContext GetSubstituteContextFor<T>(T substitute)
+        {
+            var context = SubstitutionContext.Current;
+            return context.GetSubstituteContextFor(substitute);
         }
 
         private static IRouteFactory RouteFactory()

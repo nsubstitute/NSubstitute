@@ -7,5 +7,6 @@ namespace NSubstitute.Core
         object Create(Type[] typesToProxy, object[] constructorArguments); 
         object CreatePartial(Type[] typesToProxy, object[] constructorArguments); 
         ICallRouter GetCallRouterCreatedFor(object substitute);
+        ISubstituteContext GetSubstituteContextFor(object substitute);
     }
 }
