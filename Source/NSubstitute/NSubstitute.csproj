@@ -285,6 +285,7 @@
     <Compile Include="Routing\Handlers\SetActionForCallHandler.cs" />
     <Compile Include="Routing\RouteFactory.cs" />
     <Compile Include="Substitute.cs" />
+    <Compile Include="SubstituteExceptionExtensions.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="Core\SubstituteState.cs" />
     <Compile Include="Core\SubstitutionContext.cs" />

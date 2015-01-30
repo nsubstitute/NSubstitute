@@ -222,19 +222,7 @@ namespace NSubstitute
         public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class
         {
             return GetRouterForSubstitute(substitute).ReceivedCalls();
-        }
-
-        /// <summary>
-        /// Throws exception when method is called
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <param name="ex">Exception to throw</param>
-        /// <returns></returns>
-        public static ConfiguredCall Throws<T>(this T substitute, Exception ex)
-        {
-            return substitute.Returns(_ => { throw ex; });
-        }
+        }       
 
         private static ICallRouter GetRouterForSubstitute<T>(T substitute)
         {
