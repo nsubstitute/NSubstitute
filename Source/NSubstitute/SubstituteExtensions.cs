@@ -222,7 +222,7 @@ namespace NSubstitute
         public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class
         {
             return GetRouterForSubstitute(substitute).ReceivedCalls();
-        }
+        }       
 
         private static ICallRouter GetRouterForSubstitute<T>(T substitute)
         {
