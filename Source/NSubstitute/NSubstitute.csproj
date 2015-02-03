@@ -180,6 +180,7 @@
     <Compile Include="Core\Events\DelegateEventWrapper.cs" />
     <Compile Include="Core\Events\EventHandlerWrapper.cs" />
     <Compile Include="Core\SubstituteConfig.cs" />
+    <Compile Include="ExceptionExtensions\ExceptionExtensions.cs" />
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CallSequenceNotFoundException.cs" />
@@ -285,7 +286,6 @@
     <Compile Include="Routing\Handlers\SetActionForCallHandler.cs" />
     <Compile Include="Routing\RouteFactory.cs" />
     <Compile Include="Substitute.cs" />
-    <Compile Include="SubstituteExceptionExtensions.cs" />
     <Compile Include="SubstituteExtensions.cs" />
     <Compile Include="Core\SubstituteState.cs" />
     <Compile Include="Core\SubstitutionContext.cs" />
