@@ -1,4 +1,4 @@
-### unreleased changes
+### 1.8.2 (unreleased)
 * [NEW] Convenience Throws() extensions in NSubstitute.ExceptionExtensions (sub.MyCall().Throws(ex)). Thanks to Michal Wereda for this contribution. Thanks also to Geir Sagberg for helpful suggestions relating to this feature. (#172)
 
 ### 1.8.1 (December 2014)
