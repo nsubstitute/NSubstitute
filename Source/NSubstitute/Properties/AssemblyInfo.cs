@@ -1,6 +1,9 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
+// This file will be re-written by full build process.
+// Make changes in build script (build.fsx)
+
 [assembly: AssemblyTitle("NSubstitute")]
 [assembly: AssemblyDescription("A simple substitute for .NET mocking frameworks.")]
 [assembly: AssemblyConfiguration("")]
