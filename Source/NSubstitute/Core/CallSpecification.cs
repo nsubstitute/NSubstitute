@@ -120,6 +120,12 @@ namespace NSubstitute.Core
             }
         }
 
+        public bool IsSimilar(ICallSpecification spec)
+        {
+            // So cheap...
+            return ToString() == spec.ToString();
+        }
+
         private bool HasDifferentNumberOfArguments(ICall call)
         {
             return _argumentSpecifications.Length != call.GetArguments().Length;

@@ -101,6 +101,7 @@
     <Compile Include="FieldReports\Issue129_AmbiguousArgsWithOutRef.cs" />
     <Compile Include="FieldReports\Issue149_ArgMatcherInReturns.cs" />
     <Compile Include="FieldReports\Issue170_MultidimensionalArray.cs" />
+    <Compile Include="FieldReports\Issue177_SubstituteOperationDefinitionWithOverlappingCases.cs" />
     <Compile Include="FieldReports\Issue75_DoesNotWorkWithMembersThatUseDynamic.cs" />
     <Compile Include="FieldReports\Issue_RaiseEventOnNonSubstitute.cs" />
     <Compile Include="PartialSubs.cs" />

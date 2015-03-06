@@ -149,6 +149,7 @@
     <Compile Include="Core\CallFactory.cs" />
     <Compile Include="Core\CallSpecAndTarget.cs" />
     <Compile Include="Core\CallSpecificationFactoryFactoryYesThatsRight.cs" />
+    <Compile Include="Core\ConfigureCallValidator.cs" />
     <Compile Include="Core\ConfiguredCall.cs" />
     <Compile Include="Core\DefaultForType.cs" />
     <Compile Include="Core\EventCallFormatter.cs" />
