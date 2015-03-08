@@ -12,6 +12,7 @@ namespace NSubstitute.Specs.Infrastructure
             return new ConfiguredCall(x => { });
         }
         public void ClearReceivedCalls() { }
+		public void ClearReturnValues() { }
         public IEnumerable<ICall> ReceivedCalls() { return new ICall[0]; }
 
         public readonly object RouteResult = new object();

@@ -41,6 +41,11 @@ namespace NSubstitute.Core
             _receivedCalls.Clear();
         }
 
+        public void ClearReturnValues()
+        {
+	        _substituteState.CallResults.Clear();
+        }
+
         public IEnumerable<ICall> ReceivedCalls()
         {
             return _receivedCalls.AllCalls();

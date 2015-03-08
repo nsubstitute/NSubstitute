@@ -120,6 +120,7 @@
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallInfoSpecs.cs" />
+    <Compile Include="ClearReturnValuesExtensionSpec.cs" />
     <Compile Include="GetCallSpecSpecs.cs" />
     <Compile Include="Infrastructure\TestCallRouter.cs" />
     <Compile Include="QuantitySpecs.cs" />

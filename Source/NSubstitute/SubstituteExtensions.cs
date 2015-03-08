@@ -258,6 +258,19 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Forget all the return values this substitute has configured
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <remarks>
+        /// </remarks>
+        public static void ClearReturnValues<T>(this T substitute) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.ClearReturnValues();
+        }
+
+        /// <summary>
         /// Perform an action when this member is called. 
         /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
         /// </summary>
