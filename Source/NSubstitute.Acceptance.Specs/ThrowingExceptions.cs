@@ -1,7 +1,6 @@
 ﻿using System;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.ExceptionExtensions;
-using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -12,7 +11,7 @@ namespace NSubstitute.Acceptance.Specs
         private ISomething _something;
 
         [Test]
-        public void Throws_Exception_is_thrown()
+        public void ThrowException()
         {
             _something.Count().Throws(new Exception());            
 
@@ -20,7 +19,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throws_InvalidOperationException_is_thrown()
+        public void ThrowOtherException()
         {
             _something.Count().Throws(new InvalidOperationException());
 
@@ -28,15 +27,15 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throws_CustomException_is_thrown()
+        public void ThrowExceptionWithDefaultConstructor()
         {
-            _something.Count().Throws(new AmbiguousArgumentsException());
+            _something.Count().Throws<ArgumentException>();
 
-            Assert.Catch<AmbiguousArgumentsException>(() => _something.Count());
+            Assert.Catch<ArgumentException>(() => _something.Count());
         }
 
         [Test]
-        public void Throws_Exception_with_message_is_thrown()
+        public void ThrowExceptionWithMessage()
         {
             const string exceptionMessage = "This is exception's message";
 
@@ -47,7 +46,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throws_Exception_with_inner_exception_is_thrown()
+        public void ThrowExceptionWithInnerException()
         {
             ArgumentException innerException = new ArgumentException();
             _something.Count().Throws(new Exception("Exception message", innerException));
@@ -59,7 +58,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throws_With_Exception_generetion_Exception_is_thrown()
+        public void ThrowExceptionUsingFactoryFunc()
         {
             _something.Anything(null).Throws(ci => new ArgumentException("Args:" + ci.Args()[0]));
 
@@ -67,62 +66,33 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void ThrowsForAnyArgs_Exception_is_thrown()
+        public void DoesNotThrowForNonMatchingArgs()
+        {
+            _something.Anything(12).Throws(new Exception());
+
+            Assert.Catch<Exception>(() => _something.Anything(12));
+            Assert.DoesNotThrow(() => _something.Anything(11));
+        }
+
+        [Test]
+        public void ThrowExceptionForAnyArgs()
         {
             _something.Anything(12).ThrowsForAnyArgs(new Exception());
 
             Assert.Catch<Exception>(() => _something.Anything(null));
-        }
-
-        [Test]
-        public void ThrowsForAnyArgs_the_same_parameter_Exception_is_thrown()
-        {
-            _something.Anything(12).ThrowsForAnyArgs(new Exception());
-
             Assert.Catch<Exception>(() => _something.Anything(12));
         }
 
         [Test]
-        public void ThrowsForAnyArgs_InvalidOperationException_is_thrown()
+        public void ThrowExceptionWithDefaultConstructorForAnyArgs()
         {
-            _something.Anything(12).ThrowsForAnyArgs(new InvalidOperationException());
+            _something.Anything(12).ThrowsForAnyArgs<InvalidOperationException>();
 
             Assert.Catch<InvalidOperationException>(() => _something.Anything(new object()));
         }
 
         [Test]
-        public void ThrowsForAnyArgs_CustomException_is_thrown()
-        {
-            _something.Anything(12).ThrowsForAnyArgs(new AmbiguousArgumentsException());
-
-            Assert.Catch<AmbiguousArgumentsException>(() => _something.Anything(new object()));
-        }
-
-        [Test]
-        public void ThrowsForAnyArgs_Exception_with_message_is_thrown()
-        {
-            const string exceptionMessage = "This is exception's message";
-
-            _something.Anything(12).ThrowsForAnyArgs(new Exception(exceptionMessage));
-
-            Exception exceptionThrown = Assert.Catch<Exception>(() => _something.Anything(null));
-            Assert.AreEqual(exceptionMessage, exceptionThrown.Message);
-        }
-
-        [Test]
-        public void ThrowsForAnyArgs_Exception_with_inner_exception_is_thrown()
-        {
-            ArgumentException innerException = new ArgumentException();
-            _something.Anything(12).ThrowsForAnyArgs(new Exception("Exception message", innerException));
-
-            Exception exceptionThrown = Assert.Catch<Exception>(() => _something.Anything(1));
-
-            Assert.IsNotNull(exceptionThrown.InnerException);
-            Assert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
-        }
-
-        [Test]
-        public void ThrowsForAnyArgs_With_Exception_generetion_Exception_is_thrown()
+        public void ThrowExceptionCreatedByFactoryFuncForAnyArgs()
         {
             _something.Anything(null).ThrowsForAnyArgs(ci => new ArgumentException("Args:" + ci.Args()[0]));
 

@@ -138,6 +138,32 @@ namespace NSubstitute.Specs
             }
         }
 
+        public class Get_typed_argument_at_position
+        {
+            [Test]
+            public void Throw_argument_out_of_range()
+            {
+                var sut = new CallInfo(new[] { CreateArg(1) });
+
+                Assert.Throws<ArgumentOutOfRangeException>(() => sut.ArgAt<int>(22));
+            }
+
+            [Test]
+            public void Throw_invalid_cast_exception()
+            {
+                var sut = new CallInfo(new[] { CreateArg("It's not an int!") });
+                Assert.Throws<InvalidCastException>(() => sut.ArgAt<int>(0));
+            }
+
+            [Test]
+            public void Get_value_of_argument()
+            {
+                var sut = new CallInfo(new[] { CreateArg(1), CreateArg("ABC") });
+                var value = sut.ArgAt<string>(1);
+                Assert.That(value, Is.EqualTo("ABC"));
+            }
+        }
+
         private class ByRefArgument<T> : Argument
         {
             /* Simulating how an T& argument (like Int32&) comes through to CallInfo */

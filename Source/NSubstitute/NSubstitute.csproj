@@ -98,13 +98,13 @@
   </PropertyGroup>
   <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
     <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
-      <HintPath>..\..\ThirdParty\castle.core.3.2.1\lib\net35\Castle.Core.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Castle.Core.3.3.3\lib\net35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">
-      <HintPath>..\..\ThirdParty\castle.core.3.2.1\lib\net40-client\Castle.Core.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.5' ">
-      <HintPath>..\..\ThirdParty\castle.core.3.2.1\lib\net40-client\Castle.Core.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
       <SpecificVersion>False</SpecificVersion>
@@ -180,6 +180,7 @@
     <Compile Include="Core\Events\DelegateEventWrapper.cs" />
     <Compile Include="Core\Events\EventHandlerWrapper.cs" />
     <Compile Include="Core\SubstituteConfig.cs" />
+    <Compile Include="ExceptionExtensions\ExceptionExtensions.cs" />
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />
     <Compile Include="Exceptions\CallSequenceNotFoundException.cs" />
