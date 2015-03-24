@@ -10,6 +10,8 @@
         int Add(int a, int b);
         string WithParams(int i, params string[] labels);
         int WithNullableArg(int? a);
+        SomeClass SomeAction();
+        SomeClass SomeActionWithParams(int i, string s);
 
         object this[string key] { get; set; }
     }
