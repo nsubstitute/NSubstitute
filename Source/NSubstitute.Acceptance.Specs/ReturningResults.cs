@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
+using NSubstitute.ReturnExtensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -126,6 +126,39 @@ namespace NSubstitute.Acceptance.Specs
                   "".Returns("I shouldn't be calling returns like this!");
               });
             Assert.That(exception.Message, Is.StringContaining(expectedMessagePrefix));
+        }
+
+        [Test]
+        public void Returns_Null_for_string_parameter()
+        {
+            const string stringValue = "something";
+            _something.Say(stringValue).ReturnsNull();
+
+            Assert.That(_something.Say("something"), Is.Null);
+        }
+
+        [Test]
+        public void Returns_Null_for_method_returning_class()
+        {
+            _something.SomeAction().ReturnsNull();
+            
+            Assert.That(_something.SomeAction(), Is.Null);
+        }
+
+        [Test]
+        public void Returns_Null_for_any_args_when_string_parameter()
+        {
+            _something.Say("text").ReturnsNullForAnyArgs();
+
+            Assert.That(_something.Say("something"), Is.Null);
+        }
+
+        [Test]
+        public void Returns_Null_for_any_args_when_class_returned()
+        {
+            _something.SomeActionWithParams(2, "text").ReturnsNullForAnyArgs();
+
+            Assert.That(_something.SomeActionWithParams(123, "something else"), Is.Null);
         }
 
         [SetUp]

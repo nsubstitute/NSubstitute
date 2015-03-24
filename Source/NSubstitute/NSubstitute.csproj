@@ -293,6 +293,7 @@
     <Compile Include="Exceptions\SubstituteException.cs" />
     <Compile Include="Core\SubstituteFactory.cs" />
     <Compile Include="Core\WhenCalled.cs" />
+    <Compile Include="SubstituteReturnExtensions.cs" />
     <None Include="..\nsubstitute.snk">
       <Link>Core\nsubstitute.snk</Link>
     </None>
