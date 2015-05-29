@@ -1,8 +1,8 @@
 ﻿using NSubstitute.Core;
 
-namespace NSubstitute.ReturnExtensions
+namespace NSubstitute.ReturnsExtensions
 {
-    public static class SubstituteReturnExtensions
+    public static class ReturnsExtensions
     {
         /// <summary>
         /// Set null as returned value for this call.
