@@ -1,4 +1,4 @@
-### 1.8.2 (unreleased)
+### 1.8.2 (May 2015)
 * [NEW] Convenience .ReturnsNull() extensions in NSubstitute.ReturnsExtensions. Thanks to Michal Wereda for this contribution. (#181)
 * [NEW] CallInfo.ArgAt<T>(int) added to match argument at a given position and cast to the required type. Thanks to @jotabe-net for this contribution. (#175)
 * [NEW] Convenience Throws() extensions in NSubstitute.ExceptionExtensions (sub.MyCall().Throws(ex)). Thanks to Michal Wereda for this contribution. Thanks also to Geir Sagberg for helpful suggestions relating to this feature. (#172)
