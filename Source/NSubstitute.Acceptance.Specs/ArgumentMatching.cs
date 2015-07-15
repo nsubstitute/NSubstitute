@@ -90,6 +90,21 @@ namespace NSubstitute.Acceptance.Specs
             _something.Received().Funky(Arg.Any<float>(), 12, "Lots", null);
         }
 
+#if (NET45)
+        [Test]
+        public async System.Threading.Tasks.Task Received_for_async_method_can_be_awaited()
+        {
+            await _something.Async();
+            await _something.Received().Async();
+        }
+
+        [Test]
+        public async System.Threading.Tasks.Task DidNotReceive_for_async_method_can_be_awaited()
+        {
+            await _something.DidNotReceive().Async();
+        }
+#endif
+
         [Test]
         public void Resolve_potentially_ambiguous_matches_by_checking_for_non_default_argument_values()
         {

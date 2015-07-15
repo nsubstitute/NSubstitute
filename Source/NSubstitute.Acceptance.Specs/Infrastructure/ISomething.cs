@@ -14,5 +14,8 @@
         SomeClass SomeActionWithParams(int i, string s);
 
         object this[string key] { get; set; }
+#if (NET45)
+        System.Threading.Tasks.Task Async();
+#endif
     }
 }

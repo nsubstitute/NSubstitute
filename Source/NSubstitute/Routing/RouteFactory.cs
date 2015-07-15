@@ -22,6 +22,7 @@ namespace NSubstitute.Routing
                 new ClearLastCallRouterHandler(state.SubstitutionContext)
                 , new ClearUnusedCallSpecHandler(state)
                 , new CheckReceivedCallsHandler(state.ReceivedCalls, state.CallSpecificationFactory, new ReceivedCallsExceptionThrower(), matchArgs, requiredQuantity)
+                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
