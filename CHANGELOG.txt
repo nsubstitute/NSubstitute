@@ -1,3 +1,6 @@
+### 1.8.3 (unreleased)
+* [NEW] Allow awaiting of async methods with Received()/DidNotReceive(). Thanks to Marcio Rinaldi for this contribution. (#190, #191)
+
 ### 1.8.2 (May 2015)
 * [NEW] Convenience .ReturnsNull() extensions in NSubstitute.ReturnsExtensions. Thanks to Michal Wereda for this contribution. (#181)
 * [NEW] CallInfo.ArgAt<T>(int) added to match argument at a given position and cast to the required type. Thanks to @jotabe-net for this contribution. (#175)
