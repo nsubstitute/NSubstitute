@@ -92,14 +92,24 @@ namespace NSubstitute.Acceptance.Specs
 
 #if (NET45)
         [Test]
-        public async System.Threading.Tasks.Task Received_for_async_method_can_be_awaited()
+        public void Received_for_async_method_can_be_awaited()
+        {
+            TestReceivedAsync().Wait();
+        }
+
+        private async System.Threading.Tasks.Task TestReceivedAsync()
         {
             await _something.Async();
             await _something.Received().Async();
         }
 
         [Test]
-        public async System.Threading.Tasks.Task DidNotReceive_for_async_method_can_be_awaited()
+        public void DidNotReceive_for_async_method_can_be_awaited()
+        {
+            TestDidNotReceiveAsync().Wait();
+        }
+
+        private async System.Threading.Tasks.Task TestDidNotReceiveAsync()
         {
             await _something.DidNotReceive().Async();
         }
