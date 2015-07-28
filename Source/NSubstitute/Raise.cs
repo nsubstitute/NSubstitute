@@ -41,7 +41,7 @@ namespace NSubstitute
 
         /// <summary>
         /// Raise an event of type <typeparamref name="THandler" /> with the provided arguments. If no arguments are provided
-        /// NSubstitute will try and provide reasonble defaults.
+        /// NSubstitute will try to provide reasonable defaults.
         /// </summary>
         public static DelegateEventWrapper<THandler> Event<THandler>(params object[] arguments)
         {
