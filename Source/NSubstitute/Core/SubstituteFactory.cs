@@ -62,7 +62,7 @@ namespace NSubstitute.Core
         private Type GetPrimaryProxyType(Type[] typesToProxy)
         {
             if (typesToProxy.Any(x => x.GetTypeInfo().IsSubclassOf(typeof(Delegate)))) return typesToProxy.First(x => x.GetTypeInfo().IsSubclassOf(typeof(Delegate)));
-            if (typesToProxy.Any(x => x.IsClass)) return typesToProxy.First(x => x.IsClass);
+            if (typesToProxy.Any(x => x.GetTypeInfo().IsClass)) return typesToProxy.First(x => x.GetTypeInfo().IsClass);
             return typesToProxy.First();
         }
 

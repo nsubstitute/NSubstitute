@@ -60,7 +60,7 @@ namespace NSubstitute.Proxies.DelegateProxy
 
         bool ReturnsNonVoidValueType()
         {
-            return !ReturnsVoidType() && _returnType.IsValueType;
+            return !ReturnsVoidType() && _returnType.GetTypeInfo().IsValueType;
         }
 
         object CreateDefaultForValueType(Type type)
