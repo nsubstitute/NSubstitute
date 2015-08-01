@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using NSubstitute.Core;
 
 namespace NSubstitute.Proxies
@@ -16,7 +17,7 @@ namespace NSubstitute.Proxies
 
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
         {
-            var isDelegate = typeToProxy.IsSubclassOf(typeof(Delegate));
+            var isDelegate = typeToProxy.GetTypeInfo().IsSubclassOf(typeof(Delegate));
             return isDelegate 
                 ? _delegateFactory.GenerateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments)
                 : _dynamicProxyFactory.GenerateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments);

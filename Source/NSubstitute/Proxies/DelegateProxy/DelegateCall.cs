@@ -70,7 +70,7 @@ namespace NSubstitute.Proxies.DelegateProxy
 
         public override string ToString()
         {
-            if (!_delegateType.IsGenericType)
+            if (!_delegateType.GetTypeInfo().IsGenericType)
             {
                 return _delegateType.Name;
             }
