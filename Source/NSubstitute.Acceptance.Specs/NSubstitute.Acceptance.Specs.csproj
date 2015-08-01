@@ -84,7 +84,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '.NETCore-Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\.NETCore-Debug\</OutputPath>
+    <OutputPath>..\..\Output\Debug\NETCore\NSubstitute.Acceptance.Specs\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NET4;NET45</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>full</DebugType>
@@ -94,7 +94,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '.NETCore-Release|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\.NETCore-Release\</OutputPath>
+    <OutputPath>..\..\Output\Release\NETCore\NSubstitute.Acceptance.Specs\</OutputPath>
     <DefineConstants>TRACE;NET4;NET45</DefineConstants>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

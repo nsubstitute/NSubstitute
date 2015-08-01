@@ -98,9 +98,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '.NETCore-Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\.NETCore-Debug\</OutputPath>
+    <OutputPath>..\..\Output\Debug\NETCore\NSubstitute\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET4;NET45</DefineConstants>
-    <DocumentationFile>..\..\Output\Debug\NET45\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <DocumentationFile>..\..\Output\Debug\NETCore\NSubstitute\NSubstitute.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>1591</NoWarn>
     <DebugType>full</DebugType>
@@ -110,9 +110,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '.NETCore-Release|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\.NETCore-Release\</OutputPath>
+    <OutputPath>..\..\Output\Release\NETCore\NSubstitute\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET4;NET45</DefineConstants>
-    <DocumentationFile>..\..\Output\Release\NET45\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <DocumentationFile>..\..\Output\Release\NETCore\NSubstitute\NSubstitute.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>1591</NoWarn>
