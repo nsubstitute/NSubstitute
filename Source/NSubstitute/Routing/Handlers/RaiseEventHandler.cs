@@ -22,7 +22,7 @@ namespace NSubstitute.Routing.Handlers
         {
             var methodInfo = call.GetMethodInfo();
             var eventInfo = methodInfo.DeclaringType.GetEvents().FirstOrDefault(
-                x => (x.GetAddMethod() == methodInfo) || (x.GetRemoveMethod() == methodInfo));
+                x => (x.AddMethod == methodInfo) || (x.RemoveMethod == methodInfo));
             if (eventInfo == null) throw new CouldNotRaiseEventException();
             var handlers = _eventHandlerRegistry.GetHandlers(eventInfo.Name);
             var eventArguments = _getEventArguments(call);

@@ -33,12 +33,12 @@ namespace NSubstitute.Routing.Handlers
 
         private Predicate<EventInfo> IsEventSubscription(ICall call)
         {
-            return x => call.GetMethodInfo() == x.GetAddMethod();
+            return x => call.GetMethodInfo() == x.AddMethod;
         }
 
         private Predicate<EventInfo> IsEventUnsubscription(ICall call)
         {
-            return x => call.GetMethodInfo() == x.GetRemoveMethod();
+            return x => call.GetMethodInfo() == x.RemoveMethod;
         }
 
         private IEnumerable<EventInfo> GetEvents(ICall call, Func<ICall, Predicate<EventInfo>> createPredicate)

@@ -7,8 +7,8 @@ namespace NSubstitute.Core
 {
     public class EventCallFormatter : IMethodInfoFormatter
     {
-        public static readonly Func<MethodInfo, Predicate<EventInfo>> IsSubscription = call => (eventInfo => eventInfo.GetAddMethod() == call);
-        public static readonly Func<MethodInfo, Predicate<EventInfo>> IsUnsubscription = call => (eventInfo => eventInfo.GetRemoveMethod() == call);
+        public static readonly Func<MethodInfo, Predicate<EventInfo>> IsSubscription = call => (eventInfo => eventInfo.AddMethod == call);
+        public static readonly Func<MethodInfo, Predicate<EventInfo>> IsUnsubscription = call => (eventInfo => eventInfo.RemoveMethod == call);
 
         private readonly Func<MethodInfo, Predicate<EventInfo>> _eventsToFormat;
         private readonly string _eventOperator;

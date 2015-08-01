@@ -9,13 +9,13 @@ namespace NSubstitute.Core
         public static PropertyInfo GetPropertyFromSetterCallOrNull(this MethodInfo call)
         {
             var properties = call.DeclaringType.GetProperties();
-            return properties.FirstOrDefault(x => x.GetSetMethod() == call);
+            return properties.FirstOrDefault(x => x.SetMethod == call);
         }
 
         public static PropertyInfo GetPropertyFromGetterCallOrNull(this MethodInfo call)
         {
             var properties = call.DeclaringType.GetProperties();
-            return properties.FirstOrDefault(x => x.GetGetMethod() == call);
+            return properties.FirstOrDefault(x => x.GetMethod == call);
         }
 
         public static bool IsParams(this ParameterInfo parameterInfo)
