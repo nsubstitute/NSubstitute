@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace NSubstitute.Core
 {
@@ -40,12 +41,12 @@ namespace NSubstitute.Core
 
         public bool IsValueAssignableTo(Type type)
         {
-            return type.IsAssignableFrom(AsNonByRefType(ActualType));
+            return type.GetTypeInfo().IsAssignableFrom(AsNonByRefType(ActualType).GetTypeInfo());
         }
 
         public bool CanSetValueWithInstanceOf(Type type)
         {
-            return AsNonByRefType(ActualType).IsAssignableFrom(type);
+            return AsNonByRefType(ActualType).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo());
         }
 
         private static Type AsNonByRefType(Type type)

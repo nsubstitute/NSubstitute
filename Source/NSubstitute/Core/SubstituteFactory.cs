@@ -42,7 +42,7 @@ namespace NSubstitute.Core
         public object CreatePartial(Type[] typesToProxy, object[] constructorArguments)
         {
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
-            if (primaryProxyType.GetTypeInfo().IsSubclassOf(typeof (Delegate)) || !primaryProxyType.IsClass)
+            if (primaryProxyType.GetTypeInfo().IsSubclassOf(typeof (Delegate)) || !primaryProxyType.GetTypeInfo().IsClass)
             {
                 throw new CanNotPartiallySubForInterfaceOrDelegateException(primaryProxyType);
             }
