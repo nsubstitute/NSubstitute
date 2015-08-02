@@ -34,14 +34,15 @@ namespace NSubstitute.Routing.Handlers
                 }
                 catch (TargetInvocationException e)
                 {
-                    PreserveStackTrace(e.InnerException);
+                    // todo investigate the method. Do we need it?
+                    //PreserveStackTrace(e.InnerException);
 
                     throw e.InnerException;
                 }
             }
             return RouteAction.Continue();
         }
-
+        /*
         private void PreserveStackTrace(Exception exception)
         {
             var context = new StreamingContext(StreamingContextStates.CrossAppDomain);
@@ -51,5 +52,6 @@ namespace NSubstitute.Routing.Handlers
             exception.GetObjectData(serializationInfo, context);
             constructor.Invoke(exception, new object[] { serializationInfo, context });
         }
+        */
     }
 }
