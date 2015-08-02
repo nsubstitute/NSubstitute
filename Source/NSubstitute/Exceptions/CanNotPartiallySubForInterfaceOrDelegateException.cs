@@ -6,7 +6,6 @@ namespace NSubstitute.Exceptions
     public class CanNotPartiallySubForInterfaceOrDelegateException : SubstituteException
     {
         public CanNotPartiallySubForInterfaceOrDelegateException(Type type) : base(DescribeProblem(type)) { }
-        protected CanNotPartiallySubForInterfaceOrDelegateException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         private static string DescribeProblem(Type type)
         {

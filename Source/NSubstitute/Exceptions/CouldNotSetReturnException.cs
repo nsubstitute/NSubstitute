@@ -24,13 +24,11 @@ namespace NSubstitute.Exceptions
                 "";
 
         protected CouldNotSetReturnException(string s) : base(s + "\n\n" + WhatProbablyWentWrong) { }
-        protected CouldNotSetReturnException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
     public class CouldNotSetReturnDueToNoLastCallException : CouldNotSetReturnException
     {
         public CouldNotSetReturnDueToNoLastCallException() : base("Could not find a call to return from.") { }
-        protected CouldNotSetReturnDueToNoLastCallException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
     public class CouldNotSetReturnDueToTypeMismatchException : CouldNotSetReturnException
@@ -43,7 +41,5 @@ namespace NSubstitute.Exceptions
                 ? String.Format("Can not return null for {0}.{1} (expected type {2}).", member.DeclaringType.Name, member.Name, member.ReturnType.Name) 
                 : String.Format("Can not return value of type {0} for {1}.{2} (expected type {3}).", typeOfReturnValueOrNull.Name, member.DeclaringType.Name, member.Name, member.ReturnType.Name);
         }
-
-        protected CouldNotSetReturnDueToTypeMismatchException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

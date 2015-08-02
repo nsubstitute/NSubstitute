@@ -14,6 +14,5 @@ namespace NSubstitute.Exceptions
             "  sub.MyMethod(\"hi\").Returns(Arg.Any<string>())";
         public UnexpectedArgumentMatcherException() : this(WhatProbablyWentWrong) { }
         public UnexpectedArgumentMatcherException(string message) : base(message) { }
-        protected UnexpectedArgumentMatcherException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }
