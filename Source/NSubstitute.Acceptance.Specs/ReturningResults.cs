@@ -1,4 +1,7 @@
 ﻿using System;
+#if (NET4 || NET45)
+using System.Threading.Tasks;
+#endif
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NSubstitute.ReturnsExtensions;
@@ -96,6 +99,35 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Echo(724), Is.EqualTo("second"));
         }
 
+#if (NET4 || NET45)
+        [Test]
+        public void Return_result_for_any_arguments_async()
+        {
+            _something.EchoAsync(1).ReturnsForAnyArgs("always");
+
+            Assert.That(_something.EchoAsync(1).Result, Is.EqualTo("always"));
+            Assert.That(_something.EchoAsync(2).Result, Is.EqualTo("always"));
+            Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("always"));
+        }
+
+        [Test]
+        public void Return_multiple_results_for_any_arguments_async()
+        {
+            _something.EchoAsync(1).ReturnsForAnyArgs("first", "second");
+
+            Assert.That(_something.EchoAsync(2).Result, Is.EqualTo("first"));
+            Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("second"));
+        }
+
+        [Test]
+        public void Return_multiple_results_from_funcs_for_any_arguments_async()
+        {
+            _something.EchoAsync(1).ReturnsForAnyArgs(_ => "first", _ => "second");
+
+            Assert.That(_something.EchoAsync(2).Result, Is.EqualTo("first"));
+            Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("second"));
+        }
+#endif
         [Test]
         public void Return_calculated_results_for_any_arguments()
         {
@@ -160,6 +192,31 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(_something.SomeActionWithParams(123, "something else"), Is.Null);
         }
+
+#if NET45 || NET4
+        [Test]
+        public void Return_a_wrapped_async_result()
+        {
+            _something.CountAsync().Returns(3);
+
+            Assert.That(_something.CountAsync(), Is.TypeOf<Task<int>>());
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void Return_multiple_async_results_from_funcs()
+        {
+            _something.CountAsync().Returns(
+                _ => 1,
+                _ => 2,
+                _ => 3);
+
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(1), "First return");
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(2), "Second return");
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Third return");
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Fourth return");
+        }
+#endif
 
         [SetUp]
         public void SetUp()
