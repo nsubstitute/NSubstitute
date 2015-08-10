@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NSubstitute.ReturnsExtensions;
@@ -29,6 +30,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Echo(1), Is.EqualTo("one"), "First return");
             Assert.That(_something.Echo(2), Is.EqualTo("two"), "Second return");
         }
+
 
         [Test]
         public void Return_multiple_results_from_the_same_call()
@@ -160,6 +162,17 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(_something.SomeActionWithParams(123, "something else"), Is.Null);
         }
+
+#if NET45
+        [Test]
+        public async System.Threading.Tasks.Task Return_a_wrapped_async_result()
+        {
+            _something.CountAsync().Returns(3);
+
+            Assert.That(_something.CountAsync(), Is.TypeOf<Task<int>>());
+            Assert.That(await _something.CountAsync(), Is.EqualTo(3));
+        }
+#endif
 
         [SetUp]
         public void SetUp()

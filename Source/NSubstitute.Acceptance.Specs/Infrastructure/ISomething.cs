@@ -16,6 +16,7 @@
         object this[string key] { get; set; }
 #if (NET45)
         System.Threading.Tasks.Task Async();
+        System.Threading.Tasks.Task<int> CountAsync();
 #endif
     }
 }

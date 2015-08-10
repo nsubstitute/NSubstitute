@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using NSubstitute.Core;
 using NSubstitute.Routing;
 
@@ -32,6 +33,11 @@ namespace NSubstitute
         public static ConfiguredCall Returns<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
             return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
+        }
+
+        public static ConfiguredCall Returns<T>(this Task<T> value, T returnThis)
+        {
+            return Returns(MatchArgs.AsSpecifiedInCall, Task.FromResult(returnThis));
         }
 
         /// <summary>
