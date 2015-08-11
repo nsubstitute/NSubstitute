@@ -172,6 +172,29 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.CountAsync(), Is.TypeOf<Task<int>>());
             Assert.That(await _something.CountAsync(), Is.EqualTo(3));
         }
+
+        [Test]
+        public async System.Threading.Tasks.Task Returns_a_task_when_passed_in_and_doesnt_wrap_it()
+        {
+            _something.CountAsync().Returns(System.Threading.Tasks.Task.FromResult(3));
+
+            Assert.That(_something.CountAsync(), Is.TypeOf<Task<int>>());
+            Assert.That(await _something.CountAsync(), Is.EqualTo(3));
+        }
+
+        [Test]
+        public async System.Threading.Tasks.Task Return_multiple_async_results_from_funcs()
+        {
+            _something.CountAsync().Returns(
+                _ => 1,
+                _ => 2,
+                _ => 3);
+
+            Assert.That(await _something.CountAsync(), Is.EqualTo(1), "First return");
+            Assert.That(await _something.CountAsync(), Is.EqualTo(2), "Second return");
+            Assert.That(await _something.CountAsync(), Is.EqualTo(3), "Third return");
+            Assert.That(await _something.CountAsync(), Is.EqualTo(3), "Fourth return");
+        }
 #endif
 
         [SetUp]

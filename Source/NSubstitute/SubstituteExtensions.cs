@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Castle.Components.DictionaryAdapter.Xml;
 using NSubstitute.Core;
 using NSubstitute.Routing;
 
@@ -22,6 +24,25 @@ namespace NSubstitute
             return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
+#if (NET4 || NET45)
+        /// <summary>
+        /// Set an async return value for this call, wrapped the return value in a Task
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="returnThis">Value to return. Will be wrapped in a Task</param>
+        /// <param name="returnThese">Optionally use these functions next</param>
+        /// <returns></returns>
+        public static ConfiguredCall Returns<T>(this Task<T> value, T returnThis, params T[] returnThese)
+        {
+            var wrappedReturnValue = Task.FromResult(returnThis);
+
+            var wrappedParameters = returnThese.Select(Task.FromResult);
+
+            return Returns(MatchArgs.AsSpecifiedInCall, wrappedReturnValue, wrappedParameters.ToArray());
+        }
+#endif
+
         /// <summary>
         /// Set a return value for this call, calculated by the provided function.
         /// </summary>
@@ -35,10 +56,28 @@ namespace NSubstitute
             return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
-        public static ConfiguredCall Returns<T>(this Task<T> value, T returnThis)
+#if (NET4 || NET45)
+        /// <summary>
+        /// Set a return value for this call, calculated by the provided function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="returnThis">Function to calculate the return value</param>
+        /// <param name="returnThese">Optionally use these functions next</param>
+        /// <returns></returns>
+        public static ConfiguredCall Returns<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
-            return Returns(MatchArgs.AsSpecifiedInCall, Task.FromResult(returnThis));
+            var wrappedFunc = WrapFuncInTask(returnThis);
+            var wrappedFuncs = returnThese.Select(WrapFuncInTask);
+
+            return Returns(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedFuncs.ToArray());
         }
+
+        internal static Func<CallInfo, Task<T>> WrapFuncInTask<T>(Func<CallInfo, T> returnThis)
+        {
+            return x => Task.FromResult(returnThis(x));
+        }
+#endif
 
         /// <summary>
         /// Set a return value for this call made with any arguments.
