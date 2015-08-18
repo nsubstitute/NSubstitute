@@ -1,5 +1,7 @@
 ﻿using System;
+#if (NET4 || NET45)
 using System.Threading.Tasks;
+#endif
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NSubstitute.ReturnsExtensions;
@@ -30,7 +32,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Echo(1), Is.EqualTo("one"), "First return");
             Assert.That(_something.Echo(2), Is.EqualTo("two"), "Second return");
         }
-
 
         [Test]
         public void Return_multiple_results_from_the_same_call()
@@ -197,18 +198,6 @@ namespace NSubstitute.Acceptance.Specs
         public void Return_a_wrapped_async_result()
         {
             _something.CountAsync().Returns(3);
-
-            Assert.That(_something.CountAsync(), Is.TypeOf<Task<int>>());
-            Assert.That(_something.CountAsync().Result, Is.EqualTo(3));
-        }
-
-        [Test]
-        public void Returns_a_task_when_passed_in_and_doesnt_wrap_it()
-        {
-            var tcs = new TaskCompletionSource<int>();
-            tcs.SetResult(3);
-            
-            _something.CountAsync().Returns(tcs.Task);
 
             Assert.That(_something.CountAsync(), Is.TypeOf<Task<int>>());
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3));
