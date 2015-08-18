@@ -72,7 +72,7 @@ namespace NSubstitute
 
 #if (NET4 || NET45)
         /// <summary>
-        /// Set a return value for this call, calculated by the provided function.
+        /// Set a return value for this call, calculated by the provided function. The value(s) to be returned will be wrapped in Tasks
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -90,7 +90,7 @@ namespace NSubstitute
 
 #if (NET4 || NET45)
         /// <summary>
-        /// Set a return value for this call made with any arguments.
+        /// Set a return value for this call made with any arguments. The value(s) to be returned will be wrapped in Tasks.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -104,6 +104,23 @@ namespace NSubstitute
             var wrappedParameters = returnThese.Select(CompletedTask);
 
             return Returns(MatchArgs.Any, wrappedReturnValue, wrappedParameters.ToArray());
+        }
+
+        
+        /// <summary>
+        /// Set a return value for this call made with any arguments, calculated by the provided function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="returnThis">Function to calculate the return value</param>
+        /// <param name="returnThese">Optionally use these functions next</param>
+        /// <returns></returns>
+        public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+        {
+            var wrappedFunc = WrapFuncInTask(returnThis);
+            var wrappedFuncs = returnThese.Select(WrapFuncInTask);
+            
+            return Returns(MatchArgs.Any, wrappedFunc, wrappedFuncs.ToArray());
         }
 #endif
 

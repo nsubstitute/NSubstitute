@@ -117,6 +117,15 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.EchoAsync(2).Result, Is.EqualTo("first"));
             Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("second"));
         }
+
+        [Test]
+        public void Return_multiple_results_from_funcs_for_any_arguments_async()
+        {
+            _something.EchoAsync(1).ReturnsForAnyArgs(_ => "first", _ => "second");
+
+            Assert.That(_something.EchoAsync(2).Result, Is.EqualTo("first"));
+            Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("second"));
+        }
 #endif
         [Test]
         public void Return_calculated_results_for_any_arguments()
