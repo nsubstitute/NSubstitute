@@ -98,6 +98,26 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Echo(724), Is.EqualTo("second"));
         }
 
+#if (NET4 || NET45)
+        [Test]
+        public void Return_result_for_any_arguments_async()
+        {
+            _something.EchoAsync(1).ReturnsForAnyArgs("always");
+
+            Assert.That(_something.EchoAsync(1).Result, Is.EqualTo("always"));
+            Assert.That(_something.EchoAsync(2).Result, Is.EqualTo("always"));
+            Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("always"));
+        }
+
+        [Test]
+        public void Return_multiple_results_for_any_arguments_async()
+        {
+            _something.EchoAsync(1).ReturnsForAnyArgs("first", "second");
+
+            Assert.That(_something.EchoAsync(2).Result, Is.EqualTo("first"));
+            Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("second"));
+        }
+#endif
         [Test]
         public void Return_calculated_results_for_any_arguments()
         {
@@ -163,37 +183,40 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.SomeActionWithParams(123, "something else"), Is.Null);
         }
 
-#if NET45
+#if NET45 || NET4
         [Test]
-        public async System.Threading.Tasks.Task Return_a_wrapped_async_result()
+        public void Return_a_wrapped_async_result()
         {
             _something.CountAsync().Returns(3);
 
             Assert.That(_something.CountAsync(), Is.TypeOf<Task<int>>());
-            Assert.That(await _something.CountAsync(), Is.EqualTo(3));
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(3));
         }
 
         [Test]
-        public async System.Threading.Tasks.Task Returns_a_task_when_passed_in_and_doesnt_wrap_it()
+        public void Returns_a_task_when_passed_in_and_doesnt_wrap_it()
         {
-            _something.CountAsync().Returns(System.Threading.Tasks.Task.FromResult(3));
+            var tcs = new TaskCompletionSource<int>();
+            tcs.SetResult(3);
+            
+            _something.CountAsync().Returns(tcs.Task);
 
             Assert.That(_something.CountAsync(), Is.TypeOf<Task<int>>());
-            Assert.That(await _something.CountAsync(), Is.EqualTo(3));
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(3));
         }
 
         [Test]
-        public async System.Threading.Tasks.Task Return_multiple_async_results_from_funcs()
+        public void Return_multiple_async_results_from_funcs()
         {
             _something.CountAsync().Returns(
                 _ => 1,
                 _ => 2,
                 _ => 3);
 
-            Assert.That(await _something.CountAsync(), Is.EqualTo(1), "First return");
-            Assert.That(await _something.CountAsync(), Is.EqualTo(2), "Second return");
-            Assert.That(await _something.CountAsync(), Is.EqualTo(3), "Third return");
-            Assert.That(await _something.CountAsync(), Is.EqualTo(3), "Fourth return");
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(1), "First return");
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(2), "Second return");
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Third return");
+            Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Fourth return");
         }
 #endif
 

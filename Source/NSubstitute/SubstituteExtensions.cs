@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
+#if (NET4 || NET45)
 using System.Threading.Tasks;
+#endif
 using Castle.Components.DictionaryAdapter.Xml;
 using NSubstitute.Core;
 using NSubstitute.Routing;
@@ -24,6 +25,19 @@ namespace NSubstitute
             return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
+#if (NET45 || NET4)
+        private static Task<T> CompletedTask<T>(T result) 
+        {
+        #if (NET45) 
+            return Task.FromResult(result);
+        #elif NET4
+            var tcs = new TaskCompletionSource<T>();
+            tcs.SetResult(result);
+            return tcs.Task;
+        #endif
+        }
+#endif
+
 #if (NET4 || NET45)
         /// <summary>
         /// Set an async return value for this call, wrapped the return value in a Task
@@ -35,9 +49,9 @@ namespace NSubstitute
         /// <returns></returns>
         public static ConfiguredCall Returns<T>(this Task<T> value, T returnThis, params T[] returnThese)
         {
-            var wrappedReturnValue = Task.FromResult(returnThis);
+            var wrappedReturnValue = CompletedTask(returnThis);
 
-            var wrappedParameters = returnThese.Select(Task.FromResult);
+            var wrappedParameters = returnThese.Select(CompletedTask);
 
             return Returns(MatchArgs.AsSpecifiedInCall, wrappedReturnValue, wrappedParameters.ToArray());
         }
@@ -72,12 +86,27 @@ namespace NSubstitute
 
             return Returns(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedFuncs.ToArray());
         }
+#endif
 
-        internal static Func<CallInfo, Task<T>> WrapFuncInTask<T>(Func<CallInfo, T> returnThis)
+#if (NET4 || NET45)
+        /// <summary>
+        /// Set a return value for this call made with any arguments.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="returnThis">Value to return</param>
+        /// <param name="returnThese">Optionally return these values next</param>
+        /// <returns></returns>
+        public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, T returnThis, params T[] returnThese)
         {
-            return x => Task.FromResult(returnThis(x));
+            var wrappedReturnValue = CompletedTask(returnThis);
+
+            var wrappedParameters = returnThese.Select(CompletedTask);
+
+            return Returns(MatchArgs.Any, wrappedReturnValue, wrappedParameters.ToArray());
         }
 #endif
+
 
         /// <summary>
         /// Set a return value for this call made with any arguments.
@@ -267,7 +296,14 @@ namespace NSubstitute
         public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class
         {
             return GetRouterForSubstitute(substitute).ReceivedCalls();
-        }       
+        }
+
+#if (NET4 || NET45)
+        private static Func<CallInfo, Task<T>> WrapFuncInTask<T>(Func<CallInfo, T> returnThis)
+        {
+            return x => CompletedTask(returnThis(x));
+        }
+#endif
 
         private static ICallRouter GetRouterForSubstitute<T>(T substitute)
         {
