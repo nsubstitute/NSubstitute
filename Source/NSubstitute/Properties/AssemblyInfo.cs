@@ -7,10 +7,10 @@ using System.Runtime.InteropServices;
 [assembly: GuidAttribute("f1571463-8354-493c-b67c-cd9cec9adf78")]
 [assembly: AssemblyProductAttribute("NSubstitute")]
 [assembly: AssemblyCopyrightAttribute("Copyright © 2009 NSubstitute Team")]
-[assembly: AssemblyVersionAttribute("1.8.2.8")]
-[assembly: AssemblyFileVersionAttribute("1.8.2.8")]
+[assembly: AssemblyVersionAttribute("1.8.2.9")]
+[assembly: AssemblyFileVersionAttribute("1.8.2.9")]
 namespace System {
     internal static class AssemblyVersionInformation {
-        internal const string Version = "1.8.2.8";
+        internal const string Version = "1.8.2.9";
     }
 }
