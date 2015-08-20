@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Linq;
 using NSubstitute.Core;
 
@@ -33,7 +34,7 @@ namespace NSubstitute.Routing.Handlers
             var returnParameter = call.GetMethodInfo().ReturnParameter;
             if (returnParameter == null) return false;
             var dynamicAttribute = typeof (System.Runtime.CompilerServices.DynamicAttribute);
-            var isDynamic = returnParameter.GetCustomAttributes(dynamicAttribute, false).Any();
+            var isDynamic = returnParameter.GetCustomAttributes(dynamicAttribute).Any();
             return isDynamic;
 #else
             return false;

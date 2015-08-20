@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Linq;
 using System.Linq.Expressions;
 using NSubstitute.Core;
@@ -30,7 +31,7 @@ namespace NSubstitute.Proxies.DelegateProxy
 
         private object DelegateProxy(Type delegateType, ICallRouter callRouter)
         {
-            var delegateMethodToProxy = delegateType.GetMethod("Invoke");
+            var delegateMethodToProxy = delegateType.GetTypeInfo().GetDeclaredMethod("Invoke");
 
             var proxyParameterTypes = delegateMethodToProxy.GetParameters().Select(x => new ParameterInfoWrapper(x)).ToArray();
             

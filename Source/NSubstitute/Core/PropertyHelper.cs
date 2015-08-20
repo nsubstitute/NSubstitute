@@ -14,7 +14,7 @@ namespace NSubstitute.Core
 
         private bool PropertySetterExistsAndHasAGetMethod(PropertyInfo propertySetter)
         {
-            return propertySetter != null && propertySetter.GetGetMethod() != null;
+            return propertySetter != null && propertySetter.GetMethod != null;
         }
 
         private PropertyInfo GetPropertyFromSetterCallOrNull(ICall call)
@@ -30,7 +30,7 @@ namespace NSubstitute.Core
                 throw new InvalidOperationException("Could not find a GetMethod for \"" + callToSetter.GetMethodInfo() + "\"");
             }
             var setterArgs = callToSetter.GetArguments();
-            var getter = propertyInfo.GetGetMethod();
+            var getter = propertyInfo.GetMethod;
             var getterArgs = setterArgs.Take(setterArgs.Length - 1).ToArray();
             return new Call(getter, getterArgs, callToSetter.Target(), callToSetter.GetArgumentSpecifications());
         }

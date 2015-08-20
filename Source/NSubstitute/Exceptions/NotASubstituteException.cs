@@ -6,6 +6,5 @@ namespace NSubstitute.Exceptions
     {
         const string Explanation = "NSubstitute extension methods like .Received() can only be called on objects created using Substitute.For<T>() and related methods."; 
         public NotASubstituteException() : base(Explanation) { }
-        protected NotASubstituteException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

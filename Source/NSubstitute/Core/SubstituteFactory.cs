@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
@@ -41,7 +42,7 @@ namespace NSubstitute.Core
         public object CreatePartial(Type[] typesToProxy, object[] constructorArguments)
         {
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
-            if (primaryProxyType.IsSubclassOf(typeof (Delegate)) || !primaryProxyType.IsClass)
+            if (primaryProxyType.GetTypeInfo().IsSubclassOf(typeof (Delegate)) || !primaryProxyType.GetTypeInfo().IsClass)
             {
                 throw new CanNotPartiallySubForInterfaceOrDelegateException(primaryProxyType);
             }
@@ -60,8 +61,8 @@ namespace NSubstitute.Core
 
         private Type GetPrimaryProxyType(Type[] typesToProxy)
         {
-            if (typesToProxy.Any(x => x.IsSubclassOf(typeof(Delegate)))) return typesToProxy.First(x => x.IsSubclassOf(typeof(Delegate)));
-            if (typesToProxy.Any(x => x.IsClass)) return typesToProxy.First(x => x.IsClass);
+            if (typesToProxy.Any(x => x.GetTypeInfo().IsSubclassOf(typeof(Delegate)))) return typesToProxy.First(x => x.GetTypeInfo().IsSubclassOf(typeof(Delegate)));
+            if (typesToProxy.Any(x => x.GetTypeInfo().IsClass)) return typesToProxy.First(x => x.GetTypeInfo().IsClass);
             return typesToProxy.First();
         }
 

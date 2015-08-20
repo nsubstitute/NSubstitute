@@ -1,6 +1,7 @@
 ﻿#if NET45
 using System;
 using System.Linq;
+using System.Reflection;
 using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
@@ -16,7 +17,7 @@ namespace NSubstitute.Routing.AutoValues
 
         public bool CanProvideValueFor(Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IObservable<>);
+            return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IObservable<>);
         }
 
         public object GetValue(Type type)
@@ -34,7 +35,7 @@ namespace NSubstitute.Routing.AutoValues
 
         private static object GetDefault(Type type)
         {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
+            return type.GetTypeInfo().IsValueType ? Activator.CreateInstance(type) : null;
         }
     }
 }

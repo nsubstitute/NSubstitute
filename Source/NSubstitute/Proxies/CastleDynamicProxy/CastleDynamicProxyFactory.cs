@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Security.Permissions;
 using Castle.DynamicProxy;
 using Castle.DynamicProxy.Generators;
 using NSubstitute.Core;
@@ -38,7 +37,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                                                             IInterceptor interceptor,
                                                             ProxyGenerationOptions proxyGenerationOptions)
         {
-            if (typeToProxy.IsInterface)
+            if (typeToProxy.GetTypeInfo().IsInterface)
             {
                 VerifyNoConstructorArgumentsGivenForInterface(constructorArguments);
                 return _proxyGenerator.CreateInterfaceProxyWithoutTarget(typeToProxy, additionalInterfaces, proxyGenerationOptions, interceptor);
@@ -83,7 +82,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private void VerifyClassHasNotBeenPassedAsAnAdditionalInterface(Type[] additionalInterfaces)
         {
-            if (additionalInterfaces != null && additionalInterfaces.Any(x => x.IsClass))
+            if (additionalInterfaces != null && additionalInterfaces.Any(x => x.GetTypeInfo().IsClass))
             {
                 throw new SubstituteException("Can not substitute for multiple classes. To substitute for multiple types only one type can be a concrete class; other types can only be interfaces.");
             }
@@ -92,18 +91,18 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         private static void ConfigureDynamicProxyToAvoidReplicatingProblematicAttributes()
         {
 #pragma warning disable 618
-            AttributesToAvoidReplicating.Add<SecurityPermissionAttribute>();
+            //AttributesToAvoidReplicating.Add<SecurityPermissionAttribute>();
 #pragma warning restore 618
 
-            AttributesToAvoidReplicating.Add<System.ServiceModel.ServiceContractAttribute>();
+            //AttributesToAvoidReplicating.Add<System.ServiceModel.ServiceContractAttribute>();
 
-            AttributesToAvoidReplicating.Add<ReflectionPermissionAttribute>();
-            AttributesToAvoidReplicating.Add<PermissionSetAttribute>();
+            //AttributesToAvoidReplicating.Add<ReflectionPermissionAttribute>();
+            //AttributesToAvoidReplicating.Add<PermissionSetAttribute>();
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.MarshalAsAttribute>();
 #if (NET4 || NET45)
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.TypeIdentifierAttribute>();
 #endif
-            AttributesToAvoidReplicating.Add<UIPermissionAttribute>();
+            //AttributesToAvoidReplicating.Add<UIPermissionAttribute>();
         }
     }
 }
