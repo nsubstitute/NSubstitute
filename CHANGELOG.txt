@@ -1,5 +1,6 @@
 ### 1.8.3 (unreleased)
 * [NEW] Allow awaiting of async methods with Received()/DidNotReceive(). Thanks to Marcio Rinaldi for this contribution. (#190, #191)
+* [NEW] Task-specific Returns methods to make it easier to stub async methods. Thanks to Antony Koch for implementing this, and thanks to Marius Gundersen and Alexandr Nikitin for the suggestion and discussion regarding the change. (#189)
 
 ### 1.8.2 (May 2015)
 * [NEW] Convenience .ReturnsNull() extensions in NSubstitute.ReturnsExtensions. Thanks to Michal Wereda for this contribution. (#181)
