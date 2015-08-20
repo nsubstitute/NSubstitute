@@ -25,7 +25,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
 
             public override void Because()
             {
-                _result = (TFoo) sut.GenerateProxy(_callRouter, typeof(TFoo), _additionalInterfaces, _ctorArgs);
+                _result = (TFoo) sut.GenerateProxy(_callRouter, typeof(TFoo), _additionalInterfaces, _ctorArgs, new object[] {});
             }
 
             [Test]
@@ -120,7 +120,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
                 var sut = new CastleDynamicProxyFactory();
 
                 Assert.Throws<SubstituteException>(
-                    () => sut.GenerateProxy(mock<ICallRouter>(), typeof(Foo), new[] { typeof(IFoo), typeof(SomeOtherClass) }, null)
+                    () => sut.GenerateProxy(mock<ICallRouter>(), typeof(Foo), new[] { typeof(IFoo), typeof(SomeOtherClass) }, null, new object[] {})
                 );
             }
 
@@ -135,7 +135,7 @@ namespace NSubstitute.Specs.Proxies.CastleDynamicProxy
                 var sut = new CastleDynamicProxyFactory();
 
                 Assert.Throws<SubstituteException>(
-                    () => sut.GenerateProxy(mock<ICallRouter>(), typeof(IFoo), null, new[] { new object() }));
+                    () => sut.GenerateProxy(mock<ICallRouter>(), typeof(IFoo), null, new[] { new object() }, new object[] {}));
             }
 
         }

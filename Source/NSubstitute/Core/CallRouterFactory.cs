@@ -4,9 +4,8 @@ namespace NSubstitute.Core
 {
     public class CallRouterFactory : ICallRouterFactory
     {
-        public ICallRouter Create(ISubstitutionContext substitutionContext, SubstituteConfig config)
+        public ICallRouter Create(ISubstitutionContext substitutionContext, ISubstituteState substituteState)
         {
-            var substituteState = new SubstituteState(substitutionContext, config);
             return new CallRouter(substituteState, substitutionContext, new RouteFactory());
         }
     }

@@ -14,6 +14,7 @@ namespace NSubstitute.Specs
             protected ISubstitutionContext _context;
             protected IProxyFactory _proxyFactory;
             protected ICallRouterResolver _callRouterResolver;
+            protected IMixinFactory _mixinFactory;
 
             public override void Context()
             {
@@ -22,11 +23,12 @@ namespace NSubstitute.Specs
                 _callRouterFactory = mock<ICallRouterFactory>();
                 _proxyFactory = mock<IProxyFactory>();
                 _callRouterResolver = mock<ICallRouterResolver>();
+                _mixinFactory = mock<IMixinFactory>();
             }
 
             public override SubstituteFactory CreateSubjectUnderTest()
             {
-                return new SubstituteFactory(_context, _callRouterFactory, _proxyFactory, _callRouterResolver);
+                return new SubstituteFactory(_context, _callRouterFactory, _proxyFactory, _callRouterResolver, _mixinFactory);
             }
         }
 
@@ -61,12 +63,13 @@ namespace NSubstitute.Specs
                 _proxy = new object();
                 _constructorArgs = new[] { new object() };
                 _callRouter = mock<ICallRouter>();
-                _callRouterFactory.stub(x => x.Create(_context, SubstituteConfig.OverrideAllCalls)).Return(_callRouter);
+                _callRouterFactory.stub(x => x.Create(It.Is(_context), It.IsAny<ISubstituteState>())).Return(_callRouter);
+                _mixinFactory.stub(x => x.Create(It.IsAny<Type>(), It.IsAny<Type[]>(), It.Is(_context), It.IsAny<ISubstituteState>())).Return(new object[0]);
             }
 
             protected void ShouldReturnProxyWhenFactoryCalledWith(Type typeOfProxy, Type[] additionalTypes)
             {
-                _proxyFactory.stub(x => x.GenerateProxy(_callRouter, typeOfProxy, additionalTypes, _constructorArgs)).Return(_proxy);
+                _proxyFactory.stub(x => x.GenerateProxy(_callRouter, typeOfProxy, additionalTypes, _constructorArgs, new object[] {})).Return(_proxy);
             }
         }
 

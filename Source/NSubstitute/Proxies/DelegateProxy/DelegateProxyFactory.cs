@@ -8,7 +8,7 @@ namespace NSubstitute.Proxies.DelegateProxy
 {
     public class DelegateProxyFactory : IProxyFactory
     {
-        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
+        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments, object[] mixins)
         {
             if (HasItems(additionalInterfaces))
             {
