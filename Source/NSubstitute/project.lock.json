@@ -10,12 +10,7 @@
         "runtime": {
           "lib/net40-client/Castle.Core.dll": {}
         }
-      },
-      "Microsoft.CSharp/4.0.0-beta-23019": {},
-      "System.Collections/4.0.10-beta-23019": {},
-      "System.Linq/4.0.0-beta-23019": {},
-      "System.Runtime/4.0.10-beta-23019": {},
-      "System.Threading/4.0.10-beta-23019": {}
+      }
     },
     ".NETFramework,Version=v4.5": {
       "Castle.Core/3.3.3": {
@@ -25,36 +20,7 @@
         "runtime": {
           "lib/net45/Castle.Core.dll": {}
         }
-      },
-      "Microsoft.CSharp/4.0.0-beta-23019": {
-        "frameworkAssemblies": [
-          "Microsoft.CSharp"
-        ]
-      },
-      "System.Collections/4.0.10-beta-23019": {
-        "dependencies": {
-          "System.Runtime": "4.0.0-beta-23019"
-        },
-        "compile": {
-          "ref/dotnet/System.Collections.dll": {}
-        }
-      },
-      "System.Linq/4.0.0-beta-23019": {},
-      "System.Runtime/4.0.10-beta-23019": {
-        "compile": {
-          "ref/dotnet/System.Runtime.dll": {}
-        }
-      },
-      "System.Threading/4.0.10-beta-23019": {
-        "dependencies": {
-          "System.Runtime": "4.0.0-beta-23019",
-          "System.Threading.Tasks": "4.0.0-beta-23019"
-        },
-        "compile": {
-          "ref/dotnet/System.Threading.dll": {}
-        }
-      },
-      "System.Threading.Tasks/4.0.0-beta-23019": {}
+      }
     },
     ".NETPlatform,Version=v5.0": {
       "Microsoft.CSharp/4.0.0-beta-23019": {
@@ -609,19 +575,19 @@
     }
   },
   "projectFileDependencyGroups": {
-    "": [
-      "System.Collections >= 4.0.10-beta-23019",
-      "System.Linq >= 4.0.0-beta-23019",
-      "System.Threading >= 4.0.10-beta-23019",
-      "System.Runtime >= 4.0.10-beta-23019",
-      "Microsoft.CSharp >= 4.0.0-beta-23019"
-    ],
+    "": [],
     ".NETFramework,Version=v4.0": [
       "Castle.Core >= 3.3.3"
     ],
     ".NETFramework,Version=v4.5": [
       "Castle.Core >= 3.3.3"
     ],
-    ".NETPlatform,Version=v5.0": []
+    ".NETPlatform,Version=v5.0": [
+      "System.Collections >= 4.0.10-beta-23019",
+      "System.Linq >= 4.0.0-beta-23019",
+      "System.Threading >= 4.0.10-beta-23019",
+      "System.Runtime >= 4.0.10-beta-23019",
+      "Microsoft.CSharp >= 4.0.0-beta-23019"
+    ]
   }
 }
