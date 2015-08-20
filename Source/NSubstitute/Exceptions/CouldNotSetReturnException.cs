@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reflection;
+#if !DNXCORE50
 using System.Runtime.Serialization;
+#endif
 
 namespace NSubstitute.Exceptions
 {
@@ -24,13 +26,17 @@ namespace NSubstitute.Exceptions
                 "";
 
         protected CouldNotSetReturnException(string s) : base(s + "\n\n" + WhatProbablyWentWrong) { }
+#if !DNXCORE50
         protected CouldNotSetReturnException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+#endif
     }
 
     public class CouldNotSetReturnDueToNoLastCallException : CouldNotSetReturnException
     {
         public CouldNotSetReturnDueToNoLastCallException() : base("Could not find a call to return from.") { }
+#if !DNXCORE50
         protected CouldNotSetReturnDueToNoLastCallException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+#endif
     }
 
     public class CouldNotSetReturnDueToTypeMismatchException : CouldNotSetReturnException
@@ -44,6 +50,8 @@ namespace NSubstitute.Exceptions
                 : String.Format("Can not return value of type {0} for {1}.{2} (expected type {3}).", typeOfReturnValueOrNull.Name, member.DeclaringType.Name, member.Name, member.ReturnType.Name);
         }
 
+#if !DNXCORE50
         protected CouldNotSetReturnDueToTypeMismatchException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+#endif
     }
 }
