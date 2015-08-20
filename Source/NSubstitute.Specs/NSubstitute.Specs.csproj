@@ -191,12 +191,6 @@
     <Compile Include="WhenCalledSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NSubstitute\NSubstitute.csproj">
-      <Project>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</Project>
-      <Name>NSubstitute</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
