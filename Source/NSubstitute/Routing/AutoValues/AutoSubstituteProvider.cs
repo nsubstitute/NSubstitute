@@ -16,7 +16,7 @@ namespace NSubstitute.Routing.AutoValues
 
         public bool CanProvideValueFor(Type type)
         {
-            return type.IsInterface
+            return type.IsInterface()
                 || type.IsSubclassOf(typeof(Delegate))
                 || IsPureVirtualClassWithParameterlessConstructor(type);
         }
@@ -29,7 +29,7 @@ namespace NSubstitute.Routing.AutoValues
         private bool IsPureVirtualClassWithParameterlessConstructor(Type type)
         {
             if (type == typeof(object)) return false;
-            if (!type.IsClass) return false;
+            if (!type.IsClass()) return false;
             if (!IsPureVirtualType(type)) return false;
             if (!HasParameterlessConstructor(type)) return false;
             return true;
@@ -45,7 +45,7 @@ namespace NSubstitute.Routing.AutoValues
 
         private bool IsPureVirtualType(Type type)
         {
-            if (type.IsSealed) return false;
+            if (type.IsSealed()) return false;
             var methods = type.GetMethods().Where(NotMethodFromObject).Where(NotStaticMethod);
             return methods.All(IsOverridable);
         }

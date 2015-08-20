@@ -60,7 +60,7 @@ namespace NSubstitute.Core
 
         private static bool TypeCanBeNull(Type type)
         {
-            return !type.IsValueType || Nullable.GetUnderlyingType(type) != null;
+            return !type.IsValueType() || Nullable.GetUnderlyingType(type) != null;
         }
 
         public static Maybe<T> FirstOrNothing<T>(this IEnumerable<T> items)

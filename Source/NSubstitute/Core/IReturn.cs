@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
@@ -30,7 +31,7 @@ namespace NSubstitute.Core
 
         private static Func<CallInfo, T> ReturnNull()
         {
-            if (typeof(T).IsValueType) throw new CannotReturnNullForValueType(typeof(T));
+            if (typeof(T).IsValueType()) throw new CannotReturnNullForValueType(typeof(T));
             return x => default(T);
         }
     }

@@ -243,12 +243,14 @@ namespace System.Reflection
 #endif
         }
 
-
-#if !NET40
-        public static bool IsInstanceOfType(this Type type, object o)
+        public static bool IsSubclassOf(this Type type, Type otherType)
         {
-            return o != null && type.IsAssignableFrom(o.GetType());
+            return type.IsAssignableFrom(otherType);
         }
+
+
+#if !NET4
+
 
         public static ConstructorInfo[] GetConstructors(this Type type)
         {
@@ -256,6 +258,11 @@ namespace System.Reflection
         }
 
 #if !DNXCORE50
+        public static bool IsInstanceOfType(this Type type, object o)
+        {
+            return o != null && type.IsAssignableFrom(o.GetType());
+        }
+
         public static Type[] GetTypes(this Assembly assembly)
         {
             return assembly.ExportedTypes.ToArray();
