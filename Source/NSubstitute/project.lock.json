@@ -3,6 +3,14 @@
   "version": -9996,
   "targets": {
     ".NETFramework,Version=v4.0": {
+      "Castle.Core/3.3.3": {
+        "compile": {
+          "lib/net40-client/Castle.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net40-client/Castle.Core.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0-beta-23019": {},
       "System.Collections/4.0.10-beta-23019": {},
       "System.Linq/4.0.0-beta-23019": {},
@@ -10,6 +18,14 @@
       "System.Threading/4.0.10-beta-23019": {}
     },
     ".NETFramework,Version=v4.5": {
+      "Castle.Core/3.3.3": {
+        "compile": {
+          "lib/net45/Castle.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Castle.Core.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.0.0-beta-23019": {
         "frameworkAssemblies": [
           "Microsoft.CSharp"
@@ -257,6 +273,29 @@
     }
   },
   "libraries": {
+    "Castle.Core/3.3.3": {
+      "sha512": "tvVrLbHhtAGubUUDbEkH9JlivdlJOTI25u3hlyHpPxuJdTVi/yVQKWCYvGpafGPm7G1ibdWj4brqhtSQkAmN+g==",
+      "files": [
+        "ASL - Apache Software Foundation License.txt",
+        "BreakingChanges.txt",
+        "Castle.Core.3.3.3.nupkg",
+        "Castle.Core.3.3.3.nupkg.sha512",
+        "Castle.Core.nuspec",
+        "Changes.txt",
+        "License.txt",
+        "readme.txt",
+        "lib/net35/Castle.Core.dll",
+        "lib/net35/Castle.Core.xml",
+        "lib/net40-client/Castle.Core.dll",
+        "lib/net40-client/Castle.Core.xml",
+        "lib/net45/Castle.Core.dll",
+        "lib/net45/Castle.Core.xml",
+        "lib/sl4/Castle.Core.dll",
+        "lib/sl4/Castle.Core.xml",
+        "lib/sl5/Castle.Core.dll",
+        "lib/sl5/Castle.Core.xml"
+      ]
+    },
     "Microsoft.CSharp/4.0.0-beta-23019": {
       "sha512": "TsYR8ylpBw89cxCTzA9eD8wqLR5u4TnNvUCLU7Qt9TlbxmNM0jPaz80L4N+W81kEoOpchlckGGCTA4JVemmEVA==",
       "files": [
@@ -577,8 +616,12 @@
       "System.Runtime >= 4.0.10-beta-23019",
       "Microsoft.CSharp >= 4.0.0-beta-23019"
     ],
-    ".NETFramework,Version=v4.0": [],
-    ".NETFramework,Version=v4.5": [],
+    ".NETFramework,Version=v4.0": [
+      "Castle.Core >= 3.3.3"
+    ],
+    ".NETFramework,Version=v4.5": [
+      "Castle.Core >= 3.3.3"
+    ],
     ".NETPlatform,Version=v5.0": []
   }
 }

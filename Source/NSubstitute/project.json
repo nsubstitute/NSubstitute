@@ -13,12 +13,18 @@
     "net40": {
       "compilationOptions": {
         "define": [ "NET4" ]
+      },
+      "dependencies": {
+        "Castle.Core": "3.3.3"
       }
     },
 
     "net45": {
       "compilationOptions": {
         "define": [ "NET45" ]
+      },
+      "dependencies": {
+        "Castle.Core": "3.3.3"
       }
     },
 
