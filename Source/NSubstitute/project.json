@@ -1,10 +1,5 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "NSubstitute.NetCore Class Library",
-  "authors": [ "a.nikitin" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
 
   "dependencies": {
     "System.Collections": "4.0.10-beta-23019",
