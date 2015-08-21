@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
+#if !DNXCORE50
 using System.Security.Permissions;
+#endif
 using Castle.DynamicProxy;
 using Castle.DynamicProxy.Generators;
 using NSubstitute.Core;
@@ -91,13 +93,13 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private static void ConfigureDynamicProxyToAvoidReplicatingProblematicAttributes()
         {
+#if !DNXCORE50
+
 #pragma warning disable 618
             AttributesToAvoidReplicating.Add<SecurityPermissionAttribute>();
 #pragma warning restore 618
 
-#if !DNXCORE50
             AttributesToAvoidReplicating.Add<System.ServiceModel.ServiceContractAttribute>();
-#endif
 
             AttributesToAvoidReplicating.Add<ReflectionPermissionAttribute>();
             AttributesToAvoidReplicating.Add<PermissionSetAttribute>();
@@ -106,6 +108,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.TypeIdentifierAttribute>();
 #endif
             AttributesToAvoidReplicating.Add<UIPermissionAttribute>();
+#endif
         }
     }
 }
