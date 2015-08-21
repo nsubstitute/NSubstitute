@@ -26,11 +26,13 @@
       },
       "dependencies": {
         "System.Collections": "4.0.10",
-        "System.Collections.Concurrent":  "4.0.10",
+        "System.Collections.Concurrent": "4.0.10",
         "System.Linq": "4.0.0",
         "System.Threading": "4.0.10",
         "System.Runtime": "4.0.20",
-        "Microsoft.CSharp": "4.0.0"
+        "Microsoft.CSharp": "4.0.0",
+
+        "Castle.Core.NetCore": ""
       }
     }
   }

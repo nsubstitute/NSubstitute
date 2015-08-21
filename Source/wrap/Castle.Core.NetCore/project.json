@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "dotnet": {
+      "bin": {
+        "assembly": "../../lib/dotnet/Castle.Core.NetCore.dll"
+      }
+    }
+  }
+}
