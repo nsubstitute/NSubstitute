@@ -1108,10 +1108,12 @@
   "projectFileDependencyGroups": {
     "": [],
     ".NETFramework,Version=v4.0": [
-      "Castle.Core >= 3.3.3"
+      "Castle.Core >= 3.3.3",
+      "fx/System.ServiceModel "
     ],
     ".NETFramework,Version=v4.5": [
-      "Castle.Core >= 3.3.3"
+      "Castle.Core >= 3.3.3",
+      "fx/System.ServiceModel "
     ],
     ".NETPlatform,Version=v5.0": [
       "System.Collections >= 4.0.10",
