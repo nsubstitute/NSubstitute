@@ -158,7 +158,9 @@
     <Compile Include="Core\ICallBaseExclusions.cs" />
     <Compile Include="Core\ICallRouterProvider.cs" />
     <Compile Include="Core\IGetCallSpec.cs" />
+    <Compile Include="Core\IResultsForType.cs" />
     <Compile Include="Core\Maybe.cs" />
+    <Compile Include="Core\ResultsForType.cs" />
     <Compile Include="Core\ReturnObservable.cs" />
     <Compile Include="Core\SequenceChecking\InstanceTracker.cs" />
     <Compile Include="Core\SequenceChecking\SequenceFormatter.cs" />

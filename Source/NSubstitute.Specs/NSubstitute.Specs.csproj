@@ -144,6 +144,7 @@
     <Compile Include="ReceivedCallsExtensionSpec.cs" />
     <Compile Include="ReceivedWithAnyArgsExtensionSpec.cs" />
     <Compile Include="ReflectionExtensionsSpecs.cs" />
+    <Compile Include="ResultsForTypeSpec.cs" />
     <Compile Include="ReturnValueFromFuncSpec.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProviderSpecs.cs" />
