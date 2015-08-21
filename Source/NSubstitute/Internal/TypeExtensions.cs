@@ -15,7 +15,7 @@ namespace System.Reflection
         {
 #if DNXCORE50
             return type.GetTypeInfo().IsClass;
-#elif NET4
+#elif NET4 || NET35
             return type.IsClass;
 #else
             return type.GetTypeInfo().IsClass;
@@ -26,7 +26,7 @@ namespace System.Reflection
         {
 #if DNXCORE50
             return type.GetTypeInfo().IsGenericType;
-#elif NET4
+#elif NET4 || NET35
             return type.IsGenericType;
 #else
             return type.GetTypeInfo().IsGenericType;
@@ -38,7 +38,7 @@ namespace System.Reflection
         {
 #if DNXCORE50
             return type.GetTypeInfo().IsInterface;
-#elif NET4
+#elif NET4 || NET35
             return type.IsInterface;
 #else
             return type.GetTypeInfo().IsInterface;
@@ -50,7 +50,7 @@ namespace System.Reflection
         {
 #if DNXCORE50
             return type.GetTypeInfo().IsSealed;
-#elif NET4
+#elif NET4 || NET35
             return type.IsSealed;
 #else
             return type.GetTypeInfo().IsSealed;
@@ -61,7 +61,7 @@ namespace System.Reflection
         {
 #if DNXCORE50
             return type.GetTypeInfo().IsValueType;
-#elif NET4
+#elif NET4 || NET35
             return type.IsValueType;
 #else
             return type.GetTypeInfo().IsValueType;
