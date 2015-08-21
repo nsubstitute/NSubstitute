@@ -1,5 +1,5 @@
 using System;
-#if !DNXCORE50
+#if NET4 || NET45
 using System.Runtime.Serialization;
 #endif
 
@@ -11,7 +11,7 @@ namespace NSubstitute.Exceptions
                                                     "Please use specifications for all arguments of the same type.";
         public AmbiguousArgumentsException() : this(SpecifyAllArguments) { }
         public AmbiguousArgumentsException(string message) : base(message) { }
-#if !DNXCORE50
+#if NET4 || NET45
         protected AmbiguousArgumentsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 #endif
     }
