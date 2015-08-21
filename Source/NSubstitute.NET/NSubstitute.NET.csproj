@@ -531,6 +531,9 @@
     <Compile Include="..\NSubstitute\Extensions\ReturnsExtensions.cs">
       <Link>Extensions\ReturnsExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Internal\TypeExtensions.cs">
+      <Link>Internal\TypeExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
