@@ -201,4 +201,48 @@ Target "-T" PrintTargets
     ==> "Documentation"
     ==> "All"
 
+
+
+
+// Build DNX
+let inline FileName fullName = Path.GetFileName fullName 
+
+let dnu args =
+    ExecProcessWithLambdas (fun info ->
+        info.FileName <- (environVar "DNX_FOLDER") + "\dnu.cmd"
+        info.Arguments <- args + " --quiet"
+    ) TimeSpan.MaxValue true failwith traceImportant
+        |> ignore
+
+let BuildProject project =
+    dnu ("pack --configuration Release " + (DirectoryName project))
+
+let CopyArtifact artifact =
+    log ("Copying artifact " + (FileName artifact))
+    ensureDirectory "artifacts"
+    CopyFile "artifacts" artifact
+
+Target "CleanDNX" (fun _ ->
+    !! "artifacts" ++ "**/bin"
+        |> DeleteDirs
+)
+
+Target "RestoreDNX" (fun _ ->
+    dnu "restore"
+)
+
+Target "BuildProjectsDNX" (fun _ ->
+    !! "Source/**/project.json"
+        |> Seq.iter(BuildProject)
+)
+
+Target "CopyArtifactsDNX" (fun _ ->    
+    !! "Source/**/*.nupkg"
+        |> Seq.iter(CopyArtifact)
+)
+
+"CleanDNX" ==> "RestoreDNX" ==> "BuildProjectsDNX" ==> "CopyArtifactsDNX"
+
+
+
 RunTargetOrDefault "Default"
