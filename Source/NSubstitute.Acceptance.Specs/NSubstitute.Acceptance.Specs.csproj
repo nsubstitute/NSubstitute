@@ -144,6 +144,7 @@
     <Compile Include="OutAndRefParameters.cs" />
     <Compile Include="PerfTests.cs" />
     <Compile Include="RecursiveSubs.cs" />
+    <Compile Include="ReturnsForAllFromFunc.cs" />
     <Compile Include="ReturnsForAll.cs" />
     <Compile Include="SubbingForEventHandler.cs" />
     <Compile Include="PropertyBehaviour.cs" />

@@ -12,11 +12,23 @@ namespace NSubstitute.Extensions
         /// <param name = "substitute"></param>
         /// <param name="returnThis"></param>
         /// <returns></returns>
-        public static object ReturnsForAll<T>(this object substitute, T returnThis)
+        public static void ReturnsForAll<T>(this object substitute, T returnThis)
         {
             var _callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
             _callRouter.SetReturnForType(typeof(T), new ReturnValue(returnThis));
-            return substitute;
+        }
+        
+        /// <summary>
+        /// Configure default return value for all methods that return the specified type, calculated by a function
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <param name="returnThis"></param>
+        /// <returns></returns>
+        public static void ReturnsForAll<T>(this object substitute, Func<CallInfo, T> returnThis)
+        {
+            var _callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
+            _callRouter.SetReturnForType(typeof(T), new ReturnValueFromFunc<T>(returnThis));
         }
     }
 }
