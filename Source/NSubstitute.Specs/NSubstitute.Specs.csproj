@@ -145,6 +145,7 @@
     <Compile Include="ReceivedWithAnyArgsExtensionSpec.cs" />
     <Compile Include="ReflectionExtensionsSpecs.cs" />
     <Compile Include="ResultsForTypeSpec.cs" />
+    <Compile Include="ReturnsForAllExtensionSpecs.cs" />
     <Compile Include="ReturnValueFromFuncSpec.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProviderSpecs.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Routing\Handlers\RecordCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\RecordCallSpecificationHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandlerSpecs.cs" />
+    <Compile Include="Routing\Handlers\ReturnResultForTypeHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnConfiguredResultHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnDefaultForReturnTypeHandlerSpecs.cs" />
     <Compile Include="ReturnExtensionSpec.cs" />

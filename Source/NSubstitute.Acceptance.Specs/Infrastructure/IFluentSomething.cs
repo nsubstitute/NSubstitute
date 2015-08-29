@@ -2,11 +2,12 @@
 
 namespace NSubstitute.Acceptance.Specs.Infrastructure
 {
-    internal interface IFluentSomething
+    public interface IFluentSomething
     {
         IFluentSomething Chain();
         IFluentSomething Me();
         IFluentSomething Together();
         ISomething SorryNoChainingHere();
+        ISomething SorryNoChainingHereEither();
     }
 }

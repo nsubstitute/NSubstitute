@@ -83,5 +83,10 @@ namespace NSubstitute.Core
         {
             SetRoute(x => _routeFactory.CallQuery(x));
         }
+
+        public void SetReturnForType(Type type, IReturn returnValue)
+        {
+            _substituteState.ResultsForType.SetResult(type, returnValue);
+        }
     }
 }
