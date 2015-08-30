@@ -39,20 +39,20 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Return_samce_thing_for_multiple_calls()
+        public void Return_same_thing_for_multiple_calls()
         {
-            var _first = _fluentSomething.SorryNoChainingHere();
-            var _second = _fluentSomething.SorryNoChainingHere();
-            Assert.That(_first, Is.SameAs(_something));
-            Assert.That(_second, Is.SameAs(_first));
+            var first = _fluentSomething.SorryNoChainingHere();
+            var here = _fluentSomething.SorryNoChainingHere();
+            Assert.That(first, Is.SameAs(_something));
+            Assert.That(here, Is.SameAs(first));
         }
 
         [Test]
         public void Return_concrete_derived_type()
         {
-            var _concreteSomething = new FluentSomething();
-            _fluentSomething.ReturnsForAll<IFluentSomething>(_concreteSomething);
-            Assert.That(_fluentSomething.Chain(), Is.SameAs(_concreteSomething));
+            var concreteSomething = new FluentSomething();
+            _fluentSomething.ReturnsForAll<IFluentSomething>(concreteSomething);
+            Assert.That(_fluentSomething.Chain(), Is.SameAs(concreteSomething));
         }
     }
 }
