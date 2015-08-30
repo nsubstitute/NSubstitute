@@ -5,6 +5,7 @@ using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
 using NSubstitute.Specs.Infrastructure;
+using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs
@@ -20,6 +21,7 @@ namespace NSubstitute.Specs
             protected IRouteFactory _routeFactory;
             protected IReceivedCalls _receivedCalls;
             protected ISubstituteState _state;
+            protected IResultsForType _resultsForType;
 
             public override void Context()
             {
@@ -29,9 +31,11 @@ namespace NSubstitute.Specs
                 _receivedCalls = mock<IReceivedCalls>();
                 ConfigureCall = mock<IConfigureCall>();
                 _routeFactory = mock<IRouteFactory>();
+                _resultsForType = mock<IResultsForType>();
                 _state.stub(x => x.ReceivedCalls).Return(_receivedCalls);
                 _state.stub(x => x.ConfigureCall).Return(ConfigureCall);
-
+                _state.stub(x => x.ResultsForType)
+                      .Return(_resultsForType);
                 var recordReplayRoute = CreateRouteThatReturns(_returnValueFromRecordReplayRoute);
                 recordReplayRoute.stub(x => x.IsRecordReplayRoute).Return(true);
                 _routeFactory.stub(x => x.RecordReplay(_state)).Return(recordReplayRoute);
@@ -154,6 +158,29 @@ namespace NSubstitute.Specs
             public override void Because()
             {
                 sut.LastCallShouldReturn(_returnValue, _argMatching);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _returnValue = mock<IReturn>();
+            }
+        }
+
+        public class When_setting_result_for_type : Concern
+        {
+            private readonly Type _type = typeof(IFoo);
+            IReturn _returnValue;
+
+            [Test]
+            public void Should_set_result()
+            {
+                _resultsForType.received(x => x.SetResult(_type, _returnValue));
+            }
+
+            public override void Because()
+            {
+                sut.SetReturnForType(_type, _returnValue);
             }
 
             public override void Context()

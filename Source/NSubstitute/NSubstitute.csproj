@@ -158,7 +158,9 @@
     <Compile Include="Core\ICallBaseExclusions.cs" />
     <Compile Include="Core\ICallRouterProvider.cs" />
     <Compile Include="Core\IGetCallSpec.cs" />
+    <Compile Include="Core\IResultsForType.cs" />
     <Compile Include="Core\Maybe.cs" />
+    <Compile Include="Core\ResultsForType.cs" />
     <Compile Include="Core\ReturnObservable.cs" />
     <Compile Include="Core\SequenceChecking\InstanceTracker.cs" />
     <Compile Include="Core\SequenceChecking\SequenceFormatter.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="Core\Arguments\IArgumentMatcher.cs" />
     <Compile Include="Core\IDescribeNonMatches.cs" />
     <Compile Include="Core\Events\RaiseEventWrapper.cs" />
+    <Compile Include="Extensions\ReturnsForAllExtensions.cs" />
     <Compile Include="Received.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoObservableProvider.cs" />
@@ -235,6 +238,7 @@
     <Compile Include="Core\ReflectionExtensions.cs" />
     <Compile Include="Routing\Handlers\ReturnFromAndConfigureDynamicCall.cs" />
     <Compile Include="Routing\Handlers\ReturnFromBaseIfRequired.cs" />
+    <Compile Include="Routing\Handlers\ReturnResultForTypeHandler.cs" />
     <Compile Include="Routing\IRouteFactory.cs" />
     <Compile Include="Routing\Route.cs" />
     <Compile Include="Exceptions\ArgumentNotFoundException.cs" />
