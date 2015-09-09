@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute", "NSubstitute\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute.Acceptance.Specs", "NSubstitute.Acceptance.Specs\NSubstitute.Acceptance.Specs.csproj", "{F78923F8-6B25-495F-B251-5773D0C2D1D2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1881DE2A-CEA3-4C69-966D-95A1F08D68E1}"
+	ProjectSection(SolutionItems) = preProject
+		..\BreakingChanges.txt = ..\BreakingChanges.txt
+		..\CHANGELOG.txt = ..\CHANGELOG.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		NET35-Debug|Any CPU = NET35-Debug|Any CPU

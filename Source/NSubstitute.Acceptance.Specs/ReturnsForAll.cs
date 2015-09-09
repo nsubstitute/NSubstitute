@@ -54,5 +54,16 @@ namespace NSubstitute.Acceptance.Specs
             _fluentSomething.ReturnsForAll<IFluentSomething>(concreteSomething);
             Assert.That(_fluentSomething.Chain(), Is.SameAs(concreteSomething));
         }
+
+        [Test]
+        public void Specific_returns_trumps_returnsforall()
+        {
+            var thing1 = new FluentSomething();
+            var thing2 = new FluentSomething();
+            _fluentSomething.ReturnsForAll<IFluentSomething>(thing1);
+            _fluentSomething.Chain().Returns(thing2);
+            Assert.That(_fluentSomething.Chain(), Is.SameAs(thing2));
+            Assert.That(_fluentSomething.Me(), Is.SameAs(thing1));
+        }
     }
 }
