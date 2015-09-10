@@ -9,12 +9,12 @@ namespace NSubstitute.Routing.Handlers
     public class ReturnAutoValueForThisAndSubsequentCallsHandler : ICallHandler
     {
         private readonly IEnumerable<IAutoValueProvider> _autoValueProviders;
-        private readonly IConfigureCall ConfigureCall;
+        private readonly IConfigureCall _configureCall;
 
         public ReturnAutoValueForThisAndSubsequentCallsHandler(IEnumerable<IAutoValueProvider> autoValueProviders, IConfigureCall configureCall)
         {
             _autoValueProviders = autoValueProviders;
-            ConfigureCall = configureCall;
+            _configureCall = configureCall;
         }
 
         public RouteAction Handle(ICall call)
@@ -31,7 +31,7 @@ namespace NSubstitute.Routing.Handlers
             return provider =>
             {
                 var valueToReturn = provider.GetValue(type);
-                ConfigureCall.SetResultForCall(call, new ReturnValue(valueToReturn), MatchArgs.AsSpecifiedInCall);
+                _configureCall.SetResultForCall(call, new ReturnValue(valueToReturn), MatchArgs.AsSpecifiedInCall);
                 return RouteAction.Return(valueToReturn);
             };
         }

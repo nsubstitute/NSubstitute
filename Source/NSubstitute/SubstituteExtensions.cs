@@ -141,7 +141,7 @@ namespace NSubstitute
                 returnValue = new ReturnValue(returnThis);
             }
             else
-            {            
+            {
                 returnValue = new ReturnMultipleValues<T>(new[] {returnThis}.Concat(returnThese));
             }
             return context.LastCallShouldReturn(returnValue, matchArgs);
@@ -258,7 +258,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Perform an action when this member is called. 
+        /// Perform an action when this member is called.
         /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -268,11 +268,11 @@ namespace NSubstitute
         public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
-            return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.AsSpecifiedInCall);            
+            return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.AsSpecifiedInCall);
         }
 
         /// <summary>
-        /// Perform an action when this member is called with any arguments. 
+        /// Perform an action when this member is called with any arguments.
         /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -282,7 +282,7 @@ namespace NSubstitute
         public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
-            return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.Any);            
+            return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.Any);
         }
 
         /// <summary>

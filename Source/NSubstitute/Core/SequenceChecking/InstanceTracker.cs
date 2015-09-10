@@ -8,7 +8,7 @@ namespace NSubstitute.Core.SequenceChecking
     public class InstanceTracker
     {
         readonly Dictionary<object, int> _instances = new Dictionary<object, int>(new ReferenceEqualityComparer());
-        int counter = 0;
+        int _counter = 0;
 
         public int InstanceNumber(object o)
         {
@@ -16,13 +16,13 @@ namespace NSubstitute.Core.SequenceChecking
             if (_instances.TryGetValue(o, out i)) { return i; }
             else
             {
-                var next = ++counter;
+                var next = ++_counter;
                 _instances.Add(o, next);
                 return next;
             }
         }
 
-        public int NumberOfInstances() { return counter; }
+        public int NumberOfInstances() { return _counter; }
 
         private class ReferenceEqualityComparer : EqualityComparer<object>
         {

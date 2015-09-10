@@ -12,16 +12,16 @@ namespace NSubstitute.Core
     /// <typeparam name="T"></typeparam>
     public struct Maybe<T> : IEnumerable<T>
     {
-        private readonly bool hasValue;
-        private readonly T value;
+        private readonly bool _hasValue;
+        private readonly T _value;
 
         public Maybe(T value) : this()
         {
-            this.value = value;
-            hasValue = true;
+            this._value = value;
+            _hasValue = true;
         }
 
-        public bool HasValue() { return hasValue; }
+        public bool HasValue() { return _hasValue; }
 
         public Maybe<T> OrElse(Func<Maybe<T>> other) { var current = this; return Fold(other, _ => current); }
         public Maybe<T> OrElse(Maybe<T> other) { return OrElse(() => other); }
@@ -31,14 +31,14 @@ namespace NSubstitute.Core
 
         public TResult Fold<TResult>(Func<TResult> handleNoValue, Func<T, TResult> handleValue)
         {
-            return HasValue() ? handleValue(value) : handleNoValue();
+            return HasValue() ? handleValue(_value) : handleNoValue();
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            if (hasValue)
+            if (_hasValue)
             {
-                yield return value;
+                yield return _value;
             }
         }
 
