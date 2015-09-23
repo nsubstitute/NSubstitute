@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -107,6 +109,50 @@ namespace NSubstitute.Acceptance.Specs
             ArgumentException thrownException = Assert.Throws<ArgumentException>(() => _something.Echo(1234));
             Assert.That(thrownException.Message, Is.EqualTo("Argument: 1234"));
             Assert.That(called, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Consecutive_calls()
+        {
+            var ints = new List<int>();
+            _something
+                .When(x => x.Count())
+                .Do(x => ints.Add(1), x => ints.Add(2), x => ints.Add(3));
+
+            _something.Count(); // 1
+            _something.Count(); // 2
+            _something.Count(); // 3
+
+            Assert.That(ints, Is.EqualTo(new[] { 1, 2, 3 }));
+        }
+
+        [Test]
+        public void Do_Nothing_when_no_more_consecutive_calls_exists()
+        {
+            var ints = new List<int>();
+            _something
+                .When(x => x.Count())
+                .Do(x => ints.Add(1), x => ints.Add(2));
+
+            _something.Count(); // 1
+            _something.Count(); // 2
+            _something.Count(); // Do Nothing
+
+            Assert.That(ints, Is.EqualTo(new[] { 1, 2 }));
+        }
+
+        [Test]
+        public void Do_Nothing_On_Second_Call_when_one_consecutive_call_exists()
+        {
+            var ints = new List<int>();
+            _something
+                .When(x => x.Count())
+                .Do(new Action<CallInfo>[] { x => ints.Add(1) });
+
+            _something.Count(); // 1
+            _something.Count(); // Do Nothing
+
+            Assert.That(ints, Is.EqualTo(new[] { 1 }));
         }
 
         [SetUp]
