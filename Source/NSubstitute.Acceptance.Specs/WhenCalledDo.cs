@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
-using NSubstitute.Extensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -127,7 +126,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Do_Nothing_when_no_more_consecutive_calls_exists()
+        public void will_repeat_last_call_when_no_more_consecutive_calls_exists()
         {
             var ints = new List<int>();
             _something
@@ -136,23 +135,9 @@ namespace NSubstitute.Acceptance.Specs
 
             _something.Count(); // 1
             _something.Count(); // 2
-            _something.Count(); // Do Nothing
+            _something.Count(); // 2
 
-            Assert.That(ints, Is.EqualTo(new[] { 1, 2 }));
-        }
-
-        [Test]
-        public void Do_Nothing_On_Second_Call_when_one_consecutive_call_exists()
-        {
-            var ints = new List<int>();
-            _something
-                .When(x => x.Count())
-                .Do(new Action<CallInfo>[] { x => ints.Add(1) });
-
-            _something.Count(); // 1
-            _something.Count(); // Do Nothing
-
-            Assert.That(ints, Is.EqualTo(new[] { 1 }));
+            Assert.That(ints, Is.EqualTo(new[] { 1, 2, 2 }));
         }
 
         [SetUp]
