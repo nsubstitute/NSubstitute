@@ -1,0 +1,58 @@
+---
+title: Return for all calls of a type
+layout: post
+---
+
+We can return a specific value for all calls to a substitute using `sub.ReturnsForAll<T>(T value)`. This will cause `sub` to return `value` for all calls that return something of type `T`.
+
+**Note: we need `using NSubstitute.Extensions` to import the `.ReturnsForAll<T>()` extension method.**
+
+The type must match exactly: `.ReturnsForAll<Cat>(cat)` will not set a return value for a call that returns `Animal`, even if `Cat` inherits from `Animal`. To return for the super-type, use `.ReturnsForAll<Animal>(cat)`. (If you'd like a change in this behaviour, please [let us know](https://groups.google.com/forum/#!forum/nsubstitute)).
+
+There is also an overload that takes a `Func<CallInfo,T>` so the value to return will be calculated each time.
+
+## Fluent interface example
+
+One example of where this can be useful is a builder-style interface where each call returns a reference to itself.
+
+{% requiredcode %}
+public interface IWidgetContainer {}
+{% endrequiredcode %}
+
+{% examplecode csharp %}
+// using NSubstitute.Extensions;
+
+public interface IWidgetBuilder {
+  IWidgetBuilder Quantity(int i); 
+  IWidgetBuilder AddLineItem(string s); 
+  IWidgetContainer GetWidgets();
+}
+
+public class ProductionLine {
+  IWidgetBuilder builder;
+  public ProductionLine(IWidgetBuilder builder) {
+    this.builder = builder;
+  }
+
+  public IWidgetContainer Run() {
+    return builder
+              .Quantity(2)
+              .AddLineItem("Thingoe")
+              .AddLineItem("Other thingoe")
+              .GetWidgets();
+  }
+}
+
+[Test]
+public void ShouldReturnWidgetsFromBuilder() {
+  var builder = Substitute.For<IWidgetBuilder>();
+  builder.ReturnsForAll<IWidgetBuilder>(builder);
+  var line = new ProductionLine(builder);
+
+  var result = line.Run();
+
+  Assert.That(result, Is.EqualTo(builder.GetWidgets()));
+}
+{% endexamplecode %}
+
+In this test `builder` will return a reference to itself whenever a call returns a value of type `IWidgetBuilder`, so the chained calls will all work on the same `builder` instance.

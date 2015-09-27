@@ -35,6 +35,7 @@ module ExtractDocs =
     using System.Linq;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using NSubstitute.Extensions;
 
     namespace NSubstitute.Samples {
         public class Tests_%s {
