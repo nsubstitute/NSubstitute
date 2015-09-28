@@ -27,10 +27,8 @@ Static website generator written in Ruby, used for NSubstitute's website and doc
 ## SyntaxHighlighter [http://alexgorbatchev.com/SyntaxHighlighter/]
 Open source, JavaScript, client-side code highlighter used for highlighting code samples on the NSubstitute website. Distributed under the MIT License [http://en.wikipedia.org/wiki/MIT_License] and the GPL [http://www.gnu.org/copyleft/lesser.html].
 
-## Ruby (and libraries) [http://www.ruby-lang.org]
-Ruby is used for NSubstitute's build. The rake library is used to run the build; custom Ruby code is used to extract and test code samples from documentation; rspec is used to test that Ruby code; Markdown is used for documentation; gems for installing all this stuff; RubyInstaller for Windows and DevKit for interop with Windows; and much more. Ruby is awesome, as are the many projects contributed to the Ruby community that make developers' lives awesome.
-
-Ruby is distributed under the Ruby license [http://www.ruby-lang.org/en/LICENSE.txt]. The libraries mentioned are available under a variety of licenses. Please see their websites for more information.
+## FAKE [http://fsharp.github.io/FAKE/]
+FAKE (F# Make) is used for NSubstitute's build. It is inspired by `make` and `rake`. FAKE is distributed under a dual Apache 2 / MS-PL license [https://github.com/fsharp/FAKE/blob/master/License.txt].
 
 ## Microsoft .NET Framework [http://www.microsoft.com/net/]
 NSubstitute is coded in C# and compiled using Microsoft .NET. It can also run and compile under Mono [http://www.mono-project.com], an open source implementation of the open .NET standards for C# and the CLI.
