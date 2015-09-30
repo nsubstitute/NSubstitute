@@ -2,6 +2,7 @@
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class CallSequenceNotFoundException : SubstituteException
     {
         public CallSequenceNotFoundException(string message) : base(message) { }
