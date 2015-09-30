@@ -2,6 +2,7 @@
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class NotRunningAQueryException : SubstituteException
     {
         public NotRunningAQueryException() { }
