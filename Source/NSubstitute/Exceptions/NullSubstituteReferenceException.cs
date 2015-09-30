@@ -2,6 +2,7 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class NullSubstituteReferenceException : NotASubstituteException 
     {
         public NullSubstituteReferenceException() { }
