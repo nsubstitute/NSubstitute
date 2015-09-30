@@ -2,6 +2,7 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class MissingSequenceNumberException : SubstituteException
     {
         public MissingSequenceNumberException() { }
