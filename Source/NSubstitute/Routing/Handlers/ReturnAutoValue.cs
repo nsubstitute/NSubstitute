@@ -6,15 +6,22 @@ using NSubstitute.Routing.AutoValues;
 
 namespace NSubstitute.Routing.Handlers
 {
-    public class ReturnAutoValueForThisAndSubsequentCallsHandler : ICallHandler
+    public enum AutoValueBehaviour
+    {
+        UseValueForSubsequentCalls,
+        ReturnAndForgetValue
+    }
+    public class ReturnAutoValue : ICallHandler
     {
         private readonly IEnumerable<IAutoValueProvider> _autoValueProviders;
+        private readonly AutoValueBehaviour _autoValueBehaviour;
         private readonly IConfigureCall ConfigureCall;
 
-        public ReturnAutoValueForThisAndSubsequentCallsHandler(IEnumerable<IAutoValueProvider> autoValueProviders, IConfigureCall configureCall)
+        public ReturnAutoValue(AutoValueBehaviour autoValueBehaviour, IEnumerable<IAutoValueProvider> autoValueProviders, IConfigureCall configureCall)
         {
             _autoValueProviders = autoValueProviders;
             ConfigureCall = configureCall;
+            _autoValueBehaviour = autoValueBehaviour;
         }
 
         public RouteAction Handle(ICall call)
@@ -31,7 +38,10 @@ namespace NSubstitute.Routing.Handlers
             return provider =>
             {
                 var valueToReturn = provider.GetValue(type);
-                ConfigureCall.SetResultForCall(call, new ReturnValue(valueToReturn), MatchArgs.AsSpecifiedInCall);
+                if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
+                {
+                    ConfigureCall.SetResultForCall(call, new ReturnValue(valueToReturn), MatchArgs.AsSpecifiedInCall);
+                }
                 return RouteAction.Return(valueToReturn);
             };
         }

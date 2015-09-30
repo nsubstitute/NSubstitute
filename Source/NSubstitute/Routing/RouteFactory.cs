@@ -12,7 +12,7 @@ namespace NSubstitute.Routing
                 new ClearUnusedCallSpecHandler(state)
                 , new AddCallToQueryResultHandler(state.SubstitutionContext, state.CallSpecificationFactory)
                 , new ReturnConfiguredResultHandler(state.CallResults)
-                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
+                , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
@@ -22,7 +22,7 @@ namespace NSubstitute.Routing
                 new ClearLastCallRouterHandler(state.SubstitutionContext)
                 , new ClearUnusedCallSpecHandler(state)
                 , new CheckReceivedCallsHandler(state.ReceivedCalls, state.CallSpecificationFactory, new ReceivedCallsExceptionThrower(), matchArgs, requiredQuantity)
-                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
+                , new ReturnAutoValue(AutoValueBehaviour.ReturnAndForgetValue, state.AutoValueProviders, state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
@@ -59,7 +59,7 @@ namespace NSubstitute.Routing
                 new RecordCallSpecificationHandler(state.PendingSpecification, state.CallSpecificationFactory, state.CallActions)
                 , new PropertySetterHandler(new PropertyHelper(), state.ConfigureCall)
                 , new ReturnConfiguredResultHandler(state.CallResults)
-                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
+                , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.ConfigureCall)
                 , new ReturnFromAndConfigureDynamicCall(state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });
@@ -75,7 +75,7 @@ namespace NSubstitute.Routing
                 , new ReturnConfiguredResultHandler(state.CallResults)
                 , new ReturnResultForTypeHandler(state.ResultsForType)
                 , new ReturnFromBaseIfRequired(state.SubstituteConfig, state.CallBaseExclusions)
-                , new ReturnAutoValueForThisAndSubsequentCallsHandler(state.AutoValueProviders, state.ConfigureCall)
+                , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.ConfigureCall)
                 , new ReturnFromAndConfigureDynamicCall(state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });
