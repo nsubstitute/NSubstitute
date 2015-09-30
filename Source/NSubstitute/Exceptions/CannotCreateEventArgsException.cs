@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class CannotCreateEventArgsException : SubstituteException
     {
         public CannotCreateEventArgsException() { }
