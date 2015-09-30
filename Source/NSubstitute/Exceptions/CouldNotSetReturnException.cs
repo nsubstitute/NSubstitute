@@ -27,12 +27,14 @@ namespace NSubstitute.Exceptions
         protected CouldNotSetReturnException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
+    [Serializable]
     public class CouldNotSetReturnDueToNoLastCallException : CouldNotSetReturnException
     {
         public CouldNotSetReturnDueToNoLastCallException() : base("Could not find a call to return from.") { }
         protected CouldNotSetReturnDueToNoLastCallException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
+    [Serializable]
     public class CouldNotSetReturnDueToTypeMismatchException : CouldNotSetReturnException
     {
         public CouldNotSetReturnDueToTypeMismatchException(Type returnType, MethodInfo member) : base(DescribeProblem(returnType, member)) { }

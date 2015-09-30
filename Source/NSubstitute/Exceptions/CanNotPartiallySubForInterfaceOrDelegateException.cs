@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class CanNotPartiallySubForInterfaceOrDelegateException : SubstituteException
     {
         public CanNotPartiallySubForInterfaceOrDelegateException(Type type) : base(DescribeProblem(type)) { }

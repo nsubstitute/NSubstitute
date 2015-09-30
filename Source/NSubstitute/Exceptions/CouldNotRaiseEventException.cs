@@ -1,7 +1,9 @@
+using System;
 using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class CouldNotRaiseEventException : SubstituteException
     {
         protected const string WhatProbablyWentWrong =
