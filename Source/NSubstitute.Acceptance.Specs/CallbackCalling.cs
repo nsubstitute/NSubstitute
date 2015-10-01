@@ -15,7 +15,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Execute_when_called()
         {
             var called = false;
-            _something.When(substitute => substitute.Echo(1)).Do(Callbacks.Always(info => called = true));
+            _something.When(substitute => substitute.Echo(1)).Do(Callback.Always(info => called = true));
 
             Assert.That(called, Is.False, "Called");
             _something.Echo(1);
@@ -26,7 +26,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Capture_arguments_when_called()
         {
             int firstArgument = 0;
-            _something.When(substitute => substitute.Echo(1)).Do(Callbacks.Always(info => firstArgument = (int)info[0]));
+            _something.When(substitute => substitute.Echo(1)).Do(Callback.Always(info => firstArgument = (int)info[0]));
 
             Assert.That(firstArgument, Is.EqualTo(0), "firstArgument");
             _something.Echo(1);
@@ -37,9 +37,9 @@ namespace NSubstitute.Acceptance.Specs
         public void Run_multiple_actions_when_called()
         {
             int called = 0;
-            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callbacks.Always(x => called++));
-            _something.When(x => x.Echo(4)).Do(Callbacks.Always(x => called++));
-            _something.WhenForAnyArgs(x => x.Echo(1234)).Do(Callbacks.Always(x => called++));
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.Always(x => called++));
+            _something.When(x => x.Echo(4)).Do(Callback.Always(x => called++));
+            _something.WhenForAnyArgs(x => x.Echo(1234)).Do(Callback.Always(x => called++));
 
             Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
             _something.Echo(4);
@@ -50,8 +50,8 @@ namespace NSubstitute.Acceptance.Specs
         public void Only_do_matching_actions()
         {
             int called = 0;
-            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callbacks.Always(x => called++));
-            _something.When(x => x.Echo(4)).Do(Callbacks.Always(x => called++));
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.Always(x => called++));
+            _something.When(x => x.Echo(4)).Do(Callback.Always(x => called++));
 
             Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
             _something.Echo(1);
@@ -62,7 +62,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Execute_when_called_for_any_args()
         {
             var called = false;
-            _something.WhenForAnyArgs(x => x.Echo(1)).Do(Callbacks.Always(x => called = true));
+            _something.WhenForAnyArgs(x => x.Echo(1)).Do(Callback.Always(x => called = true));
 
             Assert.That(called, Is.False, "Called");
             _something.Echo(1234);
@@ -73,9 +73,9 @@ namespace NSubstitute.Acceptance.Specs
         public void Throw_exception_when_Throw_with_generic_exception()
         {
             int called = 0;
-            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callbacks.Always(x => called++));
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.Always(x => called++));
             var expectedException = new ArgumentException();
-            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callbacks.FirstThrow(expectedException));
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.FirstThrow(expectedException));
 
             Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
             var actualException = Assert.Throws<ArgumentException>(() => _something.Echo(1234));
@@ -88,8 +88,8 @@ namespace NSubstitute.Acceptance.Specs
         {
             var exception = new IndexOutOfRangeException("Test");
             int called = 0;
-            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callbacks.Always(x => called++));
-            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callbacks.FirstThrow(exception));
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.Always(x => called++));
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.FirstThrow(exception));
 
             Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
             var thrownException = Assert.Throws<IndexOutOfRangeException>(() => _something.Echo(1234));
@@ -102,8 +102,8 @@ namespace NSubstitute.Acceptance.Specs
         {
             Func<CallInfo, Exception> createException = ci => new ArgumentException("Argument: " + ci.Args()[0]);
             int called = 0;
-            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callbacks.Always(x => called++));
-            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callbacks.AlwaysThrow(createException));
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.Always(x => called++));
+            _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.AlwaysThrow(createException));
 
             Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
             var thrownException = Assert.Throws<ArgumentException>(() => _something.Echo(1234));
@@ -116,7 +116,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             var calls = new List<int>();
             int callCount = 0;
-            _something.When(x => x.Count()).Do(Callbacks.First(x => calls.Add(++callCount)));
+            _something.When(x => x.Count()).Do(Callback.First(x => calls.Add(++callCount)));
 
             Assert.That(callCount, Is.EqualTo(0), "Should not have been called yet");
             _something.Count();
@@ -129,7 +129,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             var calls = new List<int>();
             int callCount = 0;
-            _something.When(x => x.Count()).Do(Callbacks.Always(x => calls.Add(++callCount)));
+            _something.When(x => x.Count()).Do(Callback.Always(x => calls.Add(++callCount)));
 
             Assert.That(callCount, Is.EqualTo(0), "Should not have been called yet");
             _something.Count();
@@ -143,7 +143,7 @@ namespace NSubstitute.Acceptance.Specs
             var calls = new List<int>();
             int callCount = 0;
             _something.When(x => x.Count()).Do(
-                Callbacks
+                Callback
                     .First(x => calls.Add(++callCount))
                     .Then(x => calls.Add(++callCount))
             );
@@ -161,7 +161,7 @@ namespace NSubstitute.Acceptance.Specs
             bool then = false;
             bool secondThen = false;
             _something.When(x => x.Count()).Do(
-                Callbacks
+                Callback
                     .First(x => first = true)
                     .Then(x => then = true)
                     .Then(x => secondThen = true)
@@ -182,7 +182,7 @@ namespace NSubstitute.Acceptance.Specs
             bool then = false;
             int callCount = 0;
             _something.When(x => x.Count()).Do(
-                Callbacks
+                Callback
                     .First(x => first = true)
                     .Then(x => then = true)
                     .Always(x => callCount++)
@@ -203,7 +203,7 @@ namespace NSubstitute.Acceptance.Specs
             var calls = new List<int>();
             int callCount = 0;
             _something.When(x => x.Count()).Do(
-                Callbacks
+                Callback
                     .FirstThrow(exception)
                     .Then(x => calls.Add(++callCount))
             );
@@ -223,7 +223,7 @@ namespace NSubstitute.Acceptance.Specs
             var calls = new List<int>();
             int callCount = 0;
             _something.When(x => x.Count()).Do(
-                Callbacks
+                Callback
                     .First(info => calls.Add(++callCount))
                     .ThenThrow(exception)
                     .Then(x => calls.Add(++callCount))
@@ -244,7 +244,7 @@ namespace NSubstitute.Acceptance.Specs
             var exception = new Exception();
             int callCount = 0;
             _something.When(x => x.Count()).Do(
-                Callbacks
+                Callback
                     .FirstThrow(exception)
                     .ThenThrow(exception)
                     .Always(x => callCount++)
