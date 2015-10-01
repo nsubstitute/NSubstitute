@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NUnit.Framework;
@@ -107,6 +108,36 @@ namespace NSubstitute.Acceptance.Specs
             ArgumentException thrownException = Assert.Throws<ArgumentException>(() => _something.Echo(1234));
             Assert.That(thrownException.Message, Is.EqualTo("Argument: 1234"));
             Assert.That(called, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Consecutive_calls()
+        {
+            var ints = new List<int>();
+            _something
+                .When(x => x.Count())
+                .Do(x => ints.Add(1), x => ints.Add(2), x => ints.Add(3));
+
+            _something.Count(); // 1
+            _something.Count(); // 2
+            _something.Count(); // 3
+
+            Assert.That(ints, Is.EqualTo(new[] { 1, 2, 3 }));
+        }
+
+        [Test]
+        public void will_repeat_last_call_when_no_more_consecutive_calls_exists()
+        {
+            var ints = new List<int>();
+            _something
+                .When(x => x.Count())
+                .Do(x => ints.Add(1), x => ints.Add(2));
+
+            _something.Count(); // 1
+            _something.Count(); // 2
+            _something.Count(); // 2
+
+            Assert.That(ints, Is.EqualTo(new[] { 1, 2, 2 }));
         }
 
         [SetUp]
