@@ -3,42 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core;
 
-namespace NSubstitute
+namespace NSubstitute.Callbacks
 {
-    public static class Callbacks
-    {
-        public static ICallback First(Action<CallInfo> doThis)
-        {
-            return new Callback().First(doThis);
-        }
-
-        public static ICallback Always(Action<CallInfo> doThis)
-        {
-            return new Callback().Always(doThis);
-        }
-
-        public static ICallback FirstThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
-        {
-            return new Callback().FirstThrow(throwThis);
-        }
-
-        public static ICallback FirstThrow<TException>(TException exception) where TException : Exception
-        {
-            return new Callback().FirstThrow(info => exception);
-        }
-
-        public static ICallback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
-        {
-            return new Callback().AlwaysThrow(throwThis);
-        }
-
-        public static ICallback AlwaysThrow<TException>(TException exception) where TException : Exception
-        {
-            return new Callback().AlwaysThrow(info => exception);
-        }
-    }
-
-    public class Callback : ICallback
+    public class ConfiguredCallback : ICallback
     {
         private readonly List<Action<CallInfo>> callbackQueue = new List<Action<CallInfo>>();
         private Action<CallInfo> alwaysDo;
@@ -152,20 +119,5 @@ namespace NSubstitute
                 callbackStack = new Stack<Action<CallInfo>>(callbackQueue);
             }
         }
-    }
-
-    public interface ICallback
-    {
-        ICallback ThenThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception;
-
-        ICallback ThenThrow<TException>(TException exception) where TException : Exception;
-
-        ICallback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception;
-
-        ICallback AlwaysThrow<TException>(TException exception) where TException : Exception;
-
-        ICallback Always(Action<CallInfo> doThis);
-
-        ICallback Then(Action<CallInfo> doThis);
     }
 }

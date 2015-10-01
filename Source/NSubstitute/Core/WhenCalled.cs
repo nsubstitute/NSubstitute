@@ -1,4 +1,5 @@
 using System;
+using NSubstitute.Callbacks;
 using NSubstitute.Routing;
 
 namespace NSubstitute.Core
@@ -36,7 +37,7 @@ namespace NSubstitute.Core
         /// <param name="callback"></param>
         public void Do(ICallback callback)
         {
-            _callRouter.SetRoute(x => _routeFactory.DoWhenCalled(x, ((Callback)callback).Call, _matchArgs));
+            _callRouter.SetRoute(x => _routeFactory.DoWhenCalled(x, ((ConfiguredCallback)callback).Call, _matchArgs));
             _call(_substitute);
         }
 
