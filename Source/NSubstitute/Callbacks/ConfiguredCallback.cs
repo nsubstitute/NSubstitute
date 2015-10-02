@@ -32,18 +32,18 @@ namespace NSubstitute.Callbacks
             return ThenThrow(ci => exception);
         }
 
-        public ICallback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+		public IConfiguredCallback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
         {
             alwaysDo = ci => { if (throwThis != null) throw throwThis(ci); };
             return this;
         }
 
-        public ICallback AlwaysThrow<TException>(TException exception) where TException : Exception
+		public IConfiguredCallback AlwaysThrow<TException>(TException exception) where TException : Exception
         {
             return AlwaysThrow(ci => exception);
         }
 
-        public ICallback Always(Action<CallInfo> doThis)
+		public IConfiguredCallback Always(Action<CallInfo> doThis)
         {
             alwaysDo = doThis;
             return this;

@@ -3,7 +3,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Callbacks
 {
-    public interface ICallback
+    public interface ICallback : IConfiguredCallback
     {
         /// <summary>
         /// Throw exception returned by function once when called in a chain of callbacks.
@@ -27,7 +27,7 @@ namespace NSubstitute.Callbacks
         /// <typeparam name="TException">The type of the exception.</typeparam>
         /// <param name="throwThis">The throw this.</param>
         /// <returns></returns>
-        ICallback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception;
+		IConfiguredCallback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception;
 
         /// <summary>
         /// Throw this exception always when callback is called.
@@ -35,14 +35,14 @@ namespace NSubstitute.Callbacks
         /// <typeparam name="TException">The type of the exception.</typeparam>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        ICallback AlwaysThrow<TException>(TException exception) where TException : Exception;
+		IConfiguredCallback AlwaysThrow<TException>(TException exception) where TException : Exception;
 
         /// <summary>
         /// Perform this action always when callback is called.
         /// </summary>
         /// <param name="doThis"></param>
         /// <returns></returns>
-        ICallback Always(Action<CallInfo> doThis);
+		IConfiguredCallback Always(Action<CallInfo> doThis);
 
         /// <summary>
         /// Perform this action once in chain of called callbacks.
@@ -51,4 +51,8 @@ namespace NSubstitute.Callbacks
         /// <returns></returns>
         ICallback Then(Action<CallInfo> doThis);
     }
+
+	public interface IConfiguredCallback
+	{
+	}
 }

@@ -35,7 +35,7 @@ namespace NSubstitute.Core
         /// Perform this configured callcback when called.
         /// </summary>
         /// <param name="callback"></param>
-        public void Do(ICallback callback)
+        public void Do(IConfiguredCallback callback)
         {
             _callRouter.SetRoute(x => _routeFactory.DoWhenCalled(x, ((ConfiguredCallback)callback).Call, _matchArgs));
             _call(_substitute);

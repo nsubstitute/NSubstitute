@@ -24,7 +24,7 @@ namespace NSubstitute
         /// </summary>
         /// <param name="doThis"></param>
         /// <returns></returns>
-        public static ICallback Always(Action<CallInfo> doThis)
+		public static IConfiguredCallback Always(Action<CallInfo> doThis)
         {
             return new ConfiguredCallback().Always(doThis);
         }
@@ -55,7 +55,7 @@ namespace NSubstitute
         /// <typeparam name="TException">The type of the exception.</typeparam>
         /// <param name="throwThis">The throw this.</param>
         /// <returns></returns>
-        public static ICallback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+		public static IConfiguredCallback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
         {
             return new ConfiguredCallback().AlwaysThrow(throwThis);
         }
@@ -66,7 +66,7 @@ namespace NSubstitute
         /// <typeparam name="TException">The type of the exception.</typeparam>
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
-        public static ICallback AlwaysThrow<TException>(TException exception) where TException : Exception
+		public static IConfiguredCallback AlwaysThrow<TException>(TException exception) where TException : Exception
         {
             return new ConfiguredCallback().AlwaysThrow(info => exception);
         }
