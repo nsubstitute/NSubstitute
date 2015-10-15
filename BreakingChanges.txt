@@ -1,4 +1,21 @@
 ================================================================================================
+1.9.1 Release 
+================================================================================================
+
+Substitutes set up to throw exception for methods with return type Task<T> 
+cause compilation to fail due to the call being ambiguous (CS0121).
+"The call is ambiguous between the following methods or properties:
+.Returns<Task<T>> and .Returns<T>"
+
+Reason:
+To make it easier to stub async methods. See issue #189.
+
+Fix:
+Specify generic type argument explicitly. If Method() returns string:
+Old: sub.Method().Returns(x => { throw new Exception() });
+New: sub.Method().Returns<string>(x => { throw new Exception() });
+
+================================================================================================
 1.8.0 Release 
 ================================================================================================
 
