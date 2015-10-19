@@ -21,10 +21,20 @@ namespace NSubstitute.Core
             if (substitute is ICallRouter) return (ICallRouter)substitute;
             if (substitute is ICallRouterProvider) return ((ICallRouterProvider) substitute).CallRouter;
             ICallRouter callRouter;
+#if NET4
             if (_callRouterMappings.TryGetValue(substitute, out callRouter))
             {
                 return callRouter;
             }
+#else
+            lock (_callRouterMappings)
+            {
+                if (_callRouterMappings.TryGetValue(substitute, out callRouter))
+                {
+                    return callRouter;
+                }
+            }
+#endif
             throw new NotASubstituteException();
         }
 
