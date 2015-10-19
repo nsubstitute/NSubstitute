@@ -92,6 +92,25 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
+        [Test]
+        [Ignore("Long running, non-deterministic test.")]
+        [Timeout(60 * 1000)]
+        public void Create_Delegate_Substitute_From_Many_Threads()
+        {
+            var tasks =
+                Enumerable.Range(0, 20).Select( _ => 
+                    new Task(() =>
+                        {
+                            for (var i = 0; i < 1000; ++i)
+                            {
+                                Substitute.For<Func<string>>();
+                            }
+                        })).ToArray();
+
+            Task.StartAll(tasks);
+            Task.AwaitAll(tasks);
+        }
+
         public interface IFoo
         {
             int Number();
