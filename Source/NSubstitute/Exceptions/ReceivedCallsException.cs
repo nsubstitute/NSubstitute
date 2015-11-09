@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class ReceivedCallsException : SubstituteException
     {
         public ReceivedCallsException() { }

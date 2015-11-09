@@ -1,10 +1,12 @@
+using System;
 #if NET35 || NET4 || NET45
 using System.Runtime.Serialization;
 #endif
 
 namespace NSubstitute.Exceptions
 {
-    public class NullSubstituteReferenceException : NotASubstituteException 
+    [Serializable]
+    public class NullSubstituteReferenceException : NotASubstituteException
     {
         public NullSubstituteReferenceException() { }
 #if NET35 || NET4 || NET45

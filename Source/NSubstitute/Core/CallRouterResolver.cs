@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
     public class CallRouterResolver : ICallRouterResolver
     {
-        IDictionary<object, ICallRouter> _callRouterMappings = new Dictionary<object, ICallRouter>();
+        readonly ConcurrentDictionary<object, ICallRouter> _callRouterMappings = new ConcurrentDictionary<object, ICallRouter>();
 
         public ICallRouter ResolveFor(object substitute)
         {
@@ -25,7 +24,8 @@ namespace NSubstitute.Core
         {
             if (proxy is ICallRouter) return;
             if (proxy is ICallRouterProvider) return;
-            _callRouterMappings.Add(proxy, callRouter);
+
+            _callRouterMappings.AddOrUpdate(proxy, callRouter, (o,c) => callRouter);
         }
     }
 }

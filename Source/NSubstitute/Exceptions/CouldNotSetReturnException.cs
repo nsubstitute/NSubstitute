@@ -31,6 +31,7 @@ namespace NSubstitute.Exceptions
 #endif
     }
 
+    [Serializable]
     public class CouldNotSetReturnDueToNoLastCallException : CouldNotSetReturnException
     {
         public CouldNotSetReturnDueToNoLastCallException() : base("Could not find a call to return from.") { }
@@ -39,6 +40,7 @@ namespace NSubstitute.Exceptions
 #endif
     }
 
+    [Serializable]
     public class CouldNotSetReturnDueToTypeMismatchException : CouldNotSetReturnException
     {
         public CouldNotSetReturnDueToTypeMismatchException(Type returnType, MethodInfo member) : base(DescribeProblem(returnType, member)) { }

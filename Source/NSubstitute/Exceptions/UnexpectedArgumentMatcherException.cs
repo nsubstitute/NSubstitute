@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class UnexpectedArgumentMatcherException : SubstituteException
     {
         public static string WhatProbablyWentWrong =

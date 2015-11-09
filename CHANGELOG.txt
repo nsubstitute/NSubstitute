@@ -1,9 +1,15 @@
+### 1.9.3 (unreleased)
+
+### 1.9.2 (October 2015)
+* [UPDATE] Mark Exceptions as [Serializable]. Thanks to David Mann. (#201)
+* [FIX] Fix bug with concurrently creating delegate substitutes. Thanks to Alexandr Nikitin. (#205)
+
 ### 1.9.1 (October 2015)
 * [FIX] Fix bug introduced in 1.9.0 that made checking a call was Received() clear previously stubbed values for that call.
 
 ### 1.9.0 (October 2015)
 * [NEW] Allow awaiting of async methods with Received()/DidNotReceive(). Thanks to Marcio Rinaldi for this contribution. (#190, #191)
-* [NEW] Task-specific Returns methods to make it easier to stub async methods. Thanks to Antony Koch for implementing this, and thanks to Marius Gundersen and Alexandr Nikitin for the suggestion and discussion regarding the change. (#189)
+* [NEW] Task-specific Returns methods to make it easier to stub async methods. Thanks to Antony Koch for implementing this, and thanks to Marius Gundersen and Alexandr Nikitin for the suggestion and discussion regarding the change. (#189) (Also thanks to Jake Ginnivan who tried adding this back in #91, but I didn't merge that part of the PR in. Sorry!)
 * [NEW] ReturnsForAll<T> extension method. Thanks to Mike Hanson for this contribution. (#198, #196)
 
 ### 1.8.2 (May 2015)

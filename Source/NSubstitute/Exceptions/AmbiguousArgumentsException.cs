@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+    [Serializable]
     public class AmbiguousArgumentsException : SubstituteException
     {
         public static string SpecifyAllArguments = "Cannot determine argument specifications to use." + Environment.NewLine +
