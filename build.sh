@@ -1,3 +1,1 @@
-cd Build
-bundle exec rake $*
-cd ..
+"ThirdParty/FAKE/FAKE.Core/tools/Fake.exe" "build.fsx" $*

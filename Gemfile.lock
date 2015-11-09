@@ -29,3 +29,6 @@ DEPENDENCIES
   jekyll (= 0.11.0)
   liquid (= 2.2.2)
   rake
+
+BUNDLED WITH
+   1.10.6

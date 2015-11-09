@@ -112,6 +112,6 @@ Finally, we can raise events on our substitutes (unfortunately C# dramatically r
 
 ### Building
 
-If you have Visual Studio 2008, 2010, 2012, or 2013 you should be able to compile NSubstitute and run the unit tests using the NUnit GUI or console test runner (see the ThirdParty directory).
-To do full builds you'll also need Ruby and rake to run the rakefile.
+If you have Visual Studio 2008, 2010, 2012, 2013, or 2015 you should be able to compile NSubstitute and run the unit tests using the NUnit GUI or console test runner (see the ThirdParty directory). Note that some tests are marked `[Pending]` and are not meant to pass at present, so it is a good idea to exclude tests in the Pending category from test runs.
+To do full builds you'll also need Ruby, as the jekyll gem is used to generate the website.
 
