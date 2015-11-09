@@ -1,123 +1,93 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using NSubstitute.Core;
 
 namespace NSubstitute.Callbacks
 {
-    public class ConfiguredCallback : ICallback
+    public class ConfiguredCallback : EndCallbackChain
     {
-        private readonly List<Action<CallInfo>> callbackQueue = new List<Action<CallInfo>>();
-        private Action<CallInfo> alwaysDo;
-        private Stack<Action<CallInfo>> callbackStack;
+        internal ConfiguredCallback() { }
 
-        public ICallback FirstThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+        /// <summary>
+        /// Perform this action once in chain of called callbacks.
+        /// </summary>
+        /// <param name="doThis"></param>
+        /// <returns></returns>
+        public ConfiguredCallback Then(Action<CallInfo> doThis)
         {
-            return AddThrowCallback(throwThis);
+            AddCallback(doThis);
+            return this;
         }
 
-        public ICallback FirstThrow<TException>(TException exception) where TException : Exception
+        /// <summary>
+        /// Keep doing this action after the other callbacks have run.
+        /// </summary>
+        /// <param name="doThis"></param>
+        /// <returns></returns>
+        public EndCallbackChain ThenKeepDoing(Action<CallInfo> doThis)
+        {
+            SetKeepDoing(doThis);
+            return this;
+        }
+
+        /// <summary>
+        /// Keep throwing this exception after the other callbacks have run.
+        /// </summary>
+        /// <typeparam name="TException"></typeparam>
+        /// <param name="throwThis"></param>
+        /// <returns></returns>
+        public EndCallbackChain ThenKeepThrowing<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+        {
+            return ThenKeepDoing(ToCallback(throwThis));
+        }
+
+        /// <summary>
+        /// Keep throwing this exception after the other callbacks have run.
+        /// </summary>
+        /// <typeparam name="TException"></typeparam>
+        /// <param name="throwThis"></param>
+        /// <returns></returns>
+        public EndCallbackChain ThenKeepThrowing<TException>(TException throwThis) where TException : Exception
+        {
+            return ThenKeepThrowing(info => throwThis);
+        }
+
+        /// <summary>
+        /// Throw exception returned by function once when called in a chain of callbacks.
+        /// </summary>
+        /// <typeparam name="TException">The type of the exception</typeparam>
+        /// <param name="throwThis">Produce the exception to throw for a CallInfo</param>
+        /// <returns></returns>
+        public ConfiguredCallback ThenThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+        {
+            AddCallback(ToCallback(throwThis));
+            return this;
+        }
+
+        /// <summary>
+        /// Throw this exception once when called in a chain of callbacks.
+        /// </summary>
+        /// <typeparam name="TException">The type of the exception</typeparam>
+        /// <param name="exception">The exception to throw</param>
+        /// <returns></returns>
+        public ConfiguredCallback ThenThrow<TException>(TException exception) where TException : Exception
         {
             return ThenThrow(ci => exception);
         }
+    }
 
-        public ICallback ThenThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+    public class EndCallbackChain : Callback
+    {
+        internal EndCallbackChain() { }
+
+        /// <summary>
+        /// Perform the given action for every call.
+        /// </summary>
+        /// <param name="doThis">The action to perform for every call</param>
+        /// <returns></returns>
+        public Callback AndAlways(Action<CallInfo> doThis)
         {
-            callbackQueue.Add(ci => { if (throwThis != null) throw throwThis(ci); });
+            SetAlwaysDo(doThis);
             return this;
-        }
-
-        public ICallback ThenThrow<TException>(TException exception) where TException : Exception
-        {
-            return ThenThrow(ci => exception);
-        }
-
-        public ICallback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
-        {
-            alwaysDo = ci => { if (throwThis != null) throw throwThis(ci); };
-            return this;
-        }
-
-        public ICallback AlwaysThrow<TException>(TException exception) where TException : Exception
-        {
-            return AlwaysThrow(ci => exception);
-        }
-
-        public ICallback Always(Action<CallInfo> doThis)
-        {
-            alwaysDo = doThis;
-            return this;
-        }
-
-        public ICallback Then(Action<CallInfo> doThis)
-        {
-            callbackQueue.Add(doThis);
-            return this;
-        }
-
-        public ICallback First(Action<CallInfo> doThis)
-        {
-            return AddCallback(doThis);
-        }
-
-        private ICallback AddThrowCallback<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
-        {
-            callbackQueue.Add(ci => { if (throwThis != null) throw throwThis(ci); });
-            return this;
-        }
-
-        private ICallback AddCallback(Action<CallInfo> doThis)
-        {
-            callbackQueue.Add(doThis);
-            return this;
-        }
-
-        public void Call(CallInfo callInfo)
-        {
-            InitCallbackStack();
-
-            SafeCall(callInfo);
-        }
-
-        private void SafeCall(CallInfo callInfo)
-        {
-            Exception ex = null;
-            try
-            {
-                CallFromStack(callInfo);
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-            finally
-            {
-                CallAlways(callInfo);
-            }
-
-            if (ex != null)
-                throw ex;
-        }
-
-        private void CallAlways(CallInfo callInfo)
-        {
-            if (alwaysDo != null)
-                alwaysDo(callInfo);
-        }
-
-        private void CallFromStack(CallInfo callInfo)
-        {
-            if (callbackStack.Any())
-                callbackStack.Pop()(callInfo);
-        }
-
-        private void InitCallbackStack()
-        {
-            if (callbackStack == null)
-            {
-                callbackQueue.Reverse();
-                callbackStack = new Stack<Action<CallInfo>>(callbackQueue);
-            }
         }
     }
 }

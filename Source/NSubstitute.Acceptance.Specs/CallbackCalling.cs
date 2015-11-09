@@ -185,7 +185,7 @@ namespace NSubstitute.Acceptance.Specs
                 Callback
                     .First(x => first = true)
                     .Then(x => then = true)
-                    .Always(x => callCount++)
+                    .AndAlways(x => callCount++)
             );
 
             _something.Count();
@@ -247,12 +247,92 @@ namespace NSubstitute.Acceptance.Specs
                 Callback
                     .FirstThrow(exception)
                     .ThenThrow(exception)
-                    .Always(x => callCount++)
+                    .AndAlways(x => callCount++)
             );
 
             Assert.Throws<Exception>(() => _something.Count());
             Assert.Throws<Exception>(() => _something.Count());
             Assert.AreEqual(2, callCount);
+        }
+
+        [Test]
+        public void WhenRunOutOfCallbacks()
+        {
+            var calls = new List<string>();
+
+            _something.When(x => x.Count())
+                .Do(
+                    Callback.First(x => calls.Add("1"))
+                            .Then(x => calls.Add("2"))
+                            .Then(x => calls.Add("3"))
+                );
+
+            for (int i = 0; i < 10; i++)
+            {
+                _something.Count();
+            }
+            Assert.That(calls, Is.EqualTo(new[] {"1", "2", "3"}));
+        }
+
+        [Test]
+        public void WhenToldToKeepDoingSomething()
+        {
+            var calls = new List<string>();
+
+            _something.When(x => x.Count())
+                .Do(
+                    Callback.First(x => calls.Add("1"))
+                            .Then(x => calls.Add("2"))
+                            .Then(x => calls.Add("3"))
+                            .ThenKeepDoing(x => calls.Add("+"))
+                );
+
+            for (int i = 0; i < 5; i++)
+            {
+                _something.Count();
+            }
+            Assert.That(calls, Is.EqualTo(new[] {"1", "2", "3", "+", "+"}));
+        }
+
+        [Test]
+        public void WhenToldToKeepThrowingAfterCallbacks()
+        {
+            var calls = new List<string>();
+            var ex = new Exception();
+            _something.When(x => x.Count())
+                .Do(
+                    Callback.First(x => calls.Add("1"))
+                            .Then(x => calls.Add("2"))
+                            .ThenKeepThrowing(x => ex)
+                );
+
+            _something.Count();
+            _something.Count();
+            Assert.Throws<Exception>(() => _something.Count());
+            Assert.Throws<Exception>(() => _something.Count());
+            Assert.Throws<Exception>(() => _something.Count());
+            Assert.That(calls, Is.EqualTo(new[] {"1", "2"}));
+        }
+
+        [Test]
+        public void KeepDoingAndAlwaysDo()
+        {
+            var calls = new List<string>();
+            var count = 0;
+
+            _something.When(x => x.Count())
+                .Do(
+                    Callback.First(x => calls.Add("1"))
+                            .ThenKeepDoing(x => calls.Add("+"))
+                            .AndAlways(x => count++)
+                );
+
+            for (int i = 0; i < 5; i++)
+            {
+                _something.Count();
+            }
+            Assert.That(calls, Is.EqualTo(new[] {"1", "+", "+", "+", "+"}));
+            Assert.That(count, Is.EqualTo(5));
         }
 
         [SetUp]

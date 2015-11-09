@@ -202,7 +202,6 @@
     <Compile Include="Core\IDescribeNonMatches.cs" />
     <Compile Include="Core\Events\RaiseEventWrapper.cs" />
     <Compile Include="Extensions\ReturnsForAllExtensions.cs" />
-    <Compile Include="Callbacks\ICallback.cs" />
     <Compile Include="Received.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoObservableProvider.cs" />
