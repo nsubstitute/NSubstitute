@@ -1,3 +1,6 @@
+### 1.9.1 (October 2015)
+* [FIX] Fix bug introduced in 1.9.0 that made checking a call was Received() clear previously stubbed values for that call.
+
 ### 1.9.0 (October 2015)
 * [NEW] Allow awaiting of async methods with Received()/DidNotReceive(). Thanks to Marcio Rinaldi for this contribution. (#190, #191)
 * [NEW] Task-specific Returns methods to make it easier to stub async methods. Thanks to Antony Koch for implementing this, and thanks to Marius Gundersen and Alexandr Nikitin for the suggestion and discussion regarding the change. (#189)

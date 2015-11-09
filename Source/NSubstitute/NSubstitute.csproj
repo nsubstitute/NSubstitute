@@ -211,7 +211,7 @@
     <Compile Include="Routing\Handlers\ClearLastCallRouterHandler.cs" />
     <Compile Include="Routing\Handlers\ClearUnusedCallSpecHandler.cs" />
     <Compile Include="Routing\Handlers\DoNotCallBaseForCallHandler.cs" />
-    <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs" />
+    <Compile Include="Routing\Handlers\ReturnAutoValue.cs" />
     <Compile Include="Routing\Handlers\RecordCallSpecificationHandler.cs" />
     <Compile Include="Core\MatchArgs.cs" />
     <Compile Include="Core\Arguments\ArgumentFormatter.cs" />

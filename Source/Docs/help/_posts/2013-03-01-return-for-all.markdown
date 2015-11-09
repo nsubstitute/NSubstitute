@@ -3,7 +3,7 @@ title: Return for all calls of a type
 layout: post
 ---
 
-We can return a specific value for all calls to a substitute using `sub.ReturnsForAll<T>(T value)`. This will cause `sub` to return `value` for all calls that return something of type `T`.
+We can return a specific value for all calls to a substitute using `sub.ReturnsForAll<T>(T value)`. This will cause `sub` to return `value` for all calls that return something of type `T` and are [not already stubbed](#returns_vs_returnsforall).
 
 **Note: we need `using NSubstitute.Extensions` to import the `.ReturnsForAll<T>()` extension method.**
 
@@ -56,3 +56,28 @@ public void ShouldReturnWidgetsFromBuilder() {
 {% endexamplecode %}
 
 In this test `builder` will return a reference to itself whenever a call returns a value of type `IWidgetBuilder`, so the chained calls will all work on the same `builder` instance.
+
+## Returns vs. ReturnsForAll
+
+Calls will only use `.ReturnsForAll` values when NSubstitute can't find an explicitly stubbed value for the call. So if we set `sub.GetWidget().Returns(widget)`, that will take precendence over any values stubbed by `sub.ReturnsForAll<Widget>(otherWidget)`.
+
+{% requiredcode %}
+public class Widget {}
+public interface IWidgetExample {
+  Widget GetWidget(int i);
+}
+{% endrequiredcode %}
+
+{% examplecode csharp %}
+[Test]
+public void ReturnsTakesPrecedence() {
+  var widget = new Widget();
+  var otherWidget = new Widget();
+  var sub = Substitute.For<IWidgetExample>();
+  sub.GetWidget(1).Returns(widget);
+  sub.ReturnsForAll<Widget>(otherWidget);
+
+  Assert.That(sub.GetWidget(1), Is.SameAs(widget));
+  Assert.That(sub.GetWidget(42), Is.SameAs(otherWidget));
+}
+{% endexamplecode %}

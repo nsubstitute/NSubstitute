@@ -168,7 +168,7 @@
     <Compile Include="ReceivedExtensionSpec.cs" />
     <Compile Include="Routing\Handlers\RecordCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\RecordCallSpecificationHandlerSpecs.cs" />
-    <Compile Include="Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandlerSpecs.cs" />
+    <Compile Include="Routing\Handlers\ReturnAutoValueSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnResultForTypeHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnConfiguredResultHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnDefaultForReturnTypeHandlerSpecs.cs" />
