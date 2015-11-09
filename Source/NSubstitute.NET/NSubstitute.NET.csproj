@@ -387,6 +387,9 @@
     <Compile Include="..\NSubstitute\Core\IReceivedCallsExceptionThrower.cs">
       <Link>Core\IReceivedCallsExceptionThrower.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Core\IResultsForType.cs">
+      <Link>Core\IResultsForType.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Core\IReturn.cs">
       <Link>Core\IReturn.cs</Link>
     </Compile>
@@ -434,6 +437,9 @@
     </Compile>
     <Compile Include="..\NSubstitute\Core\ReflectionExtensions.cs">
       <Link>Core\ReflectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ResultsForType.cs">
+      <Link>Core\ResultsForType.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Core\ReturnObservable.cs">
       <Link>Core\ReturnObservable.cs</Link>
@@ -531,6 +537,9 @@
     <Compile Include="..\NSubstitute\Extensions\ReturnsExtensions.cs">
       <Link>Extensions\ReturnsExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Extensions\ReturnsForAllExtensions.cs">
+      <Link>Extensions\ReturnsForAllExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Internal\TypeExtensions.cs">
       <Link>Internal\TypeExtensions.cs</Link>
     </Compile>
@@ -612,8 +621,8 @@
     <Compile Include="..\NSubstitute\Routing\Handlers\RecordCallSpecificationHandler.cs">
       <Link>Routing\Handlers\RecordCallSpecificationHandler.cs</Link>
     </Compile>
-    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs">
-      <Link>Routing\Handlers\ReturnAutoValueForThisAndSubsequentCallsHandler.cs</Link>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnAutoValue.cs">
+      <Link>Routing\Handlers\ReturnAutoValue.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Routing\Handlers\ReturnConfiguredResultHandler.cs">
       <Link>Routing\Handlers\ReturnConfiguredResultHandler.cs</Link>
@@ -626,6 +635,9 @@
     </Compile>
     <Compile Include="..\NSubstitute\Routing\Handlers\ReturnFromBaseIfRequired.cs">
       <Link>Routing\Handlers\ReturnFromBaseIfRequired.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnResultForTypeHandler.cs">
+      <Link>Routing\Handlers\ReturnResultForTypeHandler.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Routing\Handlers\SetActionForCallHandler.cs">
       <Link>Routing\Handlers\SetActionForCallHandler.cs</Link>
