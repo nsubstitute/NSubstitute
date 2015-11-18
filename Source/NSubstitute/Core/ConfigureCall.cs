@@ -1,5 +1,3 @@
-using NSubstitute.Exceptions;
-
 namespace NSubstitute.Core
 {
     public class ConfigureCall : IConfigureCall
@@ -7,18 +5,26 @@ namespace NSubstitute.Core
         private readonly ICallResults _configuredResults;
         private readonly ICallActions _callActions;
         private readonly IGetCallSpec _getCallSpec;
+        private readonly IConfigureCallValidator _configureValidator;
 
         public ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec)
+            : this(configuredResults, callActions, getCallSpec, new ConfigureCallValidator(configuredResults))
+        {
+        }
+
+        internal ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec, IConfigureCallValidator configureValidator)
         {
             _configuredResults = configuredResults;
             _callActions = callActions;
             _getCallSpec = getCallSpec;
+            _configureValidator = configureValidator;
         }
 
         public ConfiguredCall SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs)
         {
             var spec = _getCallSpec.FromLastCall(matchArgs);
-            CheckResultIsCompatibleWithCall(valueToReturn, spec);
+            _configureValidator.CheckResultIsCompatibleWithCall(valueToReturn, spec);
+            _configureValidator.CheckForSpecOverlap(spec);
             _configuredResults.SetResult(spec, valueToReturn);
             return new ConfiguredCall(action => _callActions.Add(spec, action));
         }
@@ -26,17 +32,8 @@ namespace NSubstitute.Core
         public void SetResultForCall(ICall call, IReturn valueToReturn, MatchArgs matchArgs)
         {
             var spec = _getCallSpec.FromCall(call, matchArgs);
-            CheckResultIsCompatibleWithCall(valueToReturn, spec);
+            _configureValidator.CheckResultIsCompatibleWithCall(valueToReturn, spec);
             _configuredResults.SetResult(spec, valueToReturn);
-        }
-
-        private static void CheckResultIsCompatibleWithCall(IReturn valueToReturn, ICallSpecification spec)
-        {
-            var requiredReturnType = spec.ReturnType();
-            if (!valueToReturn.CanBeAssignedTo(requiredReturnType))
-            {
-                throw new CouldNotSetReturnDueToTypeMismatchException(valueToReturn.TypeOrNull(), spec.GetMethodInfo());
-            }
         }
     }
 }

@@ -5,7 +5,7 @@ namespace NSubstitute.Core
     public class CallResults : ICallResults
     {
         readonly ICallInfoFactory _callInfoFactory;
-        readonly System.Collections.Concurrent.ConcurrentQueue<ResultForCallSpec> _results 
+        readonly System.Collections.Concurrent.ConcurrentQueue<ResultForCallSpec> _results
             = new System.Collections.Concurrent.ConcurrentQueue<ResultForCallSpec>();
 
         public CallResults(ICallInfoFactory callInfoFactory)
@@ -34,7 +34,7 @@ namespace NSubstitute.Core
 
         bool ReturnsVoidFrom(ICall call)
         {
-            return call.GetReturnType() == typeof (void);
+            return call.GetReturnType() == typeof(void);
         }
 
         class ResultForCallSpec
@@ -48,8 +48,17 @@ namespace NSubstitute.Core
                 _resultToReturn = resultToReturn;
             }
 
+            public ICallSpecification CallSpecification { get { return _callSpecification; } }
+            public IReturn Result { get { return _resultToReturn; } }
+
             public bool IsResultFor(ICall call) { return _callSpecification.IsSatisfiedBy(call); }
             public object GetResult(CallInfo callInfo) { return _resultToReturn.ReturnFor(callInfo); }
+        }
+
+        public IReturn GetResultBySpecSimilarity(ICallSpecification callSpecification)
+        {
+            var resultForCallSpec = _results.LastOrDefault(x => x.CallSpecification.IsSimilar(callSpecification));
+            return resultForCallSpec != null ? resultForCallSpec.Result : null;
         }
     }
 }

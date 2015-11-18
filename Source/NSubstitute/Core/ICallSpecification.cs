@@ -14,5 +14,11 @@ namespace NSubstitute.Core
         IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call);
         MethodInfo GetMethodInfo();
         Type ReturnType();
+        /// <summary>
+        /// Determines whether the specified call specification is similar.
+        /// </summary>
+        /// <param name="spec">The call specification.</param>
+        /// <returns></returns>
+        bool IsSimilar(ICallSpecification spec);
     }
 }
