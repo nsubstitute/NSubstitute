@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -113,12 +114,41 @@ namespace NSubstitute.Core.SequenceChecking
 
             private string Format(ICall call)
             {
-                return _callFormatter.Format(call.GetMethodInfo(), FormatArgs(call.GetArguments()));
+                var methodInfo = call.GetMethodInfo();
+                var args = methodInfo.GetParameters()
+                            .Zip(call.GetArguments(), (p, a) => new ArgAndParamInfo(p, a))
+                            .ToArray();
+                return _callFormatter.Format(methodInfo, FormatArgs(args));
             }
 
-            private IEnumerable<string> FormatArgs(object[] arguments)
+            private IEnumerable<string> FormatArgs(ArgAndParamInfo[] arguments)
             {
-                return arguments.Select(x => _argFormatter.Format(x, false));
+                var argsWithParamsExpanded =
+                    arguments
+                        .SelectMany(a => a.ParamInfo.IsParams()
+                                          ? ((IEnumerable) a.Argument).Cast<object>()
+                                          : ToEnumerable(a.Argument))
+                        .Select(x => _argFormatter.Format(x, false))
+                        .ToArray();
+
+                return argsWithParamsExpanded;
+            }
+
+            private IEnumerable<T> ToEnumerable<T>(T value)
+            {
+                yield return value;
+            }
+        }
+
+        private class ArgAndParamInfo
+        {
+            public ParameterInfo ParamInfo { get; private set; }
+            public object Argument { get; private set; }
+
+            public ArgAndParamInfo(ParameterInfo paramInfo, object argument)
+            {
+                ParamInfo = paramInfo;
+                Argument = argument;
             }
         }
     }

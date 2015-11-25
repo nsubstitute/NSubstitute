@@ -1,6 +1,7 @@
 ### 1.9.3 (unreleased)
 * [NEW] Callbacks builder for more control over When..Do callbacks. Thanks to bartoszgolek. (#202, #200)
 * [FIX] Fix bug when showing params arguments for value types (#214)
+* [FIX] Fix bug when showing params arguments for Received.InOrder calls (#211)
 
 ### 1.9.2 (October 2015)
 * [UPDATE] Mark Exceptions as [Serializable]. Thanks to David Mann. (#201)
