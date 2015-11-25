@@ -18,12 +18,12 @@ namespace NSubstitute.Core.Arguments
         {
             if (argument != null)
             {
-                var argumentArray = ((IEnumerable) argument).Cast<object>();
-                if (argumentArray.Count() == _argumentSpecifications.Count())
+                var argumentArray = ((IEnumerable) argument).Cast<object>().ToArray();
+                if (argumentArray.Length == _argumentSpecifications.Count())
                 {
                     return
                         _argumentSpecifications.Select(
-                            (value, index) => value.IsSatisfiedBy(argumentArray.ElementAt(index))).All(x => x);
+                            (value, index) => value.IsSatisfiedBy(argumentArray[index])).All(x => x);
                 }
             }
             return false;
@@ -37,12 +37,17 @@ namespace NSubstitute.Core.Arguments
         public string Format(object argument, bool highlight)
         {
             var specsArray = _argumentSpecifications.ToArray();
-            var argArray = (argument as object[]) ?? new object[0];
+            var enumerableArgs = argument as IEnumerable;
+            var argArray = enumerableArgs != null ? enumerableArgs.Cast<object>().ToArray() : new object[0];
             return Format(argArray, specsArray).Join(", ");
         }
 
         private IEnumerable<string> Format(object[] args, IArgumentSpecification[] specs)
         {
+            if (specs.Any() && !args.Any())
+            {
+                return new [] { "**" };
+            }
             return args.Select((arg, index) => {
                 var hasSpecForThisArg = index < specs.Length;
                 return hasSpecForThisArg ? specs[index].FormatArgument(arg) : DefaultArgumentFormatter.Format(arg, true);
