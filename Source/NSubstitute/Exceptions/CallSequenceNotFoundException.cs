@@ -5,7 +5,9 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+#if NET35 || NET4 || NET45
     [Serializable]
+#endif
     public class CallSequenceNotFoundException : SubstituteException
     {
         public CallSequenceNotFoundException(string message) : base(message) { }

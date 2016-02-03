@@ -5,7 +5,9 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+#if NET35 || NET4 || NET45
     [Serializable]
+#endif
     public class ArgumentSetWithIncompatibleValueException : SubstituteException
     {
         const string WhatProbablyWentWrong = "Could not set value of type {2} to argument {0} ({1}) because the types are incompatible.";

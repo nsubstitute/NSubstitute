@@ -5,7 +5,9 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+#if NET35 || NET4 || NET45
     [Serializable]
+#endif
     public class CannotReturnNullForValueType : SubstituteException
     {
         const string Description = "Cannot return null for {0} because it is a value type. If you want to return the default value for this type use \"default({0})\".";

@@ -5,7 +5,9 @@ using System.Runtime.Serialization;
 
 namespace NSubstitute.Exceptions
 {
+#if NET35 || NET4 || NET45
     [Serializable]
+#endif
     public class ArgumentNotFoundException : SubstituteException
     {
         public ArgumentNotFoundException(string message) : base(message) { }
