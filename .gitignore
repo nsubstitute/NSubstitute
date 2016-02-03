@@ -13,3 +13,4 @@ Source/Docs/_site
 Bin/
 _ReSharper*
 .DS_Store
+project.lock.json
