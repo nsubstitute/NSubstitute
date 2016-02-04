@@ -16,6 +16,7 @@ namespace NSubstitute.Acceptance.Specs
             int AProperty { get; set; }
             int this[string a, string b] { get; set; }
             void ParamsMethod(int a, params string[] strings);
+            void IntParamsMethod(params int[] ints);
         }
 
         public class When_no_calls_are_made_to_the_expected_member : Context
@@ -269,6 +270,7 @@ namespace NSubstitute.Acceptance.Specs
                 Sample.ParamsMethod(1, new[] {"hello", "everybody"});
                 Sample.ParamsMethod(1, "hello");
                 Sample.ParamsMethod(3, "1", "2", "3");
+                Sample.ParamsMethod(1);
             }
 
             protected override void ExpectedCall()
@@ -289,6 +291,36 @@ namespace NSubstitute.Acceptance.Specs
                 ExceptionMessageContains("ParamsMethod(1, \"hello\", *\"everybody\"*)");
                 ExceptionMessageContains("ParamsMethod(1, \"hello\")");
                 ExceptionMessageContains("ParamsMethod(*3*, *\"1\"*, *\"2\"*, *\"3\"*)");
+                ExceptionMessageContains("ParamsMethod(1, **)");
+            }
+        }
+
+        public class When_checking_call_to_method_with_valuetype_params : Context
+        {
+            protected override void ConfigureContext()
+            {
+                Sample.IntParamsMethod(1, 2, 3);
+                Sample.IntParamsMethod(new[] {4, 5});
+                Sample.IntParamsMethod();
+            }
+
+            protected override void ExpectedCall()
+            {
+                Sample.Received().IntParamsMethod(1, 200, 300);
+            }
+
+            [Test]
+            public void Should_show_expected_call()
+            {
+                ExceptionMessageContains("IntParamsMethod(1, 200, 300)");
+            }
+
+            [Test]
+            public void Should_show_non_matching_calls_with_params_expanded()
+            {
+                ExceptionMessageContains("IntParamsMethod(1, *2*, *3*)");
+                ExceptionMessageContains("IntParamsMethod(*4*, *5*)");
+                ExceptionMessageContains("IntParamsMethod(**)");
             }
         }
 

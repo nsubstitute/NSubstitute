@@ -1,21 +1,11 @@
 using System.Linq;
 using System.Reflection;
-using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.SequenceChecking
 {
     public class SequenceInOrderAssertion
     {
-        private readonly CallFormatter _callFormatter;
-        private readonly ArgumentFormatter _argumentFormatter;
-
-        public SequenceInOrderAssertion()
-        {
-            _callFormatter = new CallFormatter();
-            _argumentFormatter = new ArgumentFormatter();
-        }
-
         public void Assert(IQueryResults queryResult)
         {
             var matchingCallsInOrder = queryResult

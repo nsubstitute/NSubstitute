@@ -77,6 +77,25 @@ namespace NSubstitute.Specs.Arguments
             Assert.That(result, Is.EqualTo(expected));
         }
 
+        [Test]
+        public void Should_handle_formatting_valuetype_array_args()
+        {
+            var valueTypeArgs = new[] {1, 2};
+            _argumentSpecifications[0].stub(x => x.FormatArgument(valueTypeArgs[0])).Return("1");
+            _argumentSpecifications[1].stub(x => x.FormatArgument(valueTypeArgs[1])).Return("2");
+
+            var result = sut.Format(valueTypeArgs, true);
+            Assert.That(result, Is.EqualTo("1, 2"));
+        }
+
+        [Test]
+        public void Should_highlight_empty_args_when_args_where_expected()
+        {
+            var emptyArgs = new int[0];
+            var result = sut.Format(emptyArgs, true);
+            Assert.That(result, Is.EqualTo("**"));
+        }
+
         public override void Context()
         {
             _argument = new[] { "blah", "meh" };

@@ -75,3 +75,37 @@ Assert.AreEqual(1, counter);
 In cases where we only need callbacks for a particular argument we may be able to use [per argument callbacks like `Arg.Do()` and `Arg.Invoke()`](/help/actions-with-arguments) instead of `When..Do`. 
 
 Argument callbacks give us slightly more concise code in a style that is more in keeping with the rest of the NSubstitute API. See [Actions with arguments](/help/actions-with-arguments) for more information and examples.
+
+
+## Callback builder for more complex callbacks
+
+The `Callback` builder lets us create more complex `Do()` secenarios.  We can use `Callback.First()` followed by `Then()`, `ThenThrow()` and `ThenKeepDoing()` to build chains of callbacks. We can also use `Always()` and `AlwaysThrow()` to specify callbacks called every time. Note that a callback set by an `Always()` method will be called even if other callbacks will throw an exception.
+
+{% requiredcode %}
+public interface ISomething { void Something(); }
+{% endrequiredcode %}
+
+{% examplecode csharp %}
+var sub = Substitute.For<ISomething>();
+
+var calls = new List<string>();
+var counter = 0;
+
+sub
+  .When(x => x.Something())
+  .Do(
+    Callback.First(x => calls.Add("1"))
+	    .Then(x => calls.Add("2"))
+	    .Then(x => calls.Add("3"))
+	    .ThenKeepDoing(x => calls.Add("+"))
+	    .AndAlways(x => counter++)
+  );
+
+for (int i = 0; i < 5; i++)
+{
+  sub.Something();
+}
+Assert.That(String.Concat(calls), Is.EqualTo("123++"));
+Assert.That(counter, Is.EqualTo(5));
+{% endexamplecode %}
+
