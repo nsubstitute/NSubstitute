@@ -120,6 +120,12 @@
     <Compile Include="..\NSubstitute\Arg.cs">
       <Link>Arg.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Callback.cs">
+      <Link>Callback.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Callbacks\ConfiguredCallback.cs">
+      <Link>Callbacks\ConfiguredCallback.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Core\Argument.cs">
       <Link>Core\Argument.cs</Link>
     </Compile>
