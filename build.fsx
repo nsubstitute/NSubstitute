@@ -215,7 +215,7 @@ let dnu args =
         |> ignore
 
 let BuildProject project =
-    dnu ("pack --configuration Release " + (DirectoryName project))
+    dnu ("build --configuration Release " + (DirectoryName project))
 
 let CopyArtifact artifact =
     log ("Copying artifact " + (FileName artifact))
