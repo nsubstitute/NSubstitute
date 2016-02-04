@@ -241,7 +241,7 @@ Target "CopyArtifactsDNX" (fun _ ->
         |> Seq.iter(CopyArtifact)
 )
 
-"CleanDNX" ==> "RestoreDNX" ==> "BuildProjectsDNX" ==> "CopyArtifactsDNX"
+"CleanDNX" ==> "BuildProjectsDNX" ==> "CopyArtifactsDNX"
 
 
 
