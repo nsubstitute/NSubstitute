@@ -236,6 +236,17 @@ Target "BuildProjectsDNX" (fun _ ->
         |> Seq.iter(BuildProject)
 )
 
+Target "MergeDNX" (fun () ->
+    let f (p : Fake.ILMergeHelper.ILMergeParams) =
+        { p with 
+            Libraries = ["Source/lib/dotnet/Castle.Core.NetCore.dll"]
+            TargetPlatform = "v4"
+            Internalize = InternalizeExcept "Source/NSubstitute/ilmerge.exclude"
+        }
+
+    Fake.ILMergeHelper.ILMerge f "Source/NSubstitute/bin/Release/dotnet/NSubstituteMerged.dll" "Source/NSubstitute/bin/Release/dotnet/NSubstitute.dll"
+)
+
 Target "CopyArtifactsDNX" (fun _ ->    
     !! "Source/**/*.nupkg"
         |> Seq.iter(CopyArtifact)
