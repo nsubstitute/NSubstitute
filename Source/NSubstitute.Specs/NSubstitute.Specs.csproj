@@ -149,6 +149,7 @@
     <Compile Include="ReturnsForAllExtensionSpecs.cs" />
     <Compile Include="ReturnValueFromFuncSpec.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProviderSpecs.cs" />
+    <Compile Include="Routing\AutoValues\AutoQueryableProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoTaskProviderSpecs.cs">

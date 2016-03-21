@@ -205,6 +205,7 @@
     <Compile Include="Received.cs" />
     <Compile Include="Routing\AutoValues\AutoArrayProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoObservableProvider.cs" />
+    <Compile Include="Routing\AutoValues\AutoQueryableProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoTaskProvider.cs" />
