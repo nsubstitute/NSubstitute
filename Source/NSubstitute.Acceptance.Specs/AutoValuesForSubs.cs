@@ -24,6 +24,7 @@ namespace NSubstitute.Acceptance.Specs
             PureVirtualClass VirtualClass { get; set; }
             NonVirtualClass NonVirtualClass { get; set; }
             SealedClass SealedClass { get; set; }
+            IQueryable<int> Queryable();
         }
 
         [SetUp]
@@ -105,6 +106,14 @@ namespace NSubstitute.Acceptance.Specs
             var x = Substitute.For<Func<ISample, string>>();
 
             Assert.That(x(_sample).Length, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Should_auto_return_for_iqueryable()
+        {
+            var sample = Substitute.For<ISample>();
+            Assert.IsEmpty(sample.Queryable().Select(x => x + 1).ToList());
+            Assert.NotNull(sample.Queryable().Expression);
         }
 
         [Test]
