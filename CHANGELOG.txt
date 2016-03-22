@@ -1,3 +1,5 @@
+### 1.10.1 (unreleased)
+
 ### 1.10.0 (March 2016)
 * [NEW] Callbacks builder for more control over When..Do callbacks. Thanks to bartoszgolek. (#202, #200)
 * [NEW] Auto-substitute for IQueryable<T>. Thanks to emragins. (#67)
