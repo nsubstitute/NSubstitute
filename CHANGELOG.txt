@@ -1,6 +1,6 @@
 ### 1.9.3 (unreleased)
 * [NEW] Callbacks builder for more control over When..Do callbacks. Thanks to bartoszgolek. (#202, #200)
-* [NEW] Auto-substitute for IQueryable<T> (#67)
+* [NEW] Auto-substitute for IQueryable<T>. Thanks to emragins. (#67)
 * [FIX] Fix bug when showing params arguments for value types (#214)
 * [FIX] Fix bug when showing params arguments for Received.InOrder calls (#211)
 
