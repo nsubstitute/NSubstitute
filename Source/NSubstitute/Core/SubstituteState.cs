@@ -44,6 +44,7 @@ namespace NSubstitute.Core
 #if NET45
                 new AutoObservableProvider(() => AutoValueProviders),
 #endif
+                new AutoQueryableProvider(),
                 new AutoSubstituteProvider(substituteFactory), 
                 new AutoStringProvider(), 
                 new AutoArrayProvider(),

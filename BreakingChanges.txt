@@ -1,4 +1,25 @@
 ================================================================================================
+1.10.0 Release 
+================================================================================================
+
+Substitutes will now automatically return an empty `IQueryable<T>` for
+members that return that type. Tests previously relying on a
+substitute `IQueryable<T>` will no longer work properly.
+
+Reason:
+Code that uses an `IQueryable<T>` can now run using the auto-subbed 
+value without causing null pointer exceptions (see issue #67).
+
+Fix:
+Avoid mocking `IQueryable<T>` where possible -- configure members
+to return a real `IQueryable<T>` instead.
+If a substitute is required, explicitly configure the call to return
+a substitute:
+
+    sub.MyQueryable().Returns(Substitute.For<IQueryable<int>>());
+
+
+================================================================================================
 1.9.1 Release 
 ================================================================================================
 
