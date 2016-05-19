@@ -1,6 +1,5 @@
 {
   "projects": [
-    "NSubstitute",
-    "wrap"
+    "NSubstitute"
   ]
 }
