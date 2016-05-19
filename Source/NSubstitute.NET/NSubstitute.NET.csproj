@@ -582,6 +582,9 @@
     <Compile Include="..\NSubstitute\Routing\AutoValues\AutoObservableProvider.cs">
       <Link>Routing\AutoValues\AutoObservableProvider.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Routing\AutoValues\AutoQueryableProvider.cs">
+      <Link>Routing\AutoValues\AutoQueryableProvider.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Routing\AutoValues\AutoStringProvider.cs">
       <Link>Routing\AutoValues\AutoStringProvider.cs</Link>
     </Compile>
