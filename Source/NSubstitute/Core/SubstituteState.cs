@@ -43,8 +43,9 @@ namespace NSubstitute.Core
             AutoValueProviders = new IAutoValueProvider[] { 
 #if NET45
                 new AutoObservableProvider(() => AutoValueProviders),
-#endif
+                // TODO enable AutoQueryableProvider for .NET Core
                 new AutoQueryableProvider(),
+#endif
                 new AutoSubstituteProvider(substituteFactory), 
                 new AutoStringProvider(), 
                 new AutoArrayProvider(),

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NET45
+using System;
 using System.Linq;
 using System.Text;
 
@@ -22,3 +23,4 @@ namespace NSubstitute.Routing.AutoValues
         }
     }
 }
+#endif
