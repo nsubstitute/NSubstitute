@@ -100,12 +100,12 @@ namespace NSubstitute.Core
         }
 
         /// <summary>
-        /// Gets the argument passed to this call at the specified position converted to type `T`.
+        /// Gets the argument passed to this call at the specified zero-based position, converted to type `T`.
         /// This will throw if there are no arguments, if the argument is out of range or if it
         /// cannot be converted to the specified type.
         /// </summary>
         /// <typeparam name="T">The type of the argument to retrieve</typeparam>
-        /// <param name="position"></param>
+        /// <param name="position">The zero-based position of the argument to retrieve</param>
         /// <returns>The argument passed to the call, or throws if there is not exactly one argument of this type</returns>
         public T ArgAt<T>(int position)
         {
