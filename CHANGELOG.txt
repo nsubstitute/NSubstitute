@@ -1,4 +1,5 @@
 ### 1.10.1 (unreleased)
+* [DOC] Improved CallInfo.ArgAt documentation, thanks to asbjornu. (#231)
 
 ### 1.10.0 (March 2016)
 * [NEW] Callbacks builder for more control over When..Do callbacks. Thanks to bartoszgolek. (#202, #200)
