@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Routing.AutoValues;
 using NSubstitute.Routing.Handlers;
@@ -108,6 +109,35 @@ namespace NSubstitute.Specs.Routing.Handlers
             public override ReturnAutoValue CreateSubjectUnderTest()
             {
                 return CreateReturnAutoValue(AutoValueBehaviour.ReturnAndForgetValue);
+            }
+        }
+
+        public class When_has_an_auto_value_for_an_out_param_of_the_handled_call : Concern
+        {
+            readonly object _autoValue = new object();
+            private object[] _arguments = new object[1];
+
+            [Test]
+            public void Should_return_auto_value_for_parameter()
+            {
+                Assert.That(_arguments[0], Is.SameAs(_autoValue));
+            }
+            
+            public override void Context()
+            {
+                base.Context();
+                var parameterInfo = mock<IParameterInfo>();
+                var byRefType = _type.MakeByRefType();
+                parameterInfo.stub(x => x.ParameterType).Return(byRefType);
+                _call.stub(x => x.GetParameterInfos()).Return(new[] {parameterInfo});
+                _call.stub(x => x.GetArguments()).Return(_arguments);
+                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(byRefType)).Return(true);
+                _secondAutoValueProvider.stub(x => x.GetValue(byRefType)).Return(_autoValue);
+            }
+
+            public override ReturnAutoValue CreateSubjectUnderTest()
+            {
+                return CreateReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls);
             }
         }
     }
