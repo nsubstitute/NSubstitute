@@ -59,6 +59,8 @@ namespace NSubstitute.Specs.Routing.Handlers
             public override void Context()
             {
                 base.Context();
+                _call.stub(x => x.GetArguments()).Return(new object[0]);
+                _call.stub(x => x.GetParameterInfos()).Return(new IParameterInfo[0]);
                 _secondAutoValueProvider.stub(x => x.CanProvideValueFor(_type)).Return(true);
                 _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(_autoValue);
             }
@@ -75,6 +77,13 @@ namespace NSubstitute.Specs.Routing.Handlers
             public void Should_continue_route()
             {
                 Assert.That(_result, Is.EqualTo(RouteAction.Continue()));
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _call.stub(x => x.GetArguments()).Return(new object[0]);
+                _call.stub(x => x.GetParameterInfos()).Return(new IParameterInfo[0]);
             }
 
             public override ReturnAutoValue CreateSubjectUnderTest()
@@ -102,6 +111,8 @@ namespace NSubstitute.Specs.Routing.Handlers
             public override void Context()
             {
                 base.Context();
+                _call.stub(x => x.GetArguments()).Return(new object[0]);
+                _call.stub(x => x.GetParameterInfos()).Return(new IParameterInfo[0]);
                 _secondAutoValueProvider.stub(x => x.CanProvideValueFor(_type)).Return(true);
                 _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(_autoValue);
             }
@@ -114,7 +125,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
         public class When_has_an_auto_value_for_an_out_param_of_the_handled_call : Concern
         {
-            readonly object _autoValue = new object();
+            readonly object _autoValue = 32;
             private object[] _arguments = new object[1];
 
             [Test]
@@ -122,7 +133,17 @@ namespace NSubstitute.Specs.Routing.Handlers
             {
                 Assert.That(_arguments[0], Is.SameAs(_autoValue));
             }
-            
+
+            [Test]
+            public void Should_set_auto_value_for_out_param_to_return_for_subsequent_calls()
+            {
+                object[] arguments = new object[1];
+                var callInfo =
+                    new CallInfo(new[] {new Argument(typeof(int).MakeByRefType(), () => arguments[0], x => arguments[0] = x)});
+                ConfigureCall.received(x => x.SetResultForCall(It.Is(_call), It.Matches<IReturn>(arg => arg.ReturnFor(callInfo) == _autoValue), It.Is(MatchArgs.AsSpecifiedInCall)));
+                Assert.That(arguments[0], Is.SameAs(_autoValue));
+            }
+
             public override void Context()
             {
                 base.Context();
@@ -131,6 +152,8 @@ namespace NSubstitute.Specs.Routing.Handlers
                 parameterInfo.stub(x => x.ParameterType).Return(byRefType);
                 _call.stub(x => x.GetParameterInfos()).Return(new[] {parameterInfo});
                 _call.stub(x => x.GetArguments()).Return(_arguments);
+                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(_type)).Return(true);
+                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(_autoValue);
                 _secondAutoValueProvider.stub(x => x.CanProvideValueFor(byRefType)).Return(true);
                 _secondAutoValueProvider.stub(x => x.GetValue(byRefType)).Return(_autoValue);
             }
