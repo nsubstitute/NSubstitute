@@ -1,8 +1,10 @@
-﻿using NSubstitute.Routing.AutoValues;
+﻿using System;
+using NSubstitute.Routing.AutoValues;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 using System.Linq;
 using System.Collections.Generic;
+using NSubstitute.Core;
 
 namespace NSubstitute.Specs.Routing.AutoValues
 {
@@ -73,6 +75,28 @@ namespace NSubstitute.Specs.Routing.AutoValues
             Assert.That(queryable, Is.Not.Null);
             Assert.That(queryable, Is.Empty);
             Assert.DoesNotThrow(() => queryable.Any());
+        }
+
+        [Test]
+        public void Provides_no_value_for_non_queryable()
+        {
+            Assert.That(((IMaybeAutoValueProvider)sut).GetValue(typeof(IEnumerable<>)), Is.EqualTo(Maybe.Nothing<object>()));
+            Assert.That(((IMaybeAutoValueProvider)sut).GetValue(typeof(IList<>)), Is.EqualTo(Maybe.Nothing<object>()));
+        }
+
+        [Test]
+        public void Provides_value_for_queryables()
+        {
+            Provides_value_for_queryables<int>();
+            Provides_value_for_queryables<string>();
+            Provides_value_for_queryables<List<int>>();
+        }
+
+        private void Provides_value_for_queryables<T>()
+        {
+            var queryable = ((IMaybeAutoValueProvider)sut).GetValue(typeof(IQueryable<T>)).ValueOrDefault();
+            Assert.IsInstanceOf<IQueryable<T>>(queryable);
+            CollectionAssert.AreEquivalent(new T[0], (IQueryable<T>)queryable);
         }
 
         public override AutoQueryableProvider CreateSubjectUnderTest()
