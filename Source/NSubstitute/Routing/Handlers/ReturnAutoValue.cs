@@ -75,21 +75,16 @@ namespace NSubstitute.Routing.Handlers
             var callInfo = new CallInfoFactory().Create(call);
             var byRefValues = GetByRefValues(callInfo).ToArray();
 
+            if (byRefValues.Length == 0)
+                return RouteAction.Continue();
+
             if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
                 ConfigureCall.SetResultForCall(call,
-                    GetReturnValue(GetDefault(call.GetReturnType()), byRefValues),
+                    GetReturnValue<object>(null, byRefValues),
                     MatchArgs.AsSpecifiedInCall);
 
             SetByRefValues(callInfo, byRefValues);
             return RouteAction.Continue();
-        }
-
-        private object GetDefault(Type type)
-        {
-            if (type == typeof(void))
-                return null;
-
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
 
         private Func<IAutoValueProvider, RouteAction> ReturnValueUsingProvider(ICall call, Type type)

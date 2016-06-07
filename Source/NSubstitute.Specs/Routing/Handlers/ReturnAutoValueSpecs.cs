@@ -204,5 +204,28 @@ namespace NSubstitute.Specs.Routing.Handlers
                 return CreateReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls);
             }
         }
+
+        public class When_method_is_void_but_has_no_out_param : Concern
+        {
+            [Test]
+            public void Should_not_set_to_return_for_subsequent_calls()
+            {
+                ConfigureCall.did_not_receive_with_any_args(x => x.SetResultForCall(It.IsAny<ICall>(), It.IsAny<IReturn>(), It.IsAny<MatchArgs>()));
+            }
+
+            public override void Context()
+            {
+                _type = typeof(void);
+                base.Context();
+                _call.stub(x => x.GetParameterInfos()).Return(new IParameterInfo[0]);
+                _call.stub(x => x.GetArguments()).Return(new object[0]);
+                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(_type)).Return(false);
+            }
+
+            public override ReturnAutoValue CreateSubjectUnderTest()
+            {
+                return CreateReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls);
+            }
+        }
     }
 }
