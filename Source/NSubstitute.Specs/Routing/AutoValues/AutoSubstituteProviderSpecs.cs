@@ -76,6 +76,44 @@ namespace NSubstitute.Specs.Routing.AutoValues
             Assert.That(sut.GetValue(typeof (IFoo)), Is.SameAs(autoValue));
         }
 
+        [Test]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithoutParameterlessConstructor))]
+        [TestCase(typeof(TestClasses.ClassWithANonVirtualPublicMember))]
+        [TestCase(typeof(TestClasses.ClassWithNonVirtualInterfaceImpl))]
+        [TestCase(typeof(TestClasses.ImpureDescendentOfPureVirtualClass))]
+        [TestCase(typeof(TestClasses.VirtualClassWithInternalConstructor))]
+        [TestCase(typeof(TestClasses.SealedClassWithoutMethods))]
+        [TestCase(typeof(object))]
+        [TestCase(typeof(string))]
+        [TestCase(typeof(int[]))]
+        [TestCase(typeof(int))]
+        public void Provides_no_value_for_non_substitutables(Type type)
+        {
+            var autoValue = new object();
+            _substituteFactory.stub(x => x.Create(new[] { type }, new object[0])).Return(autoValue);
+
+            Assert.That(((IMaybeAutoValueProvider)sut).GetValue(type), Is.EqualTo(Maybe.Nothing<object>()));
+        }
+
+        [Test]
+        [TestCase(typeof(TestClasses.PureVirtualAbstractClassWithDefaultCtor))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithParameterlessConstructor))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithVirtualInterfaceImpl))]
+        [TestCase(typeof(TestClasses.PureDescendentOfPureVirtualClass))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicField))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticMethod))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticField))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticProperty))]
+        [TestCase(typeof(IFoo))]
+        [TestCase(typeof(Func<int>))]
+        public void Provides_value_for_substitutables(Type type)
+        {
+            var autoValue = new object();
+            _substituteFactory.stub(x => x.Create(new[] { type }, new object[0])).Return(autoValue);
+
+            Assert.That(((IMaybeAutoValueProvider)sut).GetValue(type), Is.EqualTo(Maybe.Just(autoValue)));
+        }
+
         public override void Context()
         {
             _substituteFactory = mock<ISubstituteFactory>();

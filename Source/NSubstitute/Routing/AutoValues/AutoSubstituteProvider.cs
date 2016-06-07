@@ -5,7 +5,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
 {
-    public class AutoSubstituteProvider : IAutoValueProvider
+    public class AutoSubstituteProvider : IAutoValueProvider, IMaybeAutoValueProvider
     {
         private readonly ISubstituteFactory _substituteFactory;
 
@@ -68,6 +68,14 @@ namespace NSubstitute.Routing.AutoValues
         private bool NotStaticMethod(MethodInfo methodInfo)
         {
             return !methodInfo.IsStatic;
+        }
+
+        Maybe<object> IMaybeAutoValueProvider.GetValue(Type type)
+        {
+            if (!CanProvideValueFor(type))
+                return Maybe.Nothing<object>();
+
+            return Maybe.Just(GetValue(type));
         }
     }
 }
