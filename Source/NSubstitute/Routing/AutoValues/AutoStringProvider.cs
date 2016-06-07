@@ -1,8 +1,9 @@
 using System;
+using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
 {
-    public class AutoStringProvider : IAutoValueProvider
+    public class AutoStringProvider : IAutoValueProvider, IMaybeAutoValueProvider
     {
         public bool CanProvideValueFor(Type type)
         {
@@ -12,6 +13,14 @@ namespace NSubstitute.Routing.AutoValues
         public object GetValue(Type type)
         {
             return string.Empty;
+        }
+
+        Maybe<object> IMaybeAutoValueProvider.GetValue(Type type)
+        {
+            if (!CanProvideValueFor(type))
+                return Maybe.Nothing<object>();
+
+            return Maybe.Just(GetValue(type));
         }
     }
 }
