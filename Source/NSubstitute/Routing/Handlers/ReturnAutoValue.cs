@@ -29,10 +29,10 @@ namespace NSubstitute.Routing.Handlers
             var type = call.GetReturnType();
             var compatibleProviders = _autoValueProviders.Where(x => x.CanProvideValueFor(type)).FirstOrNothing();
             return compatibleProviders.Fold(
-                RouteAction.Continue,
+                () => NoReturnValue(call),
                 ReturnValueUsingProvider(call, type));
         }
-        
+
         private IEnumerable<ByRefArgument> GetByRefValues(CallInfo args)
         {
             var parameters =
@@ -68,6 +68,28 @@ namespace NSubstitute.Routing.Handlers
                 SetByRefValues(callInfo, byRefValues);
                 return value;
             });
+        }
+
+        private RouteAction NoReturnValue(ICall call)
+        {
+            var callInfo = new CallInfoFactory().Create(call);
+            var byRefValues = GetByRefValues(callInfo).ToArray();
+
+            if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
+                ConfigureCall.SetResultForCall(call,
+                    GetReturnValue(GetDefault(call.GetReturnType()), byRefValues),
+                    MatchArgs.AsSpecifiedInCall);
+
+            SetByRefValues(callInfo, byRefValues);
+            return RouteAction.Continue();
+        }
+
+        private object GetDefault(Type type)
+        {
+            if (type == typeof(void))
+                return null;
+
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
 
         private Func<IAutoValueProvider, RouteAction> ReturnValueUsingProvider(ICall call, Type type)

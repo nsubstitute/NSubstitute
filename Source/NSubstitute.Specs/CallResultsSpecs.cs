@@ -122,19 +122,39 @@ namespace NSubstitute.Specs
 
         public class When_getting_a_void_type_result : Concern
         {
+            readonly object _expectedResult = new object();
             ICall _call;
+            ICallSpecification _callSpecification;
+            IReturn _resultToReturn;
 
             [Test]
-            public void Should_not_have_result_for_call()
+            public void Should_have_result_for_call()
             {
-                Assert.That(sut.HasResultFor(_call), Is.False);
+                Assert.That(sut.HasResultFor(_call));
+            }
+
+            [Test]
+            public void Should_get_the_result_that_was_set()
+            {
+                Assert.That(sut.GetResult(_call), Is.SameAs(_expectedResult));
+            }
+
+            public override void Because()
+            {
+                sut.SetResult(_callSpecification, _resultToReturn);
             }
 
             public override void Context()
             {
                 base.Context();
                 _call = mock<ICall>();
-                _call.stub(x => x.GetReturnType()).Return(typeof (void));
+                _call.stub(x => x.GetReturnType()).Return(typeof(void));
+                _callSpecification = mock<ICallSpecification>();
+                _callSpecification.stub(x => x.IsSatisfiedBy(_call)).Return(true);
+
+                var callInfo = StubCallInfoForCall(_call);
+                _resultToReturn = mock<IReturn>();
+                _resultToReturn.stub(x => x.ReturnFor(callInfo)).Return(_expectedResult);
             }
         }
     }
