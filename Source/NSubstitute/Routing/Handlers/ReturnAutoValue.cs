@@ -13,31 +13,21 @@ namespace NSubstitute.Routing.Handlers
     }
     public class ReturnAutoValue : ICallHandler
     {
-        private readonly IEnumerable<IAutoValueProvider> _autoValueProviders;
+        private readonly IAutoValueProvider _autoValueProvider;
         private readonly AutoValueBehaviour _autoValueBehaviour;
         private readonly IConfigureCall ConfigureCall;
 
-        public ReturnAutoValue(AutoValueBehaviour autoValueBehaviour, IEnumerable<IAutoValueProvider> autoValueProviders, IConfigureCall configureCall)
+        public ReturnAutoValue(AutoValueBehaviour autoValueBehaviour, IAutoValueProvider autoValueProvider, IConfigureCall configureCall)
         {
-            _autoValueProviders = autoValueProviders;
+            _autoValueProvider = autoValueProvider;
             ConfigureCall = configureCall;
             _autoValueBehaviour = autoValueBehaviour;
-        }
-
-        private Maybe<object> GetValueFromProvider(Type type)
-        {
-            if (_autoValueProviders == null)
-                return Maybe.Nothing<object>();
-
-            return _autoValueProviders
-                .Select(vp => vp.GetValue(type))
-                .FirstOrDefault(vp => vp.HasValue());
         }
 
         public RouteAction Handle(ICall call)
         {
             var type = call.GetReturnType();
-            var compatibleProviders = GetValueFromProvider(type);
+            var compatibleProviders = _autoValueProvider.GetValue(type);
             return compatibleProviders.Fold(
                 () => NoReturnValue(call),
                 x => ReturnValue(call, x));
@@ -53,7 +43,7 @@ namespace NSubstitute.Routing.Handlers
             foreach (var p in parameters)
             {
                 var type = p.Parameter;
-                var value = GetValueFromProvider(type);
+                var value = _autoValueProvider.GetValue(type);
 
                 if (value.HasValue())
                     yield return new ByRefArgument(
