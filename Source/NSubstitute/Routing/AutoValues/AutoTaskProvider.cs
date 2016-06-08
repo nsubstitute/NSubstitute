@@ -2,16 +2,23 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
 {
-    public class AutoTaskProvider : IAutoValueProvider
+    public class AutoTaskProvider : IAutoValueProvider, IMaybeAutoValueProvider
     {
         private readonly Func<IAutoValueProvider[]> _autoValueProviders;
+        private readonly Func<IMaybeAutoValueProvider[]> _maybeAutoValueProviders;
 
         public AutoTaskProvider(Func<IAutoValueProvider[]> autoValueProviders)
         {
             _autoValueProviders = autoValueProviders;
+        }
+        public AutoTaskProvider(Func<IAutoValueProvider[]> autoValueProviders, Func<IMaybeAutoValueProvider[]> maybeAutoValueProviders)
+            : this(autoValueProviders)
+        {
+            _maybeAutoValueProviders = maybeAutoValueProviders;
         }
 
         public bool CanProvideValueFor(Type type)
@@ -28,8 +35,8 @@ namespace NSubstitute.Routing.AutoValues
             {
                 var taskType = type.GetGenericArguments()[0];
                 var valueProvider = _autoValueProviders().FirstOrDefault(vp => vp.CanProvideValueFor(taskType));
-
-                var value = valueProvider == null ? GetDefault(type) : valueProvider.GetValue(taskType);
+                
+                var value = valueProvider == null ? GetDefault(taskType) : valueProvider.GetValue(taskType);
                 var taskCompletionSourceType = typeof(TaskCompletionSource<>).MakeGenericType(taskType);
                 var taskCompletionSource = Activator.CreateInstance(taskCompletionSourceType);
                 taskCompletionSourceType.GetMethod("SetResult").Invoke(taskCompletionSource, new[] { value });
@@ -43,9 +50,23 @@ namespace NSubstitute.Routing.AutoValues
             }
         }
 
-        private static object GetDefault(Type type)
+        private object GetDefault(Type type)
         {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
+            if (_maybeAutoValueProviders == null)
+                return null;
+
+            return _maybeAutoValueProviders()
+                .Select(vp => vp.GetValue(type))
+                .FirstOrDefault(vp => vp.HasValue())
+                .ValueOrDefault();
+        }
+
+        Maybe<object> IMaybeAutoValueProvider.GetValue(Type type)
+        {
+            if (!CanProvideValueFor(type))
+                return Maybe.Nothing<object>();
+
+            return Maybe.Just(GetValue(type));
         }
     }
 }
