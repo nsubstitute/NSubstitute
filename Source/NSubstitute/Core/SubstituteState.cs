@@ -51,7 +51,7 @@ namespace NSubstitute.Core
                 new AutoStringProvider(), 
                 new AutoArrayProvider(),
 #if (NET4 || NET45)
-                new AutoTaskProvider(() => AutoValueProviders.ToArray()),
+                new AutoTaskProvider(() => new CompositeProvider(AutoValueProviders.ToArray())),
 #endif
             };
         }

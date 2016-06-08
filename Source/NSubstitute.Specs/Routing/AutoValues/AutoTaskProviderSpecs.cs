@@ -77,7 +77,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
 
         public override AutoTaskProvider CreateSubjectUnderTest()
         {
-            return new AutoTaskProvider(() => new[] { _testValuesProvider });
+            return new AutoTaskProvider(() => _testValuesProvider);
         }
 
         public interface IFoo2

@@ -1,6 +1,5 @@
 #if (NET4 || NET45)
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using NSubstitute.Core;
 
@@ -8,9 +7,9 @@ namespace NSubstitute.Routing.AutoValues
 {
     public class AutoTaskProvider : IAutoValueProvider
     {
-        private readonly Func<IAutoValueProvider[]> _autoValueProviders;
+        private readonly Func<IAutoValueProvider> _autoValueProviders;
 
-        public AutoTaskProvider(Func<IAutoValueProvider[]> autoValueProviders)
+        public AutoTaskProvider(Func<IAutoValueProvider> autoValueProviders)
         {
             _autoValueProviders = autoValueProviders;
         }
@@ -44,12 +43,8 @@ namespace NSubstitute.Routing.AutoValues
 
         private object GetValueFromProvider(Type type)
         {
-            if (_autoValueProviders == null)
-                return null;
-
             return _autoValueProviders()
-                .Select(vp => vp.GetValue(type))
-                .FirstOrDefault(vp => vp.HasValue())
+                .GetValue(type)
                 .ValueOrDefault();
         }
 
