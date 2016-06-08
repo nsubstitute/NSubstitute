@@ -156,6 +156,7 @@
     <Compile Include="Routing\AutoValues\AutoTaskProviderSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Routing\AutoValues\CompositeProviderSpecs.cs" />
     <Compile Include="Routing\Handlers\AddCallToQueryResultHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckReceivedCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ClearLastCallRouterHandlerSpecs.cs" />
