@@ -24,13 +24,23 @@ namespace NSubstitute.Routing.Handlers
             _autoValueBehaviour = autoValueBehaviour;
         }
 
+        private Maybe<object> GetValueFromProvider(Type type)
+        {
+            if (_autoValueProviders == null)
+                return Maybe.Nothing<object>();
+
+            return _autoValueProviders
+                .Select(vp => vp.GetValue(type))
+                .FirstOrDefault(vp => vp.HasValue());
+        }
+
         public RouteAction Handle(ICall call)
         {
             var type = call.GetReturnType();
-            var compatibleProviders = _autoValueProviders.Where(x => x.CanProvideValueFor(type)).FirstOrNothing();
+            var compatibleProviders = GetValueFromProvider(type);
             return compatibleProviders.Fold(
                 () => NoReturnValue(call),
-                ReturnValueUsingProvider(call, type));
+                x => ReturnValue(call, x));
         }
 
         private IEnumerable<ByRefArgument> GetByRefValues(CallInfo args)
@@ -43,15 +53,12 @@ namespace NSubstitute.Routing.Handlers
             foreach (var p in parameters)
             {
                 var type = p.Parameter;
-                var providers =
-                    _autoValueProviders
-                        .Where(x => x.CanProvideValueFor(type))
-                        .FirstOrNothing();
+                var value = GetValueFromProvider(type);
 
-                if (providers.HasValue())
+                if (value.HasValue())
                     yield return new ByRefArgument(
                         p.Index,
-                        new Lazy<object>(() => providers.ValueOrDefault().GetValue(type)));
+                        new Lazy<object>(() => value.ValueOrDefault()));
             }
         }
 
@@ -87,20 +94,16 @@ namespace NSubstitute.Routing.Handlers
             return RouteAction.Continue();
         }
 
-        private Func<IAutoValueProvider, RouteAction> ReturnValueUsingProvider(ICall call, Type type)
+        private RouteAction ReturnValue(ICall call, object valueToReturn)
         {
-            return provider =>
+            var callInfo = new CallInfoFactory().Create(call);
+            var byRefValues = GetByRefValues(callInfo).ToArray();
+            if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
             {
-                var valueToReturn = provider.GetValue(type);
-                var callInfo = new CallInfoFactory().Create(call);
-                var byRefValues = GetByRefValues(callInfo).ToArray();
-                if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
-                {
-                    ConfigureCall.SetResultForCall(call, GetReturnValue(valueToReturn, byRefValues), MatchArgs.AsSpecifiedInCall);
-                }
-                SetByRefValues(callInfo, byRefValues);
-                return RouteAction.Return(valueToReturn);
-            };
+                ConfigureCall.SetResultForCall(call, GetReturnValue(valueToReturn, byRefValues), MatchArgs.AsSpecifiedInCall);
+            }
+            SetByRefValues(callInfo, byRefValues);
+            return RouteAction.Return(valueToReturn);
         }
 
         private class ByRefArgument

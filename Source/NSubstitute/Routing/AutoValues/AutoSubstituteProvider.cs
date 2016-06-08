@@ -5,7 +5,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
 {
-    public class AutoSubstituteProvider : IAutoValueProvider, IMaybeAutoValueProvider
+    public class AutoSubstituteProvider : IAutoValueProvider
     {
         private readonly ISubstituteFactory _substituteFactory;
 
@@ -14,14 +14,14 @@ namespace NSubstitute.Routing.AutoValues
             _substituteFactory = substituteFactory;
         }
 
-        public bool CanProvideValueFor(Type type)
+        private bool CanProvideValueFor(Type type)
         {
             return type.IsInterface
                 || type.IsSubclassOf(typeof(Delegate))
                 || IsPureVirtualClassWithParameterlessConstructor(type);
         }
 
-        public object GetValue(Type type)
+        private object GetActualValue(Type type)
         {
             return _substituteFactory.Create(new[] { type }, new object[0]);
         }
@@ -70,12 +70,12 @@ namespace NSubstitute.Routing.AutoValues
             return !methodInfo.IsStatic;
         }
 
-        Maybe<object> IMaybeAutoValueProvider.GetValue(Type type)
+        public Maybe<object> GetValue(Type type)
         {
             if (!CanProvideValueFor(type))
                 return Maybe.Nothing<object>();
 
-            return Maybe.Just(GetValue(type));
+            return Maybe.Just(GetActualValue(type));
         }
     }
 }

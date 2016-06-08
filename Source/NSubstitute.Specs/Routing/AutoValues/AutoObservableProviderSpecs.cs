@@ -11,8 +11,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
     public class AutoObservableProviderSpecs : ConcernFor<AutoObservableProvider>
     {
         private IAutoValueProvider _testValuesProvider;
-        private IMaybeAutoValueProvider _testMaybeValuesProvider;
-        
+
         [Test]
         public void Substitute_should_automock_observable()
         {
@@ -34,7 +33,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
         [TestCase(typeof(List<int>))]
         public void Provides_no_value_for_non_observables(Type type)
         {
-            Assert.That(((IMaybeAutoValueProvider)sut).GetValue(type), Is.EqualTo(Maybe.Nothing<object>()));
+            Assert.That(sut.GetValue(type), Is.EqualTo(Maybe.Nothing<object>()));
         }
 
         [Test]
@@ -49,7 +48,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
         public void Provides_value_for_observables<T>()
         {
             var observer = mock<IObserver<T>>();
-            var value = ((IMaybeAutoValueProvider)sut).GetValue(typeof(IObservable<T>)).ValueOrDefault();
+            var value = sut.GetValue(typeof(IObservable<T>)).ValueOrDefault();
             Assert.IsInstanceOf<IObservable<T>>(value);
             ((IObservable<T>) value).Subscribe(observer);
             observer.received(x => x.OnNext(default(T)));
@@ -61,10 +60,10 @@ namespace NSubstitute.Specs.Routing.AutoValues
         {
             const string autoValue = "test";
             var observer = mock<IObserver<string>>();
-            _testMaybeValuesProvider.stub(x => x.GetValue(typeof(string))).Return(Maybe.Just<object>(autoValue));
+            _testValuesProvider.stub(x => x.GetValue(typeof(string))).Return(Maybe.Just<object>(autoValue));
 
             var type = typeof(IObservable<string>);
-            var value = (IObservable<string>)((IMaybeAutoValueProvider)sut).GetValue(type).ValueOrDefault();
+            var value = (IObservable<string>)sut.GetValue(type).ValueOrDefault();
             value.Subscribe(observer);
             observer.received(x => x.OnNext(It.Is(autoValue)));
             observer.received(x => x.OnCompleted());
@@ -75,10 +74,10 @@ namespace NSubstitute.Specs.Routing.AutoValues
         {
             const int autoValue = 10;
             var observer = mock<IObserver<int>>();
-            _testMaybeValuesProvider.stub(x => x.GetValue(typeof(int))).Return(Maybe.Just<object>(autoValue));
+            _testValuesProvider.stub(x => x.GetValue(typeof(int))).Return(Maybe.Just<object>(autoValue));
 
             var type = typeof(IObservable<int>);
-            var value = (IObservable<int>)((IMaybeAutoValueProvider)sut).GetValue(type).ValueOrDefault();
+            var value = (IObservable<int>)sut.GetValue(type).ValueOrDefault();
             value.Subscribe(observer);
             observer.received(x => x.OnNext(It.Is(autoValue)));
             observer.received(x => x.OnCompleted());
@@ -87,12 +86,11 @@ namespace NSubstitute.Specs.Routing.AutoValues
         public override void Context()
         {
             _testValuesProvider = mock<IAutoValueProvider>();
-            _testMaybeValuesProvider = mock<IMaybeAutoValueProvider>();
         }
 
         public override AutoObservableProvider CreateSubjectUnderTest()
         {
-            return new AutoObservableProvider(() => new[] { _testValuesProvider }, () => new[] { _testMaybeValuesProvider });
+            return new AutoObservableProvider(() => new[] { _testValuesProvider });
         }
 
         public interface IFoo2

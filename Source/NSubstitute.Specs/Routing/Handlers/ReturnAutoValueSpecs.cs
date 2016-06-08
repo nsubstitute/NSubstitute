@@ -61,8 +61,7 @@ namespace NSubstitute.Specs.Routing.Handlers
                 base.Context();
                 _call.stub(x => x.GetArguments()).Return(new object[0]);
                 _call.stub(x => x.GetParameterInfos()).Return(new IParameterInfo[0]);
-                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(_type)).Return(true);
-                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(_autoValue);
+                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(Maybe.Just(_autoValue));
             }
 
             public override ReturnAutoValue CreateSubjectUnderTest()
@@ -113,8 +112,7 @@ namespace NSubstitute.Specs.Routing.Handlers
                 base.Context();
                 _call.stub(x => x.GetArguments()).Return(new object[0]);
                 _call.stub(x => x.GetParameterInfos()).Return(new IParameterInfo[0]);
-                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(_type)).Return(true);
-                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(_autoValue);
+                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(Maybe.Just(_autoValue));
             }
 
             public override ReturnAutoValue CreateSubjectUnderTest()
@@ -152,10 +150,8 @@ namespace NSubstitute.Specs.Routing.Handlers
                 parameterInfo.stub(x => x.ParameterType).Return(byRefType);
                 _call.stub(x => x.GetParameterInfos()).Return(new[] {parameterInfo});
                 _call.stub(x => x.GetArguments()).Return(_arguments);
-                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(_type)).Return(true);
-                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(_autoValue);
-                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(byRefType)).Return(true);
-                _secondAutoValueProvider.stub(x => x.GetValue(byRefType)).Return(_autoValue);
+                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(Maybe.Just(_autoValue));
+                _secondAutoValueProvider.stub(x => x.GetValue(byRefType)).Return(Maybe.Just(_autoValue));
             }
 
             public override ReturnAutoValue CreateSubjectUnderTest()
@@ -194,9 +190,8 @@ namespace NSubstitute.Specs.Routing.Handlers
                 parameterInfo.stub(x => x.ParameterType).Return(byRefType);
                 _call.stub(x => x.GetParameterInfos()).Return(new[] { parameterInfo });
                 _call.stub(x => x.GetArguments()).Return(_arguments);
-                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(_type)).Return(false);
-                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(byRefType)).Return(true);
-                _secondAutoValueProvider.stub(x => x.GetValue(byRefType)).Return(_autoValue);
+                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(Maybe.Nothing<object>());
+                _secondAutoValueProvider.stub(x => x.GetValue(byRefType)).Return(Maybe.Just(_autoValue));
             }
 
             public override ReturnAutoValue CreateSubjectUnderTest()
@@ -219,7 +214,7 @@ namespace NSubstitute.Specs.Routing.Handlers
                 base.Context();
                 _call.stub(x => x.GetParameterInfos()).Return(new IParameterInfo[0]);
                 _call.stub(x => x.GetArguments()).Return(new object[0]);
-                _secondAutoValueProvider.stub(x => x.CanProvideValueFor(_type)).Return(false);
+                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(Maybe.Nothing<object>());
             }
 
             public override ReturnAutoValue CreateSubjectUnderTest()

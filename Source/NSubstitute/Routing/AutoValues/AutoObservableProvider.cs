@@ -5,57 +5,46 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
 {
-    public class AutoObservableProvider : IAutoValueProvider, IMaybeAutoValueProvider
+    public class AutoObservableProvider : IAutoValueProvider
     {
         private readonly Func<IAutoValueProvider[]> _autoValueProviders;
-        private readonly Func<IMaybeAutoValueProvider[]> _maybeAutoValueProviders;
 
         public AutoObservableProvider(Func<IAutoValueProvider[]> autoValueProviders)
         {
             _autoValueProviders = autoValueProviders;
         }
 
-        public AutoObservableProvider(Func<IAutoValueProvider[]> autoValueProviders, Func<IMaybeAutoValueProvider[]> maybeAutoValueProviders)
-            : this(autoValueProviders)
-        {
-            _maybeAutoValueProviders = maybeAutoValueProviders;
-        }
-
-        public bool CanProvideValueFor(Type type)
+        private bool CanProvideValueFor(Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IObservable<>);
         }
 
-        public object GetValue(Type type)
+        private object GetActualValue(Type type)
         {
-            if (!CanProvideValueFor(type)) 
-                throw new InvalidOperationException();
-
             Type innerType = type.GetGenericArguments()[0];
-            var valueProvider = _autoValueProviders().FirstOrDefault(vp => vp.CanProvideValueFor(innerType));
-            var value = valueProvider == null ? GetDefault(innerType) : valueProvider.GetValue(innerType);
+            var value = GetValueFromProvider(innerType);
             return Activator.CreateInstance(
                     typeof(ReturnObservable<>).MakeGenericType(innerType)
                     , new object[] { value });
         }
 
-        private object GetDefault(Type type)
+        private object GetValueFromProvider(Type type)
         {
-            if (_maybeAutoValueProviders == null)
+            if (_autoValueProviders == null)
                 return null;
 
-            return _maybeAutoValueProviders()
+            return _autoValueProviders()
                 .Select(vp => vp.GetValue(type))
                 .FirstOrDefault(vp => vp.HasValue())
                 .ValueOrDefault();
         }
 
-        Maybe<object> IMaybeAutoValueProvider.GetValue(Type type)
+        public Maybe<object> GetValue(Type type)
         {
             if (!CanProvideValueFor(type))
                 return Maybe.Nothing<object>();
 
-            return Maybe.Just(GetValue(type));
+            return Maybe.Just(GetActualValue(type));
         }
     }
 }
