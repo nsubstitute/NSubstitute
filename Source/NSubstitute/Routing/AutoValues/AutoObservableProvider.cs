@@ -1,15 +1,14 @@
 ﻿#if NET45
 using System;
-using System.Linq;
 using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
 {
     public class AutoObservableProvider : IAutoValueProvider
     {
-        private readonly Func<IAutoValueProvider[]> _autoValueProviders;
+        private readonly Func<IAutoValueProvider> _autoValueProviders;
 
-        public AutoObservableProvider(Func<IAutoValueProvider[]> autoValueProviders)
+        public AutoObservableProvider(Func<IAutoValueProvider> autoValueProviders)
         {
             _autoValueProviders = autoValueProviders;
         }
@@ -30,12 +29,8 @@ namespace NSubstitute.Routing.AutoValues
 
         private object GetValueFromProvider(Type type)
         {
-            if (_autoValueProviders == null)
-                return null;
-
             return _autoValueProviders()
-                .Select(vp => vp.GetValue(type))
-                .FirstOrDefault(vp => vp.HasValue())
+                .GetValue(type)
                 .ValueOrDefault();
         }
 

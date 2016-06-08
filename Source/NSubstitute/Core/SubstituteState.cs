@@ -44,7 +44,7 @@ namespace NSubstitute.Core
             EventHandlerRegistry = new EventHandlerRegistry();
             AutoValueProviders = new List<IAutoValueProvider> { 
 #if NET45
-                new AutoObservableProvider(() => AutoValueProviders.ToArray()),
+                new AutoObservableProvider(() => new CompositeProvider(AutoValueProviders.ToArray())),
 #endif
                 new AutoQueryableProvider(),
                 new AutoSubstituteProvider(substituteFactory), 

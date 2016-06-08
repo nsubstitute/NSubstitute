@@ -90,7 +90,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
 
         public override AutoObservableProvider CreateSubjectUnderTest()
         {
-            return new AutoObservableProvider(() => new[] { _testValuesProvider });
+            return new AutoObservableProvider(() => _testValuesProvider);
         }
 
         public interface IFoo2
