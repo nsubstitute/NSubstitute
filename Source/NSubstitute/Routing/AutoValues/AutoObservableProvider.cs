@@ -5,13 +5,20 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
 {
-    public class AutoObservableProvider : IAutoValueProvider
+    public class AutoObservableProvider : IAutoValueProvider, IMaybeAutoValueProvider
     {
         private readonly Func<IAutoValueProvider[]> _autoValueProviders;
+        private readonly Func<IMaybeAutoValueProvider[]> _maybeAutoValueProviders;
 
         public AutoObservableProvider(Func<IAutoValueProvider[]> autoValueProviders)
         {
             _autoValueProviders = autoValueProviders;
+        }
+
+        public AutoObservableProvider(Func<IAutoValueProvider[]> autoValueProviders, Func<IMaybeAutoValueProvider[]> maybeAutoValueProviders)
+            : this(autoValueProviders)
+        {
+            _maybeAutoValueProviders = maybeAutoValueProviders;
         }
 
         public bool CanProvideValueFor(Type type)
@@ -26,15 +33,29 @@ namespace NSubstitute.Routing.AutoValues
 
             Type innerType = type.GetGenericArguments()[0];
             var valueProvider = _autoValueProviders().FirstOrDefault(vp => vp.CanProvideValueFor(innerType));
-            var value = valueProvider == null ? GetDefault(type) : valueProvider.GetValue(innerType);
+            var value = valueProvider == null ? GetDefault(innerType) : valueProvider.GetValue(innerType);
             return Activator.CreateInstance(
                     typeof(ReturnObservable<>).MakeGenericType(innerType)
                     , new object[] { value });
         }
 
-        private static object GetDefault(Type type)
+        private object GetDefault(Type type)
         {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
+            if (_maybeAutoValueProviders == null)
+                return null;
+
+            return _maybeAutoValueProviders()
+                .Select(vp => vp.GetValue(type))
+                .FirstOrDefault(vp => vp.HasValue())
+                .ValueOrDefault();
+        }
+
+        Maybe<object> IMaybeAutoValueProvider.GetValue(Type type)
+        {
+            if (!CanProvideValueFor(type))
+                return Maybe.Nothing<object>();
+
+            return Maybe.Just(GetValue(type));
         }
     }
 }
