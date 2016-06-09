@@ -70,7 +70,10 @@ namespace NSubstitute.Routing.Handlers
         private RouteAction NoReturnValue(ICall call)
         {
             var callInfo = new CallInfoFactory().Create(call);
-            var byRefValues = GetByRefValues(callInfo).ToArray();
+            var byRefValues = 
+                GetByRefValues(callInfo)
+                .Where(x => !WasModified(x, call))
+                .ToArray();
 
             if (byRefValues.Length == 0)
                 return RouteAction.Continue();
