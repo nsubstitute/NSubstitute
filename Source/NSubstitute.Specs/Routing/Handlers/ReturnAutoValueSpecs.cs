@@ -150,6 +150,7 @@ namespace NSubstitute.Specs.Routing.Handlers
                 parameterInfo.stub(x => x.ParameterType).Return(byRefType);
                 _call.stub(x => x.GetParameterInfos()).Return(new[] {parameterInfo});
                 _call.stub(x => x.GetArguments()).Return(_arguments);
+                _call.stub(x => x.GetOriginalArguments()).Return(_arguments);
                 _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(Maybe.Just(_autoValue));
                 _secondAutoValueProvider.stub(x => x.GetValue(byRefType)).Return(Maybe.Just(_autoValue));
             }
@@ -190,6 +191,7 @@ namespace NSubstitute.Specs.Routing.Handlers
                 parameterInfo.stub(x => x.ParameterType).Return(byRefType);
                 _call.stub(x => x.GetParameterInfos()).Return(new[] { parameterInfo });
                 _call.stub(x => x.GetArguments()).Return(_arguments);
+                _call.stub(x => x.GetOriginalArguments()).Return(_arguments);
                 _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(Maybe.Nothing<object>());
                 _secondAutoValueProvider.stub(x => x.GetValue(byRefType)).Return(Maybe.Just(_autoValue));
             }
@@ -215,6 +217,51 @@ namespace NSubstitute.Specs.Routing.Handlers
                 _call.stub(x => x.GetParameterInfos()).Return(new IParameterInfo[0]);
                 _call.stub(x => x.GetArguments()).Return(new object[0]);
                 _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(Maybe.Nothing<object>());
+            }
+
+            public override ReturnAutoValue CreateSubjectUnderTest()
+            {
+                return CreateReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls);
+            }
+        }
+
+        public class When_has_an_auto_value_for_an_modified_out_param : Concern
+        {
+            readonly object _autoValue = 32;
+            private readonly object _newValue = 60;
+            private readonly object _oldValue = 155;
+            private object[] _arguments = new object[1];
+            private object[] _originalArguments = new object[1];
+
+            [Test]
+            public void Should_not_return_auto_value_for_parameter()
+            {
+                Assert.That(_arguments[0], Is.EqualTo(_newValue));
+            }
+
+            [Test]
+            public void Should_set_auto_value_for_out_param_to_return_for_subsequent_calls()
+            {
+                object[] arguments = new object[1];
+                var callInfo =
+                    new CallInfo(new[] { new Argument(typeof(int).MakeByRefType(), () => arguments[0], x => arguments[0] = x) });
+                ConfigureCall.received(x => x.SetResultForCall(It.Is(_call), It.Matches<IReturn>(arg => arg.ReturnFor(callInfo) == _autoValue), It.Is(MatchArgs.AsSpecifiedInCall)));
+                Assert.That(arguments[0], Is.Null);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                var parameterInfo = mock<IParameterInfo>();
+                var byRefType = _type.MakeByRefType();
+                parameterInfo.stub(x => x.ParameterType).Return(byRefType);
+                _call.stub(x => x.GetParameterInfos()).Return(new[] { parameterInfo });
+                _call.stub(x => x.GetArguments()).Return(_arguments);
+                _call.stub(x => x.GetOriginalArguments()).Return(_originalArguments);
+                _originalArguments[0] = _oldValue;
+                _arguments[0] = _newValue;
+                _secondAutoValueProvider.stub(x => x.GetValue(_type)).Return(Maybe.Just(_autoValue));
+                _secondAutoValueProvider.stub(x => x.GetValue(byRefType)).Return(Maybe.Just(_autoValue));
             }
 
             public override ReturnAutoValue CreateSubjectUnderTest()

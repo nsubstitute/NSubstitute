@@ -87,13 +87,23 @@ namespace NSubstitute.Routing.Handlers
         private RouteAction ReturnValue(ICall call, object valueToReturn)
         {
             var callInfo = new CallInfoFactory().Create(call);
-            var byRefValues = GetByRefValues(callInfo).ToArray();
+            var byRefValues =
+                GetByRefValues(callInfo)
+                .Where(x => !WasModified(x, call))
+                .ToArray();
+
             if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
             {
                 ConfigureCall.SetResultForCall(call, GetReturnValue(valueToReturn, byRefValues), MatchArgs.AsSpecifiedInCall);
             }
             SetByRefValues(callInfo, byRefValues);
             return RouteAction.Return(valueToReturn);
+        }
+
+        private bool WasModified(ByRefArgument byRefArgument, ICall call)
+        {
+            return call.GetArguments()[byRefArgument.Index] !=
+                   call.GetOriginalArguments().ElementAt(byRefArgument.Index);
         }
 
         private class ByRefArgument
