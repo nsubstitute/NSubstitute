@@ -1,14 +1,5 @@
 @echo off
 
-rem todo do not install dnvm all the time
-@powershell -NoProfile -ExecutionPolicy unrestricted -Command "&{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}"
-
-rem todo remove hardcoded version
-CALL dnvm install '1.0.0-rc1-update1' -r coreclr -arch x64 -alias nsubstitute-netcore
-
-CALL dnvm use nsubstitute-netcore -runtime coreclr
-SET DNX_FOLDER=%USERPROFILE%\.dnx\runtimes\dnx-coreclr-win-x64.1.0.0-rc1-update1\bin
-
 "ThirdParty\FAKE\FAKE.Core\tools\Fake.exe" "build.fsx" %*
 
 rem Bail if we're running a TeamCity build.
