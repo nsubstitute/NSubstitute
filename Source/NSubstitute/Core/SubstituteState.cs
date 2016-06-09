@@ -49,7 +49,7 @@ namespace NSubstitute.Core
                 new AutoSubstituteProvider(substituteFactory), 
                 new AutoStringProvider(), 
                 new AutoArrayProvider(),
-#if (NET4 || NET45)
+#if (NET4 || NET45 || DNXCORE50)
                 new AutoTaskProvider(() => AutoValueProviders),
 #endif
             };
