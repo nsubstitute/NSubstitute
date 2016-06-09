@@ -47,8 +47,8 @@
         "System.Threading": "4.0.10",
         "System.Runtime": "4.0.20",
         "Microsoft.CSharp": "4.0.0",
-
-        "Castle.Core": "4.0.0-alpha001"
+        "Castle.Core": "4.0.0-alpha001",
+        "System.Linq.Queryable": "4.0.1-rc2-24027"
       }
     }
   }

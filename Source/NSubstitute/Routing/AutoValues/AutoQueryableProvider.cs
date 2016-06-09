@@ -1,6 +1,7 @@
-﻿#if NET45
+﻿#if NET45 || DNXCORE50
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace NSubstitute.Routing.AutoValues
@@ -9,7 +10,7 @@ namespace NSubstitute.Routing.AutoValues
     {
         public bool CanProvideValueFor(Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IQueryable<>);
+            return type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(IQueryable<>);
         }
 
         public object GetValue(Type type)
