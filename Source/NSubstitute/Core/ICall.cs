@@ -10,6 +10,7 @@ namespace NSubstitute.Core
         Type GetReturnType();
         MethodInfo GetMethodInfo();
         object[] GetArguments();
+        IEnumerable<object> GetOriginalArguments();
         object Target();
         IParameterInfo[] GetParameterInfos();
         IList<IArgumentSpecification> GetArgumentSpecifications();
