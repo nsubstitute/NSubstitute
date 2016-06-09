@@ -1,4 +1,6 @@
-﻿using NSubstitute.Routing.AutoValues;
+﻿using System.Collections.Generic;
+using NSubstitute.Routing.AutoValues;
+using NSubstitute.Routing.Handlers;
 
 namespace NSubstitute.Core
 {
@@ -15,9 +17,10 @@ namespace NSubstitute.Core
         SequenceNumberGenerator SequenceNumberGenerator { get; }
         IConfigureCall ConfigureCall { get; }
         IEventHandlerRegistry EventHandlerRegistry { get; }
-        IAutoValueProvider[] AutoValueProviders { get; }
+        IList<IAutoValueProvider> AutoValueProviders { get; }
         ICallBaseExclusions CallBaseExclusions { get; }
         IResultsForType ResultsForType { get; }
+        AutoValueBehaviour AutoValueBehaviour { get; set; }
         void ClearUnusedCallSpecs();
     }
 }

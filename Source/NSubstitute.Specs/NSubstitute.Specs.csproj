@@ -152,9 +152,11 @@
     <Compile Include="Routing\AutoValues\AutoQueryableProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoStringProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProviderSpecs.cs" />
+    <Compile Include="Routing\AutoValues\AutoObservableProviderSpecs.cs" />
     <Compile Include="Routing\AutoValues\AutoTaskProviderSpecs.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Routing\AutoValues\CompositeProviderSpecs.cs" />
     <Compile Include="Routing\Handlers\AddCallToQueryResultHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\CheckReceivedCallHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ClearLastCallRouterHandlerSpecs.cs" />

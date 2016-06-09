@@ -12,68 +12,41 @@ namespace NSubstitute.Specs.Routing.AutoValues
         private ISubstituteFactory _substituteFactory;
 
         [Test]
-        public void Can_provide_value_for_interface()
-        {
-            Assert.That(sut.CanProvideValueFor(typeof (IFoo)));
-        }
-
-        [Test]
-        public void Can_provide_value_for_delegates()
-        {
-            Assert.That(sut.CanProvideValueFor(typeof (Func<int>)));
-        }
-
-        [Test]
-        [TestCase(typeof(TestClasses.PureVirtualAbstractClassWithDefaultCtor), true)]
-        [TestCase(typeof(TestClasses.PureVirtualClassWithParameterlessConstructor), true)]
-        [TestCase(typeof(TestClasses.PureVirtualClassWithVirtualInterfaceImpl), true)]
-        [TestCase(typeof(TestClasses.PureDescendentOfPureVirtualClass), true)]
-        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicField), true)]
-        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticMethod), true)]
-        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticField), true)]
-        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticProperty), true)]
-        [TestCase(typeof(TestClasses.PureVirtualClassWithoutParameterlessConstructor), false)]
-        [TestCase(typeof(TestClasses.ClassWithANonVirtualPublicMember), false)]
-        [TestCase(typeof(TestClasses.ClassWithNonVirtualInterfaceImpl), false)]
-        [TestCase(typeof(TestClasses.ImpureDescendentOfPureVirtualClass), false)]
-        [TestCase(typeof(TestClasses.VirtualClassWithInternalConstructor), false)]
-        [TestCase(typeof(TestClasses.SealedClassWithoutMethods), false)]
-        public void Can_provide_value_for_class_type(Type type, bool shouldProvideValue)
-        {
-            Assert.That(sut.CanProvideValueFor(type), Is.EqualTo(shouldProvideValue));
-        }
-
-        [Test]
-        public void Should_not_provide_value_for_object_type_as_by_default_object_methods_are_not_proxied()
-        {
-            Assert.False(sut.CanProvideValueFor(typeof(object)));
-        }
-
-        [Test]
-        public void Should_not_provide_value_for_string()
-        {
-            Assert.False(sut.CanProvideValueFor(typeof(string)));
-        }
-
-        [Test]
-        public void Should_not_provide_value_for_array()
-        {
-            Assert.False(sut.CanProvideValueFor(typeof(int[])));
-        }
-
-        [Test]
-        public void Should_not_provide_value_for_value_type()
-        {
-            Assert.False(sut.CanProvideValueFor(typeof(int)));
-        }
-
-        [Test]
-        public void Should_create_substitute_for_type()
+        [TestCase(typeof(TestClasses.PureVirtualClassWithoutParameterlessConstructor))]
+        [TestCase(typeof(TestClasses.ClassWithANonVirtualPublicMember))]
+        [TestCase(typeof(TestClasses.ClassWithNonVirtualInterfaceImpl))]
+        [TestCase(typeof(TestClasses.ImpureDescendentOfPureVirtualClass))]
+        [TestCase(typeof(TestClasses.VirtualClassWithInternalConstructor))]
+        [TestCase(typeof(TestClasses.SealedClassWithoutMethods))]
+        [TestCase(typeof(object))]
+        [TestCase(typeof(string))]
+        [TestCase(typeof(int[]))]
+        [TestCase(typeof(int))]
+        public void Provides_no_value_for_non_substitutables(Type type)
         {
             var autoValue = new object();
-            _substituteFactory.stub(x => x.Create(new[] {typeof (IFoo)}, new object[0])).Return(autoValue);
+            _substituteFactory.stub(x => x.Create(new[] { type }, new object[0])).Return(autoValue);
 
-            Assert.That(sut.GetValue(typeof (IFoo)), Is.SameAs(autoValue));
+            Assert.That(sut.GetValue(type), Is.EqualTo(Maybe.Nothing<object>()));
+        }
+
+        [Test]
+        [TestCase(typeof(TestClasses.PureVirtualAbstractClassWithDefaultCtor))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithParameterlessConstructor))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithVirtualInterfaceImpl))]
+        [TestCase(typeof(TestClasses.PureDescendentOfPureVirtualClass))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicField))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticMethod))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticField))]
+        [TestCase(typeof(TestClasses.PureVirtualClassWithAPublicStaticProperty))]
+        [TestCase(typeof(IFoo))]
+        [TestCase(typeof(Func<int>))]
+        public void Provides_value_for_substitutables(Type type)
+        {
+            var autoValue = new object();
+            _substituteFactory.stub(x => x.Create(new[] { type }, new object[0])).Return(autoValue);
+
+            Assert.That(sut.GetValue(type), Is.EqualTo(Maybe.Just(autoValue)));
         }
 
         public override void Context()

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
+using NSubstitute.Routing.AutoValues;
+using NSubstitute.Routing.Handlers;
 
 namespace NSubstitute.Core
 {
@@ -87,6 +89,17 @@ namespace NSubstitute.Core
         public void SetReturnForType(Type type, IReturn returnValue)
         {
             _substituteState.ResultsForType.SetResult(type, returnValue);
+        }
+
+        public IList<IAutoValueProvider> AutoValueProviders
+        {
+            get { return _substituteState.AutoValueProviders; }
+        }
+
+        public AutoValueBehaviour AutoValueBehaviour
+        {
+            get { return _substituteState.AutoValueBehaviour; }
+            set { _substituteState.AutoValueBehaviour = value; }
         }
     }
 }

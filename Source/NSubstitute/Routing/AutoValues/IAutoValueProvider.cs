@@ -1,10 +1,10 @@
 using System;
+using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
 {
     public interface IAutoValueProvider
     {
-        bool CanProvideValueFor(Type type);
-        object GetValue(Type type);
+        Maybe<object> GetValue(Type type);
     }
 }

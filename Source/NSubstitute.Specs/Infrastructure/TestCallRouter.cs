@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using NSubstitute.Core;
 using NSubstitute.Routing;
+using NSubstitute.Routing.AutoValues;
+using NSubstitute.Routing.Handlers;
 
 namespace NSubstitute.Specs.Infrastructure
 {
@@ -37,5 +39,12 @@ namespace NSubstitute.Specs.Infrastructure
             TypeUseForSetReturnForType = type;
             ReturnValueUsedForSetReturnForType = returnValue;
         }
+
+        public IList<IAutoValueProvider> AutoValueProviders
+        {
+            get { return new List<IAutoValueProvider>(); }
+        }
+
+        public AutoValueBehaviour AutoValueBehaviour { get; set; }
     }
 }

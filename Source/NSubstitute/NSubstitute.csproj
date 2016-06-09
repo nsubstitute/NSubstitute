@@ -209,6 +209,7 @@
     <Compile Include="Routing\AutoValues\AutoStringProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoSubstituteProvider.cs" />
     <Compile Include="Routing\AutoValues\AutoTaskProvider.cs" />
+    <Compile Include="Routing\AutoValues\CompositeProvider.cs" />
     <Compile Include="Routing\AutoValues\IAutoValueProvider.cs" />
     <Compile Include="Routing\Handlers\AddCallToQueryResultHandler.cs" />
     <Compile Include="Routing\Handlers\ClearLastCallRouterHandler.cs" />

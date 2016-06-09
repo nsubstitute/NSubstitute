@@ -20,7 +20,6 @@ namespace NSubstitute.Core
 
         public bool HasResultFor(ICall call)
         {
-            if (ReturnsVoidFrom(call)) return false;
             return _results.Any(x => x.IsResultFor(call));
         }
 
@@ -30,11 +29,6 @@ namespace NSubstitute.Core
                     .Reverse()
                     .First(x => x.IsResultFor(call))
                     .GetResult(_callInfoFactory.Create(call));
-        }
-
-        bool ReturnsVoidFrom(ICall call)
-        {
-            return call.GetReturnType() == typeof (void);
         }
 
         class ResultForCallSpec

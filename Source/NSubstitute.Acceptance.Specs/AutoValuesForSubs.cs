@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute.Core;
+using NSubstitute.Routing.Handlers;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -202,6 +204,22 @@ namespace NSubstitute.Acceptance.Specs
             AssertObjectIsASubstitute(sample2);
 
             Assert.That(sample1, Is.SameAs(sample2));
+        }
+
+        [Test]
+        public void Multiple_calls_to_observable_method_and_set_to_return_and_forget()
+        {
+            var sub = Substitute.For<IFooWithObservable>();
+            var callRouter = SubstitutionContext.Current.GetCallRouterFor(sub);
+            callRouter.AutoValueBehaviour = AutoValueBehaviour.ReturnAndForgetValue;
+            ISample sample1 = null;
+            ISample sample2 = null;
+            sub.GetSamples().Subscribe(new AnonymousObserver<ISample>(x => sample1 = x));
+            sub.GetSamples().Subscribe(new AnonymousObserver<ISample>(x => sample2 = x));
+            AssertObjectIsASubstitute(sample1);
+            AssertObjectIsASubstitute(sample2);
+
+            Assert.That(sample1, Is.Not.EqualTo(sample2));
         }
 
         public interface IFooWithObservable 

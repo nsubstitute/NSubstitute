@@ -1,4 +1,7 @@
-﻿using NSubstitute.Routing.AutoValues;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NSubstitute.Routing.AutoValues;
+using NSubstitute.Routing.Handlers;
 
 namespace NSubstitute.Core
 {
@@ -16,8 +19,9 @@ namespace NSubstitute.Core
         public SequenceNumberGenerator SequenceNumberGenerator { get; private set; }
         public IConfigureCall ConfigureCall { get; private set; }
         public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
-        public IAutoValueProvider[] AutoValueProviders { get; private set; }
+        public IList<IAutoValueProvider> AutoValueProviders { get; private set; }
         public IResultsForType ResultsForType { get; private set; }
+        public AutoValueBehaviour AutoValueBehaviour { get; set; }
 
         public SubstituteState(ISubstitutionContext substitutionContext, SubstituteConfig option)
         {
@@ -40,16 +44,16 @@ namespace NSubstitute.Core
 
             ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec);
             EventHandlerRegistry = new EventHandlerRegistry();
-            AutoValueProviders = new IAutoValueProvider[] { 
+            AutoValueProviders = new List<IAutoValueProvider> { 
 #if NET45
-                new AutoObservableProvider(() => AutoValueProviders),
+                new AutoObservableProvider(() => new CompositeProvider(AutoValueProviders.ToArray())),
 #endif
                 new AutoQueryableProvider(),
                 new AutoSubstituteProvider(substituteFactory), 
                 new AutoStringProvider(), 
                 new AutoArrayProvider(),
 #if (NET4 || NET45)
-                new AutoTaskProvider(() => AutoValueProviders),
+                new AutoTaskProvider(() => new CompositeProvider(AutoValueProviders.ToArray())),
 #endif
             };
         }
