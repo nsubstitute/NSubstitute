@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Routing.AutoValues;
+using NSubstitute.Routing.Handlers;
 
 namespace NSubstitute.Core
 {
@@ -20,6 +21,7 @@ namespace NSubstitute.Core
         public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
         public IList<IAutoValueProvider> AutoValueProviders { get; private set; }
         public IResultsForType ResultsForType { get; private set; }
+        public AutoValueBehaviour AutoValueBehaviour { get; set; }
 
         public SubstituteState(ISubstitutionContext substitutionContext, SubstituteConfig option)
         {

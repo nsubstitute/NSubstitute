@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NSubstitute.Routing.AutoValues;
+using NSubstitute.Routing.Handlers;
 
 namespace NSubstitute.Core
 {
@@ -19,6 +20,7 @@ namespace NSubstitute.Core
         IList<IAutoValueProvider> AutoValueProviders { get; }
         ICallBaseExclusions CallBaseExclusions { get; }
         IResultsForType ResultsForType { get; }
+        AutoValueBehaviour AutoValueBehaviour { get; set; }
         void ClearUnusedCallSpecs();
     }
 }
