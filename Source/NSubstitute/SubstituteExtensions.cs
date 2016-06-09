@@ -4,7 +4,7 @@ using System.Linq;
 
 using NSubstitute.Core;
 using NSubstitute.Routing;
-#if (NET4 || NET45)
+#if (NET4 || NET45 || DNXCORE50)
 using System.Threading.Tasks;
 #endif
 
@@ -38,7 +38,7 @@ namespace NSubstitute
             return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
-#if (NET4 || NET45)
+#if (NET4 || NET45 || DNXCORE50)
         /// <summary>
         /// Set a return value for this call. The value(s) to be returned will be wrapped in Tasks.
         /// </summary>
@@ -296,7 +296,7 @@ namespace NSubstitute
             return GetRouterForSubstitute(substitute).ReceivedCalls();
         }
 
-#if NET4 || NET45
+#if (NET4 || NET45 || DNXCORE50)
         private static Func<CallInfo, Task<T>> WrapFuncInTask<T>(Func<CallInfo, T> returnThis)
         {
             return x => CompletedTask(returnThis(x));
@@ -304,7 +304,7 @@ namespace NSubstitute
 
         private static Task<T> CompletedTask<T>(T result) 
         {
-#if NET45
+#if (NET45 || DNXCORE50)
             return Task.FromResult(result);
 #elif NET4
             var tcs = new TaskCompletionSource<T>();
