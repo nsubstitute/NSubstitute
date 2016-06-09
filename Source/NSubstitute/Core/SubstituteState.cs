@@ -41,10 +41,12 @@ namespace NSubstitute.Core
             ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec);
             EventHandlerRegistry = new EventHandlerRegistry();
             AutoValueProviders = new IAutoValueProvider[] { 
-#if NET45
+#if NET45 || DNXCORE50
                 new AutoObservableProvider(() => AutoValueProviders),
                 // TODO enable AutoQueryableProvider for .NET Core
+#if NET45
                 new AutoQueryableProvider(),
+#endif
 #endif
                 new AutoSubstituteProvider(substituteFactory), 
                 new AutoStringProvider(), 
