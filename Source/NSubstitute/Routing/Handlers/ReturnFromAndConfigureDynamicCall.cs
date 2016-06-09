@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
@@ -29,7 +30,7 @@ namespace NSubstitute.Routing.Handlers
 
         private bool ReturnsDynamic(ICall call)
         {
-#if (NET4 || NET45)
+#if (NET4 || NET45 || DNXCORE50)
             var returnParameter = call.GetMethodInfo().ReturnParameter;
             if (returnParameter == null) return false;
             var dynamicAttribute = typeof (System.Runtime.CompilerServices.DynamicAttribute);
