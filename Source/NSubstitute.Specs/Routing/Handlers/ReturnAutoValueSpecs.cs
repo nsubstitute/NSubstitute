@@ -36,7 +36,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public ReturnAutoValue CreateReturnAutoValue(AutoValueBehaviour autoValueBehaviour)
             {
-                return new ReturnAutoValue(autoValueBehaviour, new CompositeProvider(new [] { _firstAutoValueProvider, _secondAutoValueProvider }), ConfigureCall);
+                return new ReturnAutoValue(() => autoValueBehaviour, new CompositeProvider(new [] { _firstAutoValueProvider, _secondAutoValueProvider }), ConfigureCall);
             }
         }
 

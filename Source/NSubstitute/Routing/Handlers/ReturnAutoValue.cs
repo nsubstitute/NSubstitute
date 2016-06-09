@@ -14,10 +14,10 @@ namespace NSubstitute.Routing.Handlers
     public class ReturnAutoValue : ICallHandler
     {
         private readonly IAutoValueProvider _autoValueProvider;
-        private readonly AutoValueBehaviour _autoValueBehaviour;
+        private readonly Func<AutoValueBehaviour> _autoValueBehaviour;
         private readonly IConfigureCall ConfigureCall;
 
-        public ReturnAutoValue(AutoValueBehaviour autoValueBehaviour, IAutoValueProvider autoValueProvider, IConfigureCall configureCall)
+        public ReturnAutoValue(Func<AutoValueBehaviour> autoValueBehaviour, IAutoValueProvider autoValueProvider, IConfigureCall configureCall)
         {
             _autoValueProvider = autoValueProvider;
             ConfigureCall = configureCall;
@@ -78,7 +78,7 @@ namespace NSubstitute.Routing.Handlers
             if (byRefValues.Length == 0)
                 return RouteAction.Continue();
 
-            if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
+            if (_autoValueBehaviour() == AutoValueBehaviour.UseValueForSubsequentCalls)
                 ConfigureCall.SetResultForCall(call,
                     GetReturnValue<object>(null, byRefValues),
                     MatchArgs.AsSpecifiedInCall);
@@ -95,7 +95,7 @@ namespace NSubstitute.Routing.Handlers
                 .Where(x => !WasModified(x, call))
                 .ToArray();
 
-            if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
+            if (_autoValueBehaviour() == AutoValueBehaviour.UseValueForSubsequentCalls)
             {
                 ConfigureCall.SetResultForCall(call, GetReturnValue(valueToReturn, byRefValues), MatchArgs.AsSpecifiedInCall);
             }
