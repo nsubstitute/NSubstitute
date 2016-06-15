@@ -271,6 +271,19 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Forget all configured call actions
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <remarks>
+        /// </remarks>
+        public static void ClearCallActions<T>(this T substitute) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.ClearCallActions();
+        }
+
+        /// <summary>
         /// Perform an action when this member is called. 
         /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
         /// </summary>
