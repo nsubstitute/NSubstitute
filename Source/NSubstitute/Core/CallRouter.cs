@@ -46,7 +46,12 @@ namespace NSubstitute.Core
 	        _substituteState.CallResults.Clear();
         }
 
-        public IEnumerable<ICall> ReceivedCalls()
+	    public void ClearCallActions()
+	    {
+		    _substituteState.CallActions.Clear();
+	    }
+
+	    public IEnumerable<ICall> ReceivedCalls()
         {
             return _receivedCalls.AllCalls();
         }
