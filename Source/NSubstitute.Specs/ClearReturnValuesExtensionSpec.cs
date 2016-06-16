@@ -21,7 +21,7 @@ namespace NSubstitute.Specs
 
 	        public override void Because()
             {
-				_substitute.ClearReturnValues();
+				_substitute.ClearSubstitutions(ClearanceFlags.ReceivedCalls);
             }
 
             public override void Context()

@@ -111,7 +111,7 @@ namespace NSubstitute.Acceptance.Specs
 		        count++;
 	        }));
 			
-			_sub.ClearCallActions();
+			_sub.ClearSubstitutions(ClearanceFlags.CallActions);
 
 			_sub.Zap(Arg.Do<string>(arg =>
 			{

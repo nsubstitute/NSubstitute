@@ -18,7 +18,7 @@ namespace NSubstitute.Acceptance.Specs
             substitute.Add(1, 1);
             substitute.Add(2, 2);
             substitute.Received().Add(1, 1);
-            substitute.ClearReceivedCalls();
+            substitute.ClearSubstitutions(ClearanceFlags.ReceivedCalls);
             Assert.Throws<ReceivedCallsException>(() => substitute.Received().Add(1, 1));
         }
     }

@@ -251,36 +251,32 @@ namespace NSubstitute
         /// <remarks>
         /// Note that this will not clear any results set up for the substitute using Returns().
         /// </remarks>
+        [Obsolete("Use ClearSubstitutions(ClearanceFlags.ReceivedCalls) instead")]
         public static void ClearReceivedCalls<T>(this T substitute) where T : class
         {
-            var router = GetRouterForSubstitute(substitute);
-            router.ClearReceivedCalls();
+            substitute.ClearSubstitutions(ClearanceFlags.ReceivedCalls);
         }
 
-        /// <summary>
-        /// Forget all the return values this substitute has configured
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <remarks>
-        /// </remarks>
-        public static void ClearReturnValues<T>(this T substitute) where T : class
+	    /// <summary>
+	    /// Forgets substituted calls/behaviour for this stubstitute
+	    /// </summary>
+	    /// <typeparam name="T"></typeparam>
+	    /// <param name="substitute"></param>
+	    /// <param name="flags">The types of substitution to forget</param>
+	    /// <remarks>
+	    /// </remarks>
+	    public static void ClearSubstitutions<T>(this T substitute, ClearanceFlags flags) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-            router.ClearReturnValues();
-        }
 
-        /// <summary>
-        /// Forget all configured call actions
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <remarks>
-        /// </remarks>
-        public static void ClearCallActions<T>(this T substitute) where T : class
-        {
-            var router = GetRouterForSubstitute(substitute);
-            router.ClearCallActions();
+			if((flags & ClearanceFlags.CallActions) == ClearanceFlags.CallActions)
+				router.ClearCallActions();
+
+			if((flags & ClearanceFlags.ReceivedCalls) == ClearanceFlags.ReceivedCalls)
+				router.ClearReceivedCalls();
+
+			if((flags & ClearanceFlags.ReturnValues) == ClearanceFlags.ReturnValues)
+				router.ClearReturnValues();
         }
 
         /// <summary>
