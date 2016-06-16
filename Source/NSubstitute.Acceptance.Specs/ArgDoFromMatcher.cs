@@ -100,5 +100,27 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(stringArgLength, Is.EqualTo(0));
             Assert.That(result, Is.EqualTo(1));
         }
+
+        [Test]
+        public void Should_be_cleared_on_ClearCallActions()
+        {
+            var count = 0;
+			
+	        _sub.Zap(Arg.Do<string>(arg =>
+	        {
+		        count++;
+	        }));
+			
+			_sub.ClearSubstitutions(ClearanceFlags.CallActions);
+
+			_sub.Zap(Arg.Do<string>(arg =>
+			{
+				count++;
+			}));
+
+			_sub.Zap("");
+
+            Assert.That(count, Is.EqualTo(1));
+        }
     }
 }
