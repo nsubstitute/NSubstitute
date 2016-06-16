@@ -47,7 +47,7 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Call_to_clear_received_calls()
         {
-            Assert.Throws<NullSubstituteReferenceException>(() => _engine.ClearReceivedCalls());
+            Assert.Throws<NullSubstituteReferenceException>(() => _engine.ClearSubstitutions(ClearanceFlags.ReceivedCalls));
         }
 
         [Test]
