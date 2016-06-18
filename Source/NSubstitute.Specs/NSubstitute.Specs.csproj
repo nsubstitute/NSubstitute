@@ -120,7 +120,6 @@
     <Compile Include="CallFormatterSpecs.cs" />
     <Compile Include="CallInfoFactorySpecs.cs" />
     <Compile Include="CallInfoSpecs.cs" />
-    <Compile Include="ClearReturnValuesExtensionSpec.cs" />
     <Compile Include="GetCallSpecSpecs.cs" />
     <Compile Include="Infrastructure\TestCallRouter.cs" />
     <Compile Include="QuantitySpecs.cs" />
@@ -129,7 +128,7 @@
     <Compile Include="CallRouterResolverSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />
     <Compile Include="CallSpecificationSpecs.cs" />
-    <Compile Include="ClearReceivedCallsExtensionSpec.cs" />
+    <Compile Include="ClearSubstituteExtensionSpec.cs" />
     <Compile Include="DefaultForTypeSpecs.cs" />
     <Compile Include="Arguments\MixedArgumentSpecificationsFactorySpecs.cs" />
     <Compile Include="DidNotReceiveExtensionsSpecs.cs" />

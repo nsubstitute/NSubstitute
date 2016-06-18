@@ -229,7 +229,7 @@ namespace NSubstitute.Acceptance.Specs
 
         private void ClearAllCalls(IEnumerable<object> subs)
         {
-            foreach (var sub in subs) { sub.ClearSubstitutions(ClearanceFlags.ReceivedCalls); }
+            foreach (var sub in subs) { sub.ClearSubstitutions(ClearOptions.ReceivedCalls); }
         }
     }
 }

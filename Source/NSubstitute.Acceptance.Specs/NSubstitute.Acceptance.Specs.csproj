@@ -124,7 +124,7 @@
     <Compile Include="FieldReports\Issue83_MethodsWithGenericStructConstraint.cs" />
     <Compile Include="FieldReports\StaticStateBleeding.cs" />
     <Compile Include="FormattingCallsWhenThrowingReceivedCallsExceptions.cs" />
-    <Compile Include="ClearCalls.cs" />
+    <Compile Include="ClearSubstitute.cs" />
     <Compile Include="EventChecking.cs" />
     <Compile Include="EventRaising.cs" />
     <Compile Include="FieldReports\Issue59_ArgDoWithReturns.cs" />

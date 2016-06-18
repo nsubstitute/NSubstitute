@@ -6,11 +6,11 @@ namespace NSubstitute.Core
     public class CallResults : ICallResults
     {
         readonly ICallInfoFactory _callInfoFactory;
-        readonly ConcurrentQueue<ResultForCallSpec> _results;
+        ConcurrentQueue<ResultForCallSpec> _results;
 
         public CallResults(ICallInfoFactory callInfoFactory)
         {
-			_results = new ConcurrentQueue<ResultForCallSpec>();
+            _results = new ConcurrentQueue<ResultForCallSpec>();
             _callInfoFactory = callInfoFactory;
         }
 
@@ -21,8 +21,7 @@ namespace NSubstitute.Core
 
         public bool HasResultFor(ICall call)
         {
-            if (ReturnsVoidFrom(call))
-				return false;
+            if (ReturnsVoidFrom(call)) return false;
             return _results.Any(x => x.IsResultFor(call));
         }
 
@@ -34,15 +33,14 @@ namespace NSubstitute.Core
                     .GetResult(_callInfoFactory.Create(call));
         }
 
-	    public void Clear()
-	    {
-		   ResultForCallSpec _;
-           while (_results.TryDequeue(out _)) {}
-	    }
-
-	    bool ReturnsVoidFrom(ICall call)
+        public void Clear()
         {
-            return call.GetReturnType() == typeof (void);
+            _results = new ConcurrentQueue<ResultForCallSpec>();
+        }
+
+        bool ReturnsVoidFrom(ICall call)
+        {
+            return call.GetReturnType() == typeof(void);
         }
 
         class ResultForCallSpec

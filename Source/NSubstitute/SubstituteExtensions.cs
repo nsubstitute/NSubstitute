@@ -141,8 +141,8 @@ namespace NSubstitute
                 returnValue = new ReturnValue(returnThis);
             }
             else
-            {            
-                returnValue = new ReturnMultipleValues<T>(new[] {returnThis}.Concat(returnThese));
+            {
+                returnValue = new ReturnMultipleValues<T>(new[] { returnThis }.Concat(returnThese));
             }
             return context.LastCallShouldReturn(returnValue, matchArgs);
         }
@@ -250,33 +250,25 @@ namespace NSubstitute
         /// <param name="substitute"></param>
         /// <remarks>
         /// Note that this will not clear any results set up for the substitute using Returns().
+        /// This will be deprecated later in favour of <see cref="ClearSubstitutions{T}"/>.
         /// </remarks>
-        [Obsolete("Use ClearSubstitutions(ClearanceFlags.ReceivedCalls) instead")]
         public static void ClearReceivedCalls<T>(this T substitute) where T : class
         {
-            substitute.ClearSubstitutions(ClearanceFlags.ReceivedCalls);
+            substitute.ClearSubstitutions(ClearOptions.ReceivedCalls);
         }
 
-	    /// <summary>
-	    /// Forgets substituted calls/behaviour for this stubstitute
-	    /// </summary>
-	    /// <typeparam name="T"></typeparam>
-	    /// <param name="substitute"></param>
-	    /// <param name="flags">The types of substitution to forget</param>
-	    /// <remarks>
-	    /// </remarks>
-	    public static void ClearSubstitutions<T>(this T substitute, ClearanceFlags flags) where T : class
+        /// <summary>
+        /// Forgets substituted calls/behaviour for this stubstitute
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <param name="flags">The types of substitution to forget</param>
+        /// <remarks>
+        /// </remarks>
+        public static void ClearSubstitutions<T>(this T substitute, ClearOptions flags) where T : class
         {
             var router = GetRouterForSubstitute(substitute);
-
-			if((flags & ClearanceFlags.CallActions) == ClearanceFlags.CallActions)
-				router.ClearCallActions();
-
-			if((flags & ClearanceFlags.ReceivedCalls) == ClearanceFlags.ReceivedCalls)
-				router.ClearReceivedCalls();
-
-			if((flags & ClearanceFlags.ReturnValues) == ClearanceFlags.ReturnValues)
-				router.ClearReturnValues();
+            router.Clear(flags);
         }
 
         /// <summary>
@@ -290,7 +282,7 @@ namespace NSubstitute
         public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
-            return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.AsSpecifiedInCall);            
+            return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.AsSpecifiedInCall);
         }
 
         /// <summary>
@@ -304,7 +296,7 @@ namespace NSubstitute
         public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
-            return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.Any);            
+            return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.Any);
         }
 
         /// <summary>

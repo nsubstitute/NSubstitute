@@ -6,7 +6,7 @@ namespace NSubstitute.Core
     public class ResultsForType : IResultsForType
     {
         readonly ICallInfoFactory _callInfoFactory;
-        readonly System.Collections.Concurrent.ConcurrentQueue<ResultForTypeSpec> _results 
+        System.Collections.Concurrent.ConcurrentQueue<ResultForTypeSpec> _results 
             = new System.Collections.Concurrent.ConcurrentQueue<ResultForTypeSpec>();
 
         public ResultsForType(ICallInfoFactory callInfoFactory)
@@ -27,6 +27,11 @@ namespace NSubstitute.Core
         public void SetResult(Type type, IReturn resultToReturn)
         {
             _results.Enqueue(new ResultForTypeSpec(type, resultToReturn));
+        }
+
+        public void Clear()
+        {
+            _results = new System.Collections.Concurrent.ConcurrentQueue<ResultForTypeSpec>();
         }
 
         public object GetResult(ICall call)

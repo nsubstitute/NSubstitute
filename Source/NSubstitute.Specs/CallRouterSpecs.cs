@@ -34,8 +34,9 @@ namespace NSubstitute.Specs
                 _resultsForType = mock<IResultsForType>();
                 _state.stub(x => x.ReceivedCalls).Return(_receivedCalls);
                 _state.stub(x => x.ConfigureCall).Return(ConfigureCall);
-                _state.stub(x => x.ResultsForType)
-                      .Return(_resultsForType);
+                _state.stub(x => x.CallActions).Return(mock<ICallActions>());
+                _state.stub(x => x.CallResults).Return(mock<ICallResults>());
+                _state.stub(x => x.ResultsForType).Return(_resultsForType);
                 var recordReplayRoute = CreateRouteThatReturns(_returnValueFromRecordReplayRoute);
                 recordReplayRoute.stub(x => x.IsRecordReplayRoute).Return(true);
                 _routeFactory.stub(x => x.RecordReplay(_state)).Return(recordReplayRoute);
@@ -190,16 +191,48 @@ namespace NSubstitute.Specs
             }
         }
 
-        public class When_clearing_received_calls : Concern
+        public class When_clearing : Concern
         {
             [Test]
-            public void Should_clear_calls()
+            public void Clear_received_calls()
             {
-                _receivedCalls.received(x => x.Clear());
+                sut.Clear(ClearOptions.ReceivedCalls);
+                _state.ReceivedCalls.received(x => x.Clear());
             }
-            public override void Because()
+
+            [Test]
+            public void Clear_call_actions()
             {
-                sut.ClearReceivedCalls();
+                sut.Clear(ClearOptions.CallActions);
+                _state.CallActions.received(x => x.Clear());
+            }
+
+            [Test]
+            public void Clear_return_values()
+            {
+                sut.Clear(ClearOptions.ReturnValues);
+                _state.CallResults.received(x => x.Clear());
+                _state.ResultsForType.received(x => x.Clear());
+            }
+
+            [Test]
+            public void Clear_all_the_things()
+            {
+                sut.Clear(ClearOptions.All);
+                _state.CallActions.received(x => x.Clear());
+                _state.CallResults.received(x => x.Clear());
+                _state.ResultsForType.received(x => x.Clear());
+                _state.ReceivedCalls.received(x => x.Clear());
+            }
+
+            [Test]
+            public void Clear_nothing()
+            {
+                sut.Clear(0);
+                _state.CallActions.did_not_receive(x => x.Clear());
+                _state.CallResults.did_not_receive(x => x.Clear());
+                _state.ResultsForType.did_not_receive(x => x.Clear());
+                _state.ReceivedCalls.did_not_receive(x => x.Clear());
             }
         }
 
