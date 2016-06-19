@@ -1,4 +1,5 @@
 using System;
+using NSubstitute.ClearExtensions;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
@@ -21,7 +22,7 @@ namespace NSubstitute.Specs
 
             public override void Because()
             {
-                _substitute.ClearSubstitutions(ClearOptions);
+                _substitute.ClearSubstitute(ClearOptions);
             }
 
             public override void Context()

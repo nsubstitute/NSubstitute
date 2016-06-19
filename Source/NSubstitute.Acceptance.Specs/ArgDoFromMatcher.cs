@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NSubstitute.ClearExtensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -106,7 +107,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             var count = 0;
             _sub.Zap(Arg.Do<string>(arg => count++));
-            _sub.ClearSubstitutions(ClearOptions.CallActions);
+            _sub.ClearSubstitute(ClearOptions.CallActions);
             _sub.Zap("");
             Assert.That(count, Is.EqualTo(0));
         }

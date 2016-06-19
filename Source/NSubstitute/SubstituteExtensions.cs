@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using NSubstitute.Core;
 using NSubstitute.Routing;
+using NSubstitute.ClearExtensions;
 #if (NET4 || NET45)
 using System.Threading.Tasks;
 #endif
@@ -250,25 +250,12 @@ namespace NSubstitute
         /// <param name="substitute"></param>
         /// <remarks>
         /// Note that this will not clear any results set up for the substitute using Returns().
-        /// This will be deprecated later in favour of <see cref="ClearSubstitutions{T}"/>.
+        /// See <see cref="NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute{T}"/> for more options with resetting 
+        /// a substitute.
         /// </remarks>
         public static void ClearReceivedCalls<T>(this T substitute) where T : class
         {
-            substitute.ClearSubstitutions(ClearOptions.ReceivedCalls);
-        }
-
-        /// <summary>
-        /// Forgets substituted calls/behaviour for this stubstitute
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <param name="flags">The types of substitution to forget</param>
-        /// <remarks>
-        /// </remarks>
-        public static void ClearSubstitutions<T>(this T substitute, ClearOptions flags) where T : class
-        {
-            var router = GetRouterForSubstitute(substitute);
-            router.Clear(flags);
+            substitute.ClearSubstitute(ClearOptions.ReceivedCalls);
         }
 
         /// <summary>
