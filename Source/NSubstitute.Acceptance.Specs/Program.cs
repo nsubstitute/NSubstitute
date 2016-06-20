@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using NUnit.Common;
 using NUnitLite;
 
-namespace NSubstitute.Acceptance.Spec.Runner
+namespace NSubstitute.Acceptance.Specs
 {
     public class Program
     {
