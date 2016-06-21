@@ -6,7 +6,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
 {
     public class Issue75_DoesNotWorkWithMembersThatUseDynamic
     {
-#if (NET4 || NET45)
+#if (NET4 || NET45 || DNXCORE50)
         public interface ILog { void Error(Exception e); }
         public interface IClient { dynamic Post(string a, string b); }
 

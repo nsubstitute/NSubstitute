@@ -17,7 +17,10 @@
 
   "frameworks": {
     "netcoreapp1.0": {
-      "imports": "dnxcore50"
+      "imports": "dnxcore50",
+      "compilationOptions": {
+        "define": [ "DNXCORE50" ]
+      }
     }
   }
 }
