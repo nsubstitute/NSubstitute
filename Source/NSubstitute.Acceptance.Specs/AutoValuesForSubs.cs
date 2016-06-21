@@ -146,7 +146,7 @@ namespace NSubstitute.Acceptance.Specs
             AssertObjectIsASubstitute(returnedFromFunc);
         }
 
-#if (NET4 || NET45)
+#if (NET4 || NET45 || DNXCORE50)
         [Test]
         public void Should_auto_return_a_value_from_a_task() {
             var sub = Substitute.For<IFooWithTasks>();
@@ -170,7 +170,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 #endif
 
-#if NET45
+#if NET45 || DNXCORE50
         [Test]
         public void Should_auto_return_an_observable() {
             var sub = Substitute.For<IFooWithObservable>();
