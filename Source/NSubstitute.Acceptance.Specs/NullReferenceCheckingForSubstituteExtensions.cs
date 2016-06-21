@@ -1,4 +1,5 @@
 using System;
+using NSubstitute.ClearExtensions;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -48,6 +49,12 @@ namespace NSubstitute.Acceptance.Specs
         public void Call_to_clear_received_calls()
         {
             Assert.Throws<NullSubstituteReferenceException>(() => _engine.ClearReceivedCalls());
+        }
+
+        [Test]
+        public void Call_to_clear_substitute()
+        {
+            Assert.Throws<NullSubstituteReferenceException>(() => _engine.ClearSubstitute(ClearOptions.CallActions));
         }
 
         [Test]

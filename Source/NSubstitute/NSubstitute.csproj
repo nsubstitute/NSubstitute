@@ -120,6 +120,7 @@
     <Compile Include="Arg.cs" />
     <Compile Include="Callbacks\ConfiguredCallback.cs" />
     <Compile Include="Callback.cs" />
+    <Compile Include="ClearOptions.cs" />
     <Compile Include="Core\Argument.cs" />
     <Compile Include="Core\Arguments\AnyArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\ArgumentAction.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Core\Events\DelegateEventWrapper.cs" />
     <Compile Include="Core\Events\EventHandlerWrapper.cs" />
     <Compile Include="Core\SubstituteConfig.cs" />
+    <Compile Include="Extensions\ClearExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Exceptions\ArgumentIsNotOutOrRefException.cs" />
     <Compile Include="Exceptions\ArgumentSetWithIncompatibleValueException.cs" />

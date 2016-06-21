@@ -1,26 +1,28 @@
 using System;
+using NSubstitute.ClearExtensions;
 using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs
 {
-    public class ClearReceivedCallsExtensionSpec
+    public class ClearSubstituteExtensionSpec
     {
-        public class When_clearing_calls_on_a_substitute : StaticConcern
+        public class When_clearing_substitute : StaticConcern
         {
+            private const ClearOptions ClearOptions = (ClearOptions) 42;
             private ICallRouter _callRouter;
             private object _substitute;
 
             [Test]
-            public void Should_clear_calls_on_substitutes_call_router()
+            public void Should_pass_on_clear_options_to_substitutes_call_router()
             {
-                _callRouter.received(x => x.ClearReceivedCalls()); 
+                _callRouter.received(x => x.Clear(ClearOptions));
             }
 
             public override void Because()
             {
-                _substitute.ClearReceivedCalls();
+                _substitute.ClearSubstitute(ClearOptions);
             }
 
             public override void Context()

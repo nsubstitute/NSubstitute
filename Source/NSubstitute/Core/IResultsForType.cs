@@ -6,5 +6,6 @@ namespace NSubstitute.Core
         bool HasResultFor(ICall call);
         void SetResult(Type type, IReturn resultToReturn);
         object GetResult(ICall call);
+        void Clear();
     }
 }

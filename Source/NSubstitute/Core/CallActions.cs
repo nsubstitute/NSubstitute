@@ -33,7 +33,12 @@ namespace NSubstitute.Core
             }
         }
 
-        public void InvokeMatchingActions(ICall call)
+	    public void Clear()
+	    {
+		    _actions.Clear();
+	    }
+
+	    public void InvokeMatchingActions(ICall call)
         {
             var callInfo = _callInfoFactory.Create(call);
             foreach (var action in _actions.Where(x => x.IsSatisfiedBy(call)))

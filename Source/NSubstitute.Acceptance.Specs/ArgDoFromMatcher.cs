@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NSubstitute.ClearExtensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -99,6 +100,16 @@ namespace NSubstitute.Acceptance.Specs
             var result = _sub.Zap(new object());
             Assert.That(stringArgLength, Is.EqualTo(0));
             Assert.That(result, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Should_be_cleared_on_ClearCallActions()
+        {
+            var count = 0;
+            _sub.Zap(Arg.Do<string>(arg => count++));
+            _sub.ClearSubstitute(ClearOptions.CallActions);
+            _sub.Zap("");
+            Assert.That(count, Is.EqualTo(0));
         }
     }
 }

@@ -128,7 +128,7 @@
     <Compile Include="CallRouterResolverSpecs.cs" />
     <Compile Include="CallSpecificationFactorySpecs.cs" />
     <Compile Include="CallSpecificationSpecs.cs" />
-    <Compile Include="ClearReceivedCallsExtensionSpec.cs" />
+    <Compile Include="ClearSubstituteExtensionSpec.cs" />
     <Compile Include="DefaultForTypeSpecs.cs" />
     <Compile Include="Arguments\MixedArgumentSpecificationsFactorySpecs.cs" />
     <Compile Include="DidNotReceiveExtensionsSpecs.cs" />

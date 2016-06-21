@@ -12,8 +12,6 @@ namespace NSubstitute.Core
         static readonly IList<IArgumentSpecification> EmptyArgSpecs = new List<IArgumentSpecification>();
         readonly ISubstituteState _substituteState;
         readonly ISubstitutionContext _context;
-        readonly IReceivedCalls _receivedCalls;
-        readonly IConfigureCall ConfigureCall;
         readonly IRouteFactory _routeFactory;
         IRoute _currentRoute;
         bool _isSetToDefaultRoute;
@@ -23,8 +21,6 @@ namespace NSubstitute.Core
             _substituteState = substituteState;
             _context = context;
             _routeFactory = routeFactory;
-            _receivedCalls = substituteState.ReceivedCalls;
-            ConfigureCall = substituteState.ConfigureCall;
 
             UseDefaultRouteForNextCall();
         }
@@ -36,14 +32,25 @@ namespace NSubstitute.Core
             _currentRoute = route;
         }
 
-        public void ClearReceivedCalls()
+        public void Clear(ClearOptions options)
         {
-            _receivedCalls.Clear();
+            if ((options & ClearOptions.CallActions) == ClearOptions.CallActions)
+            {
+                _substituteState.CallActions.Clear();
+            }
+            if ((options & ClearOptions.ReturnValues) == ClearOptions.ReturnValues)
+            {
+                _substituteState.CallResults.Clear();
+                _substituteState.ResultsForType.Clear();
+            }
+            if ((options & ClearOptions.ReceivedCalls) == ClearOptions.ReceivedCalls)
+            {
+                _substituteState.ReceivedCalls.Clear();
+            }
         }
-
         public IEnumerable<ICall> ReceivedCalls()
         {
-            return _receivedCalls.AllCalls();
+            return _substituteState.ReceivedCalls.AllCalls();
         }
 
         public object Route(ICall call)
@@ -59,7 +66,7 @@ namespace NSubstitute.Core
 
         public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
         {
-            return ConfigureCall.SetResultForLastCall(returnValue, matchArgs);
+            return _substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs);
         }
 
         private bool IsSpecifyingACall(ICall call)

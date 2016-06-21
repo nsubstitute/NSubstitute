@@ -1,4 +1,6 @@
 ### 1.10.1 (unreleased)
+* [NEW] Clear substitute configuration using `sub.ClearSubstitute(ClearOptions)`. This extension can be brought in to scope via `using NSubstitute.ClearExtensions;`. Thanks to @trullock for defining and implementing this change, and to @alexandrnikitin for review feedback. (#157, #235, #179)
+* [DOC] Improved CallInfo.ArgAt documentation, thanks to asbjornu. (#231)
 
 ### 1.10.0 (March 2016)
 * [NEW] Callbacks builder for more control over When..Do callbacks. Thanks to bartoszgolek. (#202, #200)
