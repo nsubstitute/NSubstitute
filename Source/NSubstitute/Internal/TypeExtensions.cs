@@ -71,7 +71,15 @@ namespace System.Reflection
 #if DNXCORE50
         public static bool IsSubclassOf(this Type type, Type otherType)
         {
-            return type.IsAssignableFrom(otherType);
+            Type p = type; 
+            if (p == otherType)
+                return false; 
+            while (p != null) {
+                if (p == otherType)
+                    return true;
+                p = p.GetTypeInfo().BaseType; 
+            }
+            return false; 
         }
 #endif
     }
