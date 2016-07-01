@@ -1,4 +1,4 @@
-﻿#if NET45 || DNXCORE50
+﻿#if NET45 || NETSTANDARD1_5
 using NSubstitute.Routing.AutoValues;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
