@@ -1,10 +1,10 @@
 ﻿{
-  "version": "2.0.0-alpha003",
+  "version": "2.0.0-beta",
   "description": "NSubstitute is a friendly substitute for .NET mocking frameworks. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.",
   "authors": [ "Anthony Egerton", "David Tchepak", "Alexandr Nikitin" ],
 
   "packOptions": {
-    "projectUrl": "http://nsubstitute.github.com",
+    "projectUrl": "http://nsubstitute.github.com/",
     "licenseUrl": "https://github.com/nsubstitute/NSubstitute/raw/master/LICENSE.txt",
     "requireLicenseAcceptance": false,
     "iconUrl": "http://nsubstitute.github.com/images/nsubstitute-100x100.png",
