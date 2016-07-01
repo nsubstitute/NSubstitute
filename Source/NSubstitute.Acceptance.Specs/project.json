@@ -1,8 +1,5 @@
 {
   "version": "1.0.0-*",
-  "buildOptions": {
-    "emitEntryPoint": true
-  },
 
   "dependencies": {
     "NSubstitute": {
