@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true
@@ -19,14 +19,7 @@
 
   "frameworks": {
     "netcoreapp1.0": {
-      "compilationOptions": {
-        "define": [ "DNXCORE50" ]
-      },
-      "imports": [
-        "netcoreapp1.0",
-        "portable-net45+win8",
-        "dnxcore50"
-      ],
+      "imports": "dotnet5.6",
       "dependencies": {
         "Microsoft.NETCore.App": {
           "version": "1.0.0-*",
