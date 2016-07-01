@@ -26,9 +26,9 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             );
 
             //Show expected call:
-            Assert.That(ex.Message, Is.StringContaining("ParamsCall(1, 1)"));
+            Assert.That(ex.Message, Does.Contain("ParamsCall(1, 1)"));
             //Show actual call:
-            Assert.That(ex.Message, Is.StringContaining("ParamsCall(1, *42*)"));
+            Assert.That(ex.Message, Does.Contain("ParamsCall(1, *42*)"));
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             var spacifiedHaystack = ws.Replace(haystack, " ");
             var spacifiedNeedle = ws.Replace(needle, " ");
 
-            Assert.That(spacifiedHaystack, Is.StringContaining(spacifiedNeedle));
+            Assert.That(spacifiedHaystack, Does.Contain(spacifiedNeedle));
         }
     }
 }
