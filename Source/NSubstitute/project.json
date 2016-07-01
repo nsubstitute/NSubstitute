@@ -12,30 +12,6 @@
   },
 
   "frameworks": {
-    "net40": {
-      "buildOptions": {
-        "define": [ "NET4" ]
-      },
-      "frameworkAssemblies": {
-        "System.ServiceModel": ""
-      },
-      "dependencies": {
-        "Castle.Core": "3.3.3"
-      }
-    },
-
-    "net45": {
-      "buildOptions": {
-        "define": [ "NET45" ]
-      },
-      "frameworkAssemblies": {
-        "System.ServiceModel": ""
-      },
-      "dependencies": {
-        "Castle.Core": "3.3.3"
-      }
-    },
-
     "netstandard1.5": {
       "imports": "dotnet5.6",
       "dependencies": {
