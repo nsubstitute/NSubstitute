@@ -126,6 +126,9 @@
     <Compile Include="..\NSubstitute\Callbacks\ConfiguredCallback.cs">
       <Link>Callbacks\ConfiguredCallback.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\ClearOptions.cs">
+      <Link>ClearOptions.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Core\Argument.cs">
       <Link>Core\Argument.cs</Link>
     </Compile>
@@ -536,6 +539,9 @@
     </Compile>
     <Compile Include="..\NSubstitute\Experimental\Received.cs">
       <Link>Experimental\Received.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Extensions\ClearExtensions.cs">
+      <Link>Extensions\ClearExtensions.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Extensions\ExceptionExtensions.cs">
       <Link>Extensions\ExceptionExtensions.cs</Link>
