@@ -108,7 +108,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(x(_sample).Length, Is.EqualTo(0));
         }
 
-#if NET45 || DNXCORE50
+#if NET45 || NETSTANDARD1_5
         [Test]
         public void Should_auto_return_for_iqueryable()
         {
