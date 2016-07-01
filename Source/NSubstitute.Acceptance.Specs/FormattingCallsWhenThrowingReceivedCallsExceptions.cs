@@ -112,7 +112,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_show_expected_call()
             {
-                ExceptionMessageContains("Expected to receive exactly 2 calls matching:" + Environment.NewLine + "\t" + "SampleMethod(2)");
+                ExceptionMessageContains("Expected to receive exactly 2 calls matching:\n\t" + "SampleMethod(2)");
             }
 
             [Test]
@@ -146,7 +146,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_show_expected_call()
             {
-                ExceptionMessageContains("Expected to receive exactly 2 calls matching:" + Environment.NewLine + "\t" + "SampleMethod(2)");
+                ExceptionMessageContains("Expected to receive exactly 2 calls matching:\n\t" + "SampleMethod(2)");
             }
 
             [Test]
