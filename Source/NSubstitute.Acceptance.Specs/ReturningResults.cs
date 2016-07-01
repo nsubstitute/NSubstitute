@@ -157,7 +157,7 @@ namespace NSubstitute.Acceptance.Specs
                   //Now we'll misuse Returns.
                   "".Returns("I shouldn't be calling returns like this!");
               });
-            Assert.That(exception.Message, Does.Contain(expectedMessagePrefix));
+            Assert.That(exception.Message, Is.StringContaining(expectedMessagePrefix));
         }
 
         [Test]
