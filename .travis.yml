@@ -64,3 +64,4 @@ install:
 script:
   # Run tests
   - dotnet test -c $CONFIGURATION -f $FRAMEWORK Source/NSubstitute.Acceptance.Specs
+

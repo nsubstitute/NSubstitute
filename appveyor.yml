@@ -20,3 +20,4 @@ after_test:
 
 artifacts:
   path: 'Source/NSubstitute/**/*.nupkg'
+
