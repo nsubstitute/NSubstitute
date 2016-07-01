@@ -1,4 +1,4 @@
-#if (NET4 || NET45 || DNXCORE50)
+#if (NET4 || NET45 || NETSTANDARD1_5)
 using System;
 using System.Linq;
 using System.Reflection;

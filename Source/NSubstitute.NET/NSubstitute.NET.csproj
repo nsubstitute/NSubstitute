@@ -33,7 +33,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\Output\Release\NET35\NSubstitute\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET35</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -125,6 +125,9 @@
     </Compile>
     <Compile Include="..\NSubstitute\Callbacks\ConfiguredCallback.cs">
       <Link>Callbacks\ConfiguredCallback.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\ClearOptions.cs">
+      <Link>ClearOptions.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Core\Argument.cs">
       <Link>Core\Argument.cs</Link>
@@ -536,6 +539,9 @@
     </Compile>
     <Compile Include="..\NSubstitute\Experimental\Received.cs">
       <Link>Experimental\Received.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Extensions\ClearExtensions.cs">
+      <Link>Extensions\ClearExtensions.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Extensions\ExceptionExtensions.cs">
       <Link>Extensions\ExceptionExtensions.cs</Link>

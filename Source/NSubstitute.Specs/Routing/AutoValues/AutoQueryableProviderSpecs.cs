@@ -1,4 +1,5 @@
-﻿using NSubstitute.Routing.AutoValues;
+﻿#if NET45 || DNXCORE50
+using NSubstitute.Routing.AutoValues;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 using System.Linq;
@@ -86,3 +87,4 @@ namespace NSubstitute.Specs.Routing.AutoValues
         }
     }
 }
+#endif

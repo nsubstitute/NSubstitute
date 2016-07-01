@@ -1,7 +1,3 @@
-﻿#if DNXCORE50
-using ms=System.Reflection.TypeExtensions;
-#endif
-
 namespace System.Reflection
 {
     using System;
@@ -13,73 +9,55 @@ namespace System.Reflection
     {
         public static bool IsClass(this Type type)
         {
-#if DNXCORE50
+#if NETSTANDARD1_5
             return type.GetTypeInfo().IsClass;
-#elif NET4 || NET35
-            return type.IsClass;
 #else
-            return type.GetTypeInfo().IsClass;
+            return type.IsClass;
 #endif
         }
 
         public static bool IsGenericType(this Type type)
         {
-#if DNXCORE50
+#if NETSTANDARD1_5
             return type.GetTypeInfo().IsGenericType;
-#elif NET4 || NET35
-            return type.IsGenericType;
 #else
-            return type.GetTypeInfo().IsGenericType;
+            return type.IsGenericType;
 #endif
         }
 
 
         public static bool IsInterface(this Type type)
         {
-#if DNXCORE50
+#if NETSTANDARD1_5
             return type.GetTypeInfo().IsInterface;
-#elif NET4 || NET35
-            return type.IsInterface;
 #else
-            return type.GetTypeInfo().IsInterface;
+            return type.IsInterface;
 #endif
         }
 
 
         public static bool IsSealed(this Type type)
         {
-#if DNXCORE50
+#if NETSTANDARD1_5
             return type.GetTypeInfo().IsSealed;
-#elif NET4 || NET35
-            return type.IsSealed;
 #else
-            return type.GetTypeInfo().IsSealed;
+            return type.IsSealed;
 #endif
         }
 
         public static bool IsValueType(this Type type)
         {
-#if DNXCORE50
+#if NETSTANDARD1_5
             return type.GetTypeInfo().IsValueType;
-#elif NET4 || NET35
-            return type.IsValueType;
 #else
-            return type.GetTypeInfo().IsValueType;
+            return type.IsValueType;
 #endif
         }
 
-#if DNXCORE50
+#if NETSTANDARD1_5
         public static bool IsSubclassOf(this Type type, Type otherType)
         {
-            Type p = type; 
-            if (p == otherType)
-                return false; 
-            while (p != null) {
-                if (p == otherType)
-                    return true;
-                p = p.GetTypeInfo().BaseType; 
-            }
-            return false; 
+            return type.GetTypeInfo().IsSubclassOf(otherType);
         }
 #endif
     }

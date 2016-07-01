@@ -23,7 +23,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
                     sub.GetFoo().Returns(IPityTheFoo())
                 );
 
-            Assert.That(ex.Message, Is.StringStarting("Can not return value of type "));
+            Assert.That(ex.Message, Does.StartWith("Can not return value of type "));
         }
 
         private IFoo IPityTheFoo()
@@ -60,7 +60,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
                     sub.GetFoo().Returns(DoEvilAndReturnNullRef())
                 );
 
-            Assert.That(ex.Message, Is.StringStarting("Can not return null for"));
+            Assert.That(ex.Message, Does.StartWith("Can not return null for"));
         }
 
         private IFoo DoEvilAndReturnNullRef()
