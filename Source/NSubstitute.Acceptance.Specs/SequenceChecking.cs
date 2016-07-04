@@ -166,8 +166,7 @@ namespace NSubstitute.Acceptance.Specs
                                  _foo.Finish();
                              });
         }
-
-
+        
         [Test]
         public void Check_auto_subbed_props()
         {
@@ -257,6 +256,36 @@ namespace NSubstitute.Acceptance.Specs
                              {
                                  _foo.OnFoo += Arg.Any<Action>();
                              });
+        }
+        
+        [Test]
+        public void Pass_when_exception_in_first_sequenced_call_is_caught_and_second_call_is_exact()
+        {
+            try
+            {
+                Received.InOrder(() =>
+                {
+                    throw new Exception("An Exception!");
+                });
+            }
+            catch (Exception)
+            {
+                //suppress error
+            }
+            
+            _foo.Start(2);
+            _bar.Begin();
+            _foo.Finish();
+            _bar.End();
+            
+            Received.InOrder(() =>
+            {
+                _foo.Start(2);
+                _bar.Begin();
+                _foo.Finish();
+                _bar.End();
+
+            });
         }
 
         [SetUp]
