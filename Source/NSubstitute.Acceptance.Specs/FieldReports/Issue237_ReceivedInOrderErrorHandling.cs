@@ -37,19 +37,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
-        public void MethodCallsAreReceivedInOrder2()
-        {
-            IAmAnInterface _interface = Substitute.For<IAmAnInterface>();
-            _interface.MethodA(1, 2);
-            _interface.MethodB(1, 2);
-            Received.InOrder(() =>
-            {
-                _interface.MethodA(1, 2);
-                _interface.MethodB(1, 2);
-            });
-        }
-
-        [Test]
         public void AfterTheFailingTestIsRunWhenTheSuccessfulTestIsRunTheSuccessfulTestShouldSucceed()
         {
             try
