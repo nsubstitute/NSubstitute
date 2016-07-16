@@ -115,8 +115,14 @@ namespace NSubstitute.Core
         {
             var query = new Query();
             _currentQuery.Value = query;
-            calls();
-            _currentQuery.Value = null;
+            try
+            {
+                calls();
+            }
+            finally
+            {
+                _currentQuery.Value = null;
+            }
             return query.Result();
         }
     }
