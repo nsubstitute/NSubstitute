@@ -13,10 +13,9 @@
 
   "frameworks": {
     "netstandard1.5": {
-      "imports": "dotnet5.6",
       "dependencies": {
         "Castle.Core": "4.0.0-*",
-        "Microsoft.CSharp": "4.0.0",
+        "Microsoft.CSharp": "4.0.1",
         "NETStandard.Library": "1.6.0",
         "System.Linq.Queryable": "4.0.1",
         "System.Reflection.TypeExtensions": "4.1.0"
