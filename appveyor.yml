@@ -19,4 +19,4 @@ after_test:
   - dotnet pack -c %Configuration% Source/NSubstitute
 
 artifacts:
-  path: 'Source/NSubstitute/%Configuration%/*.nupkg'
+  path: 'Source/NSubstitute/**/*.nupkg'
