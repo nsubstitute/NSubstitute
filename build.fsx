@@ -188,8 +188,42 @@ Target "All" DoNothing
 // list targets, similar to `rake -T`
 Target "-T" PrintTargets
 
+
+// .NET Core build
+#r @"ThirdParty\FAKE.Dotnet\FAKE.Dotnet\tools\Fake.Dotnet.dll"
+open Fake
+open Fake.Dotnet
+
+Target "DefaultDotnetCore" DoNothing
+
+Target "CleanDotnetCore" (fun _ ->
+    !! "artifacts" ++ "Source/*/bin"
+        |> DeleteDirs
+)
+
+Target "InstallDotnetCore" (fun _ ->
+    DotnetCliInstall Preview2ToolingOptions
+)
+
+Target "BuildProjectsDotnetCore" (fun _ ->
+    !! "Source/NSubstitute/project.json" 
+        |> Seq.iter(fun proj ->  
+
+            // restore project dependencies
+            DotnetRestore id proj
+
+            // build project and produce outputs
+            DotnetCompile (fun c -> 
+                { c with 
+                    Configuration = BuildConfiguration.Custom buildMode;
+                    Framework = Some ("netstandard1.5");
+                    OutputPath = Some (outputBasePath @@ "netstandard1.5")
+                }) proj
+        )
+)
+
 // Build
-"Clean" ==> "Version" ==> "BuildSolution" ==> "Test" ==> "Default"
+"CleanDotnetCore" ==> "Clean" ==> "Version" ==> "BuildSolution" ==> "InstallDotnetCore" ==> "BuildProjectsDotnetCore" ==> "Test" ==> "Default"
 
 // Full build
 "Default"
@@ -200,6 +234,8 @@ Target "-T" PrintTargets
     ==> "Zip" 
     ==> "Documentation"
     ==> "All"
+
+
 
 
 RunTargetOrDefault "Default"
