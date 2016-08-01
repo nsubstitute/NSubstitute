@@ -113,6 +113,16 @@ Target "Package" <| fun _ ->
            CreateDir path
            CopyFiles path nsubDlls
     )
+
+    // TODO rework the .NET Core hack
+    ["netstandard1.5"]
+    |> List.map (fun x -> x, deployPath @@ "lib" @@ x.ToLower())
+    |> List.iter (fun (target, path) -> 
+           let nsubDlls = !! "*.dll" ++ "*.xml" |> SetBaseDir (outputBasePath @@ target @@ "NSubstitute")
+           CreateDir path
+           CopyFiles path nsubDlls
+    )
+
     cp "LICENSE.txt" deployPath
     cp "CHANGELOG.txt" deployPath
     cp "BreakingChanges.txt" deployPath
@@ -217,7 +227,7 @@ Target "BuildProjectsDotnetCore" (fun _ ->
                 { c with 
                     Configuration = BuildConfiguration.Custom buildMode;
                     Framework = Some ("netstandard1.5");
-                    OutputPath = Some (outputBasePath @@ "netstandard1.5")
+                    OutputPath = Some (outputBasePath @@ "netstandard1.5" @@ "NSubstitute")
                 }) proj
         )
 )
