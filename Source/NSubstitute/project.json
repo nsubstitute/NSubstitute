@@ -13,6 +13,9 @@
 
   "frameworks": {
     "netstandard1.5": {
+      "buildOptions": {
+        "xmlDoc": true
+      },
       "dependencies": {
         "Castle.Core": "4.0.0-*",
         "Microsoft.CSharp": "4.0.1",
