@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace NSubstitute.Core
 {
@@ -7,7 +8,7 @@ namespace NSubstitute.Core
         public object GetDefaultFor(Type type)
         {
             if (IsVoid(type)) return null;
-            if (type.IsValueType) return DefaultInstanceOfValueType(type);
+            if (type.IsValueType()) return DefaultInstanceOfValueType(type);
             return null;
         }
 

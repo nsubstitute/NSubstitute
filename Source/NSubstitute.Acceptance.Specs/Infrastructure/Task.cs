@@ -19,7 +19,8 @@ namespace NSubstitute.Acceptance.Specs.Infrastructure
             _start = () => thread.Start();
         }
         void ThrowIfError() { if (_exception != null) throw new Exception("Thread threw", _exception); }
-        public static void StartAll(Task[] tasks) { Array.ForEach(tasks, x => x._start()); }
-        public static void AwaitAll(Task[] tasks) { Array.ForEach(tasks, x => x._await()); }
+
+        public static void StartAll(Task[] tasks) { foreach (var task in tasks) { task._start(); } }
+        public static void AwaitAll(Task[] tasks) { foreach (var task in tasks) { task._await(); } }
     }
 }

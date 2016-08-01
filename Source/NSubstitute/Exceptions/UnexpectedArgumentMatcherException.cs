@@ -1,9 +1,13 @@
 using System;
+#if NET35 || NET4 || NET45
 using System.Runtime.Serialization;
+#endif
 
 namespace NSubstitute.Exceptions
 {
+#if NET35 || NET4 || NET45
     [Serializable]
+#endif
     public class UnexpectedArgumentMatcherException : SubstituteException
     {
         public static string WhatProbablyWentWrong =
@@ -15,6 +19,8 @@ namespace NSubstitute.Exceptions
             "  sub.MyMethod(\"hi\").Returns(Arg.Any<string>())";
         public UnexpectedArgumentMatcherException() : this(WhatProbablyWentWrong) { }
         public UnexpectedArgumentMatcherException(string message) : base(message) { }
+#if NET35 || NET4 || NET45
         protected UnexpectedArgumentMatcherException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+#endif
     }
 }

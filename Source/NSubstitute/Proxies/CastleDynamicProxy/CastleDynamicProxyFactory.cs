@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
+#if NET35 || NET4 || NET45
 using System.Security.Permissions;
+#endif
 using Castle.DynamicProxy;
 using Castle.DynamicProxy.Generators;
 using NSubstitute.Core;
@@ -38,7 +40,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                                                             IInterceptor interceptor,
                                                             ProxyGenerationOptions proxyGenerationOptions)
         {
-            if (typeToProxy.IsInterface)
+            if (typeToProxy.IsInterface())
             {
                 VerifyNoConstructorArgumentsGivenForInterface(constructorArguments);
                 return _proxyGenerator.CreateInterfaceProxyWithoutTarget(typeToProxy, additionalInterfaces, proxyGenerationOptions, interceptor);
@@ -83,7 +85,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private void VerifyClassHasNotBeenPassedAsAnAdditionalInterface(Type[] additionalInterfaces)
         {
-            if (additionalInterfaces != null && additionalInterfaces.Any(x => x.IsClass))
+            if (additionalInterfaces != null && additionalInterfaces.Any(x => x.IsClass()))
             {
                 throw new SubstituteException("Can not substitute for multiple classes. To substitute for multiple types only one type can be a concrete class; other types can only be interfaces.");
             }
@@ -91,6 +93,8 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private static void ConfigureDynamicProxyToAvoidReplicatingProblematicAttributes()
         {
+#if NET35 || NET4 || NET45
+
 #pragma warning disable 618
             AttributesToAvoidReplicating.Add<SecurityPermissionAttribute>();
 #pragma warning restore 618
@@ -104,6 +108,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.TypeIdentifierAttribute>();
 #endif
             AttributesToAvoidReplicating.Add<UIPermissionAttribute>();
+#endif
         }
     }
 }

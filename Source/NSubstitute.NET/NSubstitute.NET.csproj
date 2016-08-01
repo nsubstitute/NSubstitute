@@ -1,0 +1,697 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">NET35-Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC6C16CC-053D-4A67-B48F-7FF4304F2896}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NSubstitute</RootNamespace>
+    <AssemblyName>NSubstitute</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Debug|AnyCPU' ">
+    <OutputPath>..\..\Output\Debug\NET35\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET35</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Debug\NET35\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\NET35\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;NET35</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Release\NET35\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Debug|AnyCPU' ">
+    <OutputPath>..\..\Output\Debug\NET40\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Debug\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\NET40\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;NET4</DefineConstants>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\Output\Release\NET40\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\nsubstitute.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET45-Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\Output\Debug\NET45\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET4;NET45</DefineConstants>
+    <DocumentationFile>..\..\Output\Debug\NET45\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
+    <DebugType>full</DebugType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET45-Release|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\Output\Release\NET45\NSubstitute\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET4;NET45</DefineConstants>
+    <DocumentationFile>..\..\Output\Release\NET45\NSubstitute\NSubstitute.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
+    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
+      <HintPath>..\..\ThirdParty\Castle.Core.3.3.3\lib\net35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">
+      <HintPath>..\..\ThirdParty\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.5' ">
+      <HintPath>..\..\ThirdParty\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\Rx\System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' " />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\NSubstitute\Arg.cs">
+      <Link>Arg.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Callback.cs">
+      <Link>Callback.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Callbacks\ConfiguredCallback.cs">
+      <Link>Callbacks\ConfiguredCallback.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\ClearOptions.cs">
+      <Link>ClearOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Argument.cs">
+      <Link>Core\Argument.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\AnyArgumentMatcher.cs">
+      <Link>Core\Arguments\AnyArgumentMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArgumentAction.cs">
+      <Link>Core\Arguments\ArgumentAction.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArgumentEqualsSpecificationFactory.cs">
+      <Link>Core\Arguments\ArgumentEqualsSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArgumentFormatter.cs">
+      <Link>Core\Arguments\ArgumentFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArgumentMatchInfo.cs">
+      <Link>Core\Arguments\ArgumentMatchInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArgumentSpecification.cs">
+      <Link>Core\Arguments\ArgumentSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArgumentSpecificationFactory.cs">
+      <Link>Core\Arguments\ArgumentSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArgumentSpecificationQueue.cs">
+      <Link>Core\Arguments\ArgumentSpecificationQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArgumentSpecificationsFactory.cs">
+      <Link>Core\Arguments\ArgumentSpecificationsFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArrayArgumentSpecificationsFactory.cs">
+      <Link>Core\Arguments\ArrayArgumentSpecificationsFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArrayContentsArgumentMatcher.cs">
+      <Link>Core\Arguments\ArrayContentsArgumentMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ArrayContentsArgumentSpecificationFactory.cs">
+      <Link>Core\Arguments\ArrayContentsArgumentSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\DefaultChecker.cs">
+      <Link>Core\Arguments\DefaultChecker.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\EqualsArgumentMatcher.cs">
+      <Link>Core\Arguments\EqualsArgumentMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ExpressionArgumentMatcher.cs">
+      <Link>Core\Arguments\ExpressionArgumentMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IArgumentEqualsSpecificationFactory.cs">
+      <Link>Core\Arguments\IArgumentEqualsSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IArgumentFormatter.cs">
+      <Link>Core\Arguments\IArgumentFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IArgumentMatcher.cs">
+      <Link>Core\Arguments\IArgumentMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IArgumentSpecification.cs">
+      <Link>Core\Arguments\IArgumentSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IArgumentSpecificationFactory.cs">
+      <Link>Core\Arguments\IArgumentSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IArgumentSpecificationsFactory.cs">
+      <Link>Core\Arguments\IArgumentSpecificationsFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IArrayArgumentSpecificationsFactory.cs">
+      <Link>Core\Arguments\IArrayArgumentSpecificationsFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IArrayContentsArgumentSpecificationFactory.cs">
+      <Link>Core\Arguments\IArrayContentsArgumentSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IDefaultChecker.cs">
+      <Link>Core\Arguments\IDefaultChecker.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IMixedArgumentSpecificationsFactory.cs">
+      <Link>Core\Arguments\IMixedArgumentSpecificationsFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\INonParamsArgumentSpecificationFactory.cs">
+      <Link>Core\Arguments\INonParamsArgumentSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IParameterInfosFromParamsArrayFactory.cs">
+      <Link>Core\Arguments\IParameterInfosFromParamsArrayFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\IParamsArgumentSpecificationFactory.cs">
+      <Link>Core\Arguments\IParamsArgumentSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ISuppliedArgumentSpecifications.cs">
+      <Link>Core\Arguments\ISuppliedArgumentSpecifications.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ISuppliedArgumentSpecificationsFactory.cs">
+      <Link>Core\Arguments\ISuppliedArgumentSpecificationsFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\MixedArgumentSpecificationsFactory.cs">
+      <Link>Core\Arguments\MixedArgumentSpecificationsFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\NonParamsArgumentSpecificationFactory.cs">
+      <Link>Core\Arguments\NonParamsArgumentSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ParameterInfosFromParamsArrayFactory.cs">
+      <Link>Core\Arguments\ParameterInfosFromParamsArrayFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\ParamsArgumentSpecificationFactory.cs">
+      <Link>Core\Arguments\ParamsArgumentSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\SuppliedArgumentSpecifications.cs">
+      <Link>Core\Arguments\SuppliedArgumentSpecifications.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Arguments\SuppliedArgumentSpecificationsFactory.cs">
+      <Link>Core\Arguments\SuppliedArgumentSpecificationsFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Call.cs">
+      <Link>Core\Call.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallActions.cs">
+      <Link>Core\CallActions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallBaseExclusions.cs">
+      <Link>Core\CallBaseExclusions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallFactory.cs">
+      <Link>Core\CallFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallFormatter.cs">
+      <Link>Core\CallFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallInfo.cs">
+      <Link>Core\CallInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallInfoFactory.cs">
+      <Link>Core\CallInfoFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallResults.cs">
+      <Link>Core\CallResults.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallRouter.cs">
+      <Link>Core\CallRouter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallRouterFactory.cs">
+      <Link>Core\CallRouterFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallRouterResolver.cs">
+      <Link>Core\CallRouterResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallSpecAndTarget.cs">
+      <Link>Core\CallSpecAndTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallSpecification.cs">
+      <Link>Core\CallSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallSpecificationFactory.cs">
+      <Link>Core\CallSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallSpecificationFactoryFactoryYesThatsRight.cs">
+      <Link>Core\CallSpecificationFactoryFactoryYesThatsRight.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\CallStack.cs">
+      <Link>Core\CallStack.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ConfigureCall.cs">
+      <Link>Core\ConfigureCall.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ConfiguredCall.cs">
+      <Link>Core\ConfiguredCall.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\DefaultForType.cs">
+      <Link>Core\DefaultForType.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\EventCallFormatter.cs">
+      <Link>Core\EventCallFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\EventHandlerRegistry.cs">
+      <Link>Core\EventHandlerRegistry.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Events\DelegateEventWrapper.cs">
+      <Link>Core\Events\DelegateEventWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Events\EventHandlerWrapper.cs">
+      <Link>Core\Events\EventHandlerWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Events\RaiseEventWrapper.cs">
+      <Link>Core\Events\RaiseEventWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Extensions.cs">
+      <Link>Core\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\GetCallSpec.cs">
+      <Link>Core\GetCallSpec.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICall.cs">
+      <Link>Core\ICall.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallActions.cs">
+      <Link>Core\ICallActions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallBaseExclusions.cs">
+      <Link>Core\ICallBaseExclusions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallHandler.cs">
+      <Link>Core\ICallHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallInfoFactory.cs">
+      <Link>Core\ICallInfoFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallResults.cs">
+      <Link>Core\ICallResults.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallRouter.cs">
+      <Link>Core\ICallRouter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallRouterFactory.cs">
+      <Link>Core\ICallRouterFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallRouterProvider.cs">
+      <Link>Core\ICallRouterProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallRouterResolver.cs">
+      <Link>Core\ICallRouterResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallSpecification.cs">
+      <Link>Core\ICallSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallSpecificationFactory.cs">
+      <Link>Core\ICallSpecificationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallStack.cs">
+      <Link>Core\ICallStack.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IConfigureCall.cs">
+      <Link>Core\IConfigureCall.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IDefaultForType.cs">
+      <Link>Core\IDefaultForType.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IDescribeNonMatches.cs">
+      <Link>Core\IDescribeNonMatches.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IEventHandlerRegistry.cs">
+      <Link>Core\IEventHandlerRegistry.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IGetCallSpec.cs">
+      <Link>Core\IGetCallSpec.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IMethodInfoFormatter.cs">
+      <Link>Core\IMethodInfoFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IParameterInfo.cs">
+      <Link>Core\IParameterInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IPendingSpecification.cs">
+      <Link>Core\IPendingSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IPropertyHelper.cs">
+      <Link>Core\IPropertyHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IProxyFactory.cs">
+      <Link>Core\IProxyFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IQueryResults.cs">
+      <Link>Core\IQueryResults.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IReceivedCalls.cs">
+      <Link>Core\IReceivedCalls.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IReceivedCallsExceptionThrower.cs">
+      <Link>Core\IReceivedCallsExceptionThrower.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IResultsForType.cs">
+      <Link>Core\IResultsForType.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\IReturn.cs">
+      <Link>Core\IReturn.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ISubstituteFactory.cs">
+      <Link>Core\ISubstituteFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ISubstituteState.cs">
+      <Link>Core\ISubstituteState.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ISubstitutionContext.cs">
+      <Link>Core\ISubstitutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\MatchArgs.cs">
+      <Link>Core\MatchArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Maybe.cs">
+      <Link>Core\Maybe.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\MethodFormatter.cs">
+      <Link>Core\MethodFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ParameterInfoFromType.cs">
+      <Link>Core\ParameterInfoFromType.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ParameterInfoWrapper.cs">
+      <Link>Core\ParameterInfoWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\PendingSpecification.cs">
+      <Link>Core\PendingSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\PropertyCallFormatter.cs">
+      <Link>Core\PropertyCallFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\PropertyHelper.cs">
+      <Link>Core\PropertyHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Quantity.cs">
+      <Link>Core\Quantity.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\Query.cs">
+      <Link>Core\Query.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ReceivedCallsExceptionThrower.cs">
+      <Link>Core\ReceivedCallsExceptionThrower.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ReflectionExtensions.cs">
+      <Link>Core\ReflectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ResultsForType.cs">
+      <Link>Core\ResultsForType.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ReturnObservable.cs">
+      <Link>Core\ReturnObservable.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\RobustThreadLocal.cs">
+      <Link>Core\RobustThreadLocal.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\RouteAction.cs">
+      <Link>Core\RouteAction.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\SequenceChecking\InstanceTracker.cs">
+      <Link>Core\SequenceChecking\InstanceTracker.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\SequenceChecking\SequenceFormatter.cs">
+      <Link>Core\SequenceChecking\SequenceFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\SequenceChecking\SequenceInOrderAssertion.cs">
+      <Link>Core\SequenceChecking\SequenceInOrderAssertion.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\SequenceNumberGenerator.cs">
+      <Link>Core\SequenceNumberGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\SubstituteConfig.cs">
+      <Link>Core\SubstituteConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\SubstituteFactory.cs">
+      <Link>Core\SubstituteFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\SubstituteState.cs">
+      <Link>Core\SubstituteState.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\SubstitutionContext.cs">
+      <Link>Core\SubstitutionContext.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\WhenCalled.cs">
+      <Link>Core\WhenCalled.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\AmbiguousArgumentsException.cs">
+      <Link>Exceptions\AmbiguousArgumentsException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\ArgumentIsNotOutOrRefException.cs">
+      <Link>Exceptions\ArgumentIsNotOutOrRefException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\ArgumentNotFoundException.cs">
+      <Link>Exceptions\ArgumentNotFoundException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\ArgumentSetWithIncompatibleValueException.cs">
+      <Link>Exceptions\ArgumentSetWithIncompatibleValueException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\CallSequenceNotFoundException.cs">
+      <Link>Exceptions\CallSequenceNotFoundException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\CannotCreateEventArgsException.cs">
+      <Link>Exceptions\CannotCreateEventArgsException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\CanNotPartiallySubForInterfaceOrDelegateException.cs">
+      <Link>Exceptions\CanNotPartiallySubForInterfaceOrDelegateException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\CannotReturnNullforValueType.cs">
+      <Link>Exceptions\CannotReturnNullforValueType.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\CouldNotRaiseEventException.cs">
+      <Link>Exceptions\CouldNotRaiseEventException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\CouldNotSetReturnException.cs">
+      <Link>Exceptions\CouldNotSetReturnException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\MissingSequenceNumberException.cs">
+      <Link>Exceptions\MissingSequenceNumberException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\NotASubstituteException.cs">
+      <Link>Exceptions\NotASubstituteException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\NotRunningAQueryException.cs">
+      <Link>Exceptions\NotRunningAQueryException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\NullSubstituteReferenceException.cs">
+      <Link>Exceptions\NullSubstituteReferenceException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\ReceivedCallsException.cs">
+      <Link>Exceptions\ReceivedCallsException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\SubstituteException.cs">
+      <Link>Exceptions\SubstituteException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\UnexpectedArgumentMatcherException.cs">
+      <Link>Exceptions\UnexpectedArgumentMatcherException.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Experimental\Received.cs">
+      <Link>Experimental\Received.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Extensions\ClearExtensions.cs">
+      <Link>Extensions\ClearExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Extensions\ExceptionExtensions.cs">
+      <Link>Extensions\ExceptionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Extensions\ReturnsExtensions.cs">
+      <Link>Extensions\ReturnsExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Extensions\ReturnsForAllExtensions.cs">
+      <Link>Extensions\ReturnsForAllExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Internal\TypeExtensions.cs">
+      <Link>Internal\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs">
+      <Link>Proxies\CastleDynamicProxy\CastleDynamicProxyFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs">
+      <Link>Proxies\CastleDynamicProxy\CastleForwardingInterceptor.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Proxies\CastleDynamicProxy\CastleInvocationMapper.cs">
+      <Link>Proxies\CastleDynamicProxy\CastleInvocationMapper.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Proxies\DelegateProxy\DelegateCall.cs">
+      <Link>Proxies\DelegateProxy\DelegateCall.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Proxies\DelegateProxy\DelegateProxyFactory.cs">
+      <Link>Proxies\DelegateProxy\DelegateProxyFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Proxies\ProxyFactory.cs">
+      <Link>Proxies\ProxyFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Raise.cs">
+      <Link>Raise.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Received.cs">
+      <Link>Received.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\AutoValues\AutoArrayProvider.cs">
+      <Link>Routing\AutoValues\AutoArrayProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\AutoValues\AutoObservableProvider.cs">
+      <Link>Routing\AutoValues\AutoObservableProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\AutoValues\AutoQueryableProvider.cs">
+      <Link>Routing\AutoValues\AutoQueryableProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\AutoValues\AutoStringProvider.cs">
+      <Link>Routing\AutoValues\AutoStringProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\AutoValues\AutoSubstituteProvider.cs">
+      <Link>Routing\AutoValues\AutoSubstituteProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\AutoValues\AutoTaskProvider.cs">
+      <Link>Routing\AutoValues\AutoTaskProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\AutoValues\IAutoValueProvider.cs">
+      <Link>Routing\AutoValues\IAutoValueProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\AddCallToQueryResultHandler.cs">
+      <Link>Routing\Handlers\AddCallToQueryResultHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\CheckReceivedCallsHandler.cs">
+      <Link>Routing\Handlers\CheckReceivedCallsHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ClearLastCallRouterHandler.cs">
+      <Link>Routing\Handlers\ClearLastCallRouterHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ClearUnusedCallSpecHandler.cs">
+      <Link>Routing\Handlers\ClearUnusedCallSpecHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\DoActionsCallHandler.cs">
+      <Link>Routing\Handlers\DoActionsCallHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\DoNotCallBaseForCallHandler.cs">
+      <Link>Routing\Handlers\DoNotCallBaseForCallHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\EventSubscriptionHandler.cs">
+      <Link>Routing\Handlers\EventSubscriptionHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\PropertySetterHandler.cs">
+      <Link>Routing\Handlers\PropertySetterHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\RaiseEventHandler.cs">
+      <Link>Routing\Handlers\RaiseEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\RecordCallHandler.cs">
+      <Link>Routing\Handlers\RecordCallHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\RecordCallSpecificationHandler.cs">
+      <Link>Routing\Handlers\RecordCallSpecificationHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnAutoValue.cs">
+      <Link>Routing\Handlers\ReturnAutoValue.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnConfiguredResultHandler.cs">
+      <Link>Routing\Handlers\ReturnConfiguredResultHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnDefaultForReturnTypeHandler.cs">
+      <Link>Routing\Handlers\ReturnDefaultForReturnTypeHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnFromAndConfigureDynamicCall.cs">
+      <Link>Routing\Handlers\ReturnFromAndConfigureDynamicCall.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnFromBaseIfRequired.cs">
+      <Link>Routing\Handlers\ReturnFromBaseIfRequired.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnResultForTypeHandler.cs">
+      <Link>Routing\Handlers\ReturnResultForTypeHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\SetActionForCallHandler.cs">
+      <Link>Routing\Handlers\SetActionForCallHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\IRoute.cs">
+      <Link>Routing\IRoute.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\IRouteFactory.cs">
+      <Link>Routing\IRouteFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Route.cs">
+      <Link>Routing\Route.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\RouteFactory.cs">
+      <Link>Routing\RouteFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Substitute.cs">
+      <Link>Substitute.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\SubstituteExtensions.cs">
+      <Link>SubstituteExtensions.cs</Link>
+    </Compile>
+    <None Include="..\nsubstitute.snk">
+      <Link>Core\nsubstitute.snk</Link>
+    </None>
+    <None Include="ilmerge.exclude" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
+  <Target Name="AfterBuild" Condition="(($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')) And '$(OS)' == 'Windows_NT'">
+    <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
+      <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
+    </CreateItem>
+    <GetReferenceAssemblyPaths BypassFrameworkInstallChecks="False" TargetFrameworkMoniker=".NETFramework,Version=$(TargetFrameworkVersion)">
+      <Output TaskParameter="FullFrameworkReferenceAssemblyPaths" PropertyName="FrameworkReferenceAssemblyPath" />
+    </GetReferenceAssemblyPaths>
+    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly)  &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v3.5'" />
+    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:&quot;v4,$(FrameworkReferenceAssemblyPath).&quot; &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.0'" />
+    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\ThirdParty\Ilmerge\ILMerge.exe&quot; /internalize:&quot;$(MSBuildProjectDirectory)\ilmerge.exclude&quot; /keyfile:$(AssemblyOriginatorKeyFile) /out:@(MainAssembly) /targetplatform:&quot;v4,$(FrameworkReferenceAssemblyPath).&quot; &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" Condition=" '$(TargetFrameworkVersion)' == 'v4.5'" />
+    <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+  </Target>
+</Project>

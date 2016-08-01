@@ -37,8 +37,7 @@ namespace NSubstitute.Core.SequenceChecking
 
         private string Format(CallData[] calls)
         {
-            return string.Join(_delimiter, 
-                Array.ConvertAll(calls, x => x.Format(_hasMultipleInstances, _requiresInstanceNumbers)));
+            return calls.Select(x => x.Format(_hasMultipleInstances, _requiresInstanceNumbers)).Join(_delimiter);
         }
 
         private bool HasMultipleCallsOnSameType()
