@@ -146,8 +146,8 @@ Target "NuGet" <| fun _ ->
                  DependenciesByFramework = 
                      [{ FrameworkVersion = "netstandard1.5"
                         Dependencies = 
-                            ["Castle.Core", "[4.0.0-alpha001, )"
-                             "Microsoft.CSharp", "[4.0.0, )"
+                            ["Castle.Core", "[4.0.0-beta001, )"
+                             "Microsoft.CSharp", "[4.0.1, )"
                              "NETStandard.Library", "[1.6.0, )"
                              "System.Linq.Queryable", "[4.0.1, )"
                              "System.Reflection.TypeExtensions", "[4.1.0, )" ]}]})
