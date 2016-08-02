@@ -141,7 +141,17 @@ Target "NuGet" <| fun _ ->
         { p with OutputPath = nugetPath
                  WorkingDir = workingDir
                  Version = version
-                 ReleaseNotes = toLines releaseNotes.Notes }) "Build/NSubstitute.nuspec"
+                 ReleaseNotes = toLines releaseNotes.Notes 
+                 // TODO better way to get .NET Core dependencies from project.json
+                 DependenciesByFramework = 
+                     [{ FrameworkVersion = "netstandard1.5"
+                        Dependencies = 
+                            ["Castle.Core", "[4.0.0-alpha001, )"
+                             "Microsoft.CSharp", "[4.0.0, )"
+                             "NETStandard.Library", "[1.6.0, )"
+                             "System.Linq.Queryable", "[4.0.1, )"
+                             "System.Reflection.TypeExtensions", "[4.1.0, )" ]}]})
+                        "Build/NSubstitute.nuspec"
 
 Target "Zip" <| fun _ -> 
     let zipPath = outputBasePath @@ "zip"
