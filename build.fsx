@@ -113,6 +113,16 @@ Target "Package" <| fun _ ->
            CreateDir path
            CopyFiles path nsubDlls
     )
+
+    // TODO rework the .NET Core hack
+    ["netstandard1.5"]
+    |> List.map (fun x -> x, deployPath @@ "lib" @@ x.ToLower())
+    |> List.iter (fun (target, path) -> 
+           let nsubDlls = !! "*.dll" ++ "*.xml" |> SetBaseDir (outputBasePath @@ target @@ "NSubstitute")
+           CreateDir path
+           CopyFiles path nsubDlls
+    )
+
     cp "LICENSE.txt" deployPath
     cp "CHANGELOG.txt" deployPath
     cp "BreakingChanges.txt" deployPath
@@ -131,7 +141,17 @@ Target "NuGet" <| fun _ ->
         { p with OutputPath = nugetPath
                  WorkingDir = workingDir
                  Version = version
-                 ReleaseNotes = toLines releaseNotes.Notes }) "Build/NSubstitute.nuspec"
+                 ReleaseNotes = toLines releaseNotes.Notes 
+                 // TODO better way to get .NET Core dependencies from project.json
+                 DependenciesByFramework = 
+                     [{ FrameworkVersion = "netstandard1.5"
+                        Dependencies = 
+                            ["Castle.Core", "[4.0.0-beta001, )"
+                             "Microsoft.CSharp", "[4.0.1, )"
+                             "NETStandard.Library", "[1.6.0, )"
+                             "System.Linq.Queryable", "[4.0.1, )"
+                             "System.Reflection.TypeExtensions", "[4.1.0, )" ]}]})
+                        "Build/NSubstitute.nuspec"
 
 Target "Zip" <| fun _ -> 
     let zipPath = outputBasePath @@ "zip"
@@ -188,8 +208,42 @@ Target "All" DoNothing
 // list targets, similar to `rake -T`
 Target "-T" PrintTargets
 
+
+// .NET Core build
+#r @"ThirdParty\FAKE.Dotnet\FAKE.Dotnet\tools\Fake.Dotnet.dll"
+open Fake
+open Fake.Dotnet
+
+Target "DefaultDotnetCore" DoNothing
+
+Target "CleanDotnetCore" (fun _ ->
+    !! "artifacts" ++ "Source/*/bin"
+        |> DeleteDirs
+)
+
+Target "InstallDotnetCore" (fun _ ->
+    DotnetCliInstall Preview2ToolingOptions
+)
+
+Target "BuildProjectsDotnetCore" (fun _ ->
+    !! "Source/NSubstitute/project.json" 
+        |> Seq.iter(fun proj ->  
+
+            // restore project dependencies
+            DotnetRestore id proj
+
+            // build project and produce outputs
+            DotnetCompile (fun c -> 
+                { c with 
+                    Configuration = BuildConfiguration.Custom buildMode;
+                    Framework = Some ("netstandard1.5");
+                    OutputPath = Some (outputBasePath @@ "netstandard1.5" @@ "NSubstitute")
+                }) proj
+        )
+)
+
 // Build
-"Clean" ==> "Version" ==> "BuildSolution" ==> "Test" ==> "Default"
+"CleanDotnetCore" ==> "Clean" ==> "Version" ==> "BuildSolution" ==> "InstallDotnetCore" ==> "BuildProjectsDotnetCore" ==> "Test" ==> "Default"
 
 // Full build
 "Default"
@@ -200,6 +254,8 @@ Target "-T" PrintTargets
     ==> "Zip" 
     ==> "Documentation"
     ==> "All"
+
+
 
 
 RunTargetOrDefault "Default"
