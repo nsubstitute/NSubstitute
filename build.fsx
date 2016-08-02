@@ -214,13 +214,6 @@ Target "-T" PrintTargets
 open Fake
 open Fake.Dotnet
 
-Target "DefaultDotnetCore" DoNothing
-
-Target "CleanDotnetCore" (fun _ ->
-    !! "artifacts" ++ "Source/*/bin"
-        |> DeleteDirs
-)
-
 Target "InstallDotnetCore" (fun _ ->
     DotnetCliInstall Preview2ToolingOptions
 )
@@ -243,7 +236,7 @@ Target "BuildProjectsDotnetCore" (fun _ ->
 )
 
 // Build
-"CleanDotnetCore" ==> "Clean" ==> "Version" ==> "BuildSolution" ==> "InstallDotnetCore" ==> "BuildProjectsDotnetCore" ==> "Test" ==> "Default"
+"Clean" ==> "Version" ==> "BuildSolution" ==> "InstallDotnetCore" ==> "BuildProjectsDotnetCore" ==> "Test" ==> "Default"
 
 // Full build
 "Default"
@@ -254,8 +247,6 @@ Target "BuildProjectsDotnetCore" (fun _ ->
     ==> "Zip" 
     ==> "Documentation"
     ==> "All"
-
-
 
 
 RunTargetOrDefault "Default"
