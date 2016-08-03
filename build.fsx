@@ -34,13 +34,22 @@ module ExamplesToCode =
             for file in files do
                 ConvertFile file targetDir
 
-let ALL_TARGETS = [ "NET35"; "NET40"; "NET45" ]
+let NET_TARGETS = [ "NET35"; "NET40"; "NET45" ]
+let NETCORE_TARGETS = [ "netstandard1.5" ]
+let ALL_TARGETS = List.append NET_TARGETS NETCORE_TARGETS
+
 let buildMode = getBuildParamOrDefault "mode" "Debug"
 let targets = 
     match getBuildParamOrDefault "targets" "" with
     | "" -> [ ALL_TARGETS.Head ]
     | "ALL" -> ALL_TARGETS
     | s -> s.Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) |> Array.toList
+
+let packageVersionSuffix = getBuildParamOrDefault "packageVersionSuffix" "" // Use to tag a NuGet build as alpha/beta
+
+let hasAny ofThese = Seq.exists (fun t -> ofThese |> List.contains t)
+let hasNetTarget = targets |> hasAny NET_TARGETS
+let hasNetCoreTarget = targets |> hasAny NETCORE_TARGETS
 
 let getVersion () =
     let tag = Git.CommandHelper.runSimpleGitCommand "" "describe --tags --long --match v*"
@@ -73,10 +82,11 @@ Target "BuildSolution" <| fun _ ->
             [ "Configuration", config + "-" + buildMode ] // e.g. NET35-Debug
             [ "./Source/NSubstitute.2010.sln" ]
             |> ignore
-    targets |> List.iter build
+    targets |> List.except NETCORE_TARGETS |> List.iter build
 
 Target "Test" <| fun _ -> 
     targets
+    |> List.except NETCORE_TARGETS
     |> List.iter (fun config -> 
                    let workingDir = outputBasePath @@ config
                    let testDlls = !!(workingDir @@ "**" @@ "*Specs.dll")
@@ -89,6 +99,7 @@ Target "Test" <| fun _ ->
 
 Target "TestExamples" <| fun _ -> 
     targets
+    |> List.except NETCORE_TARGETS
     |> List.iter (fun config -> 
                    let workingDir = outputBasePath
                    let testDlls = !!(workingDir @@ "CodeFromDocs" @@ "NSubstitute.Samples.dll")
@@ -114,15 +125,6 @@ Target "Package" <| fun _ ->
            CopyFiles path nsubDlls
     )
 
-    // TODO rework the .NET Core hack
-    ["netstandard1.5"]
-    |> List.map (fun x -> x, deployPath @@ "lib" @@ x.ToLower())
-    |> List.iter (fun (target, path) -> 
-           let nsubDlls = !! "*.dll" ++ "*.xml" |> SetBaseDir (outputBasePath @@ target @@ "NSubstitute")
-           CreateDir path
-           CopyFiles path nsubDlls
-    )
-
     cp "LICENSE.txt" deployPath
     cp "CHANGELOG.txt" deployPath
     cp "BreakingChanges.txt" deployPath
@@ -134,13 +136,14 @@ Target "Package" <| fun _ ->
 Target "NuGet" <| fun _ -> 
     let nugetPath = outputBasePath @@ "nuget"
     let workingDir = nugetPath @@ version
+    let versionSuffix = if packageVersionSuffix <> "" then "-" + packageVersionSuffix else ""
     CreateDir workingDir
     cp_r deployPath workingDir
 
     NuGet (fun p -> 
         { p with OutputPath = nugetPath
                  WorkingDir = workingDir
-                 Version = version
+                 Version = version + versionSuffix
                  ReleaseNotes = toLines releaseNotes.Notes 
                  // TODO better way to get .NET Core dependencies from project.json
                  DependenciesByFramework = 
@@ -202,13 +205,6 @@ Target "CodeFromDocumentation" <| fun _ ->
     CopyFile outputCodePath "./Build/samples.csproj"
     MSBuild null "Build" [ "TargetFrameworkVersion", "v3.5" ] [ outputCodePath + "/samples.csproj" ] |> Log "Build: "
 
-// empty target to encompass doing everything
-Target "All" DoNothing
-
-// list targets, similar to `rake -T`
-Target "-T" PrintTargets
-
-
 // .NET Core build
 #r @"ThirdParty\FAKE.Dotnet\FAKE.Dotnet\tools\Fake.Dotnet.dll"
 open Fake
@@ -218,7 +214,7 @@ Target "InstallDotnetCore" (fun _ ->
     DotnetCliInstall Preview2ToolingOptions
 )
 
-Target "BuildProjectsDotnetCore" (fun _ ->
+Target "BuildDotNetCore" (fun _ ->
     !! "Source/NSubstitute/project.json" 
         |> Seq.iter(fun proj ->  
 
@@ -235,8 +231,37 @@ Target "BuildProjectsDotnetCore" (fun _ ->
         )
 )
 
-// Build
-"Clean" ==> "Version" ==> "BuildSolution" ==> "InstallDotnetCore" ==> "BuildProjectsDotnetCore" ==> "Test" ==> "Default"
+
+// Empty target to encompass doing everything
+Target "All" DoNothing
+
+// List targets, similar to `rake -T`
+Target "-T" <| fun _ ->
+    printfn "Optional config options:"
+    printfn "  mode=Debug|Release"
+    printfn "  targets=ALL|%s" (String.concat "|" ALL_TARGETS)
+    printfn "  packageVersionSuffix=alpha|beta|beta2|...   - used to tag a NuGet package as prerelease"
+    printfn ""
+    PrintTargets()
+
+// Build. Will build a mix of dotnet core and/or NETxx depending on targets
+Target "Build" DoNothing
+
+"InstallDotnetCore" ==> "BuildDotNetCore"
+"BuildDotNetCore" =?> ("Build", hasNetCoreTarget)
+"BuildSolution" =?> ("Build", hasNetTarget)
+
+// If Clean or Version runs, make sure it runs before either build step
+"Clean" ?=> "BuildDotNetCore"
+"Clean" ?=> "BuildSolution"
+"Version" ?=> "BuildDotNetCore"
+"Version" ?=> "BuildSolution"
+
+"Clean"
+    ==> "Version"
+    ==> "Build"
+    ==> "Test"
+    ==> "Default"
 
 // Full build
 "Default"
