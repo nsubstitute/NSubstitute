@@ -1,5 +1,6 @@
 NSubstitute
 ========
+[![Build status](https://ci.appveyor.com/api/projects/status/github/nsubstitute/NSubstitute?svg=true)](https://ci.appveyor.com/project/nsubstitute/NSubstitute/branch/master) [![Travis Build Status](https://travis-ci.org/nsubstitute/NSubstitute.svg?branch=master)](https://travis-ci.org/nsubstitute/NSubstitute)
 
 Visit the [NSubstitute website](http://nsubstitute.github.com) for more information.
 
