@@ -90,7 +90,7 @@ namespace NSubstitute.Acceptance.Specs
             _something.Received().Funky(Arg.Any<float>(), 12, "Lots", null);
         }
 
-#if (NET45)
+#if (NET45 || NETSTANDARD1_5)
         [Test]
         public void Received_for_async_method_can_be_awaited()
         {

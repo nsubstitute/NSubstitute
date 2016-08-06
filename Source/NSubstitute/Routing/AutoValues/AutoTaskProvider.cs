@@ -1,6 +1,7 @@
-#if (NET4 || NET45)
+#if (NET4 || NET45 || NETSTANDARD1_5)
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace NSubstitute.Routing.AutoValues
@@ -24,7 +25,7 @@ namespace NSubstitute.Routing.AutoValues
             if (!CanProvideValueFor(type))
                 throw new InvalidOperationException();
 
-            if (type.IsGenericType)
+            if (type.IsGenericType())
             {
                 var taskType = type.GetGenericArguments()[0];
                 var valueProvider = _autoValueProviders().FirstOrDefault(vp => vp.CanProvideValueFor(taskType));
@@ -45,7 +46,7 @@ namespace NSubstitute.Routing.AutoValues
 
         private static object GetDefault(Type type)
         {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
+            return type.IsValueType() ? Activator.CreateInstance(type) : null;
         }
     }
 }

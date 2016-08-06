@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\Build\NSubstitute.targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">NET35-Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{505340EB-D90C-4EAE-A38D-3291FE9AC908}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NSubstitute.Acceptance.Specs</RootNamespace>
+    <AssemblyName>NSubstitute.Acceptance.Specs</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Debug|AnyCPU' ">
+    <OutputPath>..\..\Output\Debug\NET35\NSubstitute.Acceptance.Specs\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET35-Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\NET35\NSubstitute.Acceptance.Specs\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Debug|AnyCPU' ">
+    <OutputPath>..\..\Output\Debug\NET40\NSubstitute.Acceptance.Specs\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'NET40-Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Release\NET40\NSubstitute.Acceptance.Specs\</OutputPath>
+    <DefineConstants>TRACE;NET4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET45-Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\Output\Debug\NET45\NSubstitute.Acceptance.Specs\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NET4;NET45</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET45-Release|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\Output\Release\NET45\NSubstitute.Acceptance.Specs\</OutputPath>
+    <DefineConstants>TRACE;NET4;NET45</DefineConstants>
+    <Optimize>true</Optimize>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
+    <Reference Include="nunit.framework">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\NUnit\bin\net-2.0\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' Or '$(TargetFrameworkVersion)' == 'v4.5' " />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ArgDoFromMatcher.cs">
+      <Link>ArgDoFromMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ArgumentInvocationFromMatchers.cs">
+      <Link>ArgumentInvocationFromMatchers.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ArgumentMatching.cs">
+      <Link>ArgumentMatching.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\AutoValuesForSubs.cs">
+      <Link>AutoValuesForSubs.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\CallbackCalling.cs">
+      <Link>CallbackCalling.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ClearSubstitute.cs">
+      <Link>ClearSubstitute.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\DynamicCalls.cs">
+      <Link>DynamicCalls.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\EventChecking.cs">
+      <Link>EventChecking.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\EventRaising.cs">
+      <Link>EventRaising.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ExceptionsWhenCheckingReceivedCalls.cs">
+      <Link>ExceptionsWhenCheckingReceivedCalls.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ExceptionsWhenCheckingSequencesOfCalls.cs">
+      <Link>ExceptionsWhenCheckingSequencesOfCalls.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\ArgMatchingWithNestedSubCalls.cs">
+      <Link>FieldReports\ArgMatchingWithNestedSubCalls.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\ArgMatchingWithValueTypeArgSpecsForObjectArguments.cs">
+      <Link>FieldReports\ArgMatchingWithValueTypeArgSpecsForObjectArguments.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\CallingIntoNewSubWithinReturns.cs">
+      <Link>FieldReports\CallingIntoNewSubWithinReturns.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\DisposeWithThreadLocal.cs">
+      <Link>FieldReports\DisposeWithThreadLocal.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\EqualsBehaviourOnClassSubs.cs">
+      <Link>FieldReports\EqualsBehaviourOnClassSubs.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\ExceptionsThrownFromCustomArgumentMatchers.cs">
+      <Link>FieldReports\ExceptionsThrownFromCustomArgumentMatchers.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue110_CustomExceptions.cs">
+      <Link>FieldReports\Issue110_CustomExceptions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue111_ArgMatchesWithRefAndOutParams.cs">
+      <Link>FieldReports\Issue111_ArgMatchesWithRefAndOutParams.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue114_ArgumentCheckOfOptionalParameter.cs">
+      <Link>FieldReports\Issue114_ArgumentCheckOfOptionalParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue118_ConcreteClassWithPublicStaticMethod.cs">
+      <Link>FieldReports\Issue118_ConcreteClassWithPublicStaticMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue125_MethodWithSealedClassReturnType.cs">
+      <Link>FieldReports\Issue125_MethodWithSealedClassReturnType.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue129_AmbiguousArgsWithOutRef.cs">
+      <Link>FieldReports\Issue129_AmbiguousArgsWithOutRef.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue149_ArgMatcherInReturns.cs">
+      <Link>FieldReports\Issue149_ArgMatcherInReturns.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue170_MultidimensionalArray.cs">
+      <Link>FieldReports\Issue170_MultidimensionalArray.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue211_ReceivedInOrderParamsFormatting.cs">
+      <Link>FieldReports\Issue211_ReceivedInOrderParamsFormatting.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue237_ReceivedInOrderErrorHandling.cs">
+      <Link>FieldReports\Issue237_ReceivedInOrderErrorHandling.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue33_RaisingINotifyPropertyChangedEvents.cs">
+      <Link>FieldReports\Issue33_RaisingINotifyPropertyChangedEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue38_SettingNullReturnValue.cs">
+      <Link>FieldReports\Issue38_SettingNullReturnValue.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue45_CallInfoArgAccessFailsForNull.cs">
+      <Link>FieldReports\Issue45_CallInfoArgAccessFailsForNull.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue47_RaisingEventsWithNullArg.cs">
+      <Link>FieldReports\Issue47_RaisingEventsWithNullArg.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue57_SettingVirtualPropertyInCtor.cs">
+      <Link>FieldReports\Issue57_SettingVirtualPropertyInCtor.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue59_ArgDoWithReturns.cs">
+      <Link>FieldReports\Issue59_ArgDoWithReturns.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue61_ArgAnyStringRegression.cs">
+      <Link>FieldReports\Issue61_ArgAnyStringRegression.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue75_DoesNotWorkWithMembersThatUseDynamic.cs">
+      <Link>FieldReports\Issue75_DoesNotWorkWithMembersThatUseDynamic.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue77_EqualsBehaviourOnClassStubs.cs">
+      <Link>FieldReports\Issue77_EqualsBehaviourOnClassStubs.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue83_MethodsWithGenericStructConstraint.cs">
+      <Link>FieldReports\Issue83_MethodsWithGenericStructConstraint.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue_RaiseEventOnNonSubstitute.cs">
+      <Link>FieldReports\Issue_RaiseEventOnNonSubstitute.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Regression_ReceivedClearsStub.cs">
+      <Link>FieldReports\Regression_ReceivedClearsStub.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\StaticStateBleeding.cs">
+      <Link>FieldReports\StaticStateBleeding.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\SubbingSynchronizationContext.cs">
+      <Link>FieldReports\SubbingSynchronizationContext.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FormattingCallsWhenThrowingReceivedCallsExceptions.cs">
+      <Link>FormattingCallsWhenThrowingReceivedCallsExceptions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\Infrastructure\FluentSomething.cs">
+      <Link>Infrastructure\FluentSomething.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\Infrastructure\IFluentSomething.cs">
+      <Link>Infrastructure\IFluentSomething.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\Infrastructure\ISomething.cs">
+      <Link>Infrastructure\ISomething.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\Infrastructure\PendingAttribute.cs">
+      <Link>Infrastructure\PendingAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\Infrastructure\SomeClass.cs">
+      <Link>Infrastructure\SomeClass.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\Infrastructure\Task.cs">
+      <Link>Infrastructure\Task.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\MatchingDerivedTypesForGenerics.cs">
+      <Link>MatchingDerivedTypesForGenerics.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\MultipleThreads.cs">
+      <Link>MultipleThreads.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\NotASubstituteExceptions.cs">
+      <Link>NotASubstituteExceptions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\NullReferenceCheckingForSubstituteExtensions.cs">
+      <Link>NullReferenceCheckingForSubstituteExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\OutAndRefParameters.cs">
+      <Link>OutAndRefParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\PartialSubExamples.cs">
+      <Link>PartialSubExamples.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\PartialSubs.cs">
+      <Link>PartialSubs.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\PerfTests.cs">
+      <Link>PerfTests.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\PropertyBehaviour.cs">
+      <Link>PropertyBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ReceivedCalls.cs">
+      <Link>ReceivedCalls.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\RecursiveSubs.cs">
+      <Link>RecursiveSubs.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ReturningResults.cs">
+      <Link>ReturningResults.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ReturnsAndDoes.cs">
+      <Link>ReturnsAndDoes.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ReturnsForAll.cs">
+      <Link>ReturnsForAll.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ReturnsForAllFromFunc.cs">
+      <Link>ReturnsForAllFromFunc.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\SequenceChecking.cs">
+      <Link>SequenceChecking.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\SimpleSubstituteExamples.cs">
+      <Link>SimpleSubstituteExamples.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\SubbingForConcreteTypesAndMultipleInterfaces.cs">
+      <Link>SubbingForConcreteTypesAndMultipleInterfaces.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\SubbingForEventHandler.cs">
+      <Link>SubbingForEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\SubstituteTimingAndInteractions.cs">
+      <Link>SubstituteTimingAndInteractions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\SubstitutingForDelegates.cs">
+      <Link>SubstitutingForDelegates.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ThrowingExceptions.cs">
+      <Link>ThrowingExceptions.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\WhenCalledDo.cs">
+      <Link>WhenCalledDo.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NSubstitute.NET\NSubstitute.NET.csproj">
+      <Project>{cc6c16cc-053d-4a67-b48f-7ff4304f2896}</Project>
+      <Name>NSubstitute.NET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
+</Project>

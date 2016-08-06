@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NSubstitute.Core
 {
-#if NET45
+#if NET45 || NETSTANDARD1_5
     internal class ReturnObservable<T> : IObservable<T>
     {
         T _value;

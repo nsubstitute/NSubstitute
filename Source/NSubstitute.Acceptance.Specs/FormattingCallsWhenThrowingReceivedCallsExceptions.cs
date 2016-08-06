@@ -118,13 +118,13 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_list_matching_calls()
             {
-                ExceptionMessageContains("Actually received 1 matching call:\r\n\t" + "SampleMethod(2)");
+                ExceptionMessageContains("Actually received 1 matching call:" + Environment.NewLine + "\t" + "SampleMethod(2)");
             }
 
             [Test]
             public void Should_list_actual_related_calls()
             {
-                ExceptionMessageContains("Received 1 non-matching call (non-matching arguments indicated with '*' characters):\r\n\t" + "SampleMethod(*1*)");
+                ExceptionMessageContains("Received 1 non-matching call (non-matching arguments indicated with '*' characters):" + Environment.NewLine + "\t" + "SampleMethod(*1*)");
             }
         }
 
@@ -152,7 +152,7 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_list_matching_calls()
             {
-                ExceptionMessageContains("Actually received 3 matching calls:\r\n\t" + "SampleMethod(2)");
+                ExceptionMessageContains("Actually received 3 matching calls:" + Environment.NewLine + "\t" + "SampleMethod(2)");
             }
 
             [Test]
@@ -378,7 +378,7 @@ namespace NSubstitute.Acceptance.Specs
                 ExceptionMessageContains("Invoke(1, *\"def\"*)");
                 ExceptionMessageContains("Invoke(*2*, *\"def\"*)");
                 ExceptionMessageContains("Invoke(*3*, \"abc\")");
-                
+
             }
         }
 

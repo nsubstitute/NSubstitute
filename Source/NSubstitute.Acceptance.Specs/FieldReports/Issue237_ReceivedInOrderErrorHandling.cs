@@ -14,13 +14,13 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         }
 
         [Test]
-        [ExpectedException(typeof(Exception))]
         public void AnExceptionIsReceivedWhenExpected()
         {
-            Received.InOrder(() =>
-            {
-                throw new Exception("An Exception!");
-            });
+            Assert.Throws<Exception>(() =>
+                Received.InOrder(() =>
+                {
+                    throw new Exception("An Exception!");
+                }));
         }
 
         [Test]

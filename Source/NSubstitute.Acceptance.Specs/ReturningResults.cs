@@ -1,5 +1,5 @@
 ﻿using System;
-#if (NET4 || NET45)
+#if (NET4 || NET45 || NETSTANDARD1_5)
 using System.Threading.Tasks;
 #endif
 using NSubstitute.Acceptance.Specs.Infrastructure;
@@ -99,7 +99,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Echo(724), Is.EqualTo("second"));
         }
 
-#if (NET4 || NET45)
+#if (NET4 || NET45 || NETSTANDARD1_5)
         [Test]
         public void Return_result_for_any_arguments_async()
         {
@@ -193,7 +193,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.SomeActionWithParams(123, "something else"), Is.Null);
         }
 
-#if NET45 || NET4
+#if NET45 || NET4 || NETSTANDARD1_5
         [Test]
         public void Return_a_wrapped_async_result()
         {

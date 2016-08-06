@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
