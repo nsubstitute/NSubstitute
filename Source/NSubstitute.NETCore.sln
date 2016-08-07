@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1881DE2A-CEA3-4C69-966D-95A1F08D68E1}"
 	ProjectSection(SolutionItems) = preProject
 		..\BreakingChanges.txt = ..\BreakingChanges.txt
+		..\build.fsx = ..\build.fsx
 		..\CHANGELOG.txt = ..\CHANGELOG.txt
 	EndProjectSection
 EndProject
