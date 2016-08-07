@@ -2,7 +2,7 @@
 * [NEW] Initial .NET Core support. Thanks to @alexandrnikitin for tonnes of work on this. Thanks also to Peter Jas (@jasonwilliams200OK) for both .NET Core code contributions and help with CI setup. And thanks to everyone who contributed to the conversation and testing in https://github.com/nsubstitute/NSubstitute/pull/197.
 * [NEW] Clear substitute configuration using `sub.ClearSubstitute(ClearOptions)`. This extension can be brought in to scope via `using NSubstitute.ClearExtensions;`. Thanks to @trullock for defining and implementing this change, and to @alexandrnikitin for review feedback. (#157, #235, #179)
 * [DOC] Improved CallInfo.ArgAt documentation, thanks to asbjornu. (#231)
-* [FIX] Fix and issue with Received.InOrder when an exception is thrown. Thanks to @m3zercat for finding and fixing this. (#237)
+* [FIX] Fix an issue with Received.InOrder when an exception is thrown. Thanks to @m3zercat for finding and fixing this. (#237)
 
 ### 1.10.0 (March 2016)
 * [NEW] Callbacks builder for more control over When..Do callbacks. Thanks to bartoszgolek. (#202, #200)
