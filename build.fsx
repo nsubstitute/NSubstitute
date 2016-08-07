@@ -45,21 +45,21 @@ let targets =
     | "ALL" -> ALL_TARGETS
     | s -> s.Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) |> Array.toList
 
-let packageVersionSuffix = getBuildParamOrDefault "packageVersionSuffix" "" // Use to tag a NuGet build as alpha/beta
-
 let hasAny ofThese = Seq.exists (fun t -> ofThese |> List.contains t)
 let hasNetTarget = targets |> hasAny NET_TARGETS
 let hasNetCoreTarget = targets |> hasAny NETCORE_TARGETS
 
 let getVersion () =
-    let tag = Git.CommandHelper.runSimpleGitCommand "" "describe --tags --long --match v*"
-    let result = Regex.Match(tag, @"v(\d+)\.(\d+)\.(\d+)\-(\d+)").Groups
+    let tag = Git.CommandHelper.runSimpleGitCommand "" "describe --tags --long"
+    let result = Regex.Match(tag, @"(v|alpha|beta|rc)(\d+)\.(\d+)\.(\d+)\-(\d+)").Groups
     let getMatch (i:int) = result.[i].Value
-    sprintf "%s.%s.%s.%s" (getMatch 1) (getMatch 2) (getMatch 3) (getMatch 4)
+    (sprintf "%s.%s.%s.%s" (getMatch 2) (getMatch 3) (getMatch 4) (getMatch 5), match getMatch 1 with "v" -> "" | suffix -> suffix)
 
 let OUTPUT_PATH = "Output"
 let releaseNotes = ReadFile "CHANGELOG.txt" |> ReleaseNotesHelper.parseReleaseNotes
-let version = getVersion ()
+let version, suffix = getVersion ()
+let packageVersionSuffix = getBuildParamOrDefault "packageVersionSuffix" suffix // Use to tag a NuGet build as alpha/beta
+
 let outputBasePath = OUTPUT_PATH @@ buildMode
 let deployPath = outputBasePath @@ "NSubstitute-" + version
 
