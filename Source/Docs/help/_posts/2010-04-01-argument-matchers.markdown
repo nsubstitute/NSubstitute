@@ -124,7 +124,7 @@ subject.StartWithWidget(4);
 /* ASSERT */
 
 // OK: Use arg matcher to check a call was received:
-widgetFactory.Received().Make(4);
+widgetFactory.Received().Make(Arg.Is<int>(x => x > 0));
 {% endexamplecode %}
 
 In this example it would be an error to use an argument matcher in the `ACT` part of this test. Even if we don't mind what specific argument we pass to our subject, `Arg.Any` is only for substitutes, and only for setting return values or checking received calls; not for real calls.
