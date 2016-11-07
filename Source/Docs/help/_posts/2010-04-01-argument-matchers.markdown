@@ -15,8 +15,17 @@ public interface ICalculator {
 public interface IFormatter {
   string Format(object o);
 }
+public interface IWidgetFactory {
+  string Make(int i);
+}
+public class Sprocket {
+  IWidgetFactory wf;
+  public Sprocket(IWidgetFactory wf) { this.wf = wf; }
+  public void StartWithWidget(int i) { wf.Make(i); }
+}
 ICalculator calculator;
 IFormatter formatter;
+string TestWidget = "test widget";
 [SetUp] public void SetUp() { 
     calculator = Substitute.For<ICalculator>(); 
     formatter = Substitute.For<IFormatter>();
@@ -95,7 +104,7 @@ Argument matchers should only be used when setting return values or checking rec
 
 For example:
 
-{% highlight csharp %}
+{% examplecode csharp %}
 /* ARRANGE */
 
 var widgetFactory = Substitute.For<IWidgetFactory>();
@@ -116,7 +125,7 @@ subject.StartWithWidget(4);
 
 // OK: Use arg matcher to check a call was received:
 widgetFactory.Received().Make(4);
-{% endhighlight %}
+{% endexamplecode %}
 
 In this example it would be an error to use an argument matcher in the `ACT` part of this test. Even if we don't mind what specific argument we pass to our subject, `Arg.Any` is only for substitutes, and only for setting return values or checking received calls; not for real calls.
 
