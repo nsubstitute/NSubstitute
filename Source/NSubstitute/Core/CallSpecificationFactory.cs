@@ -15,7 +15,7 @@ namespace NSubstitute.Core
         {
             var methodInfo = call.GetMethodInfo();
             var argumentSpecs = call.GetArgumentSpecifications();
-            var arguments = call.GetArguments();
+            var arguments = call.GetOriginalArguments();
             var parameterInfos = call.GetParameterInfos();
             var argumentSpecificationsForCall = _argumentSpecificationsFactory.Create(argumentSpecs, arguments, parameterInfos, matchArgs);
             return new CallSpecification(methodInfo, argumentSpecificationsForCall);

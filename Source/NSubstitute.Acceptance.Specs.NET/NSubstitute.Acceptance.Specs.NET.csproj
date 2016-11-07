@@ -112,6 +112,9 @@
     <Compile Include="..\NSubstitute.Acceptance.Specs\ClearSubstitute.cs">
       <Link>ClearSubstitute.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\CustomHandlersSpecs.cs">
+      <Link>CustomHandlersSpecs.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute.Acceptance.Specs\DynamicCalls.cs">
       <Link>DynamicCalls.cs</Link>
     </Compile>

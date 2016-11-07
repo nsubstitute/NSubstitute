@@ -11,6 +11,7 @@ namespace NSubstitute.Core
     {
         private readonly MethodInfo _methodInfo;
         private readonly object[] _arguments;
+        private readonly object[] _originalArguments;
         private readonly object _target;
         private readonly IParameterInfo[] _parameterInfos;
         private readonly IList<IArgumentSpecification> _argumentSpecifications;
@@ -21,6 +22,7 @@ namespace NSubstitute.Core
         {
             _methodInfo = methodInfo;
             _arguments = arguments;
+            _originalArguments = arguments.ToArray();
             _target = target;
             _parameterInfos = GetParameterInfosFrom(_methodInfo);
             _argumentSpecifications = argumentSpecsForCall;
@@ -31,6 +33,7 @@ namespace NSubstitute.Core
         {
             _methodInfo = methodInfo;
             _arguments = arguments;
+            _originalArguments = arguments.ToArray();
             _target = target;
             _parameterInfos = parameterInfos ?? GetParameterInfosFrom(_methodInfo);
             _argumentSpecifications = (_parameterInfos.Length == 0) ? EmptyList() : SubstitutionContext.Current.DequeueAllArgumentSpecifications();
@@ -90,6 +93,11 @@ namespace NSubstitute.Core
         public object[] GetArguments()
         {
             return _arguments;
+        }
+
+        public object[] GetOriginalArguments()
+        {
+            return _originalArguments;
         }
 
         public object Target()
