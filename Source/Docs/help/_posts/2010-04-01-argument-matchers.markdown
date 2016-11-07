@@ -5,6 +5,8 @@ layout: post
 
 Argument matchers can be used when [setting return values](/help/return-for-args) and when [checking received calls](/help/received-calls). They provide a way to _specify_ a call or group of calls, so that a return value can be set for all matching calls, or to check a matching call has been received.
 
+**Note:** Argument matchers should only be used when setting return values or checking received calls. Using `Arg.Is` or `Arg.Any` without a call to `.Returns` or `Received()` can cause your tests to behave in unexpected ways. See [How NOT to use argument matchers](#how_not_to_use_argument_matchers) for more information.
+
 {% requiredcode %}
 public interface ICalculator {
     int Add(int a, int b);
@@ -87,3 +89,35 @@ calculator.Received().Add(Arg.Is(0), Arg.Any<int>());
 
 This matcher normally isn't required; most of the time we can just use `0` instead of `Arg.Is(0)`. In some cases though, NSubstitute can't work out which matcher applies to which argument (arg matchers are actually fuzzily matched; not passed directly to the function call). In these cases it will throw an `AmbiguousArgumentsException` and ask you to specify one or more additional argument matchers. In some cases you may have to explicitly use argument matchers for every argument.
 
+## How NOT to use argument matchers
+
+Argument matchers should only be used when setting return values or checking received calls. Using `Arg.Is` or `Arg.Any` without a call to `.Returns` or `Received()` can cause your tests to behave in unexpected ways.
+
+For example:
+
+{% highlight csharp %}
+/* ARRANGE */
+
+var widgetFactory = Substitute.For<IWidgetFactory>();
+var subject = new Sprocket(widgetFactory);
+
+// OK: Use arg matcher for a return value:
+widgetFactory.Make(Arg.Is<int>(x => x > 10)).Returns(TestWidget);
+
+/* ACT */
+
+// NOT OK: arg matcher used with a real call:
+//   subject.StartWithWidget(Arg.Any<int>());
+
+// Use a real argument instead:
+subject.StartWithWidget(4);
+
+/* ASSERT */
+
+// OK: Use arg matcher to check a call was received:
+widgetFactory.Received().Make(4);
+{% endhighlight %}
+
+In this example it would be an error to use an argument matcher in the `ACT` part of this test. Even if we don't mind what specific argument we pass to our subject, `Arg.Any` is only for substitutes, and only for setting return values or checking received calls; not for real calls.
+
+(If you do want to indicate to readers that the precise argument used for a real call doesn't matter you could use a variable such as `var someInt = 4; subject.StartWithWidget(someInt);` or similar. Just stay clear of argument matchers for this!)

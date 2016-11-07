@@ -67,7 +67,7 @@ calculator.Mode = "HEX";
 Assert.That(calculator.Mode, Is.EqualTo("HEX"));
 {% endexamplecode %}
 
-NSubstitute supports argument matching for setting return values and asserting a call was received:
+NSubstitute supports [argument matching](/help/argument-matchers/) for setting return values and asserting a call was received:
 
 {% examplecode csharp %}
 calculator.Add(10, -5);
