@@ -95,5 +95,12 @@ namespace NSubstitute.Core
         {
             _substituteState.ResultsForType.SetResult(type, returnValue);
         }
+
+        public void RegisterCustomCallHandlerFactory(CallHandlerFactory factory)
+        {
+            if (factory == null) throw new ArgumentNullException(nameof(factory));
+
+            _substituteState.CustomHandlers.AddCustomHandlerFactory(factory);
+        }
     }
 }

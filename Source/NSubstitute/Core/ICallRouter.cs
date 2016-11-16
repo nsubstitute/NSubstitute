@@ -11,6 +11,7 @@ namespace NSubstitute.Core
         IEnumerable<ICall> ReceivedCalls();
         void SetRoute(Func<ISubstituteState, IRoute> getRoute);
         void SetReturnForType(Type type, IReturn returnValue);
+        void RegisterCustomCallHandlerFactory(CallHandlerFactory factory);
         void Clear(ClearOptions clear);
     }
 }

@@ -86,6 +86,7 @@ namespace NSubstitute.Specs
                 var call = mock<ICall>();
                 call.stub(x => x.GetMethodInfo()).Return(methodInfo);
                 call.stub(x => x.GetArguments()).Return(arguments);
+                call.stub(x => x.GetOriginalArguments()).Return(arguments);
                 call.stub(x => x.GetArgumentSpecifications()).Return(mock<IList<IArgumentSpecification>>());
                 return call;
             }

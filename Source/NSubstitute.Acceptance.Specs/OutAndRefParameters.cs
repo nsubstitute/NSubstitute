@@ -1,3 +1,4 @@
+using System;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -9,7 +10,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             bool TryRef(ref int number);
             bool TryGet(string key, out string value);
-            string Get(string key);
+            string GetWithRef(ref string key);
             string LookupByObject(ref object obj);
         }
 
@@ -136,6 +137,116 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(something.GetValue(key), Is.EqualTo("test"));
             Assert.That(something.GetValue("diff key"), Is.EqualTo("none"));
+        }
+
+        [Test]
+        public void Modified_ref_arg_should_not_affect_specification_match()
+        {
+            //arrange
+            var lookup = Substitute.For<ILookupStrings>();
+
+            int magicInt = 42;
+            lookup.TryRef(ref magicInt).Returns(true);
+
+            int anyInt = Arg.Any<int>();
+            lookup.When(l => l.TryRef(ref anyInt)).Do(c => { c[0] = 100; });
+
+            //act
+            magicInt = 42;
+            var result = lookup.TryRef(ref magicInt);
+
+            //assert
+            Assert.That(result, Is.True);
+            Assert.That(magicInt, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void Modified_out_arg_should_not_affect_specification_match()
+        {
+            //arrange
+            var lookup = Substitute.For<ILookupStrings>();
+
+            string key = "key";
+
+            //Configure to have result for out parameter
+            string retValue;
+            lookup.TryGet(key, out retValue).Returns(true);
+
+            //Set parameter in When/Do to always initialize out parameter
+            string retValueTmp;
+            lookup.When(l => l.TryGet(key, out retValueTmp)).Do(c => { c[1] = "42"; });
+
+            //act
+            //Check whether our configuration is still actual
+            string actualRet;
+            var result = lookup.TryGet(key, out actualRet);
+
+            //assert
+            Assert.That(result, Is.True);
+            Assert.That(actualRet, Is.EqualTo("42"));
+        }
+
+        [Test]
+        public void Configuration_for_already_configured_call_works()
+        {
+            //arrange
+            var lookup = Substitute.For<ILookupStrings>();
+
+            string anyRef = Arg.Any<string>();
+            lookup.GetWithRef(ref anyRef).Returns(c => { c[0] = "42"; return "result"; });
+
+            //act
+            string otherKey = "xxx";
+            lookup.GetWithRef(ref otherKey).Returns("100");
+
+            otherKey = "xxx";
+            var actualResult = lookup.GetWithRef(ref otherKey);
+
+            //assert
+            Assert.That(actualResult, Is.EqualTo("100"));
+            Assert.That(otherKey, Is.EqualTo("xxx"));
+        }
+
+        [Test]
+        public void Configuration_for_modified_args_works()
+        {
+            //arrange
+            var lookup = Substitute.For<ILookupStrings>();
+
+            string anyRef = Arg.Any<string>();
+            lookup.When(l => l.GetWithRef(ref anyRef)).Do(c => { c[0] = "42"; });
+
+            //act
+            string specRef = "xxx";
+            lookup.GetWithRef(ref specRef).Returns("100");
+
+            specRef = "xxx";
+            var result = lookup.GetWithRef(ref specRef);
+
+            //assert
+            Assert.That(result, Is.EqualTo("100"));
+            Assert.That(specRef, Is.EqualTo("42"));
+        }
+
+        [Test]
+        public void Exception_message_displays_original_values()
+        {
+            //arrange
+            var lookup = Substitute.For<ILookupStrings>();
+
+            string anyRef = Arg.Any<string>();
+            lookup.When(l => l.GetWithRef(ref anyRef)).Do(c => { c[0] = "42"; });
+
+            //act
+            string key = "12345";
+            lookup.GetWithRef(ref key);
+
+            //assert
+            //Assert that message is like "Expected '98765', but received '12345'".
+            key = "98765";
+            var exception = Assert.Throws<ReceivedCallsException>(() => lookup.Received().GetWithRef(ref key));
+            StringAssert.Contains("98765", exception.Message);
+            StringAssert.Contains("12345", exception.Message);
         }
 
         private class Something

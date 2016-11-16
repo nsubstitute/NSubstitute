@@ -73,9 +73,9 @@ namespace NSubstitute.Core
                    && a.Name.Equals(b.Name, StringComparison.Ordinal);
 	    }
 
-	    public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
+        public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
         {
-            var arguments = call.GetArguments();
+            var arguments = call.GetOriginalArguments();
             return arguments
                     .Select((arg, index) => new ArgumentMatchInfo(index, arg, _argumentSpecifications[index]))
                     .Where(x => !x.IsMatch);
@@ -89,7 +89,7 @@ namespace NSubstitute.Core
 
         public string Format(ICall call)
         {
-            return CallFormatter.Format(call.GetMethodInfo(), FormatArguments(call.GetArguments()));
+            return CallFormatter.Format(call.GetMethodInfo(), FormatArguments(call.GetOriginalArguments()));
         }
 
         private IEnumerable<string> FormatArguments(IEnumerable<object> arguments)
@@ -122,7 +122,7 @@ namespace NSubstitute.Core
 
         private bool HasDifferentNumberOfArguments(ICall call)
         {
-            return _argumentSpecifications.Length != call.GetArguments().Length;
+            return _argumentSpecifications.Length != call.GetOriginalArguments().Length;
         }
     }
 }

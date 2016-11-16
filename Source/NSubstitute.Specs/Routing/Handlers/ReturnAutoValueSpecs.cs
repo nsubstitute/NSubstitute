@@ -16,7 +16,9 @@ namespace NSubstitute.Specs.Routing.Handlers
             protected IAutoValueProvider _secondAutoValueProvider;
             protected RouteAction _result;
             protected ICall _call;
-            protected IConfigureCall ConfigureCall;
+            protected ICallResults _callResults;
+            protected ICallSpecification _callSpecification;
+            protected ICallSpecificationFactory _callSpecificationFactory;
 
             public override void Because()
             {
@@ -26,16 +28,19 @@ namespace NSubstitute.Specs.Routing.Handlers
             public override void Context()
             {
                 base.Context();
-                ConfigureCall = mock<IConfigureCall>();
                 _call = mock<ICall>();
                 _call.stub(x => x.GetReturnType()).Return(_type);
+                _callResults = mock<ICallResults>();
+                _callSpecification = mock<ICallSpecification>();
+                _callSpecificationFactory = mock<ICallSpecificationFactory>();
+                _callSpecificationFactory.stub(x => x.CreateFrom(_call, MatchArgs.AsSpecifiedInCall)).Return(_callSpecification);
                 _firstAutoValueProvider = mock<IAutoValueProvider>();
                 _secondAutoValueProvider = mock<IAutoValueProvider>();
             }
 
             public ReturnAutoValue CreateReturnAutoValue(AutoValueBehaviour autoValueBehaviour)
             {
-                return new ReturnAutoValue(autoValueBehaviour, new[] {_firstAutoValueProvider, _secondAutoValueProvider}, ConfigureCall);
+                return new ReturnAutoValue(autoValueBehaviour, new[] {_firstAutoValueProvider, _secondAutoValueProvider}, _callResults, _callSpecificationFactory);
             }
         }
 
@@ -52,7 +57,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Should_set_auto_value_as_value_to_return_for_subsequent_calls()
             {
-                ConfigureCall.received(x => x.SetResultForCall(It.Is(_call), It.Matches<IReturn>(arg => arg.ReturnFor(null) == _autoValue), It.Is(MatchArgs.AsSpecifiedInCall)));
+                _callResults.received(x => x.SetResult(It.Is(_callSpecification), It.Matches<IReturn>(arg => arg.ReturnFor(null) == _autoValue)));
             }
 
             public override void Context()
@@ -95,7 +100,7 @@ namespace NSubstitute.Specs.Routing.Handlers
             [Test]
             public void Should_set_auto_value_as_value_to_return_for_subsequent_calls()
             {
-                ConfigureCall.did_not_receive_with_any_args(x => x.SetResultForCall(null, null, null));
+                _callResults.did_not_receive_with_any_args(x => x.SetResult(null, null));
             }
 
             public override void Context()

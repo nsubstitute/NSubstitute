@@ -294,6 +294,9 @@
     <Compile Include="..\NSubstitute\Core\ConfiguredCall.cs">
       <Link>Core\ConfiguredCall.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Core\CustomHandlers.cs">
+      <Link>Core\CustomHandlers.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Core\DefaultForType.cs">
       <Link>Core\DefaultForType.cs</Link>
     </Compile>
@@ -359,6 +362,9 @@
     </Compile>
     <Compile Include="..\NSubstitute\Core\IConfigureCall.cs">
       <Link>Core\IConfigureCall.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\ICustomHandlers.cs">
+      <Link>Core\ICustomHandlers.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Core\IDefaultForType.cs">
       <Link>Core\IDefaultForType.cs</Link>
@@ -650,6 +656,9 @@
     </Compile>
     <Compile Include="..\NSubstitute\Routing\Handlers\ReturnFromBaseIfRequired.cs">
       <Link>Routing\Handlers\ReturnFromBaseIfRequired.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\ReturnFromCustomHandlers.cs">
+      <Link>Routing\Handlers\ReturnFromCustomHandlers.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Routing\Handlers\ReturnResultForTypeHandler.cs">
       <Link>Routing\Handlers\ReturnResultForTypeHandler.cs</Link>
