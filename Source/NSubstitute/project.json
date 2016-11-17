@@ -14,7 +14,8 @@
   "frameworks": {
     "netstandard1.5": {
       "buildOptions": {
-        "xmlDoc": true
+        "xmlDoc": true,
+	"nowarn": [ "CS1591" ]
       },
       "dependencies": {
         "Castle.Core": "4.0.0-*",
