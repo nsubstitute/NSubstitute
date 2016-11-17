@@ -1,3 +1,6 @@
+### 2.0.1 RC (unreleased)
+* [NEW] Initial custom handler support (#259). Mainly for integration with libraries like AutoFixture, this allows some basic fallback logic to be injected into a substitute's call handling pipeline. Thanks to Alex Povar (@zvirja) for implementing this and incorporating review comments, and also to Marcio Rinaldi (@mrinaldi) for his initial work on this in #234. Also thanks to @alexandrnikitin for a related spike (#156), and his work with Alex and Marcio in refining this feature and reviewing and merging the final PR.
+
 ### 2.0.0 RC (August 2016)
 * Build: 2.0.0.0
 * [NEW] Initial .NET Core support. Thanks to @alexandrnikitin for tonnes of work on this. Thanks also to Peter Jas (@jasonwilliams200OK) for both .NET Core code contributions and help with CI setup. And thanks to everyone who contributed to the conversation and testing in https://github.com/nsubstitute/NSubstitute/pull/197.
