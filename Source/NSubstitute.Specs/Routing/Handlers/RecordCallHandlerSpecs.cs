@@ -10,14 +10,14 @@ namespace NSubstitute.Specs.Routing.Handlers
         public class When_handling_call_to_a_member : ConcernFor<RecordCallHandler>
         {
             ICall _call;
-            ICallStack _callStack;
+            ICallCollection _callCollection;
             SequenceNumberGenerator _sequenceNumberGenerator;
             RouteAction _result;
 
             [Test]
             public void Should_record_call()
             {
-                _callStack.received(x => x.Push(_call));
+                _callCollection.received(x => x.Add(_call));
             }
 
             [Test]
@@ -39,7 +39,7 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override void Context()
             {
-                _callStack = mock<ICallStack>();
+                _callCollection = mock<ICallCollection>();
                 _call = mock<ICall>();
                 _sequenceNumberGenerator = mock<SequenceNumberGenerator>();
                 _sequenceNumberGenerator.stub(x => x.Next()).Return(42);
@@ -47,8 +47,8 @@ namespace NSubstitute.Specs.Routing.Handlers
 
             public override RecordCallHandler CreateSubjectUnderTest()
             {
-                return new RecordCallHandler(_callStack, _sequenceNumberGenerator);
-            } 
+                return new RecordCallHandler(_callCollection, _sequenceNumberGenerator);
+            }
         }
     }
 }

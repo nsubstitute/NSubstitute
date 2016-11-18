@@ -20,6 +20,7 @@ namespace NSubstitute.Core
         readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
         readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
         readonly RobustThreadLocal<Query> _currentQuery = new RobustThreadLocal<Query>();
+        readonly RobustThreadLocal<PendingSpecificationInfo> _pendingSpecificationInfo = new RobustThreadLocal<PendingSpecificationInfo>();
 
         static SubstitutionContext()
         {
@@ -45,16 +46,25 @@ namespace NSubstitute.Core
         public SequenceNumberGenerator SequenceNumberGenerator { get { return _sequenceNumberGenerator; } }
         public bool IsQuerying { get { return _currentQuery.Value != null; } }
 
+        public PendingSpecificationInfo PendingSpecificationInfo
+        {
+            get { return _pendingSpecificationInfo.Value; }
+            set { _pendingSpecificationInfo.Value = value; }
+        }
+
         public ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
         {
-            if (_lastCallRouter.Value == null) throw new CouldNotSetReturnDueToNoLastCallException();
+            var lastCallRouter = _lastCallRouter.Value;
+            if (lastCallRouter == null) throw new CouldNotSetReturnDueToNoLastCallException();
+            if (!lastCallRouter.IsLastCallInfoPresent()) throw new CouldNotSetReturnDueToMissingInfoAboutLastCallException();
             if (_argumentSpecifications.Value.Any())
             {
                 //Clear invalid arg specs so they will not affect other tests
                 _argumentSpecifications.Value.Clear();
                 throw new UnexpectedArgumentMatcherException();
             }
-            var configuredCall = _lastCallRouter.Value.LastCallShouldReturn(value, matchArgs);
+
+            var configuredCall = lastCallRouter.LastCallShouldReturn(value, matchArgs);
             ClearLastCallRouter();
             return configuredCall;
         }

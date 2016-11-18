@@ -4,19 +4,19 @@ namespace NSubstitute.Routing.Handlers
 {
     public class RecordCallHandler : ICallHandler
     {
-        private readonly ICallStack _callStack;
+        private readonly ICallCollection _callCollection;
         private readonly SequenceNumberGenerator _generator;
 
-        public RecordCallHandler(ICallStack callStack, SequenceNumberGenerator generator)
+        public RecordCallHandler(ICallCollection callCollection, SequenceNumberGenerator generator)
         {
-            _callStack = callStack;
+            _callCollection = callCollection;
             _generator = generator;
         }
 
         public RouteAction Handle(ICall call)
         {
             call.AssignSequenceNumber(_generator.Next());
-            _callStack.Push(call);
+            _callCollection.Add(call);
             return RouteAction.Continue();
         }
     }

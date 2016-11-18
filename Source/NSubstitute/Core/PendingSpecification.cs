@@ -1,29 +1,41 @@
+using System;
+
 namespace NSubstitute.Core
 {
     public class PendingSpecification : IPendingSpecification
     {
-        ICallSpecification _pendingSpec;
+        private readonly ISubstitutionContext _substitutionContext;
 
-        public bool HasPendingCallSpec()
+        public PendingSpecification(ISubstitutionContext substitutionContext)
         {
-            return _pendingSpec != null;
+            _substitutionContext = substitutionContext;
         }
 
-        public ICallSpecification UseCallSpec()
+        public bool HasPendingCallSpecInfo()
         {
-            var specToUse = _pendingSpec;
-            _pendingSpec = null;
-            return specToUse;
+            return _substitutionContext.PendingSpecificationInfo != null;
+        }
+
+        public PendingSpecificationInfo UseCallSpecInfo()
+        {
+            var info = _substitutionContext.PendingSpecificationInfo;
+            Clear();
+            return info;
+        }
+
+        public void SetCallSpecification(ICallSpecification callSpecification)
+        {
+            _substitutionContext.PendingSpecificationInfo = PendingSpecificationInfo.FromCallSpecification(callSpecification);
+        }
+
+        public void SetLastCall(ICall lastCall)
+        {
+            _substitutionContext.PendingSpecificationInfo = PendingSpecificationInfo.FromLastCall(lastCall);
         }
 
         public void Clear()
         {
-            UseCallSpec();
-        }
-
-        public void Set(ICallSpecification callSpecification)
-        {
-            _pendingSpec = callSpecification;
+            _substitutionContext.PendingSpecificationInfo = null;
         }
     }
 }

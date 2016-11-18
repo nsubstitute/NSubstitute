@@ -64,6 +64,11 @@ namespace NSubstitute.Core
             return routeToUseForThisCall.Handle(call);
         }
 
+        public bool IsLastCallInfoPresent()
+        {
+            return _substituteState.PendingSpecification.HasPendingCallSpecInfo();
+        }
+
         public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
         {
             return _substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs);

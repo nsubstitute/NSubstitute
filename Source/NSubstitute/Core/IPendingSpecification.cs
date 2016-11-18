@@ -2,9 +2,10 @@
 {
     public interface IPendingSpecification
     {
-        bool HasPendingCallSpec();
-        ICallSpecification UseCallSpec();
-        void Set(ICallSpecification callSpecification);
+        bool HasPendingCallSpecInfo();
+        PendingSpecificationInfo UseCallSpecInfo();
+        void SetCallSpecification(ICallSpecification callSpecification);
+        void SetLastCall(ICall lastCall);
         void Clear();
     }
 }

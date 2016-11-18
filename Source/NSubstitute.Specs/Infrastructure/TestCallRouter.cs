@@ -7,6 +7,8 @@ namespace NSubstitute.Specs.Infrastructure
 {
     public class TestCallRouter : ICallRouter
     {
+        public bool IsLastCallInfoPresent() => true;
+
         public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
         {
             return new ConfiguredCall(x => { });

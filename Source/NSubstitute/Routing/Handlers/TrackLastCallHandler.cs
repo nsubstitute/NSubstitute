@@ -2,18 +2,18 @@
 
 namespace NSubstitute.Routing.Handlers
 {
-    public class ClearUnusedCallSpecHandler : ICallHandler
+    public class TrackLastCallHandler : ICallHandler
     {
         private readonly IPendingSpecification _pendingSpecification;
 
-        public ClearUnusedCallSpecHandler(IPendingSpecification pendingSpecification)
+        public TrackLastCallHandler(IPendingSpecification pendingSpecification)
         {
             _pendingSpecification = pendingSpecification;
         }
 
         public RouteAction Handle(ICall call)
         {
-            _pendingSpecification.Clear();
+            _pendingSpecification.SetLastCall(call);
             return RouteAction.Continue();
         }
     }

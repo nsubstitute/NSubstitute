@@ -1,3 +1,4 @@
+using System.Threading;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
@@ -51,6 +52,8 @@ namespace NSubstitute.Specs
             {
                 base.Context();
                 _callRouter = mock<ICallRouter>();
+                _callRouter.stub(c => c.IsLastCallInfoPresent()).Return(true);
+
                 _valueToReturn = mock<IReturn>();
             }
         }
@@ -61,6 +64,32 @@ namespace NSubstitute.Specs
             public void Should_throw()
             {
                 Assert.Throws<CouldNotSetReturnDueToNoLastCallException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
+            }
+        }
+
+        public class When_trying_to_set_a_return_value_when_router_cannot_configure_last_call : Concern
+        {
+            private ICallRouter _callRouter;
+
+            [Test]
+            public void Should_throw_that_last_call_cannot_be_configured()
+            {
+                Assert.Throws<CouldNotSetReturnDueToMissingInfoAboutLastCallException>(() => sut.LastCallShouldReturn(mock<IReturn>(), MatchArgs.AsSpecifiedInCall));
+            }
+
+            public override void Because()
+            {
+                base.Because();
+
+                _callRouter.stub(c => c.IsLastCallInfoPresent()).Return(false);
+                sut.LastCallRouter(_callRouter);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+
+                _callRouter = mock<ICallRouter>();
             }
         }
 
@@ -129,6 +158,39 @@ namespace NSubstitute.Specs
                 base.Context();
                 _first = mock<IArgumentSpecification>();
                 _second = mock<IArgumentSpecification>();
+            }
+        }
+
+        public class When_working_with_thread_static_pending_spec_info : Concern
+        {
+            PendingSpecificationInfo _specInfo;
+
+            [Test]
+            public void Storage_is_bound_to_thread()
+            {
+                var thread = new Thread(() => { sut.PendingSpecificationInfo = _specInfo; })
+                {
+                    IsBackground = true
+                };
+
+                thread.Start();
+                thread.Join();
+
+                Assert.That(sut.PendingSpecificationInfo, Is.Null);
+            }
+
+            [Test]
+            public void Set_value_is_read()
+            {
+                sut.PendingSpecificationInfo = _specInfo;
+                Assert.That(sut.PendingSpecificationInfo, Is.EqualTo(_specInfo));
+            }
+
+            public override void Context()
+            {
+                base.Context();
+
+                _specInfo = PendingSpecificationInfo.FromLastCall(mock<ICall>());
             }
         }
 

@@ -8,7 +8,14 @@ namespace NSubstitute.Specs
     {
         public abstract class Concern : ConcernFor<PendingSpecification>
         {
-            public override PendingSpecification CreateSubjectUnderTest() { return new PendingSpecification(); }
+            protected ISubstitutionContext _substitutionContext;
+
+            public override void Context()
+            {
+                _substitutionContext = mock<ISubstitutionContext>();
+            }
+
+            public override PendingSpecification CreateSubjectUnderTest() { return new PendingSpecification(_substitutionContext); }
         }
 
         public class When_no_pending_specification : Concern
@@ -16,13 +23,19 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_not_have_a_spec()
             {
-                Assert.That(sut.HasPendingCallSpec(), Is.False);
+                Assert.That(sut.HasPendingCallSpecInfo(), Is.False);
             }
 
             [Test]
             public void Should_return_null_when_trying_to_use_spec()
             {
-                Assert.That(sut.UseCallSpec(), Is.Null);
+                Assert.That(sut.UseCallSpecInfo(), Is.Null);
+            }
+
+            public override void Because()
+            {
+                base.Because();
+                _substitutionContext.PendingSpecificationInfo = null;
             }
         }
 
@@ -33,37 +46,72 @@ namespace NSubstitute.Specs
             [Test]
             public void Should_have_a_spec()
             {
-                Assert.That(sut.HasPendingCallSpec(), Is.True);
+                Assert.That(sut.HasPendingCallSpecInfo(), Is.True);
             }
 
             [Test]
             public void Should_return_the_spec_when_using_it()
             {
-                Assert.That(sut.UseCallSpec(), Is.SameAs(_callSpec));
+                var specInfo = sut.UseCallSpecInfo();
+                Assert.That(specInfo.CallSpecification, Is.SameAs(_callSpec));
+                Assert.That(specInfo.LastCall, Is.Null);
             }
 
             [Test]
             public void Should_not_have_spec_after_it_is_used()
             {
-                sut.UseCallSpec();
-                Assert.That(sut.HasPendingCallSpec(), Is.False);
+                sut.UseCallSpecInfo();
+                Assert.That(sut.HasPendingCallSpecInfo(), Is.False);
             }
 
             [Test]
             public void Should_not_have_a_spec_after_it_is_cleared()
             {
                 sut.Clear();
-                Assert.That(sut.HasPendingCallSpec(), Is.False);
+                Assert.That(sut.HasPendingCallSpecInfo(), Is.False);
             }
 
             public override void Because()
             {
-                sut.Set(_callSpec);
+                base.Because();
+                sut.SetCallSpecification(_callSpec);
             }
 
             public override void Context()
             {
+                base.Context();
                 _callSpec = mock<ICallSpecification>();
+            }
+        }
+
+        public class When_a_last_call_info_has_been_set : Concern
+        {
+            ICall _call;
+
+            [Test]
+            public void Should_have_a_spec()
+            {
+                Assert.That(sut.HasPendingCallSpecInfo(), Is.True);
+            }
+
+            [Test]
+            public void Should_return_the_call_when_using_it()
+            {
+                var specInfo = sut.UseCallSpecInfo();
+                Assert.That(specInfo.LastCall, Is.SameAs(_call));
+                Assert.That(specInfo.CallSpecification, Is.Null);
+            }
+
+            public override void Because()
+            {
+                base.Because();
+                sut.SetLastCall(_call);
+            }
+
+            public override void Context()
+            {
+                base.Context();
+                _call = mock<ICall>();
             }
         }
     }

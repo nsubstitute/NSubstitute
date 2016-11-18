@@ -168,7 +168,6 @@
     <Compile Include="PropertyHelperSpecs.cs" />
     <Compile Include="ReceivedExtensionSpec.cs" />
     <Compile Include="Routing\Handlers\RecordCallHandlerSpecs.cs" />
-    <Compile Include="Routing\Handlers\RecordCallSpecificationHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnAutoValueSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnResultForTypeHandlerSpecs.cs" />
     <Compile Include="Routing\Handlers\ReturnConfiguredResultHandlerSpecs.cs" />
@@ -183,7 +182,7 @@
     <Compile Include="SubstitutionContextSpecs.cs" />
     <Compile Include="SubstituteFactorySpecs.cs" />
     <Compile Include="Infrastructure\BaseConcern.cs" />
-    <Compile Include="CallStackSpecs.cs" />
+    <Compile Include="CallCollectionSpecs.cs" />
     <Compile Include="Infrastructure\ConcernFor.cs" />
     <Compile Include="Infrastructure\ITemporaryChange.cs" />
     <Compile Include="Infrastructure\MockingAdaptor.cs" />
