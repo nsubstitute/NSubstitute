@@ -47,7 +47,12 @@ namespace NSubstitute.Core.Arguments
 
         public IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType)
         {
-            return new ArgumentSpecification(requiredType, new AnyArgumentMatcher(requiredType), RunActionIfTypeIsCompatible);
+            //Don't pass RunActionIfTypeIsCompatible method if no action is present.
+            //Otherwise, unnecessary closure will keep reference to this and will keep it alive.
+            return new ArgumentSpecification(
+                requiredType,
+                new AnyArgumentMatcher(requiredType),
+                _action == NoOpAction ? NoOpAction : RunActionIfTypeIsCompatible);
         }
 
         public void RunAction(object argument)

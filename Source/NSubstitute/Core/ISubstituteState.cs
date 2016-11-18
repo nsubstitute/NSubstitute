@@ -5,7 +5,7 @@ namespace NSubstitute.Core
     public interface ISubstituteState
     {
         ISubstitutionContext SubstitutionContext { get; }
-        ICallStack CallStack { get; }
+        ICallCollection CallCollection { get; }
         IReceivedCalls ReceivedCalls { get; }
         IPendingSpecification PendingSpecification { get; }
         ICallResults CallResults { get; }
@@ -20,6 +20,5 @@ namespace NSubstitute.Core
         ICallBaseExclusions CallBaseExclusions { get; }
         IResultsForType ResultsForType { get; }
         ICustomHandlers CustomHandlers { get; }
-        void ClearUnusedCallSpecs();
     }
 }

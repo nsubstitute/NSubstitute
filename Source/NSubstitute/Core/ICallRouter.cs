@@ -6,6 +6,7 @@ namespace NSubstitute.Core
 {
     public interface ICallRouter
     {
+        bool IsLastCallInfoPresent();
         ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs);
         object Route(ICall call);
         IEnumerable<ICall> ReceivedCalls();

@@ -1,26 +1,40 @@
-﻿namespace NSubstitute.Core
+﻿using System;
+
+namespace NSubstitute.Core
 {
     public class GetCallSpec : IGetCallSpec
     {
-        private readonly ICallStack _callStack;
+        private readonly ICallCollection _callCollection;
         private readonly IPendingSpecification _pendingSpecification;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly ICallActions _callActions;
 
-        public GetCallSpec(ICallStack callStack, IPendingSpecification pendingSpecification,
+        public GetCallSpec(ICallCollection callCollection, IPendingSpecification pendingSpecification,
             ICallSpecificationFactory callSpecificationFactory, ICallActions callActions)
         {
-            _callStack = callStack;
+            _callCollection = callCollection;
             _pendingSpecification = pendingSpecification;
             _callSpecificationFactory = callSpecificationFactory;
             _callActions = callActions;
         }
 
-        public ICallSpecification FromLastCall(MatchArgs matchArgs)
+        public ICallSpecification FromPendingSpecification(MatchArgs matchArgs)
         {
-            return _pendingSpecification.HasPendingCallSpec()
-                               ? FromExistingSpec(_pendingSpecification.UseCallSpec(), matchArgs)
-                               : FromCall(_callStack.Pop(), matchArgs);
+            if (!_pendingSpecification.HasPendingCallSpecInfo())
+            {
+                throw new InvalidOperationException("No pending specification or previous call info.");
+            }
+
+            var pendingSpecInfo = _pendingSpecification.UseCallSpecInfo();
+            if (pendingSpecInfo.CallSpecification != null)
+            {
+                return FromExistingSpec(pendingSpecInfo.CallSpecification, matchArgs);
+            }
+
+            var lastCall = pendingSpecInfo.LastCall;
+            _callCollection.Delete(lastCall);
+
+            return FromCall(lastCall, matchArgs);
         }
 
         public ICallSpecification FromCall(ICall call, MatchArgs matchArgs)

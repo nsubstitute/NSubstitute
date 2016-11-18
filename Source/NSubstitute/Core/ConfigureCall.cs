@@ -17,7 +17,7 @@ namespace NSubstitute.Core
 
         public ConfiguredCall SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs)
         {
-            var spec = _getCallSpec.FromLastCall(matchArgs);
+            var spec = _getCallSpec.FromPendingSpecification(matchArgs);
             CheckResultIsCompatibleWithCall(valueToReturn, spec);
             _configuredResults.SetResult(spec, valueToReturn);
             return new ConfiguredCall(action => _callActions.Add(spec, action));

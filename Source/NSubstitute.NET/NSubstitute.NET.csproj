@@ -249,6 +249,9 @@
     <Compile Include="..\NSubstitute\Core\CallBaseExclusions.cs">
       <Link>Core\CallBaseExclusions.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Core\CallCollection.cs">
+      <Link>Core\CallCollection.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Core\CallFactory.cs">
       <Link>Core\CallFactory.cs</Link>
     </Compile>
@@ -284,9 +287,6 @@
     </Compile>
     <Compile Include="..\NSubstitute\Core\CallSpecificationFactoryFactoryYesThatsRight.cs">
       <Link>Core\CallSpecificationFactoryFactoryYesThatsRight.cs</Link>
-    </Compile>
-    <Compile Include="..\NSubstitute\Core\CallStack.cs">
-      <Link>Core\CallStack.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Core\ConfigureCall.cs">
       <Link>Core\ConfigureCall.cs</Link>
@@ -330,6 +330,9 @@
     <Compile Include="..\NSubstitute\Core\ICallBaseExclusions.cs">
       <Link>Core\ICallBaseExclusions.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Core\ICallCollection.cs">
+      <Link>Core\ICallCollection.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Core\ICallHandler.cs">
       <Link>Core\ICallHandler.cs</Link>
     </Compile>
@@ -356,9 +359,6 @@
     </Compile>
     <Compile Include="..\NSubstitute\Core\ICallSpecificationFactory.cs">
       <Link>Core\ICallSpecificationFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\NSubstitute\Core\ICallStack.cs">
-      <Link>Core\ICallStack.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Core\IConfigureCall.cs">
       <Link>Core\IConfigureCall.cs</Link>
@@ -434,6 +434,9 @@
     </Compile>
     <Compile Include="..\NSubstitute\Core\PendingSpecification.cs">
       <Link>Core\PendingSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\NSubstitute\Core\PendingSpecificationInfo.cs">
+      <Link>Core\PendingSpecificationInfo.cs</Link>
     </Compile>
     <Compile Include="..\NSubstitute\Core\PropertyCallFormatter.cs">
       <Link>Core\PropertyCallFormatter.cs</Link>
@@ -666,6 +669,9 @@
     <Compile Include="..\NSubstitute\Routing\Handlers\SetActionForCallHandler.cs">
       <Link>Routing\Handlers\SetActionForCallHandler.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Routing\Handlers\TrackLastCallHandler.cs">
+      <Link>Routing\Handlers\TrackLastCallHandler.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Routing\IRoute.cs">
       <Link>Routing\IRoute.cs</Link>
     </Compile>
@@ -689,7 +695,6 @@
     </None>
     <None Include="ilmerge.exclude" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')" />
   <Target Name="AfterBuild" Condition="(($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')) And '$(OS)' == 'Windows_NT'">
     <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">

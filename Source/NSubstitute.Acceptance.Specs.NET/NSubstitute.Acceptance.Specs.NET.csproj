@@ -112,6 +112,9 @@
     <Compile Include="..\NSubstitute.Acceptance.Specs\ClearSubstitute.cs">
       <Link>ClearSubstitute.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\ConcurrencyTests.cs">
+      <Link>ConcurrencyTests.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute.Acceptance.Specs\CustomHandlersSpecs.cs">
       <Link>CustomHandlersSpecs.cs</Link>
     </Compile>

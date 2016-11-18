@@ -37,7 +37,7 @@ namespace NSubstitute.Specs
             public void Configure_result_for_last_specified_call()
             {
                 var lastCallSpec = mock<ICallSpecification>();
-                _getCallSpec.stub(x => x.FromLastCall(MatchArgs.AsSpecifiedInCall)).Return(lastCallSpec);
+                _getCallSpec.stub(x => x.FromPendingSpecification(MatchArgs.AsSpecifiedInCall)).Return(lastCallSpec);
 
                 sut.SetResultForLastCall(_compatibleReturnValue, MatchArgs.AsSpecifiedInCall);
 
@@ -68,7 +68,7 @@ namespace NSubstitute.Specs
                 Action<CallInfo> firstAction = x => { };
                 Action<CallInfo> secondAction = x => { };
                 var lastCallSpec = mock<ICallSpecification>();
-                _getCallSpec.stub(x => x.FromLastCall(MatchArgs.AsSpecifiedInCall)).Return(lastCallSpec);
+                _getCallSpec.stub(x => x.FromPendingSpecification(MatchArgs.AsSpecifiedInCall)).Return(lastCallSpec);
 
                 var config = sut.SetResultForLastCall(_compatibleReturnValue, MatchArgs.AsSpecifiedInCall);
                 config
@@ -86,7 +86,7 @@ namespace NSubstitute.Specs
             public void Configure_result_for_last_specified_call()
             {
                 var lastCallSpec = mock<ICallSpecification>();
-                _getCallSpec.stub(x => x.FromLastCall(MatchArgs.AsSpecifiedInCall)).Return(lastCallSpec);
+                _getCallSpec.stub(x => x.FromPendingSpecification(MatchArgs.AsSpecifiedInCall)).Return(lastCallSpec);
                 lastCallSpec.stub(x => x.GetMethodInfo()).Return(ReflectionHelper.GetMethod(() => SomeType.SampleMethod()));
 
                 var incompatibleReturn = mock<IReturn>();

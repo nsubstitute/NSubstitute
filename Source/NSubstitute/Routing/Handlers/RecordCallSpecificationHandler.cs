@@ -18,7 +18,7 @@ namespace NSubstitute.Routing.Handlers
         public RouteAction Handle(ICall call)
         {
             var callSpec = _callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
-            _pendingCallSpecification.Set(callSpec);
+            _pendingCallSpecification.SetCallSpecification(callSpec);
             _callActions.Add(callSpec);
             return RouteAction.Continue();
         }
