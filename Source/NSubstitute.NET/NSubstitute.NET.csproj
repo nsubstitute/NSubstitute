@@ -543,6 +543,9 @@
     <Compile Include="..\NSubstitute\Exceptions\SubstituteException.cs">
       <Link>Exceptions\SubstituteException.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute\Exceptions\SubstituteInternalException.cs">
+      <Link>Exceptions\SubstituteInternalException.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute\Exceptions\UnexpectedArgumentMatcherException.cs">
       <Link>Exceptions\UnexpectedArgumentMatcherException.cs</Link>
     </Compile>

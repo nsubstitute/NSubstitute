@@ -1,4 +1,5 @@
-﻿using NSubstitute.Core;
+﻿using System;
+using NSubstitute.Core;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
@@ -53,8 +54,8 @@ namespace NSubstitute.Specs
             public void Should_return_the_spec_when_using_it()
             {
                 var specInfo = sut.UseCallSpecInfo();
-                Assert.That(specInfo.CallSpecification, Is.SameAs(_callSpec));
-                Assert.That(specInfo.LastCall, Is.Null);
+                var result = specInfo.Handle(x => x, x => { throw new Exception("Expected call spec, got last call"); });
+                Assert.That(result, Is.SameAs(_callSpec));
             }
 
             [Test]
@@ -98,8 +99,8 @@ namespace NSubstitute.Specs
             public void Should_return_the_call_when_using_it()
             {
                 var specInfo = sut.UseCallSpecInfo();
-                Assert.That(specInfo.LastCall, Is.SameAs(_call));
-                Assert.That(specInfo.CallSpecification, Is.Null);
+                var result = specInfo.Handle(x => { throw new Exception("Expected last call, got call spec"); }, x => x);
+                Assert.That(result, Is.SameAs(_call));
             }
 
             public override void Because()

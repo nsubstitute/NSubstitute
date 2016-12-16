@@ -1,5 +1,6 @@
 using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
@@ -43,8 +44,8 @@ namespace NSubstitute.Specs
             var call = mock<ICall>();
 
             //act/assert
-            var exception = Assert.Throws<InvalidOperationException>(() => sut.Delete(call));
-            Assert.That(exception.Message, Is.StringContaining("Collection doesn't contain the call."));
+            var exception = Assert.Throws<SubstituteInternalException>(() => sut.Delete(call));
+            Assert.That(exception.Message, Is.StringContaining("CallCollection.Delete - collection doesn't contain the call"));
         }
 
         [Test]

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
@@ -20,7 +21,10 @@ namespace NSubstitute.Core
             if (call == null) throw new ArgumentNullException(nameof(call));
 
             var callWrapper = _callWrappers.FirstOrDefault(w => !w.IsDeleted && call.Equals(w.Call));
-            if (callWrapper == null) throw new InvalidOperationException("Collection doesn't contain the call.");
+            if (callWrapper == null)
+            {
+                throw new SubstituteInternalException("CallCollection.Delete - collection doesn't contain the call");
+            }
 
             callWrapper.Delete();
         }

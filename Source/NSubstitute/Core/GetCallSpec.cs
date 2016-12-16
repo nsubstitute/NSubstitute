@@ -26,15 +26,13 @@ namespace NSubstitute.Core
             }
 
             var pendingSpecInfo = _pendingSpecification.UseCallSpecInfo();
-            if (pendingSpecInfo.CallSpecification != null)
-            {
-                return FromExistingSpec(pendingSpecInfo.CallSpecification, matchArgs);
-            }
-
-            var lastCall = pendingSpecInfo.LastCall;
-            _callCollection.Delete(lastCall);
-
-            return FromCall(lastCall, matchArgs);
+            return pendingSpecInfo.Handle(
+                callSpec => FromExistingSpec(callSpec, matchArgs),
+                lastCall =>
+                {
+                    _callCollection.Delete(lastCall);
+                    return FromCall(lastCall, matchArgs);
+                });
         }
 
         public ICallSpecification FromCall(ICall call, MatchArgs matchArgs)
