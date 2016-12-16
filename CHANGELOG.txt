@@ -1,5 +1,6 @@
 ### 2.0.1 RC (unreleased)
 * [NEW] Initial custom handler support (#259). Mainly for integration with libraries like AutoFixture, this allows some basic fallback logic to be injected into a substitute's call handling pipeline. Thanks to Alex Povar (@zvirja) for implementing this and incorporating review comments, and also to Marcio Rinaldi (@mrinaldi) for his initial work on this in #234. Also thanks to @alexandrnikitin for a related spike (#156), and his work with Alex and Marcio in refining this feature and reviewing and merging the final PR.
+* [UPDATE] Improved concurrency support, relating to how NSubstitute tracks the last call and queued call specifications (#264). Thanks a lot to Alex Povar (@Zvirja) for designing and implementing this improvement. Thanks to Alexandr Nikitin for reviewing this PR.
 
 ### 2.0.0 RC (August 2016)
 * Build: 2.0.0.0
