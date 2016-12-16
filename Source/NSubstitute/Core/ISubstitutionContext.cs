@@ -9,6 +9,7 @@ namespace NSubstitute.Core
     {
         ISubstituteFactory SubstituteFactory { get; }
         SequenceNumberGenerator SequenceNumberGenerator { get; }
+        PendingSpecificationInfo PendingSpecificationInfo { get; set; }
         ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs);
         void LastCallRouter(ICallRouter callRouter);
         ICallRouter GetCallRouterFor(object substitute);

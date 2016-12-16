@@ -45,6 +45,22 @@ namespace NSubstitute.Exceptions
 #if NET35 || NET4 || NET45
     [Serializable]
 #endif
+    public class CouldNotSetReturnDueToMissingInfoAboutLastCallException : CouldNotSetReturnException
+    {
+        public CouldNotSetReturnDueToMissingInfoAboutLastCallException() : base("Could not find information about the last call to return from.")
+        {
+        }
+
+#if NET35 || NET4 || NET45
+        protected CouldNotSetReturnDueToMissingInfoAboutLastCallException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+#endif
+    }
+
+#if NET35 || NET4 || NET45
+    [Serializable]
+#endif
     public class CouldNotSetReturnDueToTypeMismatchException : CouldNotSetReturnException
     {
         public CouldNotSetReturnDueToTypeMismatchException(Type returnType, MethodInfo member) : base(DescribeProblem(returnType, member)) { }

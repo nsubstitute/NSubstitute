@@ -16,3 +16,4 @@ _ReSharper*
 project.lock.json
 .vs/
 .fake/
+.idea/
