@@ -13,11 +13,9 @@ namespace NSubstitute.Routing.Handlers
 
         public RouteAction Handle(ICall call)
         {
-            if (_callResults.HasResultFor(call))
-            {
-                return RouteAction.Return(_callResults.GetResult(call));
-            }
-            return RouteAction.Continue();
+            return _callResults.TryGetResult(call, out var configuredResult) 
+                ? RouteAction.Return(configuredResult)
+                : RouteAction.Continue();
         }
     }
 }
