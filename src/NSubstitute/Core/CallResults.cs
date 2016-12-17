@@ -19,18 +19,16 @@ namespace NSubstitute.Core
             _results.Enqueue(new ResultForCallSpec(callSpecification, result));
         }
 
-        public bool HasResultFor(ICall call)
+        public bool TryGetResult(ICall call, out object result)
         {
+            result = null;
             if (ReturnsVoidFrom(call)) return false;
-            return _results.Any(x => x.IsResultFor(call));
-        }
 
-        public object GetResult(ICall call)
-        {
-            return _results
-                    .Reverse()
-                    .First(x => x.IsResultFor(call))
-                    .GetResult(_callInfoFactory.Create(call));
+            var resultWrapper = _results.Reverse().FirstOrDefault(x => x.IsResultFor(call));
+            if(resultWrapper == null) return false;
+
+            result = resultWrapper.GetResult(_callInfoFactory.Create(call));
+            return true;
         }
 
         public void Clear()
@@ -54,8 +52,8 @@ namespace NSubstitute.Core
                 _resultToReturn = resultToReturn;
             }
 
-            public bool IsResultFor(ICall call) { return _callSpecification.IsSatisfiedBy(call); }
-            public object GetResult(CallInfo callInfo) { return _resultToReturn.ReturnFor(callInfo); }
+            public bool IsResultFor(ICall call) => _callSpecification.IsSatisfiedBy(call);
+            public object GetResult(CallInfo callInfo) => _resultToReturn.ReturnFor(callInfo);
         }
     }
 }

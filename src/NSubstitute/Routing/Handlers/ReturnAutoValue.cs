@@ -28,9 +28,9 @@ namespace NSubstitute.Routing.Handlers
 
         public RouteAction Handle(ICall call)
         {
-            if (_callResults.HasResultFor(call))
+            if (_callResults.TryGetResult(call, out var cachedResult))
             {
-                return RouteAction.Return(_callResults.GetResult(call));
+                return RouteAction.Return(cachedResult);
             }
 
             var type = call.GetReturnType();
