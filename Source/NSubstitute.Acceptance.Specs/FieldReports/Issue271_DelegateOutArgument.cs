@@ -7,7 +7,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public delegate void Foo(out int bar);
 
         [Test]
-        [Ignore]
         public void DelegateReturnsOutParameter()
         {
             var foo = Substitute.For<Foo>();
