@@ -79,7 +79,7 @@ Argument callbacks give us slightly more concise code in a style that is more in
 
 ## Callback builder for more complex callbacks
 
-The `Callback` builder lets us create more complex `Do()` secenarios.  We can use `Callback.First()` followed by `Then()`, `ThenThrow()` and `ThenKeepDoing()` to build chains of callbacks. We can also use `Always()` and `AlwaysThrow()` to specify callbacks called every time. Note that a callback set by an `Always()` method will be called even if other callbacks will throw an exception.
+The `Callback` builder lets us create more complex `Do()` scenarios.  We can use `Callback.First()` followed by `Then()`, `ThenThrow()` and `ThenKeepDoing()` to build chains of callbacks. We can also use `Always()` and `AlwaysThrow()` to specify callbacks called every time. Note that a callback set by an `Always()` method will be called even if other callbacks will throw an exception.
 
 {% requiredcode %}
 public interface ISomething { void Something(); }
