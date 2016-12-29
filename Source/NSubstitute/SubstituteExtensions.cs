@@ -191,6 +191,33 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Checks this substitute has received a property get.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TProperty">The type of the property to check</typeparam>
+        /// <param name="substitute"></param>
+        /// <param name="get">A delegate which retrieves the property</param>
+        /// <returns></returns>
+        public static void Received<T, TProperty>(this T substitute, Func<T, TProperty> get) where T : class
+        {
+            get(substitute.Received());
+        }
+
+        /// <summary>
+        /// Checks this substitute has received the required number of a property get.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TProperty">The type of the property to check</typeparam>
+        /// <param name="substitute"></param>
+        /// <param name="requiredNumberOfCalls"></param>
+        /// <param name="get">A delegate which retrieves the property</param>
+        /// <returns></returns>
+        public static void Received<T, TProperty>(this T substitute, int requiredNumberOfCalls, Func<T, TProperty> get) where T : class
+        {
+            get(substitute.Received(requiredNumberOfCalls));
+        }
+
+        /// <summary>
         /// Checks this substitute has not received the following call.
         /// </summary>
         /// <typeparam name="T"></typeparam>

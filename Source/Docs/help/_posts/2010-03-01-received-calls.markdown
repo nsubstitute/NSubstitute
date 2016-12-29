@@ -129,6 +129,10 @@ calculator.Mode = "TEST";
 //the compiler happy.
 var temp = calculator.Received().Mode;
 
+//Alternatively, check received call to property getter 
+//using a lambda.
+calculator.Received(c => c.Mode);
+
 //Check received call to property setter with arg of "TEST"
 calculator.Received().Mode = "TEST";
 {% endexamplecode %}
