@@ -15,7 +15,11 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
 
             foo(out bar);
 
+#if NET4 || NET45
             Assert.AreEqual(42, bar);
+#else
+            Assert.Ignore("Not supported for NET35");
+#endif
         }
     }
 }
