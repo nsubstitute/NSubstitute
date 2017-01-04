@@ -303,7 +303,7 @@ namespace NSubstitute
             return x => CompletedTask(returnThis(x));
         }
 
-        private static Task<T> CompletedTask<T>(T result) 
+        internal static Task<T> CompletedTask<T>(T result) 
         {
 #if (NET45 || NETSTANDARD1_5)
             return Task.FromResult(result);

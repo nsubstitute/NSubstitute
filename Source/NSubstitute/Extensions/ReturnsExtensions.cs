@@ -39,7 +39,7 @@ namespace NSubstitute.ReturnsExtensions
         /// <returns></returns>
         public static ConfiguredCall ReturnsNull<T>(this Task<T> value) where T : class
         {
-            return value.Returns(i => Task.FromResult<T>(null));
+            return value.Returns(i => SubstituteExtensions.CompletedTask<T>(null));
         }
 
         /// <summary>
@@ -50,10 +50,8 @@ namespace NSubstitute.ReturnsExtensions
         /// <returns></returns>
         public static ConfiguredCall ReturnsNullForAnyArgs<T>(this Task<T> value) where T : class
         {
-            return value.ReturnsForAnyArgs(i => Task.FromResult<T>(null));
+            return value.ReturnsForAnyArgs(i => SubstituteExtensions.CompletedTask<T>(null));
         }
-
 #endif
-
     }
 }
