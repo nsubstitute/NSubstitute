@@ -194,6 +194,40 @@ namespace NSubstitute.Acceptance.Specs
         }
 
 #if NET45 || NET4 || NETSTANDARD1_5
+
+        [Test]
+        public void Returns_Null_for_string_parameter_async()
+        {
+            const string stringValue = "something";
+            _something.SayAsync(stringValue).ReturnsNull();
+
+            Assert.That(_something.SayAsync("something").Result, Is.Null);
+        }
+
+        [Test]
+        public void Returns_Null_for_method_returning_class_async()
+        {
+            _something.SomeActionAsync().ReturnsNull();
+
+            Assert.That(_something.SomeActionAsync().Result, Is.Null);
+        }
+
+        [Test]
+        public void Returns_Null_for_any_args_when_string_parameter_async()
+        {
+            _something.SayAsync("text").ReturnsNullForAnyArgs();
+
+            Assert.That(_something.SayAsync("something").Result, Is.Null);
+        }
+
+        [Test]
+        public void Returns_Null_for_any_args_when_class_returned_async()
+        {
+            _something.SomeActionWithParamsAsync(2, "text").ReturnsNullForAnyArgs();
+
+            Assert.That(_something.SomeActionWithParamsAsync(123, "something else").Result, Is.Null);
+        }
+
         [Test]
         public void Return_a_wrapped_async_result()
         {
@@ -216,6 +250,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Third return");
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Fourth return");
         }
+
 #endif
 
         [SetUp]
