@@ -1,4 +1,5 @@
 ### 2.0.2 (unreleased)
+* [NEW] Task-compatible ReturnsNull extension method added to ReturnsExtensions (#270). Thanks to Michael Wolfenden for implementing this.
 * [NEW] Support for delegates with out/ref parameters (#271, #273). Thanks to Oleg Sych for raising this, and to Alexandr Nikitin for this fix. (Implemented for NET40/45/Core, not for NET35 at present)
 
 ### 2.0.1 RC (December 2016)
