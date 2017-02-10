@@ -184,6 +184,9 @@
     <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue271_DelegateOutArgument.cs">
       <Link>FieldReports\Issue271_DelegateOutArgument.cs</Link>
     </Compile>
+    <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue282_MultipleReturnValuesParallelism.cs">
+      <Link>FieldReports\Issue282_MultipleReturnValuesParallelism.cs</Link>
+    </Compile>
     <Compile Include="..\NSubstitute.Acceptance.Specs\FieldReports\Issue33_RaisingINotifyPropertyChangedEvents.cs">
       <Link>FieldReports\Issue33_RaisingINotifyPropertyChangedEvents.cs</Link>
     </Compile>
