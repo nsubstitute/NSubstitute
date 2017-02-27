@@ -98,13 +98,13 @@
   </PropertyGroup>
   <ItemGroup Condition="($(MSBuildTargets) == '') Or ($(MSBuildTargets) == 'CSharp')">
     <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
-      <HintPath>..\..\ThirdParty\Castle.Core.3.3.3\lib\net35\Castle.Core.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Castle.Core.4.0.0\lib\net35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">
-      <HintPath>..\..\ThirdParty\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Castle.Core.4.0.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core" Condition=" '$(TargetFrameworkVersion)' == 'v4.5' ">
-      <HintPath>..\..\ThirdParty\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading" Condition=" '$(TargetFrameworkVersion)' == 'v3.5' ">
       <SpecificVersion>False</SpecificVersion>
