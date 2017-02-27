@@ -1,4 +1,7 @@
-### 2.0.2 (unreleased)
+### 2.0.2 (February 2017)
+* Dropped Release Candidate tag now that Castle.Core 4.0.0 final has been
+released.
+* [UPDATE] Updated all builds to use Castle Core 4.0.0 release.
 * [NEW] Task-compatible ReturnsNull extension method added to ReturnsExtensions (#270). Thanks to Michael Wolfenden for implementing this.
 * [NEW] Support for delegates with out/ref parameters (#271, #273). Thanks to Oleg Sych for raising this, and to Alexandr Nikitin for this fix. (Implemented for NET40/45/Core, not for NET35 at present)
 
