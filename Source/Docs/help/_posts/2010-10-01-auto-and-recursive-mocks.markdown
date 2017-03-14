@@ -60,7 +60,7 @@ Assert.AreSame(firstCall, secondCall);
 Assert.AreNotSame(firstCall, thirdCallWithDiffArg);
 {% endexamplecode %}
 
-_Note:_ Recursive substitutes will not be created for classes, as creating and using classes can have potentially unwanted side-effects. You'll therefore need to create and return these explicitly.
+_Note:_ Recursive substitutes will not be created for  non-purely virtual classes, as creating and using classes can have potentially unwanted side-effects. You'll therefore need to create and return these explicitly.
 
 ### Substitute chains
 
