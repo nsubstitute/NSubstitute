@@ -153,7 +153,13 @@ Target "NuGet" <| fun _ ->
                              "Microsoft.CSharp", "[4.0.1, )"
                              "NETStandard.Library", "[1.6.0, )"
                              "System.Linq.Queryable", "[4.0.1, )"
-                             "System.Reflection.TypeExtensions", "[4.1.0, )" ]}]})
+                             "System.Reflection.TypeExtensions", "[4.1.0, )" ]}
+                      { FrameworkVersion = "net35"
+                        Dependencies = [] }
+                      { FrameworkVersion = "net40"
+                        Dependencies = [] }
+                      { FrameworkVersion = "net45"
+                        Dependencies = [] }]})
                         "Build/NSubstitute.nuspec"
 
 Target "Zip" <| fun _ -> 
