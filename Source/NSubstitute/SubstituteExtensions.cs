@@ -142,7 +142,7 @@ namespace NSubstitute
             }
             else
             {
-                returnValue = new ReturnMultipleValues<T>(new[] { returnThis }.Concat(returnThese));
+                returnValue = new ReturnMultipleValues<T>(new[] { returnThis }.Concat(returnThese).ToArray());
             }
             return context.LastCallShouldReturn(returnValue, matchArgs);
         }
@@ -157,7 +157,7 @@ namespace NSubstitute
             }
             else
             {
-                returnValue = new ReturnMultipleFuncsValues<T>(new[] { returnThis }.Concat(returnThese));
+                returnValue = new ReturnMultipleFuncsValues<T>(new[] { returnThis }.Concat(returnThese).ToArray());
             }
 
             return context.LastCallShouldReturn(returnValue, matchArgs);

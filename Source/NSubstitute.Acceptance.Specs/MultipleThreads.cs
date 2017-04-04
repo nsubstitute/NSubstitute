@@ -112,6 +112,30 @@ namespace NSubstitute.Acceptance.Specs
             Task.AwaitAll(tasks);
         }
 
+        [Test]
+        public void Returns_multiple_values_is_threadsafe()
+        {
+            var substitute = Substitute.For<IFoo>();            
+            int[] substResults = Enumerable.Range(0, 10).ToArray();
+
+            substitute.Number().Returns(substResults[substResults.Length - 1], substResults);
+
+            System.Threading.Tasks.Task<int>[] tasks =
+                substResults.Select(
+                    i => System.Threading.Tasks.Task<int>.Run(() => substitute.Number())
+                    ).ToArray();
+
+            var allTasks = System.Threading.Tasks.Task<int>.WhenAll(tasks);
+            allTasks.Wait();
+
+            int[] resultsFetchedByTasks = allTasks.Result;
+
+            Assert.That(substResults.Except(resultsFetchedByTasks).ToArray(), Is.Empty);
+
+            int numberAfterAllSubstsFetched = substitute.Number();
+            Assert.That(numberAfterAllSubstsFetched, Is.EqualTo(substResults.LastOrDefault()));
+        }
+
         public interface IFoo
         {
             int Number();

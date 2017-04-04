@@ -1,5 +1,6 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Linq;
 using System.Reflection;
 using NSubstitute.Exceptions;
 
@@ -38,39 +39,36 @@ namespace NSubstitute.Core
 
     public class ReturnMultipleValues<T> : IReturn
     {
-        private readonly IEnumerator<T> _valuesToReturn;
-        public ReturnMultipleValues(IEnumerable<T> values)
+        private readonly ConcurrentQueue<T> _valuesToReturn;
+        private T _lastValue = default(T);
+
+        public ReturnMultipleValues(T[] values)
         {
-            _valuesToReturn = ValuesToReturn(values).GetEnumerator();
+            _valuesToReturn = new ConcurrentQueue<T>(values);
+            _lastValue = values.LastOrDefault();
         }
         public object ReturnFor(CallInfo info) { return GetNext(); }
         public Type TypeOrNull() { return typeof (T); }
         public bool CanBeAssignedTo(Type t) { return typeof (T).IsAssignableFrom(t); }
 
-        private T GetNext()
+        internal T GetNext()
         {
-            _valuesToReturn.MoveNext();
-            return _valuesToReturn.Current;
-        }
-
-        private IEnumerable<T> ValuesToReturn(IEnumerable<T> specifiedValues)
-        {
-            T lastValue = default(T);
-            foreach (var value in specifiedValues)
+            T nextResult;
+            if (_valuesToReturn.TryDequeue(out nextResult))
             {
-                lastValue = value;
-                yield return value;
+                return nextResult;
             }
-            yield return lastValue;
+
+            return _lastValue;
         }
     }
 
     public class ReturnMultipleFuncsValues<T> : IReturn
     {
-        private readonly IEnumerator<Func<CallInfo, T>> _valuesToReturn;
-        public ReturnMultipleFuncsValues(IEnumerable<Func<CallInfo, T>> funcs)
+        private readonly ReturnMultipleValues<Func<CallInfo, T>> _functionsToReturn;
+        public ReturnMultipleFuncsValues(Func<CallInfo, T>[] funcs)
         {
-            _valuesToReturn = ValuesToReturn(funcs).GetEnumerator();
+            _functionsToReturn = new ReturnMultipleValues<Func<CallInfo, T>>(funcs);
         }
         public object ReturnFor(CallInfo info) { return GetNext(info); }
         public Type TypeOrNull() { return typeof (T); }
@@ -78,19 +76,7 @@ namespace NSubstitute.Core
 
         private T GetNext(CallInfo info)
         {
-            _valuesToReturn.MoveNext();
-            return _valuesToReturn.Current(info);
-        }
-
-        private IEnumerable<Func<CallInfo, T>> ValuesToReturn(IEnumerable<Func<CallInfo, T>> specifiedFuncs)
-        {
-            Func<CallInfo, T> lastValue = default(Func<CallInfo, T>);
-            foreach (var value in specifiedFuncs)
-            {
-                lastValue = value;
-                yield return value;
-            }
-            yield return lastValue;
+            return _functionsToReturn.GetNext()(info);
         }
     }
 }
