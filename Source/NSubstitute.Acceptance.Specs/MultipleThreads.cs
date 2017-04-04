@@ -112,29 +112,24 @@ namespace NSubstitute.Acceptance.Specs
             Task.AwaitAll(tasks);
         }
 
+#if (NET4 || NET45 || NETSTANDARD1_5)
         [Test]
         public void Returns_multiple_values_is_threadsafe()
         {
-            var substitute = Substitute.For<IFoo>();            
-            int[] substResults = Enumerable.Range(0, 10).ToArray();
+            const int parallelism = 10;
+            var sut = Substitute.For<IFoo>();
+            var expected = Enumerable.Range(0, parallelism).ToArray();
+            sut.Number().Returns(expected[0], expected.Skip(1).ToArray());
 
-            substitute.Number().Returns(substResults[substResults.Length - 1], substResults);
+            var tasks = Enumerable.Range(0, parallelism)
+                .Select(_ => new System.Threading.Tasks.Task<int>(() => sut.Number()))
+                .ToArray();
 
-            System.Threading.Tasks.Task<int>[] tasks =
-                substResults.Select(
-                    i => System.Threading.Tasks.Task<int>.Run(() => substitute.Number())
-                    ).ToArray();
-
-            var allTasks = System.Threading.Tasks.Task<int>.WhenAll(tasks);
-            allTasks.Wait();
-
-            int[] resultsFetchedByTasks = allTasks.Result;
-
-            Assert.That(substResults.Except(resultsFetchedByTasks).ToArray(), Is.Empty);
-
-            int numberAfterAllSubstsFetched = substitute.Number();
-            Assert.That(numberAfterAllSubstsFetched, Is.EqualTo(substResults.LastOrDefault()));
+            foreach (var task in tasks) { task.Start(); }
+            var actual = System.Threading.Tasks.Task.WhenAll(tasks).Result;
+            Assert.That(expected.Except(actual), Is.Empty);
         }
+#endif
 
         public interface IFoo
         {
