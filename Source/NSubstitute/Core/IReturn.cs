@@ -40,7 +40,7 @@ namespace NSubstitute.Core
     public class ReturnMultipleValues<T> : IReturn
     {
         private readonly ConcurrentQueue<T> _valuesToReturn;
-        private T _lastValue = default(T);
+        private readonly T _lastValue;
 
         public ReturnMultipleValues(T[] values)
         {
@@ -51,7 +51,7 @@ namespace NSubstitute.Core
         public Type TypeOrNull() { return typeof (T); }
         public bool CanBeAssignedTo(Type t) { return typeof (T).IsAssignableFrom(t); }
 
-        internal T GetNext()
+        private T GetNext()
         {
             T nextResult;
             if (_valuesToReturn.TryDequeue(out nextResult))
@@ -65,10 +65,13 @@ namespace NSubstitute.Core
 
     public class ReturnMultipleFuncsValues<T> : IReturn
     {
-        private readonly ReturnMultipleValues<Func<CallInfo, T>> _functionsToReturn;
+        private readonly ConcurrentQueue<Func<CallInfo, T>> _funcsToReturn;
+        private readonly Func<CallInfo, T> _lastFunc;
+
         public ReturnMultipleFuncsValues(Func<CallInfo, T>[] funcs)
         {
-            _functionsToReturn = new ReturnMultipleValues<Func<CallInfo, T>>(funcs);
+            _funcsToReturn = new ConcurrentQueue<Func<CallInfo, T>>(funcs);
+            _lastFunc = funcs.LastOrDefault();
         }
         public object ReturnFor(CallInfo info) { return GetNext(info); }
         public Type TypeOrNull() { return typeof (T); }
@@ -76,7 +79,13 @@ namespace NSubstitute.Core
 
         private T GetNext(CallInfo info)
         {
-            return _functionsToReturn.GetNext()(info);
+            Func<CallInfo, T> nextFunc;
+            if (_funcsToReturn.TryDequeue(out nextFunc))
+            {
+                return nextFunc(info);
+            }
+
+            return _lastFunc(info);
         }
     }
 }
