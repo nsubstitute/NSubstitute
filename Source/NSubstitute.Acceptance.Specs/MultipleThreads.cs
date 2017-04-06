@@ -127,7 +127,7 @@ namespace NSubstitute.Acceptance.Specs
 
             foreach (var task in tasks) { task.Start(); }
             var actual = System.Threading.Tasks.Task.WhenAll(tasks).Result;
-            Assert.That(expected.Except(actual), Is.Empty);
+            Assert.That(expected.Except(actual).ToArray(), Is.Empty);
         }
 #endif
 
