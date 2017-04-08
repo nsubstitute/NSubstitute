@@ -206,31 +206,23 @@ Target "CodeFromDocumentation" <| fun _ ->
     MSBuild null "Build" [ "TargetFrameworkVersion", "v3.5" ] [ outputCodePath + "/samples.csproj" ] |> Log "Build: "
 
 // .NET Core build
-#r @"ThirdParty\FAKE.Dotnet\FAKE.Dotnet\tools\Fake.Dotnet.dll"
-open Fake
-open Fake.Dotnet
-
-Target "InstallDotnetCore" (fun _ ->
-    DotnetCliInstall Preview2ToolingOptions
-)
-
 Target "BuildDotNetCore" (fun _ ->
-    !! "Source/NSubstitute/project.json" 
-        |> Seq.iter(fun proj ->  
 
-            // restore project dependencies
-            DotnetRestore id proj
+    DotNetCli.Restore 
+        (fun p -> 
+             { p with 
+                  NoCache = true })
 
-            // build project and produce outputs
-            DotnetCompile (fun c -> 
-                { c with 
-                    Configuration = BuildConfiguration.Custom buildMode;
-                    Framework = Some ("netstandard1.5");
-                    OutputPath = Some (outputBasePath @@ "netstandard1.5" @@ "NSubstitute")
-                }) proj
-        )
+
+    DotNetCli.Build
+      (fun p -> 
+           { p with 
+                AdditionalArgs = [ "Source/NSubstitute/project.json" ];
+                Output = outputBasePath @@ "netstandard1.5" @@ "NSubstitute";
+                Framework = "netstandard1.5";
+                Configuration = buildMode })
+
 )
-
 
 // Empty target to encompass doing everything
 Target "All" DoNothing
@@ -247,7 +239,6 @@ Target "-T" <| fun _ ->
 // Build. Will build a mix of dotnet core and/or NETxx depending on targets
 Target "Build" DoNothing
 
-"InstallDotnetCore" ==> "BuildDotNetCore"
 "BuildDotNetCore" =?> ("Build", hasNetCoreTarget)
 "BuildSolution" =?> ("Build", hasNetTarget)
 
