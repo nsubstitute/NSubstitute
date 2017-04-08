@@ -112,7 +112,7 @@ namespace NSubstitute.Acceptance.Specs
             Task.AwaitAll(tasks);
         }
 
-#if (NET4 || NET45 || NETSTANDARD1_5)
+#if (NET45 || NETSTANDARD1_5)
         [Test]
         public void Returns_multiple_values_is_threadsafe()
         {
@@ -127,7 +127,7 @@ namespace NSubstitute.Acceptance.Specs
 
             foreach (var task in tasks) { task.Start(); }
             var actual = System.Threading.Tasks.Task.WhenAll(tasks).Result;
-            Assert.That(expected.Except(actual).ToArray(), Is.Empty);
+            Assert.That(actual, Is.EquivalentTo(expected));
         }
 #endif
 

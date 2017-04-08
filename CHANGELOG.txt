@@ -1,3 +1,9 @@
+### 2.0.3 (unreleased)
+* [FIX] Fixed issue with stubbing multiple return values and then accessing
+them in parallel. (#282, #294). Thanks to Janusz Bia¿obrzewski (jbialobr) for
+implementing this, and to Alexandr Nikitin and Alex Povar for reviewing and
+contributing to Janusz' PR.
+
 ### 2.0.2 (February 2017)
 * Dropped Release Candidate tag now that Castle.Core 4.0.0 final has been
 released.

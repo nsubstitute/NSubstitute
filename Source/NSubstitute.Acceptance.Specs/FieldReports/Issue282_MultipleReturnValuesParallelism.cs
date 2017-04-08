@@ -1,5 +1,4 @@
-﻿#if NET45
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports
@@ -12,9 +11,9 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             string Foo();
         }
 
+#if NET45
         [Test]
-        [Ignore("#282")]
-        public async void ReturnsMultipleValuesInParallel()
+        public void ReturnsMultipleValuesInParallel()
         {
             var ret1 = "One";
             var ret2 = "Two";
@@ -25,11 +24,11 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             var runningTask1 = Task.Run(() => substitute.Foo());
             var runningTask2 = Task.Run(() => substitute.Foo());
 
-            var results = await Task.WhenAll(runningTask1, runningTask2);
+            var results = Task.WhenAll(runningTask1, runningTask2).Result;
 
             Assert.Contains(ret1, results);
             Assert.Contains(ret2, results);
         }
+#endif
     }
 }
-#endif
