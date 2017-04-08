@@ -2,7 +2,7 @@ SRCSRV: ini ------------------------------------------------
 VERSION=2
 SRCSRV: variables ------------------------------------------
 SRCSRVVERCTRL=https
-SRCSRVTRG=https://raw.github.com/fsharp/FAKE/03098481c42fe747f11ea0c55b05d0ff6b756e86/%var2%
+SRCSRVTRG=https://raw.github.com/fsharp/FAKE/e2c3867743c483423e6176da8bc2b1410db3ba13/%var2%
 SRCSRV: source files ---------------------------------------
 C:\code\fake\src\app\FakeLib\UserInputHelper.fs*src/app/FakeLib/UserInputHelper.fs
 C:\code\fake\src\app\FakeLib\CSharpHelper.fs*src/app/FakeLib/CSharpHelper.fs
@@ -25,6 +25,7 @@ C:\code\fake\src\app\FakeLib\ProcessHelper.fs*src/app/FakeLib/ProcessHelper.fs
 C:\code\fake\src\app\FakeLib\PsExecHelper.fs*src/app/FakeLib/PsExecHelper.fs
 C:\code\fake\src\app\FakeLib\NpmHelper.fs*src/app/FakeLib/NpmHelper.fs
 C:\code\fake\src\app\FakeLib\BowerHelper.fs*src/app/FakeLib/BowerHelper.fs
+C:\code\fake\src\app\FakeLib\YarnHelper.fs*src/app/FakeLib/YarnHelper.fs
 C:\code\fake\src\app\FakeLib\AppVeyor.fs*src/app/FakeLib/AppVeyor.fs
 C:\code\fake\src\app\FakeLib\BitbucketPipelines.fs*src/app/FakeLib/BitbucketPipelines.fs
 C:\code\fake\src\app\FakeLib\TaskRunnerHelper.fs*src/app/FakeLib/TaskRunnerHelper.fs
@@ -35,6 +36,7 @@ C:\code\fake\src\app\FakeLib\FileUtils.fs*src/app/FakeLib/FileUtils.fs
 C:\code\fake\src\app\FakeLib\FuchuHelper.fs*src/app/FakeLib/FuchuHelper.fs
 C:\code\fake\src\app\FakeLib\UnitTest\UnitTestCommon.fs*src/app/FakeLib/UnitTest/UnitTestCommon.fs
 C:\code\fake\src\app\FakeLib\UnitTest\UnitTestHelper.fs*src/app/FakeLib/UnitTest/UnitTestHelper.fs
+C:\code\fake\src\app\FakeLib\UnitTest\Expecto\Expecto.fs*src/app/FakeLib/UnitTest/Expecto/Expecto.fs
 C:\code\fake\src\app\FakeLib\UnitTest\NUnit\Xml.fs*src/app/FakeLib/UnitTest/NUnit/Xml.fs
 C:\code\fake\src\app\FakeLib\UnitTest\NUnit\Common.fs*src/app/FakeLib/UnitTest/NUnit/Common.fs
 C:\code\fake\src\app\FakeLib\UnitTest\NUnit\Sequential.fs*src/app/FakeLib/UnitTest/NUnit/Sequential.fs
@@ -70,6 +72,7 @@ C:\code\fake\src\app\FakeLib\RestorePackageHelper.fs*src/app/FakeLib/RestorePack
 C:\code\fake\src\app\FakeLib\VSSHelper.fs*src/app/FakeLib/VSSHelper.fs
 C:\code\fake\src\app\FakeLib\DynamicsNavHelper.fs*src/app/FakeLib/DynamicsNavHelper.fs
 C:\code\fake\src\app\FakeLib\DynamicsNavFile.fs*src/app/FakeLib/DynamicsNavFile.fs
+C:\code\fake\src\app\FakeLib\SSHHelper.fs*src/app/FakeLib/SSHHelper.fs
 C:\code\fake\src\app\FakeLib\SCPHelper.fs*src/app/FakeLib/SCPHelper.fs
 C:\code\fake\src\app\FakeLib\RoboCopyHelper.fs*src/app/FakeLib/RoboCopyHelper.fs
 C:\code\fake\src\app\FakeLib\XpkgHelper.fs*src/app/FakeLib/XpkgHelper.fs
@@ -112,7 +115,6 @@ C:\code\fake\src\app\FakeLib\NuGet\Install.fs*src/app/FakeLib/NuGet/Install.fs
 C:\code\fake\src\app\FakeLib\NuGet\NugetVersion.fs*src/app/FakeLib/NuGet/NugetVersion.fs
 C:\code\fake\src\app\FakeLib\TestFlightHelper.fs*src/app/FakeLib/TestFlightHelper.fs
 C:\code\fake\src\app\FakeLib\DotNetCLIHelper.fs*src/app/FakeLib/DotNetCLIHelper.fs
-C:\code\fake\src\app\FakeLib\DotNetHelper.fs*src/app/FakeLib/DotNetHelper.fs
 C:\code\fake\src\app\FakeLib\DotCover.fs*src/app/FakeLib/DotCover.fs
 C:\code\fake\src\app\FakeLib\PaketHelper.fs*src/app/FakeLib/PaketHelper.fs
 C:\code\fake\src\app\FakeLib\PaketTemplateHelper.fs*src/app/FakeLib/PaketTemplateHelper.fs
@@ -147,4 +149,7 @@ C:\code\fake\src\app\FakeLib\SlackNotificationHelper.fs*src/app/FakeLib/SlackNot
 C:\code\fake\src\app\FakeLib\SonarQubeHelper.fs*src/app/FakeLib/SonarQubeHelper.fs
 C:\code\fake\src\app\FakeLib\AzureKudu.fs*src/app/FakeLib/AzureKudu.fs
 C:\code\fake\src\app\FakeLib\DocFxHelper.fs*src/app/FakeLib/DocFxHelper.fs
+C:\code\fake\src\app\FakeLib\GitVersionHelper.fs*src/app/FakeLib/GitVersionHelper.fs
+C:\code\fake\src\app\FakeLib\Checksum.fs*src/app/FakeLib/Checksum.fs
+C:\code\fake\src\app\FakeLib\ChangeLogHelper.fs*src/app/FakeLib/ChangeLogHelper.fs
 SRCSRV: end ------------------------------------------------
