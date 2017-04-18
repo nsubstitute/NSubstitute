@@ -14,8 +14,9 @@
   "frameworks": {
     "netstandard1.5": {
       "buildOptions": {
+        "keyFile": "../nsubstitute.snk",
         "xmlDoc": true,
-	"nowarn": [ "CS1591" ]
+        "nowarn": [ "CS1591" ]
       },
       "dependencies": {
         "Castle.Core": "4.0.0-*",
