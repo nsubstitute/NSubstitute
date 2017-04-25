@@ -35,7 +35,7 @@ module ExamplesToCode =
                 ConvertFile file targetDir
 
 let NET_TARGETS = [ "NET35"; "NET40"; "NET45" ]
-let NETCORE_TARGETS = [ "netstandard1.5" ]
+let NETCORE_TARGETS = [ "netstandard1.3" ]
 let ALL_TARGETS = List.append NET_TARGETS NETCORE_TARGETS
 
 let buildMode = getBuildParamOrDefault "mode" "Debug"
@@ -147,7 +147,7 @@ Target "NuGet" <| fun _ ->
                  ReleaseNotes = toLines releaseNotes.Notes 
                  // TODO better way to get .NET Core dependencies from project.json
                  DependenciesByFramework = 
-                     [{ FrameworkVersion = "netstandard1.5"
+                     [{ FrameworkVersion = "netstandard1.3"
                         Dependencies = 
                             ["Castle.Core", "[4.0.0, )"
                              "Microsoft.CSharp", "[4.0.1, )"
@@ -231,8 +231,8 @@ Target "BuildDotNetCore" (fun _ ->
             DotnetCompile (fun c -> 
                 { c with 
                     Configuration = BuildConfiguration.Custom buildMode;
-                    Framework = Some ("netstandard1.5");
-                    OutputPath = Some (outputBasePath @@ "netstandard1.5" @@ "NSubstitute")
+                    Framework = Some ("netstandard1.3");
+                    OutputPath = Some (outputBasePath @@ "netstandard1.3" @@ "NSubstitute")
                 }) proj
         )
 )
