@@ -1,4 +1,4 @@
-﻿#if NET45 || NETSTANDARD1_5
+﻿#if NET45 || NETSTANDARD1_3
 using NSubstitute.Routing.AutoValues;
 using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
