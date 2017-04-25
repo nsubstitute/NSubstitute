@@ -1,3 +1,5 @@
+### 2.0.4 (unreleased)
+
 ### 2.0.3 (April 2017)
 * [FIX] Fixed issue with stubbing multiple return values and then accessing
 them in parallel. (#282, #294). Thanks to Janusz Białobrzewski (jbialobr) for
