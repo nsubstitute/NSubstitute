@@ -2,7 +2,7 @@
 
 ### 2.0.3 (April 2017)
 * [FIX] Fixed issue with stubbing multiple return values and then accessing
-them in parallel. (#282, #294). Thanks to Janusz Białobrzewski (jbialobr) for
+them in parallel. (#282, #294). Thanks to Janusz Białobrzewski (@jbialobr) for
 implementing this, and to Alexandr Nikitin and Alex Povar for reviewing and
 contributing to Janusz' PR.
 * [UPDATE] .NET Core build now targets netstandard-1.3 (was 1.5). Thanks to
@@ -11,7 +11,7 @@ Ian Johnson (@ipjohnson) for this change. (#303)
 referencing .NET standard library. Thanks to Connie Yau (@conniey) for
 this change. (#302)
 * [FIX] Removed redundant .NET standard dependencies when referencing 
-NSubstitute from as a .NET Framework library. Thanks to Alex Povar (@zvirja). (#295)
+NSubstitute as a .NET Framework library. Thanks to Alex Povar (@zvirja). (#295)
 
 ### 2.0.2 (February 2017)
 * Dropped Release Candidate tag now that Castle.Core 4.0.0 final has been
