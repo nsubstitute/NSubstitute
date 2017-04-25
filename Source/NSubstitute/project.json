@@ -12,7 +12,7 @@
   },
 
   "frameworks": {
-    "netstandard1.5": {
+    "netstandard1.3": {
       "buildOptions": {
         "keyFile": "../nsubstitute.snk",
         "xmlDoc": true,

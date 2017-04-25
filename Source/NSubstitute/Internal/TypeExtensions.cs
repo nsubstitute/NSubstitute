@@ -9,7 +9,7 @@ namespace System.Reflection
     {
         public static bool IsClass(this Type type)
         {
-#if NETSTANDARD1_5
+#if NETSTANDARD1_3
             return type.GetTypeInfo().IsClass;
 #else
             return type.IsClass;
@@ -18,7 +18,7 @@ namespace System.Reflection
 
         public static bool IsGenericType(this Type type)
         {
-#if NETSTANDARD1_5
+#if NETSTANDARD1_3
             return type.GetTypeInfo().IsGenericType;
 #else
             return type.IsGenericType;
@@ -28,7 +28,7 @@ namespace System.Reflection
 
         public static bool IsInterface(this Type type)
         {
-#if NETSTANDARD1_5
+#if NETSTANDARD1_3
             return type.GetTypeInfo().IsInterface;
 #else
             return type.IsInterface;
@@ -38,7 +38,7 @@ namespace System.Reflection
 
         public static bool IsSealed(this Type type)
         {
-#if NETSTANDARD1_5
+#if NETSTANDARD1_3
             return type.GetTypeInfo().IsSealed;
 #else
             return type.IsSealed;
@@ -47,14 +47,14 @@ namespace System.Reflection
 
         public static bool IsValueType(this Type type)
         {
-#if NETSTANDARD1_5
+#if NETSTANDARD1_3
             return type.GetTypeInfo().IsValueType;
 #else
             return type.IsValueType;
 #endif
         }
 
-#if NETSTANDARD1_5
+#if NETSTANDARD1_3
         public static bool IsSubclassOf(this Type type, Type otherType)
         {
             return type.GetTypeInfo().IsSubclassOf(otherType);

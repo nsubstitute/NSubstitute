@@ -46,14 +46,14 @@ namespace NSubstitute.Core
             EventHandlerRegistry = new EventHandlerRegistry();
 
             AutoValueProviders = new IAutoValueProvider[] { 
-#if NET45 || NETSTANDARD1_5
+#if NET45 || NETSTANDARD1_3
                 new AutoObservableProvider(() => AutoValueProviders),
                 new AutoQueryableProvider(),
 #endif
                 new AutoSubstituteProvider(substituteFactory),
                 new AutoStringProvider(),
                 new AutoArrayProvider(),
-#if (NET4 || NET45 || NETSTANDARD1_5)
+#if (NET4 || NET45 || NETSTANDARD1_3)
                 new AutoTaskProvider(() => AutoValueProviders),
 #endif
             };

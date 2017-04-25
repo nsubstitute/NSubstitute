@@ -112,7 +112,7 @@ namespace NSubstitute.Acceptance.Specs
             Task.AwaitAll(tasks);
         }
 
-#if (NET45 || NETSTANDARD1_5)
+#if (NET45 || NETSTANDARD1_3)
         [Test]
         public void Returns_multiple_values_is_threadsafe()
         {

@@ -1,4 +1,4 @@
-﻿#if NET45 || NETSTANDARD1_5
+﻿#if NET45 || NETSTANDARD1_3
 using System;
 using System.Linq;
 using System.Reflection;

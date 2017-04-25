@@ -108,7 +108,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(x(_sample).Length, Is.EqualTo(0));
         }
 
-#if NET45 || NETSTANDARD1_5
+#if NET45 || NETSTANDARD1_3
         [Test]
         public void Should_auto_return_for_iqueryable()
         {
@@ -148,7 +148,7 @@ namespace NSubstitute.Acceptance.Specs
             AssertObjectIsASubstitute(returnedFromFunc);
         }
 
-#if (NET4 || NET45 || NETSTANDARD1_5)
+#if (NET4 || NET45 || NETSTANDARD1_3)
         [Test]
         public void Should_auto_return_a_value_from_a_task() {
             var sub = Substitute.For<IFooWithTasks>();
@@ -172,7 +172,7 @@ namespace NSubstitute.Acceptance.Specs
         }
 #endif
 
-#if NET45 || NETSTANDARD1_5
+#if NET45 || NETSTANDARD1_3
         [Test]
         public void Should_auto_return_an_observable() {
             var sub = Substitute.For<IFooWithObservable>();
