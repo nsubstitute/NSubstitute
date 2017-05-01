@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NSubstitute\NSubstitute.csproj" />
+    <ProjectReference Include="..\..\src\NSubstitute\NSubstitute.csproj" />
   </ItemGroup>
 
   <ItemGroup>
