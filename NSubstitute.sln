@@ -13,7 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstitute.Acceptance.Spec
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A8AF7D01-6CE4-47B2-9E23-689A53991C3D}"
 	ProjectSection(SolutionItems) = preProject
+		build\build-old.fsx = build\build-old.fsx
+		build\build.bat = build\build.bat
 		build\build.fsx = build\build.fsx
+		build\build.sh = build\build.sh
 	EndProjectSection
 EndProject
 Global
