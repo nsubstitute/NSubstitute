@@ -1,6 +1,10 @@
 @echo off
 
-"ThirdParty\FAKE\FAKE.Core\tools\Fake.exe" "build.fsx" %*
+cls
+set encoding=utf-8
+nuget.exe restore packages.config -PackagesDirectory ..\packages
+
+"..\packages\FAKE.4.60.0\tools\Fake.exe" build.fsx 
 
 rem Bail if we're running a TeamCity build.
 if defined TEAMCITY_PROJECT_NAME goto Quit
