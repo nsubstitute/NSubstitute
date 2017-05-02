@@ -1,13 +1,6 @@
 #r @"../packages/FAKE.4.60.0/tools/FakeLib.dll"
-#load @"ExtractDocs.fsx"
 
 open Fake
-open Fake.AssemblyInfoFile
-open Fake.FileUtils
-open System
-open System.IO
-open ExtractDocs
-open System.Text.RegularExpressions
 
 let buildMode = getBuildParamOrDefault "mode" "Debug"
 
@@ -21,19 +14,19 @@ Target "Default" DoNothing
 
 // .NET Core build
 Target "Restore" (fun _ ->
-    DotNetCli.Restore 
-        (fun p -> { p with NoCache = true })
+    DotNetCli.Restore (fun p -> { p with NoCache = true })
 )
 
 Target "Build" (fun _ ->
     DotNetCli.Build
-      (fun p -> 
-           { p with Configuration = buildMode })
+      (fun p -> { p with Configuration = buildMode })
 )
 
 Target "Test" (fun _ ->
-    DotNetCli.Test
-      (fun p -> { p with Configuration = buildMode })
+    DotNetCli.Test (fun p -> 
+        { p with 
+            Project = "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
+            Configuration = buildMode })
 )
 
 "Clean"
