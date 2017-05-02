@@ -146,6 +146,7 @@
     <Compile Include="Core\Arguments\ISuppliedArgumentSpecifications.cs" />
     <Compile Include="Core\Arguments\ParameterInfosFromParamsArrayFactory.cs" />
     <Compile Include="Core\Arguments\ParamsArgumentSpecificationFactory.cs" />
+    <Compile Include="Core\Arguments\PropertyEqualsArgumentMatcher.cs" />
     <Compile Include="Core\Arguments\SuppliedArgumentSpecifications.cs" />
     <Compile Include="Core\Arguments\SuppliedArgumentSpecificationsFactory.cs" />
     <Compile Include="Core\CallBaseExclusions.cs" />
