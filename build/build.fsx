@@ -2,31 +2,41 @@
 
 open Fake
 
-let buildMode = getBuildParamOrDefault "mode" "Debug"
+let configuration = getBuildParamOrDefault "configuration" "Debug"
 
 let rootDir = "../"
 let outputBaseDir = rootDir @@ "output/"
-let outputDir = outputBaseDir @@ buildMode
+let outputDir = outputBaseDir @@ configuration
 
 Target "Clean" <| fun _ -> CleanDirs [ outputDir ]
 
 Target "Default" DoNothing
+Target "All" DoNothing
 
 // .NET Core build
 Target "Restore" (fun _ ->
-    DotNetCli.Restore (fun p -> { p with NoCache = true })
+    DotNetCli.Restore (fun p -> 
+        { p with 
+            NoCache = true })
 )
 
 Target "Build" (fun _ ->
-    DotNetCli.Build
-      (fun p -> { p with Configuration = buildMode })
+    DotNetCli.Build (fun p -> 
+        { p with 
+            Configuration = configuration })
 )
 
 Target "Test" (fun _ ->
     DotNetCli.Test (fun p -> 
         { p with 
             Project = "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
-            Configuration = buildMode })
+            Configuration = configuration })
+)
+
+Target "Package" (fun _ ->
+    DotNetCli.Pack (fun p -> 
+        { p with 
+            Configuration = configuration })
 )
 
 "Clean"
@@ -34,5 +44,7 @@ Target "Test" (fun _ ->
     ==> "Build"
     ==> "Test"
     ==> "Default"
+    ==> "Package"
+    ==> "All"
 
 RunTargetOrDefault "Default"

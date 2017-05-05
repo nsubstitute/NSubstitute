@@ -1,4 +1,4 @@
-language: generic
+language: csharp
 
 addons:
   apt:
@@ -66,5 +66,4 @@ install:
 
 script:
   # Run tests
-  - dotnet test -c $CONFIGURATION -f $FRAMEWORK Source/NSubstitute.Acceptance.Specs
-
+  - build/build.sh

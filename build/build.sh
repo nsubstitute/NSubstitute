@@ -8,4 +8,7 @@ cd `dirname ${SCRIPT_PATH}` > /dev/null
 SCRIPT_PATH=`pwd`;
 popd  > /dev/null
 
-mono $SCRIPT_PATH/../packages/FAKE.4.58.5/tools/FAKE.exe BuildTests --fsiargs -d:MONO $SCRIPT_PATH/build.fsx
+TARGET=${1:-Default}
+CONFIGURATION=${2:-Debug}
+
+mono $SCRIPT_PATH/../packages/FAKE.4.60.0/tools/FAKE.exe $TARGET --envvar "configuration" $CONFIGURATION --fsiargs -d:MONO $SCRIPT_PATH/build.fsx
