@@ -1,8 +1,6 @@
-﻿#if NET45 || NETSTANDARD1_3
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace NSubstitute.Routing.AutoValues
 {
@@ -24,4 +22,3 @@ namespace NSubstitute.Routing.AutoValues
         }
     }
 }
-#endif

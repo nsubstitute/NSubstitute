@@ -93,7 +93,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(subs.Echo(42), Is.EqualTo("42"));
         }
 
-#if (NET45 || NET4 || NETSTANDARD1_3)
         [Test]
         public void Configuration_works_fine_for_async_methods()
         {
@@ -107,7 +106,6 @@ namespace NSubstitute.Acceptance.Specs
             var result = subs.EchoAsync(42).Result;
             Assert.That(result, Is.EqualTo("42"));
         }
-#endif
 
         private static void RunInOtherThread(Action action)
         {

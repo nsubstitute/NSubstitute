@@ -1,6 +1,4 @@
-﻿#if (NET4 || NET45 || NETSTANDARD1_3)
-using System.Threading.Tasks;
-#endif
+﻿using System.Threading.Tasks;
 using NSubstitute.Core;
 
 namespace NSubstitute.ReturnsExtensions
@@ -29,8 +27,6 @@ namespace NSubstitute.ReturnsExtensions
             return value.ReturnsForAnyArgs(i => null);
         }
 
-#if (NET4 || NET45 || NETSTANDARD1_3)
-
         /// <summary>
         /// Set null as returned value for this call.
         /// </summary>
@@ -52,6 +48,5 @@ namespace NSubstitute.ReturnsExtensions
         {
             return value.ReturnsForAnyArgs(i => SubstituteExtensions.CompletedTask<T>(null));
         }
-#endif
     }
 }

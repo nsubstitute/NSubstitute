@@ -40,29 +40,6 @@ namespace NSubstitute.Proxies.DelegateProxy
 
             ParameterExpression[] proxyParameters = delegateMethodToProxy.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();
             Expression[] proxyParametersAsObjects = proxyParameters.Select(x => (Expression)Expression.Convert(x, typeof(object))).ToArray();
-
-#if NET35
-            Expression callInvokeOnDelegateCallInstance =
-                Expression.Call(
-                    Expression.Constant(delegateCall),
-                    invokeOnDelegateCall,
-                    new Expression[]
-                    {
-                        Expression.NewArrayInit(typeof(object), proxyParametersAsObjects)
-                    }
-                );
-
-            if (delegateMethodToProxy.ReturnType != typeof(void))
-            {
-                callInvokeOnDelegateCallInstance =
-                    Expression.Convert(callInvokeOnDelegateCallInstance, delegateMethodToProxy.ReturnType);
-            }
-
-            var proxyExpression = Expression.Lambda(delegateType, callInvokeOnDelegateCallInstance, proxyParameters);
-            return proxyExpression.Compile();
-#endif
-#if !NET35
-
             var bodyExpressions = new List<Expression>();
             bool isVoid = delegateMethodToProxy.ReturnType == typeof(void);
             var arguments = Expression.Variable(typeof(object[]), "arguments");
@@ -93,7 +70,6 @@ namespace NSubstitute.Proxies.DelegateProxy
             var variables = isVoid ? new[] { arguments } : new[] { arguments, result };
             var proxyExpression = Expression.Lambda(delegateType, Expression.Block(variables, bodyExpressions), proxyParameters);
             return proxyExpression.Compile();
-#endif
         }
     }
 }

@@ -90,7 +90,6 @@ namespace NSubstitute.Acceptance.Specs
             _something.Received().Funky(Arg.Any<float>(), 12, "Lots", null);
         }
 
-#if (NET45 || NETSTANDARD1_3)
         [Test]
         public void Received_for_async_method_can_be_awaited()
         {
@@ -113,7 +112,6 @@ namespace NSubstitute.Acceptance.Specs
         {
             await _something.DidNotReceive().Async();
         }
-#endif
 
         [Test]
         public void Resolve_potentially_ambiguous_matches_by_checking_for_non_default_argument_values()

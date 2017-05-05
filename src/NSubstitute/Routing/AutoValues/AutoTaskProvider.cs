@@ -1,4 +1,3 @@
-#if (NET4 || NET45 || NETSTANDARD1_3)
 using System;
 using System.Linq;
 using System.Reflection;
@@ -50,4 +49,3 @@ namespace NSubstitute.Routing.AutoValues
         }
     }
 }
-#endif

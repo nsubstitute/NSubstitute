@@ -5,7 +5,6 @@ namespace NSubstitute.Acceptance.Specs
 {
     public class DynamicCalls
     {
-#if (NET4 || NET45 || NETSTANDARD1_3)
         public interface IInterface
         {
             dynamic ReturnsDynamic(string a);
@@ -78,6 +77,5 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(result, Is.EqualTo(1));
         }
-#endif
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-#if (NET4 || NET45 || NETSTANDARD1_3)
 using System.Threading.Tasks;
-#endif
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NSubstitute.ReturnsExtensions;
@@ -99,7 +97,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Echo(724), Is.EqualTo("second"));
         }
 
-#if (NET4 || NET45 || NETSTANDARD1_3)
         [Test]
         public void Return_result_for_any_arguments_async()
         {
@@ -127,7 +124,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.EchoAsync(2).Result, Is.EqualTo("first"));
             Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("second"));
         }
-#endif
+
         [Test]
         public void Return_calculated_results_for_any_arguments()
         {
@@ -193,8 +190,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.SomeActionWithParams(123, "something else"), Is.Null);
         }
 
-#if NET45 || NET4 || NETSTANDARD1_3
-
         [Test]
         public void Returns_Null_for_string_parameter_async()
         {
@@ -250,8 +245,6 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Third return");
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Fourth return");
         }
-
-#endif
 
         [SetUp]
         public void SetUp()

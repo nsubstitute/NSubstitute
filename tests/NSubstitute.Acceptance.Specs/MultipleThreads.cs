@@ -112,7 +112,6 @@ namespace NSubstitute.Acceptance.Specs
             Task.AwaitAll(tasks);
         }
 
-#if (NET45 || NETSTANDARD1_3)
         [Test]
         public void Returns_multiple_values_is_threadsafe()
         {
@@ -129,7 +128,6 @@ namespace NSubstitute.Acceptance.Specs
             var actual = System.Threading.Tasks.Task.WhenAll(tasks).Result;
             Assert.That(actual, Is.EquivalentTo(expected));
         }
-#endif
 
         public interface IFoo
         {

@@ -11,7 +11,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             string Foo();
         }
 
-#if NET45
         [Test]
         public void ReturnsMultipleValuesInParallel()
         {
@@ -29,6 +28,5 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.Contains(ret1, results);
             Assert.Contains(ret2, results);
         }
-#endif
     }
 }

@@ -6,7 +6,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
 {
     public class Issue75_DoesNotWorkWithMembersThatUseDynamic
     {
-#if (NET4 || NET45 || NETSTANDARD1_3)
         public interface ILog { void Error(Exception e); }
         public interface IClient { dynamic Post(string a, string b); }
 
@@ -68,6 +67,5 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             var result = settingsUtil.GetConfig<long>("maxImageSize", settings);
             Assert.That(result, Is.EqualTo(100L));
         }
-#endif
     }
 }

@@ -14,13 +14,11 @@
         SomeClass SomeActionWithParams(int i, string s);
 
         object this[string key] { get; set; }
-#if (NET45 || NET4 || NETSTANDARD1_3)
         System.Threading.Tasks.Task Async();
         System.Threading.Tasks.Task<int> CountAsync();
         System.Threading.Tasks.Task<string> EchoAsync(int i);
         System.Threading.Tasks.Task<string> SayAsync(string s);
         System.Threading.Tasks.Task<SomeClass> SomeActionAsync();
         System.Threading.Tasks.Task<SomeClass> SomeActionWithParamsAsync(int i, string s);
-#endif
     }
 }

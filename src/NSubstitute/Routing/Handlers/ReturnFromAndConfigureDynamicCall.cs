@@ -30,16 +30,12 @@ namespace NSubstitute.Routing.Handlers
 
         private bool ReturnsDynamic(ICall call)
         {
-#if (NET4 || NET45 || NETSTANDARD1_3)
             var returnParameter = call.GetMethodInfo().ReturnParameter;
             if (returnParameter == null) return false;
             var dynamicAttribute = typeof (System.Runtime.CompilerServices.DynamicAttribute);
             var customAttributes = returnParameter.GetCustomAttributes(dynamicAttribute, false);
             var isDynamic = customAttributes != null && customAttributes.Any();
             return isDynamic;
-#else
-            return false;
-#endif
         }
 
         public class DynamicStub

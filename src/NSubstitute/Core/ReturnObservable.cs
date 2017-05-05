@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace NSubstitute.Core
 {
-#if NET45 || NETSTANDARD1_3
     internal class ReturnObservable<T> : IObservable<T>
     {
         T _value;
@@ -39,5 +35,4 @@ namespace NSubstitute.Core
 
         public void Dispose() { }
     }
-#endif
 }
