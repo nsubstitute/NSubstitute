@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CFB6BF4B-381
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0E2B9095-7548-462F-9BCC-CD6765B3ED60}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstitute.Acceptance.Specs", "tests\NSubstitute.Acceptance.Specs\NSubstitute.Acceptance.Specs.csproj", "{BC3CBE90-E577-4E3D-8D8F-B592C64BE4AE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A8AF7D01-6CE4-47B2-9E23-689A53991C3D}"
 	ProjectSection(SolutionItems) = preProject
 		build\build-old.fsx = build\build-old.fsx
@@ -18,6 +16,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A8AF7D01
 		build\build.fsx = build\build.fsx
 		build\build.sh = build\build.sh
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA2DD4AA-8DCD-42FB-8081-243281AD2956}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		appveyor.yml = appveyor.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute.Acceptance.Specs", "tests\NSubstitute.Acceptance.Specs\NSubstitute.Acceptance.Specs.csproj", "{8C2300AA-F94C-4005-A359-257C5EAD338E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
