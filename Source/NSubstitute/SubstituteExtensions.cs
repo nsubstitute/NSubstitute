@@ -189,6 +189,19 @@ namespace NSubstitute
             router.SetRoute(x => RouteFactory().CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, Quantity.Exactly(requiredNumberOfCalls)));
             return substitute;
         }
+        
+        /// <summary>
+        /// Checks this substitute has received the following call exactly one time.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <returns></returns>
+        public static T ReceivedOne<T>(this T substitute) where T : class
+        {
+            var router = GetRouterForSubstitute(substitute);
+            router.SetRoute(x => RouteFactory().CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, Quantity.Exactly(1)));
+            return substitute;
+        }
 
         /// <summary>
         /// Checks this substitute has not received the following call.
