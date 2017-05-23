@@ -3,11 +3,11 @@
 open Fake
 open System
 
-let solutionFile  = "NSubstitute.sln"
 let configuration = getBuildParamOrDefault "configuration" "Debug"
 
 let root = __SOURCE_DIRECTORY__ </> ".."
 let output = root </> "build" </> "output" </> configuration
+let solutionFile  = root </> "NSubstitute.sln"
 
 Target "Default" DoNothing
 Target "All" DoNothing
@@ -20,15 +20,13 @@ Target "Clean" (fun _ ->
 )
 
 Target "Restore" (fun _ ->
-    DotNetCli.Restore (fun p -> 
-        { p with 
-            NoCache = true })
+    DotNetCli.Restore (fun p -> p)
 )
 
 Target "Build" (fun _ ->
-    !! solutionFile
-    |> MSBuildReleaseExt "" vsProjProps "Rebuild"
-    |> ignore
+    DotNetCli.Build (fun p -> 
+        { p with 
+            Configuration = configuration })
 )
 
 Target "Test" (fun _ ->
