@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
-#if NET35 || NET4 || NET45
+#if NET45
 using System.Security.Permissions;
 #endif
 using Castle.DynamicProxy;
@@ -93,7 +93,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private static void ConfigureDynamicProxyToAvoidReplicatingProblematicAttributes()
         {
-#if NET35 || NET4 || NET45
+#if NET45
 
 #pragma warning disable 618
             AttributesToAvoidReplicating.Add<SecurityPermissionAttribute>();
@@ -104,9 +104,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             AttributesToAvoidReplicating.Add<ReflectionPermissionAttribute>();
             AttributesToAvoidReplicating.Add<PermissionSetAttribute>();
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.MarshalAsAttribute>();
-#if (NET4 || NET45)
             AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.TypeIdentifierAttribute>();
-#endif
             AttributesToAvoidReplicating.Add<UIPermissionAttribute>();
 #endif
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-#if NET35 || NET4 || NET45
+#if NET45
 using System.Runtime.Serialization;
 #endif
 
@@ -26,23 +26,23 @@ namespace NSubstitute.Exceptions
                 "";
 
         protected CouldNotSetReturnException(string s) : base(s + "\n\n" + WhatProbablyWentWrong) { }
-#if NET35 || NET4 || NET45
+#if NET45
         protected CouldNotSetReturnException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 #endif
     }
 
-#if NET35 || NET4 || NET45
+#if NET45
     [Serializable]
 #endif
     public class CouldNotSetReturnDueToNoLastCallException : CouldNotSetReturnException
     {
         public CouldNotSetReturnDueToNoLastCallException() : base("Could not find a call to return from.") { }
-#if NET35 || NET4 || NET45
+#if NET45
         protected CouldNotSetReturnDueToNoLastCallException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 #endif
     }
 
-#if NET35 || NET4 || NET45
+#if NET45
     [Serializable]
 #endif
     public class CouldNotSetReturnDueToMissingInfoAboutLastCallException : CouldNotSetReturnException
@@ -51,14 +51,14 @@ namespace NSubstitute.Exceptions
         {
         }
 
-#if NET35 || NET4 || NET45
+#if NET45
         protected CouldNotSetReturnDueToMissingInfoAboutLastCallException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 #endif
     }
 
-#if NET35 || NET4 || NET45
+#if NET45
     [Serializable]
 #endif
     public class CouldNotSetReturnDueToTypeMismatchException : CouldNotSetReturnException
@@ -72,7 +72,7 @@ namespace NSubstitute.Exceptions
                 : String.Format("Can not return value of type {0} for {1}.{2} (expected type {3}).", typeOfReturnValueOrNull.Name, member.DeclaringType.Name, member.Name, member.ReturnType.Name);
         }
 
-#if NET35 || NET4 || NET45
+#if NET45
         protected CouldNotSetReturnDueToTypeMismatchException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 #endif
     }

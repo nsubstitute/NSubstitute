@@ -1,12 +1,12 @@
 using System;
-#if NET35 || NET4 || NET45
+#if NET45
 using System.Runtime.Serialization;
 #endif
 
 
 namespace NSubstitute.Exceptions
 {
-#if NET35 || NET4 || NET45
+#if NET45
     [Serializable]
 #endif
     public class CannotCreateEventArgsException : SubstituteException
@@ -14,7 +14,7 @@ namespace NSubstitute.Exceptions
         public CannotCreateEventArgsException() { }
         public CannotCreateEventArgsException(string message) : base(message) { }
         public CannotCreateEventArgsException(string message, Exception innerException) : base(message, innerException) { }
-#if NET35 || NET4 || NET45
+#if NET45
         protected CannotCreateEventArgsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 #endif
     }

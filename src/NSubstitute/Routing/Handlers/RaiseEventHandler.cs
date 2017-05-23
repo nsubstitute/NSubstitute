@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-#if NET35 || NET4 || NET45
+#if NET45
 using System.Runtime.Serialization;
 #endif
 using NSubstitute.Core;
@@ -46,7 +46,7 @@ namespace NSubstitute.Routing.Handlers
 
         private void PreserveStackTrace(Exception exception)
         {
-#if NET35 || NET4 || NET45
+#if NET45
             var context = new StreamingContext(StreamingContextStates.CrossAppDomain);
             var serializationInfo = new SerializationInfo(typeof(Exception), new FormatterConverter());
             var constructor = typeof(Exception).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { typeof(SerializationInfo), typeof(StreamingContext) }, null);
