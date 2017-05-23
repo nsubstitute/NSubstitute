@@ -6,9 +6,8 @@ open System
 let solutionFile  = "NSubstitute.sln"
 let configuration = getBuildParamOrDefault "configuration" "Debug"
 
-let rootDir = "../"
-let outputBaseDir = rootDir @@ "output/"
-let outputDir = outputBaseDir @@ configuration
+let root = __SOURCE_DIRECTORY__ </> ".."
+let output = root </> "build" </> "output" </> configuration
 
 Target "Default" DoNothing
 Target "All" DoNothing
@@ -17,7 +16,7 @@ let vsProjProps = [ ("Configuration", configuration); ("Platform", "Any CPU") ]
 
 Target "Clean" (fun _ ->
     !! solutionFile |> MSBuildReleaseExt "" vsProjProps "Clean" |> ignore
-    CleanDirs [ outputBaseDir ]
+    CleanDirs [ output ]
 )
 
 Target "Restore" (fun _ ->
