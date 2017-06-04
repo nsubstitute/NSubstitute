@@ -1,4 +1,4 @@
-os: Visual Studio 2015
+os: Visual Studio 2017
 build: off
 
 environment:
@@ -10,14 +10,6 @@ environment:
 
 before_test:
   - dotnet --info
-  - dotnet restore
 
 test_script:
-  - dotnet test -c %Configuration% -f %Framework% Source/NSubstitute.Acceptance.Specs
-
-after_test:
-  - dotnet pack -c %Configuration% Source/NSubstitute
-
-artifacts:
-  path: 'Source/NSubstitute/**/*.nupkg'
-
+  - build/build.bat

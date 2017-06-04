@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>NSubstitute is a friendly substitute for .NET mocking frameworks. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
+    <VersionPrefix>2.0.0-beta</VersionPrefix>
+    <Authors>Anthony Egerton;David Tchepak;Alexandr Nikitin</Authors>
+    <TargetFrameworks>netstandard1.3;net452</TargetFrameworks>
+    <AssemblyName>NSubstitute</AssemblyName>
+    <PackageId>NSubstitute</PackageId>
+    <PackageTags>mocking;mocks;testing;unit-testing;TDD;AAA</PackageTags>
+    <PackageIconUrl>http://nsubstitute.github.com/images/nsubstitute-100x100.png</PackageIconUrl>
+    <PackageProjectUrl>http://nsubstitute.github.com/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/nsubstitute/NSubstitute/raw/master/LICENSE.txt</PackageLicenseUrl>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <AssemblyOriginatorKeyFile>nsubstitute.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD1_3</DefineConstants>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyOriginatorKeyFile>../../nsubstitute.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <DefineConstants>$(DefineConstants);NET45</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
+
+    <PackageReference Include="Castle.Core" Version="4.0.0-*" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="System" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Castle.Core" Version="4.0.0-*" />
+  </ItemGroup>
+
+</Project>
