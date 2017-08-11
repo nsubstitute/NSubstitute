@@ -13,7 +13,7 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
-    <PackageReference Include="Castle.Core" Version="4.0.0-*" />
+    <PackageReference Include="Castle.Core" Version="4.1.1-*" />
   </ItemGroup>
 
 
