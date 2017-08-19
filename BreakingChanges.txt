@@ -1,4 +1,15 @@
 ================================================================================================
+3.0.0 Beta Release 
+================================================================================================
+
+Dropped support for older .NET platforms (pre-.NET 4.5).
+
+Reason: switching to .NET Standard. This provides more
+
+Workaround: Stay with 2.x versions for older .NET platforms, or migrate to a .NET
+Standard compatible target such as .NET 4.5 or later.
+
+================================================================================================
 1.10.0 Release 
 ================================================================================================
 
