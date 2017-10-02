@@ -2,12 +2,15 @@
 3.0.0 Beta Release 
 ================================================================================================
 
-Dropped support for older .NET platforms (pre-.NET 4.5).
+Dropped support for older .NET platforms (pre-.NET 4.6).
 
-Reason: switching to .NET Standard. This provides more
+Reason: switching to .NET Standard. This provides support for more platforms and makes the
+project easier to maintain.
 
 Workaround: Stay with 2.x versions for older .NET platforms, or migrate to a .NET
-Standard compatible target such as .NET 4.5 or later.
+Standard 1.3 compatible target such as .NET 4.6 or later. See compatibility matrix:
+
+    https://github.com/dotnet/standard/blob/master/docs/versions.md
 
 ================================================================================================
 1.10.0 Release 

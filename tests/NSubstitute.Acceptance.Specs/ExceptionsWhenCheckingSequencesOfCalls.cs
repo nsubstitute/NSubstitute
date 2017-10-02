@@ -210,7 +210,7 @@ Actually received matching calls in this order:
         {
             var actualMessage = Assert.Throws<CallSequenceNotFoundException>(() => Received.InOrder(query)).Message;
 
-            Assert.That(TrimAndFixLineEndings(actualMessage), Is.StringStarting(TrimAndFixLineEndings(message)));
+            Assert.That(TrimAndFixLineEndings(actualMessage), Does.StartWith(TrimAndFixLineEndings(message)));
         }
 
         private string TrimAndFixLineEndings(string s)

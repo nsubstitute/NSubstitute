@@ -412,16 +412,16 @@ namespace NSubstitute.Acceptance.Specs
 
             protected void ExceptionMessageContains(string expected)
             {
-                Assert.That(_exception.Message, Is.StringContaining(expected));
+                Assert.That(_exception.Message, Does.Contain(expected));
             }
 
             protected void ExceptionMessageDoesNotContain(string s)
             {
-                Assert.That(_exception.Message, Is.Not.StringContaining(s));
+                Assert.That(_exception.Message, Does.Not.Contain(s));
             }
             protected void ExceptionMessageMatchesRegex(string pattern)
             {
-                Assert.That(_exception.Message, Is.StringMatching(pattern));
+                Assert.That(_exception.Message, Does.Match(pattern));
             }
         }
     }
