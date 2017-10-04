@@ -121,6 +121,14 @@ Target "CodeFromDocumentation" <| fun _ ->
     DotNetCli.Build (fun p -> { p with Project = projPath })
     DotNetCli.Test (fun p -> { p with Project = projPath })
 
+// List targets, similar to `rake -T`
+Target "-T" <| fun _ ->
+    printfn "Optional config options:"
+    printfn "  configuration=Debug|Release"
+    printfn "  packageVersionSuffix=alpha|beta|beta2|...   - used to tag a NuGet package as prerelease"
+    printfn ""
+    PrintTargets()
+
 "Clean"
     ==> "Restore"
     ==> "Build"
