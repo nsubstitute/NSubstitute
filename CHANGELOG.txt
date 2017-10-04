@@ -1,4 +1,5 @@
 ### 2.0.4 (unreleased)
+* [UPDATE] Upgrade to Castle.Core 4.2.0.
 
 ### 2.0.3 (April 2017)
 * [FIX] Fixed issue with stubbing multiple return values and then accessing
