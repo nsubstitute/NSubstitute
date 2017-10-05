@@ -1,13 +1,5 @@
-using System;
-#if NET45
-using System.Runtime.Serialization;
-#endif
-
 namespace NSubstitute.Exceptions
 {
-#if NET45
-    [Serializable]
-#endif
     public class CouldNotRaiseEventException : SubstituteException
     {
         protected const string WhatProbablyWentWrong =
@@ -26,8 +18,5 @@ namespace NSubstitute.Exceptions
             "\tsub.Load(); // <-- Exception thrown here. NSubstitute thinks the earlier Raise.Event() was meant for this call.";
 
         public CouldNotRaiseEventException() : base(WhatProbablyWentWrong) { }
-#if NET45
-        protected CouldNotRaiseEventException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-#endif
     }
 }
