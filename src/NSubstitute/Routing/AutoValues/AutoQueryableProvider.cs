@@ -8,7 +8,7 @@ namespace NSubstitute.Routing.AutoValues
     {
         public bool CanProvideValueFor(Type type)
         {
-            return type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(IQueryable<>);
+            return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IQueryable<>);
         }
 
         public object GetValue(Type type)

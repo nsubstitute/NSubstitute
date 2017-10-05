@@ -40,7 +40,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                                                             IInterceptor interceptor,
                                                             ProxyGenerationOptions proxyGenerationOptions)
         {
-            if (typeToProxy.IsInterface())
+            if (typeToProxy.GetTypeInfo().IsInterface)
             {
                 VerifyNoConstructorArgumentsGivenForInterface(constructorArguments);
                 return _proxyGenerator.CreateInterfaceProxyWithoutTarget(typeToProxy, additionalInterfaces, proxyGenerationOptions, interceptor);
@@ -85,7 +85,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private void VerifyClassHasNotBeenPassedAsAnAdditionalInterface(Type[] additionalInterfaces)
         {
-            if (additionalInterfaces != null && additionalInterfaces.Any(x => x.IsClass()))
+            if (additionalInterfaces != null && additionalInterfaces.Any(x => x.GetTypeInfo().IsClass))
             {
                 throw new SubstituteException("Can not substitute for multiple classes. To substitute for multiple types only one type can be a concrete class; other types can only be interfaces.");
             }

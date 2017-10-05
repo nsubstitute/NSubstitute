@@ -32,7 +32,7 @@ namespace NSubstitute.Core
 
         private static Func<CallInfo, T> ReturnNull()
         {
-            if (typeof(T).IsValueType()) throw new CannotReturnNullForValueType(typeof(T));
+            if (typeof(T).GetTypeInfo().IsValueType) throw new CannotReturnNullForValueType(typeof(T));
             return x => default(T);
         }
     }

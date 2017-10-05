@@ -24,7 +24,7 @@ namespace NSubstitute.Core.Arguments
         private string FormatType(Type type)
         {
             var typeName = type.Name;
-            if (!type.IsGenericType()) return typeName;
+            if (!type.GetTypeInfo().IsGenericType) return typeName;
 
             typeName = typeName.Substring(0, typeName.IndexOf('`'));
             var genericArgTypes = type.GetGenericArguments().Select(x => FormatType(x));

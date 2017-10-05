@@ -24,7 +24,7 @@ namespace NSubstitute.Routing.AutoValues
             if (!CanProvideValueFor(type))
                 throw new InvalidOperationException();
 
-            if (type.IsGenericType())
+            if (type.GetTypeInfo().IsGenericType)
             {
                 var taskType = type.GetGenericArguments()[0];
                 var valueProvider = _autoValueProviders().FirstOrDefault(vp => vp.CanProvideValueFor(taskType));
@@ -45,7 +45,7 @@ namespace NSubstitute.Routing.AutoValues
 
         private static object GetDefault(Type type)
         {
-            return type.IsValueType() ? Activator.CreateInstance(type) : null;
+            return type.GetTypeInfo().IsValueType ? Activator.CreateInstance(type) : null;
         }
     }
 }
