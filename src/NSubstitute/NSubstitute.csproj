@@ -29,6 +29,8 @@
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.2.0-*" />
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0-*" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
