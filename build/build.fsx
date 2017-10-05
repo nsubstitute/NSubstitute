@@ -104,9 +104,9 @@ Target "CodeFromDocumentation" <| fun _ ->
             <TargetFrameworks>netcoreapp1.1</TargetFrameworks>
           </PropertyGroup>
           <ItemGroup>
-            <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-            <PackageReference Include="NUnit" Version="3.6.1" />
-            <PackageReference Include="NUnit3TestAdapter" Version="3.8.0-alpha1" />
+            <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+            <PackageReference Include="NUnit" Version="3.8.1" />
+            <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
           </ItemGroup>
           <ItemGroup>
             <ProjectReference Include="..\..\..\src\NSubstitute\NSubstitute.csproj" />
