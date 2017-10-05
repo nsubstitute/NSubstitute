@@ -2,6 +2,7 @@
 #load @"ExtractDocs.fsx"
 
 open Fake
+open Fake.TargetHelper
 open System
 open System.IO
 open System.Text.RegularExpressions
@@ -121,6 +122,35 @@ Target "CodeFromDocumentation" <| fun _ ->
     DotNetCli.Build (fun p -> { p with Project = projPath })
     DotNetCli.Test (fun p -> { p with Project = projPath })
 
+let tryFindFileOnPath (file : string) : string option =
+    Environment.GetEnvironmentVariable("PATH").Split([| Path.PathSeparator |])
+    |> Seq.append ["."]
+    |> fun path -> tryFindFile path file
+
+Target "Documentation" <| fun _ -> 
+    log "building site..."
+    let exe = [ "bundle.bat"; "bundle" ]
+                |> Seq.map tryFindFileOnPath
+                |> Seq.collect (Option.toList)
+                |> Seq.tryFind (fun _ -> true)
+                |> function | Some x -> log ("using " + x); x
+                            | None   -> log ("count not find exe"); "bundle"
+
+    let workingDir = "./docs/"
+    let docOutputRelativeToWorkingDir = ".." </> output </> "nsubstitute.github.com"
+    let result = 
+        ExecProcess (fun info -> 
+                        info.UseShellExecute <- false
+                        info.CreateNoWindow <- true
+                        info.FileName <- exe
+                        info.WorkingDirectory <- workingDir
+                        info.Arguments <- "exec jekyll \"" + docOutputRelativeToWorkingDir + "\"")
+                    (TimeSpan.FromMinutes 5.)
+    if result = 0 then
+        "site built in " + docOutputRelativeToWorkingDir |> log
+    else
+        "failed to build site" |> failwith
+
 // List targets, similar to `rake -T`
 Target "-T" <| fun _ ->
     printfn "Optional config options:"
@@ -129,13 +159,20 @@ Target "-T" <| fun _ ->
     printfn ""
     PrintTargets()
 
-"Clean"
-    ==> "Restore"
-    ==> "Build"
-    ==> "Test"
-    ==> "Default"
-    ==> "CodeFromDocumentation"
-    ==> "Package"
-    ==> "All"
+"Clean" ?=> "Build"
+"Clean" ?=> "Test"
+"Clean" ?=> "Restore"
+"Clean" ?=> "Documentation"
+"Clean" ?=> "CodeFromDocumentation"
+"Clean" ?=> "Package"
+"Clean" ?=> "Default"
+
+"Build" <== [ "Restore" ]
+"Test" <== [ "Build" ]
+"Package" <== [ "Build"; "Test" ]
+"Documentation" <== [ "CodeFromDocumentation" ]
+"Default" <== [ "Restore"; "Build"; "Test" ]
+
+"All" <== [ "Clean"; "Default"; "Documentation"; "Package" ]
 
 RunTargetOrDefault "Default"
