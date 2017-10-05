@@ -18,6 +18,10 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\NSubstitute\NSubstitute.csproj" />
   </ItemGroup>
