@@ -14,4 +14,5 @@ CONFIGURATION=${2:-Debug}
 mozroots --import --sync
 mono --runtime=v4.0 $SCRIPT_PATH/nuget.exe restore $SCRIPT_PATH/packages.config -PackagesDirectory $SCRIPT_PATH/../packages
 
+# If updating FAKE version, also update build.bat, and build.sh in proj root
 mono $SCRIPT_PATH/../packages/FAKE.4.63.0/tools/FAKE.exe $TARGET --envvar "configuration" $CONFIGURATION --fsiargs -d:MONO $SCRIPT_PATH/build.fsx

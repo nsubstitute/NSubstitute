@@ -101,7 +101,7 @@ Target "CodeFromDocumentation" <| fun _ ->
     let csproj = """
         <Project Sdk="Microsoft.NET.Sdk">
           <PropertyGroup>
-            <TargetFrameworks>netcoreapp1.1</TargetFrameworks>
+            <TargetFrameworks>netcoreapp1.1;net46</TargetFrameworks>
           </PropertyGroup>
           <ItemGroup>
             <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />

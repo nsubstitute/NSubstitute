@@ -11,5 +11,7 @@ IF NOT [%2]==[] (set CONFIGURATION="%2")
 
 pushd %~dp0..\
 "build/nuget.exe" restore "build/packages.config " -PackagesDirectory "packages"
+
+REM If changing FAKE version, also update build.sh in this dir, and in proj root
 "packages/FAKE.4.63.0/tools/Fake.exe" "build/build.fsx" "target=%TARGET%" "configuration=%CONFIGURATION%"
 popd
