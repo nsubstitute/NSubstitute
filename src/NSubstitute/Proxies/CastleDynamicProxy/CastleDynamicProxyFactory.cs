@@ -1,11 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
-#if NET45
-using System.Security.Permissions;
-#endif
 using Castle.DynamicProxy;
-using Castle.DynamicProxy.Generators;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
@@ -18,8 +14,6 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         public CastleDynamicProxyFactory()
         {
-            ConfigureDynamicProxyToAvoidReplicatingProblematicAttributes();
-
             _proxyGenerator = new ProxyGenerator();
             _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
         }
@@ -89,24 +83,6 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             {
                 throw new SubstituteException("Can not substitute for multiple classes. To substitute for multiple types only one type can be a concrete class; other types can only be interfaces.");
             }
-        }
-
-        private static void ConfigureDynamicProxyToAvoidReplicatingProblematicAttributes()
-        {
-#if NET45
-
-#pragma warning disable 618
-            AttributesToAvoidReplicating.Add<SecurityPermissionAttribute>();
-#pragma warning restore 618
-
-            AttributesToAvoidReplicating.Add<System.ServiceModel.ServiceContractAttribute>();
-
-            AttributesToAvoidReplicating.Add<ReflectionPermissionAttribute>();
-            AttributesToAvoidReplicating.Add<PermissionSetAttribute>();
-            AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.MarshalAsAttribute>();
-            AttributesToAvoidReplicating.Add<System.Runtime.InteropServices.TypeIdentifierAttribute>();
-            AttributesToAvoidReplicating.Add<UIPermissionAttribute>();
-#endif
         }
     }
 }
