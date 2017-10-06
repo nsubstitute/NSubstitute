@@ -35,16 +35,14 @@ module ExamplesToCode =
 
 let getVersion () =
     let tag = Git.CommandHelper.runSimpleGitCommand "" "describe --tags --long"
-    let result = Regex.Match(tag, @"(v|alpha|beta|rc)(\d+)\.(\d+)\.(\d+)\-(\d+)").Groups
+    let result = Regex.Match(tag, @"v(\d+)\.(\d+)\.(\d+)\-(\d+)").Groups
     let getMatch (i:int) = result.[i].Value
-    (sprintf "%s.%s.%s.%s" (getMatch 2) (getMatch 3) (getMatch 4) (getMatch 5), match getMatch 1 with "v" -> "" | suffix -> suffix)
+    sprintf "%s.%s.%s.%s" (getMatch 1) (getMatch 2) (getMatch 3) (getMatch 4)
 
 let root = __SOURCE_DIRECTORY__ </> ".."
 
 let configuration = getBuildParamOrDefault "configuration" "Debug"
-let releaseNotes = ReadFile (root </> "CHANGELOG.txt") |> ReleaseNotesHelper.parseReleaseNotes
-let version, suffix = getVersion ()
-let packageVersionSuffix = getBuildParamOrDefault "packageVersionSuffix" suffix // Use to tag a NuGet build as alpha/beta
+let version = getVersion ()
 
 let additionalArgs =
     [ sprintf "-p:Version=%s" version
@@ -87,7 +85,6 @@ Target "Package" (fun _ ->
         { p with
             Configuration = configuration
             Project = "src/NSubstitute/NSubstitute.csproj"
-            VersionSuffix = packageVersionSuffix
             AdditionalArgs = additionalArgs
             })
 )
@@ -155,7 +152,6 @@ Target "Documentation" <| fun _ ->
 Target "-T" <| fun _ ->
     printfn "Optional config options:"
     printfn "  configuration=Debug|Release"
-    printfn "  packageVersionSuffix=alpha|beta|beta2|...   - used to tag a NuGet package as prerelease"
     printfn ""
     PrintTargets()
 
@@ -167,12 +163,12 @@ Target "-T" <| fun _ ->
 "Clean" ?=> "Package"
 "Clean" ?=> "Default"
 
-"Build" <== [ "Restore" ]
-"Test" <== [ "Build" ]
-"Package" <== [ "Build"; "Test" ]
+"Build"         <== [ "Restore" ]
+"Test"          <== [ "Build" ]
+"Package"       <== [ "Build"; "Test" ]
 "Documentation" <== [ "CodeFromDocumentation" ]
-"Default" <== [ "Restore"; "Build"; "Test" ]
+"Default"       <== [ "Restore"; "Build"; "Test" ]
 
-"All" <== [ "Clean"; "Default"; "Documentation"; "Package" ]
+"All"           <== [ "Clean"; "Default"; "Documentation"; "Package" ]
 
 RunTargetOrDefault "Default"
