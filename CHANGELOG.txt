@@ -1,7 +1,14 @@
-### 3.0.0 Beta (unreleased)
+### 3.0.0 (unreleased)
 * [FIX] Fixed warning about System.ComponentModel.TypeConverter 4.0.1 (#311).
 Thanks to Stefan Kert for this PR.
-* [UPDATE] Migrated to new csproj format, targeting .NET Standard. Dropped support for older .NET platforms (pre-.NET45). Thanks to Alexandr Nikitin for this work.
+* [UPDATE] Migrated to new csproj format, targeting .NET Standard. Dropped
+support for older .NET platforms (pre-.NET45). Thanks to Alexandr Nikitin for
+this work. Also thanks to @StefanKert and @robertcoltheart for review feedback
+on this work.
+* [UPDATE] Stopped shipping ZIP distribution, now exclusively using NuGet.
+(#319)
+* [UPDATE] Stopped shipping documentation with the NuGet package. This
+information is available in the source repository. (#319)
 
 ### 2.0.3 (April 2017)
 * [FIX] Fixed issue with stubbing multiple return values and then accessing
