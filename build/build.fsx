@@ -57,7 +57,7 @@ Target "All" DoNothing
 
 Target "Clean" (fun _ ->
     let vsProjProps = [ ("Configuration", configuration); ("Platform", "Any CPU") ]
-    !! solutionFile |> MSBuildReleaseExt "" vsProjProps "Clean" |> ignore
+    !! solutionFile |> MSBuild "" "Clean" vsProjProps |> ignore
     CleanDirs [ output ]
 )
 
@@ -89,7 +89,7 @@ Target "Package" (fun _ ->
             })
 )
 
-Target "CodeFromDocumentation" <| fun _ ->
+Target "TestCodeFromDocs" <| fun _ ->
     let outputCodePath = output </> "CodeFromDocs"
     CreateDir outputCodePath
     // generate samples from docs
@@ -159,15 +159,16 @@ Target "-T" <| fun _ ->
 "Clean" ?=> "Test"
 "Clean" ?=> "Restore"
 "Clean" ?=> "Documentation"
-"Clean" ?=> "CodeFromDocumentation"
+"Clean" ?=> "TestCodeFromDocs"
 "Clean" ?=> "Package"
 "Clean" ?=> "Default"
 
 "Build"         <== [ "Restore" ]
 "Test"          <== [ "Build" ]
-"Package"       <== [ "Build"; "Test" ]
-"Documentation" <== [ "CodeFromDocumentation" ]
+"Documentation" <== [ "TestCodeFromDocs" ]
 "Default"       <== [ "Restore"; "Build"; "Test" ]
+// For packaging, use a clean build and make sure all tests (inc. docs) pass.
+"Package"       <== [ "Clean"; "Build"; "Test"; "TestCodeFromDocs" ]
 
 "All"           <== [ "Clean"; "Default"; "Documentation"; "Package" ]
 
