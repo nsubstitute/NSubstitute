@@ -1,5 +1,12 @@
+3.0.1 Release
+================================================================================================
+
+Signed v3.x package to fix libraries that work with a mix of NSubstitute verisons. See #324.
+
 3.0.0 Release 
 ================================================================================================
+
+NOTE: unsigned. Fixed in 3.0.1.
 
 Dropped support for older .NET platforms (pre-.NET 4.6).
 

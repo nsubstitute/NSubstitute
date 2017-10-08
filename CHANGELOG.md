@@ -1,3 +1,9 @@
+### 3.0.1 (October 2017)
+* [FIX] Signing 3.x release to prevent problems with other packages that work
+with different versions of NSubstitute. Thanks Alex Povar for raising this. (#324)
+* [UPDATE] Readme and other docs converted to markdown (.md) rather than plain text.
+Thanks to Stefan Kert for this PR.
+
 ### 3.0.0 (October 2017)
 * [FIX] Fixed warning about System.ComponentModel.TypeConverter 4.0.1 (#311).
 Thanks to Stefan Kert for this PR.
