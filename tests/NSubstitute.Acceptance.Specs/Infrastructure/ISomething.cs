@@ -20,5 +20,11 @@
         System.Threading.Tasks.Task<string> SayAsync(string s);
         System.Threading.Tasks.Task<SomeClass> SomeActionAsync();
         System.Threading.Tasks.Task<SomeClass> SomeActionWithParamsAsync(int i, string s);
+
+        System.Threading.Tasks.ValueTask<int> CountValueTaskAsync();
+        System.Threading.Tasks.ValueTask<string> EchoValueTaskAsync(int i);
+        System.Threading.Tasks.ValueTask<string> SayValueTaskAsync(string s);
+        System.Threading.Tasks.ValueTask<SomeClass> SomeActionValueTaskAsync();
+        System.Threading.Tasks.ValueTask<SomeClass> SomeActionWithParamsValueTaskAsync(int i, string s);
     }
 }
