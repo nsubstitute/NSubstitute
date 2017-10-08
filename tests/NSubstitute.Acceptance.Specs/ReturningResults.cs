@@ -117,12 +117,40 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Return_result_for_any_arguments_async_ValueTask()
+        {
+            _something.EchoValueTaskAsync(1).ReturnsForAnyArgs("always");
+
+            Assert.That(_something.EchoValueTaskAsync(1).Result, Is.EqualTo("always"));
+            Assert.That(_something.EchoValueTaskAsync(2).Result, Is.EqualTo("always"));
+            Assert.That(_something.EchoValueTaskAsync(724).Result, Is.EqualTo("always"));
+        }
+
+        [Test]
+        public void Return_multiple_results_for_any_arguments_async_ValueTask()
+        {
+            _something.EchoValueTaskAsync(1).ReturnsForAnyArgs("first", "second");
+
+            Assert.That(_something.EchoValueTaskAsync(2).Result, Is.EqualTo("first"));
+            Assert.That(_something.EchoValueTaskAsync(724).Result, Is.EqualTo("second"));
+        }
+
+        [Test]
         public void Return_multiple_results_from_funcs_for_any_arguments_async()
         {
             _something.EchoAsync(1).ReturnsForAnyArgs(_ => "first", _ => "second");
 
             Assert.That(_something.EchoAsync(2).Result, Is.EqualTo("first"));
             Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("second"));
+        }
+
+        [Test]
+        public void Return_multiple_results_from_funcs_for_any_arguments_async_ValueTask()
+        {
+            _something.EchoValueTaskAsync(1).ReturnsForAnyArgs(_ => "first", _ => "second");
+
+            Assert.That(_something.EchoValueTaskAsync(2).Result, Is.EqualTo("first"));
+            Assert.That(_something.EchoValueTaskAsync(724).Result, Is.EqualTo("second"));
         }
 
         [Test]
@@ -200,11 +228,28 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Returns_Null_for_string_parameter_async_ValueTask()
+        {
+            const string stringValue = "something";
+            _something.SayValueTaskAsync(stringValue).ReturnsNull();
+
+            Assert.That(_something.SayValueTaskAsync("something").Result, Is.Null);
+        }
+
+        [Test]
         public void Returns_Null_for_method_returning_class_async()
         {
             _something.SomeActionAsync().ReturnsNull();
 
             Assert.That(_something.SomeActionAsync().Result, Is.Null);
+        }
+
+        [Test]
+        public void Returns_Null_for_method_returning_class_async_ValueTask()
+        {
+            _something.SomeActionValueTaskAsync().ReturnsNull();
+
+            Assert.That(_something.SomeActionValueTaskAsync().Result, Is.Null);
         }
 
         [Test]
@@ -224,12 +269,37 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Returns_Null_for_any_args_when_string_parameter_async_ValueTask()
+        {
+            _something.SayValueTaskAsync("text").ReturnsNullForAnyArgs();
+
+            Assert.That(_something.SayValueTaskAsync("something").Result, Is.Null);
+        }
+
+        [Test]
+        public void Returns_Null_for_any_args_when_class_returned_async_ValueTask()
+        {
+            _something.SomeActionWithParamsValueTaskAsync(2, "text").ReturnsNullForAnyArgs();
+
+            Assert.That(_something.SomeActionWithParamsValueTaskAsync(123, "something else").Result, Is.Null);
+        }
+
+        [Test]
         public void Return_a_wrapped_async_result()
         {
             _something.CountAsync().Returns(3);
 
             Assert.That(_something.CountAsync(), Is.TypeOf<Task<int>>());
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void Return_a_wrapped_ValueTask_async_result()
+        {
+            _something.CountValueTaskAsync().Returns(3);
+
+            Assert.That(_something.CountValueTaskAsync(), Is.TypeOf<ValueTask<int>>());
+            Assert.That(_something.CountValueTaskAsync().Result, Is.EqualTo(3));
         }
 
         [Test]
@@ -244,6 +314,20 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.CountAsync().Result, Is.EqualTo(2), "Second return");
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Third return");
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Fourth return");
+        }
+
+        [Test]
+        public void Return_multiple_ValueTask_async_results_from_funcs()
+        {
+            _something.CountValueTaskAsync().Returns(
+                _ => 1,
+                _ => 2,
+                _ => 3);
+
+            Assert.That(_something.CountValueTaskAsync().Result, Is.EqualTo(1), "First return");
+            Assert.That(_something.CountValueTaskAsync().Result, Is.EqualTo(2), "Second return");
+            Assert.That(_something.CountValueTaskAsync().Result, Is.EqualTo(3), "Third return");
+            Assert.That(_something.CountValueTaskAsync().Result, Is.EqualTo(3), "Fourth return");
         }
 
         [SetUp]
