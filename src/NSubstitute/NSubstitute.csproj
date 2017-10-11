@@ -4,7 +4,7 @@
     <Description>NSubstitute is a friendly substitute for .NET mocking frameworks. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
     <Version>3.0.0</Version>
     <Authors>Anthony Egerton;David Tchepak;Alexandr Nikitin</Authors>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFrameworks>netstandard1.3;net46;net45</TargetFrameworks>
     <AssemblyName>NSubstitute</AssemblyName>
     <PackageId>NSubstitute</PackageId>
     <PackageTags>mocking;mocks;testing;unit-testing;TDD;AAA</PackageTags>
@@ -21,19 +21,22 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.3|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <OutputPath>..\..\bin\Debug\NSubstitute\</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.3|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <OutputPath>..\..\bin\Release\NSubstitute\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.2.0-*" />
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0-*" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0-*" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'!='net45'">
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0-*" />
   </ItemGroup>
 
 </Project>
