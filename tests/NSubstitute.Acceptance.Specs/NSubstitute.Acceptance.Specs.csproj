@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.1;net46</TargetFrameworks>
+    <TargetFrameworks>netcoreapp1.1;net46;net45</TargetFrameworks>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp1.1|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <OutputPath>..\..\bin\Debug\NSubstitute.Acceptance.Specs\</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.1|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <OutputPath>..\..\bin\Release\NSubstitute.Acceptance.Specs\</OutputPath>
   </PropertyGroup>
 
@@ -18,7 +18,7 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+  <ItemGroup Condition=" '$(TargetFramework)'=='net46' OR '$(TargetFramework)'=='net45'">
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 

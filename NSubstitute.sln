@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstitute", "src\NSubstitute\NSubstitute.csproj", "{F59BF5FC-52D8-492E-BDE8-244C183B4C92}"
 EndProject
@@ -22,9 +22,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
 		appveyor.yml = appveyor.yml
+		BreakingChanges.md = BreakingChanges.md
+		CHANGELOG.md = CHANGELOG.md
+		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute.Acceptance.Specs", "tests\NSubstitute.Acceptance.Specs\NSubstitute.Acceptance.Specs.csproj", "{8C2300AA-F94C-4005-A359-257C5EAD338E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstitute.Acceptance.Specs", "tests\NSubstitute.Acceptance.Specs\NSubstitute.Acceptance.Specs.csproj", "{8C2300AA-F94C-4005-A359-257C5EAD338E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,5 +50,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F59BF5FC-52D8-492E-BDE8-244C183B4C92} = {CFB6BF4B-381D-4884-A8E8-D1FA71315BDE}
 		{8C2300AA-F94C-4005-A359-257C5EAD338E} = {0E2B9095-7548-462F-9BCC-CD6765B3ED60}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {230E97F1-5246-4D49-8ED9-065F2B154E93}
 	EndGlobalSection
 EndGlobal
