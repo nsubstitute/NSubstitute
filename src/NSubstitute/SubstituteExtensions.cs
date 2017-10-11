@@ -42,7 +42,7 @@ namespace NSubstitute
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Value to return. Will be wrapped in a Task</param>
-        /// <param name="returnThese">Optionally use these functions next</param>
+        /// <param name="returnThese">Optionally use these values next</param>
         /// <returns></returns>
         public static ConfiguredCall Returns<T>(this Task<T> value, T returnThis, params T[] returnThese)
         {
@@ -75,7 +75,7 @@ namespace NSubstitute
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Value to return. Will be wrapped in a ValueTask</param>
-        /// <param name="returnThese">Optionally use these functions next</param>
+        /// <param name="returnThese">Optionally use these values next</param>
         /// <returns></returns>
         public static ConfiguredCall Returns<T>(this ValueTask<T> value, T returnThis, params T[] returnThese)
         {

@@ -1,3 +1,7 @@
+### 3.0.2 (unreleased)
+* [NEW] Support for auto-substituting `ValueTask<T>` results. Thanks to
+@KrzysztofBranicki for this change. (#325)
+
 ### 3.0.1 (October 2017)
 * [FIX] Signing 3.x release to prevent problems with other packages that work
 with different versions of NSubstitute. Thanks Alex Povar for raising this. (#324)
