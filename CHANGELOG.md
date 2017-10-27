@@ -1,3 +1,5 @@
+### 3.1.1 (unreleased)
+
 ### 3.1.0 (October 2017)
 * [FIX] Reduced packages required when referencing from NET45 and NET46. (#331)
 * [UPDATE] Reintroduced support for NET45. (#329)
