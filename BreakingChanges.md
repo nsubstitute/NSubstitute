@@ -7,6 +7,7 @@ Signed v3.x package to fix libraries that work with a mix of NSubstitute verison
 ================================================================================================
 
 NOTE: unsigned. Fixed in 3.0.1.
+NOTE: Support for NET45 and NET46 restored in 3.1.0.
 
 Dropped support for older .NET platforms (pre-.NET 4.6).
 
