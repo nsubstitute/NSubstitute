@@ -185,5 +185,40 @@ public void MakeSureWatcherSubscribesToCommandExecuted() {
 }
 {% endexamplecode %}
 
+## Checking event invocation
 
+In some cases, we can also desire to test event's invocation behavior. When the behavior of certain classes is event driven, it becomes a necessity:
+
+{% examplecode csharp %} 
+public class LowFuelWarningEventArgs : EventArgs {
+	public int PercentLeft { get; }
+	public LowFuelWarningEventArgs(int percentLeft){
+		PercentLeft = percentLeft;
+	}
+	public override bool Equals(object obj){
+		var other = obj as LowFuelWarningEventArgs;
+		if (other == null) return false;
+		return PercentLeft == other.PercentLeft;
+	}
+	//Override GetHashCode too
+}
+
+public class FuelManagement{
+	public event EventHandler<LowFuelWarningEventArgs> LowFuelDetected;
+	public void DoSomething(){
+		LowFuelDetected?.Invoke(this, new LowFuelWarningEventArgs(42));
+	}
+}
+
+[Test]
+public void ShouldRaiseLowFuel(){
+	var fuelManagement = new FuelManagement();
+	var handler = Substitute.For<EventHandler<LowFuelWarningEventArgs>>();
+	fuelManagement.LowFuelDetected += handler;
+
+	fuelManagement.DoSomething();
+
+	handler.Received().Invoke(fuelManagement, new LowFuelWarningEventArgs(42));
+}
+{% endexamplecode %} 
 
