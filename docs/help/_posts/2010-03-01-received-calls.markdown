@@ -187,7 +187,7 @@ public void MakeSureWatcherSubscribesToCommandExecuted() {
 
 ## Checking event invocation
 
-In some cases, we can also desire to test event's invocation behavior. When the behavior of certain classes is event driven, it becomes a necessity:
+We can also use substitutes for event handlers to confirm that a particular event was raised correctly. Often a simple lambda function will suffice, but if we want to use argument matchers we can use a substitute and `Received`. Both options are shown below:
 
 {% examplecode csharp %} 
 public class LowFuelWarningEventArgs : EventArgs {
@@ -195,21 +195,34 @@ public class LowFuelWarningEventArgs : EventArgs {
 	public LowFuelWarningEventArgs(int percentLeft){
 		PercentLeft = percentLeft;
 	}
-	public override bool Equals(object obj){
-		var other = obj as LowFuelWarningEventArgs;
-		if (other == null) return false;
-		return PercentLeft == other.PercentLeft;
-	}
-	//Override GetHashCode too
 }
 
 public class FuelManagement{
 	public event EventHandler<LowFuelWarningEventArgs> LowFuelDetected;
 	public void DoSomething(){
-		LowFuelDetected?.Invoke(this, new LowFuelWarningEventArgs(42));
+		LowFuelDetected?.Invoke(this, new LowFuelWarningEventArgs(15));
 	}
 }
 
+// Often it is easiest to use a lambda for this, as shown in the following test:
+[Test]
+public void ShouldRaiseLowFuel_WithoutNSub(){
+	var fuelManagement = new FuelManagement();
+	var eventWasRaised = false;
+	fuelManagement.LowFuelDetected += (o,e) => eventWasRaised = true;
+
+	fuelManagement.DoSomething();
+
+	Assert.That(eventWasRaised);
+}
+
+// We can also use NSubstitute for this if we want more involved argument matching logic.
+// NSubstitute also gives us a descriptive message if the assertion fails which may be helpful in some cases.
+// (For example, if the call was not received with the expected arguments, we'll get a list of the non-matching
+// calls made to that member.)
+//
+// Note we could still use lambdas and standard assertions for this, but a substitute may be worth considering
+// in some of these cases.
 [Test]
 public void ShouldRaiseLowFuel(){
 	var fuelManagement = new FuelManagement();
@@ -218,7 +231,9 @@ public void ShouldRaiseLowFuel(){
 
 	fuelManagement.DoSomething();
 
-	handler.Received().Invoke(fuelManagement, new LowFuelWarningEventArgs(42));
+	handler
+	    .Received()
+	    .Invoke(fuelManagement, Arg.Is<LowFuelWarningEventArgs>(x => x.PercentLeft < 20));
 }
 {% endexamplecode %} 
 
