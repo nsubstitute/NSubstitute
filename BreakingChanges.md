@@ -1,10 +1,19 @@
+4.0.0 Release
+================
+
+Removed `NSubstitute.Core.Extensions.Zip`.
+
+Reason: Zip is in NET40+ and NetStandard. Was formerly provided for NET35 compatibility.
+
+Workaround: Use `System.Linq.Enumerable.Zip`
+
 3.0.1 Release
-================================================================================================
+================
 
 Signed v3.x package to fix libraries that work with a mix of NSubstitute verisons. See #324.
 
 3.0.0 Release 
-================================================================================================
+================
 
 NOTE: unsigned. Fixed in 3.0.1.
 NOTE: Support for NET45 and NET46 restored in 3.1.0.
@@ -21,7 +30,7 @@ Standard 1.3 compatible target such as .NET 4.6 or later. See compatibility matr
 
 
 1.10.0 Release 
-================================================================================================
+================
 
 Substitutes will now automatically return an empty `IQueryable<T>` for
 members that return that type. Tests previously relying on a
@@ -34,13 +43,14 @@ value without causing null pointer exceptions (see issue #67).
 Fix:
 - Avoid mocking `IQueryable<T>` where possible -- configure members
 to return a real `IQueryable<T>` instead. If a substitute is required, explicitly configure the call to return a substitute:
-    ````
+
+    ```
     sub.MyQueryable().Returns(Substitute.For<IQueryable<int>>());
-    ````
+    ```
 
 
 1.9.1 Release 
-================================================================================================
+================
 
 Substitutes set up to throw exception for methods with return type Task<T> 
 cause compilation to fail due to the call being ambiguous (CS0121).
@@ -58,7 +68,7 @@ Fix:
     New: `sub.Method().Returns<string>(x => { throw new Exception() });`
 
 1.8.0 Release 
-================================================================================================
+================
 
 Incorrect use of argument matchers outside of a member call, particularly within a
 `Returns()`, will now throw an exception (instead of causing unexpected behaviour
@@ -76,7 +86,7 @@ Fix:
 
 
 1.7.0 Release
-================================================================================================
+================
 
 Auto-substitute for pure virtual classes with at least one public static method, which
 means some methods and properties on substitutes that used to return null by default will now return a new substitute of that type.
@@ -88,7 +98,7 @@ Fix:
 - Explicitly return null from methods and property getters when required for a test.
 e.g. `sub.Method().Returns(x => null)`;
 
-------------------------------------------------------------------------------------------------
+---------------
 
 Moved `Received.InOrder` feature from `NSubstitute.Experimental` to main `NSubstitute` namespace. Obsoleted original `NSubstitute.Experimental.Received`.
 
@@ -103,7 +113,7 @@ Fix:
 
 
 1.5.0 Release
-================================================================================================
+================
 
 The base object methods (`Equals`, `GetHashCode` and `ToString`) for substitute objects of classes that extend those methods now return the result of calling the actual implementation of those methods rather than the default value for the return type. This means that places where you relied on `.Equals` returning `false`, `.ToString` returning `null` and `.GetHashCode` returning `0` because the actual
 methods weren't called will now call the actual implementation.
@@ -123,7 +133,7 @@ However, now you can use the former, which is much more terse and consistent wit
 Fix:
 - There is no workaround to change the behaviour of .Equals, .GetHashCode or .ToString. If you have a use case to change the behaviour of these methods please lodge an issue at the NSubstitute Github site.
 
-------------------------------------------------------------------------------------------------
+---------------
 
 In rare cases the new `Returns()` and `ReturnsForAnyArgs()` overloads can cause compilation to fail due to the call being ambiguous (CS0121). 
 
@@ -135,7 +145,7 @@ Fix:
 
 
 1.4.0 Release
-================================================================================================
+================
 
 Auto-substitute from substitutes of `Func` delegates (following the same rules as auto-subbing for methods and properties). So the delegate returned from `Substitute.For<Func<IFoo>>()` will return a substitute of `IFoo`. This means some substitutes for delegates that used to return null will now return a new substitute.
 
@@ -148,7 +158,7 @@ e.g. `subFunc().Returns(x => null)`;
 
 
 1.2.0 Release
-================================================================================================
+================
 
 Auto-substitute for pure virtual classes (in addition to interfaces and delegate types), which
 means some methods and properties on substitutes that used to return null by default will now
@@ -164,7 +174,7 @@ e.g. ```sub.Method().Returns(x => null)```;
 
 
 0.9.5 Release
-================================================================================================
+================
 
 `Raise.Event<TEventArgs>(...)` methods renamed to `Raise.EventWith<TEventArgs()`
 
@@ -178,7 +188,7 @@ Reason:
 Fix:
 - Replace `Raise.Event<TEventArgs>()` calls with equivalent `Raise.EventWith<TEventArgs>()` call.
 
-------------------------------------------------------------------------------------------------
+---------------
 `Raise.Action()` methods removed
 
 Reason:
@@ -192,6 +202,6 @@ Fix:
 
 
 0.9.0 Release
-================================================================================================
+================
 
 No breaking changes.
