@@ -113,6 +113,8 @@ Finally, we can raise events on our substitutes (unfortunately C# dramatically r
 
 ### Building
 
-If you have Visual Studio 2008, 2010, 2012, 2013, or 2015 you should be able to compile NSubstitute and run the unit tests using the NUnit GUI or console test runner (see the ThirdParty directory). Note that some tests are marked `[Pending]` and are not meant to pass at present, so it is a good idea to exclude tests in the Pending category from test runs.
-To do full builds you'll also need Ruby, as the jekyll gem is used to generate the website.
+NSubstitute and its tests can be compiled and run using Visual Studio and Visual Studio for Mac. Note that some tests are marked `[Pending]` and are not meant to pass at present, so it is a good idea to exclude tests in the Pending category from test runs.
 
+There are also build scripts in the `./build` directory for command line builds, and CI configurations in the project root.
+
+To do [full builds](https://github.com/nsubstitute/NSubstitute/wiki/Release-procedure) you'll also need Ruby, as the jekyll gem is used to generate the website.  
