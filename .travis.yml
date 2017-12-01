@@ -2,11 +2,11 @@ language: csharp
 
 matrix:
   include:
-    - dotnet: 1.0.3
+    - dotnet: 1.1.5
       mono: none
       dist: trusty
       env: CONFIGURATION=Debug FRAMEWORK=netcoreapp1.1
-    - dotnet: 1.0.3
+    - dotnet: 1.1.5
       mono: none
       dist: trusty
       env: CONFIGURATION=Release FRAMEWORK=netcoreapp1.1
