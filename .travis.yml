@@ -10,10 +10,6 @@ matrix:
       mono: none
       dist: trusty
       env: CONFIGURATION=Release FRAMEWORK=netcoreapp1.1
-#    - mono: 4.8.1
-#      env: CONFIGURATION=Debug FRAMEWORK=net452
-#    - mono: 4.8.1
-#      env: CONFIGURATION=Release FRAMEWORK=net452
 
 before_script:
   - dotnet --info
