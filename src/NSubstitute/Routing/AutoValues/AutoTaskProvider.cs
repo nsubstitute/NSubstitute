@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using NSubstitute.Extensions;
 
 namespace NSubstitute.Routing.AutoValues
 {

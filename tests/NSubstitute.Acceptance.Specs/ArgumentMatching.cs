@@ -90,6 +90,10 @@ namespace NSubstitute.Acceptance.Specs
             _something.Received().Funky(Arg.Any<float>(), 12, "Lots", null);
         }
 
+#if !NET40
+        //These tests should be possible to run on .NET 4.0 with Microsoft.Bcl.Async,
+        //but the package doesn't seem to play nicely with the new csproj format.
+        //Possibly caused by: https://github.com/Microsoft/msbuild/issues/1310
         [Test]
         public void Received_for_async_method_can_be_awaited()
         {
@@ -112,6 +116,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             await _something.DidNotReceive().Async();
         }
+#endif
 
         [Test]
         public void Resolve_potentially_ambiguous_matches_by_checking_for_non_default_argument_values()

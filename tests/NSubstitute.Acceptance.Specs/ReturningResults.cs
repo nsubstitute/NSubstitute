@@ -116,6 +116,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("second"));
         }
 
+#if !NET40
         [Test]
         public void Return_result_for_any_arguments_async_ValueTask()
         {
@@ -134,6 +135,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.EchoValueTaskAsync(2).Result, Is.EqualTo("first"));
             Assert.That(_something.EchoValueTaskAsync(724).Result, Is.EqualTo("second"));
         }
+#endif
 
         [Test]
         public void Return_multiple_results_from_funcs_for_any_arguments_async()
@@ -144,6 +146,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.EchoAsync(724).Result, Is.EqualTo("second"));
         }
 
+#if !NET40
         [Test]
         public void Return_multiple_results_from_funcs_for_any_arguments_async_ValueTask()
         {
@@ -152,6 +155,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.EchoValueTaskAsync(2).Result, Is.EqualTo("first"));
             Assert.That(_something.EchoValueTaskAsync(724).Result, Is.EqualTo("second"));
         }
+#endif
 
         [Test]
         public void Return_calculated_results_for_any_arguments()
@@ -227,6 +231,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.SayAsync("something").Result, Is.Null);
         }
 
+#if !NET40
         [Test]
         public void Returns_Null_for_string_parameter_async_ValueTask()
         {
@@ -235,6 +240,7 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(_something.SayValueTaskAsync("something").Result, Is.Null);
         }
+#endif
 
         [Test]
         public void Returns_Null_for_method_returning_class_async()
@@ -244,6 +250,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.SomeActionAsync().Result, Is.Null);
         }
 
+#if !NET40
         [Test]
         public void Returns_Null_for_method_returning_class_async_ValueTask()
         {
@@ -251,6 +258,7 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(_something.SomeActionValueTaskAsync().Result, Is.Null);
         }
+#endif
 
         [Test]
         public void Returns_Null_for_any_args_when_string_parameter_async()
@@ -268,6 +276,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.SomeActionWithParamsAsync(123, "something else").Result, Is.Null);
         }
 
+#if !NET40
         [Test]
         public void Returns_Null_for_any_args_when_string_parameter_async_ValueTask()
         {
@@ -283,6 +292,7 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(_something.SomeActionWithParamsValueTaskAsync(123, "something else").Result, Is.Null);
         }
+#endif
 
         [Test]
         public void Return_a_wrapped_async_result()
@@ -293,6 +303,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3));
         }
 
+#if !NET40
         [Test]
         public void Return_a_wrapped_ValueTask_async_result()
         {
@@ -301,6 +312,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.CountValueTaskAsync(), Is.TypeOf<ValueTask<int>>());
             Assert.That(_something.CountValueTaskAsync().Result, Is.EqualTo(3));
         }
+#endif
 
         [Test]
         public void Return_multiple_async_results_from_funcs()
@@ -316,6 +328,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.CountAsync().Result, Is.EqualTo(3), "Fourth return");
         }
 
+#if !NET40
         [Test]
         public void Return_multiple_ValueTask_async_results_from_funcs()
         {
@@ -329,6 +342,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.CountValueTaskAsync().Result, Is.EqualTo(3), "Third return");
             Assert.That(_something.CountValueTaskAsync().Result, Is.EqualTo(3), "Fourth return");
         }
+#endif
 
         [SetUp]
         public void SetUp()

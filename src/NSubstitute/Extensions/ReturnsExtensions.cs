@@ -38,6 +38,7 @@ namespace NSubstitute.ReturnsExtensions
             return value.Returns(i => SubstituteExtensions.CompletedTask<T>(null));
         }
 
+#if !NET40
         /// <summary>
         /// Set null as returned value for this call.
         /// </summary>
@@ -48,6 +49,7 @@ namespace NSubstitute.ReturnsExtensions
         {
             return value.Returns(i => SubstituteExtensions.CompletedValueTask<T>(null));
         }
+#endif
 
         /// <summary>
         /// Set null as returned value for this call made with any arguments.
@@ -60,6 +62,7 @@ namespace NSubstitute.ReturnsExtensions
             return value.ReturnsForAnyArgs(i => SubstituteExtensions.CompletedTask<T>(null));
         }
 
+#if !NET40
         /// <summary>
         /// Set null as returned value for this call made with any arguments.
         /// </summary>
@@ -70,5 +73,6 @@ namespace NSubstitute.ReturnsExtensions
         {
             return value.ReturnsForAnyArgs(i => SubstituteExtensions.CompletedValueTask<T>(null));
         }
+#endif
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using NSubstitute.Extensions;
 
 namespace NSubstitute.Core
 {

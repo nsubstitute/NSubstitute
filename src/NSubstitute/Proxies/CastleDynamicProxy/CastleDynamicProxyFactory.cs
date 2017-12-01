@@ -4,6 +4,7 @@ using System.Reflection;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
+using NSubstitute.Extensions;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy
 {

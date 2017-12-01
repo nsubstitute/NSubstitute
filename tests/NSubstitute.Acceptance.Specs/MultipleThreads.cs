@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using NSubstitute.Acceptance.Specs.Infrastructure;
@@ -125,8 +126,12 @@ namespace NSubstitute.Acceptance.Specs
                 .ToArray();
 
             foreach (var task in tasks) { task.Start(); }
-            var actual = System.Threading.Tasks.Task.WhenAll(tasks).Result;
-            Assert.That(actual, Is.EquivalentTo(expected));
+
+            var results = new List<int>();
+            System.Threading.Tasks.Task.Factory.StartNew(() => System.Threading.Tasks.Task.WaitAll(tasks));
+            results.AddRange(tasks.Select(t => t.Result));
+
+            Assert.That(results, Is.EquivalentTo(expected));
         }
 
         public interface IFoo

@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using NSubstitute.Core;
+using NSubstitute.Extensions;
 
 namespace NSubstitute.Proxies
 {
