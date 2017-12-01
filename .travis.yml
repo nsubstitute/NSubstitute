@@ -4,19 +4,15 @@ matrix:
   include:
     - dotnet: 1.1.5
       mono: none
-      dist: trusty
       env: CONFIGURATION=Debug FRAMEWORK=netcoreapp1.1
     - dotnet: 1.1.5
       mono: none
-      dist: trusty
       env: CONFIGURATION=Release FRAMEWORK=netcoreapp1.1
     - dotnet: 2.0.3
       mono: none
-      dist: trusty
       env: CONFIGURATION=Debug FRAMEWORK=netcoreapp2.0
     - dotnet: 2.0.3
       mono: none
-      dist: trusty
       env: CONFIGURATION=Release FRAMEWORK=netcoreapp2.0
 
 before_script:
