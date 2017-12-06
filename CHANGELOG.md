@@ -1,5 +1,6 @@
 ### 4.0.0 (unreleased)
 * [UPDATE] Removed NSubstitute.Core.Extensions.Zip (no longer require NET35 support). (#336)
+* [FIX] Restored XML documentation (#345)
 
 ### 3.1.0 (October 2017)
 * [FIX] Reduced packages required when referencing from NET45 and NET46. (#331)
