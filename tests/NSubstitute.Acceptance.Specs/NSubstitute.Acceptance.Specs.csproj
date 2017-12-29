@@ -19,6 +19,9 @@
 
   <ItemGroup Condition=" '$(TargetFramework)'=='net40' ">
     <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Microsoft.Bcl" version="1.1.10" />
+    <PackageReference Include="Microsoft.Bcl.Async" version="1.0.168" />
+    <PackageReference Include="Microsoft.Bcl.Build" version="1.0.21" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)'=='net46' OR '$(TargetFramework)'=='net45'">
@@ -26,7 +29,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)'=='netcoreapp1.1' ">
+  <ItemGroup Condition=" '$(TargetFramework)'=='netcoreapp1.1' OR '$(TargetFramework)'=='netcoreapp2.0' ">
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
   </ItemGroup>
 
