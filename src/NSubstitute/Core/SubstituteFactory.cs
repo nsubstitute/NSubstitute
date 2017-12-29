@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using NSubstitute.Exceptions;
+using NSubstitute.Extensions;
 
 namespace NSubstitute.Core
 {

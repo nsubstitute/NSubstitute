@@ -125,7 +125,12 @@ namespace NSubstitute.Acceptance.Specs
                 .ToArray();
 
             foreach (var task in tasks) { task.Start(); }
+
+#if NET40
+            var actual = System.Threading.Tasks.TaskEx.WhenAll(tasks).Result;
+#else
             var actual = System.Threading.Tasks.Task.WhenAll(tasks).Result;
+#endif
             Assert.That(actual, Is.EquivalentTo(expected));
         }
 

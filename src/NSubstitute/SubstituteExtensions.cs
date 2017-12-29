@@ -69,6 +69,7 @@ namespace NSubstitute
             return Returns(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedFuncs.ToArray());
         }
 
+#if !NET40
         /// <summary>
         /// Set a return value for this call. The value(s) to be returned will be wrapped in ValueTasks.
         /// </summary>
@@ -101,6 +102,7 @@ namespace NSubstitute
 
             return Returns(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedFuncs.ToArray());
         }
+#endif
 
         /// <summary>
         /// Set a return value for this call made with any arguments. The value(s) to be returned will be wrapped in Tasks.
@@ -135,6 +137,7 @@ namespace NSubstitute
             return Returns(MatchArgs.Any, wrappedFunc, wrappedFuncs.ToArray());
         }
 
+#if !NET40
         /// <summary>
         /// Set a return value for this call made with any arguments. The value(s) to be returned will be wrapped in ValueTasks.
         /// </summary>
@@ -168,6 +171,7 @@ namespace NSubstitute
             return Returns(MatchArgs.Any, wrappedFunc, wrappedFuncs.ToArray());
         }
 
+#endif
         /// <summary>
         /// Set a return value for this call made with any arguments.
         /// </summary>
@@ -364,19 +368,23 @@ namespace NSubstitute
             return x => CompletedTask(returnThis(x));
         }
 
+#if !NET40
         private static Func<CallInfo, ValueTask<T>> WrapFuncInValueTask<T>(Func<CallInfo, T> returnThis)
         {
             return x => CompletedValueTask(returnThis(x));
         }
 
-        internal static Task<T> CompletedTask<T>(T result) 
-        {
-            return Task.FromResult(result);
-        }
-
         internal static ValueTask<T> CompletedValueTask<T>(T result)
         {
             return new ValueTask<T>(result);
+        }
+#endif
+
+        internal static Task<T> CompletedTask<T>(T result)
+        {
+            var taskSource = new TaskCompletionSource<T>();
+            taskSource.SetResult(result);
+            return taskSource.Task;
         }
 
         private static ICallRouter GetRouterForSubstitute<T>(T substitute)

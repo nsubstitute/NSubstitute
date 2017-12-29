@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;netcoreapp1.1;net46;net45</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0;netcoreapp1.1;net46;net45;net40</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -13,13 +13,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="NUnit" Version="3.8.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)'=='net40' ">
+    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Microsoft.Bcl" version="1.1.10" />
+    <PackageReference Include="Microsoft.Bcl.Async" version="1.0.168" />
+    <PackageReference Include="Microsoft.Bcl.Build" version="1.0.21" />
+  </ItemGroup>
+
   <ItemGroup Condition=" '$(TargetFramework)'=='net46' OR '$(TargetFramework)'=='net45'">
     <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)'=='netcoreapp1.1' OR '$(TargetFramework)'=='netcoreapp2.0' ">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
   </ItemGroup>
 
   <ItemGroup>
