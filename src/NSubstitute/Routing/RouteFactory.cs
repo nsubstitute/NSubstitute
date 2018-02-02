@@ -58,7 +58,6 @@ namespace NSubstitute.Routing
             return new Route(new ICallHandler[] {
                 new RecordCallSpecificationHandler(state.PendingSpecification, state.CallSpecificationFactory, state.CallActions)
                 , new PropertySetterHandler(new PropertyHelper(), state.ConfigureCall)
-                , new ReturnConfiguredResultHandler(state.CallResults)
                 , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, state.CallSpecificationFactory)
                 , new ReturnFromAndConfigureDynamicCall(state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
