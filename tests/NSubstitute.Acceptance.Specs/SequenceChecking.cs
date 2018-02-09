@@ -1,6 +1,5 @@
 ﻿using System;
 using NSubstitute.Exceptions;
-using NSubstitute.Experimental;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -41,7 +40,6 @@ namespace NSubstitute.Acceptance.Specs
                 _bar.Begin();
                 _foo.Finish();
                 _bar.End();
-
             });
         }
 
@@ -78,7 +76,6 @@ namespace NSubstitute.Acceptance.Specs
                 _bar.Begin();
                 _foo.Finish();
                 _bar.End();
-
             });
         }
 

@@ -21,6 +21,14 @@ Reason: Zip is in NET40+ and NetStandard. Was formerly provided for NET35 compat
 
 Workaround: Use `System.Linq.Enumerable.Zip`
 
+---------------
+
+Removed obsolete `NSubstitute.Experimental.Received.InOrder`. (#351)
+
+Reason: previously obsoleted by `NSubstitute.Received.InOrder`.
+
+Workaround: Use `NSubstitute.Received.InOrder`.
+
 3.0.1 Release
 ================
 
