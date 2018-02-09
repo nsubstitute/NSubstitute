@@ -1,6 +1,20 @@
 4.0.0 Release
 ================
 
+`.Returns` will no longer return previously configured results if an argument matcher is specified (`Arg.Is` or `Arg.Any`).
+
+In most cases this should not affect existing tests, but there are some ambiguously nested configurations involving argument
+matchers that can start to fail after this change.
+
+See #345 (https://github.com/nsubstitute/NSubstitute/pull/347) for discussion of this and an example of a test whose behaviour has changed.
+
+Reason: This fixes a number of issues relating to overlapping configurations (#291, #225, #146, #177).
+
+Workaround: Separate any nested configurations that start to fail after this change.
+If this is difficult for a specific case, create a GitHub issue with the details and we may be able to assist.
+
+---------------
+
 Removed `NSubstitute.Core.Extensions.Zip`.
 
 Reason: Zip is in NET40+ and NetStandard. Was formerly provided for NET35 compatibility.
