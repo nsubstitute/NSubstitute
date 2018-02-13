@@ -6,7 +6,14 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 {
     public class CastleInvocationMapper
     {
-        readonly static CallFactory CallFactory = new CallFactory();
+        readonly ICallFactory _callFactory;
+        private readonly IArgumentSpecificationDequeue _argSpecificationDequeue;
+
+        public CastleInvocationMapper(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue)
+        {
+            _callFactory = callFactory;
+            _argSpecificationDequeue = argSpecificationDequeue;
+        }
 
         public virtual ICall Map(IInvocation castleInvocation)
         {
@@ -21,7 +28,8 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 baseMethod = () => result.Value;
             }
 
-            return CallFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy, baseMethod);
+            var queuedArgSpecifications = _argSpecificationDequeue.DequeueAllArgumentSpecificationsForMethod(castleInvocation.Method);
+            return _callFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy, queuedArgSpecifications, baseMethod);
         }
     }
 }
