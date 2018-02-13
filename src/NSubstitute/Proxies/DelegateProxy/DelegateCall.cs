@@ -9,19 +9,26 @@ namespace NSubstitute.Proxies.DelegateProxy
     {
         public static readonly MethodInfo InvokeMethodWithObjectOrVoidReturnType = typeof(DelegateCall).GetMethod("Invoke", BindingFlags.Instance | BindingFlags.NonPublic);
         public static readonly MethodInfo InvokeMethodWithGenericReturnType = typeof(DelegateCall).GetMethod("GenericInvoke", BindingFlags.Instance | BindingFlags.NonPublic);
-        readonly MethodInfo _methodToInvoke;
-        readonly ICallRouter _callRouter;
         readonly Type _delegateType;
         readonly Type _returnType;
         readonly IParameterInfo[] _parameterInfos;
+        readonly ICallFactory _callFactory;
+        readonly IArgumentSpecificationDequeue _argSpecificationDequeue;
 
-        public DelegateCall(ICallRouter callRouter, Type delegateType, Type returnType, IParameterInfo[] parameterInfos)
+        public DelegateCall(ICallRouter callRouter,
+            Type delegateType,
+            Type returnType,
+            IParameterInfo[] parameterInfos,
+            ICallFactory callFactory,
+            IArgumentSpecificationDequeue argSpecificationDequeue)
         {
-            _callRouter = callRouter;
+            CallRouter = callRouter;
             _delegateType = delegateType;
             _returnType = returnType;
             _parameterInfos = parameterInfos;
-            _methodToInvoke = GetMethodToInvoke();
+            _callFactory = callFactory;
+            _argSpecificationDequeue = argSpecificationDequeue;
+            MethodToInvoke = GetMethodToInvoke();
         }
 
         private MethodInfo GetMethodToInvoke()
@@ -29,13 +36,14 @@ namespace NSubstitute.Proxies.DelegateProxy
             return ReturnsVoidType() ? InvokeMethodWithObjectOrVoidReturnType : InvokeMethodWithGenericReturnType.MakeGenericMethod(_returnType);
         }
 
-        public ICallRouter CallRouter { get { return _callRouter; } }
-        public MethodInfo MethodToInvoke { get { return _methodToInvoke; } }
+        public ICallRouter CallRouter { get; }
+        public MethodInfo MethodToInvoke { get; }
 
         protected object Invoke(object[] arguments)
         {
-            var call = new Call(MethodToInvoke, arguments, this, _parameterInfos);
-            var result = _callRouter.Route(call);
+            var queuedArgSpecs = _argSpecificationDequeue.DequeueAllArgumentSpecificationsForMethod(MethodToInvoke);
+            var call = _callFactory.Create(MethodToInvoke, arguments, this, queuedArgSpecs, _parameterInfos);
+            var result = CallRouter.Route(call);
             return EnsureResultCompatibleWithReturnType(result);
         }
 

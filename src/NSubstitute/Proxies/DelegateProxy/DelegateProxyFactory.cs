@@ -10,6 +10,13 @@ namespace NSubstitute.Proxies.DelegateProxy
 {
     public class DelegateProxyFactory : IProxyFactory
     {
+        private readonly IArgumentSpecificationDequeue _argSpecificationDequeue;
+
+        public DelegateProxyFactory(IArgumentSpecificationDequeue argSpecificationDequeue)
+        {
+            _argSpecificationDequeue = argSpecificationDequeue;
+        }
+        
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
         {
             if (HasItems(additionalInterfaces))
@@ -35,7 +42,7 @@ namespace NSubstitute.Proxies.DelegateProxy
             var delegateMethodToProxy = delegateType.GetMethod("Invoke");
 
             var proxyParameterTypes = delegateMethodToProxy.GetParameters().Select(x => new ParameterInfoWrapper(x)).ToArray();
-            var delegateCall = new DelegateCall(callRouter, delegateType, delegateMethodToProxy.ReturnType, proxyParameterTypes);
+            var delegateCall = new DelegateCall(callRouter, delegateType, delegateMethodToProxy.ReturnType, proxyParameterTypes, new CallFactory(), _argSpecificationDequeue);
             var invokeOnDelegateCall = delegateCall.MethodToInvoke;
 
             ParameterExpression[] proxyParameters = delegateMethodToProxy.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();

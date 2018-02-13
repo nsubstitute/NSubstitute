@@ -18,37 +18,20 @@ namespace NSubstitute.Core
         private long? _sequenceNumber;
         private readonly Func<object> _baseMethod;
 
-        public Call(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecsForCall, Func<object> baseMethod = null) 
+        public Call(MethodInfo methodInfo,
+            object[] arguments,
+            object target,
+            IList<IArgumentSpecification> argumentSpecifications,
+            IParameterInfo[] parameterInfos,
+            Func<object> baseMethod)
         {
-            _methodInfo = methodInfo;
-            _arguments = arguments;
+            _methodInfo = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
+            _arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
             _originalArguments = arguments.ToArray();
-            _target = target;
-            _parameterInfos = GetParameterInfosFrom(_methodInfo);
-            _argumentSpecifications = argumentSpecsForCall;
+            _target = target ?? throw new ArgumentNullException(nameof(target));
+            _argumentSpecifications = argumentSpecifications ?? throw new ArgumentNullException(nameof(argumentSpecifications));
+            _parameterInfos = parameterInfos ?? throw new ArgumentNullException(nameof(parameterInfos));
             _baseMethod = baseMethod;
-        }
-
-        public Call(MethodInfo methodInfo, object[] arguments, object target, IParameterInfo[] parameterInfos)
-        {
-            _methodInfo = methodInfo;
-            _arguments = arguments;
-            _originalArguments = arguments.ToArray();
-            _target = target;
-            _parameterInfos = parameterInfos ?? GetParameterInfosFrom(_methodInfo);
-            _argumentSpecifications = (_parameterInfos.Length == 0) ? EmptyList() : SubstitutionContext.Current.DequeueAllArgumentSpecifications();
-        }
-
-        private IList<IArgumentSpecification> EmptyList()
-        {
-            return new List<IArgumentSpecification>();
-        }
-
-        private IParameterInfo[] GetParameterInfosFrom(MethodInfo methodInfo)
-        {
-            var parameters = methodInfo.GetParameters();
-            if (parameters == null) return new IParameterInfo[0];
-            return parameters.Select(x => new ParameterInfoWrapper(x)).ToArray();
         }
 
         public IParameterInfo[] GetParameterInfos()

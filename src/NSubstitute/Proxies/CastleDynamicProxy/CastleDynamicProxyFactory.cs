@@ -9,11 +9,13 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 {
     public class CastleDynamicProxyFactory : IProxyFactory
     {
-        readonly ProxyGenerator _proxyGenerator;
-        readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook;
+        private readonly IArgumentSpecificationDequeue _argSpecificationDequeue;
+        private readonly ProxyGenerator _proxyGenerator;
+        private readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook;
 
-        public CastleDynamicProxyFactory()
+        public CastleDynamicProxyFactory(IArgumentSpecificationDequeue argSpecificationDequeue)
         {
+            _argSpecificationDequeue = argSpecificationDequeue;
             _proxyGenerator = new ProxyGenerator();
             _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
         }
@@ -22,7 +24,11 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         {
             VerifyClassHasNotBeenPassedAsAnAdditionalInterface(additionalInterfaces);
 
-            var interceptor = new CastleForwardingInterceptor(new CastleInvocationMapper(), callRouter);
+            var interceptor = new CastleForwardingInterceptor(
+                new CastleInvocationMapper(
+                    new CallFactory(),
+                    _argSpecificationDequeue),
+                callRouter);
             var proxyGenerationOptions = GetOptionsToMixinCallRouter(callRouter);
             var proxy = CreateProxyUsingCastleProxyGenerator(typeToProxy, additionalInterfaces, constructorArguments, interceptor, proxyGenerationOptions);
             interceptor.StartIntercepting();

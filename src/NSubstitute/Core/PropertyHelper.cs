@@ -6,6 +6,13 @@ namespace NSubstitute.Core
 {
     public class PropertyHelper : IPropertyHelper
     {
+        private readonly ICallFactory _callFactory;
+
+        public PropertyHelper(ICallFactory callFactory)
+        {
+            _callFactory = callFactory;
+        }
+        
         public bool IsCallToSetAReadWriteProperty(ICall call)
         {
             var propertySetter = GetPropertyFromSetterCallOrNull(call);
@@ -32,7 +39,7 @@ namespace NSubstitute.Core
             var setterArgs = callToSetter.GetArguments();
             var getter = propertyInfo.GetGetMethod();
             var getterArgs = setterArgs.Take(setterArgs.Length - 1).ToArray();
-            return new Call(getter, getterArgs, callToSetter.Target(), callToSetter.GetArgumentSpecifications());
+            return _callFactory.Create(getter, getterArgs, callToSetter.Target(), callToSetter.GetArgumentSpecifications());
         }
     }
 }
