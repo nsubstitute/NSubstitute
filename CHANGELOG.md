@@ -1,4 +1,7 @@
 ### 4.0.0 (unreleased)
+* [NEW] `Configure()` extension in `NSubstitute.Extensions.ConfigurationExtensions` to
+ensure NSubstitute handles the next call as a configuration/specification. Thanks to Alex Povar
+for this feature. (#350)
 * [UPDATE] Removed NSubstitute.Core.Extensions.Zip (no longer require NET35 support). (#336)
 * [FIX] Restored XML documentation (#345)
 
