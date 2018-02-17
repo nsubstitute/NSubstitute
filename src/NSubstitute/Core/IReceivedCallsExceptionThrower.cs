@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NSubstitute.ReceivedExtensions;
 
 namespace NSubstitute.Core
 {

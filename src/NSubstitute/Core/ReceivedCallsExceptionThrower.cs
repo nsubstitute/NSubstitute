@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
+using NSubstitute.ReceivedExtensions;
 
 namespace NSubstitute.Core
 {
