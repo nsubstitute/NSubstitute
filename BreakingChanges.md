@@ -1,7 +1,7 @@
 4.0.0 Release
 ================
 
-`.Returns` will no longer return previously configured results if an argument matcher is specified (`Arg.Is` or `Arg.Any`).
+Calls made with one or more argument matchers (`Arg.Is` or `Arg.Any`) will no longer return previously configured results. NSubstitute will assume the call is being configured and avoid running logic configured via previous `Returns()` calls.
 
 In most cases this should not affect existing tests, but there are some ambiguously nested configurations involving argument
 matchers that can start to fail after this change.
