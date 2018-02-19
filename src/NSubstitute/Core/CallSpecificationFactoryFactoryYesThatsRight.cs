@@ -35,7 +35,6 @@ namespace NSubstitute.Core
                         new NonParamsArgumentSpecificationFactory(new ArgumentEqualsSpecificationFactory())
                     ),
                     new ParameterInfosFromParamsArrayFactory(),
-                    new SuppliedArgumentSpecificationsFactory(NewDefaultChecker()),
                     new ArrayContentsArgumentSpecificationFactory()
                 );
         }

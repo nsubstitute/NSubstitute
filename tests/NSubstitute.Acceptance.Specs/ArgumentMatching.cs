@@ -226,6 +226,44 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.WithNullableArg(234), Is.EqualTo(123));
         }
 
+        public interface IMethodsWithParamsArgs
+        {
+            int GetValue(int primary, params int[] others);
+        }
+
+        [Test]
+        public void Should_fail_with_ambiguous_exception_if_params_boundary_is_crossed_scenario_1()
+        {
+            var target = Substitute.For<IMethodsWithParamsArgs>();
+
+            Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                target.GetValue(0, Arg.Any<int>()).Returns(42);
+            });
+        }
+
+        [Test]
+        public void Should_fail_with_ambiguous_exception_if_params_boundary_is_crossed_scenario_2()
+        {
+            var target = Substitute.For<IMethodsWithParamsArgs>();
+
+            Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                target.GetValue(Arg.Any<int>(), 0).Returns(42);
+            });
+        }
+
+        [Test]
+        public void Should_correctly_use_matchers_crossing_the_params_boundary()
+        {
+            var target = Substitute.For<IMethodsWithParamsArgs>();
+            target.GetValue(Arg.Is(0), Arg.Any<int>()).Returns(42);
+
+            var result = target.GetValue(0, 100);
+
+            Assert.That(result, Is.EqualTo(42));
+        }
+
         [SetUp]
         public void SetUp()
         {

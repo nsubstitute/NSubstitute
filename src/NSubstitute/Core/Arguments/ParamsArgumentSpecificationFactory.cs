@@ -11,21 +11,18 @@ namespace NSubstitute.Core.Arguments
         private readonly IArgumentEqualsSpecificationFactory _argumentEqualsSpecificationFactory;
         private readonly IArrayArgumentSpecificationsFactory _arrayArgumentSpecificationsFactory;
         private readonly IParameterInfosFromParamsArrayFactory _parameterInfosFromParamsArrayFactory;
-        private readonly ISuppliedArgumentSpecificationsFactory _suppliedArgumentSpecificationsFactory;
         private readonly IArrayContentsArgumentSpecificationFactory _arrayContentsArgumentSpecificationFactory;
 
         public ParamsArgumentSpecificationFactory(IDefaultChecker defaultChecker,
                                                 IArgumentEqualsSpecificationFactory argumentEqualsSpecificationFactory,
                                                 IArrayArgumentSpecificationsFactory arrayArgumentSpecificationsFactory,
                                                 IParameterInfosFromParamsArrayFactory parameterInfosFromParamsArrayFactory,
-                                                ISuppliedArgumentSpecificationsFactory suppliedArgumentSpecificationsFactory,
                                                 IArrayContentsArgumentSpecificationFactory arrayContentsArgumentSpecificationFactory)
         {
             _defaultChecker = defaultChecker;
             _argumentEqualsSpecificationFactory = argumentEqualsSpecificationFactory;
             _arrayArgumentSpecificationsFactory = arrayArgumentSpecificationsFactory;
             _parameterInfosFromParamsArrayFactory = parameterInfosFromParamsArrayFactory;
-            _suppliedArgumentSpecificationsFactory = suppliedArgumentSpecificationsFactory;
             _arrayContentsArgumentSpecificationFactory = arrayContentsArgumentSpecificationFactory;
         }
 
@@ -52,8 +49,7 @@ namespace NSubstitute.Core.Arguments
             else
             {
                 var paramterInfosFromParamsArray = _parameterInfosFromParamsArrayFactory.Create(argument, parameterInfo.ParameterType);
-                var suppliedArgumentSpecificationsFromParamsArray = _suppliedArgumentSpecificationsFactory.Create(suppliedArgumentSpecifications.DequeueRemaining());
-                var arrayArgumentSpecifications = _arrayArgumentSpecificationsFactory.Create(argument, paramterInfosFromParamsArray, suppliedArgumentSpecificationsFromParamsArray);
+                var arrayArgumentSpecifications = _arrayArgumentSpecificationsFactory.Create(argument, paramterInfosFromParamsArray, suppliedArgumentSpecifications);
                 return _arrayContentsArgumentSpecificationFactory.Create(arrayArgumentSpecifications, parameterInfo.ParameterType);
             }
 
