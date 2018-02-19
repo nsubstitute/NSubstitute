@@ -155,6 +155,17 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Should_add_list_of_all_pending_specifications_to_ambiguous_exception_message()
+        {
+            var exception = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                _something.Add(0, Arg.Is(42)).Returns(1);
+            });
+
+            Assert.That(exception.Message, Contains.Substring("42"));
+        }
+
+        [Test]
         public void Returns_should_work_with_params()
         {
             _something.WithParams(Arg.Any<int>(), Arg.Is<string>(x => x == "one")).Returns("fred");
