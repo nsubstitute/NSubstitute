@@ -56,7 +56,8 @@ namespace NSubstitute.Core.Arguments
                 var arrayArgumentSpecifications = _arrayArgumentSpecificationsFactory.Create(argument, paramterInfosFromParamsArray, suppliedArgumentSpecificationsFromParamsArray);
                 return _arrayContentsArgumentSpecificationFactory.Create(arrayArgumentSpecifications, parameterInfo.ParameterType);
             }
-            throw new AmbiguousArgumentsException();
+
+            throw new AmbiguousArgumentsException(suppliedArgumentSpecifications.AllSpecifications);
         }
 
     }

@@ -9,18 +9,19 @@ namespace NSubstitute.Core.Arguments
     {
         private readonly IDefaultChecker _defaultChecker;
         private readonly Queue<IArgumentSpecification> _queue;
-        private readonly List<IArgumentSpecification> _list;
+        public IEnumerable<IArgumentSpecification> AllSpecifications { get; }
 
         public SuppliedArgumentSpecifications(IDefaultChecker defaultChecker, IEnumerable<IArgumentSpecification> argumentSpecifications)
         {
             _defaultChecker = defaultChecker;
-            _list = new List<IArgumentSpecification>(argumentSpecifications);
-            _queue = new Queue<IArgumentSpecification>(_list);
+            AllSpecifications = argumentSpecifications.ToArray();
+            _queue = new Queue<IArgumentSpecification>(AllSpecifications);
         }
+
 
         public bool AnyFor(object argument, Type argumentType)
         {
-            return _list.Any(x => DoesArgSpecLookLikeItCouldBeForThisArgumentAndType(x, argument, argumentType));
+            return AllSpecifications.Any(x => DoesArgSpecLookLikeItCouldBeForThisArgumentAndType(x, argument, argumentType));
         }
 
         public bool IsNextFor(object argument, Type argumentType)
