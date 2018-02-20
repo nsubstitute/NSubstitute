@@ -7,19 +7,16 @@ namespace NSubstitute.Core.Arguments
 {
     public class ParamsArgumentSpecificationFactory : IParamsArgumentSpecificationFactory
     {
-        private readonly IDefaultChecker _defaultChecker;
         private readonly IArgumentEqualsSpecificationFactory _argumentEqualsSpecificationFactory;
         private readonly IArrayArgumentSpecificationsFactory _arrayArgumentSpecificationsFactory;
         private readonly IParameterInfosFromParamsArrayFactory _parameterInfosFromParamsArrayFactory;
         private readonly IArrayContentsArgumentSpecificationFactory _arrayContentsArgumentSpecificationFactory;
 
-        public ParamsArgumentSpecificationFactory(IDefaultChecker defaultChecker,
-                                                IArgumentEqualsSpecificationFactory argumentEqualsSpecificationFactory,
+        public ParamsArgumentSpecificationFactory(IArgumentEqualsSpecificationFactory argumentEqualsSpecificationFactory,
                                                 IArrayArgumentSpecificationsFactory arrayArgumentSpecificationsFactory,
                                                 IParameterInfosFromParamsArrayFactory parameterInfosFromParamsArrayFactory,
                                                 IArrayContentsArgumentSpecificationFactory arrayContentsArgumentSpecificationFactory)
         {
-            _defaultChecker = defaultChecker;
             _argumentEqualsSpecificationFactory = argumentEqualsSpecificationFactory;
             _arrayArgumentSpecificationsFactory = arrayArgumentSpecificationsFactory;
             _parameterInfosFromParamsArrayFactory = parameterInfosFromParamsArrayFactory;
@@ -28,33 +25,29 @@ namespace NSubstitute.Core.Arguments
 
         public IArgumentSpecification Create(object argument, IParameterInfo parameterInfo, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
         {
-            if (_defaultChecker.IsDefault(argument, parameterInfo.ParameterType))
+            // Next specificaion is for the whole params array.
+            if (suppliedArgumentSpecifications.IsNextFor(argument, parameterInfo.ParameterType))
             {
-                if (suppliedArgumentSpecifications.IsNextFor(argument, parameterInfo.ParameterType))
-                {
-                    var argumentSpecification = suppliedArgumentSpecifications.Dequeue();
-                    if (suppliedArgumentSpecifications.DequeueRemaining().Count() == 0)
-                    {
-                        return argumentSpecification;
-                    }
-                }
-                else if (!suppliedArgumentSpecifications.AnyFor(argument, parameterInfo.ParameterType))
-                {
-                    if (suppliedArgumentSpecifications.DequeueRemaining().Count() == 0)
-                    {
-                        return _argumentEqualsSpecificationFactory.Create(argument, parameterInfo.ParameterType);
-                    }
-                }
-            }
-            else
-            {
-                var paramterInfosFromParamsArray = _parameterInfosFromParamsArrayFactory.Create(argument, parameterInfo.ParameterType);
-                var arrayArgumentSpecifications = _arrayArgumentSpecificationsFactory.Create(argument, paramterInfosFromParamsArray, suppliedArgumentSpecifications);
-                return _arrayContentsArgumentSpecificationFactory.Create(arrayArgumentSpecifications, parameterInfo.ParameterType);
+                return suppliedArgumentSpecifications.Dequeue();
             }
 
-            throw new AmbiguousArgumentsException(suppliedArgumentSpecifications.AllSpecifications);
+            // Check whether the specification ambiguity could happen.
+            bool isAmbiguousSpecificationPresent = suppliedArgumentSpecifications.AnyFor(argument, parameterInfo.ParameterType);
+            if (isAmbiguousSpecificationPresent)
+            {
+                throw new AmbiguousArgumentsException(suppliedArgumentSpecifications.AllSpecifications);
+            }
+
+            // User passed "null" as the params array value.
+            if (argument == null)
+            {
+                return _argumentEqualsSpecificationFactory.Create(null, parameterInfo.ParameterType);
+            }
+
+            // User specified arguments using the native params syntax.
+            var paramterInfosFromParamsArray = _parameterInfosFromParamsArrayFactory.Create(argument, parameterInfo.ParameterType);
+            var arrayArgumentSpecifications = _arrayArgumentSpecificationsFactory.Create(argument, paramterInfosFromParamsArray, suppliedArgumentSpecifications);
+            return _arrayContentsArgumentSpecificationFactory.Create(arrayArgumentSpecifications, parameterInfo.ParameterType);
         }
-
     }
 }

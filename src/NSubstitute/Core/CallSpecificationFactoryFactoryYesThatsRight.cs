@@ -14,22 +14,20 @@ namespace NSubstitute.Core
                                 NewParamsArgumentSpecificationFactory(),
                                 NewNonParamsArgumentSpecificationFactory()
                                 ),
-                            new SuppliedArgumentSpecificationsFactory(new ArgumentSpecificationCompatibilityTester(NewDefaultChecker()))
+                            new SuppliedArgumentSpecificationsFactory(
+                                new ArgumentSpecificationCompatibilityTester(
+                                    new DefaultChecker(new DefaultForType())
+                                    )
+                                )
                             )
                         )
                     );
-        }
-
-        private static IDefaultChecker NewDefaultChecker()
-        {
-            return new DefaultChecker(new DefaultForType());
         }
 
         private static IParamsArgumentSpecificationFactory NewParamsArgumentSpecificationFactory()
         {
             return
                 new ParamsArgumentSpecificationFactory(
-                    NewDefaultChecker(),
                     new ArgumentEqualsSpecificationFactory(),
                     new ArrayArgumentSpecificationsFactory(
                         new NonParamsArgumentSpecificationFactory(new ArgumentEqualsSpecificationFactory())

@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.Arguments
@@ -18,7 +17,9 @@ namespace NSubstitute.Core.Arguments
             {
                 return suppliedArgumentSpecifications.Dequeue();
             }
-            if (!suppliedArgumentSpecifications.AnyFor(argument, parameterInfo.ParameterType) || parameterInfo.IsOptional || parameterInfo.IsOut)
+
+            bool isAmbiguousSpecificationPresent = suppliedArgumentSpecifications.AnyFor(argument, parameterInfo.ParameterType);
+            if (!isAmbiguousSpecificationPresent || parameterInfo.IsOptional || parameterInfo.IsOut)
             {
                 return _argumentEqualsSpecificationFactory.Create(argument, parameterInfo.ParameterType);
             }
