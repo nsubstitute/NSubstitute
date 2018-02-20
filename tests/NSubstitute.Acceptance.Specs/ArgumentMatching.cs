@@ -147,11 +147,9 @@ namespace NSubstitute.Acceptance.Specs
             Assert.Throws<AmbiguousArgumentsException>(() =>
                {
                    _something.Add(0, Arg.Any<int>()).Returns(1);
-                   //Should not make it here, as it can't work out which arg the matcher refers to.
-                   //If it does this will throw an AssertionException rather than AmbiguousArgumentsException.
-                   Assert.That(_something.Add(0, 5), Is.EqualTo(1));
-               }
-                );
+                   Assert.Fail("Should not make it here, as it can't work out which arg the matcher refers to." +
+                               "If it does this will throw an AssertionException rather than AmbiguousArgumentsException.");
+               });
         }
 
         [Test]
@@ -262,6 +260,53 @@ namespace NSubstitute.Acceptance.Specs
             var result = target.GetValue(0, 100);
 
             Assert.That(result, Is.EqualTo(42));
+        }
+
+        [Test]
+        public void Should_fail_with_redundant_exception_if_more_specifications_than_arguments_scenario_1()
+        {
+            // This spec will be ignored, however it's good to let user know that test might not work how he expects.
+            Arg.Is(42);
+
+            Assert.Throws<RedundantArgumentMatcherException>(() =>
+            {
+                _something.Echo(10);
+            });
+        }
+
+        [Test]
+        public void Should_fail_with_redundant_exception_if_more_specifications_than_arguments_scenario_2()
+        {
+            // This one will be used instead of Arg.Any<>(), causing the confusion.
+            Arg.Is(42);
+
+            Assert.Throws<RedundantArgumentMatcherException>(() =>
+            {
+                _something.Echo(Arg.Any<int>());
+            });
+        }
+
+        [Test]
+        public void Redundant_argument_matcher_exception_should_contain_list_of_all_matchers()
+        {
+            Arg.Is(42);
+
+            var ex = Assert.Throws<RedundantArgumentMatcherException>(() => { _something.Echo(Arg.Is(24)); });
+            Assert.That(ex.Message, Contains.Substring("42"));
+            Assert.That(ex.Message, Contains.Substring("24"));
+        }
+
+        [Test]
+        public void Should_fail_with_redundant_exceptions_if_arg_matchers_misused()
+        {
+            var foo = Substitute.For<ISomething>();
+
+            var misused = Arg.Is("test");
+
+            Assert.Throws<RedundantArgumentMatcherException>(() =>
+            {
+                foo.Echo(2).Returns("42");
+            });
         }
 
         [SetUp]

@@ -14,7 +14,7 @@ namespace NSubstitute.Core
                                 NewParamsArgumentSpecificationFactory(),
                                 NewNonParamsArgumentSpecificationFactory()
                                 ),
-                            new SuppliedArgumentSpecificationsFactory(NewDefaultChecker())
+                            new SuppliedArgumentSpecificationsFactory(new ArgumentSpecificationCompatibilityTester(NewDefaultChecker()))
                             )
                         )
                     );

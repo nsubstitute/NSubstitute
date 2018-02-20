@@ -1,5 +1,6 @@
 ﻿using System;
 using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using NSubstitute.ReceivedExtensions;
 using NSubstitute.Routing.Handlers;
 
@@ -58,7 +59,7 @@ namespace NSubstitute.Routing
         {
             return new Route(new ICallHandler[] {
                 new RecordCallSpecificationHandler(state.PendingSpecification, state.CallSpecificationFactory, state.CallActions)
-                , new PropertySetterHandler(new PropertyHelper(new CallFactory()), state.ConfigureCall)
+                , new PropertySetterHandler(new PropertyHelper(new CallFactory(), new ArgumentSpecificationCompatibilityTester(new DefaultChecker(new DefaultForType()))), state.ConfigureCall)
                 , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, state.CallSpecificationFactory)
                 , new ReturnFromAndConfigureDynamicCall(state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
@@ -71,7 +72,7 @@ namespace NSubstitute.Routing
                 , new TrackLastCallHandler(state.PendingSpecification)
                 , new RecordCallHandler(state.CallCollection, state.SequenceNumberGenerator)
                 , new EventSubscriptionHandler(state.EventHandlerRegistry)
-                , new PropertySetterHandler(new PropertyHelper(new CallFactory()), state.ConfigureCall)
+                , new PropertySetterHandler(new PropertyHelper(new CallFactory(), new ArgumentSpecificationCompatibilityTester(new DefaultChecker(new DefaultForType()))), state.ConfigureCall)
                 , new DoActionsCallHandler(state.CallActions)
                 , new ReturnConfiguredResultHandler(state.CallResults)
                 , new ReturnResultForTypeHandler(state.ResultsForType)
