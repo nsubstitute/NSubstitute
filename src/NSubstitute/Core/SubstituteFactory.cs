@@ -55,7 +55,6 @@ namespace NSubstitute.Core
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
             var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
             var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);
-            _callRouterResolver.Register(proxy, callRouter);
             return proxy;
         }
 

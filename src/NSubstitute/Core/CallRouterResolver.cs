@@ -1,31 +1,36 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
     public class CallRouterResolver : ICallRouterResolver
     {
-        readonly ConcurrentDictionary<object, ICallRouter> _callRouterMappings = new ConcurrentDictionary<object, ICallRouter>();
-
         public ICallRouter ResolveFor(object substitute)
         {
             if (substitute == null) throw new NullSubstituteReferenceException();
-            if (substitute is ICallRouter) return (ICallRouter)substitute;
-            if (substitute is ICallRouterProvider) return ((ICallRouterProvider) substitute).CallRouter;
-            ICallRouter callRouter;
-            if (_callRouterMappings.TryGetValue(substitute, out callRouter))
+
+            var callRouter = TryGetRouterFromObject(substitute);
+            if (callRouter == null && substitute is Delegate delegateProxy)
             {
-                return callRouter;
+                callRouter = TryGetRouterFromObject(delegateProxy.Target);
             }
-            throw new NotASubstituteException();
+
+            if (callRouter == null)
+                throw new NotASubstituteException();
+
+            return callRouter;
         }
 
-        public void Register(object proxy, ICallRouter callRouter)
+        private static ICallRouter TryGetRouterFromObject(object proxy)
         {
-            if (proxy is ICallRouter) return;
-            if (proxy is ICallRouterProvider) return;
+            switch (proxy)
+            {
+                case ICallRouter callRouter: return callRouter;
 
-            _callRouterMappings.AddOrUpdate(proxy, callRouter, (o,c) => callRouter);
+                case ICallRouterProvider provider: return provider.CallRouter;
+
+                default: return null;
+            }
         }
     }
 }

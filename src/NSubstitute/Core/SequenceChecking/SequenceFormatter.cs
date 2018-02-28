@@ -101,9 +101,24 @@ namespace NSubstitute.Core.SequenceChecking
                 if (!multipleInstances) { return call; }
 
                 var instanceIdentifier = includeInstanceNumber ? _instanceNumber + "@" : "";
-                var declaringType = MethodInfo.DeclaringType;
-                var declaringTypeName = declaringType == typeof (DelegateCall) ? Target.ToString() : declaringType.Name;
+
+                var delegateType = MethodInfo.GetCustomAttribute<ProxiedDelegateTypeAttribute>()?.DelegateType;
+                var declaringTypeName = delegateType != null
+                    ? FormatDelegateTypeName(delegateType)
+                    : MethodInfo.DeclaringType.Name;
                 return string.Format("{1}{0}.{2}", declaringTypeName, instanceIdentifier, call);
+            }
+
+            private static string FormatDelegateTypeName(Type delegateType)
+            {
+                if (!delegateType.GetTypeInfo().IsGenericType)
+                    return delegateType.Name;
+
+                var genericArgs = delegateType.GetGenericArguments();
+                var mangledName = delegateType.Name;
+                return string.Format("{0}<{1}>",
+                    new string(mangledName.TakeWhile(c => c != '`').ToArray()),
+                    string.Join(", ", genericArgs.Select(x => x.Name).ToArray()));
             }
 
             private string Format(CallSpecAndTarget x)
