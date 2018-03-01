@@ -14,7 +14,6 @@ namespace NSubstitute.Core
         readonly ISubstitutionContext _context;
         readonly IRouteFactory _routeFactory;
         IRoute _currentRoute;
-        bool _isSetToDefaultRoute;
 
         public CallRouter(ISubstituteState substituteState, ISubstitutionContext context, IRouteFactory routeFactory)
         {
@@ -25,11 +24,9 @@ namespace NSubstitute.Core
             UseDefaultRouteForNextCall();
         }
 
-        public void SetRoute(Func<ISubstituteState, IRoute> getRoute)
+        public void SetRoute(Func<ISubstituteState, IRoute> routeFactory)
         {
-            var route = getRoute(_substituteState);
-            _isSetToDefaultRoute = route.IsRecordReplayRoute;
-            _currentRoute = route;
+            _currentRoute = routeFactory.Invoke(_substituteState);
         }
 
         public void Clear(ClearOptions options)
@@ -56,12 +53,45 @@ namespace NSubstitute.Core
         public object Route(ICall call)
         {
             _context.LastCallRouter(this);
-            if (_context.IsQuerying) { UseQueryRouteForNextCall(); }
-            else if (IsSpecifyingACall(call)) { UseRecordCallSpecRouteForNextCall(); }
 
-            var routeToUseForThisCall = _currentRoute;
+            IRoute routeToUseForThisCall;
+            if (_context.IsQuerying)
+            {
+                routeToUseForThisCall = GetQueryRoute();
+            }
+            else if (IsSpecifyingACall(call, _currentRoute))
+            {
+                routeToUseForThisCall = GetRecordCallSpecRoute();
+            }
+            else
+            {
+                routeToUseForThisCall = _currentRoute;
+            }
+
             UseDefaultRouteForNextCall();
             return routeToUseForThisCall.Handle(call);
+        }
+
+        private IRoute GetQueryRoute()
+        {
+            return _routeFactory.CallQuery(_substituteState);
+        }
+
+        private static bool IsSpecifyingACall(ICall call, IRoute currentRoute)
+        {
+            var args = call.GetArguments() ?? EmptyArgs;
+            var argSpecs = call.GetArgumentSpecifications() ?? EmptyArgSpecs;
+            return currentRoute.IsRecordReplayRoute && args.Any() && argSpecs.Any();
+        }
+
+        private IRoute GetRecordCallSpecRoute()
+        {
+            return _routeFactory.RecordCallSpecification(_substituteState);
+        }
+
+        private void UseDefaultRouteForNextCall()
+        {
+            SetRoute(x => _routeFactory.RecordReplay(x));
         }
 
         public bool IsLastCallInfoPresent()
@@ -72,28 +102,6 @@ namespace NSubstitute.Core
         public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
         {
             return _substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs);
-        }
-
-        private bool IsSpecifyingACall(ICall call)
-        {
-            var args = call.GetArguments() ?? EmptyArgs;
-            var argSpecs = call.GetArgumentSpecifications() ?? EmptyArgSpecs;
-            return _isSetToDefaultRoute && args.Any() && argSpecs.Any();
-        }
-
-        private void UseDefaultRouteForNextCall()
-        {
-            SetRoute(x => _routeFactory.RecordReplay(x));
-        }
-
-        private void UseRecordCallSpecRouteForNextCall()
-        {
-            SetRoute(x => _routeFactory.RecordCallSpecification(x));
-        }
-
-        private void UseQueryRouteForNextCall()
-        {
-            SetRoute(x => _routeFactory.CallQuery(x));
         }
 
         public void SetReturnForType(Type type, IReturn returnValue)
