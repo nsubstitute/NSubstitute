@@ -80,17 +80,6 @@ namespace NSubstitute.Core
         public void LastCallRouter(ICallRouter callRouter)
         {
             _lastCallRouter.Value = callRouter;
-            RaiseEventIfSet(callRouter);
-        }
-
-        void RaiseEventIfSet(ICallRouter callRouter)
-        {
-            if (_getArgumentsForRaisingEvent.Value != null)
-            {
-                var routes = new RouteFactory();
-                callRouter.SetRoute(x => routes.RaiseEvent(x, _getArgumentsForRaisingEvent.Value));
-                _getArgumentsForRaisingEvent.Value = null;
-            }
         }
 
         public ICallRouter GetCallRouterFor(object substitute)
@@ -113,6 +102,13 @@ namespace NSubstitute.Core
         public void RaiseEventForNextCall(Func<ICall, object[]> getArguments)
         {
             _getArgumentsForRaisingEvent.Value = getArguments;
+        }
+
+        public Func<ICall, object[]> DequeuePendingRaisingEventArguments()
+        {
+            var result = _getArgumentsForRaisingEvent.Value;
+            _getArgumentsForRaisingEvent.Value = null;
+            return result;
         }
 
         public void AddToQuery(object target, ICallSpecification callSpecification)

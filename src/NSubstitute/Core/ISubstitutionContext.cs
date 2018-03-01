@@ -16,6 +16,7 @@ namespace NSubstitute.Core
         void EnqueueArgumentSpecification(IArgumentSpecification spec);
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
         void RaiseEventForNextCall(Func<ICall, object[]> getArguments);
+        Func<ICall, object[]> DequeuePendingRaisingEventArguments();
         IQueryResults RunQuery(Action calls);
         bool IsQuerying { get; }
         void AddToQuery(object target, ICallSpecification callSpecification);
