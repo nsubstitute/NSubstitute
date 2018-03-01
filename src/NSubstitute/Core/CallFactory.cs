@@ -13,11 +13,6 @@ namespace NSubstitute.Core
             var parameterInfos = GetParameterInfoFromMethod(methodInfo);
             return new Call(methodInfo, arguments, target, argumentSpecifications, parameterInfos, baseMethod);
         }
-        
-        public ICall Create(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications, IParameterInfo[] parameterInfos)
-        {
-            return new Call(methodInfo, arguments, target, argumentSpecifications, parameterInfos, baseMethod: null);
-        }
 
         public ICall Create(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications)
         {

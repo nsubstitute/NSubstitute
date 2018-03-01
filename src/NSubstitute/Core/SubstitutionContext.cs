@@ -32,7 +32,7 @@ namespace NSubstitute.Core
             var callRouterFactory = new CallRouterFactory();
             var argSpecificationQueue = new ArgumentSpecificationDequeue(DequeueAllArgumentSpecifications);
             var dynamicProxyFactory = new CastleDynamicProxyFactory(argSpecificationQueue);
-            var delegateFactory = new DelegateProxyFactory(argSpecificationQueue);
+            var delegateFactory = new DelegateProxyFactory(dynamicProxyFactory);
             var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
             var callRouteResolver = new CallRouterResolver();
             _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver);

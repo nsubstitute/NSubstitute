@@ -14,11 +14,11 @@ namespace NSubstitute.Core
 
         public string Format(MethodInfo methodInfo, IEnumerable<string> arguments)
         {
-            if (methodInfo.DeclaringType == typeof (DelegateCall))
-            {
-                return string.Format("Invoke({0})", arguments.Join(", "));
-            }
-            return string.Format("{0}{1}({2})", methodInfo.Name, FormatGenericType(methodInfo), arguments.Join(", "));
+            var args = string.Join(", ", arguments);
+
+            return IsDelegateProxy(methodInfo)
+                ? string.Format("Invoke({0})", args)
+                : string.Format("{0}{1}({2})", methodInfo.Name, FormatGenericType(methodInfo), args);
         }
 
         private string FormatGenericType(MethodInfo methodInfoOfCall)
@@ -26,6 +26,11 @@ namespace NSubstitute.Core
             if (!methodInfoOfCall.IsGenericMethod) return string.Empty;
             var genericArgs = methodInfoOfCall.GetGenericArguments();
             return "<" + string.Join(", ", genericArgs.Select(x => x.Name).ToArray()) + ">";
+        }
+
+        private static bool IsDelegateProxy(MethodInfo methodInfo)
+        {
+            return methodInfo.GetCustomAttribute<ProxiedDelegateTypeAttribute>() != null;
         }
     }
 }

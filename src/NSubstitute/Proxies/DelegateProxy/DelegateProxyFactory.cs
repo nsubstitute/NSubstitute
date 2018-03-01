@@ -1,8 +1,10 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
+using System.Reflection.Emit;
+using System.Threading;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
@@ -10,11 +12,20 @@ namespace NSubstitute.Proxies.DelegateProxy
 {
     public class DelegateProxyFactory : IProxyFactory
     {
-        private readonly IArgumentSpecificationDequeue _argSpecificationDequeue;
+        private const string MethodNameInsideProxyContainer = "Invoke";
+        private readonly IProxyFactory _objectProxyFactory;
+        private readonly ModuleBuilder _moduleBuilder;
+        private readonly ConcurrentDictionary<Type, Type> _delegateContainerCache = new ConcurrentDictionary<Type, Type>();
+        private long _typeSuffixCounter;
 
-        public DelegateProxyFactory(IArgumentSpecificationDequeue argSpecificationDequeue)
+        public DelegateProxyFactory(IProxyFactory objectProxyFactory)
         {
-            _argSpecificationDequeue = argSpecificationDequeue;
+            _objectProxyFactory = objectProxyFactory;
+
+            const string dynamicAssemblyName = "NSubsituteDelegateProxyTypes";
+            _moduleBuilder = AssemblyBuilder
+                .DefineDynamicAssembly(new AssemblyName(dynamicAssemblyName), AssemblyBuilderAccess.Run)
+                .DefineDynamicModule(dynamicAssemblyName);
         }
         
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
@@ -22,7 +33,8 @@ namespace NSubstitute.Proxies.DelegateProxy
             if (HasItems(additionalInterfaces))
             {
                 throw new SubstituteException(
-                    "Can not specify additional interfaces when substituting for a delegate. You must specify only a single delegate type if you need to substitute for a delegate.");
+                    "Can not specify additional interfaces when substituting for a delegate. " +
+                    "You must specify only a single delegate type if you need to substitute for a delegate.");
             }
             if (HasItems(constructorArguments))
             {
@@ -39,44 +51,35 @@ namespace NSubstitute.Proxies.DelegateProxy
 
         private object DelegateProxy(Type delegateType, ICallRouter callRouter)
         {
-            var delegateMethodToProxy = delegateType.GetMethod("Invoke");
+            var delegateContainer = _delegateContainerCache.GetOrAdd(delegateType, GenerateDelegateContainerInterface);
+            var invokeMethod = delegateContainer.GetMethod(MethodNameInsideProxyContainer);
 
-            var proxyParameterTypes = delegateMethodToProxy.GetParameters().Select(x => new ParameterInfoWrapper(x)).ToArray();
-            var delegateCall = new DelegateCall(callRouter, delegateType, delegateMethodToProxy.ReturnType, proxyParameterTypes, new CallFactory(), _argSpecificationDequeue);
-            var invokeOnDelegateCall = delegateCall.MethodToInvoke;
+            var proxy = _objectProxyFactory.GenerateProxy(callRouter, delegateContainer, Type.EmptyTypes, null);
+            return invokeMethod.CreateDelegate(delegateType, proxy);
+        }
 
-            ParameterExpression[] proxyParameters = delegateMethodToProxy.GetParameters().Select(x => Expression.Parameter(x.ParameterType, x.Name)).ToArray();
-            Expression[] proxyParametersAsObjects = proxyParameters.Select(x => (Expression)Expression.Convert(x, typeof(object))).ToArray();
-            var bodyExpressions = new List<Expression>();
-            bool isVoid = delegateMethodToProxy.ReturnType == typeof(void);
-            var arguments = Expression.Variable(typeof(object[]), "arguments");
-            var result = isVoid ? null : Expression.Variable(delegateMethodToProxy.ReturnType, "result");
-            bodyExpressions.Add(Expression.Assign(arguments, Expression.NewArrayInit(typeof(object), proxyParametersAsObjects)));
+        private Type GenerateDelegateContainerInterface(Type delegateType)
+        {
+            var delegateSignature = delegateType.GetMethod("Invoke");
 
-            Expression callInvokeOnDelegateCallInstance = Expression.Call(Expression.Constant(delegateCall), invokeOnDelegateCall, arguments);
+            var typeSuffixCounter = Interlocked.Increment(ref _typeSuffixCounter);
+            var typeName = "DelegateContainer_" + typeSuffixCounter.ToString(CultureInfo.InvariantCulture);
 
-            if (!isVoid)
-            {
-                callInvokeOnDelegateCallInstance = Expression.Assign(result, Expression.Convert(callInvokeOnDelegateCallInstance, delegateMethodToProxy.ReturnType));
-            }
+            var typeBuilder = _moduleBuilder.DefineType( typeName, TypeAttributes.Abstract | TypeAttributes.Interface | TypeAttributes.Public);
+            var methodBuilder = typeBuilder
+                .DefineMethod(
+                    MethodNameInsideProxyContainer,
+                    MethodAttributes.Abstract | MethodAttributes.Virtual | MethodAttributes.Public,
+                    delegateSignature.ReturnType,
+                    delegateSignature.GetParameters().Select(p => p.ParameterType).ToArray());
 
-            bodyExpressions.Add(callInvokeOnDelegateCallInstance);
+            // Preserve the original delegate type in attribute, so it can be retrieved later in code.
+            methodBuilder.SetCustomAttribute(
+                new CustomAttributeBuilder(
+                    typeof(ProxiedDelegateTypeAttribute).GetConstructors().Single(),
+                    new object[] {delegateType}));
 
-            for (var index = 0; index < proxyParameters.Length; index++)
-            {
-                var parameter = proxyParameters[index];
-                if (parameter.IsByRef)
-                {
-                    var assignment = Expression.Assign(parameter, Expression.Convert(Expression.ArrayAccess(arguments, Expression.Constant(index)), parameter.Type));
-                    bodyExpressions.Add(assignment);
-                }
-            }
-
-            if (!isVoid) bodyExpressions.Add(result);
-
-            var variables = isVoid ? new[] { arguments } : new[] { arguments, result };
-            var proxyExpression = Expression.Lambda(delegateType, Expression.Block(variables, bodyExpressions), proxyParameters);
-            return proxyExpression.Compile();
+            return typeBuilder.CreateTypeInfo().AsType();
         }
     }
 }
