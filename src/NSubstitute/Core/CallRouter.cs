@@ -54,10 +54,16 @@ namespace NSubstitute.Core
         {
             _context.LastCallRouter(this);
 
+            var pendingRaisingEventArgs = _context.DequeuePendingRaisingEventArguments();
+
             IRoute routeToUseForThisCall;
             if (_context.IsQuerying)
             {
                 routeToUseForThisCall = GetQueryRoute();
+            }
+            else if (pendingRaisingEventArgs != null)
+            {
+                routeToUseForThisCall = GetRaiseEventRoute(pendingRaisingEventArgs);
             }
             else if (IsSpecifyingACall(call, _currentRoute))
             {
@@ -75,6 +81,11 @@ namespace NSubstitute.Core
         private IRoute GetQueryRoute()
         {
             return _routeFactory.CallQuery(_substituteState);
+        }
+
+        private IRoute GetRaiseEventRoute(Func<ICall, object[]> argumentsFactory)
+        {
+            return _routeFactory.RaiseEvent(_substituteState, argumentsFactory);
         }
 
         private static bool IsSpecifyingACall(ICall call, IRoute currentRoute)
