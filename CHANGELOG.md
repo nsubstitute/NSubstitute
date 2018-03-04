@@ -1,4 +1,6 @@
 ### 4.0.0 (unreleased)
+* [NEW][BREAKING] Detection of unused argument matchers. This helps to identify errors in tests
+due to incorrectly used argument matchers. Thanks to Alex Povar for this change. (#361, #89, #279)
 * [NEW] `Configure()` extension in `NSubstitute.Extensions.ConfigurationExtensions` to
 ensure NSubstitute handles the next call as a configuration/specification. Thanks to Alex Povar
 for this feature. (#350)

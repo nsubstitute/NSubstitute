@@ -1,6 +1,14 @@
 4.0.0 Release
 ================
 
+Unused argument matchers (`Arg.Is`, `Arg.Any`) will now throw an exception. This normally occurs if an argument matcher was used with a non-virtual call, or with an object that is not a substitute. This may cause existing tests to fail if they were misusing argument matchers in a way that did not cause an obvious problem.
+
+Reason: Previously these were ignored, which could cause confusing test failures in subsequent tests. Now these cases should be picked up earlier and make finding the problem easier. See #89 and #279 for examples.
+
+Workaround: Follow the instructions in the exception to fix any instances of this problem. Note that the cause of this exception can be in a previously executed test.
+
+---------------
+
 Calls made with one or more argument matchers (`Arg.Is` or `Arg.Any`) will no longer return previously configured results. NSubstitute will assume the call is being configured and avoid running logic configured via previous `Returns()` calls.
 
 In most cases this should not affect existing tests, but there are some ambiguously nested configurations involving argument
