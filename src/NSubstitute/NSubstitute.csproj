@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>NSubstitute is a friendly substitute for .NET mocking frameworks. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
     <Version>3.0.0</Version>
-    <Authors>Anthony Egerton;David Tchepak;Alexandr Nikitin</Authors>
+    <Authors>Anthony Egerton;David Tchepak;Alexandr Nikitin;Alex Povar</Authors>
     <TargetFrameworks>netstandard1.3;net46;net45</TargetFrameworks>
     <AssemblyName>NSubstitute</AssemblyName>
     <PackageId>NSubstitute</PackageId>
