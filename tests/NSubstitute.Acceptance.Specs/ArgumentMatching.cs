@@ -300,19 +300,6 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Should_fail_with_redundant_exception_if_more_specifications_than_arguments_scenario_4()
-        {
-            // This spec will be ignored, however it's good to let user know that test might not work how he expects.
-            Arg.Is(42);
-
-            // TODO: What is the expected behavior here??
-            Assert.Throws<RedundantArgumentMatcherException>(() =>
-            {
-                var _ = _something.SomeProperty;
-            });
-        }
-
-        [Test]
         public void Redundant_argument_matcher_exception_should_contain_list_of_all_matchers()
         {
             Arg.Is(42);
