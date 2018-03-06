@@ -130,7 +130,7 @@ namespace NSubstitute.Core.SequenceChecking
             {
                 var methodInfo = call.GetMethodInfo();
                 var args = methodInfo.GetParameters()
-                            .Zip(call.GetArguments(), (p, a) => new ArgAndParamInfo(p, a))
+                            .Zip(call.GetOriginalArguments(), (p, a) => new ArgAndParamInfo(p, a))
                             .ToArray();
                 return _callFormatter.Format(methodInfo, FormatArgs(args));
             }

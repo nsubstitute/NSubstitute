@@ -42,7 +42,7 @@ namespace NSubstitute.Core
             }
 
             var getter = propertyInfo.GetGetMethod();
-            var getterArgs = SkipLast(callToSetter.GetArguments());
+            var getterArgs = SkipLast(callToSetter.GetOriginalArguments());
             var getterArgumentSpecifications = GetGetterCallSpecificationsFromSetterCall(callToSetter);
 
             return _callFactory.Create(getter, getterArgs, callToSetter.Target(), getterArgumentSpecifications);

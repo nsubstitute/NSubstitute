@@ -90,7 +90,7 @@ namespace NSubstitute.Core
 
         private static bool IsSpecifyingACall(ICall call, IRoute currentRoute)
         {
-            var args = call.GetArguments() ?? EmptyArgs;
+            var args = call.GetOriginalArguments() ?? EmptyArgs;
             var argSpecs = call.GetArgumentSpecifications() ?? EmptyArgSpecs;
             return currentRoute.IsRecordReplayRoute && args.Any() && argSpecs.Any();
         }
