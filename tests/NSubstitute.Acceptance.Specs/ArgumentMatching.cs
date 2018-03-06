@@ -312,6 +312,7 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Should_fail_with_redundant_exception_if_more_specifications_than_arguments_scenario_4()
         {
+            _something.SomeProperty = 2;
             // This spec will be ignored, however it's good to let user know that test might not work how he expects.
             Arg.Is(42);
 
