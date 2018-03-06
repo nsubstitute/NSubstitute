@@ -12,6 +12,7 @@
         int WithNullableArg(int? a);
         SomeClass SomeAction();
         SomeClass SomeActionWithParams(int i, string s);
+        int SomeProperty { get; set; }
 
         object this[string key] { get; set; }
         System.Threading.Tasks.Task Async();

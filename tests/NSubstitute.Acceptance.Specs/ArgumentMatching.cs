@@ -59,6 +59,16 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Return_result_for_property_argument()
+        {
+            _something.SomeProperty = 2;
+            _something.Echo(_something.SomeProperty).Returns("two");
+
+            Assert.That(_something.Echo(1), Is.EqualTo(""), "First return");
+            Assert.That(_something.Echo(2), Is.EqualTo("two"), "Second return");
+        }
+
+        [Test]
         public void Received_for_any_argument()
         {
             _something.Echo(7);
@@ -284,6 +294,33 @@ namespace NSubstitute.Acceptance.Specs
             {
                 _something.Echo(Arg.Any<int>());
             });
+        }
+
+        [Test]
+        public void Should_fail_with_redundant_exception_if_more_specifications_than_arguments_scenario_3()
+        {
+            // This spec will be ignored, however it's good to let user know that test might not work how he expects.
+            Arg.Is(42);
+
+            var ex = Assert.Throws<RedundantArgumentMatcherException>(() =>
+            {
+                _something.SomeProperty = 24;
+            });
+            Assert.That(ex.Message, Contains.Substring("42"));
+        }
+
+        [Test]
+        public void Should_fail_with_redundant_exception_if_more_specifications_than_arguments_scenario_4()
+        {
+            _something.SomeProperty = 2;
+            // This spec will be ignored, however it's good to let user know that test might not work how he expects.
+            Arg.Is(42);
+
+            var ex = Assert.Throws<RedundantArgumentMatcherException>(() =>
+            {
+                _something.Echo(_something.SomeProperty);
+            });
+            Assert.That(ex.Message, Contains.Substring("42"));
         }
 
         [Test]
