@@ -16,8 +16,8 @@ A call can be configured to return a value regardless of the arguments passed us
 
 {% examplecode csharp %}
 calculator.Add(1, 2).ReturnsForAnyArgs(100); 
-Assert.AreEqual(calculator.Add(1, 2), 100);
-Assert.AreEqual(calculator.Add(-7, 15), 100);
+Assert.AreEqual(100, calculator.Add(1, 2));
+Assert.AreEqual(100, calculator.Add(-7, 15));
 {% endexamplecode %}
 
 The same behaviour can also be achieved using [argument matchers](/help/argument-matchers): it is simply a shortcut for replacing each argument with `Arg.Any<T>()`.
