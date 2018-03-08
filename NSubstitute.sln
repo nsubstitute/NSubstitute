@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		BreakingChanges.md = BreakingChanges.md
 		CHANGELOG.md = CHANGELOG.md
 		README.md = README.md
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstitute.Acceptance.Specs", "tests\NSubstitute.Acceptance.Specs\NSubstitute.Acceptance.Specs.csproj", "{8C2300AA-F94C-4005-A359-257C5EAD338E}"
