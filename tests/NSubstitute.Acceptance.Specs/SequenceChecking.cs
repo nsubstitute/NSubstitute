@@ -285,6 +285,36 @@ namespace NSubstitute.Acceptance.Specs
             });
         }
 
+        /// <summary>
+        /// We might modify value during the call, however we always match call using the original arguments.
+        /// Therefore, it's expected to see the original argument value in the exception message.
+        /// </summary>
+        [Test]
+        public void Should_use_original_call_arguments_for_exception_message()
+        {
+            var sut = Substitute.For<IMethodWithByRef>();
+            int fortyTwo = 42;
+            sut
+                .When(c => c.MethodWithRef(ref fortyTwo))
+                .Do(c => c[0] = 100);
+
+            sut.SimpleMethod();
+            fortyTwo = 42;
+            sut.MethodWithRef(ref fortyTwo);
+
+            var ex = Assert.Throws<CallSequenceNotFoundException>(() =>
+            {
+                Received.InOrder(() =>
+                {
+                    fortyTwo = 42;
+                    sut.MethodWithRef(ref fortyTwo);
+                    sut.SimpleMethod();
+                });
+            });
+            var actualOrderMessagePart = ex.Message.Substring(ex.Message.IndexOf("Actually", StringComparison.Ordinal));
+            Assert.That(actualOrderMessagePart, Contains.Substring("MethodWithRef(42)"));
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -313,6 +343,12 @@ namespace NSubstitute.Acceptance.Specs
             string Flurgle { get; set; }
             void Wurgle();
             void Slurgle();
+        }
+
+        public interface IMethodWithByRef
+        {
+            int SimpleMethod();
+            int MethodWithRef(ref int arg);
         }
     }
 }
