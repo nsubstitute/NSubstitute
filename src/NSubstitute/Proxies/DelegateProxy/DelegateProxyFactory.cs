@@ -60,6 +60,14 @@ namespace NSubstitute.Proxies.DelegateProxy
 
         private Type GenerateDelegateContainerInterface(Type delegateType)
         {
+            lock (_moduleBuilder)
+            {
+                return GenerateDelegateContainerInterfaceNoLock(delegateType);
+            }
+        }
+
+        private Type GenerateDelegateContainerInterfaceNoLock(Type delegateType)
+        {
             var delegateSignature = delegateType.GetMethod("Invoke");
 
             var typeSuffixCounter = Interlocked.Increment(ref _typeSuffixCounter);
