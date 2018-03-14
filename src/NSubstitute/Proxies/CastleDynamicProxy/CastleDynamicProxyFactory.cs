@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
@@ -33,6 +34,15 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             var proxy = CreateProxyUsingCastleProxyGenerator(typeToProxy, additionalInterfaces, constructorArguments, interceptor, proxyGenerationOptions);
             interceptor.StartIntercepting();
             return proxy;
+        }
+
+        /// <summary>
+        /// Allows to dynamically create a type in runtime. Returns an instance of <see cref="TypeBuilder"/>,
+        /// so type could be customized and built later.
+        /// </summary>
+        public TypeBuilder DefineDynamicType(string typeName, TypeAttributes flags)
+        {
+            return _proxyGenerator.ProxyBuilder.ModuleScope.DefineType(true, typeName, flags);
         }
 
         private object CreateProxyUsingCastleProxyGenerator(Type typeToProxy, Type[] additionalInterfaces,

@@ -85,6 +85,18 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
+        [Test]
+        public void Delegate_proxy_container_is_cached()
+        {
+            var subs1 = Substitute.For<Func<int, byte>>();
+            var subs2 = Substitute.For<Func<int, byte>>();
+
+            var containerType1 = subs1.Target.GetType();
+            var containerType2 = subs2.Target.GetType();
+
+            Assert.That(containerType1, Is.EqualTo(containerType2));
+        }
+
         public interface IFoo { int GetInt(string s); }
         public interface IBar { int GetInt<T>(T t); }
         public interface IByteArraySource { byte[] GetArray(); }
