@@ -56,6 +56,7 @@ namespace NSubstitute.Proxies.DelegateProxy
         private Type GenerateDelegateContainerInterface(Type delegateType)
         {
             var delegateSignature = delegateType.GetMethod("Invoke");
+            var delegateParameters = delegateSignature.GetParameters();
 
             var typeSuffixCounter = Interlocked.Increment(ref _typeSuffixCounter);
             var delegateTypeName = delegateType.GetTypeInfo().IsGenericType
@@ -75,7 +76,14 @@ namespace NSubstitute.Proxies.DelegateProxy
                     MethodNameInsideProxyContainer,
                     MethodAttributes.Abstract | MethodAttributes.Virtual | MethodAttributes.Public,
                     delegateSignature.ReturnType,
-                    delegateSignature.GetParameters().Select(p => p.ParameterType).ToArray());
+                    delegateParameters.Select(p => p.ParameterType).ToArray());
+
+            // Copy original method attributes, so "out" parameters are recognized later.
+            for (var i = 0; i < delegateParameters.Length; i++)
+            {
+                // Increment position by 1 to skip the implicit "this" parameter.
+                methodBuilder.DefineParameter(i + 1, delegateParameters[i].Attributes, delegateParameters[i].Name);
+            }
 
             // Preserve the original delegate type in attribute, so it can be retrieved later in code.
             methodBuilder.SetCustomAttribute(

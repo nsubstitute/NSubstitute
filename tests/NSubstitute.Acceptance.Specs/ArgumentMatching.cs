@@ -346,6 +346,19 @@ namespace NSubstitute.Acceptance.Specs
             });
         }
 
+        public delegate string DelegateWithOutParameter(string input, out string result);
+
+        [Test]
+        public void Should_recognize_out_parameters_for_delegate_and_match_specification()
+        {
+            var subs = Substitute.For<DelegateWithOutParameter>();
+
+            subs.Invoke(Arg.Any<string>(), out string _).Returns("42");
+
+            var result = subs("foo", out string _);
+            Assert.That(result, Is.EqualTo("42"));
+        }
+
         [SetUp]
         public void SetUp()
         {
