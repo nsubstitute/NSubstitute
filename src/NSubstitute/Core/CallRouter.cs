@@ -112,7 +112,7 @@ namespace NSubstitute.Core
 
         public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
         {
-            return _substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs);
+            return _substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs, _threadContext.PendingSpecification);
         }
 
         public void SetReturnForType(Type type, IReturn returnValue)

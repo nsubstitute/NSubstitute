@@ -15,7 +15,7 @@ namespace NSubstitute.Core
 
         public ICallRouter Create(SubstituteConfig config, IThreadLocalContext threadContext, ISubstituteFactory substituteFactory)
         {
-            var substituteState = new SubstituteState(threadContext, config, _sequenceNumberGenerator, substituteFactory);
+            var substituteState = new SubstituteState(config, _sequenceNumberGenerator, substituteFactory);
             return new CallRouter(substituteState, threadContext, _routeFactory);
         }
     }

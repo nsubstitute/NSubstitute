@@ -20,7 +20,6 @@ namespace NSubstitute.Core
         public ICustomHandlers CustomHandlers { get; }
 
         public SubstituteState(
-            IThreadLocalContext threadContext,
             SubstituteConfig option,
             SequenceNumberGenerator sequenceNumberGenerator,
             ISubstituteFactory substituteFactory)
@@ -40,7 +39,7 @@ namespace NSubstitute.Core
             CallBaseExclusions = new CallBaseExclusions();
             ResultsForType = new ResultsForType(callInfoFactory);
             CustomHandlers = new CustomHandlers(this);
-            var getCallSpec = new GetCallSpec(callCollection, threadContext.PendingSpecification, CallSpecificationFactory, CallActions);
+            var getCallSpec = new GetCallSpec(callCollection, CallSpecificationFactory, CallActions);
             ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec);
             EventHandlerRegistry = new EventHandlerRegistry();
 

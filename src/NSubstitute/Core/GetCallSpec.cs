@@ -5,27 +5,24 @@ namespace NSubstitute.Core
     public class GetCallSpec : IGetCallSpec
     {
         private readonly ICallCollection _callCollection;
-        private readonly IPendingSpecification _pendingSpecification;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly ICallActions _callActions;
 
-        public GetCallSpec(ICallCollection callCollection, IPendingSpecification pendingSpecification,
-            ICallSpecificationFactory callSpecificationFactory, ICallActions callActions)
+        public GetCallSpec(ICallCollection callCollection, ICallSpecificationFactory callSpecificationFactory, ICallActions callActions)
         {
             _callCollection = callCollection;
-            _pendingSpecification = pendingSpecification;
             _callSpecificationFactory = callSpecificationFactory;
             _callActions = callActions;
         }
 
-        public ICallSpecification FromPendingSpecification(MatchArgs matchArgs)
+        public ICallSpecification FromPendingSpecification(MatchArgs matchArgs, IPendingSpecification pendingSpecification)
         {
-            if (!_pendingSpecification.HasPendingCallSpecInfo())
+            if (!pendingSpecification.HasPendingCallSpecInfo())
             {
                 throw new InvalidOperationException("No pending specification or previous call info.");
             }
 
-            var pendingSpecInfo = _pendingSpecification.UseCallSpecInfo();
+            var pendingSpecInfo = pendingSpecification.UseCallSpecInfo();
             return pendingSpecInfo.Handle(
                 callSpec => FromExistingSpec(callSpec, matchArgs),
                 lastCall =>
