@@ -4,36 +4,35 @@ namespace NSubstitute.Core
 {
     public class SubstituteState : ISubstituteState
     {
-        public ISubstitutionContext SubstitutionContext { get; private set; }
         public ICallCollection CallCollection { get; }
-        public IReceivedCalls ReceivedCalls { get; private set; }
-        public IPendingSpecification PendingSpecification { get; }
-        public ICallResults CallResults { get; private set; }
-        public ICallSpecificationFactory CallSpecificationFactory { get; private set; }
-        public ICallActions CallActions { get; private set; }
-        public ICallBaseExclusions CallBaseExclusions { get; private set; }
+        public IReceivedCalls ReceivedCalls { get; }
+        public ICallResults CallResults { get; }
+        public ICallSpecificationFactory CallSpecificationFactory { get; }
+        public ICallActions CallActions { get; }
+        public ICallBaseExclusions CallBaseExclusions { get; }
         public SubstituteConfig SubstituteConfig { get; set; }
-        public SequenceNumberGenerator SequenceNumberGenerator { get; private set; }
-        public IConfigureCall ConfigureCall { get; private set; }
-        public IEventHandlerRegistry EventHandlerRegistry { get; private set; }
-        public IAutoValueProvider[] AutoValueProviders { get; private set; }
+        public SequenceNumberGenerator SequenceNumberGenerator { get; }
+        public IConfigureCall ConfigureCall { get; }
+        public IEventHandlerRegistry EventHandlerRegistry { get; }
+        public IAutoValueProvider[] AutoValueProviders { get; }
         public ICallResults AutoValuesCallResults { get; }
-        public IResultsForType ResultsForType { get; private set; }
+        public IResultsForType ResultsForType { get; }
         public ICustomHandlers CustomHandlers { get; }
 
-        public SubstituteState(ISubstitutionContext substitutionContext, SubstituteConfig option)
+        public SubstituteState(
+            IThreadLocalContext threadContext,
+            SubstituteConfig option,
+            SequenceNumberGenerator sequenceNumberGenerator,
+            ISubstituteFactory substituteFactory)
         {
-            SubstitutionContext = substitutionContext;
             SubstituteConfig = option;
-            SequenceNumberGenerator = substitutionContext.SequenceNumberGenerator;
-            var substituteFactory = substitutionContext.SubstituteFactory;
+            SequenceNumberGenerator = sequenceNumberGenerator;
             var callInfoFactory = new CallInfoFactory();
 
             var callCollection = new CallCollection();
             CallCollection = callCollection;
             ReceivedCalls = callCollection;
 
-            PendingSpecification = new PendingSpecification(substitutionContext);
             CallResults = new CallResults(callInfoFactory);
             AutoValuesCallResults = new CallResults(callInfoFactory);
             CallSpecificationFactory = CallSpecificationFactoryFactoryYesThatsRight.CreateCallSpecFactory();
@@ -41,7 +40,7 @@ namespace NSubstitute.Core
             CallBaseExclusions = new CallBaseExclusions();
             ResultsForType = new ResultsForType(callInfoFactory);
             CustomHandlers = new CustomHandlers(this);
-            var getCallSpec = new GetCallSpec(callCollection, PendingSpecification, CallSpecificationFactory, CallActions);
+            var getCallSpec = new GetCallSpec(callCollection, threadContext.PendingSpecification, CallSpecificationFactory, CallActions);
             ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec);
             EventHandlerRegistry = new EventHandlerRegistry();
 

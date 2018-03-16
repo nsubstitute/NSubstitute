@@ -11,14 +11,14 @@ namespace NSubstitute.Core
         static readonly object[] EmptyArgs = new object[0];
         static readonly IList<IArgumentSpecification> EmptyArgSpecs = new List<IArgumentSpecification>();
         readonly ISubstituteState _substituteState;
-        readonly ISubstitutionContext _context;
+        readonly IThreadLocalContext _threadContext;
         readonly IRouteFactory _routeFactory;
         IRoute _currentRoute;
 
-        public CallRouter(ISubstituteState substituteState, ISubstitutionContext context, IRouteFactory routeFactory)
+        public CallRouter(ISubstituteState substituteState, IThreadLocalContext threadContext, IRouteFactory routeFactory)
         {
             _substituteState = substituteState;
-            _context = context;
+            _threadContext = threadContext;
             _routeFactory = routeFactory;
 
             UseDefaultRouteForNextCall();
@@ -52,12 +52,12 @@ namespace NSubstitute.Core
 
         public object Route(ICall call)
         {
-            _context.LastCallRouter(this);
+            _threadContext.SetLastCallRouter(this);
 
-            var pendingRaisingEventArgs = _context.DequeuePendingRaisingEventArguments();
+            var pendingRaisingEventArgs = _threadContext.UsePendingRaisingEventArgumentsFactory();
 
             IRoute routeToUseForThisCall;
-            if (_context.IsQuerying)
+            if (_threadContext.IsQuerying)
             {
                 routeToUseForThisCall = GetQueryRoute();
             }
@@ -107,7 +107,7 @@ namespace NSubstitute.Core
 
         public bool IsLastCallInfoPresent()
         {
-            return _substituteState.PendingSpecification.HasPendingCallSpecInfo();
+            return _threadContext.PendingSpecification.HasPendingCallSpecInfo();
         }
 
         public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)

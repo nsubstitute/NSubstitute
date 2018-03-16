@@ -4,10 +4,8 @@ namespace NSubstitute.Core
 {
     public interface ISubstituteState
     {
-        ISubstitutionContext SubstitutionContext { get; }
         ICallCollection CallCollection { get; }
         IReceivedCalls ReceivedCalls { get; }
-        IPendingSpecification PendingSpecification { get; }
         ICallResults CallResults { get; }
         ICallSpecificationFactory CallSpecificationFactory { get; }
         ICallActions CallActions { get; }

@@ -17,7 +17,7 @@ namespace NSubstitute.ReceivedExtensions
         {
             var context = SubstitutionContext.Current;
             var router = context.GetCallRouterFor(substitute);
-            var routeFactory = context.GetRouteFactory();
+            var routeFactory = context.RouteFactory;
             router.SetRoute(x => routeFactory.CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, requiredQuantity));
             return substitute;
         }
@@ -33,7 +33,7 @@ namespace NSubstitute.ReceivedExtensions
         {
             var context = SubstitutionContext.Current;
             var router = context.GetCallRouterFor(substitute);
-            var routeFactory = context.GetRouteFactory();
+            var routeFactory = context.RouteFactory;
             router.SetRoute(x => routeFactory.CheckReceivedCalls(x, MatchArgs.Any, requiredQuantity));
             return substitute;
         }

@@ -23,7 +23,7 @@ namespace NSubstitute.Extensions
         {
             var context = SubstitutionContext.Current;
             var router = context.GetCallRouterFor(substitute);
-            var routeFactory = context.GetRouteFactory();
+            var routeFactory = context.RouteFactory;
 
             router.SetRoute(state => routeFactory.RecordCallSpecification(state));
 
