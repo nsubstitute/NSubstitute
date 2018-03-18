@@ -105,14 +105,13 @@ namespace NSubstitute.Core
             SetRoute(x => _routeFactory.RecordReplay(x));
         }
 
-        public bool IsLastCallInfoPresent()
+        public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs, PendingSpecificationInfo pendingSpecInfo)
         {
-            return _threadContext.PendingSpecification.HasPendingCallSpecInfo();
-        }
+            if (returnValue == null) throw new ArgumentNullException(nameof(returnValue));
+            if (matchArgs == null) throw new ArgumentNullException(nameof(matchArgs));
+            if (pendingSpecInfo == null) throw new ArgumentNullException(nameof(pendingSpecInfo));
 
-        public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs)
-        {
-            return _substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs, _threadContext.PendingSpecification);
+            return _substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs, pendingSpecInfo);
         }
 
         public void SetReturnForType(Type type, IReturn returnValue)

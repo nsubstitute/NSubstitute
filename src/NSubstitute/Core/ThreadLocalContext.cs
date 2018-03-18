@@ -41,8 +41,12 @@ namespace NSubstitute.Core
         public ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
         {
             var lastCallRouter = _lastCallRouter.Value;
-            if (lastCallRouter == null) throw new CouldNotSetReturnDueToNoLastCallException();
-            if (!lastCallRouter.IsLastCallInfoPresent()) throw new CouldNotSetReturnDueToMissingInfoAboutLastCallException();
+            if (lastCallRouter == null)
+                throw new CouldNotSetReturnDueToNoLastCallException();
+
+            if(!PendingSpecification.HasPendingCallSpecInfo())
+               throw new CouldNotSetReturnDueToMissingInfoAboutLastCallException();
+
             if (_argumentSpecifications.Value.Any())
             {
                 // Clear invalid arg specs so they will not affect other tests.
@@ -50,7 +54,8 @@ namespace NSubstitute.Core
                 throw new UnexpectedArgumentMatcherException();
             }
 
-            var configuredCall = lastCallRouter.LastCallShouldReturn(value, matchArgs);
+            var pendingSpecInfo = PendingSpecification.UseCallSpecInfo();
+            var configuredCall = lastCallRouter.LastCallShouldReturn(value, matchArgs, pendingSpecInfo);
             ClearLastCallRouter();
             return configuredCall;
         }

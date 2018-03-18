@@ -15,14 +15,10 @@ namespace NSubstitute.Core
             _callActions = callActions;
         }
 
-        public ICallSpecification FromPendingSpecification(MatchArgs matchArgs, IPendingSpecification pendingSpecification)
+        public ICallSpecification FromPendingSpecification(MatchArgs matchArgs, PendingSpecificationInfo pendingSpecInfo)
         {
-            if (!pendingSpecification.HasPendingCallSpecInfo())
-            {
-                throw new InvalidOperationException("No pending specification or previous call info.");
-            }
+            if (pendingSpecInfo == null) throw new ArgumentNullException(nameof(pendingSpecInfo));
 
-            var pendingSpecInfo = pendingSpecification.UseCallSpecInfo();
             return pendingSpecInfo.Handle(
                 callSpec => FromExistingSpec(callSpec, matchArgs),
                 lastCall =>
