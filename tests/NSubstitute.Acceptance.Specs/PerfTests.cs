@@ -97,6 +97,18 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(containerType1, Is.EqualTo(containerType2));
         }
 
+        [Test]
+        public void ProxyTypeIsCached()
+        {
+            var proxy1 = Substitute.For<IFoo>();
+            var proxy2 = Substitute.For<IFoo>();
+
+            var type1 = proxy1.GetType();
+            var type2 = proxy2.GetType();
+
+            Assert.That(type1, Is.EqualTo(type2));
+        }
+
         public interface IFoo { int GetInt(string s); }
         public interface IBar { int GetInt<T>(T t); }
         public interface IByteArraySource { byte[] GetArray(); }

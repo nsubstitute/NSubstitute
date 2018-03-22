@@ -42,5 +42,16 @@ namespace NSubstitute.Core
                 return enumerator.MoveNext() ? Maybe.Just(enumerator.Current) : Maybe.Nothing<T>();
             }
         }
+
+        internal static string GetNonMangledTypeName(this Type type)
+        {
+            var typeName = type.Name;
+            if (!type.GetTypeInfo().IsGenericType)
+                return typeName;
+
+            typeName = typeName.Substring(0, typeName.IndexOf('`'));
+            var genericArgTypes = type.GetGenericArguments().Select(GetNonMangledTypeName);
+            return string.Format("{0}<{1}>", typeName, string.Join(", ", genericArgTypes));
+        }
     }
 }
