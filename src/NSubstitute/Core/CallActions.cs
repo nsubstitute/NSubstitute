@@ -39,10 +39,14 @@ namespace NSubstitute.Core
 	    }
 
 	    public void InvokeMatchingActions(ICall call)
-        {
-            var callInfo = _callInfoFactory.Create(call);
+	    {
+	        CallInfo callInfo = null;
             foreach (var action in _actions.Where(x => x.IsSatisfiedBy(call)))
             {
+                // Optimization. Initialize call lazily, as most of times there are no callbacks.
+                if (callInfo == null)
+                    callInfo = _callInfoFactory.Create(call);
+
                 action.Invoke(callInfo);
             }
         }
