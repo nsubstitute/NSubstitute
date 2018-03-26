@@ -27,12 +27,6 @@ namespace NSubstitute.Core
             PendingSpecification = new PendingSpecificationWrapper(_pendingSpecificationInfo);
         }
 
-        public PendingSpecificationInfo PendingSpecificationInfo
-        {
-            get => _pendingSpecificationInfo.Value;
-            set => _pendingSpecificationInfo.Value = value;
-        }
-
         public void SetLastCallRouter(ICallRouter callRouter)
         {
             _lastCallRouter.Value = callRouter;
