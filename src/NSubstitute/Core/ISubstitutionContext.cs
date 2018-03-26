@@ -50,7 +50,7 @@ namespace NSubstitute.Core
         Func<ICall, object[]> DequeuePendingRaisingEventArguments();
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RunQuery) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RunInQueryContext) + "() method instead.")]
         IQueryResults RunQuery(Action calls);
 
         [Obsolete("This property is obsolete and will be removed in a future version of the product. " +
@@ -58,7 +58,8 @@ namespace NSubstitute.Core
         bool IsQuerying { get; }
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.AddToQuery) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RegisterInContextQuery) + "() method instead.",
+                  error: true)]
         void AddToQuery(object target, ICallSpecification callSpecification);
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
