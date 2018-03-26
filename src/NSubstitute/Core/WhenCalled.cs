@@ -18,7 +18,7 @@ namespace NSubstitute.Core
             _call = call;
             _matchArgs = matchArgs;
             _callRouter = context.GetCallRouterFor(substitute);
-            _routeFactory = context.GetRouteFactory();
+            _routeFactory = context.RouteFactory;
         }
 
         /// <summary>

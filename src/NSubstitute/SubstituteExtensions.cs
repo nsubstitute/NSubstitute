@@ -207,6 +207,7 @@ namespace NSubstitute
             }
             return SubstitutionContext
                 .Current
+                .ThreadContext
                 .LastCallShouldReturn(returnValue, matchArgs);
         }
 
@@ -224,6 +225,7 @@ namespace NSubstitute
 
             return SubstitutionContext
                 .Current
+                .ThreadContext
                 .LastCallShouldReturn(returnValue, matchArgs);
         }
 

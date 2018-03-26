@@ -28,7 +28,7 @@ namespace NSubstitute.Core.Arguments
 
         private T EnqueueSpecFor<T>(IArgumentSpecification argumentSpecification)
         {
-            _substitutionContext.EnqueueArgumentSpecification(argumentSpecification);
+            _substitutionContext.ThreadContext.EnqueueArgumentSpecification(argumentSpecification);
             return default(T);
         }
 

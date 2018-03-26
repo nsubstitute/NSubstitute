@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using NSubstitute.Core.Arguments;
-using NSubstitute.Exceptions;
 using NSubstitute.Proxies;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NSubstitute.Proxies.DelegateProxy;
@@ -14,123 +12,152 @@ namespace NSubstitute.Core
     {
         public static ISubstitutionContext Current { get; set; }
 
-        readonly ISubstituteFactory _substituteFactory;
-        readonly SequenceNumberGenerator _sequenceNumberGenerator = new SequenceNumberGenerator();
-        readonly RobustThreadLocal<ICallRouter> _lastCallRouter = new RobustThreadLocal<ICallRouter>();
-        readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
-        readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
-        readonly RobustThreadLocal<Query> _currentQuery = new RobustThreadLocal<Query>();
-        readonly RobustThreadLocal<PendingSpecificationInfo> _pendingSpecificationInfo = new RobustThreadLocal<PendingSpecificationInfo>();
+        private readonly ICallRouterResolver _callRouterResolver;
+        public ISubstituteFactory SubstituteFactory { get; }
+        public IRouteFactory RouteFactory { get; }
+        [Obsolete("This property is obsolete and will be removed in a future version of the product.")]
+        public SequenceNumberGenerator SequenceNumberGenerator { get; }
+        public IThreadLocalContext ThreadContext { get; }
 
         static SubstitutionContext()
         {
             Current = new SubstitutionContext();
         }
 
-        SubstitutionContext()
+        private SubstitutionContext()
         {
-            var callRouterFactory = new CallRouterFactory();
-            var argSpecificationQueue = new ArgumentSpecificationDequeue(DequeueAllArgumentSpecifications);
+            ThreadContext = new ThreadLocalContext();
+            var sequenceNumberGenerator = new SequenceNumberGenerator();
+            _callRouterResolver = new CallRouterResolver();
+            RouteFactory = new RouteFactory(ThreadContext);
+
+            var callRouterFactory = new CallRouterFactory(sequenceNumberGenerator, RouteFactory);
+            var argSpecificationQueue = new ArgumentSpecificationDequeue(ThreadContext.DequeueAllArgumentSpecifications);
             var dynamicProxyFactory = new CastleDynamicProxyFactory(argSpecificationQueue);
             var delegateFactory = new DelegateProxyFactory(dynamicProxyFactory);
             var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
-            var callRouteResolver = new CallRouterResolver();
-            _substituteFactory = new SubstituteFactory(this, callRouterFactory, proxyFactory, callRouteResolver);
+            SubstituteFactory = new SubstituteFactory(ThreadContext, callRouterFactory, proxyFactory);
+#pragma warning disable 618 // Obsolete
+            SequenceNumberGenerator = sequenceNumberGenerator;
+#pragma warning restore 618 // Obsolete
         }
 
-        public SubstitutionContext(ISubstituteFactory substituteFactory)
+        public SubstitutionContext(ISubstituteFactory substituteFactory,
+            IRouteFactory routeFactory,
+            IThreadLocalContext threadLocalContext,
+            ICallRouterResolver callRouterResolver)
         {
-            _substituteFactory = substituteFactory;
+            SubstituteFactory = substituteFactory ?? throw new ArgumentNullException(nameof(substituteFactory));
+            RouteFactory = routeFactory ?? throw new ArgumentNullException(nameof(routeFactory));
+            ThreadContext = threadLocalContext ?? throw new ArgumentNullException(nameof(threadLocalContext));
+            _callRouterResolver = callRouterResolver ?? throw new ArgumentNullException(nameof(callRouterResolver));
+
+#pragma warning disable 618 // Obsolete
+            SequenceNumberGenerator = new SequenceNumberGenerator();
+#pragma warning restore 618 // Obsolete
         }
 
-        public ISubstituteFactory SubstituteFactory { get { return _substituteFactory; } }
-        public SequenceNumberGenerator SequenceNumberGenerator { get { return _sequenceNumberGenerator; } }
-        public bool IsQuerying { get { return _currentQuery.Value != null; } }
+        public ICallRouter GetCallRouterFor(object substitute) =>
+            _callRouterResolver.ResolveFor(substitute);
 
+
+        // ***********************************************************
+        // ********************** OBSOLETE API **********************
+        // API below is obsolete and present for the binary compatibility with the previous versions.
+        // All implementations are relaying to the non-obsolete members.
+
+        [Obsolete("This property is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.IsQuerying) + " property instead.")]
+        public bool IsQuerying => ThreadContext.IsQuerying;
+
+        [Obsolete("This property is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.PendingSpecification) + " property instead.")]
         public PendingSpecificationInfo PendingSpecificationInfo
         {
-            get { return _pendingSpecificationInfo.Value; }
-            set { _pendingSpecificationInfo.Value = value; }
-        }
-
-        public ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs)
-        {
-            var lastCallRouter = _lastCallRouter.Value;
-            if (lastCallRouter == null) throw new CouldNotSetReturnDueToNoLastCallException();
-            if (!lastCallRouter.IsLastCallInfoPresent()) throw new CouldNotSetReturnDueToMissingInfoAboutLastCallException();
-            if (_argumentSpecifications.Value.Any())
+            get
             {
-                //Clear invalid arg specs so they will not affect other tests
-                _argumentSpecifications.Value.Clear();
-                throw new UnexpectedArgumentMatcherException();
+                if (!ThreadContext.PendingSpecification.HasPendingCallSpecInfo())
+                    return null;
+
+                // This removes the pending specification, so we need to restore it back.
+                var consumedSpecInfo = ThreadContext.PendingSpecification.UseCallSpecInfo();
+                PendingSpecificationInfo = consumedSpecInfo;
+
+                return consumedSpecInfo;
             }
-
-            var configuredCall = lastCallRouter.LastCallShouldReturn(value, matchArgs);
-            ClearLastCallRouter();
-            return configuredCall;
-        }
-
-        public void ClearLastCallRouter()
-        {
-            _lastCallRouter.Value = null;
-        }
-
-        public IRouteFactory GetRouteFactory() { return new RouteFactory(); }
-
-        public void LastCallRouter(ICallRouter callRouter)
-        {
-            _lastCallRouter.Value = callRouter;
-        }
-
-        public ICallRouter GetCallRouterFor(object substitute)
-        {
-            return SubstituteFactory.GetCallRouterCreatedFor(substitute);
-        }
-
-        public void EnqueueArgumentSpecification(IArgumentSpecification spec)
-        {
-            _argumentSpecifications.Value.Add(spec);
-        }
-
-        public IList<IArgumentSpecification> DequeueAllArgumentSpecifications()
-        {
-            var result = _argumentSpecifications.Value;
-            _argumentSpecifications.Value = new List<IArgumentSpecification>();
-            return result;
-        }
-
-        public void RaiseEventForNextCall(Func<ICall, object[]> getArguments)
-        {
-            _getArgumentsForRaisingEvent.Value = getArguments;
-        }
-
-        public Func<ICall, object[]> DequeuePendingRaisingEventArguments()
-        {
-            var result = _getArgumentsForRaisingEvent.Value;
-            _getArgumentsForRaisingEvent.Value = null;
-            return result;
-        }
-
-        public void AddToQuery(object target, ICallSpecification callSpecification)
-        {
-            var query = _currentQuery.Value;
-            if (query == null) { throw new NotRunningAQueryException(); }
-            query.Add(callSpecification, target);
-        }
-
-        public IQueryResults RunQuery(Action calls)
-        {
-            var query = new Query();
-            _currentQuery.Value = query;
-            try
+            set
             {
-                calls();
+                if (value == null)
+                {
+                    ThreadContext.PendingSpecification.Clear();
+                    return;
+                }
+
+                // Emulate the old API. A bit clumsy, however it's here for the backward compatibility only
+                // and is not expected to be used frequently.
+                var unwrappedValue = value.Handle(
+                    spec => Tuple.Create(spec, (ICall) null),
+                    call => Tuple.Create((ICallSpecification) null, call));
+
+                if (unwrappedValue.Item1 != null)
+                {
+                    ThreadContext.PendingSpecification.SetCallSpecification(unwrappedValue.Item1);
+                }
+                else
+                {
+                    ThreadContext.PendingSpecification.SetLastCall(unwrappedValue.Item2);
+                }
             }
-            finally
-            {
-                _currentQuery.Value = null;
-            }
-            return query.Result();
         }
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.LastCallShouldReturn) + "() method instead.")]
+        public ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs) =>
+            ThreadContext.LastCallShouldReturn(value, matchArgs);
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.ClearLastCallRouter) + "() method instead.")]
+        public void ClearLastCallRouter() =>
+            ThreadContext.ClearLastCallRouter();
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(RouteFactory) + " property instead.")]
+        public IRouteFactory GetRouteFactory() =>
+            RouteFactory;
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetLastCallRouter) + "() method instead.")]
+        public void LastCallRouter(ICallRouter callRouter) =>
+            ThreadContext.SetLastCallRouter(callRouter);
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.EnqueueArgumentSpecification) + "() method instead.")]
+        public void EnqueueArgumentSpecification(IArgumentSpecification spec) =>
+            ThreadContext.EnqueueArgumentSpecification(spec);
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.DequeueAllArgumentSpecifications) + "() method instead.")]
+        public IList<IArgumentSpecification> DequeueAllArgumentSpecifications() =>
+            ThreadContext.DequeueAllArgumentSpecifications();
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetPendingRasingEventArgumentsFactory) + "() method instead.")]
+        public void RaiseEventForNextCall(Func<ICall, object[]> getArguments) =>
+            ThreadContext.SetPendingRasingEventArgumentsFactory(getArguments);
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.UsePendingRaisingEventArgumentsFactory) + "() method instead.")]
+        public Func<ICall, object[]> DequeuePendingRaisingEventArguments() =>
+            ThreadContext.UsePendingRaisingEventArgumentsFactory();
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.AddToQuery) + "() method instead.")]
+        public void AddToQuery(object target, ICallSpecification callSpecification) =>
+            ThreadContext.AddToQuery(target, callSpecification);
+
+        [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RunQuery) + "() method instead.")]
+        public IQueryResults RunQuery(Action calls) =>
+            ThreadContext.RunQuery(calls);
     }
 }

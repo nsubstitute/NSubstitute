@@ -32,7 +32,7 @@ namespace NSubstitute.Core.Events
         protected static void RaiseEvent(RaiseEventWrapper wrapper)
         {
             var context = SubstitutionContext.Current;
-            context.RaiseEventForNextCall(call => wrapper.WorkOutRequiredArguments(call));
+            context.ThreadContext.SetPendingRasingEventArgumentsFactory(call => wrapper.WorkOutRequiredArguments(call));
         }
     }
 }

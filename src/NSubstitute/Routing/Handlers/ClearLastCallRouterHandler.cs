@@ -10,16 +10,16 @@ namespace NSubstitute.Routing.Handlers
     /// </remarks>
     public class ClearLastCallRouterHandler : ICallHandler
     {
-        private readonly ISubstitutionContext _context;
+        private readonly IThreadLocalContext _threadContext;
 
-        public ClearLastCallRouterHandler(ISubstitutionContext context)
+        public ClearLastCallRouterHandler(IThreadLocalContext threadContext)
         {
-            _context = context;
+            _threadContext = threadContext;
         }
 
         public RouteAction Handle(ICall call)
         {
-            _context.ClearLastCallRouter();
+            _threadContext.ClearLastCallRouter();
             return RouteAction.Continue();
         }
     }

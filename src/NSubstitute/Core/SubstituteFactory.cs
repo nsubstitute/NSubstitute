@@ -7,18 +7,17 @@ namespace NSubstitute.Core
 {
     public class SubstituteFactory : ISubstituteFactory
     {
-        readonly ISubstitutionContext _context;
-        readonly ICallRouterFactory _callRouterFactory;
-        readonly IProxyFactory _proxyFactory;
-        readonly ICallRouterResolver _callRouterResolver;
+        private readonly IThreadLocalContext _threadContext;
+        private readonly ICallRouterFactory _callRouterFactory;
+        private readonly IProxyFactory _proxyFactory;
 
-        public SubstituteFactory(ISubstitutionContext context, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory, ICallRouterResolver callRouterResolver)
+        public SubstituteFactory(IThreadLocalContext threadContext, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory)
         {
-            _context = context;
-            _callRouterFactory = callRouterFactory;
-            _proxyFactory = proxyFactory;
-            _callRouterResolver = callRouterResolver;
+            _threadContext = threadContext ?? throw new ArgumentNullException(nameof(threadContext));
+            _callRouterFactory = callRouterFactory ?? throw new ArgumentNullException(nameof(callRouterFactory));
+            _proxyFactory = proxyFactory ?? throw new ArgumentNullException(nameof(proxyFactory));
         }
+
 
         /// <summary>
         /// Create a substitute for the given types.
@@ -51,7 +50,7 @@ namespace NSubstitute.Core
 
         private object Create(Type[] typesToProxy, object[] constructorArguments, SubstituteConfig config)  
         {
-            var callRouter = _callRouterFactory.Create(_context, config);
+            var callRouter = _callRouterFactory.Create(config, _threadContext, this);
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
             var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
             var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);
@@ -63,11 +62,6 @@ namespace NSubstitute.Core
             return typesToProxy.FirstOrDefault(t => t.GetTypeInfo().IsSubclassOf(typeof(Delegate)))
                 ?? typesToProxy.FirstOrDefault(t => t.GetTypeInfo().IsClass)
                 ?? typesToProxy.First();
-        }
-
-        public ICallRouter GetCallRouterCreatedFor(object substitute)
-        {
-            return _callRouterResolver.ResolveFor(substitute);
         }
     }
 }

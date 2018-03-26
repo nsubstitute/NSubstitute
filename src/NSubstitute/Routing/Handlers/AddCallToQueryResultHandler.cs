@@ -1,16 +1,15 @@
-﻿using System;
-using NSubstitute.Core;
+﻿using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
 {
     public class AddCallToQueryResultHandler : ICallHandler
     {
-        private readonly ISubstitutionContext _context;
+        private readonly IThreadLocalContext _threadContext;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
 
-        public AddCallToQueryResultHandler(ISubstitutionContext context, ICallSpecificationFactory callSpecificationFactory)
+        public AddCallToQueryResultHandler(IThreadLocalContext threadContext, ICallSpecificationFactory callSpecificationFactory)
         {
-            _context = context;
+            _threadContext = threadContext;
             _callSpecificationFactory = callSpecificationFactory;
         }
 
@@ -18,7 +17,7 @@ namespace NSubstitute.Routing.Handlers
         {
             var target = call.Target();
             var callSpec = _callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
-            _context.AddToQuery(target, callSpec);
+            _threadContext.AddToQuery(target, callSpec);
             return RouteAction.Continue();
         }
     }
