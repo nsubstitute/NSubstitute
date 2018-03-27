@@ -2,8 +2,8 @@ namespace NSubstitute.Core
 {
     public class CallSpecAndTarget
     {
-        public ICallSpecification CallSpecification { get; private set; }
-        public object Target { get; private set; }
+        public ICallSpecification CallSpecification { get; }
+        public object Target { get; }
 
         public CallSpecAndTarget(ICallSpecification callSpecification, object target)
         {

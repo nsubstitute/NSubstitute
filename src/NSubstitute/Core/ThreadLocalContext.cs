@@ -12,7 +12,7 @@ namespace NSubstitute.Core
         private readonly RobustThreadLocal<ICallRouter> _lastCallRouter;
         private readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications;
         private readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent;
-        private readonly RobustThreadLocal<Query> _currentQuery;
+        private readonly RobustThreadLocal<IQuery> _currentQuery;
         private readonly RobustThreadLocal<PendingSpecificationInfo> _pendingSpecificationInfo;
         public IPendingSpecification PendingSpecification { get; }
 
@@ -21,7 +21,7 @@ namespace NSubstitute.Core
             _lastCallRouter = new RobustThreadLocal<ICallRouter>();
             _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
             _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
-            _currentQuery = new RobustThreadLocal<Query>();
+            _currentQuery = new RobustThreadLocal<IQuery>();
             _pendingSpecificationInfo = new RobustThreadLocal<PendingSpecificationInfo>();
 
             PendingSpecification = new PendingSpecificationWrapper(_pendingSpecificationInfo);
@@ -90,9 +90,8 @@ namespace NSubstitute.Core
             return result;
         }
 
-        public IQueryResults RunQuery(Action calls)
+        public void RunInQueryContext(Action calls, IQuery query)
         {
-            var query = new Query();
             _currentQuery.Value = query;
             try
             {
@@ -102,18 +101,17 @@ namespace NSubstitute.Core
             {
                 _currentQuery.Value = null;
             }
-            return query.Result();
         }
 
         public bool IsQuerying => _currentQuery.Value != null;
 
-        public void AddToQuery(object target, ICallSpecification callSpecification)
+        public void RegisterInContextQuery(ICall call)
         {
             var query = _currentQuery.Value;
             if (query == null)
                 throw new NotRunningAQueryException();
 
-            query.Add(callSpecification, target);
+            query.RegisterCall(call);
         }
 
         private class PendingSpecificationWrapper : IPendingSpecification

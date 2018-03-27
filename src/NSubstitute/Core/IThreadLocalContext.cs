@@ -22,7 +22,10 @@ namespace NSubstitute.Core
         Func<ICall, object[]> UsePendingRaisingEventArgumentsFactory();
 
         bool IsQuerying { get; }
-        IQueryResults RunQuery(Action calls);
-        void AddToQuery(object target, ICallSpecification callSpecification);
+        /// <summary>
+        /// Invokes the passed callback in a context of the specified query.
+        /// </summary>
+        void RunInQueryContext(Action calls, IQuery query);
+        void RegisterInContextQuery(ICall call);
     }
 }

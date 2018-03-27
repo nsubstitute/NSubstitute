@@ -151,13 +151,24 @@ namespace NSubstitute.Core
             ThreadContext.UsePendingRaisingEventArgumentsFactory();
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.AddToQuery) + "() method instead.")]
-        public void AddToQuery(object target, ICallSpecification callSpecification) =>
-            ThreadContext.AddToQuery(target, callSpecification);
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RegisterInContextQuery) + "() method instead.",
+                  error: true)]
+        public void AddToQuery(object target, ICallSpecification callSpecification)
+        {
+            // We cannot simulate the API anymore as it changed drastically.
+            // That should be fine, as this method was expected to be called from the NSubstitute core only.
+            throw new NotSupportedException(
+                "This API was obsolete and is not supported anymore. " +
+                "Please Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RegisterInContextQuery) + "() method instead.");
+        }
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RunQuery) + "() method instead.")]
-        public IQueryResults RunQuery(Action calls) =>
-            ThreadContext.RunQuery(calls);
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RunInQueryContext) + "() method instead.")]
+        public IQueryResults RunQuery(Action calls)
+        {
+            var query = new Query();
+            ThreadContext.RunInQueryContext(calls, query);
+            return query.Result();
+        }
     }
 }

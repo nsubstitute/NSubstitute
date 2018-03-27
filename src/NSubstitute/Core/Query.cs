@@ -1,18 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NSubstitute.Core
 {
-    public class Query : IQueryResults
+    public class Query : IQuery, IQueryResults
     {
-        readonly List<CallSpecAndTarget> _querySpec = new List<CallSpecAndTarget>();
-        readonly HashSet<ICall> _matchingCalls = new HashSet<ICall>(new CallSequenceNumberComparer());
-        
-        public void Add(ICallSpecification callSpecification, object target)
+        private readonly List<CallSpecAndTarget> _querySpec = new List<CallSpecAndTarget>();
+        private readonly HashSet<ICall> _matchingCalls = new HashSet<ICall>(new CallSequenceNumberComparer());
+        private readonly ICallSpecificationFactory _callSpecificationFactory;
+
+        public Query()
         {
+            _callSpecificationFactory = CallSpecificationFactoryFactoryYesThatsRight.CreateCallSpecFactory();
+        }
+        
+        public void RegisterCall(ICall call)
+        {
+            if (call == null) throw new ArgumentNullException(nameof(call));
+
+            var target = call.Target();
+            var callSpecification = _callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
+
             _querySpec.Add(new CallSpecAndTarget(callSpecification, target));
+
             var allMatchingCallsOnTarget = target.ReceivedCalls().Where(callSpecification.IsSatisfiedBy);
-            foreach (var matchingCall in allMatchingCallsOnTarget) { _matchingCalls.Add(matchingCall); }
+            _matchingCalls.UnionWith(allMatchingCallsOnTarget);
         }
 
         public IQueryResults Result()
