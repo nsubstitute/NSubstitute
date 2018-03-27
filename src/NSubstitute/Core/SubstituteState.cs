@@ -21,11 +21,11 @@ namespace NSubstitute.Core
             SubstituteConfig option,
             SequenceNumberGenerator sequenceNumberGenerator,
             ISubstituteFactory substituteFactory,
-            ICallSpecificationFactory callSpecificationFactory)
+            ICallSpecificationFactory callSpecificationFactory,
+            ICallInfoFactory callInfoFactory)
         {
             SubstituteConfig = option;
             SequenceNumberGenerator = sequenceNumberGenerator;
-            var callInfoFactory = new CallInfoFactory();
 
             var callCollection = new CallCollection();
             ReceivedCalls = callCollection;

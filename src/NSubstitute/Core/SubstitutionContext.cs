@@ -27,13 +27,14 @@ namespace NSubstitute.Core
         private SubstitutionContext()
         {
             ThreadContext = new ThreadLocalContext();
-            var sequenceNumberGenerator = new SequenceNumberGenerator();
             var callSpecificationFactory = CallSpecificationFactoryFactoryYesThatsRight.CreateCallSpecFactory();
             _callRouterResolver = new CallRouterResolver();
 
             RouteFactory = new RouteFactory(ThreadContext, callSpecificationFactory);
 
-            var callRouterFactory = new CallRouterFactory(sequenceNumberGenerator, RouteFactory, callSpecificationFactory);
+            var sequenceNumberGenerator = new SequenceNumberGenerator();
+            var callInfoFactory = new CallInfoFactory();
+            var callRouterFactory = new CallRouterFactory(sequenceNumberGenerator, RouteFactory, callSpecificationFactory, callInfoFactory);
             var argSpecificationQueue = new ArgumentSpecificationDequeue(ThreadContext.DequeueAllArgumentSpecifications);
             var dynamicProxyFactory = new CastleDynamicProxyFactory(argSpecificationQueue);
             var delegateFactory = new DelegateProxyFactory(dynamicProxyFactory);
