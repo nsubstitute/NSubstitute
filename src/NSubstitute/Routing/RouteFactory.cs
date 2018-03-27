@@ -77,7 +77,7 @@ namespace NSubstitute.Routing
             return new Route(RouteType.RecordReplay, new ICallHandler[] {
                 new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
                 , new TrackLastCallHandler(_threadLocalContext.PendingSpecification)
-                , new RecordCallHandler(state.CallCollection, state.SequenceNumberGenerator)
+                , new RecordCallHandler(state.ReceivedCalls, state.SequenceNumberGenerator)
                 , new EventSubscriptionHandler(state.EventHandlerRegistry)
                 , new PropertySetterHandler(new PropertyHelper(new CallFactory(), new ArgumentSpecificationCompatibilityTester(new DefaultChecker(new DefaultForType()))), state.ConfigureCall)
                 , new DoActionsCallHandler(state.CallActions)

@@ -6,7 +6,7 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
-    public class CallCollection : ICallCollection, IReceivedCalls
+    public class CallCollection : ICallCollection
     {
         ConcurrentQueue<CallWrapper> _callWrappers = new ConcurrentQueue<CallWrapper>();
 

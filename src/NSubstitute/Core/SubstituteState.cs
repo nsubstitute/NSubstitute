@@ -4,8 +4,7 @@ namespace NSubstitute.Core
 {
     public class SubstituteState : ISubstituteState
     {
-        public ICallCollection CallCollection { get; }
-        public IReceivedCalls ReceivedCalls { get; }
+        public ICallCollection ReceivedCalls { get; }
         public ICallResults CallResults { get; }
         public ICallSpecificationFactory CallSpecificationFactory { get; }
         public ICallActions CallActions { get; }
@@ -29,7 +28,6 @@ namespace NSubstitute.Core
             var callInfoFactory = new CallInfoFactory();
 
             var callCollection = new CallCollection();
-            CallCollection = callCollection;
             ReceivedCalls = callCollection;
 
             CallResults = new CallResults(callInfoFactory);
