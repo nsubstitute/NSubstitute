@@ -4,13 +4,13 @@ namespace NSubstitute.Core
 {
     public class GetCallSpec : IGetCallSpec
     {
-        private readonly ICallCollection _callCollection;
+        private readonly ICallCollection _receivedCalls;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly ICallActions _callActions;
 
-        public GetCallSpec(ICallCollection callCollection, ICallSpecificationFactory callSpecificationFactory, ICallActions callActions)
+        public GetCallSpec(ICallCollection receivedCalls, ICallSpecificationFactory callSpecificationFactory, ICallActions callActions)
         {
-            _callCollection = callCollection;
+            _receivedCalls = receivedCalls;
             _callSpecificationFactory = callSpecificationFactory;
             _callActions = callActions;
         }
@@ -23,7 +23,7 @@ namespace NSubstitute.Core
                 callSpec => FromExistingSpec(callSpec, matchArgs),
                 lastCall =>
                 {
-                    _callCollection.Delete(lastCall);
+                    _receivedCalls.Delete(lastCall);
                     return FromCall(lastCall, matchArgs);
                 });
         }

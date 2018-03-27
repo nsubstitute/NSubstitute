@@ -6,13 +6,13 @@ namespace NSubstitute.Routing.Handlers
 {
     public class CheckReceivedCallsHandler : ICallHandler
     {
-        private readonly IReceivedCalls _receivedCalls;
+        private readonly ICallCollection _receivedCalls;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly IReceivedCallsExceptionThrower _exceptionThrower;
         private readonly MatchArgs _matchArgs;
         private readonly Quantity _requiredQuantity;
 
-        public CheckReceivedCallsHandler(IReceivedCalls receivedCalls, ICallSpecificationFactory callSpecificationFactory, IReceivedCallsExceptionThrower exceptionThrower, MatchArgs matchArgs, Quantity requiredQuantity)
+        public CheckReceivedCallsHandler(ICallCollection receivedCalls, ICallSpecificationFactory callSpecificationFactory, IReceivedCallsExceptionThrower exceptionThrower, MatchArgs matchArgs, Quantity requiredQuantity)
         {
             _receivedCalls = receivedCalls;
             _callSpecificationFactory = callSpecificationFactory;
