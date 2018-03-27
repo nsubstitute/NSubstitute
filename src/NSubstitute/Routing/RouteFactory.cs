@@ -9,10 +9,12 @@ namespace NSubstitute.Routing
     public class RouteFactory : IRouteFactory
     {
         private readonly IThreadLocalContext _threadLocalContext;
+        private readonly ICallSpecificationFactory _callSpecificationFactory;
 
-        public RouteFactory(IThreadLocalContext threadLocalContext)
+        public RouteFactory(IThreadLocalContext threadLocalContext, ICallSpecificationFactory callSpecificationFactory)
         {
             _threadLocalContext = threadLocalContext ?? throw new ArgumentNullException(nameof(threadLocalContext));
+            _callSpecificationFactory = callSpecificationFactory ?? throw new ArgumentNullException(nameof(callSpecificationFactory));
         }
 
         public IRoute CallQuery(ISubstituteState state)
@@ -21,7 +23,7 @@ namespace NSubstitute.Routing
                 new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
                 , new AddCallToQueryResultHandler(_threadLocalContext)
                 , new ReturnConfiguredResultHandler(state.CallResults)
-                , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, state.CallSpecificationFactory)
+                , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, _callSpecificationFactory)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
@@ -30,8 +32,8 @@ namespace NSubstitute.Routing
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(_threadLocalContext)
                 , new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
-                , new CheckReceivedCallsHandler(state.ReceivedCalls, state.CallSpecificationFactory, new ReceivedCallsExceptionThrower(), matchArgs, requiredQuantity)
-                , new ReturnAutoValue(AutoValueBehaviour.ReturnAndForgetValue, state.AutoValueProviders, state.AutoValuesCallResults, state.CallSpecificationFactory)
+                , new CheckReceivedCallsHandler(state.ReceivedCalls, _callSpecificationFactory, new ReceivedCallsExceptionThrower(), matchArgs, requiredQuantity)
+                , new ReturnAutoValue(AutoValueBehaviour.ReturnAndForgetValue, state.AutoValueProviders, state.AutoValuesCallResults, _callSpecificationFactory)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
@@ -40,7 +42,7 @@ namespace NSubstitute.Routing
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(_threadLocalContext)
                 , new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
-                , new SetActionForCallHandler(state.CallSpecificationFactory, state.CallActions, doAction, matchArgs)
+                , new SetActionForCallHandler(_callSpecificationFactory, state.CallActions, doAction, matchArgs)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
@@ -49,7 +51,7 @@ namespace NSubstitute.Routing
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(_threadLocalContext)
                 , new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
-                , new DoNotCallBaseForCallHandler(state.CallSpecificationFactory, state.CallBaseExclusions, matchArgs)
+                , new DoNotCallBaseForCallHandler(_callSpecificationFactory, state.CallBaseExclusions, matchArgs)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
@@ -65,9 +67,9 @@ namespace NSubstitute.Routing
         public IRoute RecordCallSpecification(ISubstituteState state)
         {
             return new Route(new ICallHandler[] {
-                new RecordCallSpecificationHandler(_threadLocalContext.PendingSpecification, state.CallSpecificationFactory, state.CallActions)
+                new RecordCallSpecificationHandler(_threadLocalContext.PendingSpecification, _callSpecificationFactory, state.CallActions)
                 , new PropertySetterHandler(new PropertyHelper(new CallFactory(), new ArgumentSpecificationCompatibilityTester(new DefaultChecker(new DefaultForType()))), state.ConfigureCall)
-                , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, state.CallSpecificationFactory)
+                , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, _callSpecificationFactory)
                 , new ReturnFromAndConfigureDynamicCall(state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });
@@ -85,7 +87,7 @@ namespace NSubstitute.Routing
                 , new ReturnResultForTypeHandler(state.ResultsForType)
                 , new ReturnFromBaseIfRequired(state.SubstituteConfig, state.CallBaseExclusions)
                 , new ReturnFromCustomHandlers(state.CustomHandlers)
-                , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, state.CallSpecificationFactory)
+                , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, _callSpecificationFactory)
                 , new ReturnFromAndConfigureDynamicCall(state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
             });

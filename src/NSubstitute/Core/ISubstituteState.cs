@@ -6,7 +6,6 @@ namespace NSubstitute.Core
     {
         ICallCollection ReceivedCalls { get; }
         ICallResults CallResults { get; }
-        ICallSpecificationFactory CallSpecificationFactory { get; }
         ICallActions CallActions { get; }
         SubstituteConfig SubstituteConfig { get; set; }
         SequenceNumberGenerator SequenceNumberGenerator { get; }
