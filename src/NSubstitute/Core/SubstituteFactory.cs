@@ -7,17 +7,16 @@ namespace NSubstitute.Core
 {
     public class SubstituteFactory : ISubstituteFactory
     {
-        private readonly IThreadLocalContext _threadContext;
+        private readonly ISubstituteStateFactory _substituteStateFactory;
         private readonly ICallRouterFactory _callRouterFactory;
         private readonly IProxyFactory _proxyFactory;
 
-        public SubstituteFactory(IThreadLocalContext threadContext, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory)
+        public SubstituteFactory(ISubstituteStateFactory substituteStateFactory, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory)
         {
-            _threadContext = threadContext ?? throw new ArgumentNullException(nameof(threadContext));
+            _substituteStateFactory = substituteStateFactory ?? throw new ArgumentNullException(nameof(substituteStateFactory));
             _callRouterFactory = callRouterFactory ?? throw new ArgumentNullException(nameof(callRouterFactory));
             _proxyFactory = proxyFactory ?? throw new ArgumentNullException(nameof(proxyFactory));
         }
-
 
         /// <summary>
         /// Create a substitute for the given types.
@@ -48,9 +47,10 @@ namespace NSubstitute.Core
             return Create(typesToProxy, constructorArguments, SubstituteConfig.CallBaseByDefault);
         }
 
-        private object Create(Type[] typesToProxy, object[] constructorArguments, SubstituteConfig config)  
+        private object Create(Type[] typesToProxy, object[] constructorArguments, SubstituteConfig config)
         {
-            var callRouter = _callRouterFactory.Create(config, _threadContext, this);
+            var substituteState = _substituteStateFactory.Create(config, this);
+            var callRouter = _callRouterFactory.Create(substituteState);
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
             var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
             var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);

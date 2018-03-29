@@ -1,4 +1,5 @@
-﻿using NSubstitute.Routing.AutoValues;
+﻿using System.Collections.Generic;
+using NSubstitute.Routing.AutoValues;
 
 namespace NSubstitute.Core
 {
@@ -12,7 +13,7 @@ namespace NSubstitute.Core
         public SequenceNumberGenerator SequenceNumberGenerator { get; }
         public IConfigureCall ConfigureCall { get; }
         public IEventHandlerRegistry EventHandlerRegistry { get; }
-        public IAutoValueProvider[] AutoValueProviders { get; }
+        public IReadOnlyCollection<IAutoValueProvider> AutoValueProviders { get; }
         public ICallResults AutoValuesCallResults { get; }
         public IResultsForType ResultsForType { get; }
         public ICustomHandlers CustomHandlers { get; }
@@ -20,12 +21,13 @@ namespace NSubstitute.Core
         public SubstituteState(
             SubstituteConfig option,
             SequenceNumberGenerator sequenceNumberGenerator,
-            ISubstituteFactory substituteFactory,
             ICallSpecificationFactory callSpecificationFactory,
-            ICallInfoFactory callInfoFactory)
+            ICallInfoFactory callInfoFactory,
+            IReadOnlyCollection<IAutoValueProvider> autoValueProviders)
         {
             SubstituteConfig = option;
             SequenceNumberGenerator = sequenceNumberGenerator;
+            AutoValueProviders = autoValueProviders;
 
             var callCollection = new CallCollection();
             ReceivedCalls = callCollection;
@@ -40,14 +42,6 @@ namespace NSubstitute.Core
             ConfigureCall = new ConfigureCall(CallResults, CallActions, getCallSpec);
             EventHandlerRegistry = new EventHandlerRegistry();
 
-            AutoValueProviders = new IAutoValueProvider[] { 
-                new AutoObservableProvider(() => AutoValueProviders),
-                new AutoQueryableProvider(),
-                new AutoSubstituteProvider(substituteFactory),
-                new AutoStringProvider(),
-                new AutoArrayProvider(),
-                new AutoTaskProvider(() => AutoValueProviders),
-            };
         }
     }
 }
