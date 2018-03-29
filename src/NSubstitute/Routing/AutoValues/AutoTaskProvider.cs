@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -7,9 +8,9 @@ namespace NSubstitute.Routing.AutoValues
 {
     public class AutoTaskProvider : IAutoValueProvider
     {
-        private readonly Func<IAutoValueProvider[]> _autoValueProviders;
+        private readonly Lazy<IReadOnlyCollection<IAutoValueProvider>> _autoValueProviders;
 
-        public AutoTaskProvider(Func<IAutoValueProvider[]> autoValueProviders)
+        public AutoTaskProvider(Lazy<IReadOnlyCollection<IAutoValueProvider>> autoValueProviders)
         {
             _autoValueProviders = autoValueProviders;
         }
@@ -27,7 +28,7 @@ namespace NSubstitute.Routing.AutoValues
             if (type.GetTypeInfo().IsGenericType)
             {
                 var taskType = type.GetGenericArguments()[0];
-                var valueProvider = _autoValueProviders().FirstOrDefault(vp => vp.CanProvideValueFor(taskType));
+                var valueProvider = _autoValueProviders.Value.FirstOrDefault(vp => vp.CanProvideValueFor(taskType));
 
                 var value = valueProvider == null ? GetDefault(type) : valueProvider.GetValue(taskType);
                 var taskCompletionSourceType = typeof(TaskCompletionSource<>).MakeGenericType(taskType);

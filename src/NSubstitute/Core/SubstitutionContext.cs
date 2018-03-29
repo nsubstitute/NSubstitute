@@ -5,6 +5,7 @@ using NSubstitute.Proxies;
 using NSubstitute.Proxies.CastleDynamicProxy;
 using NSubstitute.Proxies.DelegateProxy;
 using NSubstitute.Routing;
+using NSubstitute.Routing.AutoValues;
 
 namespace NSubstitute.Core
 {
@@ -34,12 +35,14 @@ namespace NSubstitute.Core
 
             var sequenceNumberGenerator = new SequenceNumberGenerator();
             var callInfoFactory = new CallInfoFactory();
-            var callRouterFactory = new CallRouterFactory(sequenceNumberGenerator, RouteFactory, callSpecificationFactory, callInfoFactory);
+            var autoValueProvidersFactory = new AutoValueProvidersFactory();
+            var substituteStateFactory = new SubstituteStateFactory(sequenceNumberGenerator, callSpecificationFactory, callInfoFactory, autoValueProvidersFactory);
+            var callRouterFactory = new CallRouterFactory(ThreadContext, RouteFactory);
             var argSpecificationQueue = new ArgumentSpecificationDequeue(ThreadContext.DequeueAllArgumentSpecifications);
             var dynamicProxyFactory = new CastleDynamicProxyFactory(argSpecificationQueue);
             var delegateFactory = new DelegateProxyFactory(dynamicProxyFactory);
             var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
-            SubstituteFactory = new SubstituteFactory(ThreadContext, callRouterFactory, proxyFactory);
+            SubstituteFactory = new SubstituteFactory(substituteStateFactory, callRouterFactory, proxyFactory);
 #pragma warning disable 618 // Obsolete
             SequenceNumberGenerator = sequenceNumberGenerator;
 #pragma warning restore 618 // Obsolete
