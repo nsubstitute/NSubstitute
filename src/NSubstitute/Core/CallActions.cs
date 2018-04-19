@@ -33,19 +33,24 @@ namespace NSubstitute.Core
             }
         }
 
-	    public void Clear()
-	    {
-		    _actions.Clear();
-	    }
+        public void Clear()
+        {
+            _actions.Clear();
+        }
 
-	    public void InvokeMatchingActions(ICall call)
-	    {
-	        CallInfo callInfo = null;
-            foreach (var action in _actions.Where(x => x.IsSatisfiedBy(call)))
+        public void InvokeMatchingActions(ICall call)
+        {
+            CallInfo callInfo = null;
+            foreach (var action in _actions)
             {
+                if (!action.IsSatisfiedBy(call))
+                    continue;
+
                 // Optimization. Initialize call lazily, as most of times there are no callbacks.
                 if (callInfo == null)
+                {
                     callInfo = _callInfoFactory.Create(call);
+                }
 
                 action.Invoke(callInfo);
             }
