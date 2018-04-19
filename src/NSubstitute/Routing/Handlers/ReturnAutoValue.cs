@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Routing.AutoValues;
 
@@ -34,24 +33,30 @@ namespace NSubstitute.Routing.Handlers
             }
 
             var type = call.GetReturnType();
-            var compatibleProviders = _autoValueProviders.Where(x => x.CanProvideValueFor(type)).FirstOrNothing();
-            return compatibleProviders.Fold(
-                RouteAction.Continue,
-                ReturnValueUsingProvider(call, type));
+
+            // This is a hot method which is invoked frequently and has major impact on performance.
+            // Therefore, the LINQ cycle was unwinded to loop.
+            foreach (var autoValueProvider in _autoValueProviders)
+            {
+                if (autoValueProvider.CanProvideValueFor(type))
+                {
+                    return RouteAction.Return(GetResultValueUsingProvider(call, type, autoValueProvider));
+                }
+            }
+
+            return RouteAction.Continue();
         }
 
-        private Func<IAutoValueProvider, RouteAction> ReturnValueUsingProvider(ICall call, Type type)
+        private object GetResultValueUsingProvider(ICall call, Type type, IAutoValueProvider provider)
         {
-            return provider =>
+            var valueToReturn = provider.GetValue(type);
+            if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
             {
-                var valueToReturn = provider.GetValue(type);
-                if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
-                {
-                    var spec = _callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
-                    _callResults.SetResult(spec, new ReturnValue(valueToReturn));
-                }
-                return RouteAction.Return(valueToReturn);
-            };
+                var spec = _callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
+                _callResults.SetResult(spec, new ReturnValue(valueToReturn));
+            }
+
+            return valueToReturn;
         }
     }
 }

@@ -24,11 +24,11 @@ namespace NSubstitute.Routing.Handlers
 
         private void If(ICall call, Func<ICall, Predicate<EventInfo>> meetsThisSpecification, Action<string, object> takeThisAction)
         {
-            var events = GetEvents(call, meetsThisSpecification);
-            if (events.Any())
+            var matchingEvent = GetEvents(call, meetsThisSpecification).FirstOrDefault();
+            if (matchingEvent != null)
             {
-                takeThisAction(events.First().Name, call.GetArguments()[0]);
-            }            
+                takeThisAction(matchingEvent.Name, call.GetArguments()[0]);
+            }
         }
 
         private Predicate<EventInfo> IsEventSubscription(ICall call)
