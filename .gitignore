@@ -291,3 +291,6 @@ __pycache__/
 *.xsd.cs
 
 # End of https://www.gitignore.io/api/visualstudio
+
+# BenchmarkDotNet results
+**/BenchmarkDotNet.Artifacts/*
