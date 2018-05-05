@@ -63,14 +63,19 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             {
                 VerifyNoConstructorArgumentsGivenForInterface(constructorArguments);
 
-                var interfaces = new List<Type> {typeToProxy};
+                var interfacesArrayLength = additionalInterfaces != null ? additionalInterfaces.Length + 1 : 1;
+                var interfaces = new Type[interfacesArrayLength];
+
+                interfaces[0] = typeToProxy;
                 if (additionalInterfaces != null)
-                    interfaces.AddRange(additionalInterfaces);
+                {
+                    Array.Copy(additionalInterfaces, 0, interfaces, 1, additionalInterfaces.Length);
+                }
 
                 // We need to create a proxy for the object type, so we can intercept the ToString() method.
                 // Therefore, we put the desired primary interface to the secondary list.
                 typeToProxy = typeof(object);
-                additionalInterfaces = interfaces.ToArray();
+                additionalInterfaces = interfaces;
             }
 
             return _proxyGenerator.CreateClassProxy(typeToProxy,
