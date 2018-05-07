@@ -13,13 +13,10 @@ Castle.Core is maintained by the Castle Project [http://www.castleproject.org/] 
 NUnit is used for coding and running unit and integration tests for NSubstitute. It is distributed under an open source zlib/libpng based license [http://www.opensource.org/licenses/zlib-license.html].
 
 ## Rhino Mocks [http://www.ayende.com/projects/rhino-mocks.aspx]
-Used for mocking parts of the NSubstitute mocking framework for testing. It is distributed under the BSD license [http://www.opensource.org/licenses/bsd-license.php].
+Used for mocking parts of the NSubstitute mocking library for testing. It is distributed under the BSD license [http://www.opensource.org/licenses/bsd-license.php].
 
 ## Moq [http://moq.me/]
-Moq is not used in NSubstitute, but was a great source of inspiration. Moq pioneered Arrange-Act-Assert (AAA) mocking syntax for .NET, as well as removing the distinction between mocks and stubs, both of which have become important parts of NSubstitute. Moq is available under the BSD license [http://www.opensource.org/licenses/bsd-license.php].
-
-## NuPack [http://nupack.codeplex.com/]
-Used for packaging NSubstitute for distribution as a nu package. Distributed under the Apache License, Version 2.0 [http://www.apache.org/licenses/LICENSE-2.0.html].
+Moq is not directly used in NSubstitute, but was a great source of inspiration. Moq pioneered Arrange-Act-Assert (AAA) mocking syntax for .NET, as well as removing the distinction between mocks and stubs, both of which have become important parts of NSubstitute. Moq is available under the BSD license [http://www.opensource.org/licenses/bsd-license.php].
 
 ## Jekyll [http://jekyllrb.com/]
 Static website generator written in Ruby, used for NSubstitute's website and documentation. Distributed under the MIT license [http://www.opensource.org/licenses/bsd-license.php].
@@ -36,14 +33,24 @@ NSubstitute is coded in C# and compiled using Microsoft .NET. It can also run an
 Microsoft's .NET Framework is available under a EULA (and possibly other licenses like MS Reference Source License).
 Mono is available under four open source licenses for different parts of the project (including MIT/X11, GPL, MS-Pl). These are described on the project site [http://www.mono-project.com/Licensing].
 
-## Microsoft Ilmerge [http://research.microsoft.com/en-us/people/mbarnett/ilmerge.aspx]
-Used for combining assemblies so NSubstitute can be distributed as a single DLL. Available for use under a EULA as described on the ilmerge site.
+## BenchmarkDotNet [https://github.com/dotnet/BenchmarkDotNet]
+Really useful tool for benchmarking .NET code! Available for use under MIT License [https://github.com/dotnet/BenchmarkDotNet/blob/master/LICENSE.md].
+
+# Previously used for building NSubstitute
+
+Even though they are no longer directly used for NSubstitute, the following projects were really helpful in building previous NSubstitute versions.
 
 ## Microsoft Reactive Extensions for .NET (Rx) [http://msdn.microsoft.com/en-us/devlabs/ee794896]
-Used to provide .NET 3.5 with some of the neat concurrency helper classes that ship with out of the box with .NET 4.0. Distributed under a EULA [http://msdn.microsoft.com/en-us/devlabs/ff394099].
+Used to provide .NET 3.5 with some of the neat concurrency helper classes that ship with out of the box with .NET 4.0. Distributed under a EULA [http://msdn.microsoft.com/en-us/devlabs/ff394099]. No longer required since we stopped supporting .NET 3.5.
+
+## Microsoft Ilmerge [http://research.microsoft.com/en-us/people/mbarnett/ilmerge.aspx]
+Used for combining assemblies so NSubstitute can be distributed as a single DLL. Available for use under a EULA as described on the ilmerge site. No longer used now NuGet has taken over the .NET world.
 
 ## 7-Zip [http://www.7-zip.org/]
-7-zip is used to ZIP up NSubstitute distributions as part of the automated build process. Distributed under a mixed GNU LGPL / unRAR licence [http://www.7-zip.org/license.txt].
+7-zip was used to zip up NSubstitute distributions as part of the automated build process. Distributed under a mixed GNU LGPL / unRAR licence [http://www.7-zip.org/license.txt]. No longer required as we just ship NuGet packages now.
+
+## NuPack [http://nupack.codeplex.com/]
+Used for packaging NSubstitute for distribution as a nu package. Distributed under the Apache License, Version 2.0 [http://www.apache.org/licenses/LICENSE-2.0.html]. Now longer required now NuGet has taken over the .NET world.
 
 # Other acknowledgements
 

@@ -1,4 +1,5 @@
-﻿using BenchmarkDotNet.Running;
+﻿using System.Reflection;
+using BenchmarkDotNet.Running;
 
 namespace NSubstitute.Benchmarks
 {
@@ -6,9 +7,9 @@ namespace NSubstitute.Benchmarks
     {
         public static void Main(string[] args)
         {
-            BenchmarkRunner.Run<ActivationBenchmark>();
-            // BenchmarkRunner.Run<DispatchCallBenchmark>();
-            // BenchmarkRunner.Run<ToStringCallBenchmark>();
+            BenchmarkSwitcher
+                .FromAssembly(typeof(Program).GetTypeInfo().Assembly)
+                .Run(args);
         }
     }
 }

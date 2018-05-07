@@ -3,6 +3,15 @@
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net462;netcoreapp1.1</TargetFrameworks>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <OutputPath>..\..\bin\Debug\NSubstitute.Benchmarks\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\bin\Release\NSubstitute.Benchmarks\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="BenchmarkDotNet.Artifacts\**" />
     <EmbeddedResource Remove="BenchmarkDotNet.Artifacts\**" />
