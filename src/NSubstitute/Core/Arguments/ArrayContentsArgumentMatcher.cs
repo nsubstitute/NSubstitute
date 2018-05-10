@@ -6,7 +6,6 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArrayContentsArgumentMatcher : IArgumentMatcher, IArgumentFormatter
     {
-        private static readonly IArgumentFormatter DefaultArgumentFormatter = new ArgumentFormatter();
         private readonly IEnumerable<IArgumentSpecification> _argumentSpecifications;
 
         public ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications)
@@ -50,7 +49,7 @@ namespace NSubstitute.Core.Arguments
             }
             return args.Select((arg, index) => {
                 var hasSpecForThisArg = index < specs.Length;
-                return hasSpecForThisArg ? specs[index].FormatArgument(arg) : DefaultArgumentFormatter.Format(arg, true);
+                return hasSpecForThisArg ? specs[index].FormatArgument(arg) : ArgumentFormatter.Default.Format(arg, true);
             });
         }
     }

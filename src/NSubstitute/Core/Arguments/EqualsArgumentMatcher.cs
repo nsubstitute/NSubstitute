@@ -4,13 +4,15 @@ namespace NSubstitute.Core.Arguments
 {
     public class EqualsArgumentMatcher : IArgumentMatcher
     {
-        readonly static ArgumentFormatter DefaultArgumentFormatter = new ArgumentFormatter();
         private readonly object _value;
-        public EqualsArgumentMatcher(object value) { _value = value; }
-        public override string ToString() { return DefaultArgumentFormatter.Format(_value, false); }
-        public bool IsSatisfiedBy(object argument)
+
+        public EqualsArgumentMatcher(object value)
         {
-            return EqualityComparer<object>.Default.Equals(_value, argument);
+            _value = value;
         }
+
+        public override string ToString() => ArgumentFormatter.Default.Format(_value, false);
+
+        public bool IsSatisfiedBy(object argument) => EqualityComparer<object>.Default.Equals(_value, argument);
     }
 }
