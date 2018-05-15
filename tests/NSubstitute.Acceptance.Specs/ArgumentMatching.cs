@@ -1,4 +1,5 @@
-﻿using NSubstitute.Acceptance.Specs.Infrastructure;
+﻿using System.Collections.Generic;
+using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -439,6 +440,184 @@ namespace NSubstitute.Acceptance.Specs
             {
                 foo.Echo(2).Returns("42");
             });
+        }
+
+        public interface IInterfaceForAmbiguous
+        {
+            int MultipleMixedArgs(int arg1, double arg2, int arg3, double arg4);
+            int ParamsArgs(int arg1, int arg2, params int[] rest);
+            int GenericMethod<T>(T arg1, T arg2);
+            int MethodWithRefAndOut(int arg1, int arg2, ref int refArg, out bool outArg);
+            int this[int key1, int key2] { get; }
+        }
+
+        [Test]
+        public void Should_show_already_resolved_matchers_in_ambiguous_exception_v1()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.MultipleMixedArgs(Arg.Any<int>(), Arg.Any<double>(), 0, 0d).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("MultipleMixedArgs(any Int32, any Double, ???, ???"));
+        }
+
+        [Test]
+        public void Should_show_already_resolved_matchers_in_ambiguous_exception_v2()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.MultipleMixedArgs(42, Arg.Any<double>(), 123, 0d).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("MultipleMixedArgs(42, any Double, 123, ???)"));
+        }
+
+        [Test]
+        public void Should_show_question_marks_for_non_resolved_matchers_in_ambiguous_exception()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.MultipleMixedArgs(Arg.Any<int>(), Arg.Any<double>(), 0, 0).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("MultipleMixedArgs(any Int32, any Double, ???, ???)"));
+        }
+
+        [Test]
+        public void Should_show_question_mark_for_each_params_arg_in_ambiguous_exception_v1()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.ParamsArgs(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), 0, 0).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("ParamsArgs(any Int32, any Int32, any Int32, any Int32, ???, ???)"));
+        }
+
+        [Test]
+        public void Should_show_question_mark_for_each_params_arg_in_ambiguous_exception_v2()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.ParamsArgs(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("ParamsArgs(any Int32, any Int32, ???)"));
+        }
+
+        [Test]
+        public void Should_show_generic_types_for_question_mark_line_in_ambiguous_exception()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.GenericMethod(null, Arg.Any<IEnumerable<List<int>>>()).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("GenericMethod<IEnumerable<List<Int32>>>(any IEnumerable<List<Int32>>, ???)"));
+        }
+
+        [Test]
+        public void Should_show_method_signature_in_ambiguous_exception_v1()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.MultipleMixedArgs(0, 0d, Arg.Any<int>(), Arg.Any<double>()).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("MultipleMixedArgs(Int32, Double, Int32, Double)"));
+        }
+
+        [Test]
+        public void Should_show_method_signature_in_ambiguous_exception_v2()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                int refValue = 42;
+                foo.MethodWithRefAndOut(0, Arg.Any<int>(), ref refValue, out _).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("MethodWithRefAndOut(Int32, Int32, ref Int32, out Boolean)"));
+        }
+
+        [Test]
+        public void Should_show_method_signature_in_ambiguous_exception_v3()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.ParamsArgs(0, Arg.Any<int>()).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("ParamsArgs(Int32, Int32, params Int32[])"));
+        }
+
+        [Test]
+        public void Should_show_generic_method_signature_in_ambiguous_exception()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.GenericMethod(null, Arg.Any<List<int>>()).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("GenericMethod<List<Int32>>(List<Int32>, List<Int32>)"));
+        }
+
+        [Test]
+        public void Should_show_actual_method_arguments_in_ambiguous_exception_v1()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.MultipleMixedArgs(0, 0d, Arg.Any<int>(), Arg.Any<double>()).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("MultipleMixedArgs(*0*, *0*, *0*, *0*)"));
+        }
+
+        [Test]
+        public void Should_show_actual_method_arguments_in_ambiguous_exception_v2()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.ParamsArgs(42, 0, Arg.Any<int>(), 15).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("ParamsArgs(42, *0*, *0*, 15)"));
+        }
+
+        [Test]
+        public void Should_show_actual_generic_method_arguments_in_ambiguous_exception()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo.GenericMethod(null, Arg.Any<List<int>>()).Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("GenericMethod<List<Int32>>(*<null>*, *<null>*)"));
+        }
+
+        [Test]
+        public void Show_correctly_format_indexer_call_in_ambiguous_exception()
+        {
+            var foo = Substitute.For<IInterfaceForAmbiguous>();
+
+            var ex = Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                foo[0, Arg.Any<int>()].Returns(42);
+            });
+            Assert.That(ex.Message, Does.Contain("[any Int32, ???]"));
         }
 
         public delegate string DelegateWithOutParameter(string input, out string result);

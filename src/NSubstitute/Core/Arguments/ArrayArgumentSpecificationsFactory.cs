@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.Arguments
 {
@@ -21,7 +22,15 @@ namespace NSubstitute.Core.Arguments
             var result = new List<IArgumentSpecification>();
             foreach (var member in arrayMembers)
             {
-                result.Add(_nonParamsArgumentSpecificationFactory.Create(member, parameterInfos.ElementAt(index), suppliedArgumentSpecifications)); 
+                try
+                {
+                    result.Add(_nonParamsArgumentSpecificationFactory.Create(member, parameterInfos.ElementAt(index), suppliedArgumentSpecifications));
+                }
+                catch (AmbiguousArgumentsException ex)
+                {
+                    ex.Data[AmbiguousArgumentsException.NonReportedResolvedSpecificationsKey] = result;
+                    throw;
+                }
                 index++;
             }
             return result;

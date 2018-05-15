@@ -24,7 +24,7 @@ namespace NSubstitute.Core.Arguments
                 return _argumentEqualsSpecificationFactory.Create(argument, parameterInfo.ParameterType);
             }
 
-            throw new AmbiguousArgumentsException(suppliedArgumentSpecifications.AllSpecifications);
+            throw new AmbiguousArgumentsException();
         }
     }
 }

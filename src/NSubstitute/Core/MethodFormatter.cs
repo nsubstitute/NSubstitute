@@ -25,7 +25,7 @@ namespace NSubstitute.Core
         {
             if (!methodInfoOfCall.IsGenericMethod) return string.Empty;
             var genericArgs = methodInfoOfCall.GetGenericArguments();
-            return "<" + string.Join(", ", genericArgs.Select(x => x.Name).ToArray()) + ">";
+            return "<" + string.Join(", ", genericArgs.Select(x => x.GetNonMangledTypeName()).ToArray()) + ">";
         }
 
         private static bool IsDelegateProxy(MethodInfo methodInfo)
