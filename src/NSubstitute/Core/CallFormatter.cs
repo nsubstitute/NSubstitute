@@ -6,6 +6,8 @@ namespace NSubstitute.Core
 {
     public class CallFormatter : IMethodInfoFormatter
     {
+        internal static IMethodInfoFormatter Default { get; } = new CallFormatter();
+
         private readonly IEnumerable<IMethodInfoFormatter> _methodInfoFormatters;
 
         public CallFormatter()
