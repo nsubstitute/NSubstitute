@@ -17,6 +17,9 @@ namespace NSubstitute.Acceptance.Specs
             void MethodWithCallbackWithArguments(string something, Action<int, string, double, char> callback);
             void MethodWithDelegateCallback(string something, ActionCompatibleDelegate callback);
             int MethodWithCallbackWithArgumentsAndReturnValue(string something, Action<int, string> callback);
+            void MethodWithRefCallback(string something, ref Action callback);
+            void MethodWithRefCallbackWithArguments(string something, ref Action<int> callback);
+            void MethodWithRefDelegateCallback(string something, ref ActionCompatibleDelegate callback);
         }
 
         [Test]
@@ -33,6 +36,19 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Invoke_ref_callback_from_matcher()
+        {
+            var action = Substitute.For<Action>();
+            var sub = Substitute.For<IFoo>();
+            sub.MethodWithRefCallback("test", ref Arg.Invoke());
+
+            sub.MethodWithRefCallback("test", ref action);
+
+            action.Received().Invoke();
+            sub.Received().MethodWithRefCallback("test", ref action);
+        }
+
+        [Test]
         public void Invoke_callback_with_arguments()
         {
             var sub = Substitute.For<IFoo>();
@@ -44,6 +60,17 @@ namespace NSubstitute.Acceptance.Specs
             sub.Received().MethodWithCallbackWithArguments("test", action1);
         }
 
+        [Test]
+        public void Invoke_ref_callback_with_arguments()
+        {
+            var sub = Substitute.For<IFoo>();
+
+            var action1 = Substitute.For<Action<int>>();
+            sub.MethodWithRefCallbackWithArguments("test", ref Arg.Invoke(1));
+            sub.MethodWithRefCallbackWithArguments("test", ref action1);
+            action1.Received().Invoke(1);
+            sub.Received().MethodWithRefCallbackWithArguments("test", ref action1);
+        }
         [Test]
         public void Invoke_callback_with_two_arguments()
         {
@@ -102,6 +129,20 @@ namespace NSubstitute.Acceptance.Specs
 
             action.Received().Invoke(1);
             sub.Received().MethodWithDelegateCallback("test", @delegate);
+        }
+
+        [Test]
+        public void Invoke_ref_delegate_callback()
+        {
+            var action = Substitute.For<Action<int>>();
+            ActionCompatibleDelegate @delegate = x => action(x);
+            var sub = Substitute.For<IFoo>();
+            sub.MethodWithRefDelegateCallback("test", ref Arg.InvokeDelegate<ActionCompatibleDelegate>(1));
+
+            sub.MethodWithRefDelegateCallback("test", ref @delegate);
+
+            action.Received().Invoke(1);
+            sub.Received().MethodWithRefDelegateCallback("test", ref @delegate);
         }
 
         [Test]

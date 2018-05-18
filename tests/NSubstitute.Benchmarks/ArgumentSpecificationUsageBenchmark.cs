@@ -18,15 +18,13 @@ namespace NSubstitute.Benchmarks
         [Benchmark]
         public void ConfigureRefArgumentWithAnyValue()
         {
-            var refValue = Arg.Any<int>();
-            _substitute.MethodWithRefArg(ref refValue);
+            _substitute.MethodWithRefArg(ref Arg.Any<int>());
         }
 
         [Benchmark]
         public void ConfigureOutArgumentWithAnyValue()
         {
-            var outValue = Arg.Any<int>();
-            _substitute.MethodWithOutArg(out outValue);
+            _substitute.MethodWithOutArg(out Arg.Any<int>());
         }
     }
 }

@@ -152,7 +152,79 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throw_with_ambiguous_arguments_when_given_an_arg_matcher_and_a_default_arg_value()
+        public void Should_allow_to_specify_any_for_ref_argument()
+        {
+            _something.MethodWithRefParameter(Arg.Any<int>(), ref Arg.Any<int>()).Returns(42);
+
+            var refArg = 10;
+            var result = _something.MethodWithRefParameter(0, ref refArg);
+            Assert.That(result, Is.EqualTo(42));
+        }
+
+        [Test]
+        public void Should_allow_to_specify_exact_is_for_ref_argument()
+        {
+            _something.MethodWithRefParameter(Arg.Any<int>(), ref Arg.Is(24)).Returns(42);
+
+            var refArg = 24;
+            var matchingResult = _something.MethodWithRefParameter(0, ref refArg);
+            refArg = 10;
+            var nonMatchingResult = _something.MethodWithRefParameter(0, ref refArg);
+            Assert.That(matchingResult, Is.EqualTo(42));
+            Assert.That(nonMatchingResult, Is.Not.EqualTo(42));
+        }
+
+        [Test]
+        public void Should_allow_to_specify_is_expression_for_ref_argument()
+        {
+            _something.MethodWithRefParameter(Arg.Any<int>(), ref Arg.Is<int>(x => x == 24)).Returns(42);
+
+            var refArg = 24;
+            var matchingResult = _something.MethodWithRefParameter(0, ref refArg);
+            refArg = 10;
+            var nonMatchingResult = _something.MethodWithRefParameter(0, ref refArg);
+            Assert.That(matchingResult, Is.EqualTo(42));
+            Assert.That(nonMatchingResult, Is.Not.EqualTo(42));
+        }
+
+        [Test]
+        public void Should_allow_to_specify_any_for_out_argument()
+        {
+            _something.MethodWithOutParameter(Arg.Any<int>(), out Arg.Any<int>()).Returns(42);
+
+            var outArg = 10;
+            var result1 = _something.MethodWithOutParameter(0, out outArg);
+            var result2 = _something.MethodWithOutParameter(0, out int _);
+            Assert.That(result1, Is.EqualTo(42));
+            Assert.That(result2, Is.EqualTo(42));
+        }
+
+        [Test]
+        public void Should_allow_to_specify_exact_is_for_out_argument()
+        {
+            _something.MethodWithOutParameter(Arg.Any<int>(), out Arg.Is(24)).Returns(42);
+
+            var outArg = 24;
+            var matchingResult = _something.MethodWithOutParameter(0, out outArg);
+            var nonMatchingResult = _something.MethodWithOutParameter(0, out int _);
+            Assert.That(matchingResult, Is.EqualTo(42));
+            Assert.That(nonMatchingResult, Is.Not.EqualTo(42));
+        }
+
+        [Test]
+        public void Should_allow_to_specify_is_expression_for_out_argument()
+        {
+            _something.MethodWithOutParameter(Arg.Any<int>(), out Arg.Is<int>(x => x == 24)).Returns(42);
+
+            var outArg = 24;
+            var matchingResult = _something.MethodWithOutParameter(0, out outArg);
+            var nonMatchingResult = _something.MethodWithOutParameter(0, out int _);
+            Assert.That(matchingResult, Is.EqualTo(42));
+            Assert.That(nonMatchingResult, Is.Not.EqualTo(42));
+        }
+
+        [Test]
+        public void Throw_with_ambiguous_arguments_when_given_an_arg_matcher_and_a_default_arg_value_v1()
         {
             Assert.Throws<AmbiguousArgumentsException>(() =>
                {
@@ -160,6 +232,29 @@ namespace NSubstitute.Acceptance.Specs
                    Assert.Fail("Should not make it here, as it can't work out which arg the matcher refers to." +
                                "If it does this will throw an AssertionException rather than AmbiguousArgumentsException.");
                });
+        }
+
+        [Test]
+        public void Throw_with_ambiguous_arguments_when_given_an_arg_matcher_and_a_default_arg_value_v2()
+        {
+            Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                _something.MethodWithRefParameter(0, ref Arg.Any<int>()).Returns(42);
+                Assert.Fail("Should not make it here, as it can't work out which arg the matcher refers to." +
+                            "If it does this will throw an AssertionException rather than AmbiguousArgumentsException.");
+            });
+        }
+
+        [Test]
+        public void Throw_with_ambiguous_arguments_when_given_an_arg_matcher_and_a_default_arg_value_v3()
+        {
+            Assert.Throws<AmbiguousArgumentsException>(() =>
+            {
+                int defValue = 0;
+                _something.MethodWithMultipleRefParameters(42, ref defValue, ref Arg.Any<int>()).Returns(42);
+                Assert.Fail("Should not make it here, as it can't work out which arg the matcher refers to." +
+                            "If it does this will throw an AssertionException rather than AmbiguousArgumentsException.");
+            });
         }
 
         [Test]
