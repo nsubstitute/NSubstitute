@@ -97,10 +97,10 @@ Target "Package" (fun _ ->
 Description("Run all benchmarks. Must be run with configuration=Release.")
 Target "Benchmarks" (fun _ ->
     if configuration <> "Release" then
-        failwith "Benchmarks can only be run in Release mode. Please re-run the build with configuration=Release."
+        failwith "Benchmarks can only be run in Release mode. Please re-run the build in Release configuration."
 
     let benchmarkCsproj = "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> Path.GetFullPath
-    let allBenchmarks = "*"
+    let benchmarkToRun = getBuildParamOrDefault "benchmark" "*" // Defaults to "*" (all)
     [ "netcoreapp1.1" ]
     |> List.iter (fun framework ->
         traceImportant ("Benchmarking " + framework)
@@ -108,7 +108,7 @@ Target "Benchmarks" (fun _ ->
         ensureDirectory work
         DotNetCli.RunCommand
             (fun p -> { p with WorkingDir = work; TimeOut = TimeSpan.FromHours 2. })
-            ("run --framework " + framework + " --project " + benchmarkCsproj + " -- " + allBenchmarks)
+            ("run --framework " + framework + " --project " + benchmarkCsproj + " -- " + benchmarkToRun)
     )
 )
 
@@ -177,6 +177,7 @@ Description("List targets, similar to `rake -T`. For more details, run `--listTa
 Target "-T" <| fun _ ->
     printfn "Optional config options:"
     printfn "  configuration=Debug|Release"
+    printfn "  benchmark=*|<benchmark name>  (only for Benchmarks target in Release mode)"
     printfn ""
     PrintTargets()
 
