@@ -1,7 +1,17 @@
 4.0.0 Release
 ================
 
-Unused argument matchers (`Arg.Is`, `Arg.Any`) will now throw an exception. This normally occurs if an argument matcher was used with a non-virtual call, or with an object that is not a substitute. This may cause existing tests to fail if they were misusing argument matchers in a way that did not cause an obvious problem.
+Argument matchers (`Arg.Is`, `Arg.Any` etc.) now use [`ref` returns which were introduced in C# 7.0](https://blogs.msdn.microsoft.com/dotnet/2016/08/24/whats-new-in-csharp-7-0/#user-content-ref-returns-and-locals). This lets NSubstitute have better support for working with `out` and `ref` arguments, but also means that test written using previous NSubstitute versions will now fail to compile with pre-C# 7 compilers.
+
+Reason: Previous NSubstitute versions had quite limited support for `out` and `ref` arguments. Enhanced support for `out` and `ref` in C# 7 means we are likely to see these being used more frequently. As the vast majority of people using NSubstitute seem to be on C# 7+ (based on [NuGet statistics](https://www.nuget.org/stats/packages/NSubstitute?groupby=Version&groupby=ClientVersion)), we've thought it best to make sure NSubstitute's default behaviour works for these cases.
+
+Workaround: If at all possible please update to a recent version of your .NET compiler (C# 7+, VB 2017, VB 15.3+, F# 4.1+). This should provide support for `ref` returns and make the code compile fine with the new `Arg` methods. These shipped with Visual Studio 2017. Visual Studio for Mac 2017 and JetBrains Rider 2017 also support C# 7+.
+
+If it is not possible for you to use a C# 7-compatible compiler, we have added a compatibility wrapper around `Arg` called `CompatArg`, which has all the same members as `Arg` just without the `ref` return type. If you replace `Arg.` references with `CompatArg.` in your project then you can continue to use the old compiler with NSubstitute 4.x. If you find `CompatArg` name too verbose, you can create a wrapper within your project with a shorter name (e.g. `ArgC`) that delegates to `CompatArg`.
+
+---------------
+
+Unused argument matchers (`Arg.Is`, `Arg.Any` etc.) will now throw an exception. This normally occurs if an argument matcher was used with a non-virtual call, or with an object that is not a substitute. This may cause existing tests to fail if they were misusing argument matchers in a way that did not cause an obvious problem.
 
 Reason: Previously these were ignored, which could cause confusing test failures in subsequent tests. Now these cases should be picked up earlier and make finding the problem easier. See #89 and #279 for examples.
 
