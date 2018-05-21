@@ -55,16 +55,19 @@ let solutionFile  = root </> "NSubstitute.sln"
 Target "Default" DoNothing
 Target "All" DoNothing
 
+Description("Clean compilation artifacts and remove output bin directory")
 Target "Clean" (fun _ ->
     let vsProjProps = [ ("Configuration", configuration); ("Platform", "Any CPU") ]
     !! solutionFile |> MSBuild "" "Clean" vsProjProps |> ignore
     CleanDirs [ output ]
 )
 
+Description("Restore dependencies")
 Target "Restore" (fun _ ->
     DotNetCli.Restore (fun p -> p)
 )
 
+Description("Compile all projects")
 Target "Build" (fun _ ->
     DotNetCli.Build (fun p ->
         { p with
@@ -73,6 +76,7 @@ Target "Build" (fun _ ->
             })
 )
 
+Description("Run tests")
 Target "Test" (fun _ ->
     DotNetCli.Test (fun p ->
         { p with
@@ -80,6 +84,7 @@ Target "Test" (fun _ ->
             Configuration = configuration })
 )
 
+Description("Generate Nuget package")
 Target "Package" (fun _ ->
     DotNetCli.Pack (fun p ->
         { p with
@@ -89,6 +94,25 @@ Target "Package" (fun _ ->
             })
 )
 
+Description("Run all benchmarks. Must be run with configuration=Release.")
+Target "Benchmarks" (fun _ ->
+    if configuration <> "Release" then
+        failwith "Benchmarks can only be run in Release mode. Please re-run the build in Release configuration."
+
+    let benchmarkCsproj = "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> Path.GetFullPath
+    let benchmarkToRun = getBuildParamOrDefault "benchmark" "*" // Defaults to "*" (all)
+    [ "netcoreapp1.1" ]
+    |> List.iter (fun framework ->
+        traceImportant ("Benchmarking " + framework)
+        let work = output </> "benchmark-" + framework
+        ensureDirectory work
+        DotNetCli.RunCommand
+            (fun p -> { p with WorkingDir = work; TimeOut = TimeSpan.FromHours 2. })
+            ("run --framework " + framework + " --project " + benchmarkCsproj + " -- " + benchmarkToRun)
+    )
+)
+
+Description("Extract, build and test code from documentation.")
 Target "TestCodeFromDocs" <| fun _ ->
     let outputCodePath = output </> "CodeFromDocs"
     CreateDir outputCodePath
@@ -124,6 +148,7 @@ let tryFindFileOnPath (file : string) : string option =
     |> Seq.append ["."]
     |> fun path -> tryFindFile path file
 
+Description("Build documentation website. Requires Ruby, bundler and jekyll.")
 Target "Documentation" <| fun _ -> 
     log "building site..."
     let exe = [ "bundle.bat"; "bundle" ]
@@ -148,10 +173,11 @@ Target "Documentation" <| fun _ ->
     else
         "failed to build site" |> failwith
 
-// List targets, similar to `rake -T`
+Description("List targets, similar to `rake -T`. For more details, run `--listTargets` instead.")
 Target "-T" <| fun _ ->
     printfn "Optional config options:"
     printfn "  configuration=Debug|Release"
+    printfn "  benchmark=*|<benchmark name>  (only for Benchmarks target in Release mode)"
     printfn ""
     PrintTargets()
 
@@ -166,10 +192,11 @@ Target "-T" <| fun _ ->
 "Build"         <== [ "Restore" ]
 "Test"          <== [ "Build" ]
 "Documentation" <== [ "TestCodeFromDocs" ]
-"Default"       <== [ "Restore"; "Build"; "Test" ]
+"Benchmarks"     <== [ "Build" ]
 // For packaging, use a clean build and make sure all tests (inc. docs) pass.
 "Package"       <== [ "Clean"; "Build"; "Test"; "TestCodeFromDocs" ]
 
+"Default"       <== [ "Restore"; "Build"; "Test" ]
 "All"           <== [ "Clean"; "Default"; "Documentation"; "Package" ]
 
 RunTargetOrDefault "Default"

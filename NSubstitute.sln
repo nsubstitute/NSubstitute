@@ -15,22 +15,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A8AF7D01
 		build\build.bat = build\build.bat
 		build\build.fsx = build\build.fsx
 		build\build.sh = build\build.sh
+		build\ExtractDocs.fsx = build\ExtractDocs.fsx
+		build\NSubstitute.nuspec = build\NSubstitute.nuspec
 		build\packages.config = build\packages.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA2DD4AA-8DCD-42FB-8081-243281AD2956}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.travis.yml = .travis.yml
 		appveyor.yml = appveyor.yml
 		BreakingChanges.md = BreakingChanges.md
 		CHANGELOG.md = CHANGELOG.md
 		README.md = README.md
-		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstitute.Acceptance.Specs", "tests\NSubstitute.Acceptance.Specs\NSubstitute.Acceptance.Specs.csproj", "{8C2300AA-F94C-4005-A359-257C5EAD338E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstitute.Benchmarks", "tests\NSubstitute.Benchmarks\NSubstitute.Benchmarks.csproj", "{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstitute.Benchmarks", "tests\NSubstitute.Benchmarks\NSubstitute.Benchmarks.csproj", "{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +48,10 @@ Global
 		{8C2300AA-F94C-4005-A359-257C5EAD338E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C2300AA-F94C-4005-A359-257C5EAD338E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C2300AA-F94C-4005-A359-257C5EAD338E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
