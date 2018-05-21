@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using NSubstitute.ClearExtensions;
 using NUnit.Framework;
 
@@ -13,6 +14,8 @@ namespace NSubstitute.Acceptance.Specs
         {
             void Bar(string a, int b, object c);
             int Zap(object c);
+            void MethodWithRef(ref int arg);
+            void MethodWithOut(out int arg);
         }
 
         [SetUp]
@@ -110,6 +113,30 @@ namespace NSubstitute.Acceptance.Specs
             _sub.ClearSubstitute(ClearOptions.CallActions);
             _sub.Zap("");
             Assert.That(count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Should_run_action_with_ref_argument()
+        {
+            int captured = 0;
+            _sub.MethodWithRef(ref Arg.Do<int>(x => captured = x));
+
+            int arg = 42;
+            _sub.MethodWithRef(ref arg);
+
+            Assert.That(captured, Is.EqualTo(42));
+        }
+
+        [Test]
+        public void Should_run_action_with_out_argument()
+        {
+            int captured = 0;
+            _sub.MethodWithOut(out Arg.Do<int>(x => captured = x));
+
+            int arg = 42;
+            _sub.MethodWithOut(out arg);
+
+            Assert.That(captured, Is.EqualTo(42));
         }
     }
 }

@@ -13,6 +13,9 @@
         SomeClass SomeAction();
         SomeClass SomeActionWithParams(int i, string s);
         int SomeProperty { get; set; }
+        int MethodWithRefParameter(int arg1, ref int arg2);
+        int MethodWithMultipleRefParameters(int arg1, ref int arg2, ref int arg3);
+        int MethodWithOutParameter(int arg1, out int arg2);
 
         object this[string key] { get; set; }
         System.Threading.Tasks.Task Async();
