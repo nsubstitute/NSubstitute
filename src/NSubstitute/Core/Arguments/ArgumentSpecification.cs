@@ -4,7 +4,6 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecification : IArgumentSpecification
     {
-        static readonly ArgumentFormatter Formatter = new ArgumentFormatter();
         static readonly Action<object> NoOpAction = x => { };
         readonly Type _forType;
         readonly IArgumentMatcher _matcher;
@@ -38,7 +37,9 @@ namespace NSubstitute.Core.Arguments
         {
             var isSatisfiedByArg = IsSatisfiedBy(argument);
             var matcherFormatter = _matcher as IArgumentFormatter;
-            return (matcherFormatter == null) ? Formatter.Format(argument, !isSatisfiedByArg) : matcherFormatter.Format(argument, isSatisfiedByArg);
+            return matcherFormatter == null
+                ? ArgumentFormatter.Default.Format(argument, !isSatisfiedByArg)
+                : matcherFormatter.Format(argument, isSatisfiedByArg);
         }
 
         public Type ForType { get { return _forType; } }

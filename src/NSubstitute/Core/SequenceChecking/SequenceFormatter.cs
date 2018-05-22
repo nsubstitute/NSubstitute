@@ -63,8 +63,6 @@ namespace NSubstitute.Core.SequenceChecking
             private readonly int _instanceNumber;
             private readonly ICall _call;
             private readonly CallSpecAndTarget _specAndTarget;
-            private readonly CallFormatter _callFormatter = new CallFormatter();
-            private readonly ArgumentFormatter _argFormatter = new ArgumentFormatter();
 
             public CallData(int instanceNumber, CallSpecAndTarget specAndTarget)
             {
@@ -120,7 +118,7 @@ namespace NSubstitute.Core.SequenceChecking
                 var args = methodInfo.GetParameters()
                             .Zip(call.GetOriginalArguments(), (p, a) => new ArgAndParamInfo(p, a))
                             .ToArray();
-                return _callFormatter.Format(methodInfo, FormatArgs(args));
+                return CallFormatter.Default.Format(methodInfo, FormatArgs(args));
             }
 
             private IEnumerable<string> FormatArgs(ArgAndParamInfo[] arguments)
@@ -130,7 +128,7 @@ namespace NSubstitute.Core.SequenceChecking
                         .SelectMany(a => a.ParamInfo.IsParams()
                                           ? ((IEnumerable) a.Argument).Cast<object>()
                                           : ToEnumerable(a.Argument))
-                        .Select(x => _argFormatter.Format(x, false))
+                        .Select(x => ArgumentFormatter.Default.Format(x, false))
                         .ToArray();
 
                 return argsWithParamsExpanded;

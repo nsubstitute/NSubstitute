@@ -8,7 +8,7 @@ namespace NSubstitute.Core.Arguments
     {
         private readonly IArgumentSpecificationCompatibilityTester _argSpecCompatibilityTester;
         private readonly Queue<IArgumentSpecification> _queue;
-        public IEnumerable<IArgumentSpecification> AllSpecifications { get; }
+        private IReadOnlyCollection<IArgumentSpecification> AllSpecifications { get; }
 
         public SuppliedArgumentSpecifications(IArgumentSpecificationCompatibilityTester argSpecCompatibilityTester, IEnumerable<IArgumentSpecification> argumentSpecifications)
         {

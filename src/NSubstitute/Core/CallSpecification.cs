@@ -8,9 +8,6 @@ namespace NSubstitute.Core
 {
     public class CallSpecification : ICallSpecification
     {
-        static readonly IMethodInfoFormatter DefaultFormatter = new CallFormatter();
-        public IMethodInfoFormatter CallFormatter = DefaultFormatter;
-
         private readonly MethodInfo _methodInfo;
         readonly IArgumentSpecification[] _argumentSpecifications;
 
@@ -84,12 +81,12 @@ namespace NSubstitute.Core
         public override string ToString()
         {
             var argSpecsAsStrings = _argumentSpecifications.Select(x => x.ToString()).ToArray();
-            return CallFormatter.Format(GetMethodInfo(), argSpecsAsStrings);
+            return CallFormatter.Default.Format(GetMethodInfo(), argSpecsAsStrings);
         }
 
         public string Format(ICall call)
         {
-            return CallFormatter.Format(call.GetMethodInfo(), FormatArguments(call.GetOriginalArguments()));
+            return CallFormatter.Default.Format(call.GetMethodInfo(), FormatArguments(call.GetOriginalArguments()));
         }
 
         private IEnumerable<string> FormatArguments(IEnumerable<object> arguments)

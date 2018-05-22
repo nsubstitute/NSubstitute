@@ -35,7 +35,7 @@ namespace NSubstitute.Core.Arguments
             bool isAmbiguousSpecificationPresent = suppliedArgumentSpecifications.AnyFor(argument, parameterInfo.ParameterType);
             if (isAmbiguousSpecificationPresent)
             {
-                throw new AmbiguousArgumentsException(suppliedArgumentSpecifications.AllSpecifications);
+                throw new AmbiguousArgumentsException();
             }
 
             // User passed "null" as the params array value.

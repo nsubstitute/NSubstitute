@@ -11,11 +11,8 @@ namespace NSubstitute.Core.Arguments
             _typeArgMustBeCompatibleWith = typeArgMustBeCompatibleWith;
         }
 
-        public override string ToString() { return "any " + _typeArgMustBeCompatibleWith.Name; }
+        public override string ToString() => "any " + _typeArgMustBeCompatibleWith.GetNonMangledTypeName();
 
-        public bool IsSatisfiedBy(object argument)
-        {
-            return argument.IsCompatibleWith(_typeArgMustBeCompatibleWith);
-        }
+        public bool IsSatisfiedBy(object argument) => argument.IsCompatibleWith(_typeArgMustBeCompatibleWith);
     }
 }
