@@ -27,7 +27,7 @@ By default `ReadFile` may access a file on the file system, but we can `Substitu
 [Test]
 public void ShouldSumAllNumbersInFile() {
   var reader = Substitute.ForPartsOf<SummingReader>();
-  reader.ReadFile(Arg.Is("foo.txt")).Returns("1,2,3,4,5"); // CAUTION: real code warning!
+  reader.Configure().ReadFile("foo.txt").Returns("1,2,3,4,5"); // CAUTION: real code warning!
 
   var result = reader.Read("foo.txt");
 
@@ -37,22 +37,39 @@ public void ShouldSumAllNumbersInFile() {
 
 Now the real `Read` method will execute, but `ReadFile` will return our substituted value instead of calling the original method, so we can run the test without having to worry about a real file system.
 
-Note the **CAUTION** comment. If we had not used an [argument matcher](/help/argument-matchers/) here the real `ReadFile` method would have executed before we had a chance to override the behaviour. This is because `reader.ReadFile("foo.txt")` would run before `.Returns(...)`. In some cases this may not be a problem, but if in doubt make sure you specify an argument matcher (`Arg.Is`, `Arg.Any` etc) so NSubstitute knows you are configuring a call and don't want to run any real code. To play it extra safe, use `When .. DoNotCallBase` as described below.
+Note the **CAUTION** comment. If we had not used [`Configure()`](/help/configure/) here before `.ReadFile()` then the real `ReadFile` method would have executed before we had a chance to override the behaviour (`reader.ReadFile("foo.txt")` returns first before `.Returns(...)` executes). In some cases this may not be a problem, but if in doubt make sure you call `Configure()` first so NSubstitute knows you are configuring a call and don't want to run any real code. (This still does not guarantee real code will not run -- remember, NSubstitute will not prevent non-virtual calls from executing.)
 
-## Void methods, and the play-it-safe approach to partial subs
+## Void methods and `DoNotCallBase`
 
-We can't use `.Returns()` with void methods, but we can stop a void method from calling the real method using `When .. DoNotCallBase`. This also works with non-void methods and can be handy when we want to have a little more confidence we're not going to run real code (a *little* more confidence -- remember, NSubstitute will not prevent non-virtual calls from executing). The previous example can be rewritten to use this approach:
+We can't use `.Returns()` with void methods, but we can stop a void method on a partial substitute from calling the real method using `When .. DoNotCallBase`. (This also works for non-void methods, although generally we use `Configure()` and `Returns()` to override the base behaviour in these cases.)
 
 {% examplecode csharp %}
+public class EmailServer {
+  public virtual void Send(string to, string from, string message) {
+    // Insert real email sending code here
+    throw new NotImplementedException();
+  }
+
+  public virtual void SendMultiple(IEnumerable<string> recipients, string from, string message) {
+    foreach (var recipient in recipients) {
+        Send(recipient, from, message);
+    }
+  }
+}
+
 [Test]
-public void ShouldSumAllNumbersInFileATadMoreSafely() {
-  var reader = Substitute.ForPartsOf<SummingReader>();
-  reader.When(x => x.ReadFile("foo.txt")).DoNotCallBase(); //Make sure the ReadFile call won't call real implementation
-  reader.ReadFile("foo.txt").Returns("1,2,3,4,5"); // This won't run the real ReadFile now
+public void ShouldSendMultipleEmails() {
+  var server = Substitute.ForPartsOf<EmailServer>();
+  server.WhenForAnyArgs(x => x.Send("", "", "")).DoNotCallBase(); // Make sure Send won't call real implementation
 
-  var result = reader.Read("foo.txt");
+  server.SendMultiple(
+    new [] { "alice", "bob", "charlie" },
+    "nsubstitute",
+    "Partial subs should be used with caution."); // This won't run the real Send now, thanks to DoNotCallBase().
 
-  Assert.That(result, Is.EqualTo(15));
+  server.Received().Send("alice", "nsubstitute", Arg.Any<string>());
+  server.Received().Send("bob", "nsubstitute", Arg.Any<string>());
+  server.Received().Send("charlie", "nsubstitute", Arg.Any<string>());
 }
 {% endexamplecode %}
 

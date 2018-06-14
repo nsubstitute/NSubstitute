@@ -7,7 +7,7 @@ Reason: Previous NSubstitute versions had quite limited support for `out` and `r
 
 Workaround: If at all possible please update to a recent version of your .NET compiler (C# 7+, VB 2017, VB 15.3+, F# 4.1+). This should provide support for `ref` returns and make the code compile fine with the new `Arg` methods. These shipped with Visual Studio 2017. Visual Studio for Mac 2017 and JetBrains Rider 2017 also support C# 7+.
 
-If it is not possible for you to use a C# 7-compatible compiler, we have added a compatibility wrapper around `Arg` called `CompatArg`, which has all the same members as `Arg` just without the `ref` return type. If you replace `Arg.` references with `CompatArg.` in your project then you can continue to use the old compiler with NSubstitute 4.x. If you find `CompatArg` name too verbose, you can create a wrapper within your project with a shorter name (e.g. `ArgC`) that delegates to `CompatArg`.
+If it is not possible for you to use a C# 7-compatible compiler, we have added a compatibility wrapper around `Arg` called `CompatArg`, which has all the same members as `Arg` just without the `ref` return type. If you replace `Arg.` references with `CompatArg.` in your project then you can continue to use older compilers with NSubstitute 4.x. You will also need to reference `NSubstitute.Compatibility` for these files (replace `using NSubstitute;` with `using NSubstitute; using NSubstitute.Compatibility;`). To make this easier and less verbose you may want to create a wrapper within the root of your test project with a shorter name (e.g. `ArgC`) that delegates to `CompatArg` (this will also avoid needing the extra `using` import).
 
 ---------------
 
