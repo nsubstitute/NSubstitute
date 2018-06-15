@@ -294,3 +294,9 @@ __pycache__/
 
 # BenchmarkDotNet results
 **/BenchmarkDotNet.Artifacts/*
+
+# Generated doc site
+docs/_site/*
+
+# Ignore VIM tmp files
+*.swp
