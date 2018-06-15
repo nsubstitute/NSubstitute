@@ -6,15 +6,22 @@ Visit the [NSubstitute website](http://nsubstitute.github.com) for more informat
 
 ### What is it?
 
-NSubstitute is designed as a friendly substitute for .NET mocking libraries.  
+NSubstitute is designed as a friendly substitute for .NET mocking libraries.
 
 It is an attempt to satisfy our craving for a mocking library with a succinct syntax that helps us keep the focus on the intention of our tests, rather than on the configuration of our test doubles. We've tried to make the most frequently required operations obvious and easy to use, keeping less usual scenarios discoverable and accessible, and all the while maintaining as much natural language as possible.
 
 Perfect for those new to testing, and for others who would just like to to get their tests written with less noise and fewer lambdas.
 
+### Installation
+
+* [NSubstitute package](http://nuget.org/List/Packages/NSubstitute)
+* Optional Roslyn analysers (recommended):
+    * For C# projects: [NSubstitute.Analyzers.CSharp](https://www.nuget.org/packages/NSubstitute.Analyzers.CSharp/)
+    * For VB projects: [NSubstitute.Analyzers.VisualBasic](https://www.nuget.org/packages/NSubstitute.Analyzers.VisualBasic/)
+
 ### Getting help
 
-If you have questions or feedback on NSubstitute, head on over to the [NSubstitute discussion group](http://groups.google.com/group/nsubstitute).
+If you have questions, feature requests or feedback on NSubstitute please [raise an issue](https://github.com/nsubstitute/NSubstitute/issues) on our project site. All questions are welcome via our project site, but for "how-to"-style questions you can also try [StackOverflow with the \[nsubstitute\] tag](https://stackoverflow.com/tags/nsubstitute), which often leads to very good answers from the larger programming community. StackOverflow is especially useful if your question also relates to other libraries that our team may not be as familiar with (e.g. NSubstitute with Entity Framework). You can also head on over to the [NSubstitute discussion group](http://groups.google.com/group/nsubstitute) if you prefer.
 
 ### Basic use
 
@@ -117,4 +124,4 @@ NSubstitute and its tests can be compiled and run using Visual Studio and Visual
 
 There are also build scripts in the `./build` directory for command line builds, and CI configurations in the project root.
 
-To do [full builds](https://github.com/nsubstitute/NSubstitute/wiki/Release-procedure) you'll also need Ruby, as the jekyll gem is used to generate the website.  
+To do [full builds](https://github.com/nsubstitute/NSubstitute/wiki/Release-procedure) you'll also need Ruby, as the jekyll gem is used to generate the website.
