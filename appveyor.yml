@@ -8,8 +8,12 @@ environment:
     - Configuration: Release
       Framework: netcoreapp1.0
 
+install:
+  - set PATH=C:\Ruby22\bin;%PATH%
+  - bundle install      
+
 before_test:
   - dotnet --info
 
 test_script:
-  - build/build.cmd
+  - build/build.cmd All
