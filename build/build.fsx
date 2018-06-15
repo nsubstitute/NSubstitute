@@ -1,8 +1,7 @@
-#r @"../packages/FAKE.4.63.0/tools/FakeLib.dll"
+#r @"packages/FAKE.4.63.0/tools/FakeLib.dll"
 #load @"ExtractDocs.fsx"
 
 open Fake
-open Fake.TargetHelper
 open System
 open System.IO
 open System.Text.RegularExpressions
@@ -29,7 +28,7 @@ module ExamplesToCode =
         let paths = paths |> Seq.toList
         for p in paths do
             trace <| sprintf "Convert from %s to %s" p targetDir
-            let files = !! "*.markdown" ++ "*.html" |> SetBaseDir p
+            let files = !! "*.markdown" ++ "*.html" ++ "*.md" |> SetBaseDir p
             for file in files do
                 ConvertFile file targetDir
 
@@ -39,7 +38,7 @@ let getVersion () =
     let getMatch (i:int) = result.[i].Value
     sprintf "%s.%s.%s.%s" (getMatch 1) (getMatch 2) (getMatch 3) (getMatch 4)
 
-let root = __SOURCE_DIRECTORY__ </> ".."
+let root = __SOURCE_DIRECTORY__ </> ".." |> FullName
 
 let configuration = getBuildParamOrDefault "configuration" "Debug"
 let version = getVersion ()
@@ -64,34 +63,29 @@ Target "Clean" (fun _ ->
 
 Description("Restore dependencies")
 Target "Restore" (fun _ ->
-    DotNetCli.Restore (fun p -> p)
+    DotNetCli.Restore (fun p -> { p with WorkingDir = root } )
 )
 
 Description("Compile all projects")
 Target "Build" (fun _ ->
-    DotNetCli.Build (fun p ->
-        { p with
-            Configuration = configuration
-            AdditionalArgs = additionalArgs
-            })
+    DotNetCli.Build (fun p -> { p with WorkingDir = root
+                                       Configuration = configuration
+                                       AdditionalArgs = additionalArgs })
 )
 
 Description("Run tests")
 Target "Test" (fun _ ->
-    DotNetCli.Test (fun p ->
-        { p with
-            Project = "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
-            Configuration = configuration })
+    DotNetCli.Test (fun p -> { p with WorkingDir = root
+                                      Project = "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
+                                      Configuration = configuration })
 )
 
 Description("Generate Nuget package")
 Target "Package" (fun _ ->
-    DotNetCli.Pack (fun p ->
-        { p with
-            Configuration = configuration
-            Project = "src/NSubstitute/NSubstitute.csproj"
-            AdditionalArgs = additionalArgs
-            })
+    DotNetCli.Pack (fun p -> { p with WorkingDir = root
+                                      Configuration = configuration
+                                      Project = "src/NSubstitute/NSubstitute.csproj"
+                                      AdditionalArgs = additionalArgs })
 )
 
 Description("Run all benchmarks. Must be run with configuration=Release.")
@@ -99,7 +93,7 @@ Target "Benchmarks" (fun _ ->
     if configuration <> "Release" then
         failwith "Benchmarks can only be run in Release mode. Please re-run the build in Release configuration."
 
-    let benchmarkCsproj = "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> Path.GetFullPath
+    let benchmarkCsproj = root </> "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> FullName
     let benchmarkToRun = getBuildParamOrDefault "benchmark" "*" // Defaults to "*" (all)
     [ "netcoreapp1.1" ]
     |> List.iter (fun framework ->
@@ -117,7 +111,7 @@ Target "TestCodeFromDocs" <| fun _ ->
     let outputCodePath = output </> "CodeFromDocs"
     CreateDir outputCodePath
     // generate samples from docs
-    ExamplesToCode.Convert [ "./docs/"; "./docs/help/_posts/"; "./" ] outputCodePath
+    ExamplesToCode.Convert [ root </> "docs/"; root </> "docs/help/_posts/"; root ] outputCodePath
     // compile code samples
     let csproj = """
         <Project Sdk="Microsoft.NET.Sdk">
@@ -150,7 +144,7 @@ let tryFindFileOnPath (file : string) : string option =
 
 Description("Build documentation website. Requires Ruby, bundler and jekyll.")
 Target "Documentation" <| fun _ -> 
-    log "building site..."
+    log "Building site..."
     let exe = [ "bundle.bat"; "bundle" ]
                 |> Seq.map tryFindFileOnPath
                 |> Seq.collect (Option.toList)
@@ -158,7 +152,7 @@ Target "Documentation" <| fun _ ->
                 |> function | Some x -> log ("using " + x); x
                             | None   -> log ("count not find exe"); "bundle"
 
-    let workingDir = "./docs/"
+    let workingDir = root </> "docs/"
     let docOutputRelativeToWorkingDir = ".." </> output </> "nsubstitute.github.com"
     let result = 
         ExecProcess (fun info -> 
@@ -169,7 +163,7 @@ Target "Documentation" <| fun _ ->
                         info.Arguments <- "exec jekyll \"" + docOutputRelativeToWorkingDir + "\"")
                     (TimeSpan.FromMinutes 5.)
     if result = 0 then
-        "site built in " + docOutputRelativeToWorkingDir |> log
+        "Site built in " + docOutputRelativeToWorkingDir |> log
     else
         "failed to build site" |> failwith
 

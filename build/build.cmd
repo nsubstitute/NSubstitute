@@ -3,10 +3,9 @@
 cls
 set encoding=utf-8
 
-pushd %~dp0..\
+SET SCRIPT_DIR=%~dp0
 
-"build/nuget.exe" restore "build/packages.config " -PackagesDirectory "packages"
+"%SCRIPT_DIR%\nuget.exe" restore "%SCRIPT_DIR%\packages.config" -PackagesDirectory "%SCRIPT_DIR%\packages"
 
 REM If changing FAKE version, also update build.sh
-"packages/FAKE.4.63.0/tools/Fake.exe" "build/build.fsx" %*
-popd
+"%SCRIPT_DIR%\packages/FAKE.4.63.0/tools/Fake.exe" "%SCRIPT_DIR%\build.fsx" %*
