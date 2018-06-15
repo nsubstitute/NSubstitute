@@ -49,15 +49,15 @@ let additionalArgs =
     ]
 
 let output = root </> "bin" </> configuration
-let solutionFile  = root </> "NSubstitute.sln"
 
 Target "Default" DoNothing
 Target "All" DoNothing
 
 Description("Clean compilation artifacts and remove output bin directory")
 Target "Clean" (fun _ ->
-    let vsProjProps = [ ("Configuration", configuration); ("Platform", "Any CPU") ]
-    !! solutionFile |> MSBuild "" "Clean" vsProjProps |> ignore
+    DotNetCli.RunCommand (fun p -> { p with WorkingDir = root })
+                         (sprintf "clean --configuration %s" configuration)
+
     CleanDirs [ output ]
 )
 
