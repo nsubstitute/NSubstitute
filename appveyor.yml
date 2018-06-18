@@ -12,4 +12,4 @@ before_test:
   - dotnet --info
 
 test_script:
-  - build/build.bat
+  - build/build.cmd
