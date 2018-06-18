@@ -1,5 +1,7 @@
 ﻿using System;
+using NSubstitute.Core;
 using NSubstitute.Exceptions;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -123,6 +125,18 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void DoNotCallBaseWhenConfiguringReturnsIfConfigureHintIsPresent()
+        {
+            var testClass = Substitute.ForPartsOf<TestClass>();
+            testClass.Configure().MethodReturnsSameInt(2).Returns(4);
+
+            var result = testClass.MethodReturnsSameInt(2);
+
+            Assert.That(testClass.CalledTimes, Is.EqualTo(0), "should not call base as NSub knows we are specifying a call");
+            Assert.That(result, Is.EqualTo(4));
+        }
+
+        [Test]
         public void DoNotCallBaseWhenConfiguringReturnsIfAnArgMatcherIsPresent()
         {
             var testClass = Substitute.ForPartsOf<TestClass>();
@@ -144,7 +158,40 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(testClass.CalledTimes, Is.EqualTo(0), "should not call base");
             Assert.That(result, Is.EqualTo(default(int)));
-        
+        }
+
+        [Test]
+        public void DoNotCallBaseByDefaultWhenDisabledViaRouter()
+        {
+            var substitute = Substitute.ForPartsOf<TestAbstractClass>();
+            SubstitutionContext.Current.GetCallRouterFor(substitute).CallBaseByDefault = false;
+
+            substitute.MethodReturnsSameInt(42);
+
+            Assert.That(substitute.CalledTimes, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void CallBaseByDefaultWhenEnabledViaRouter()
+        {
+            var substitute = Substitute.For<TestAbstractClass>();
+            SubstitutionContext.Current.GetCallRouterFor(substitute).CallBaseByDefault = true;
+
+            substitute.MethodReturnsSameInt(42);
+
+            Assert.That(substitute.CalledTimes, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void DoNotCallBaseWhenEnabledViaRouterButExplicitlyDisabled()
+        {
+            var substitute = Substitute.For<TestAbstractClass>();
+            SubstitutionContext.Current.GetCallRouterFor(substitute).CallBaseByDefault = true;
+            substitute.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).DoNotCallBase();
+
+            substitute.MethodReturnsSameInt(42);
+
+            Assert.That(substitute.CalledTimes, Is.EqualTo(0));
         }
 
         public interface ITestInterface

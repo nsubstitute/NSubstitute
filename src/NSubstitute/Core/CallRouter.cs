@@ -24,6 +24,12 @@ namespace NSubstitute.Core
             UseDefaultRouteForNextCall();
         }
 
+        public bool CallBaseByDefault
+        {
+            get => _substituteState.CallBaseConfiguration.CallBaseByDefault;
+            set => _substituteState.CallBaseConfiguration.CallBaseByDefault = value;
+        }
+
         public void SetRoute(Func<ISubstituteState, IRoute> routeFactory)
         {
             _currentRoute = routeFactory.Invoke(_substituteState);
@@ -45,6 +51,7 @@ namespace NSubstitute.Core
                 _substituteState.ReceivedCalls.Clear();
             }
         }
+
         public IEnumerable<ICall> ReceivedCalls()
         {
             return _substituteState.ReceivedCalls.AllCalls();

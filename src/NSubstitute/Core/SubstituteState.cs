@@ -5,11 +5,10 @@ namespace NSubstitute.Core
 {
     public class SubstituteState : ISubstituteState
     {
+        public ICallBaseConfiguration CallBaseConfiguration { get; }
         public ICallCollection ReceivedCalls { get; }
         public ICallResults CallResults { get; }
         public ICallActions CallActions { get; }
-        public ICallBaseExclusions CallBaseExclusions { get; }
-        public SubstituteConfig SubstituteConfig { get; set; }
         public SequenceNumberGenerator SequenceNumberGenerator { get; }
         public IConfigureCall ConfigureCall { get; }
         public IEventHandlerRegistry EventHandlerRegistry { get; }
@@ -18,24 +17,21 @@ namespace NSubstitute.Core
         public IResultsForType ResultsForType { get; }
         public ICustomHandlers CustomHandlers { get; }
 
-        public SubstituteState(
-            SubstituteConfig option,
-            SequenceNumberGenerator sequenceNumberGenerator,
+        public SubstituteState(SequenceNumberGenerator sequenceNumberGenerator,
             ICallSpecificationFactory callSpecificationFactory,
             ICallInfoFactory callInfoFactory,
             IReadOnlyCollection<IAutoValueProvider> autoValueProviders)
         {
-            SubstituteConfig = option;
             SequenceNumberGenerator = sequenceNumberGenerator;
             AutoValueProviders = autoValueProviders;
 
             var callCollection = new CallCollection();
             ReceivedCalls = callCollection;
 
+            CallBaseConfiguration = new CallBaseConfiguration();
             CallResults = new CallResults(callInfoFactory);
             AutoValuesCallResults = new CallResults(callInfoFactory);
             CallActions = new CallActions(callInfoFactory);
-            CallBaseExclusions = new CallBaseExclusions();
             ResultsForType = new ResultsForType(callInfoFactory);
             CustomHandlers = new CustomHandlers(this);
             var getCallSpec = new GetCallSpec(callCollection, callSpecificationFactory, CallActions);

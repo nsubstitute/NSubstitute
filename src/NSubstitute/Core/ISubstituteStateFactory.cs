@@ -2,6 +2,6 @@
 {
     public interface ISubstituteStateFactory
     {
-        ISubstituteState Create(SubstituteConfig config, ISubstituteFactory substituteFactory);
+        ISubstituteState Create(ISubstituteFactory substituteFactory);
     }
 }
