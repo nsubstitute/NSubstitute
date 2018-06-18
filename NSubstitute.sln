@@ -11,13 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0E2B9095
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A8AF7D01-6CE4-47B2-9E23-689A53991C3D}"
 	ProjectSection(SolutionItems) = preProject
-		build\build-old.fsx = build\build-old.fsx
-		build\build.bat = build\build.bat
 		build\build.fsx = build\build.fsx
 		build\build.sh = build\build.sh
 		build\ExtractDocs.fsx = build\ExtractDocs.fsx
-		build\NSubstitute.nuspec = build\NSubstitute.nuspec
 		build\packages.config = build\packages.config
+		build\build.cmd = build\build.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA2DD4AA-8DCD-42FB-8081-243281AD2956}"
