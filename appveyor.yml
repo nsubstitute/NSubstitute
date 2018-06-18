@@ -4,12 +4,14 @@ build: off
 environment:
   matrix:
     - Configuration: Debug
-      Framework: netcoreapp1.0
     - Configuration: Release
-      Framework: netcoreapp1.0
+
+install:
+  - set PATH=C:\Ruby22\bin;%PATH%
+  - bundle install      
 
 before_test:
   - dotnet --info
 
 test_script:
-  - build/build.bat
+  - build/build.cmd All
