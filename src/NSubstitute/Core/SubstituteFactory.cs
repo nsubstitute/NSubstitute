@@ -26,7 +26,7 @@ namespace NSubstitute.Core
         /// <returns></returns>
         public object Create(Type[] typesToProxy, object[] constructorArguments)
         {
-            return Create(typesToProxy, constructorArguments, SubstituteConfig.OverrideAllCalls);
+            return Create(typesToProxy, constructorArguments, callBaseByDefault: false);
         }
 
         /// <summary>
@@ -44,12 +44,15 @@ namespace NSubstitute.Core
             {
                 throw new CanNotPartiallySubForInterfaceOrDelegateException(primaryProxyType);
             }
-            return Create(typesToProxy, constructorArguments, SubstituteConfig.CallBaseByDefault);
+
+            return Create(typesToProxy, constructorArguments, callBaseByDefault: true);
         }
 
-        private object Create(Type[] typesToProxy, object[] constructorArguments, SubstituteConfig config)
+        private object Create(Type[] typesToProxy, object[] constructorArguments, bool callBaseByDefault)
         {
-            var substituteState = _substituteStateFactory.Create(config, this);
+            var substituteState = _substituteStateFactory.Create(this);
+            substituteState.CallBaseConfiguration.CallBaseByDefault = callBaseByDefault;
+
             var callRouter = _callRouterFactory.Create(substituteState);
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
             var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();

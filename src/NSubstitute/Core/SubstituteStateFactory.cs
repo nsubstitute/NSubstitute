@@ -20,12 +20,11 @@ namespace NSubstitute.Core
             _autoValueProvidersFactory = autoValueProvidersFactory;
         }
 
-        public ISubstituteState Create(SubstituteConfig config, ISubstituteFactory substituteFactory)
+        public ISubstituteState Create(ISubstituteFactory substituteFactory)
         {
             var autoValueProviders = _autoValueProvidersFactory.CreateProviders(substituteFactory);
 
-            return new SubstituteState(config,
-                _sequenceNumberGenerator,
+            return new SubstituteState(_sequenceNumberGenerator,
                 _callSpecificationFactory,
                 _callInfoFactory,
                 autoValueProviders);

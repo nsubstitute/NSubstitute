@@ -51,7 +51,7 @@ namespace NSubstitute.Routing
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(_threadLocalContext)
                 , new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
-                , new DoNotCallBaseForCallHandler(_callSpecificationFactory, state.CallBaseExclusions, matchArgs)
+                , new DoNotCallBaseForCallHandler(_callSpecificationFactory, state.CallBaseConfiguration, matchArgs)
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
@@ -85,7 +85,7 @@ namespace NSubstitute.Routing
                 , new DoActionsCallHandler(state.CallActions)
                 , new ReturnConfiguredResultHandler(state.CallResults)
                 , new ReturnResultForTypeHandler(state.ResultsForType)
-                , new ReturnFromBaseIfRequired(state.SubstituteConfig, state.CallBaseExclusions)
+                , new ReturnFromBaseIfRequired(state.CallBaseConfiguration)
                 , new ReturnFromCustomHandlers(state.CustomHandlers)
                 , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, _callSpecificationFactory)
                 , new ReturnFromAndConfigureDynamicCall(state.ConfigureCall)
