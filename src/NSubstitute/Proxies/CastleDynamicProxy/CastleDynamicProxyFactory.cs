@@ -46,12 +46,19 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         }
 
         /// <summary>
-        /// Allows to dynamically create a type in runtime. Returns an instance of <see cref="TypeBuilder"/>,
-        /// so type could be customized and built later.
+        /// Allows to dynamically create a type in runtime.
+        /// Use the <paramref name="typeBuildCallback"/> callback to define and build the type.
         /// </summary>
-        public TypeBuilder DefineDynamicType(string typeName, TypeAttributes flags)
+        /// <param name="typeBuildCallback">Callback used to construct the type.</param>
+        /// <returns>The result returned by <paramref name="typeBuildCallback"/> callback.</returns>
+        public Type DefineDynamicType(Func<ModuleBuilder, Type> typeBuildCallback)
         {
-            return _proxyGenerator.ProxyBuilder.ModuleScope.DefineType(true, typeName, flags);
+            var moduleBuilder = _proxyGenerator.ProxyBuilder.ModuleScope.ObtainDynamicModuleWithStrongName();
+
+            using (_proxyGenerator.ProxyBuilder.ModuleScope.Lock.ForWriting())
+            {
+                return typeBuildCallback.Invoke(moduleBuilder);
+            }
         }
 
         private object CreateProxyUsingCastleProxyGenerator(Type typeToProxy, Type[] additionalInterfaces,
