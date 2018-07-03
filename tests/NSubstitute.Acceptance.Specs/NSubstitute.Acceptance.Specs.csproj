@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0;netcoreapp1.1;net46;net45</TargetFrameworks>
+
+    <!-- Enable the latest C# features -->
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -10,10 +13,6 @@
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <OutputPath>..\..\bin\Release\NSubstitute.Acceptance.Specs\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

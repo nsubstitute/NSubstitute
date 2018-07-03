@@ -20,6 +20,9 @@
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <AssemblyOriginatorKeyFile>nsubstitute.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+
+    <!-- Enable the latest C# features -->
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">

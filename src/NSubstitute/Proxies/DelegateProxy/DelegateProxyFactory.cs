@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
@@ -68,49 +69,45 @@ namespace NSubstitute.Proxies.DelegateProxy
                 delegateTypeName,
                 typeSuffixCounter.ToString(CultureInfo.InvariantCulture));
 
-            return _castleObjectProxyFactory.DefineDynamicType(moduleBuilder =>
+            var typeBuilder = _castleObjectProxyFactory.DefineDynamicType(
+                typeName,
+                TypeAttributes.Abstract | TypeAttributes.Interface | TypeAttributes.Public);
+
+            // Notice, we don't copy the custom modifiers here.
+            // That's absolutely fine, as custom modifiers are ignored when delegate is constructed.
+            // See the related discussion here: https://github.com/dotnet/coreclr/issues/18401
+            var methodBuilder = typeBuilder
+                .DefineMethod(
+                    MethodNameInsideProxyContainer,
+                    MethodAttributes.Abstract | MethodAttributes.Virtual | MethodAttributes.Public,
+                    CallingConventions.Standard,
+                    delegateSignature.ReturnType,
+                    delegateSignature.GetParameters().Select(p => p.ParameterType).ToArray());
+
+            // Copy original method attributes, so "out" parameters are recognized later.
+            for (var i = 0; i < delegateParameters.Length; i++)
             {
-                var typeBuilder = moduleBuilder.DefineType(
-                    typeName,
-                    TypeAttributes.Abstract | TypeAttributes.Interface | TypeAttributes.Public);
+                var parameter = delegateParameters[i];
 
-                // Notice, we don't copy the custom modifiers here.
-                // That's absolutely fine, as custom modifiers are ignored when delegate is constructed.
-                // See the related discussion here: https://github.com/dotnet/coreclr/issues/18401
-                var methodBuilder = typeBuilder
-                    .DefineMethod(
-                        MethodNameInsideProxyContainer,
-                        MethodAttributes.Abstract | MethodAttributes.Virtual | MethodAttributes.Public,
-                        CallingConventions.Standard,
-                        delegateSignature.ReturnType,
-                        delegateSignature.GetParameters().Select(p => p.ParameterType).ToArray());
+                // Increment position by 1 to skip the implicit "this" parameter.
+                var paramBuilder = methodBuilder.DefineParameter(i + 1, parameter.Attributes, parameter.Name);
 
-                // Copy original method attributes, so "out" parameters are recognized later.
-                for (var i = 0; i < delegateParameters.Length; i++)
-                {
-                    var parameter = delegateParameters[i];
+                // Read-only parameter ('in' keyword) is recognized by presence of the special attribute.
+                // If source parameter contained that attribute, ensure to copy it to the generated method.
+                // That helps Castle to understand that parameter is read-only and cannot be mutated.
+                DefineIsReadOnlyAttributeIfNeeded(parameter, paramBuilder);
+            }
 
-                    // Increment position by 1 to skip the implicit "this" parameter.
-                    var paramBuilder = methodBuilder.DefineParameter(i + 1, parameter.Attributes, parameter.Name);
+            // Preserve the original delegate type in attribute, so it can be retrieved later in code.
+            methodBuilder.SetCustomAttribute(
+                new CustomAttributeBuilder(
+                    typeof(ProxiedDelegateTypeAttribute).GetConstructors().Single(),
+                    new object[] {delegateType}));
 
-                    // Read-only parameter ('in' keyword) is recognized by presence of the special attribute.
-                    // If source parameter contained that attribute, ensure to copy it to the generated method.
-                    // That helps Castle to understand that parameter is read-only and cannot be mutated.
-                    DefineIsReadOnlyAttributeIfNeeded(parameter, paramBuilder, moduleBuilder);
-                }
-
-                // Preserve the original delegate type in attribute, so it can be retrieved later in code.
-                methodBuilder.SetCustomAttribute(
-                    new CustomAttributeBuilder(
-                        typeof(ProxiedDelegateTypeAttribute).GetConstructors().Single(),
-                        new object[] {delegateType}));
-
-                return typeBuilder.CreateTypeInfo().AsType();
-            });
+            return typeBuilder.CreateTypeInfo().AsType();
         }
 
-        private static void DefineIsReadOnlyAttributeIfNeeded(
-            ParameterInfo sourceParameter, ParameterBuilder paramBuilder, ModuleBuilder dynamicModuleBuilder)
+        private static void DefineIsReadOnlyAttributeIfNeeded(ParameterInfo sourceParameter, ParameterBuilder paramBuilder)
         {
             // Read-only parameter can be by-ref only.
             if (!sourceParameter.ParameterType.IsByRef)
@@ -133,30 +130,15 @@ namespace NSubstitute.Proxies.DelegateProxy
 
             // If the compiler generated attribute is used (e.g. runtime doesn't contain the attribute),
             // the generated attribute type might be internal, so we cannot referecnce it in the dynamic assembly.
-            // In this case use the attribute type from the dynamic assembly.
+            // In this case use the attribute type from the current assembly, as we allow dynamic assembly
+            // to read our internal types.
             if (!isReadOnlyAttrType.GetTypeInfo().IsVisible)
             {
-                isReadOnlyAttrType = GetIsReadOnlyAttributeInDynamicModule(dynamicModuleBuilder);
+                isReadOnlyAttrType = typeof(IsReadOnlyAttribute);
             }
 
             paramBuilder.SetCustomAttribute(
                 new CustomAttributeBuilder(isReadOnlyAttrType.GetConstructor(Type.EmptyTypes), new object[0]));
-        }
-
-        private static Type GetIsReadOnlyAttributeInDynamicModule(ModuleBuilder moduleBuilder)
-        {
-            var existingType = moduleBuilder.Assembly.GetType(IsReadOnlyAttributeFullTypeName, throwOnError: false, ignoreCase: false);
-            if (existingType != null)
-            {
-                return existingType;
-            }
-
-            return moduleBuilder
-                .DefineType(
-                    IsReadOnlyAttributeFullTypeName,
-                    TypeAttributes.Class | TypeAttributes.Sealed | TypeAttributes.NotPublic,
-                    typeof(Attribute))
-                .CreateTypeInfo().AsType();
         }
     }
 }
