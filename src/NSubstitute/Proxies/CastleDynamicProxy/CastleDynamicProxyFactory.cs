@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -41,7 +40,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 new IInterceptor[] {proxyIdInterceptor, forwardingInterceptor},
                 proxyGenerationOptions);
 
-            forwardingInterceptor.StartIntercepting();
+            forwardingInterceptor.SwitchToFullDispatchMode();
             return proxy;
         }
 

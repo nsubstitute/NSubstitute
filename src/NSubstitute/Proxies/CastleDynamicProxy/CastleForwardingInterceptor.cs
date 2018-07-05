@@ -1,3 +1,4 @@
+using System;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
 
@@ -5,23 +6,40 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 {
     public class CastleForwardingInterceptor : IInterceptor
     {
-        readonly CastleInvocationMapper _invocationMapper;
-        readonly ICallRouter _callRouter;
-        private bool _isIntercepting;
+        private readonly CastleInvocationMapper _invocationMapper;
+        private readonly ICallRouter _callRouter;
+        private bool _fullDispatchMode;
 
         public CastleForwardingInterceptor(CastleInvocationMapper invocationMapper, ICallRouter callRouter)
         {
-            _invocationMapper = invocationMapper;
-            _callRouter = callRouter;
+            _invocationMapper = invocationMapper ?? throw new ArgumentNullException(nameof(invocationMapper));
+            _callRouter = callRouter ?? throw new ArgumentNullException(nameof(callRouter));
         }
 
         public void Intercept(IInvocation invocation)
         {
-            if (!_isIntercepting) return;
             var mappedInvocation = _invocationMapper.Map(invocation);
-            invocation.ReturnValue = _callRouter.Route(mappedInvocation);
+
+            if (_fullDispatchMode)
+            {
+                invocation.ReturnValue = _callRouter.Route(mappedInvocation);
+                return;
+            }
+
+            // Fallback to the base value until the full dispatch mode is activated.
+            // Useful to ensure that object is initialized properly.
+            if (_callRouter.CallBaseByDefault)
+            {
+                invocation.ReturnValue = mappedInvocation.TryCallBase().ValueOrDefault();
+            }
         }
 
-        public void StartIntercepting() { _isIntercepting = true; }
+        /// <summary>
+        /// Switches interceptor to dispatch calls via the full pipeline.
+        /// </summary>
+        public void SwitchToFullDispatchMode()
+        {
+            _fullDispatchMode = true;
+        }
     }
 }
