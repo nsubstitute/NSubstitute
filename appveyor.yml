@@ -2,9 +2,7 @@ os: Visual Studio 2017
 build: off
 
 environment:
-  matrix:
-    - Configuration: Debug
-    - Configuration: Release
+  Configuration: Release
 
 install:
   - set PATH=C:\Ruby22\bin;%PATH%
