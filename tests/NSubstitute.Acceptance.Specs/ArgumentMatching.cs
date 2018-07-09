@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NSubstitute.Acceptance.Specs.Infrastructure;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
@@ -631,6 +632,35 @@ namespace NSubstitute.Acceptance.Specs
 
             var result = subs("foo", out string _);
             Assert.That(result, Is.EqualTo("42"));
+        }
+
+        private class CustomMatcher
+            : IArgumentMatcher
+        {
+            public bool wasMatch;
+
+            public bool IsSatisfiedBy(object argument)
+            {
+                if (argument.Equals(42))
+                {
+                    wasMatch = true;
+                    return true;
+                }
+                wasMatch = false;
+                return false;
+            }
+        }
+
+        [Test]
+        public void Matches_uses_custom_matcher()
+        {
+            var matcher = new CustomMatcher();
+            _something.Echo(Arg.Matches<int>(matcher)).Returns("42");
+
+            Assert.That(_something.Echo(42), Is.EqualTo("42"));
+            Assert.That(matcher.wasMatch, Is.True);
+            Assert.That(_something.Echo(43), Is.EqualTo(string.Empty));
+            Assert.That(matcher.wasMatch, Is.False);
         }
 
         [SetUp]
