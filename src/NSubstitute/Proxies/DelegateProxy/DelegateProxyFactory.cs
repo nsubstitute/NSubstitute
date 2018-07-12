@@ -18,11 +18,10 @@ namespace NSubstitute.Proxies.DelegateProxy
         private const string IsReadOnlyAttributeFullTypeName = "System.Runtime.CompilerServices.IsReadOnlyAttribute";
         private readonly CastleDynamicProxyFactory _castleObjectProxyFactory;
         private readonly ConcurrentDictionary<Type, Type> _delegateContainerCache = new ConcurrentDictionary<Type, Type>();
-        private long _typeSuffixCounter;
 
         public DelegateProxyFactory(CastleDynamicProxyFactory objectProxyFactory)
         {
-            _castleObjectProxyFactory = objectProxyFactory;
+            _castleObjectProxyFactory = objectProxyFactory ?? throw new ArgumentNullException(nameof(objectProxyFactory));
         }
         
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
@@ -60,14 +59,7 @@ namespace NSubstitute.Proxies.DelegateProxy
             var delegateSignature = delegateType.GetMethod("Invoke");
             var delegateParameters = delegateSignature.GetParameters();
 
-            var typeSuffixCounter = Interlocked.Increment(ref _typeSuffixCounter);
-            var delegateTypeName = delegateType.GetTypeInfo().IsGenericType
-                ? delegateType.Name.Substring(0, delegateType.Name.IndexOf("`", StringComparison.Ordinal))
-                : delegateType.Name;
-            var typeName = string.Format(
-                "DelegateContainer_{0}_{1}",
-                delegateTypeName,
-                typeSuffixCounter.ToString(CultureInfo.InvariantCulture));
+            var typeName = $"NSubstituteDelegateProxy.DelegateContainer_{Guid.NewGuid():N}";
 
             var typeBuilder = _castleObjectProxyFactory.DefineDynamicType(
                 typeName,
