@@ -19,20 +19,12 @@ namespace NSubstitute.Routing.Handlers
 
         public RouteAction Handle(ICall call)
         {
-            EnsureBaseCallCanBeConfigured(call);
+            if (!call.CanCallBase) throw CouldNotConfigureCallBaseException.ForSingleCall();
 
             var callSpec = _callSpecificationFactory.CreateFrom(call, _matchArgs);
             _callBaseConfig.Exclude(callSpec);
 
             return RouteAction.Continue();
-        }
-
-        private static void EnsureBaseCallCanBeConfigured(ICall call)
-        {
-            if (!call.CanCallBase)
-            {
-                throw new CouldNotConfigureBaseMethodException();
-            }
         }
     }
 }

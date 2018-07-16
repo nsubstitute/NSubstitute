@@ -2,24 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core.Arguments;
+using NSubstitute.Exceptions;
 using NSubstitute.Routing;
 
 namespace NSubstitute.Core
 {
     public class CallRouter : ICallRouter
     {
-        static readonly object[] EmptyArgs = new object[0];
-        static readonly IList<IArgumentSpecification> EmptyArgSpecs = new List<IArgumentSpecification>();
-        readonly ISubstituteState _substituteState;
-        readonly IThreadLocalContext _threadContext;
-        readonly IRouteFactory _routeFactory;
-        IRoute _currentRoute;
+        private static readonly object[] EmptyArgs = new object[0];
+        private static readonly IList<IArgumentSpecification> EmptyArgSpecs = new List<IArgumentSpecification>();
+        private readonly ISubstituteState _substituteState;
+        private readonly IThreadLocalContext _threadContext;
+        private readonly IRouteFactory _routeFactory;
+        private readonly bool _canConfigureBaseCalls;
+        private IRoute _currentRoute;
 
-        public CallRouter(ISubstituteState substituteState, IThreadLocalContext threadContext, IRouteFactory routeFactory)
+        public CallRouter(ISubstituteState substituteState, IThreadLocalContext threadContext, IRouteFactory routeFactory, bool canConfigureBaseCalls)
         {
             _substituteState = substituteState;
             _threadContext = threadContext;
             _routeFactory = routeFactory;
+            _canConfigureBaseCalls = canConfigureBaseCalls;
 
             UseDefaultRouteForNextCall();
         }
@@ -27,7 +30,12 @@ namespace NSubstitute.Core
         public bool CallBaseByDefault
         {
             get => _substituteState.CallBaseConfiguration.CallBaseByDefault;
-            set => _substituteState.CallBaseConfiguration.CallBaseByDefault = value;
+            set
+            {
+                if (!_canConfigureBaseCalls) throw CouldNotConfigureCallBaseException.ForAllCalls();
+
+                _substituteState.CallBaseConfiguration.CallBaseByDefault = value;
+            }
         }
 
         public void SetRoute(Func<ISubstituteState, IRoute> routeFactory)
