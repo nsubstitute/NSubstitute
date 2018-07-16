@@ -194,6 +194,24 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(substitute.CalledTimes, Is.EqualTo(0));
         }
 
+        [Test]
+        public void ShouldThrowExceptionIfTryToNotCallBaseForAbstractMethod()
+        {
+            var substitute = Substitute.For<TestAbstractClass>();
+
+            Assert.Throws<CouldNotConfigureBaseMethodException>(
+                () => substitute.When(x => x.AbstractMethodReturnsSameInt(Arg.Any<int>())).DoNotCallBase());
+        }
+
+        [Test]
+        public void ShouldThrowExceptionIfTryToNotCallBaseForInterfaceProxy()
+        {
+            var substitute = Substitute.For<ITestInterface>();
+
+            Assert.Throws<CouldNotConfigureBaseMethodException>(
+                () => substitute.When(x => x.TestMethodReturnsInt()).DoNotCallBase());
+        }
+
         public interface ITestInterface
         {
             void VoidTestMethod();

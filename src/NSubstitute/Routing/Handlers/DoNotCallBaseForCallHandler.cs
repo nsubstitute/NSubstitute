@@ -1,9 +1,10 @@
 using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Routing.Handlers
 {
-    public class DoNotCallBaseForCallHandler :ICallHandler
+    public class DoNotCallBaseForCallHandler : ICallHandler
     {
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly ICallBaseConfiguration _callBaseConfig;
@@ -18,10 +19,20 @@ namespace NSubstitute.Routing.Handlers
 
         public RouteAction Handle(ICall call)
         {
+            EnsureBaseCallCanBeConfigured(call);
+
             var callSpec = _callSpecificationFactory.CreateFrom(call, _matchArgs);
             _callBaseConfig.Exclude(callSpec);
 
             return RouteAction.Continue();
+        }
+
+        private static void EnsureBaseCallCanBeConfigured(ICall call)
+        {
+            if (!call.CanCallBase)
+            {
+                throw new CouldNotConfigureBaseMethodException();
+            }
         }
     }
 }

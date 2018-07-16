@@ -58,6 +58,8 @@ namespace NSubstitute.Core
             return _sequenceNumber.Value;
         }
 
+        public bool CanCallBase => _baseMethod != null;
+
         public Maybe<object> TryCallBase()
         {
             return _baseMethod == null ? Maybe.Nothing<object>() : Maybe.Just(_baseMethod());
