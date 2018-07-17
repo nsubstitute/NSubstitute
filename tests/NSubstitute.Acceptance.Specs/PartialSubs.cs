@@ -194,6 +194,48 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(substitute.CalledTimes, Is.EqualTo(0));
         }
 
+        [Test]
+        public void ShouldThrowExceptionIfTryToNotCallBaseForAbstractMethod()
+        {
+            var substitute = Substitute.For<TestAbstractClass>();
+
+            var ex = Assert.Throws<CouldNotConfigureCallBaseException>(
+                () => substitute.When(x => x.AbstractMethodReturnsSameInt(Arg.Any<int>())).DoNotCallBase());
+            Assert.That(ex.Message, Contains.Substring("base method implementation is missing"));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionIfTryToNotCallBaseForInterfaceProxy()
+        {
+            var substitute = Substitute.For<ITestInterface>();
+
+            var ex = Assert.Throws<CouldNotConfigureCallBaseException>(
+                () => substitute.When(x => x.TestMethodReturnsInt()).DoNotCallBase());
+            Assert.That(ex.Message, Contains.Substring("base method implementation is missing"));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionIfConfigureGlobalCallBaseForInterfaceProxy()
+        {
+            var substitute = Substitute.For<ITestInterface>();
+            var callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
+
+            var ex = Assert.Throws<CouldNotConfigureCallBaseException>(
+                () => callRouter.CallBaseByDefault = false);
+            Assert.That(ex.Message, Contains.Substring("can be configured for a class substitute only"));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionIfConfigureGlobalCallBaseForDelegateProxy()
+        {
+            var substitute = Substitute.For<Func<int>>();
+            var callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
+
+            var ex = Assert.Throws<CouldNotConfigureCallBaseException>(
+                () => callRouter.CallBaseByDefault = false);
+            Assert.That(ex.Message, Contains.Substring("can be configured for a class substitute only"));
+        }
+
         public interface ITestInterface
         {
             void VoidTestMethod();

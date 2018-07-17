@@ -40,7 +40,7 @@ namespace NSubstitute.Core
         public object CreatePartial(Type[] typesToProxy, object[] constructorArguments)
         {
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
-            if (primaryProxyType.GetTypeInfo().IsSubclassOf(typeof(Delegate)) || !primaryProxyType.GetTypeInfo().IsClass)
+            if (!CanCallBaseImplementation(primaryProxyType))
             {
                 throw new CanNotPartiallySubForInterfaceOrDelegateException(primaryProxyType);
             }
@@ -53,18 +53,28 @@ namespace NSubstitute.Core
             var substituteState = _substituteStateFactory.Create(this);
             substituteState.CallBaseConfiguration.CallBaseByDefault = callBaseByDefault;
 
-            var callRouter = _callRouterFactory.Create(substituteState);
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
+            var canConfigureBaseCalls = callBaseByDefault || CanCallBaseImplementation(primaryProxyType);
+
+            var callRouter = _callRouterFactory.Create(substituteState, canConfigureBaseCalls);
             var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
             var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);
             return proxy;
         }
 
-        private Type GetPrimaryProxyType(Type[] typesToProxy)
+        private static Type GetPrimaryProxyType(Type[] typesToProxy)
         {
             return typesToProxy.FirstOrDefault(t => t.GetTypeInfo().IsSubclassOf(typeof(Delegate)))
                 ?? typesToProxy.FirstOrDefault(t => t.GetTypeInfo().IsClass)
                 ?? typesToProxy.First();
+        }
+
+        private static bool CanCallBaseImplementation(Type primaryProxyType)
+        {
+            var isDelegate = primaryProxyType.GetTypeInfo().IsSubclassOf(typeof(Delegate));
+            var isClass = primaryProxyType.GetTypeInfo().IsClass;
+
+            return isClass && !isDelegate;
         }
     }
 }

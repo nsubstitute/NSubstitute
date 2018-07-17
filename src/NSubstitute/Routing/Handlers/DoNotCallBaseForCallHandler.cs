@@ -1,9 +1,10 @@
 using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Routing.Handlers
 {
-    public class DoNotCallBaseForCallHandler :ICallHandler
+    public class DoNotCallBaseForCallHandler : ICallHandler
     {
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly ICallBaseConfiguration _callBaseConfig;
@@ -18,6 +19,8 @@ namespace NSubstitute.Routing.Handlers
 
         public RouteAction Handle(ICall call)
         {
+            if (!call.CanCallBase) throw CouldNotConfigureCallBaseException.ForSingleCall();
+
             var callSpec = _callSpecificationFactory.CreateFrom(call, _matchArgs);
             _callBaseConfig.Exclude(callSpec);
 

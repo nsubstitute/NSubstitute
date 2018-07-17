@@ -14,9 +14,9 @@ namespace NSubstitute.Core
             _routeFactory = routeFactory ?? throw new ArgumentNullException(nameof(routeFactory));
         }
 
-        public ICallRouter Create(ISubstituteState substituteState)
+        public ICallRouter Create(ISubstituteState substituteState, bool canConfigureBaseCalls)
         {
-            return new CallRouter(substituteState, _threadLocalContext, _routeFactory);
+            return new CallRouter(substituteState, _threadLocalContext, _routeFactory, canConfigureBaseCalls);
         }
     }
 }
