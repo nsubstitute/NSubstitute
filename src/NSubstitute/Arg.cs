@@ -93,6 +93,14 @@ namespace NSubstitute
             return ref EnqueueSpecFor<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T)x));
         }
 
+        /// <summary>
+        /// Match the argument using the specified <paramref name="argumentMatcher"/>.
+        /// </summary>
+        public static ref T Matches<T>(IArgumentMatcher argumentMatcher)
+        {
+            return ref EnqueueSpecFor<T>(argumentMatcher);
+        }
+
         private static ref T EnqueueSpecFor<T>(IArgumentMatcher argumentMatcher)
         {
             var argumentSpecification = new ArgumentSpecification(typeof(T), argumentMatcher);
