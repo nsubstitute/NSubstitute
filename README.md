@@ -125,3 +125,10 @@ NSubstitute and its tests can be compiled and run using Visual Studio and Visual
 There are also build scripts in the `./build` directory for command line builds, and CI configurations in the project root.
 
 To do [full builds](https://github.com/nsubstitute/NSubstitute/wiki/Release-procedure) you'll also need Ruby, as the jekyll gem is used to generate the website.
+
+### Other languages
+
+NSubstitute has been ported to other languages as well. These ports are not maintained by the NSubstitute team.
+
+- *TypeScript*
+	- [substitute.js](https://github.com/ffMathy/FluffySpoon.JavaScript.Testing) (`@fluffy-spoon/substitute` on NPM)
