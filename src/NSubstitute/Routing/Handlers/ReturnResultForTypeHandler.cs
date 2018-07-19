@@ -1,5 +1,4 @@
-﻿using System;
-using NSubstitute.Core;
+﻿using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
 {
@@ -14,9 +13,9 @@ namespace NSubstitute.Routing.Handlers
 
         public RouteAction Handle(ICall call)
         {
-            return _resultsForType.HasResultFor(call)
-                       ? RouteAction.Return(_resultsForType.GetResult(call))
-                       : RouteAction.Continue();
+            return _resultsForType.TryGetResult(call, out var result)
+                ? RouteAction.Return(result)
+                : RouteAction.Continue();
         }
     }
 }

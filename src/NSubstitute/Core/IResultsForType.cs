@@ -3,9 +3,8 @@
 namespace NSubstitute.Core
 {
     public interface IResultsForType {
-        bool HasResultFor(ICall call);
         void SetResult(Type type, IReturn resultToReturn);
-        object GetResult(ICall call);
+        bool TryGetResult(ICall call, out object result);
         void Clear();
     }
 }
