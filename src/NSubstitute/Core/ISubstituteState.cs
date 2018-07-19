@@ -9,7 +9,6 @@ namespace NSubstitute.Core
         ICallCollection ReceivedCalls { get; }
         ICallResults CallResults { get; }
         ICallActions CallActions { get; }
-        SequenceNumberGenerator SequenceNumberGenerator { get; }
         IConfigureCall ConfigureCall { get; }
         IEventHandlerRegistry EventHandlerRegistry { get; }
         IReadOnlyCollection<IAutoValueProvider> AutoValueProviders { get; }

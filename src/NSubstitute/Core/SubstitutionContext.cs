@@ -31,21 +31,22 @@ namespace NSubstitute.Core
             var callSpecificationFactory = CallSpecificationFactoryFactoryYesThatsRight.CreateCallSpecFactory();
             _callRouterResolver = new CallRouterResolver();
 
-            RouteFactory = new RouteFactory(ThreadContext, callSpecificationFactory);
-
             var sequenceNumberGenerator = new SequenceNumberGenerator();
+#pragma warning disable 618 // Obsolete
+            SequenceNumberGenerator = sequenceNumberGenerator;
+#pragma warning restore 618 // Obsolete
+
+            RouteFactory = new RouteFactory(sequenceNumberGenerator, ThreadContext, callSpecificationFactory);
+
             var callInfoFactory = new CallInfoFactory();
             var autoValueProvidersFactory = new AutoValueProvidersFactory();
-            var substituteStateFactory = new SubstituteStateFactory(sequenceNumberGenerator, callSpecificationFactory, callInfoFactory, autoValueProvidersFactory);
+            var substituteStateFactory = new SubstituteStateFactory(callSpecificationFactory, callInfoFactory, autoValueProvidersFactory);
             var callRouterFactory = new CallRouterFactory(ThreadContext, RouteFactory);
             var argSpecificationQueue = new ArgumentSpecificationDequeue(ThreadContext.DequeueAllArgumentSpecifications);
             var dynamicProxyFactory = new CastleDynamicProxyFactory(argSpecificationQueue);
             var delegateFactory = new DelegateProxyFactory(dynamicProxyFactory);
             var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
             SubstituteFactory = new SubstituteFactory(substituteStateFactory, callRouterFactory, proxyFactory);
-#pragma warning disable 618 // Obsolete
-            SequenceNumberGenerator = sequenceNumberGenerator;
-#pragma warning restore 618 // Obsolete
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory,

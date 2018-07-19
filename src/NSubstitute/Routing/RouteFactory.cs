@@ -8,11 +8,13 @@ namespace NSubstitute.Routing
 {
     public class RouteFactory : IRouteFactory
     {
+        private readonly SequenceNumberGenerator _sequenceNumberGenerator;
         private readonly IThreadLocalContext _threadLocalContext;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
 
-        public RouteFactory(IThreadLocalContext threadLocalContext, ICallSpecificationFactory callSpecificationFactory)
+        public RouteFactory(SequenceNumberGenerator sequenceNumberGenerator, IThreadLocalContext threadLocalContext, ICallSpecificationFactory callSpecificationFactory)
         {
+            _sequenceNumberGenerator = sequenceNumberGenerator ?? throw new ArgumentNullException(nameof(sequenceNumberGenerator));
             _threadLocalContext = threadLocalContext ?? throw new ArgumentNullException(nameof(threadLocalContext));
             _callSpecificationFactory = callSpecificationFactory ?? throw new ArgumentNullException(nameof(callSpecificationFactory));
         }
@@ -79,7 +81,7 @@ namespace NSubstitute.Routing
             return new Route(RouteType.RecordReplay, new ICallHandler[] {
                 new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
                 , new TrackLastCallHandler(_threadLocalContext.PendingSpecification)
-                , new RecordCallHandler(state.ReceivedCalls, state.SequenceNumberGenerator)
+                , new RecordCallHandler(state.ReceivedCalls, _sequenceNumberGenerator)
                 , new EventSubscriptionHandler(state.EventHandlerRegistry)
                 , new PropertySetterHandler(new PropertyHelper(new CallFactory(), new ArgumentSpecificationCompatibilityTester(new DefaultChecker(new DefaultForType()))), state.ConfigureCall)
                 , new DoActionsCallHandler(state.CallActions)
