@@ -1,67 +1,65 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
+using System.Reflection;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core
 {
     public class ResultsForType : IResultsForType
     {
-        readonly ICallInfoFactory _callInfoFactory;
-        System.Collections.Concurrent.ConcurrentQueue<ResultForTypeSpec> _results 
-            = new System.Collections.Concurrent.ConcurrentQueue<ResultForTypeSpec>();
+        private readonly CallResults _results;
 
         public ResultsForType(ICallInfoFactory callInfoFactory)
         {
-            _callInfoFactory = callInfoFactory;
-        }
-
-        public bool HasResultFor(ICall call)
-        {
-            return !ReturnsVoid(call) && _results.Any(x => x.IsResultFor(call));
-        }
-
-        private bool ReturnsVoid(ICall call)
-        {
-            return call.GetReturnType() == typeof(void);
+            _results = new CallResults(callInfoFactory);
         }
 
         public void SetResult(Type type, IReturn resultToReturn)
         {
-            _results.Enqueue(new ResultForTypeSpec(type, resultToReturn));
+            _results.SetResult(new MatchingReturnTypeSpecification(type), resultToReturn);
+        }
+
+        public bool TryGetResult(ICall call, out object result)
+        {
+            return _results.TryGetResult(call, out result);
         }
 
         public void Clear()
         {
-            _results = new System.Collections.Concurrent.ConcurrentQueue<ResultForTypeSpec>();
+            _results.Clear();
         }
 
-        public object GetResult(ICall call)
+        private class MatchingReturnTypeSpecification : ICallSpecification
         {
-            return _results
-                    .Reverse()
-                    .First(x => x.IsResultFor(call))
-                    .GetResult(_callInfoFactory.Create(call));
-        }
+            private readonly Type _expectedReturnType;
 
-        class ResultForTypeSpec
-        {
-            private readonly Type _type;
-            private readonly IReturn _resultToReturn;
-
-            public ResultForTypeSpec(Type type, IReturn resultToReturn)
+            public MatchingReturnTypeSpecification(Type expectedReturnType)
             {
-                _type = type;
-                _resultToReturn = resultToReturn;
+                _expectedReturnType = expectedReturnType;
             }
 
-            public bool IsResultFor(ICall call)
-            {
-                return call.GetReturnType() == _type;
-            }
+            public bool IsSatisfiedBy(ICall call)
+                => call.GetReturnType() == _expectedReturnType;
+            
+            // ******* Rest methods are not required *******
 
-            public object GetResult(CallInfo callInfo)
-            {
-                return _resultToReturn.ReturnFor(callInfo);
-            }
+            public string Format(ICall call)
+                => throw new NotSupportedException();
+
+            public ICallSpecification CreateCopyThatMatchesAnyArguments()
+                => throw new NotSupportedException();
+
+            public void InvokePerArgumentActions(CallInfo callInfo)
+                => throw new NotSupportedException();
+
+            public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
+                => throw new NotSupportedException();
+
+            public MethodInfo GetMethodInfo()
+                => throw new NotSupportedException();
+
+            public Type ReturnType()
+                => throw new NotSupportedException();
         }
     }
 }
