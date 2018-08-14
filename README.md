@@ -126,9 +126,9 @@ There are also build scripts in the `./build` directory for command line builds,
 
 To do [full builds](https://github.com/nsubstitute/NSubstitute/wiki/Release-procedure) you'll also need Ruby, as the jekyll gem is used to generate the website.
 
-### Other languages
+### Other libraries you may be interested in
 
-NSubstitute has been ported to other languages as well. These ports are not maintained by the NSubstitute team.
+* [Moq](https://github.com/Moq/moq4/wiki/Quickstart): the original Arrange-Act-Assert mocking library for .NET, and a big source of inspiration for NSubstitute.
+* [FakeItEasy](https://fakeiteasy.github.io/): another modern mocking library for .NET. If you're not sold on NSubstitute's syntax, try FIE!
+* [substitute.js](https://github.com/ffMathy/FluffySpoon.JavaScript.Testing): a mocking library for TypeScript inspired by NSubstitute's syntax (`@fluffy-spoon/substitute` on NPM)
 
-- *TypeScript*
-	- [substitute.js](https://github.com/ffMathy/FluffySpoon.JavaScript.Testing) (`@fluffy-spoon/substitute` on NPM)
