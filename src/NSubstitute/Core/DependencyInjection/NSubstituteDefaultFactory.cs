@@ -49,7 +49,10 @@ namespace NSubstitute.Core.DependencyInjection
                 .RegisterPerScope<CastleDynamicProxyFactory, CastleDynamicProxyFactory>()
                 .RegisterPerScope<DelegateProxyFactory, DelegateProxyFactory>()
                 .RegisterPerScope<IProxyFactory>(r =>
-                    new ProxyFactory(r.Resolve<DelegateProxyFactory>(), r.Resolve<CastleDynamicProxyFactory>()));
+                    new ProxyFactory(r.Resolve<DelegateProxyFactory>(), r.Resolve<CastleDynamicProxyFactory>()))
+                .RegisterPerScope<ICallFactory, CallFactory>()
+                .RegisterPerScope<IPropertyHelper, PropertyHelper>()
+                .RegisterSingleton<IReceivedCallsExceptionThrower, ReceivedCallsExceptionThrower>();
         }
     }
 }

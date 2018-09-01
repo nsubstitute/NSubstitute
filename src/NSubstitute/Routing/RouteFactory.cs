@@ -1,6 +1,5 @@
 ﻿using System;
 using NSubstitute.Core;
-using NSubstitute.Core.Arguments;
 using NSubstitute.ReceivedExtensions;
 using NSubstitute.Routing.Handlers;
 
@@ -11,12 +10,23 @@ namespace NSubstitute.Routing
         private readonly SequenceNumberGenerator _sequenceNumberGenerator;
         private readonly IThreadLocalContext _threadLocalContext;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
+        private readonly IReceivedCallsExceptionThrower _receivedCallsExceptionThrower;
+        private readonly IPropertyHelper _propertyHelper;
+        private readonly IDefaultForType _defaultForType;
 
-        public RouteFactory(SequenceNumberGenerator sequenceNumberGenerator, IThreadLocalContext threadLocalContext, ICallSpecificationFactory callSpecificationFactory)
+        public RouteFactory(SequenceNumberGenerator sequenceNumberGenerator,
+            IThreadLocalContext threadLocalContext,
+            ICallSpecificationFactory callSpecificationFactory,
+            IReceivedCallsExceptionThrower receivedCallsExceptionThrower,
+            IPropertyHelper propertyHelper,
+            IDefaultForType defaultForType)
         {
             _sequenceNumberGenerator = sequenceNumberGenerator ?? throw new ArgumentNullException(nameof(sequenceNumberGenerator));
             _threadLocalContext = threadLocalContext ?? throw new ArgumentNullException(nameof(threadLocalContext));
             _callSpecificationFactory = callSpecificationFactory ?? throw new ArgumentNullException(nameof(callSpecificationFactory));
+            _receivedCallsExceptionThrower = receivedCallsExceptionThrower ?? throw new ArgumentNullException(nameof(receivedCallsExceptionThrower));
+            _propertyHelper = propertyHelper ?? throw new ArgumentNullException(nameof(propertyHelper));
+            _defaultForType = defaultForType ?? throw new ArgumentNullException(nameof(defaultForType));
         }
 
         public IRoute CallQuery(ISubstituteState state)
@@ -34,7 +44,7 @@ namespace NSubstitute.Routing
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(_threadLocalContext)
                 , new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
-                , new CheckReceivedCallsHandler(state.ReceivedCalls, _callSpecificationFactory, new ReceivedCallsExceptionThrower(), matchArgs, requiredQuantity)
+                , new CheckReceivedCallsHandler(state.ReceivedCalls, _callSpecificationFactory, _receivedCallsExceptionThrower, matchArgs, requiredQuantity)
                 , new ReturnAutoValue(AutoValueBehaviour.ReturnAndForgetValue, state.AutoValueProviders, state.AutoValuesCallResults, _callSpecificationFactory)
                 , ReturnDefaultForReturnTypeHandler()
             });
@@ -79,7 +89,7 @@ namespace NSubstitute.Routing
         {
             return new Route(new ICallHandler[] {
                 new RecordCallSpecificationHandler(_threadLocalContext.PendingSpecification, _callSpecificationFactory, state.CallActions)
-                , new PropertySetterHandler(new PropertyHelper(new CallFactory(), new ArgumentSpecificationCompatibilityTester(new DefaultChecker(new DefaultForType()))), state.ConfigureCall)
+                , new PropertySetterHandler(_propertyHelper, state.ConfigureCall)
                 , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, _callSpecificationFactory)
                 , new ReturnFromAndConfigureDynamicCall(state.ConfigureCall)
                 , ReturnDefaultForReturnTypeHandler()
@@ -92,7 +102,7 @@ namespace NSubstitute.Routing
                 , new TrackLastCallHandler(_threadLocalContext.PendingSpecification)
                 , new RecordCallHandler(state.ReceivedCalls, _sequenceNumberGenerator)
                 , new EventSubscriptionHandler(state.EventHandlerRegistry)
-                , new PropertySetterHandler(new PropertyHelper(new CallFactory(), new ArgumentSpecificationCompatibilityTester(new DefaultChecker(new DefaultForType()))), state.ConfigureCall)
+                , new PropertySetterHandler(_propertyHelper, state.ConfigureCall)
                 , new DoActionsCallHandler(state.CallActions)
                 , new ReturnConfiguredResultHandler(state.CallResults)
                 , new ReturnResultForTypeHandler(state.ResultsForType)
@@ -104,9 +114,9 @@ namespace NSubstitute.Routing
             });
         }
 
-        private static ReturnDefaultForReturnTypeHandler ReturnDefaultForReturnTypeHandler()
+        private ReturnDefaultForReturnTypeHandler ReturnDefaultForReturnTypeHandler()
         {
-            return new ReturnDefaultForReturnTypeHandler(new DefaultForType());
+            return new ReturnDefaultForReturnTypeHandler(_defaultForType);
         }
     }
 }
