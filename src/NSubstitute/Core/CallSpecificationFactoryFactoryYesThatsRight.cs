@@ -1,47 +1,16 @@
-﻿using NSubstitute.Core.Arguments;
+﻿using System;
+using NSubstitute.Core.DependencyInjection;
 
 namespace NSubstitute.Core
 {
-    public class CallSpecificationFactoryFactoryYesThatsRight
+    public static class CallSpecificationFactoryFactoryYesThatsRight
     {
-        public static ICallSpecificationFactory CreateCallSpecFactory()
-        {
-            return
-                new CallSpecificationFactory(
-                    new ArgumentSpecificationsFactory(
-                        new MixedArgumentSpecificationsFactory(
-                            new ArgumentSpecificationFactory(
-                                NewParamsArgumentSpecificationFactory(),
-                                NewNonParamsArgumentSpecificationFactory()
-                                ),
-                            new SuppliedArgumentSpecificationsFactory(
-                                new ArgumentSpecificationCompatibilityTester(
-                                    new DefaultChecker(new DefaultForType())
-                                    )
-                                )
-                            )
-                        )
-                    );
-        }
-
-        private static IParamsArgumentSpecificationFactory NewParamsArgumentSpecificationFactory()
-        {
-            return
-                new ParamsArgumentSpecificationFactory(
-                    new ArgumentEqualsSpecificationFactory(),
-                    new ArrayArgumentSpecificationsFactory(
-                        new NonParamsArgumentSpecificationFactory(new ArgumentEqualsSpecificationFactory())
-                    ),
-                    new ParameterInfosFromParamsArrayFactory(),
-                    new ArrayContentsArgumentSpecificationFactory()
-                );
-        }
-
-        private static INonParamsArgumentSpecificationFactory NewNonParamsArgumentSpecificationFactory()
-        {
-            return
-                new NonParamsArgumentSpecificationFactory(new ArgumentEqualsSpecificationFactory()
-                );
-        }
+        [Obsolete("This factory is deprecated and will be removed in future versions of the product. " +
+                  "Please use '" + nameof(SubstitutionContext) + "." + nameof(SubstitutionContext.Current) + "." +
+                  nameof(SubstitutionContext.Current.CallSpecificationFactory) + "' instead. " +
+                  "Use " + nameof(NSubstituteDefaultFactory) + " services if you need to activate a new instance.")]
+        // ReSharper disable once UnusedMember.Global - is left for API compatibility from other libraries.
+        public static ICallSpecificationFactory CreateCallSpecFactory() =>
+            NSubstituteDefaultFactory.DefaultContainer.Resolve<ICallSpecificationFactory>();
     }
 }

@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
 using NSubstitute.Core.Arguments;
-using NSubstitute.Proxies;
-using NSubstitute.Proxies.CastleDynamicProxy;
-using NSubstitute.Proxies.DelegateProxy;
+using NSubstitute.Core.DependencyInjection;
 using NSubstitute.Routing;
-using NSubstitute.Routing.AutoValues;
 
 namespace NSubstitute.Core
 {
@@ -16,51 +13,28 @@ namespace NSubstitute.Core
         private readonly ICallRouterResolver _callRouterResolver;
         public ISubstituteFactory SubstituteFactory { get; }
         public IRouteFactory RouteFactory { get; }
-        [Obsolete("This property is obsolete and will be removed in a future version of the product.")]
-        public SequenceNumberGenerator SequenceNumberGenerator { get; }
         public IThreadLocalContext ThreadContext { get; }
+        public ICallSpecificationFactory CallSpecificationFactory { get; }
 
         static SubstitutionContext()
         {
-            Current = new SubstitutionContext();
-        }
-
-        private SubstitutionContext()
-        {
-            ThreadContext = new ThreadLocalContext();
-            var callSpecificationFactory = CallSpecificationFactoryFactoryYesThatsRight.CreateCallSpecFactory();
-            _callRouterResolver = new CallRouterResolver();
-
-            var sequenceNumberGenerator = new SequenceNumberGenerator();
-#pragma warning disable 618 // Obsolete
-            SequenceNumberGenerator = sequenceNumberGenerator;
-#pragma warning restore 618 // Obsolete
-
-            RouteFactory = new RouteFactory(sequenceNumberGenerator, ThreadContext, callSpecificationFactory);
-
-            var callInfoFactory = new CallInfoFactory();
-            var autoValueProvidersFactory = new AutoValueProvidersFactory();
-            var substituteStateFactory = new SubstituteStateFactory(callSpecificationFactory, callInfoFactory, autoValueProvidersFactory);
-            var callRouterFactory = new CallRouterFactory(ThreadContext, RouteFactory);
-            var argSpecificationQueue = new ArgumentSpecificationDequeue(ThreadContext.DequeueAllArgumentSpecifications);
-            var dynamicProxyFactory = new CastleDynamicProxyFactory(argSpecificationQueue);
-            var delegateFactory = new DelegateProxyFactory(dynamicProxyFactory);
-            var proxyFactory = new ProxyFactory(delegateFactory, dynamicProxyFactory);
-            SubstituteFactory = new SubstituteFactory(substituteStateFactory, callRouterFactory, proxyFactory);
+            Current = NSubstituteDefaultFactory.CreateSubstitutionContext();
         }
 
         public SubstitutionContext(ISubstituteFactory substituteFactory,
             IRouteFactory routeFactory,
+            ICallSpecificationFactory callSpecificationFactory,
             IThreadLocalContext threadLocalContext,
             ICallRouterResolver callRouterResolver)
         {
             SubstituteFactory = substituteFactory ?? throw new ArgumentNullException(nameof(substituteFactory));
             RouteFactory = routeFactory ?? throw new ArgumentNullException(nameof(routeFactory));
+            CallSpecificationFactory = callSpecificationFactory ?? throw new ArgumentNullException(nameof(callSpecificationFactory));
             ThreadContext = threadLocalContext ?? throw new ArgumentNullException(nameof(threadLocalContext));
             _callRouterResolver = callRouterResolver ?? throw new ArgumentNullException(nameof(callRouterResolver));
 
 #pragma warning disable 618 // Obsolete
-            SequenceNumberGenerator = new SequenceNumberGenerator();
+            SequenceNumberGenerator = NSubstituteDefaultFactory.DefaultContainer.Resolve<SequenceNumberGenerator>();
 #pragma warning restore 618 // Obsolete
         }
 
@@ -73,6 +47,9 @@ namespace NSubstitute.Core
         // API below is obsolete and present for the binary compatibility with the previous versions.
         // All implementations are relaying to the non-obsolete members.
 
+        [Obsolete("This property is obsolete and will be removed in a future version of the product.")]
+        public SequenceNumberGenerator SequenceNumberGenerator { get; }
+ 
         [Obsolete("This property is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.IsQuerying) + " property instead.")]
         public bool IsQuerying => ThreadContext.IsQuerying;
@@ -173,7 +150,7 @@ namespace NSubstitute.Core
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RunInQueryContext) + "() method instead.")]
         public IQueryResults RunQuery(Action calls)
         {
-            var query = new Query();
+            var query = new Query(CallSpecificationFactory);
             ThreadContext.RunInQueryContext(calls, query);
             return query.Result();
         }

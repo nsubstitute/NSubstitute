@@ -1,0 +1,51 @@
+using System;
+
+namespace NSubstitute.Core.DependencyInjection
+{
+    public interface INSubResolver
+    {
+        T Resolve<T>();
+    }
+
+    public interface INSubContainer : INSubResolver
+    {
+        /// <summary>
+        /// Creates a new container based on the current one,
+        /// which can be configured to override the existing registrations without affecting the existing container.
+        /// </summary>
+        IConfigurableNSubContainer Customize();
+
+        /// <summary>
+        /// Create an explicit scope, so all dependencies with the <see cref="NSubLifetime.PerScope"/> lifetime
+        /// are preserved for multiple resolve requests.
+        /// </summary>
+        INSubResolver CreateScope();
+    }
+
+    public interface IConfigurableNSubContainer : INSubContainer
+    {
+        IConfigurableNSubContainer Register<TKey, TImpl>(NSubLifetime lifetime) where TImpl : TKey;
+
+        IConfigurableNSubContainer Register<TKey>(Func<INSubResolver, TKey> factory, NSubLifetime lifetime);
+    }
+
+    public static class ConfigurableNSubContainerExtensions
+    {
+        public static IConfigurableNSubContainer RegisterPerScope<TKey, TImpl>(this IConfigurableNSubContainer container)
+            where TImpl : TKey
+        {
+            return container.Register<TKey, TImpl>(NSubLifetime.PerScope);
+        }
+
+        public static IConfigurableNSubContainer RegisterPerScope<TKey>(this IConfigurableNSubContainer container, Func<INSubResolver, TKey> factory)
+        {
+            return container.Register(factory, NSubLifetime.PerScope);
+        }
+
+        public static IConfigurableNSubContainer RegisterSingleton<TKey, TImpl>(this IConfigurableNSubContainer container)
+            where TImpl : TKey
+        {
+            return container.Register<TKey, TImpl>(NSubLifetime.Singleton);
+        }
+    }
+}
