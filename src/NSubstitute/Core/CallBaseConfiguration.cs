@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 
 namespace NSubstitute.Core
 {
     public class CallBaseConfiguration : ICallBaseConfiguration
     {
-        private ConcurrentQueue<ICallSpecification> Exclusions { get; } = new ConcurrentQueue<ICallSpecification>();
+        private ConcurrentQueue<CallBaseRule> Rules { get; } = new ConcurrentQueue<CallBaseRule>();
 
         /// <inheritdoc />
         public bool CallBaseByDefault { get; set; }
@@ -15,7 +16,15 @@ namespace NSubstitute.Core
         {
             if (callSpecification == null) throw new ArgumentNullException(nameof(callSpecification));
 
-            Exclusions.Enqueue(callSpecification);
+            Rules.Enqueue(new CallBaseRule(callSpecification, callBase: false));
+        }
+
+        /// <inheritdoc />
+        public void Include(ICallSpecification callSpecification)
+        {
+            if (callSpecification == null) throw new ArgumentNullException(nameof(callSpecification));
+
+            Rules.Enqueue(new CallBaseRule(callSpecification, callBase: true));
         }
 
         /// <inheritdoc />
@@ -23,20 +32,42 @@ namespace NSubstitute.Core
         {
             if (call == null) throw new ArgumentNullException(nameof(call));
 
-            if (IsCallExplicitlyExcluded(call)) return false;
+            if (TryGetExplicitConfiguration(call, out bool callBase))
+            {
+                return callBase;
+            }
 
             return CallBaseByDefault;
         }
 
-        private bool IsCallExplicitlyExcluded(ICall call)
+        private bool TryGetExplicitConfiguration(ICall call, out bool callBase)
         {
             // Use explicit foreach instead of LINQ to improve performance (avoid delegate construction).
-            foreach (var callSpecification in Exclusions)
+            foreach (var rule in Rules.Reverse())
             {
-                if (callSpecification.IsSatisfiedBy(call)) return true;
+                if (rule.IsSatisfiedBy(call))
+                {
+                    callBase = rule.CallBase;
+                    return true;
+                }
             }
 
+            callBase = false;
             return false;
+        }
+
+        private struct CallBaseRule
+        {
+            public ICallSpecification CallSpecification { get; }
+            public bool CallBase { get; }
+
+            public CallBaseRule(ICallSpecification callSpecification, bool callBase)
+            {
+                CallSpecification = callSpecification;
+                CallBase = callBase;
+            }
+
+            public bool IsSatisfiedBy(ICall call) => CallSpecification.IsSatisfiedBy(call);
         }
     }
 }

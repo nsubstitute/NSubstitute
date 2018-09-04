@@ -51,6 +51,15 @@ namespace NSubstitute.Core
         }
 
         /// <summary>
+        /// Call the base implementation of future calls. For use with non-partial class substitutes.
+        /// </summary>
+        public void CallBase()
+        {
+            _callRouter.SetRoute(x => _routeFactory.CallBase(x, _matchArgs));
+            _call(_substitute);
+        }
+
+        /// <summary>
         /// Throw the specified exception when called.
         /// </summary>
         public void Throw(Exception exception)
