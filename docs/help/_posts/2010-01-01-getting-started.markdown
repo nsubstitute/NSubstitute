@@ -44,6 +44,8 @@ We can ask NSubstitute to create a substitute instance for this type. We could a
 calculator = Substitute.For<ICalculator>();
 {% endexamplecode %}
 
+⚠️ **Note**: NSubstitute will only work properly with interfaces or with `virtual` members of classes. Be careful substituting for classes with non-virtual members. See [Creating a substitute](/help/creating-a-substitute/#substituting_infrequently_and_carefully_for_classes) for more information.
+
 Now we can tell our substitute to return a value for a call:
 
 {% examplecode csharp %}

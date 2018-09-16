@@ -13,7 +13,7 @@ This is how you'll normally create substitutes for types. Generally this type wi
 
 ## Substituting (infrequently and carefully) for classes
 
-**Warning:** Substituting for classes can have some nasty side-effects!
+⚠️ **Warning:** Substituting for classes can have some nasty side-effects!
 
 For starters, **NSubstitute can only work with *virtual* members of the class**, so any non-virtual code in the class will actually execute! If you try to substitute for a class that formats your hard drive in the constructor or in a non-virtual property setter then you're asking for trouble.
 
