@@ -25,7 +25,8 @@ namespace NSubstitute.Core
             IRouteFactory routeFactory,
             ICallSpecificationFactory callSpecificationFactory,
             IThreadLocalContext threadLocalContext,
-            ICallRouterResolver callRouterResolver)
+            ICallRouterResolver callRouterResolver,
+            SequenceNumberGenerator sequenceNumberGenerator)
         {
             SubstituteFactory = substituteFactory ?? throw new ArgumentNullException(nameof(substituteFactory));
             RouteFactory = routeFactory ?? throw new ArgumentNullException(nameof(routeFactory));
@@ -34,7 +35,7 @@ namespace NSubstitute.Core
             _callRouterResolver = callRouterResolver ?? throw new ArgumentNullException(nameof(callRouterResolver));
 
 #pragma warning disable 618 // Obsolete
-            SequenceNumberGenerator = NSubstituteDefaultFactory.DefaultContainer.Resolve<SequenceNumberGenerator>();
+            SequenceNumberGenerator = sequenceNumberGenerator;
 #pragma warning restore 618 // Obsolete
         }
 
