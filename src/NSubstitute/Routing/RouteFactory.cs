@@ -57,6 +57,15 @@ namespace NSubstitute.Routing
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
+        public IRoute CallBase(ISubstituteState state, MatchArgs matchArgs)
+        {
+            return new Route(new ICallHandler[] {
+                new ClearLastCallRouterHandler(_threadLocalContext)
+                , new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
+                , new CallBaseForCallHandler(_callSpecificationFactory, state.CallBaseConfiguration, matchArgs)
+                , ReturnDefaultForReturnTypeHandler()
+            });
+        }
         public IRoute RaiseEvent(ISubstituteState state, Func<ICall, object[]> getEventArguments)
         {
             return new Route(new ICallHandler[] {

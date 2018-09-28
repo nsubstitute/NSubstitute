@@ -195,6 +195,55 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void CallBaseForNonPartialProxyWhenExplicitlyEnabled()
+        {
+            var substitute = Substitute.For<TestAbstractClass>();
+            substitute.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).CallBase();
+
+            substitute.MethodReturnsSameInt(42);
+            
+            Assert.That(substitute.CalledTimes, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CallBaseWhenDisabledViaRouterButExplicitlyEnabled()
+        {
+            var substitute = Substitute.For<TestAbstractClass>();
+            SubstitutionContext.Current.GetCallRouterFor(substitute).CallBaseByDefault = false;
+            substitute.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).CallBase();
+
+            substitute.MethodReturnsSameInt(42);
+            
+            Assert.That(substitute.CalledTimes, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void DoNotCallBaseWhenExplicitlyEnabledAndThenDisabled()
+        {
+            var substitute = Substitute.For<TestAbstractClass>();
+            SubstitutionContext.Current.GetCallRouterFor(substitute).CallBaseByDefault = true;
+
+            substitute.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).CallBase();
+            substitute.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).DoNotCallBase();
+            substitute.MethodReturnsSameInt(42);
+
+            Assert.That(substitute.CalledTimes, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void CallBaseWhenExplicitlyDisabledAndThenEnabled()
+        {
+            var substitute = Substitute.For<TestAbstractClass>();
+            SubstitutionContext.Current.GetCallRouterFor(substitute).CallBaseByDefault = true;
+
+            substitute.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).DoNotCallBase();
+            substitute.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).CallBase();
+            substitute.MethodReturnsSameInt(42);
+
+            Assert.That(substitute.CalledTimes, Is.EqualTo(1));
+        }
+ 
+        [Test]
         public void ShouldThrowExceptionIfTryToNotCallBaseForAbstractMethod()
         {
             var substitute = Substitute.For<TestAbstractClass>();
@@ -211,6 +260,26 @@ namespace NSubstitute.Acceptance.Specs
 
             var ex = Assert.Throws<CouldNotConfigureCallBaseException>(
                 () => substitute.When(x => x.TestMethodReturnsInt()).DoNotCallBase());
+            Assert.That(ex.Message, Contains.Substring("base method implementation is missing"));
+        }
+ 
+        [Test]
+        public void ShouldThrowExceptionIfTryToCallBaseForAbstractMethod()
+        {
+            var substitute = Substitute.For<TestAbstractClass>();
+
+            var ex = Assert.Throws<CouldNotConfigureCallBaseException>(
+                () => substitute.When(x => x.AbstractMethodReturnsSameInt(Arg.Any<int>())).CallBase());
+            Assert.That(ex.Message, Contains.Substring("base method implementation is missing"));
+        }
+
+        [Test]
+        public void ShouldThrowExceptionIfTryToCallBaseForInterfaceProxy()
+        {
+            var substitute = Substitute.For<ITestInterface>();
+
+            var ex = Assert.Throws<CouldNotConfigureCallBaseException>(
+                () => substitute.When(x => x.TestMethodReturnsInt()).CallBase());
             Assert.That(ex.Message, Contains.Substring("base method implementation is missing"));
         }
 
