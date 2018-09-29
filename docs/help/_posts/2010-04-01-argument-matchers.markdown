@@ -124,6 +124,10 @@ See [Setting out and ref args](/help/setting-out-and-ref-arguments/) for more in
 
 ## How NOT to use argument matchers
 
+Occasionally argument matchers get used in ways that cause unexpected results for people. Here are the most common ones.
+
+### Using matchers outside of stubbing or checking received calls
+
 Argument matchers should only be used when setting return values or checking received calls. Using `Arg.Is` or `Arg.Any` without a call to `.Returns` or `Received()` can cause your tests to behave in unexpected ways.
 
 For example:
@@ -154,3 +158,87 @@ widgetFactory.Received().Make(Arg.Is<int>(x => x > 0));
 In this example it would be an error to use an argument matcher in the `ACT` part of this test. Even if we don't mind what specific argument we pass to our subject, `Arg.Any` is only for substitutes, and only for setting return values or checking received calls; not for real calls.
 
 (If you do want to indicate to readers that the precise argument used for a real call doesn't matter you could use a variable such as `var someInt = 4; subject.StartWithWidget(someInt);` or similar. Just stay clear of argument matchers for this!)
+
+### Modifying values being matched
+
+When NSubstitute records calls, it keeps a reference to the arguments passed, not a deep clone of each argument at the time of the call. This means that if the properties of an argument change after the call assertions may not behave as expected.
+
+{% requiredcode %}
+public interface IPersonLookup {
+    void Add(Person p);
+}
+public interface IPersonStructLookup {
+    void Add(PersonStruct p);
+}
+{% endrequiredcode %}
+
+{% examplecode csharp %}
+public class Person {
+    public string Name { get; set; }
+}
+
+[Test]
+public void MutatingAMatchedArgument() {
+    var person = new Person { Name = "Carrot" };
+    var lookup = Substitute.For<IPersonLookup>();
+
+    // Called with a Person that has a .Name property of "Carrot"
+    lookup.Add(person);
+
+    // The Name in that person reference later gets updated ...
+    person.Name = "Vimes";
+
+    // When the substitute is queried, it will check the fields of the person reference it was called with.
+    // This means the argument it was called with does NOT have a .Name of "Carrot" (it was changed!)
+    lookup.DidNotReceive().Add(Arg.Is<Person>(p => p.Name == "Carrot"));
+    // Instead, it now has the updated name:
+    lookup.Received().Add(Arg.Is<Person>(p => p.Name == "Vimes"));
+}
+{% endexamplecode %}
+
+This looks confusing at first, but if we remember substitutes are pretty much forced to store references to arguments used then it makes sense. The alternative of storing deep-cloned snapshots of every argument to every call received is fairly impractical, especially if we consider objects with very complex hierarchies (e.g. tens of fields, each with an object with tens of fields of its own, etc.). Storing snapshots would also lead to the same confusion in the reverse situation, where we know a substitute was called with a particular reference but the `Arg.Is(person)` check fails due to a change in one of its fields.
+
+That said, there are times when snapshots like this are useful, and there are a few ways to enable this with NSubstitute.
+
+The first option is to use structs instead of classes for these cases. These are passed by value rather than by reference, so that value will be stored by substitutes and modifications made afterwards will not affect that value.
+
+{% examplecode csharp %}
+public struct PersonStruct {
+    public string Name { get; set; }
+}
+
+[Test]
+public void MutatingAStruct() {
+    var person = new PersonStruct { Name = "Carrot" };
+    var lookup = Substitute.For<IPersonStructLookup>();
+
+    lookup.Add(person);
+
+    person.Name = "Vimes";
+
+    // `person` was passed by value, and that value still has the original Name
+    lookup.Received().Add(Arg.Is<PersonStruct>(p => p.Name == "Carrot"));
+}
+{% endexamplecode %}
+
+
+For cases where that is not possible or wanted then we can manually snapshot the values we are interested in.
+
+{% examplecode csharp %}
+[Test]
+public void ManualArgSnapshot() {
+    var person = new Person { Name = "Carrot" };
+    var lookup = Substitute.For<IPersonLookup>();
+    var namesAdded = new List<string>();
+    // Manually snapshot the value or values we care about:
+    lookup.Add(Arg.Do<Person>(p => namesAdded.Add(p.Name)));
+
+
+    lookup.Add(person);
+    person.Name = "Vimes";
+
+    Assert.AreEqual("Carrot", namesAdded[0]);
+}
+{% endexamplecode %}
+
+ We can then use our standard assertion library for checking the value. This approach can also be helpful for asserting on complex objects, as our assertions can be more detailed and provide more useful information than NSubstitute typically provides in these cases.
