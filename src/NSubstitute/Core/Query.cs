@@ -10,9 +10,9 @@ namespace NSubstitute.Core
         private readonly HashSet<ICall> _matchingCalls = new HashSet<ICall>(new CallSequenceNumberComparer());
         private readonly ICallSpecificationFactory _callSpecificationFactory;
 
-        public Query()
+        public Query(ICallSpecificationFactory callSpecificationFactory)
         {
-            _callSpecificationFactory = CallSpecificationFactoryFactoryYesThatsRight.CreateCallSpecFactory();
+            _callSpecificationFactory = callSpecificationFactory ?? throw new ArgumentNullException(nameof(callSpecificationFactory));
         }
         
         public void RegisterCall(ICall call)

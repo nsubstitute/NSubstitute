@@ -10,13 +10,15 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 {
     public class CastleDynamicProxyFactory : IProxyFactory
     {
+        private readonly ICallFactory _callFactory;
         private readonly IArgumentSpecificationDequeue _argSpecificationDequeue;
         private readonly ProxyGenerator _proxyGenerator;
         private readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook;
 
-        public CastleDynamicProxyFactory(IArgumentSpecificationDequeue argSpecificationDequeue)
+        public CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue)
         {
-            _argSpecificationDequeue = argSpecificationDequeue;
+            _callFactory = callFactory ?? throw new ArgumentNullException(nameof(callFactory));
+            _argSpecificationDequeue = argSpecificationDequeue ?? throw new ArgumentNullException(nameof(argSpecificationDequeue));
             _proxyGenerator = new ProxyGenerator();
             _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
         }
@@ -28,7 +30,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             var proxyIdInterceptor = new ProxyIdInterceptor(typeToProxy);
             var forwardingInterceptor = new CastleForwardingInterceptor(
                 new CastleInvocationMapper(
-                    new CallFactory(),
+                    _callFactory,
                     _argSpecificationDequeue),
                 callRouter);
 

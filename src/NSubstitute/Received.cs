@@ -14,7 +14,7 @@ namespace NSubstitute
         /// <param name="calls">Action containing calls to substitutes in the expected order</param>
         public static void InOrder(Action calls)
         {
-            var query = new Query();
+            var query = new Query(SubstitutionContext.Current.CallSpecificationFactory);
             SubstitutionContext.Current.ThreadContext.RunInQueryContext(calls, query);
             new SequenceInOrderAssertion().Assert(query.Result());
         }
