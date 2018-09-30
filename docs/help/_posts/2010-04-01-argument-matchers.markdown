@@ -7,7 +7,7 @@ Argument matchers can be used when [setting return values](/help/return-for-args
 
 The argument matchers syntax shown here depends on having C# 7.0 or later. If you are stuck on an earlier version (getting an error such as `CS7085: By-reference return type 'ref T' is not supported` while trying to use them) please use [compatibility argument matchers](/help/compat-args) instead. 
 
-⚠️ **Note:** Argument matchers should only be used when setting return values or checking received calls. Using `Arg.Is` or `Arg.Any` without a call to `.Returns` or `Received()` can cause your tests to behave in unexpected ways. See [How NOT to use argument matchers](#how_not_to_use_argument_matchers) for more information.
+⚠️ **Note:** Argument matchers should only be used when setting return values or checking received calls. Using `Arg.Is` or `Arg.Any` without a call to `Returns(...)` or `Received()` can cause your tests to behave in unexpected ways. See [How NOT to use argument matchers](#how_not_to_use_argument_matchers) for more information.
 
 {% requiredcode %}
 public interface ICalculator {
