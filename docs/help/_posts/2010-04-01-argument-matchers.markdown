@@ -114,8 +114,7 @@ calculator
         return true;
     });
 
-int memoryValue;
-var hasEntry = calculator.LoadMemory(1, out memoryValue);
+var hasEntry = calculator.LoadMemory(1, out var memoryValue);
 Assert.AreEqual(true, hasEntry);
 Assert.AreEqual(42, memoryValue);
 {% endexamplecode %}
@@ -128,7 +127,7 @@ Occasionally argument matchers get used in ways that cause unexpected results fo
 
 ### Using matchers outside of stubbing or checking received calls
 
-Argument matchers should only be used when setting return values or checking received calls. Using `Arg.Is` or `Arg.Any` without a call to `.Returns` or `Received()` can cause your tests to behave in unexpected ways.
+Argument matchers should only be used when setting return values or checking received calls. Using `Arg.Is` or `Arg.Any` without a call to `Returns(...)` or `Received()` can cause your tests to behave in unexpected ways.
 
 For example:
 
