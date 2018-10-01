@@ -9,28 +9,17 @@ namespace NSubstitute.Core
         {
             if (substitute == null) throw new NullSubstituteReferenceException();
 
-            var callRouter = TryGetRouterFromObject(substitute);
-            if (callRouter == null && substitute is Delegate delegateProxy)
+            if (substitute is ICallRouter callRouter)
             {
-                callRouter = TryGetRouterFromObject(delegateProxy.Target);
+                return callRouter;
             }
 
-            if (callRouter == null)
-                throw new NotASubstituteException();
-
-            return callRouter;
-        }
-
-        private static ICallRouter TryGetRouterFromObject(object proxy)
-        {
-            switch (proxy)
+            if (substitute is Delegate delegateProxy && delegateProxy.Target is ICallRouter delegateCallRouter)
             {
-                case ICallRouter callRouter: return callRouter;
-
-                case ICallRouterProvider provider: return provider.CallRouter;
-
-                default: return null;
+                return delegateCallRouter;
             }
+
+            throw new NotASubstituteException();
         }
     }
 }
