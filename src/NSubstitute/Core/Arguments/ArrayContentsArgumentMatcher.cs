@@ -6,11 +6,11 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArrayContentsArgumentMatcher : IArgumentMatcher, IArgumentFormatter
     {
-        private readonly IEnumerable<IArgumentSpecification> _argumentSpecifications;
+        private readonly IArgumentSpecification[] _argumentSpecifications;
 
         public ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications)
         {
-            _argumentSpecifications = argumentSpecifications;
+            _argumentSpecifications = argumentSpecifications.ToArray();
         }
 
         public bool IsSatisfiedBy(object argument)
@@ -30,15 +30,14 @@ namespace NSubstitute.Core.Arguments
 
         public override string ToString()
         {
-            return string.Join(", ", _argumentSpecifications.Select(x => x.ToString()).ToArray());
+            return string.Join(", ", _argumentSpecifications.Select(x => x.ToString()));
         }
 
         public string Format(object argument, bool highlight)
         {
-            var specsArray = _argumentSpecifications.ToArray();
             var enumerableArgs = argument as IEnumerable;
             var argArray = enumerableArgs != null ? enumerableArgs.Cast<object>().ToArray() : new object[0];
-            return Format(argArray, specsArray).Join(", ");
+            return Format(argArray, _argumentSpecifications).Join(", ");
         }
 
         private IEnumerable<string> Format(object[] args, IArgumentSpecification[] specs)
