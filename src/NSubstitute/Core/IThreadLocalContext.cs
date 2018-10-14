@@ -15,7 +15,7 @@ namespace NSubstitute.Core
         void EnqueueArgumentSpecification(IArgumentSpecification spec);
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
 
-        void SetPendingRasingEventArgumentsFactory(Func<ICall, object[]> getArguments);
+        void SetPendingRaisingEventArgumentsFactory(Func<ICall, object[]> getArguments);
         /// <summary>
         /// Returns the previously set arguments factory and resets the stored value.
         /// </summary>

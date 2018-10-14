@@ -78,7 +78,7 @@ namespace NSubstitute.Core
             return queue;
         }
 
-        public void SetPendingRasingEventArgumentsFactory(Func<ICall, object[]> getArguments)
+        public void SetPendingRaisingEventArgumentsFactory(Func<ICall, object[]> getArguments)
         {
             _getArgumentsForRaisingEvent.Value = getArguments;
         }
