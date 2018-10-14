@@ -16,9 +16,9 @@ namespace NSubstitute.ReceivedExtensions
         public static T Received<T>(this T substitute, Quantity requiredQuantity)
         {
             var context = SubstitutionContext.Current;
-            var router = context.GetCallRouterFor(substitute);
-            var routeFactory = context.RouteFactory;
-            router.SetRoute(x => routeFactory.CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, requiredQuantity));
+            var callRouter = context.GetCallRouterFor(substitute);
+
+            context.ThreadContext.SetNextRoute(callRouter, x => context.RouteFactory.CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, requiredQuantity));
             return substitute;
         }
 
@@ -32,9 +32,9 @@ namespace NSubstitute.ReceivedExtensions
         public static T ReceivedWithAnyArgs<T>(this T substitute, Quantity requiredQuantity)
         {
             var context = SubstitutionContext.Current;
-            var router = context.GetCallRouterFor(substitute);
-            var routeFactory = context.RouteFactory;
-            router.SetRoute(x => routeFactory.CheckReceivedCalls(x, MatchArgs.Any, requiredQuantity));
+            var callRouter = context.GetCallRouterFor(substitute);
+
+            context.ThreadContext.SetNextRoute(callRouter, x => context.RouteFactory.CheckReceivedCalls(x, MatchArgs.Any, requiredQuantity));
             return substitute;
         }
     }

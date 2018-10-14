@@ -9,14 +9,14 @@ namespace NSubstitute.Core
         {
             if (substitute == null) throw new NullSubstituteReferenceException();
 
-            if (substitute is ICallRouter callRouter)
+            if (substitute is ICallRouterProvider callRouterProvider)
             {
-                return callRouter;
+                return callRouterProvider.GetCallRouter();
             }
 
-            if (substitute is Delegate delegateProxy && delegateProxy.Target is ICallRouter delegateCallRouter)
+            if (substitute is Delegate delegateProxy && delegateProxy.Target is ICallRouterProvider delegateCallRouter)
             {
-                return delegateCallRouter;
+                return delegateCallRouter.GetCallRouter();
             }
 
             throw new NotASubstituteException();

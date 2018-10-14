@@ -34,7 +34,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                     _argSpecificationDequeue),
                 callRouter);
 
-            var proxyGenerationOptions = GetOptionsToMixinCallRouter(callRouter);
+            var proxyGenerationOptions = GetOptionsToMixinCallRouterProvider(callRouter);
             var proxy = CreateProxyUsingCastleProxyGenerator(
                 typeToProxy,
                 additionalInterfaces,
@@ -86,10 +86,16 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 interceptors);
         }
 
-        private ProxyGenerationOptions GetOptionsToMixinCallRouter(ICallRouter callRouter)
+        private ProxyGenerationOptions GetOptionsToMixinCallRouterProvider(ICallRouter callRouter)
         {
             var options = new ProxyGenerationOptions(_allMethodsExceptCallRouterCallsHook);
-            options.AddMixinInstance(callRouter);
+
+            // Previously we mixed in the callRouter instance directly, and now we create a wrapper around it.
+            // The reason is that we want SubstitutionContext.GetCallRouterFor(substitute) to return us the
+            // original callRouter object, rather than the substitute object (as it implemented the ICallRouter interface directly).
+            // That need appeared due to the ThreadLocalContext.SetNextRoute() API, which compares the passed callRouter instance by reference.
+            options.AddMixinInstance(new StaticCallRouterProvider(callRouter));
+
             return options;
         }
 
@@ -117,20 +123,32 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 if (ProxyIdInterceptor.IsDefaultToStringMethod(methodInfo))
                     return true;
 
-                return IsNotCallRouterMethod(methodInfo)
+                return IsNotCallRouterProviderMethod(methodInfo)
                     && IsNotBaseObjectMethod(methodInfo)
                     && base.ShouldInterceptMethod(type, methodInfo);
             }
 
-            private static bool IsNotCallRouterMethod(MethodInfo methodInfo)
+            private static bool IsNotCallRouterProviderMethod(MethodInfo methodInfo)
             {
-                return methodInfo.DeclaringType != typeof(ICallRouter);
+                return methodInfo.DeclaringType != typeof(ICallRouterProvider);
             }
 
             private static bool IsNotBaseObjectMethod(MethodInfo methodInfo)
             {
                 return methodInfo.GetBaseDefinition().DeclaringType != typeof(object);
             }
+        }
+
+        private class StaticCallRouterProvider : ICallRouterProvider
+        {
+            private readonly ICallRouter _callRouter;
+
+            public StaticCallRouterProvider(ICallRouter callRouter)
+            {
+                _callRouter = callRouter;
+            }
+
+            public ICallRouter GetCallRouter() => _callRouter;
         }
     }
 }

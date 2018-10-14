@@ -22,10 +22,8 @@ namespace NSubstitute.Extensions
         public static T Configure<T>(this T substitute) where T : class
         {
             var context = SubstitutionContext.Current;
-            var router = context.GetCallRouterFor(substitute);
-            var routeFactory = context.RouteFactory;
-
-            router.SetRoute(state => routeFactory.RecordCallSpecification(state));
+            var callRouter = context.GetCallRouterFor(substitute);
+            context.ThreadContext.SetNextRoute(callRouter, context.RouteFactory.RecordCallSpecification);
 
             return substitute;
         }

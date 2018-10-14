@@ -1,5 +1,4 @@
 using System;
-using NSubstitute.Callbacks;
 using NSubstitute.Routing;
 
 namespace NSubstitute.Core
@@ -10,6 +9,7 @@ namespace NSubstitute.Core
         private readonly Action<T> _call;
         private readonly MatchArgs _matchArgs;
         private readonly ICallRouter _callRouter;
+        private readonly IThreadLocalContext _threadContext;
         private readonly IRouteFactory _routeFactory;
 
         public WhenCalled(ISubstitutionContext context, T substitute, Action<T> call, MatchArgs matchArgs)
@@ -19,6 +19,7 @@ namespace NSubstitute.Core
             _matchArgs = matchArgs;
             _callRouter = context.GetCallRouterFor(substitute);
             _routeFactory = context.RouteFactory;
+            _threadContext = context.ThreadContext;
         }
 
         /// <summary>
@@ -27,17 +28,17 @@ namespace NSubstitute.Core
         /// <param name="callbackWithArguments"></param>
         public void Do(Action<CallInfo> callbackWithArguments)
         {
-            _callRouter.SetRoute(x => _routeFactory.DoWhenCalled(x, callbackWithArguments, _matchArgs));
+            _threadContext.SetNextRoute(_callRouter, x => _routeFactory.DoWhenCalled(x, callbackWithArguments, _matchArgs));
             _call(_substitute);
         }
 
         /// <summary>
-        /// Perform this configured callcback when called.
+        /// Perform this configured callback when called.
         /// </summary>
         /// <param name="callback"></param>
         public void Do(Callback callback)
         {
-            _callRouter.SetRoute(x => _routeFactory.DoWhenCalled(x, callback.Call, _matchArgs));
+            _threadContext.SetNextRoute(_callRouter, x => _routeFactory.DoWhenCalled(x, callback.Call, _matchArgs));
             _call(_substitute);
         }
 
@@ -46,7 +47,7 @@ namespace NSubstitute.Core
         /// </summary>
         public void DoNotCallBase()
         {
-            _callRouter.SetRoute(x => _routeFactory.DoNotCallBase(x, _matchArgs));
+            _threadContext.SetNextRoute(_callRouter, x => _routeFactory.DoNotCallBase(x, _matchArgs));
             _call(_substitute);
         }
 
@@ -55,7 +56,7 @@ namespace NSubstitute.Core
         /// </summary>
         public void CallBase()
         {
-            _callRouter.SetRoute(x => _routeFactory.CallBase(x, _matchArgs));
+            _threadContext.SetNextRoute(_callRouter, x => _routeFactory.CallBase(x, _matchArgs));
             _call(_substitute);
         }
 
@@ -85,7 +86,7 @@ namespace NSubstitute.Core
         /// </summary>
         public void Throw(Func<CallInfo, Exception> createException)
         {
-            Do(ci => { throw createException(ci); });
+            Do(ci => throw createException(ci));
         }
     }
 }
