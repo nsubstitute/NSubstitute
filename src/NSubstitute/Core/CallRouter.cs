@@ -62,51 +62,37 @@ namespace NSubstitute.Core
         {
             _threadContext.SetLastCallRouter(this);
 
+            var isQuerying = _threadContext.IsQuerying;
             var pendingRaisingEventArgs = _threadContext.UsePendingRaisingEventArgumentsFactory();
             var queuedNextRouteFactory = _threadContext.UseNextRoute(this);
 
-            IRoute routeToUseForThisCall;
-            if (_threadContext.IsQuerying)
-            {
-                routeToUseForThisCall = GetQueryRoute();
-            }
-            else if (pendingRaisingEventArgs != null)
-            {
-                routeToUseForThisCall = GetRaiseEventRoute(pendingRaisingEventArgs);
-            }
-            else if (queuedNextRouteFactory != null)
-            {
-                routeToUseForThisCall = queuedNextRouteFactory.Invoke(_substituteState);
-            }
-            else if (IsSpecifyingACall(call))
-            {
-                routeToUseForThisCall = GetRecordCallSpecRoute();
-            }
-            else
-            {
-                routeToUseForThisCall = GetRecordReplayRoute();
-            }
+            IRoute routeToUse = ResolveCurrentRoute(call, isQuerying, pendingRaisingEventArgs, queuedNextRouteFactory);
 
-            return routeToUseForThisCall.Handle(call);
+            return routeToUse.Handle(call);
         }
 
-        private IRoute GetQueryRoute()
+        private IRoute ResolveCurrentRoute(ICall call, bool isQuerying, Func<ICall, object[]> pendingRaisingEventArgs, Func<ISubstituteState, IRoute> queuedNextRouteFactory)
         {
-            return _routeFactory.CallQuery(_substituteState);
-        }
+            if (isQuerying)
+            {
+                return _routeFactory.CallQuery(_substituteState);
+            }
 
-        private IRoute GetRaiseEventRoute(Func<ICall, object[]> argumentsFactory)
-        {
-            return _routeFactory.RaiseEvent(_substituteState, argumentsFactory);
-        }
+            if (pendingRaisingEventArgs != null)
+            {
+                return _routeFactory.RaiseEvent(_substituteState, pendingRaisingEventArgs);
+            }
 
-        private IRoute GetRecordCallSpecRoute()
-        {
-            return _routeFactory.RecordCallSpecification(_substituteState);
-        }
+            if (queuedNextRouteFactory != null)
+            {
+                return queuedNextRouteFactory.Invoke(_substituteState);
+            }
 
-        private IRoute GetRecordReplayRoute()
-        {
+            if (IsSpecifyingACall(call))
+            {
+                return _routeFactory.RecordCallSpecification(_substituteState);
+            }
+
             return _routeFactory.RecordReplay(_substituteState);
         }
 
