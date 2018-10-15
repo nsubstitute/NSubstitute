@@ -97,7 +97,7 @@ namespace NSubstitute.Routing
         }
         public IRoute RecordReplay(ISubstituteState state)
         {
-            return new Route(RouteType.RecordReplay, new ICallHandler[] {
+            return new Route(new ICallHandler[] {
                 new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
                 , new TrackLastCallHandler(_threadLocalContext.PendingSpecification)
                 , new RecordCallHandler(state.ReceivedCalls, _sequenceNumberGenerator)

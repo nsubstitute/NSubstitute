@@ -1,23 +1,17 @@
+using System;
 using System.Collections.Generic;
 using NSubstitute.Core;
 
 namespace NSubstitute.Routing
 {
-    public enum RouteType { Other, RecordReplay }
-
     public class Route : IRoute
     {
         private readonly ICallHandler[] _handlers;
 
-        public Route(ICallHandler[] handlers) : this(RouteType.Other, handlers) { }
-
-        public Route(RouteType routeType, ICallHandler[] handlers)
+        public Route(ICallHandler[] handlers)
         {
-            IsRecordReplayRoute = routeType == RouteType.RecordReplay;
-            _handlers = handlers;
+            _handlers = handlers ?? throw new ArgumentNullException(nameof(handlers));
         }
-
-        public bool IsRecordReplayRoute { get; }
 
         public IEnumerable<ICallHandler> Handlers => _handlers;
 
