@@ -43,7 +43,7 @@ namespace NSubstitute.Core
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetPendingRasingEventArgumentsFactory) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetPendingRaisingEventArgumentsFactory) + "() method instead.")]
         void RaiseEventForNextCall(Func<ICall, object[]> getArguments);
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +

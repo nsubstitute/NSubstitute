@@ -126,9 +126,9 @@ namespace NSubstitute.Core
             ThreadContext.DequeueAllArgumentSpecifications();
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetPendingRasingEventArgumentsFactory) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetPendingRaisingEventArgumentsFactory) + "() method instead.")]
         public void RaiseEventForNextCall(Func<ICall, object[]> getArguments) =>
-            ThreadContext.SetPendingRasingEventArgumentsFactory(getArguments);
+            ThreadContext.SetPendingRaisingEventArgumentsFactory(getArguments);
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.UsePendingRaisingEventArgumentsFactory) + "() method instead.")]

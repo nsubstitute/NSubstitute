@@ -9,13 +9,10 @@ namespace NSubstitute.Core
 {
     public class CallRouter : ICallRouter
     {
-        private static readonly object[] EmptyArgs = new object[0];
-        private static readonly IList<IArgumentSpecification> EmptyArgSpecs = new List<IArgumentSpecification>();
         private readonly ISubstituteState _substituteState;
         private readonly IThreadLocalContext _threadContext;
         private readonly IRouteFactory _routeFactory;
         private readonly bool _canConfigureBaseCalls;
-        private IRoute _currentRoute;
 
         public CallRouter(ISubstituteState substituteState, IThreadLocalContext threadContext, IRouteFactory routeFactory, bool canConfigureBaseCalls)
         {
@@ -23,8 +20,6 @@ namespace NSubstitute.Core
             _threadContext = threadContext;
             _routeFactory = routeFactory;
             _canConfigureBaseCalls = canConfigureBaseCalls;
-
-            UseDefaultRouteForNextCall();
         }
 
         public bool CallBaseByDefault
@@ -36,11 +31,6 @@ namespace NSubstitute.Core
 
                 _substituteState.CallBaseConfiguration.CallBaseByDefault = value;
             }
-        }
-
-        public void SetRoute(Func<ISubstituteState, IRoute> routeFactory)
-        {
-            _currentRoute = routeFactory.Invoke(_substituteState);
         }
 
         public void Clear(ClearOptions options)
@@ -65,59 +55,50 @@ namespace NSubstitute.Core
             return _substituteState.ReceivedCalls.AllCalls();
         }
 
+        public void SetRoute(Func<ISubstituteState, IRoute> getRoute) => 
+            _threadContext.SetNextRoute(this, getRoute);
+
         public object Route(ICall call)
         {
             _threadContext.SetLastCallRouter(this);
 
+            var isQuerying = _threadContext.IsQuerying;
             var pendingRaisingEventArgs = _threadContext.UsePendingRaisingEventArgumentsFactory();
+            var queuedNextRouteFactory = _threadContext.UseNextRoute(this);
 
-            IRoute routeToUseForThisCall;
-            if (_threadContext.IsQuerying)
+            IRoute routeToUse = ResolveCurrentRoute(call, isQuerying, pendingRaisingEventArgs, queuedNextRouteFactory);
+
+            return routeToUse.Handle(call);
+        }
+
+        private IRoute ResolveCurrentRoute(ICall call, bool isQuerying, Func<ICall, object[]> pendingRaisingEventArgs, Func<ISubstituteState, IRoute> queuedNextRouteFactory)
+        {
+            if (isQuerying)
             {
-                routeToUseForThisCall = GetQueryRoute();
-            }
-            else if (pendingRaisingEventArgs != null)
-            {
-                routeToUseForThisCall = GetRaiseEventRoute(pendingRaisingEventArgs);
-            }
-            else if (IsSpecifyingACall(call, _currentRoute))
-            {
-                routeToUseForThisCall = GetRecordCallSpecRoute();
-            }
-            else
-            {
-                routeToUseForThisCall = _currentRoute;
+                return _routeFactory.CallQuery(_substituteState);
             }
 
-            UseDefaultRouteForNextCall();
-            return routeToUseForThisCall.Handle(call);
+            if (pendingRaisingEventArgs != null)
+            {
+                return _routeFactory.RaiseEvent(_substituteState, pendingRaisingEventArgs);
+            }
+
+            if (queuedNextRouteFactory != null)
+            {
+                return queuedNextRouteFactory.Invoke(_substituteState);
+            }
+
+            if (IsSpecifyingACall(call))
+            {
+                return _routeFactory.RecordCallSpecification(_substituteState);
+            }
+
+            return _routeFactory.RecordReplay(_substituteState);
         }
 
-        private IRoute GetQueryRoute()
+        private static bool IsSpecifyingACall(ICall call)
         {
-            return _routeFactory.CallQuery(_substituteState);
-        }
-
-        private IRoute GetRaiseEventRoute(Func<ICall, object[]> argumentsFactory)
-        {
-            return _routeFactory.RaiseEvent(_substituteState, argumentsFactory);
-        }
-
-        private static bool IsSpecifyingACall(ICall call, IRoute currentRoute)
-        {
-            var args = call.GetOriginalArguments() ?? EmptyArgs;
-            var argSpecs = call.GetArgumentSpecifications() ?? EmptyArgSpecs;
-            return currentRoute.IsRecordReplayRoute && args.Any() && argSpecs.Any();
-        }
-
-        private IRoute GetRecordCallSpecRoute()
-        {
-            return _routeFactory.RecordCallSpecification(_substituteState);
-        }
-
-        private void UseDefaultRouteForNextCall()
-        {
-            SetRoute(x => _routeFactory.RecordReplay(x));
+            return call.GetOriginalArguments().Length != 0 && call.GetArgumentSpecifications().Count != 0;
         }
 
         public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs, PendingSpecificationInfo pendingSpecInfo)

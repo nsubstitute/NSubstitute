@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -222,6 +223,20 @@ namespace NSubstitute.Acceptance.Specs
             var nonMatchingResult = _something.MethodWithOutParameter(0, out int _);
             Assert.That(matchingResult, Is.EqualTo(42));
             Assert.That(nonMatchingResult, Is.Not.EqualTo(42));
+        }
+
+        [Test]
+        public void Should_allow_to_check_received_using_properties_from_other_substitutes()
+        {
+            // Arrange
+            var otherSubs = Substitute.For<ISomething>();
+            otherSubs.SomeProperty.Returns(42);
+            
+            // Act
+            _something.Echo(42);
+            
+            // Assert
+            _something.Received().Echo(otherSubs.SomeProperty);
         }
 
         [Test]

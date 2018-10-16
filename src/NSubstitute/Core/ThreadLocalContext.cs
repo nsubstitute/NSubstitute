@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
+using NSubstitute.Routing;
 
 namespace NSubstitute.Core
 {
@@ -14,6 +15,7 @@ namespace NSubstitute.Core
         private readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent;
         private readonly RobustThreadLocal<IQuery> _currentQuery;
         private readonly RobustThreadLocal<PendingSpecificationInfo> _pendingSpecificationInfo;
+        private readonly RobustThreadLocal<Tuple<ICallRouter, Func<ISubstituteState, IRoute>>> _nextRouteFactory;
         public IPendingSpecification PendingSpecification { get; }
 
         public ThreadLocalContext()
@@ -23,6 +25,7 @@ namespace NSubstitute.Core
             _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
             _currentQuery = new RobustThreadLocal<IQuery>();
             _pendingSpecificationInfo = new RobustThreadLocal<PendingSpecificationInfo>();
+            _nextRouteFactory = new RobustThreadLocal<Tuple<ICallRouter, Func<ISubstituteState, IRoute>>>();
 
             PendingSpecification = new PendingSpecificationWrapper(_pendingSpecificationInfo);
         }
@@ -54,6 +57,28 @@ namespace NSubstitute.Core
             return configuredCall;
         }
 
+        public void SetNextRoute(ICallRouter callRouter, Func<ISubstituteState, IRoute> nextRouteFactory)
+        {
+            if (callRouter == null) throw new ArgumentNullException(nameof(callRouter));
+            if (nextRouteFactory == null) throw new ArgumentNullException(nameof(nextRouteFactory));
+
+            _nextRouteFactory.Value = Tuple.Create(callRouter, nextRouteFactory);
+        }
+
+        public Func<ISubstituteState, IRoute> UseNextRoute(ICallRouter callRouter)
+        {
+            if (callRouter == null) throw new ArgumentNullException(nameof(callRouter));
+            
+            var value = _nextRouteFactory.Value;
+            if (value != null && ReferenceEquals(callRouter, value.Item1))
+            {
+                _nextRouteFactory.Value = null;
+                return value.Item2;
+            }
+
+            return null;
+        }
+
         public void ClearLastCallRouter()
         {
             _lastCallRouter.Value = null;
@@ -78,7 +103,7 @@ namespace NSubstitute.Core
             return queue;
         }
 
-        public void SetPendingRasingEventArgumentsFactory(Func<ICall, object[]> getArguments)
+        public void SetPendingRaisingEventArgumentsFactory(Func<ICall, object[]> getArguments)
         {
             _getArgumentsForRaisingEvent.Value = getArguments;
         }
