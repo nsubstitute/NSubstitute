@@ -8,6 +8,10 @@ class Jekyll::Converters::Markdown::KramdownPlus
   end
 
   def convert(content)
-    Kramdown::Document.new(content).to_html
+    Kramdown::Document.new(content)
+        .to_html
+        .gsub(/<h\d id="(?<autoid>(\w|-)+)">.+<\/h\d>/) { |full_match|
+            "<a id=\"#{$1.tr("-", "_")}\" />\n#{full_match}"
+        }
   end
 end
