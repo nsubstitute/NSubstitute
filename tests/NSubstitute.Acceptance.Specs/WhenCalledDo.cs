@@ -1,8 +1,8 @@
 using System;
+using System.Threading.Tasks;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NUnit.Framework;
-using Task = System.Threading.Tasks.Task;
 
 namespace NSubstitute.Acceptance.Specs
 {

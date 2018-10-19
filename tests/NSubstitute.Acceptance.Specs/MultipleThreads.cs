@@ -47,9 +47,9 @@ namespace NSubstitute.Acceptance.Specs
             for (var i = 0; i < 1000; i++)
             {
                 var sub = Substitute.For<IFoo>();
-                var tasks = Enumerable.Range(0, 20).Select(x => new Task(() => sub.Bar())).ToArray();
-                Task.StartAll(tasks);
-                Task.AwaitAll(tasks);
+                var tasks = Enumerable.Range(0, 20).Select(x => new BackgroundTask(() => sub.Bar())).ToArray();
+                BackgroundTask.StartAll(tasks);
+                BackgroundTask.AwaitAll(tasks);
             }
         }
 
@@ -60,9 +60,9 @@ namespace NSubstitute.Acceptance.Specs
             for (var i = 0; i < 100000; i++)
             {
                 var sub = Substitute.For<IFoo>();
-                var tasks = Enumerable.Range(0, 20).Select(x => new Task(() => sub.VoidMethod())).ToArray();
-                Task.StartAll(tasks);
-                Task.AwaitAll(tasks);
+                var tasks = Enumerable.Range(0, 20).Select(x => new BackgroundTask(() => sub.VoidMethod())).ToArray();
+                BackgroundTask.StartAll(tasks);
+                BackgroundTask.AwaitAll(tasks);
             }
         }
 
@@ -74,11 +74,11 @@ namespace NSubstitute.Acceptance.Specs
             for (var i = 0; i < 1000; i++)
             {
                 var foo = Substitute.For<IFoo>();
-                var checkThread = new Task(() => foo.Received(expected).VoidMethod());
-                var callThreads = Enumerable.Range(1, expected).Select(x => new Task(() => { Thread.Sleep(0); foo.VoidMethod(); }));
+                var checkThread = new BackgroundTask(() => foo.Received(expected).VoidMethod());
+                var callThreads = Enumerable.Range(1, expected).Select(x => new BackgroundTask(() => { Thread.Sleep(0); foo.VoidMethod(); }));
                 var tasks = callThreads.Concat(new[] { checkThread }).ToArray();
-                Task.StartAll(tasks);
-                try { Task.AwaitAll(tasks); }
+                BackgroundTask.StartAll(tasks);
+                try { BackgroundTask.AwaitAll(tasks); }
                 catch (Exception ex)
                 {
                     if (ex.InnerException == null) throw;
@@ -100,7 +100,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             var tasks =
                 Enumerable.Range(0, 20).Select( _ => 
-                    new Task(() =>
+                    new BackgroundTask(() =>
                         {
                             for (var i = 0; i < 1000; ++i)
                             {
@@ -108,8 +108,8 @@ namespace NSubstitute.Acceptance.Specs
                             }
                         })).ToArray();
 
-            Task.StartAll(tasks);
-            Task.AwaitAll(tasks);
+            BackgroundTask.StartAll(tasks);
+            BackgroundTask.AwaitAll(tasks);
         }
 
         [Test]
