@@ -232,9 +232,6 @@ namespace NSubstitute
         /// <summary>
         /// Checks this substitute has received the following call.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <returns></returns>
         public static T Received<T>(this T substitute) where T : class
         {
             return substitute.Received(Quantity.AtLeastOne());
@@ -243,10 +240,6 @@ namespace NSubstitute
         /// <summary>
         /// Checks this substitute has received the following call the required number of times.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <param name="requiredNumberOfCalls"></param>
-        /// <returns></returns>
         public static T Received<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
             return substitute.Received(Quantity.Exactly(requiredNumberOfCalls));
@@ -255,9 +248,6 @@ namespace NSubstitute
         /// <summary>
         /// Checks this substitute has not received the following call.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <returns></returns>
         public static T DidNotReceive<T>(this T substitute) where T : class
         {
             return substitute.Received(Quantity.None());
@@ -266,9 +256,6 @@ namespace NSubstitute
         /// <summary>
         /// Checks this substitute has received the following call with any arguments.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <returns></returns>
         public static T ReceivedWithAnyArgs<T>(this T substitute) where T : class
         {
             return substitute.ReceivedWithAnyArgs(Quantity.AtLeastOne());
@@ -277,10 +264,6 @@ namespace NSubstitute
         /// <summary>
         /// Checks this substitute has received the following call with any arguments the required number of times.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <param name="requiredNumberOfCalls"></param>
-        /// <returns></returns>
         public static T ReceivedWithAnyArgs<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
             return substitute.ReceivedWithAnyArgs(Quantity.Exactly(requiredNumberOfCalls));
@@ -289,9 +272,6 @@ namespace NSubstitute
         /// <summary>
         /// Checks this substitute has not received the following call with any arguments.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <returns></returns>
         public static T DidNotReceiveWithAnyArgs<T>(this T substitute) where T : class
         {
             return substitute.ReceivedWithAnyArgs(Quantity.None());
@@ -300,8 +280,6 @@ namespace NSubstitute
         /// <summary>
         /// Forget all the calls this substitute has received.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
         /// <remarks>
         /// Note that this will not clear any results set up for the substitute using Returns().
         /// See <see cref="NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute{T}"/> for more options with resetting 
@@ -316,10 +294,6 @@ namespace NSubstitute
         /// Perform an action when this member is called. 
         /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <param name="substituteCall"></param>
-        /// <returns></returns>
         public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
@@ -327,13 +301,29 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Perform an action when this member is called. 
+        /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
+        /// </summary>
+        public static WhenCalled<T> When<T>(this T substitute, Func<T, Task> substituteCall) where T : class
+        {
+            var context = SubstitutionContext.Current;
+            return new WhenCalled<T>(context, substitute, x => substituteCall(x), MatchArgs.AsSpecifiedInCall);
+        }
+
+        /// <summary>
+        /// Perform an action when this member is called. 
+        /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
+        /// </summary>
+        public static WhenCalled<TSubstitute> When<TSubstitute, TResult>(this TSubstitute substitute, Func<TSubstitute, ValueTask<TResult>> substituteCall) where TSubstitute : class
+        {
+            var context = SubstitutionContext.Current;
+            return new WhenCalled<TSubstitute>(context, substitute, x => substituteCall(x), MatchArgs.AsSpecifiedInCall);
+        }
+
+        /// <summary>
         /// Perform an action when this member is called with any arguments. 
         /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <param name="substituteCall"></param>
-        /// <returns></returns>
         public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Action<T> substituteCall) where T : class
         {
             var context = SubstitutionContext.Current;
@@ -341,11 +331,28 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Perform an action when this member is called with any arguments. 
+        /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
+        /// </summary>
+        public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Func<T, Task> substituteCall) where T : class
+        {
+            var context = SubstitutionContext.Current;
+            return new WhenCalled<T>(context, substitute, x => substituteCall(x), MatchArgs.Any);
+        }
+
+        /// <summary>
+        /// Perform an action when this member is called with any arguments. 
+        /// Must be followed by <see cref="WhenCalled{T}.Do(Action{CallInfo})"/> to provide the callback.
+        /// </summary>
+        public static WhenCalled<TSubstitute> WhenForAnyArgs<TSubstitute, TResult>(this TSubstitute substitute, Func<TSubstitute, ValueTask<TResult>> substituteCall) where TSubstitute : class
+        {
+            var context = SubstitutionContext.Current;
+            return new WhenCalled<TSubstitute>(context, substitute, x => substituteCall(x), MatchArgs.Any);
+        }
+
+        /// <summary>
         /// Returns the calls received by this substitute.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="substitute"></param>
-        /// <returns></returns>
         public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class
         {
             return SubstitutionContext
