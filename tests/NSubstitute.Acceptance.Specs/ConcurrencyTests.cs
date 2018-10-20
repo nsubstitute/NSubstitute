@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NSubstitute.Extensions;
 using NUnit.Framework;
-using Task = System.Threading.Tasks.Task;
 
 namespace NSubstitute.Acceptance.Specs
 {

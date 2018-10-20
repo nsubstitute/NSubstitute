@@ -3,12 +3,12 @@ using System.Threading;
 
 namespace NSubstitute.Acceptance.Specs.Infrastructure
 {
-    public class Task
+    public class BackgroundTask
     {
         readonly Action _start;
         readonly Action _await;
         private Exception _exception;
-        public Task(Action action)
+        public BackgroundTask(Action action)
         {
             var thread = new Thread(() =>
                                         {
@@ -20,7 +20,7 @@ namespace NSubstitute.Acceptance.Specs.Infrastructure
         }
         void ThrowIfError() { if (_exception != null) throw new Exception("Thread threw", _exception); }
 
-        public static void StartAll(Task[] tasks) { foreach (var task in tasks) { task._start(); } }
-        public static void AwaitAll(Task[] tasks) { foreach (var task in tasks) { task._await(); } }
+        public static void StartAll(BackgroundTask[] tasks) { foreach (var task in tasks) { task._start(); } }
+        public static void AwaitAll(BackgroundTask[] tasks) { foreach (var task in tasks) { task._await(); } }
     }
 }

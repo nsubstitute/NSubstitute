@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NUnit.Framework;
@@ -106,6 +107,50 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
             ArgumentException thrownException = Assert.Throws<ArgumentException>(() => _something.Echo(1234));
             Assert.That(thrownException.Message, Is.EqualTo("Argument: 1234"));
+            Assert.That(called, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task Can_configure_async_methods_nicely()
+        {
+            int called = 0;
+            _something.When(x => x.SayAsync(Arg.Any<string>())).Do(c => called++);
+
+            await _something.SayAsync("Boo");
+
+            Assert.That(called, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task Can_configure_async_valueTask_methods_nicely()
+        {
+            int called = 0;
+            _something.When(x => x.SayValueTaskAsync(Arg.Any<string>())).Do(c => called++);
+
+            await _something.SayValueTaskAsync("Boo");
+
+            Assert.That(called, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task Can_configure_async_methods_for_any_args_nicely()
+        {
+            int called = 0;
+            _something.WhenForAnyArgs(x => x.SayAsync(default)).Do(c => called++);
+
+            await _something.SayAsync("Boo");
+
+            Assert.That(called, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task Can_configure_async_valueTask_methods_for_any_args_nicely()
+        {
+            int called = 0;
+            _something.WhenForAnyArgs(x => x.SayValueTaskAsync(default)).Do(c => called++);
+
+            await _something.SayValueTaskAsync("Boo");
+
             Assert.That(called, Is.EqualTo(1));
         }
 
