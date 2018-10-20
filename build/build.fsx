@@ -160,7 +160,7 @@ Target "Documentation" <| fun _ ->
                         info.CreateNoWindow <- true
                         info.FileName <- exe
                         info.WorkingDirectory <- workingDir
-                        info.Arguments <- "exec jekyll \"" + docOutputRelativeToWorkingDir + "\"")
+                        info.Arguments <- "exec jekyll build -d \"" + docOutputRelativeToWorkingDir + "\"")
                     (TimeSpan.FromMinutes 5.)
     if result = 0 then
         "Site built in " + docOutputRelativeToWorkingDir |> log

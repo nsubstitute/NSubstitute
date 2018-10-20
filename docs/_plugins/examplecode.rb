@@ -2,7 +2,7 @@
 	class ExampleCodeBlock < Liquid::Block
         include Liquid::StandardFilters
 		def render(context)
-            code = super.join
+            code = super
             <<-HTML
 <div class="highlight">
     <pre class="brush: csharp">#{h(code).strip}</pre>

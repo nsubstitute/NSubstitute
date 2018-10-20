@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 gem "rake"
-gem "liquid", "2.2.2"
-gem "jekyll", "0.11.0"
+gem "liquid", "4.0"
+gem "jekyll", "3.6.3"
+gem "ruby_dep", "~> 1.3"
 
