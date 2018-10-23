@@ -32,20 +32,48 @@ module ExamplesToCode =
             for file in files do
                 ConvertFile file targetDir
 
+type BuildVersion = { assembly: string; file: string; info: string; package: string }
 let getVersion () =
-    let tag = Git.CommandHelper.runSimpleGitCommand "" "describe --tags --long"
-    let result = Regex.Match(tag, @"v(\d+)\.(\d+)\.(\d+)\-(\d+)").Groups
-    let getMatch (i:int) = result.[i].Value
-    sprintf "%s.%s.%s.%s" (getMatch 1) (getMatch 2) (getMatch 3) (getMatch 4)
+    // The --first-parent flag is needed to make our walk linear from current commit and top.
+    // This way also merge commit is counted as "1".
+    let desc = Git.CommandHelper.runSimpleGitCommand "" "describe --tags --long --abbrev=40 --first-parent --match=v*"
+    let result = Regex.Match(desc,
+                             @"^v(?<maj>\d+)\.(?<min>\d+)\.(?<rev>\d+)(?<pre>-\w+\d*)?-(?<num>\d+)-g(?<sha>[a-z0-9]+)$",
+                             RegexOptions.IgnoreCase)
+                      .Groups
+    let getMatch (name:string) = result.[name].Value
 
+    let (major, minor, revision, preReleaseSuffix, commitsNum, commitSha) =
+        (getMatch "maj" |> int, getMatch "min" |> int, getMatch "rev" |> int, getMatch "pre", getMatch "num" |> int, getMatch "sha")
+
+    // Assembly version should contain major and minor only, as no breaking changes are expected in bug fix releases.
+    let assemblyVersion = sprintf "%d.%d.0.0" major minor
+    let fileVersion = sprintf "%d.%d.%d.%d" major minor revision commitsNum
+ 
+    // If number of commits since last tag is greater than zero, we append another identifier with number of commits.
+    // The produced version is larger than the last tag version.
+    // If we are on a tag, we use version without modification.
+    // Examples of output: 3.50.2.1, 3.50.2.215, 3.50.1-rc1.3, 3.50.1-rc3.35
+    let packageVersion = match commitsNum with
+                         | 0 -> sprintf "%d.%d.%d%s" major minor revision preReleaseSuffix
+                         | _ -> sprintf "%d.%d.%d%s.%d" major minor revision preReleaseSuffix commitsNum
+
+    let infoVersion = match commitsNum with
+                      | 0 -> packageVersion
+                      | _ -> sprintf "%s-%s" packageVersion commitSha
+
+    { assembly = assemblyVersion; file = fileVersion; info = infoVersion; package = packageVersion }
+ 
 let root = __SOURCE_DIRECTORY__ </> ".." |> FullName
 
 let configuration = getBuildParamOrDefault "configuration" "Debug"
 let version = getVersion ()
 
 let additionalArgs =
-    [ sprintf "-p:Version=%s" version
-    ; sprintf "-p:PackageVersion=%s" version
+    [ sprintf "-p:AssemblyVersion=\"%s\"" version.assembly
+    ; sprintf "-p:FileVersion=\"%s\"" version.file
+    ; sprintf "-p:InformationalVersion=\"%s\"" version.info
+    ; sprintf "-p:PackageVersion=\"%s\"" version.package
     ]
 
 let output = root </> "bin" </> configuration
@@ -56,7 +84,7 @@ Target "All" DoNothing
 Description("Clean compilation artifacts and remove output bin directory")
 Target "Clean" (fun _ ->
     DotNetCli.RunCommand (fun p -> { p with WorkingDir = root })
-                         (sprintf "clean --configuration %s" configuration)
+                         (sprintf "clean --configuration %s --verbosity minimal" configuration)
 
     CleanDirs [ output ]
 )
