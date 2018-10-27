@@ -1,11 +1,47 @@
 ### 4.0.0 (unreleased)
-* [NEW][BREAKING] Detection of unused argument matchers. This helps to identify errors in tests
-due to incorrectly used argument matchers. Thanks to Alex Povar for this change. (#361, #89, #279)
+
+* [NEW] [NSubstitute.Analyzers](https://github.com/nsubstitute/NSubstitute.Analyzers) project.
+Uses Roslyn to detect potential problems with NSubstitute configurations, such as trying
+to substitute for non-virtual members. Thanks to @tpodolak for starting and running this project!
+* [NEW] Enable calling base for specific methods (#449). Thanks to Alex Povar.
+* [NEW] Support for netstandard-2.0 (#447). Thanks to Alex Povar.
+* [NEW] Raise `CouldNotConfigureBaseMethodException` when trying to configure a call to 
+call a base method that does not exist (#429). Thanks to Alex Povar.
+* [FIX] Improve handling of virtual calls in constructors (#423). Thanks to Alex Povar.
+* [NEW][BREAKING] Arg matchers (`Arg.Is` etc) can now be used for `ref` and `out` arguments
+(#404). Thanks to Alex Povar. See BreakingChanges.md if you are using pre-C#7.
+* [NEW] Improve debugging experience with proxy ids. Thanks to Alex Povar (#39)
+* [FIX] Fixed potential for `ArgumentNullException` on finalizer thread. Thanks to Alex Povar. (#382)
+* [UPDATE] Now using Castle.Core 4.3.1+. We :heart: you Castle.Core! (Thanks for the 
+PR Alexandr Nikitin.)
+* [NEW] Raise `RedundantArgumentMatcherException` if extra arg matchers are detected. This is
+a huge help for immediately identifying misconfigured tests. Thanks to Alex Povar.
+* [UPDATE] Improved `AmbiguousArgumentsException` behaviour and errors, thanks to Alex Povar. (#403 and others)
+* [NEW] Expose `.Received(Quantity)` in `NSubstitute.ReceivedExtensions` namespace. Thanks to
+@firelizzard18 for this suggestion.
 * [NEW] `Configure()` extension in `NSubstitute.Extensions.ConfigurationExtensions` to
 ensure NSubstitute handles the next call as a configuration/specification. Thanks to Alex Povar
 for this feature. (#350)
+* [UPDATE] Performance improvements (courtesy of Alex Povar)
+    - `CallResults` performance optimisation 
+    - Delegate proxy generation improvements (#362)
+    - Minimise allocations and LINQ use on hot code paths (#390)
+    - Optimise array allocation (#395)
+* [UPDATE] Improved display of `MatchArgs` to help with debugging (courtesy of Alex Povar)
+* [UPDATE][BREAKING] Calls made with one or more argument matchers (`Arg.Is` or `Arg.Any`)
+will no longer return previously configured results. NSubstitute will assume the call is
+being configured and avoid running logic configured via previous `Returns()` calls.
+This helps fix some problems with overlapping configurations.
+See #345, and BreakingChanges.md for more information.
+Thanks to Alex Povar for this change.
+* [NEW][BREAKING] Detection of unused argument matchers. This helps to identify errors in tests
+due to incorrectly used argument matchers. Thanks to Alex Povar for this change. (#361, #89, #279)
 * [UPDATE] Removed NSubstitute.Core.Extensions.Zip (no longer require NET35 support). (#336)
 * [FIX] Restored XML documentation (#345)
+* [UPDATE] Documentation updates and fixes. Thanks to @jsbed, Chris Maddock, Jim Aho (#369), and
+Mathias Lorenzen.
+* [UPDATE] Updated builds thanks to Alexandr Nikitin.
+* [UPDATE] Significant refactoring thanks to Alex Povar. (#448 and many, many other PRs)
 
 ### 3.1.0 (October 2017)
 * [FIX] Reduced packages required when referencing from NET45 and NET46. (#331)
