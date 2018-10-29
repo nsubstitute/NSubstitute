@@ -218,7 +218,7 @@ released.
 ### 1.0.0 (Dec 2010)
 * [FIX] Using Returns(null) for value types throws, rather than returning default(T).
 
-0.9.5 Release Candidate
+### 0.9.5 Release Candidate
 * [FIX] Fixed bug when trying to return null from a call to a substitute.
 * [FIX] Equals() for class substitutes fixed by not intercepting Object methods Equals(), ToString() and GetHashCode().
 * [NEW] Raise.Event<THandler>() methods to raise any type of event, including delegates.
