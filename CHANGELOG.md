@@ -1,5 +1,8 @@
 ### 4.0.0 (unreleased)
 
+Thanks to core team member Alex Povar (@zvirja) for putting a huge amount of work into
+defining and implementing features, fixes and refactoring for this release!
+
 #### Major new features and improvements
 
 * [NEW] [NSubstitute.Analyzers](https://github.com/nsubstitute/NSubstitute.Analyzers) project.
@@ -7,13 +10,12 @@ Uses Roslyn to detect potential problems with NSubstitute configurations, such a
 to substitute for non-virtual members. Whenever you add NSubstitute to your C# or VB project,
 don't forget to also add the corresponding NSubstitute.Analyzers package!
 Thanks to @tpodolak for starting and running this project!
-* [NEW] `CallBase` for enabling base method calls for specific methods (#449). Thanks to Alex Povar.
+* [NEW] `CallBase` for enabling base method calls for specific methods (#449, @zvirja).
 * [NEW][BREAKING] Arg matchers (`Arg.Is` etc) can now be used for `ref` and `out` arguments
-(#404). Thanks to Alex Povar. See BreakingChanges.md if you are still using pre-C#7.
+(#404, @zvirja). See [BreakingChanges.md](BreakingChanges.md) if you are still using pre-C#7.
 * [NEW] `Configure()` extension in `NSubstitute.Extensions.ConfigurationExtensions` to
-ensure NSubstitute handles the next call as a configuration/specification. Thanks to Alex Povar
-for this feature. (#350)
-* [UPDATE] Performance improvements (courtesy of Alex Povar)
+ensure NSubstitute handles the next call as a configuration/specification. (#350, @zvirja)
+* [UPDATE] Performance improvements (@zvirja)
     - `CallResults` performance optimisation 
     - Delegate proxy generation improvements (#362)
     - Minimise allocations and LINQ use on hot code paths (#390)
@@ -21,30 +23,30 @@ for this feature. (#350)
 * [UPDATE][BREAKING] Calls made with one or more argument matchers (`Arg.Is` or `Arg.Any`)
 will no longer return previously configured results. NSubstitute will assume the call is
 being configured and avoid running logic configured via previous `Returns()` calls.
-This helps fix some problems with overlapping configurations. See #345, and BreakingChanges.md
-for more information. Thanks to Alex Povar for this change.
+This helps fix some problems with overlapping configurations. See #345 and
+[BreakingChanges.md](BreakingChanges.md) for more information. (@zvirja)
 
 #### New and improved debugging, errors and error messages
 
 * [NEW] Raise `CouldNotConfigureBaseMethodException` when trying to configure a call to 
-call a base method that does not exist (#429). Thanks to Alex Povar.
+call a base method that does not exist (#429, @zvirja).
 * [NEW] Raise `RedundantArgumentMatcherException` if extra arg matchers are detected. This is
-a huge help for immediately identifying misconfigured tests. Thanks to Alex Povar.
-* [UPDATE] Improved `AmbiguousArgumentsException` behaviour and errors, thanks to Alex Povar. (#403 and others)
-* [NEW] Improve debugging experience with proxy ids. Thanks to Alex Povar (#39)
-* [UPDATE] Improved display of `MatchArgs` to help with debugging (courtesy of Alex Povar)
+a huge help for immediately identifying misconfigured tests. (@zvirja)
+* [UPDATE] Improved `AmbiguousArgumentsException` behaviour and errors. (#403 and others, @zvirja)
+* [NEW] Improve debugging experience with proxy ids. (#39, @zvirja)
+* [UPDATE] Improved display of `MatchArgs` to help with debugging (@zvirja)
 * [NEW][BREAKING] Detection of unused argument matchers. This helps to identify errors in tests
-due to incorrectly used argument matchers. Thanks to Alex Povar for this change. (#361, #89, #279)
+due to incorrectly used argument matchers. (#361, #89, #279, @zvirja)
 
 #### And lots, lots more!
 
 Including (but not limited to):
 
-* [NEW] Support for netstandard-2.0 (#447). Thanks to Alex Povar.
-* [FIX] Improved handling of virtual calls in constructors (#423). Thanks to Alex Povar.
-* [FIX] Fixed potential for `ArgumentNullException` on finalizer thread. Thanks to Alex Povar. (#382)
+* [NEW] Support for netstandard-2.0 (#447, @zvirja).
+* [FIX] Improved handling of virtual calls in constructors (#423, @zvirja).
+* [FIX] Fixed potential for `ArgumentNullException` on finalizer thread. (#382, @zvirja)
 * [UPDATE] Now using Castle.Core 4.3.1+. We :heart: you Castle.Core! (Thanks for the 
-PR Alexandr Nikitin.)
+PR Alexandr Nikitin!)
 * [NEW] Expose `.Received(Quantity)` in `NSubstitute.ReceivedExtensions` namespace. Thanks to
 @firelizzard18 for this suggestion.
 * [UPDATE] Removed NSubstitute.Core.Extensions.Zip (no longer require NET35 support). (#336)
