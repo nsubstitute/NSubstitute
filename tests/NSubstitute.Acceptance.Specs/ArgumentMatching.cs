@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using NSubstitute.Acceptance.Specs.Infrastructure;
+using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
@@ -646,6 +648,41 @@ namespace NSubstitute.Acceptance.Specs
 
             var result = subs("foo", out string _);
             Assert.That(result, Is.EqualTo("42"));
+        }
+
+        public class IsFortyTwo : IArgumentMatcher<int>, IDescribeNonMatches
+        {
+            public static int Arg() => ArgumentMatcher.Enqueue(new IsFortyTwo());
+
+            public bool IsSatisfiedBy(int argument) => argument == 42;
+
+            public string DescribeFor(object argument) => $"{argument} is not forty two";
+        }
+
+        [Test]
+        public void Supports_custom_argument_matchers()
+        {
+            var subs = Substitute.For<ISomething>();
+
+            subs.Echo(IsFortyTwo.Arg()).Returns("42");
+
+            var result = subs.Echo(42);
+            Assert.That(result, Is.EqualTo("42"));
+        }
+
+        [Test]
+        public void Supports_custom_argument_matcher_descriptions()
+        {
+            var subs = Substitute.For<ISomething>();
+
+            subs.Echo(24);
+
+            var ex = Assert.Throws<ReceivedCallsException>(() =>
+            {
+                //
+                subs.Received().Echo(IsFortyTwo.Arg());
+            });
+            Assert.That(ex.Message, Contains.Substring("24 is not forty two"));
         }
 
         [SetUp]

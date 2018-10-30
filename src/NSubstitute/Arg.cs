@@ -1,6 +1,5 @@
 using System;
 using System.Linq.Expressions;
-using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 
 namespace NSubstitute
@@ -15,7 +14,7 @@ namespace NSubstitute
         /// </summary>
         public static ref T Any<T>()
         {
-            return ref EnqueueSpecFor<T>(new AnyArgumentMatcher(typeof(T)));
+            return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)));
         }
 
         /// <summary>
@@ -23,7 +22,7 @@ namespace NSubstitute
         /// </summary>
         public static ref T Is<T>(T value)
         {
-            return ref EnqueueSpecFor<T>(new EqualsArgumentMatcher(value));
+            return ref ArgumentMatcher.Enqueue<T>(new EqualsArgumentMatcher(value));
         }
 
         /// <summary>
@@ -32,7 +31,7 @@ namespace NSubstitute
         /// </summary>
         public static ref T Is<T>(Expression<Predicate<T>> predicate)
         {
-            return ref EnqueueSpecFor<T>(new ExpressionArgumentMatcher<T>(predicate));
+            return ref ArgumentMatcher.Enqueue<T>(new ExpressionArgumentMatcher<T>(predicate));
         }
 
         /// <summary>
@@ -40,7 +39,7 @@ namespace NSubstitute
         /// </summary>
         public static ref Action Invoke()
         {
-            return ref EnqueueSpecFor<Action>(new AnyArgumentMatcher(typeof(Action)), InvokeDelegateAction());
+            return ref ArgumentMatcher.Enqueue<Action>(new AnyArgumentMatcher(typeof(Action)), InvokeDelegateAction());
         }
 
         /// <summary>
@@ -48,7 +47,7 @@ namespace NSubstitute
         /// </summary>
         public static ref Action<T> Invoke<T>(T arg)
         {
-            return ref EnqueueSpecFor<Action<T>>(new AnyArgumentMatcher(typeof(Action<T>)), InvokeDelegateAction(arg));
+            return ref ArgumentMatcher.Enqueue<Action<T>>(new AnyArgumentMatcher(typeof(Action<T>)), InvokeDelegateAction(arg));
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace NSubstitute
         /// </summary>
         public static ref Action<T1, T2> Invoke<T1, T2>(T1 arg1, T2 arg2)
         {
-            return ref EnqueueSpecFor<Action<T1, T2>>(new AnyArgumentMatcher(typeof(Action<T1, T2>)), InvokeDelegateAction(arg1, arg2));
+            return ref ArgumentMatcher.Enqueue<Action<T1, T2>>(new AnyArgumentMatcher(typeof(Action<T1, T2>)), InvokeDelegateAction(arg1, arg2));
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace NSubstitute
         /// </summary>
         public static ref Action<T1, T2, T3> Invoke<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3)
         {
-            return ref EnqueueSpecFor<Action<T1, T2, T3>>(new AnyArgumentMatcher(typeof(Action<T1, T2, T3>)), InvokeDelegateAction(arg1, arg2, arg3));
+            return ref ArgumentMatcher.Enqueue<Action<T1, T2, T3>>(new AnyArgumentMatcher(typeof(Action<T1, T2, T3>)), InvokeDelegateAction(arg1, arg2, arg3));
         }
 
         /// <summary>
@@ -72,7 +71,7 @@ namespace NSubstitute
         /// </summary>
         public static ref Action<T1, T2, T3, T4> Invoke<T1, T2, T3, T4>(T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
-            return ref EnqueueSpecFor<Action<T1, T2, T3, T4>>(new AnyArgumentMatcher(typeof(Action<T1, T2, T3, T4>)), InvokeDelegateAction(arg1, arg2, arg3, arg4));
+            return ref ArgumentMatcher.Enqueue<Action<T1, T2, T3, T4>>(new AnyArgumentMatcher(typeof(Action<T1, T2, T3, T4>)), InvokeDelegateAction(arg1, arg2, arg3, arg4));
         }
 
         /// <summary>
@@ -81,7 +80,7 @@ namespace NSubstitute
         /// <param name="arguments">Arguments to pass to delegate.</param>
         public static ref TDelegate InvokeDelegate<TDelegate>(params object[] arguments)
         {
-            return ref EnqueueSpecFor<TDelegate>(new AnyArgumentMatcher(typeof(TDelegate)), InvokeDelegateAction(arguments));
+            return ref ArgumentMatcher.Enqueue<TDelegate>(new AnyArgumentMatcher(typeof(TDelegate)), InvokeDelegateAction(arguments));
         }
 
         /// <summary>
@@ -90,35 +89,12 @@ namespace NSubstitute
         /// </summary>
         public static ref T Do<T>(Action<T> useArgument)
         {
-            return ref EnqueueSpecFor<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T)x));
-        }
-
-        private static ref T EnqueueSpecFor<T>(IArgumentMatcher argumentMatcher)
-        {
-            var argumentSpecification = new ArgumentSpecification(typeof(T), argumentMatcher);
-            return ref EnqueueArgSpecification<T>(argumentSpecification);
-        }
-
-        private static ref T EnqueueSpecFor<T>(IArgumentMatcher argumentMatcher, Action<object> action)
-        {
-            var argumentSpecification = new ArgumentSpecification(typeof(T), argumentMatcher, action);
-            return ref EnqueueArgSpecification<T>(argumentSpecification);
-        }
-
-        private static ref T EnqueueArgSpecification<T>(IArgumentSpecification specification)
-        {
-            SubstitutionContext.Current.ThreadContext.EnqueueArgumentSpecification(specification);
-            return ref new DefaultValueContainer<T>().Value;
+            return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T) x));
         }
 
         private static Action<object> InvokeDelegateAction(params object[] arguments)
         {
-            return x => ((Delegate)x).DynamicInvoke(arguments);
-        }
-
-        private class DefaultValueContainer<T>
-        {
-            public T Value;
+            return x => ((Delegate) x).DynamicInvoke(arguments);
         }
     }
 }
