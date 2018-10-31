@@ -52,11 +52,13 @@ namespace NSubstitute.Core
         public SequenceNumberGenerator SequenceNumberGenerator { get; }
  
         [Obsolete("This property is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.IsQuerying) + " property instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.IsQuerying) + " property instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.IsQuerying) + ".")]
         public bool IsQuerying => ThreadContext.IsQuerying;
 
         [Obsolete("This property is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.PendingSpecification) + " property instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.PendingSpecification) + " property instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.PendingSpecification) + ".")]
         public PendingSpecificationInfo PendingSpecificationInfo
         {
             get
@@ -96,12 +98,14 @@ namespace NSubstitute.Core
         }
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.LastCallShouldReturn) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.LastCallShouldReturn) + "() method instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.LastCallShouldReturn) + "(...).")]
         public ConfiguredCall LastCallShouldReturn(IReturn value, MatchArgs matchArgs) =>
             ThreadContext.LastCallShouldReturn(value, matchArgs);
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.ClearLastCallRouter) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.ClearLastCallRouter) + "() method instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.ClearLastCallRouter) + "()")]
         public void ClearLastCallRouter() =>
             ThreadContext.ClearLastCallRouter();
 
@@ -111,32 +115,38 @@ namespace NSubstitute.Core
             RouteFactory;
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetLastCallRouter) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetLastCallRouter) + "() method instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.SetLastCallRouter) + "(...)")]
         public void LastCallRouter(ICallRouter callRouter) =>
             ThreadContext.SetLastCallRouter(callRouter);
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.EnqueueArgumentSpecification) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.EnqueueArgumentSpecification) + "() method instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.EnqueueArgumentSpecification) + "(...)")]
         public void EnqueueArgumentSpecification(IArgumentSpecification spec) =>
             ThreadContext.EnqueueArgumentSpecification(spec);
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.DequeueAllArgumentSpecifications) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.DequeueAllArgumentSpecifications) + "() method instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.DequeueAllArgumentSpecifications) + "()")]
         public IList<IArgumentSpecification> DequeueAllArgumentSpecifications() =>
             ThreadContext.DequeueAllArgumentSpecifications();
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetPendingRaisingEventArgumentsFactory) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetPendingRaisingEventArgumentsFactory) + "() method instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.SetPendingRaisingEventArgumentsFactory) + "(...)")]
         public void RaiseEventForNextCall(Func<ICall, object[]> getArguments) =>
             ThreadContext.SetPendingRaisingEventArgumentsFactory(getArguments);
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.UsePendingRaisingEventArgumentsFactory) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.UsePendingRaisingEventArgumentsFactory) + "() method instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.UsePendingRaisingEventArgumentsFactory) + "()")]
         public Func<ICall, object[]> DequeuePendingRaisingEventArguments() =>
             ThreadContext.UsePendingRaisingEventArgumentsFactory();
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RegisterInContextQuery) + "() method instead.",
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RegisterInContextQuery) + "() method instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.RegisterInContextQuery) + "()",
                   error: true)]
         public void AddToQuery(object target, ICallSpecification callSpecification)
         {
@@ -144,11 +154,13 @@ namespace NSubstitute.Core
             // That should be fine, as this method was expected to be called from the NSubstitute core only.
             throw new NotSupportedException(
                 "This API was obsolete and is not supported anymore. " +
-                "Please Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RegisterInContextQuery) + "() method instead.");
+                "Please use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RegisterInContextQuery) + "() method instead. " +
+                "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.RegisterInContextQuery) + "()");
         }
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
-                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RunInQueryContext) + "() method instead.")]
+                  "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RunInQueryContext) + "() method instead. " +
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.RunInQueryContext) + "(...)")]
         public IQueryResults RunQuery(Action calls)
         {
             var query = new Query(CallSpecificationFactory);
