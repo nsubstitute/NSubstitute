@@ -116,7 +116,7 @@ namespace NSubstitute.Core
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.SetLastCallRouter) + "() method instead. " +
-                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.SetLastCallRouter) + "(...)".)]
+                  "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.SetLastCallRouter) + "(...).")]
         public void LastCallRouter(ICallRouter callRouter) =>
             ThreadContext.SetLastCallRouter(callRouter);
 
