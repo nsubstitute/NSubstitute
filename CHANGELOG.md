@@ -44,11 +44,13 @@ Including (but not limited to):
 
 * [NEW] Support for netstandard-2.0. (#447, @zvirja)
 * [FIX] Improved handling of virtual calls in constructors. (#423, @zvirja)
+* [NEW] Added a set of `When()` overloads to configure async methods without compilation warnings. (#468, @zvirja)
 * [FIX] Fixed potential for `ArgumentNullException` on finalizer thread. (#382, @zvirja)
 * [UPDATE] Now using Castle.Core 4.3.1+. We :heart: you Castle.Core! (Thanks for the 
 PR Alexandr Nikitin!)
 * [NEW] Expose `.Received(Quantity)` in `NSubstitute.ReceivedExtensions` namespace. Thanks to
 @firelizzard18 for this suggestion.
+* [UPDATE] Made substitute setup and verification more robust in the concurrent environments. (#462, @zvirja)
 * [UPDATE] Removed NSubstitute.Core.Extensions.Zip (no longer require NET35 support). (#336)
 * [FIX] Restored XML documentation. (#345)
 * [UPDATE] Documentation updates and fixes. Thanks to @jsbed, Chris Maddock, Jim Aho (#369), and
