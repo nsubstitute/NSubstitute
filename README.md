@@ -6,7 +6,7 @@ Visit the [NSubstitute website](http://nsubstitute.github.com) for more informat
 
 ### What is it?
 
-NSubstitute is designed as a friendly substitute for .NET mocking libraries.  
+NSubstitute is designed as a friendly substitute for .NET mocking libraries.   
 
 It is an attempt to satisfy our craving for a mocking library with a succinct syntax that helps us keep the focus on the intention of our tests, rather than on the configuration of our test doubles. We've tried to make the most frequently required operations obvious and easy to use, keeping less usual scenarios discoverable and accessible, and all the while maintaining as much natural language as possible.
 
