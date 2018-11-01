@@ -53,6 +53,7 @@ PR Alexandr Nikitin!)
 * [UPDATE] Made substitute setup and verification more robust in the concurrent environments. (#462, @zvirja)
 * [UPDATE] Removed NSubstitute.Core.Extensions.Zip (no longer require NET35 support). (#336)
 * [FIX] Restored XML documentation. (#345)
+* [NEW] Made global NSubstitute customization more easier. (#448, @zvirja)
 * [UPDATE] Documentation updates and fixes. Thanks to @jsbed, Chris Maddock, Jim Aho (#369), and
 Mathias Lorenzen.
 * [UPDATE] Updated builds thanks to Alexandr Nikitin.
