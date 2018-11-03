@@ -6,15 +6,15 @@ using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs {
 
-    public class CompatArgsAndCompatArgsInstanceTests {
+    public class CompatArgsTests {
 
         [Test]
         public void CompatArgsAndInstanceShouldBeInSync() {
             var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
             var compatMembers =
-                typeof(CompatArg).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
+                typeof(Arg.Compat).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
             var compatInstanceMembers =
-                typeof(CompatArgInstance).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
+                typeof(CompatArg).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
 
             Assert.AreEqual(
                 compatMembers, compatInstanceMembers,

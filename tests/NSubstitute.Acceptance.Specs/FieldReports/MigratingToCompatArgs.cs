@@ -6,16 +6,16 @@ using NUnit.Framework;
 namespace NSubstitute.Acceptance.Specs.FieldReports {
 
     /// <summary>
-    /// Can migrate from the old Arg to CompatArg by putting an CompatArgInstance Arg
-    /// field in a fixture(or ideally in a project's fixture base class).
-    /// All old references to static Arg will then go through CompatArg instead.
+    /// Can migrate from the old <see cref="Arg"/> matchers to <see cref="Arg.Compat"/> by putting a
+    /// <see cref="CompatArg"/> field named <c>Arg</c> in a fixture (or ideally in a project's
+    /// fixture base class). All old references to static Arg will then go through CompatArg instead.
     /// 
     /// To migrate back(once project switches to C#7+), just delete the CompatArgInstance field.
     /// </summary>
     public class MigratingToCompatArgs {
 
         public class TestBaseClass {
-            protected readonly CompatArgInstance Arg = new CompatArgInstance();
+            protected readonly CompatArg Arg = new CompatArg();
         }
 
         public interface IMessageServer {
