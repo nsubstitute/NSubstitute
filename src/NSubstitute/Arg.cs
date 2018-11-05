@@ -1,6 +1,5 @@
 using System;
 using System.Linq.Expressions;
-using NSubstitute.Compatibility;
 using NSubstitute.Core.Arguments;
 
 namespace NSubstitute

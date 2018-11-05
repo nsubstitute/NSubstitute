@@ -9,7 +9,7 @@ namespace NSubstitute.Acceptance.Specs {
     public class CompatArgsTests {
 
         [Test]
-        public void CompatArgsAndInstanceShouldBeInSync() {
+        public void CompatAndCompatArgInstanceShouldBeInSync() {
             var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
             var compatMembers =
                 typeof(Arg.Compat).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
@@ -17,8 +17,22 @@ namespace NSubstitute.Acceptance.Specs {
                 typeof(CompatArg).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
 
             Assert.AreEqual(
-                compatMembers, compatInstanceMembers,
-                "CompatArgs and CompatArgsInstance should have static/instance versions of the same members"
+                compatMembers.ToList(), compatInstanceMembers.ToList(),
+                "Arg.Compat and CompatArg should have static/instance versions of the same methods"
+                );
+        }
+
+        [Test]
+        public void CompatAndArgShouldBeInSync() {
+            var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
+            var argMembers =
+                typeof(Arg).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
+            var compatMembers =
+                typeof(Arg.Compat).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
+
+            Assert.AreEqual(
+                argMembers.ToList(), compatMembers.ToList(),
+                "Arg and Arg.Compat should have the same methods (just vary by out/ref)"
                 );
         }
 

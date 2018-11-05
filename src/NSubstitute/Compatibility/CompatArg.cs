@@ -7,42 +7,22 @@ namespace NSubstitute.Compatibility
     /// Alternate version of <see cref="Arg"/> matchers for compatibility with pre-C#7 compilers
     /// which do not support <c>ref</c> return types. Do not use unless you are unable to use <see cref="Arg"/>.
     /// 
-    /// <see cref="CompatArg"/> provides a non-static version of <see cref="Arg.Compat"/> which can make it easier
-    /// to use from an abstract base class.
+    /// <see cref="CompatArg"/> provides a non-static version of <see cref="Arg.Compat"/>, which can make it easier
+    /// to use from an abstract base class. You can get a reference to this instance using the static
+    /// <see cref="Instance" /> field.
     ///
     /// For more information see <see href="http://nsubstitute.github.io/help/compat-args">Compatibility Argument
     /// Matchers</see> in the NSubstitute documentation.
     /// </summary>
-    ///
-    /// <example>
-    /// Migrating from a pre-4.0 version of NSubstitute can result in compilation errors using argument
-    /// matchers like <c>Arg.Is(42)</c> in projects using a pre-C#7 compiler. One option is to replace
-    /// calls to <see cref="Arg"/> with calls to <see cref="Arg.Compat"/>. Another is to declare a field
-    /// called <c>Arg</c> of type <see cref="CompatArg"/> in test fixtures. References to <c>Arg</c> will
-    /// then use the compatibility version instead. This works particularly well if using a base test fixture,
-    /// so all tests in the project can use the field.
-    ///
-    /// <code>
-    /// public SampleFixture {
-    ///     // Create an instance called Arg within our test fixture (or in a base test fixture if we use one).
-    ///     NSubstitute.Compatibility.CompatArg Arg = new CompatArg();
-    ///     
-    ///     [Test]
-    ///     public void SampleTest() {
-    ///         var server = Substitute.For&lt;IServer&gt;();
-    ///         // Using Arg in our fixture will find our instance rather than normal NSubstitute.Arg.
-    ///         server.GetProductsInCategory(Arg.Is(42)).Returns(new [] { "tea", "coffee", "cocoa" });
-    ///
-    ///         var subject = new Lookup(server);
-    ///         var result = subject.ProductCount(42);
-    /// 
-    ///         Assert.AreEqual(3, result);
-    ///     }
-    /// }
-    /// </code>
-    /// </example>
     public class CompatArg
     {
+        private CompatArg() { }
+
+        /// <summary>
+        /// Get the CompatArg instance.
+        /// </summary>
+        public static readonly CompatArg Instance = new CompatArg();
+
         /// <summary>
         /// Match any argument value compatible with type <typeparamref name="T"/>.
         /// This is provided for compatibility with older compilers --

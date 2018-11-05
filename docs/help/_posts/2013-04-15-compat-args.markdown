@@ -9,7 +9,7 @@ NSubstitute [argument matchers](/help/argument-matchers) depend on having C# 7.0
 
 If you have C# 7.0-compatible tooling installed you can [set `<LangVersion />` in your test csproj file](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) to `7` or higher, or to `latest` or `default`.
 
-Stuck with pre-7.0 tooling? Then use `Arg.Compat` instead of `Arg`, or use `CompatArg` in the `NSubstitute.Compatibility` namespace. `Arg.Compat` will work everywhere `Arg` does, with the exception of matching `out` and `ref` args. For example, if the documentation mentions `Arg.Is(42)`, you can instead use `Arg.Compat.Is(42)`. `CompatArg` is a bit trickier to setup, but will make migrating between `Arg` and `Arg.Compat` easier. Both options are described below.
+Stuck with pre-7.0 tooling? Then use `Arg.Compat` instead of `Arg`, or use `CompatArg` in the `NSubstitute.Compatibility` namespace. `Arg.Compat` will work everywhere `Arg` does, with the exception of matching `out` and `ref` args. For example, if the documentation mentions `Arg.Is(42)`, you can instead use `Arg.Compat.Is(42)`. `CompatArg` is a bit trickier to setup, but may make migrating between `Arg` and `Arg.Compat` easier in some cases. Both options are described below.
 
 {% requiredcode %}
 public interface ICalculator {
@@ -23,7 +23,7 @@ ICalculator calculator;
 
 ## Using `Arg.Compat`
 
-The simplest work-around if you are stuck on pre-C#7 is to use `Arg.Compat.` where ever you would normally use `Arg.`. To migrate existing code, replace all instances of `Arg.` with `Arg.Compat.`.
+The simplest work-around if you are stuck on pre-C#7 is to use `Arg.Compat.` wherever you would normally use `Arg.`. To migrate existing code, replace all instances of `Arg.` with `Arg.Compat.`.
 
 {% examplecode csharp %}
 calculator.Add(1, -10);
@@ -43,7 +43,7 @@ calculator.DidNotReceive().Add(Arg.Compat.Is<int>(x => x > 10), -10);
 
 ## Using `NSubstitute.Compatibility.CompatArg`
 
-If you have a project with lots of existing arg matchers then migrating to `Arg.Compat` can require a lot of code changes. A smaller change is to instead use an instance of the `CompatArg` class in the `NSubstitute.Compatibility` namespace. This approach also makes it easier to upgrade to the newer `Arg` matchers in future.
+If you have a project with lots of existing arg matchers then migrating to `Arg.Compat` can require a lot of code changes. A smaller change is to instead use an instance of the `CompatArg` class in the `NSubstitute.Compatibility` namespace. This approach may also make it easier to upgrade to the newer `Arg` matchers in future.
 
 {% examplecode csharp %}
 [TestFixture]
@@ -51,7 +51,7 @@ public class SampleCompatArgFixture {
 
     // Declare Arg field. Any existing `Arg` references will now go via `CompatArg`, instead
     // of the new `Arg` type that is incompatible with older C# compilers.
-    NSubstitute.Compatibility.CompatArg Arg = new NSubstitute.Compatibility.CompatArg();
+    private static readonly NSubstitute.Compatibility.CompatArg Arg = NSubstitute.Compatibility.CompatArg.Instance;
 
     [Test]
     public void DemonstrationOfCompatArgs() {
@@ -72,7 +72,7 @@ public class BaseTestFixture {
 
     // Declare Arg field. Any existing `Arg` references will now go via `CompatArg`, instead
     // of the new `Arg` type that is incompatible with older C# compilers.
-    protected readonly NSubstitute.Compatibility.CompatArg Arg = new NSubstitute.Compatibility.CompatArg();
+    protected static readonly NSubstitute.Compatibility.CompatArg Arg = NSubstitute.Compatibility.CompatArg.Instance;
 
 }
 {% endexamplecode %}

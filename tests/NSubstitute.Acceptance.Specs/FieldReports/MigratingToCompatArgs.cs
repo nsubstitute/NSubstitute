@@ -15,7 +15,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports {
     public class MigratingToCompatArgs {
 
         public class TestBaseClass {
-            protected readonly CompatArg Arg = new CompatArg();
+            protected static readonly CompatArg Arg = CompatArg.Instance;
         }
 
         public interface IMessageServer {
