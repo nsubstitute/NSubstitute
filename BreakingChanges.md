@@ -17,7 +17,7 @@ The argument matcher change to support `out` and `ref` mentioned above can also 
 
 > CS8153: An expression tree lambda may not contain a call to a method, property, or indexer that returns by reference
 
-Reason: `out` and `ref` support for argument matchers is important to address as it often caused confusion for people now that C# has more support for `out` and `ref`. We are always reluctant to introducing breaking changes, but in this case we estimated the benefit of the feature would outweigh the downside of no longer being able to use matchers in expression trees.
+Reason: Previous NSubstitute releases had very limited support for matching `out` and `ref` arguments, and this frequently caused confusion for people. We are always reluctant to introducing breaking changes, but in this case we estimated the benefit of improving support for matching `out` and `ref` arguments would outweigh the downside of no longer being able to use matchers in expression trees.
 
 Workaround:
 * Move the NSubstitute statement/assertion outside of the expression tree; or
