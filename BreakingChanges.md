@@ -1,13 +1,39 @@
 4.0.0 Release
 ================
 
-Argument matchers (`Arg.Is`, `Arg.Any` etc.) now use [`ref` returns which were introduced in C# 7.0](https://blogs.msdn.microsoft.com/dotnet/2016/08/24/whats-new-in-csharp-7-0/#user-content-ref-returns-and-locals). This lets NSubstitute have better support for working with `out` and `ref` arguments, but also means that test written using previous NSubstitute versions will now fail to compile with pre-C# 7 compilers.
+Argument matchers (`Arg.Is`, `Arg.Any` etc.) now use [`ref` returns which were introduced in C# 7.0](https://blogs.msdn.microsoft.com/dotnet/2016/08/24/whats-new-in-csharp-7-0/#user-content-ref-returns-and-locals). This lets NSubstitute have better support for working with `out` and `ref` arguments, but also means that test written using previous NSubstitute versions will now fail to compile with pre-C# 7 compilers with the following error:
+
+> CS7085: By-reference return type 'ref T' is not supported.
 
 Reason: Previous NSubstitute versions had quite limited support for `out` and `ref` arguments. Enhanced support for `out` and `ref` in C# 7 means we are likely to see these being used more frequently. As the vast majority of people using NSubstitute seem to be on C# 7+ (based on [NuGet statistics](https://www.nuget.org/stats/packages/NSubstitute?groupby=Version&groupby=ClientVersion)), we've thought it best to make sure NSubstitute's default behaviour works for these cases.
 
 Workaround: If at all possible please update to a recent version of your .NET compiler (C# 7+, VB 2017, VB 15.3+, F# 4.1+). This should provide support for `ref` returns and make the code compile fine with the new `Arg` methods. These shipped with Visual Studio 2017. Visual Studio for Mac 2017 and JetBrains Rider 2017 also support C# 7+.
 
 If it is not possible for you to use a C# 7-compatible compiler, we have added an `Arg.Compat` class which has all the same members as `Arg`, just without the `ref` return type. If you replace `Arg.` references with `Arg.Compat.` in your project then you can continue to use older compilers with NSubstitute 4.x. Alternatively you can use a `NSubstitute.Compatibility.CompatArg` instance in your fixture which may make migration a bit easier. Both these approaches are described in the [Compatibility argument matchers](http://nsubstitute.github.io/help/compat-args) documentation.
+
+---------------
+
+The argument matcher change to support `out` and `ref` mentioned above can also cause a compilation error if argument matchers are used in expression trees (see issue #471):
+
+> CS8153: An expression tree lambda may not contain a call to a method, property, or indexer that returns by reference
+
+Reason: Previous NSubstitute releases had very limited support for matching `out` and `ref` arguments, and this frequently caused confusion for people. We are always reluctant to introducing breaking changes, but in this case we estimated the benefit of improving support for matching `out` and `ref` arguments would outweigh the downside of no longer being able to use matchers in expression trees.
+
+Workaround:
+* Move the NSubstitute statement/assertion outside of the expression tree; or
+* Use an `Arg.Compat.` matcher as described above and in the [Compatibility argument matchers](http://nsubstitute.github.io/help/compat-args) documentation.
+
+For example:
+
+```
+// Given `void specify(Expression<Action> expectation)`, the following will fail to compile (CS8153):
+specify(() => sub.Received().SomeCall(Arg.Any<int>()));
+
+// Workaround 1: move out of expression tree
+sub.Received().SomeCall(Arg.Any<int>());
+// Workaround 2: use Arg.Compat
+specify(() => sub.Received().SomeCall(Arg.Compat.Any<int>()));
+```
 
 ---------------
 

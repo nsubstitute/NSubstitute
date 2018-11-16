@@ -78,3 +78,39 @@ public class BaseTestFixture {
 {% endexamplecode %}
 
 If you are later able to update the C# compiler your project is using, you can remove the `CompatArg` field and all `Arg` references will go through standard arg matchers (and you'll now be able to use them with `out` and `ref` parameters!).
+
+## Argument matchers in expression trees
+
+As of NSubstitute 4.0 argument matchers can no longer be used in expression trees. Doing so will cause a compilation error:
+
+> CS8153: An expression tree lambda may not contain a call to a method, property, or indexer that returns by reference
+
+The `Arg.Compat` matchers can be used to work around this issue. They do not return by reference so they are fine to use in expression trees. 
+
+{% requiredcode %}
+// Pretending this takes an Expression<Action> arg (rather than adding a reference to
+// System.Linq.Expression).
+protected void specify(Action expectation) {
+    expectation();
+}
+{% endrequiredcode %}
+
+{% examplecode csharp %}
+public interface IFoo { void DoStuff(int i); }
+
+[Test]
+public void Sample() {
+    var sub = Substitute.For<IFoo>();
+    sub.DoStuff(42);
+    // If `specify` takes an `Expression<Action>` argument, this will fail with CS8153: 
+    //   specify(() => sub.Received().DoStuff(Arg.Any<int>()));
+
+    // Instead use compat matcher:
+    specify(() => sub.Received().DoStuff(Arg.Compat.Any<int>()));
+
+    // Or re-write without expression tree if possible:
+    sub.Received().DoStuff(Arg.Any<int>());
+}
+{% endexamplecode %}
+
+
