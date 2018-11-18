@@ -1,7 +1,9 @@
-### 4.0.0 (unreleased)
+### 4.0.0 Release Candidate 1 (November 2018)
 
 Thanks to core team member Alex Povar (@zvirja) for putting a huge amount of work into
-defining and implementing features, fixes and refactoring for this release!
+defining and implementing features, fixes and refactoring for this release! Also thanks to
+@tpodolak for the new NSubstitute.Analyzers project! Finally, thanks to everyone who
+submitted PRs, raised or commented on issues, or took the time to help answer questions on StackOverflow.
 
 #### Major new features and improvements
 
