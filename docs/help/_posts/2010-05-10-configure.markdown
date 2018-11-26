@@ -3,6 +3,8 @@ title: Safe configuration and overlapping calls
 layout: post
 ---
 
+*`Configure()` is supported in NSubstitute 4.0 and above.*
+
 Sometimes we want to configure a call that overlaps a more general call we have previously setup to run a [callback](/help/callbacks) or throw an [exception](/help/throwing-exceptions/). Ideally we would modify the setups so they don't overlap, but we can also prevent these callbacks from running while we setup the next call by calling `Configure()` before invoking the method we want to re-configure. `Configure()` tells NSubstitute we are configuring the following call so that it will not run any callbacks from previous configurations.
 
 {% requiredcode %}

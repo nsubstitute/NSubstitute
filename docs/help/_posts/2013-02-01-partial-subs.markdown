@@ -39,6 +39,8 @@ Now the real `Read` method will execute, but `ReadFile` will return our substitu
 
 Note the **CAUTION** comment. If we had not used [`Configure()`](/help/configure/) here before `.ReadFile()` then the real `ReadFile` method would have executed before we had a chance to override the behaviour (`reader.ReadFile("foo.txt")` returns first before `.Returns(...)` executes). In some cases this may not be a problem, but if in doubt make sure you call `Configure()` first so NSubstitute knows you are configuring a call and don't want to run any real code. (This still does not guarantee real code will not run -- remember, NSubstitute will not prevent non-virtual calls from executing.)
 
+*The `Configure()` method is only available in NSubstitute 4.0 and above. For verisons prior to 4.0 we need to use `When .. DoNotCallBase` described below.*
+
 ## Void methods and `DoNotCallBase`
 
 We can't use `.Returns()` with void methods, but we can stop a void method on a partial substitute from calling the real method using `When .. DoNotCallBase`. (This also works for non-void methods, although generally we use `Configure()` and `Returns()` to override the base behaviour in these cases.)
