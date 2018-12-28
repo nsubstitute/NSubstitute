@@ -2,6 +2,12 @@
 #load @"ExtractDocs.fsx"
 
 open Fake
+open Fake.Core
+open Fake.Core.TargetOperators
+open Fake.IO
+open Fake.IO.Globbing.Operators
+open Fake.IO.FileSystemOperators
+open Fake.Tools
 open System
 open System.IO
 open System.Text.RegularExpressions
@@ -21,14 +27,14 @@ module ExamplesToCode =
     let ConvertFile file targetDir =
         let fileName = Path.GetFileNameWithoutExtension(file)
         let target = targetDir @@ fileName + ".cs"
-        log <| sprintf "Converting %s to %s" file target
+        Trace.log <| sprintf "Converting %s to %s" file target
         TransformFile file target (ExtractDocs.strToFixture fileName)
 
     let Convert paths targetDir =
         let paths = paths |> Seq.toList
         for p in paths do
-            trace <| sprintf "Convert from %s to %s" p targetDir
-            let files = !! "*.markdown" ++ "*.html" ++ "*.md" |> SetBaseDir p
+            Trace.trace <| sprintf "Convert from %s to %s" p targetDir
+            let files = !! "*.markdown" ++ "*.html" ++ "*.md" |> GlobbingPattern.setBaseDir p
             for file in files do
                 ConvertFile file targetDir
 
@@ -64,9 +70,9 @@ let getVersion () =
 
     { assembly = assemblyVersion; file = fileVersion; info = infoVersion; package = packageVersion }
  
-let root = __SOURCE_DIRECTORY__ </> ".." |> FullName
+let root = __SOURCE_DIRECTORY__ </> ".." |> Path.getFullName
 
-let configuration = getBuildParamOrDefault "configuration" "Debug"
+let configuration = Environment.environVarOrDefault "configuration" "Debug"
 let version = getVersion ()
 
 let additionalArgs =
@@ -78,66 +84,66 @@ let additionalArgs =
 
 let output = root </> "bin" </> configuration
 
-Target "Default" DoNothing
-Target "All" DoNothing
+Core.Target.create "Default" ignore
+Core.Target.create "All" ignore
 
-Description("Clean compilation artifacts and remove output bin directory")
-Target "Clean" (fun _ ->
+//Description("Clean compilation artifacts and remove output bin directory")
+Core.Target.create "Clean" (fun _ ->
     DotNetCli.RunCommand (fun p -> { p with WorkingDir = root })
                          (sprintf "clean --configuration %s --verbosity minimal" configuration)
 
-    CleanDirs [ output ]
+    Shell.cleanDirs [ output ]
 )
 
-Description("Restore dependencies")
-Target "Restore" (fun _ ->
+//Description("Restore dependencies")
+Core.Target.create "Restore" (fun _ ->
     DotNetCli.Restore (fun p -> { p with WorkingDir = root } )
 )
 
-Description("Compile all projects")
-Target "Build" (fun _ ->
+//Description("Compile all projects")
+Core.Target.create "Build" (fun _ ->
     DotNetCli.Build (fun p -> { p with WorkingDir = root
                                        Configuration = configuration
                                        AdditionalArgs = additionalArgs })
 )
 
-Description("Run tests")
-Target "Test" (fun _ ->
+//Description("Run tests")
+Core.Target.create "Test" (fun _ ->
     DotNetCli.Test (fun p -> { p with WorkingDir = root
                                       Project = "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
                                       Configuration = configuration })
 )
 
-Description("Generate Nuget package")
-Target "Package" (fun _ ->
+//Description("Generate Nuget package")
+Core.Target.create "Package" (fun _ ->
     DotNetCli.Pack (fun p -> { p with WorkingDir = root
                                       Configuration = configuration
                                       Project = "src/NSubstitute/NSubstitute.csproj"
                                       AdditionalArgs = additionalArgs })
 )
 
-Description("Run all benchmarks. Must be run with configuration=Release.")
-Target "Benchmarks" (fun _ ->
+//Description("Run all benchmarks. Must be run with configuration=Release.")
+Core.Target.create "Benchmarks" (fun _ ->
     if configuration <> "Release" then
         failwith "Benchmarks can only be run in Release mode. Please re-run the build in Release configuration."
 
-    let benchmarkCsproj = root </> "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> FullName
-    let benchmarkToRun = getBuildParamOrDefault "benchmark" "*" // Defaults to "*" (all)
+    let benchmarkCsproj = root </> "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> Path.getFullName
+    let benchmarkToRun = Environment.environVarOrDefault "benchmark" "*" // Defaults to "*" (all)
     [ "netcoreapp1.1" ]
     |> List.iter (fun framework ->
-        traceImportant ("Benchmarking " + framework)
+        Trace.traceImportant ("Benchmarking " + framework)
         let work = output </> "benchmark-" + framework
-        ensureDirectory work
+        Directory.ensure work
         DotNetCli.RunCommand
             (fun p -> { p with WorkingDir = work; TimeOut = TimeSpan.FromHours 2. })
             ("run --framework " + framework + " --project " + benchmarkCsproj + " -- " + benchmarkToRun)
     )
 )
 
-Description("Extract, build and test code from documentation.")
-Target "TestCodeFromDocs" <| fun _ ->
+//Description("Extract, build and test code from documentation.")
+Core.Target.create "TestCodeFromDocs" <| fun _ ->
     let outputCodePath = output </> "CodeFromDocs"
-    CreateDir outputCodePath
+    Directory.create outputCodePath
     // generate samples from docs
     ExamplesToCode.Convert [ root </> "docs/"; root </> "docs/help/_posts/"; root ] outputCodePath
     // compile code samples
@@ -168,17 +174,17 @@ Target "TestCodeFromDocs" <| fun _ ->
 let tryFindFileOnPath (file : string) : string option =
     Environment.GetEnvironmentVariable("PATH").Split([| Path.PathSeparator |])
     |> Seq.append ["."]
-    |> fun path -> tryFindFile path file
+    |> fun path -> Process.tryFindFile path file
 
-Description("Build documentation website. Requires Ruby, bundler and jekyll.")
-Target "Documentation" <| fun _ -> 
-    log "Building site..."
+//Description("Build documentation website. Requires Ruby, bundler and jekyll.")
+Core.Target.create "Documentation" <| fun _ -> 
+    Trace.log "Building site..."
     let exe = [ "bundle.bat"; "bundle" ]
                 |> Seq.map tryFindFileOnPath
                 |> Seq.collect (Option.toList)
                 |> Seq.tryFind (fun _ -> true)
-                |> function | Some x -> log ("using " + x); x
-                            | None   -> log ("count not find exe"); "bundle"
+                |> function | Some x -> Trace.log ("using " + x); x
+                            | None   -> Trace.log ("count not find exe"); "bundle"
 
     let workingDir = root </> "docs/"
     let docOutputRelativeToWorkingDir = ".." </> output </> "nsubstitute.github.com"
@@ -191,17 +197,17 @@ Target "Documentation" <| fun _ ->
                         info.Arguments <- "exec jekyll build -d \"" + docOutputRelativeToWorkingDir + "\"")
                     (TimeSpan.FromMinutes 5.)
     if result = 0 then
-        "Site built in " + docOutputRelativeToWorkingDir |> log
+        "Site built in " + docOutputRelativeToWorkingDir |> Trace.log
     else
         "failed to build site" |> failwith
 
-Description("List targets, similar to `rake -T`. For more details, run `--listTargets` instead.")
-Target "-T" <| fun _ ->
+//Description("List targets, similar to `rake -T`. For more details, run `--listTargets` instead.")
+Core.Target.create "-T" <| fun _ ->
     printfn "Optional config options:"
     printfn "  configuration=Debug|Release"
     printfn "  benchmark=*|<benchmark name>  (only for Benchmarks target in Release mode)"
     printfn ""
-    PrintTargets()
+    Core.Target.listAvailable()
 
 "Clean" ?=> "Build"
 "Clean" ?=> "Test"
@@ -221,4 +227,4 @@ Target "-T" <| fun _ ->
 "Default"       <== [ "Restore"; "Build"; "Test" ]
 "All"           <== [ "Clean"; "Default"; "Documentation"; "Package" ]
 
-RunTargetOrDefault "Default"
+Core.Target.runOrDefault "Default"
