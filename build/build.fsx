@@ -1,4 +1,4 @@
-#r @"packages/FAKE.4.63.0/tools/FakeLib.dll"
+#r @"packages/FAKE.5.8.4/tools/FakeLib.dll"
 #load @"ExtractDocs.fsx"
 
 open Fake
