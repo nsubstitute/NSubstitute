@@ -1,16 +1,20 @@
 #r @"packages/FAKE.5.8.4/tools/FakeLib.dll"
 #load @"ExtractDocs.fsx"
 
+open System
+open System.Diagnostics
+open System.IO
+open System.Text.RegularExpressions
+
 open Fake
 open Fake.Core
 open Fake.Core.TargetOperators
+open Fake.DotNet
 open Fake.IO
 open Fake.IO.Globbing.Operators
 open Fake.IO.FileSystemOperators
 open Fake.Tools
-open System
-open System.IO
-open System.Text.RegularExpressions
+
 open ExtractDocs
 
 module FileReaderWriter =
@@ -75,12 +79,12 @@ let root = __SOURCE_DIRECTORY__ </> ".." |> Path.getFullName
 let configuration = Environment.environVarOrDefault "configuration" "Debug"
 let version = getVersion ()
 
-let additionalArgs =
-    [ sprintf "-p:AssemblyVersion=\"%s\"" version.assembly
-    ; sprintf "-p:FileVersion=\"%s\"" version.file
-    ; sprintf "-p:InformationalVersion=\"%s\"" version.info
-    ; sprintf "-p:PackageVersion=\"%s\"" version.package
-    ]
+let additionalArgs = [
+    "AssemblyVersion", version.assembly
+    "FileVersion", version.file
+    "InformationalVersion", version.info
+    "PackageVersion", version.package
+]
 
 let output = root </> "bin" </> configuration
 
@@ -89,37 +93,38 @@ Core.Target.create "All" ignore
 
 //Description("Clean compilation artifacts and remove output bin directory")
 Core.Target.create "Clean" (fun _ ->
-    DotNetCli.RunCommand (fun p -> { p with WorkingDir = root })
-                         (sprintf "clean --configuration %s --verbosity minimal" configuration)
-
+    DotNet.exec (fun p -> { p with WorkingDirectory = root }) "clean"
+        (sprintf "--configuration %s --verbosity minimal" configuration)
+        |> ignore
     Shell.cleanDirs [ output ]
 )
 
 //Description("Restore dependencies")
 Core.Target.create "Restore" (fun _ ->
-    DotNetCli.Restore (fun p -> { p with WorkingDir = root } )
+    DotNet.restore (fun p -> p) "NSubstitute.sln"
 )
 
 //Description("Compile all projects")
 Core.Target.create "Build" (fun _ ->
-    DotNetCli.Build (fun p -> { p with WorkingDir = root
-                                       Configuration = configuration
-                                       AdditionalArgs = additionalArgs })
+    DotNet.build (fun p -> { p with BuildBasePath = Some root
+                                    Configuration = DotNet.BuildConfiguration.fromString configuration
+                                    MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
+                                    "NSubstitute.sln"
 )
 
 //Description("Run tests")
 Core.Target.create "Test" (fun _ ->
-    DotNetCli.Test (fun p -> { p with WorkingDir = root
-                                      Project = "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
-                                      Configuration = configuration })
+    DotNet.test (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
+                                   MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
+                                   "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
 )
 
 //Description("Generate Nuget package")
 Core.Target.create "Package" (fun _ ->
-    DotNetCli.Pack (fun p -> { p with WorkingDir = root
-                                      Configuration = configuration
-                                      Project = "src/NSubstitute/NSubstitute.csproj"
-                                      AdditionalArgs = additionalArgs })
+    DotNet.pack (fun p -> { p with BuildBasePath = Some root
+                                   Configuration = DotNet.BuildConfiguration.fromString configuration
+                                   MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
+                                   "src/NSubstitute/NSubstitute.csproj"
 )
 
 //Description("Run all benchmarks. Must be run with configuration=Release.")
@@ -134,9 +139,9 @@ Core.Target.create "Benchmarks" (fun _ ->
         Trace.traceImportant ("Benchmarking " + framework)
         let work = output </> "benchmark-" + framework
         Directory.ensure work
-        DotNetCli.RunCommand
-            (fun p -> { p with WorkingDir = work; TimeOut = TimeSpan.FromHours 2. })
-            ("run --framework " + framework + " --project " + benchmarkCsproj + " -- " + benchmarkToRun)
+        DotNet.exec (fun p -> { p with WorkingDirectory = work }) "run"
+            ("--framework " + framework + " --project " + benchmarkCsproj + " -- " + benchmarkToRun)
+            |> ignore
     )
 )
 
@@ -167,9 +172,9 @@ Core.Target.create "TestCodeFromDocs" <| fun _ ->
     """
     let projPath = outputCodePath </> "Docs.csproj"
     FileReaderWriter.Write projPath csproj
-    DotNetCli.Restore (fun p -> { p with Project = projPath })
-    DotNetCli.Build (fun p -> { p with Project = projPath })
-    DotNetCli.Test (fun p -> { p with Project = projPath })
+    DotNet.restore (fun p -> p) projPath
+    DotNet.build (fun p -> p) projPath
+    DotNet.test (fun p -> p) projPath
 
 let tryFindFileOnPath (file : string) : string option =
     Environment.GetEnvironmentVariable("PATH").Split([| Path.PathSeparator |])
@@ -188,14 +193,18 @@ Core.Target.create "Documentation" <| fun _ ->
 
     let workingDir = root </> "docs/"
     let docOutputRelativeToWorkingDir = ".." </> output </> "nsubstitute.github.com"
-    let result = 
-        ExecProcess (fun info -> 
-                        info.UseShellExecute <- false
-                        info.CreateNoWindow <- true
-                        info.FileName <- exe
-                        info.WorkingDirectory <- workingDir
-                        info.Arguments <- "exec jekyll build -d \"" + docOutputRelativeToWorkingDir + "\"")
-                    (TimeSpan.FromMinutes 5.)
+    
+    let p = ProcessStartInfo(
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    FileName = exe,
+                    WorkingDirectory = workingDir,
+                    Arguments = "exec jekyll build -d \"" + docOutputRelativeToWorkingDir + "\"")
+    let proc = new Process(StartInfo = p)
+    proc.BeginOutputReadLine()
+    proc.BeginErrorReadLine()
+    proc.WaitForExit()
+    let result = proc.ExitCode
     if result = 0 then
         "Site built in " + docOutputRelativeToWorkingDir |> Trace.log
     else
