@@ -207,8 +207,6 @@ Target.create "Documentation" <| fun _ ->
                     WorkingDirectory = workingDir,
                     Arguments = "exec jekyll build -d \"" + docOutputRelativeToWorkingDir + "\"")
     let proc = new Process(StartInfo = p)
-    proc.BeginOutputReadLine()
-    proc.BeginErrorReadLine()
     proc.WaitForExit()
     let result = proc.ExitCode
     if result = 0 then
