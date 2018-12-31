@@ -1,4 +1,10 @@
-#r @"packages/FAKE.5.8.4/tools/FakeLib.dll"
+#r "paket:
+nuget Fake.IO.FileSystem
+nuget Fake.DotNet
+nuget Fake.DotNet.Cli
+nuget Fake.Tools.Git
+nuget Fake.Core.Target //"
+#load "./.fake/build.fsx/intellisense.fsx"
 #load @"ExtractDocs.fsx"
 
 open System
@@ -6,7 +12,6 @@ open System.Diagnostics
 open System.IO
 open System.Text.RegularExpressions
 
-open Fake
 open Fake.Core
 open Fake.Core.TargetOperators
 open Fake.DotNet
@@ -88,11 +93,11 @@ let additionalArgs = [
 
 let output = root </> "bin" </> configuration
 
-Core.Target.create "Default" ignore
-Core.Target.create "All" ignore
+Target.create "Default" ignore
+Target.create "All" ignore
 
 //Description("Clean compilation artifacts and remove output bin directory")
-Core.Target.create "Clean" (fun _ ->
+Target.create "Clean" (fun _ ->
     DotNet.exec (fun p -> { p with WorkingDirectory = root }) "clean"
         (sprintf "--configuration %s --verbosity minimal" configuration)
         |> ignore
@@ -100,35 +105,33 @@ Core.Target.create "Clean" (fun _ ->
 )
 
 //Description("Restore dependencies")
-Core.Target.create "Restore" (fun _ ->
+Target.create "Restore" (fun _ ->
     DotNet.restore (fun p -> p) "NSubstitute.sln"
 )
 
 //Description("Compile all projects")
-Core.Target.create "Build" (fun _ ->
-    DotNet.build (fun p -> { p with BuildBasePath = Some root
-                                    Configuration = DotNet.BuildConfiguration.fromString configuration
+Target.create "Build" (fun _ ->
+    DotNet.build (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
                                     MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
                                     "NSubstitute.sln"
 )
 
 //Description("Run tests")
-Core.Target.create "Test" (fun _ ->
+Target.create "Test" (fun _ ->
     DotNet.test (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
                                    MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
                                    "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
 )
 
 //Description("Generate Nuget package")
-Core.Target.create "Package" (fun _ ->
-    DotNet.pack (fun p -> { p with BuildBasePath = Some root
-                                   Configuration = DotNet.BuildConfiguration.fromString configuration
+Target.create "Package" (fun _ ->
+    DotNet.pack (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
                                    MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
                                    "src/NSubstitute/NSubstitute.csproj"
 )
 
 //Description("Run all benchmarks. Must be run with configuration=Release.")
-Core.Target.create "Benchmarks" (fun _ ->
+Target.create "Benchmarks" (fun _ ->
     if configuration <> "Release" then
         failwith "Benchmarks can only be run in Release mode. Please re-run the build in Release configuration."
 
@@ -146,7 +149,7 @@ Core.Target.create "Benchmarks" (fun _ ->
 )
 
 //Description("Extract, build and test code from documentation.")
-Core.Target.create "TestCodeFromDocs" <| fun _ ->
+Target.create "TestCodeFromDocs" <| fun _ ->
     let outputCodePath = output </> "CodeFromDocs"
     Directory.create outputCodePath
     // generate samples from docs
@@ -182,7 +185,7 @@ let tryFindFileOnPath (file : string) : string option =
     |> fun path -> Process.tryFindFile path file
 
 //Description("Build documentation website. Requires Ruby, bundler and jekyll.")
-Core.Target.create "Documentation" <| fun _ -> 
+Target.create "Documentation" <| fun _ -> 
     Trace.log "Building site..."
     let exe = [ "bundle.bat"; "bundle" ]
                 |> Seq.map tryFindFileOnPath
@@ -194,6 +197,9 @@ Core.Target.create "Documentation" <| fun _ ->
     let workingDir = root </> "docs/"
     let docOutputRelativeToWorkingDir = ".." </> output </> "nsubstitute.github.com"
     
+    // TODO migrate the following to FAKE API: CreateProcess.ofStartInfo(p)
+    // https://fake.build/apidocs/v5/fake-core-createprocess.html
+    // that doesn't work for some reason
     let p = ProcessStartInfo(
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -211,12 +217,12 @@ Core.Target.create "Documentation" <| fun _ ->
         "failed to build site" |> failwith
 
 //Description("List targets, similar to `rake -T`. For more details, run `--listTargets` instead.")
-Core.Target.create "-T" <| fun _ ->
+Target.create "-T" <| fun _ ->
     printfn "Optional config options:"
     printfn "  configuration=Debug|Release"
     printfn "  benchmark=*|<benchmark name>  (only for Benchmarks target in Release mode)"
     printfn ""
-    Core.Target.listAvailable()
+    Target.listAvailable()
 
 "Clean" ?=> "Build"
 "Clean" ?=> "Test"
@@ -236,4 +242,4 @@ Core.Target.create "-T" <| fun _ ->
 "Default"       <== [ "Restore"; "Build"; "Test" ]
 "All"           <== [ "Clean"; "Default"; "Documentation"; "Package" ]
 
-Core.Target.runOrDefault "Default"
+Target.runOrDefault "Default"
