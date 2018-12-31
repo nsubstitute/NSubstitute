@@ -182,7 +182,7 @@ Target.create "TestCodeFromDocs" <| fun _ ->
 let tryFindFileOnPath (file : string) : string option =
     Environment.GetEnvironmentVariable("PATH").Split([| Path.PathSeparator |])
     |> Seq.append ["."]
-    |> fun path -> Process.tryFindFile path file
+    |> fun path -> ProcessUtils.tryFindFile path file
 
 //Description("Build documentation website. Requires Ruby, bundler and jekyll.")
 Target.create "Documentation" <| fun _ -> 
