@@ -1,3 +1,8 @@
+### 4.0.0 (January 2019)
+
+_Promoted 4.0.0 Release Candidate 1 with no code changes. See the release candidate's notes
+for a full list of changes since 3.1.0._
+
 ### 4.0.0 Release Candidate 1 (November 2018)
 
 Thanks to core team member Alex Povar (@zvirja) for putting a huge amount of work into
