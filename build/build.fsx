@@ -181,7 +181,7 @@ Target "Documentation" <| fun _ ->
                             | None   -> log ("count not find exe"); "bundle"
 
     let workingDir = root </> "docs/"
-    let docOutputRelativeToWorkingDir = ".." </> output </> "nsubstitute.github.com"
+    let docOutputRelativeToWorkingDir = ".." </> output </> "nsubstitute.github.io"
     let result = 
         ExecProcess (fun info -> 
                         info.UseShellExecute <- false

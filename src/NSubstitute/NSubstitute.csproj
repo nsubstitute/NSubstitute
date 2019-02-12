@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>NSubstitute is a friendly substitute for .NET mocking frameworks. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
@@ -8,8 +8,8 @@
     <AssemblyName>NSubstitute</AssemblyName>
     <PackageId>NSubstitute</PackageId>
     <PackageTags>mocking;mocks;testing;unit-testing;TDD;AAA</PackageTags>
-    <PackageIconUrl>http://nsubstitute.github.com/images/nsubstitute-100x100.png</PackageIconUrl>
-    <PackageProjectUrl>http://nsubstitute.github.com/</PackageProjectUrl>
+    <PackageIconUrl>https://nsubstitute.github.io/images/nsubstitute-100x100.png</PackageIconUrl>
+    <PackageProjectUrl>https://nsubstitute.github.io/</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/nsubstitute/NSubstitute/raw/master/LICENSE.txt</PackageLicenseUrl>
   </PropertyGroup>
 

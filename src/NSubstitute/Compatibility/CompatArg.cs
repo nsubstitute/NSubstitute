@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 
 namespace NSubstitute.Compatibility
@@ -11,7 +11,7 @@ namespace NSubstitute.Compatibility
     /// to use from an abstract base class. You can get a reference to this instance using the static
     /// <see cref="Instance" /> field.
     ///
-    /// For more information see <see href="http://nsubstitute.github.io/help/compat-args">Compatibility Argument
+    /// For more information see <see href="https://nsubstitute.github.io/help/compat-args">Compatibility Argument
     /// Matchers</see> in the NSubstitute documentation.
     /// </summary>
     public class CompatArg

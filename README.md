@@ -2,7 +2,7 @@ NSubstitute
 ========
 [![Build status](https://ci.appveyor.com/api/projects/status/ipe7ephhy6f9bbgp/branch/master?svg=true)](https://ci.appveyor.com/project/NSubstitute/nsubstitute/branch/master) [![Travis Build Status](https://travis-ci.com/nsubstitute/NSubstitute.svg?branch=master)](https://travis-ci.com/nsubstitute/NSubstitute)
 
-Visit the [NSubstitute website](https://nsubstitute.github.com) for more information.
+Visit the [NSubstitute website](https://nsubstitute.github.io) for more information.
 
 ### What is it?
 
