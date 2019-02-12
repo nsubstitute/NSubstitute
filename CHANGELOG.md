@@ -1,3 +1,9 @@
+### unreleased
+
+* [UPDATE] Thanks to Julian Verdurmen (@304NotModified) for updating our website and links
+to HTTPS! All links to the NSub website should now go through https://nsubstitute.github.io,
+and other web links in the project also go through to HTTPS where supported.
+
 ### 4.0.0 (January 2019)
 
 _Promoted 4.0.0 Release Candidate 1 with no code changes. See the release candidate's notes
