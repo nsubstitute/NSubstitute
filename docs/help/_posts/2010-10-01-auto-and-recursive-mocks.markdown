@@ -92,7 +92,7 @@ Assert.AreEqual(
     
 Here `CurrentRequest` is automatically going to return a substitute for `IRequest`, and the `IRequest` substitute will automatically return a substitute for `IIdentity`.
 
-_Note:_ Setting up long chains of substitutes this way is a code smell: we are breaking the [Law of Demeter](http://en.wikipedia.org/wiki/Law_of_Demeter), which says objects should only talk to their immediate neighbours, not reach into their neighbours' neighbours. If you write your tests without recursive mocks this becomes quite obvious as the set up becomes quite complicated, so if you are going to use recursive mocking you'll need to be extra vigilant to avoid this type of coupling.
+_Note:_ Setting up long chains of substitutes this way is a code smell: we are breaking the [Law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter), which says objects should only talk to their immediate neighbours, not reach into their neighbours' neighbours. If you write your tests without recursive mocks this becomes quite obvious as the set up becomes quite complicated, so if you are going to use recursive mocking you'll need to be extra vigilant to avoid this type of coupling.
 
 ## Auto values
 Properties and methods returning types of `String` or `Array` will automatically get empty, non-null defaults. This can help avoid null reference exceptions in cases where you just need a reference returned but don't care about its specific properties.

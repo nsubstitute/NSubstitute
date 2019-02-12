@@ -5,7 +5,7 @@ layout: post
 
 ## Adding NSubstitute to your test project 
 
-First add the [NSubstitute NuGet package](http://nuget.org/List/Packages/NSubstitute) to your test project using [NuGet](https://docs.microsoft.com/en-us/nuget/quickstart/use-a-package) (either the command line executable, or via the package manager in your IDE).
+First add the [NSubstitute NuGet package](https://nuget.org/List/Packages/NSubstitute) to your test project using [NuGet](https://docs.microsoft.com/en-us/nuget/quickstart/use-a-package) (either the command line executable, or via the package manager in your IDE).
 
     > Install-Package NSubstitute
 

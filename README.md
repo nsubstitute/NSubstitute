@@ -2,7 +2,7 @@ NSubstitute
 ========
 [![Build status](https://ci.appveyor.com/api/projects/status/ipe7ephhy6f9bbgp/branch/master?svg=true)](https://ci.appveyor.com/project/NSubstitute/nsubstitute/branch/master) [![Travis Build Status](https://travis-ci.com/nsubstitute/NSubstitute.svg?branch=master)](https://travis-ci.com/nsubstitute/NSubstitute)
 
-Visit the [NSubstitute website](https://nsubstitute.github.com) for more information.
+Visit the [NSubstitute website](https://nsubstitute.github.io) for more information.
 
 ### What is it?
 
@@ -47,7 +47,7 @@ We can ask NSubstitute to create a substitute instance for this type. We could a
     _calculator = Substitute.For<ICalculator>();
 <!-- {% endexamplecode %} -->
 
-⚠️ **Note**: NSubstitute will only work properly with interfaces or with `virtual` members of classes. Be careful substituting for classes with non-virtual members. See [Creating a substitute](/help/creating-a-substitute/#substituting_infrequently_and_carefully_for_classes) for more information.
+⚠️ **Note**: NSubstitute will only work properly with interfaces or with `virtual` members of classes. Be careful substituting for classes with non-virtual members. See [Creating a substitute](https://nsubstitute.github.io/help/creating-a-substitute/#substituting_infrequently_and_carefully_for_classes) for more information.
 
 Now we can tell our substitute to return a value for a call:
 
