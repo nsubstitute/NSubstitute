@@ -11,17 +11,16 @@ namespace NSubstitute.Core.DependencyInjection
     ///     - Registration by type with automatic constructor injection
     ///     - Registration of factory methods for the complex objects
     ///     - Support of the most required lifetimes:
-    ///         - <see cref="NSubLifetime.Transient"/>
-    ///         - <see cref="NSubLifetime.PerScope"/>
-    ///         - <see cref="NSubLifetime.Singleton"/>
+    ///         - <see cref="NSubLifetime.Transient" />
+    ///         - <see cref="NSubLifetime.PerScope" />
+    ///         - <see cref="NSubLifetime.Singleton" />
     ///     - Immutability (via interfaces) and customization by creating a nested container
     /// </summary>
     public class NSubContainer : IConfigurableNSubContainer
     {
         private readonly NSubContainer _parentContainer;
         private readonly object _syncRoot;
-
-        private Dictionary<Type, Registration> Registrations { get; } = new Dictionary<Type, Registration>();
+        private readonly Dictionary<Type, Registration> _registrations = new Dictionary<Type, Registration>();
 
         public NSubContainer()
         {
@@ -37,10 +36,7 @@ namespace NSubstitute.Core.DependencyInjection
             _syncRoot = parentContainer._syncRoot;
         }
 
-        public T Resolve<T>()
-        {
-            return (T) ResolveImpl(typeof(T), new ScopeCache());
-        }
+        public T Resolve<T>() => CreateScope().Resolve<T>();
 
         public IConfigurableNSubContainer Register<TKey, TImpl>(NSubLifetime lifetime) where TImpl : TKey
         {
@@ -54,10 +50,10 @@ namespace NSubstitute.Core.DependencyInjection
 
             var ctor = constructors[0];
 
-            object Factory(ScopeCache scopeCache)
+            object Factory(Scope scope)
             {
                 var args = ctor.GetParameters()
-                    .Select(p => ResolveImpl(p.ParameterType, scopeCache))
+                    .Select(p => scope.Resolve(p.ParameterType))
                     .ToArray();
                 return ctor.Invoke(args);
             }
@@ -69,11 +65,11 @@ namespace NSubstitute.Core.DependencyInjection
 
         public IConfigurableNSubContainer Register<TKey>(Func<INSubResolver, TKey> factory, NSubLifetime lifetime)
         {
-            object Factory(ScopeCache scopeCache)
+            object Factory(Scope scope)
             {
-                return factory.Invoke(new ScopeCacheBoundResolver(this, scopeCache));
+                return factory.Invoke(scope);
             }
-            
+
             AddRegistration(typeof(TKey), new Registration(Factory, lifetime));
 
             return this;
@@ -86,65 +82,47 @@ namespace NSubstitute.Core.DependencyInjection
 
         public INSubResolver CreateScope()
         {
-            return new ScopeCacheBoundResolver(this, new ScopeCache());
+            return new Scope(this);
         }
 
         private void AddRegistration(Type type, Registration registration)
         {
             lock (_syncRoot)
             {
-                Registrations[type] = registration;
-            }
-        }
-        
-        private object ResolveImpl(Type type, ScopeCache scopeCache)
-        {
-            lock (_syncRoot)
-            {
-                if (Registrations.TryGetValue(type, out var registration))
-                {
-                    return registration.Resolve(scopeCache);
-                }
-
-                if (_parentContainer != null)
-                {
-                    return _parentContainer.ResolveImpl(type, scopeCache);
-                }
-
-                throw new InvalidOperationException($"Type is not registered: {type.FullName}");
+                _registrations[type] = registration;
             }
         }
 
         private class Registration
         {
+            private readonly Func<Scope, object> _factory;
             private readonly NSubLifetime _lifetime;
-            private readonly Func<ScopeCache, object> _factory;
             private object _singletonValue;
 
-            public Registration(Func<ScopeCache, object> factory, NSubLifetime lifetime)
+            public Registration(Func<Scope, object> factory, NSubLifetime lifetime)
             {
                 _factory = factory;
                 _lifetime = lifetime;
             }
 
-            public object Resolve(ScopeCache scopeCache)
+            public object Resolve(Scope scope)
             {
                 switch (_lifetime)
                 {
                     case NSubLifetime.Transient:
-                        return _factory.Invoke(scopeCache);
+                        return _factory.Invoke(scope);
 
                     case NSubLifetime.Singleton:
-                        return _singletonValue ?? (_singletonValue = _factory.Invoke(scopeCache));
+                        return _singletonValue ?? (_singletonValue = _factory.Invoke(scope));
 
                     case NSubLifetime.PerScope:
-                        if (scopeCache.TryGetValue(this, out var result))
+                        if (scope.TryGetCached(this, out var result))
                         {
                             return result;
                         }
 
-                        result = _factory.Invoke(scopeCache);
-                        scopeCache.Set(this, result);
+                        result = _factory.Invoke(scope);
+                        scope.Set(this, result);
                         return result;
 
                     default:
@@ -153,30 +131,51 @@ namespace NSubstitute.Core.DependencyInjection
             }
         }
 
-        private class ScopeCache
+        private class Scope : INSubResolver
         {
             private readonly Dictionary<Registration, object> _cache = new Dictionary<Registration, object>();
+            private readonly NSubContainer _mostNestedContainer;
 
-            public bool TryGetValue(Registration registration, out object result) =>
-                _cache.TryGetValue(registration, out result);
-
-            public void Set(Registration registration, object value) =>
-                _cache[registration] = value;
-        }
-
-        private class ScopeCacheBoundResolver : INSubResolver
-        {
-            private readonly NSubContainer _container;
-            private readonly ScopeCache _scopeCache;
-
-            public ScopeCacheBoundResolver(NSubContainer container, ScopeCache scopeCache)
+            public Scope(NSubContainer mostNestedContainer)
             {
-                _container = container;
-                _scopeCache = scopeCache;
+                _mostNestedContainer = mostNestedContainer;
             }
 
-            public T Resolve<T>() =>
-                (T) _container.ResolveImpl(typeof(T), _scopeCache);
+            public T Resolve<T>()
+            {
+                return (T) Resolve(typeof(T));
+            }
+
+            public bool TryGetCached(Registration registration, out object result)
+            {
+                return _cache.TryGetValue(registration, out result);
+            }
+
+            public void Set(Registration registration, object value)
+            {
+                _cache[registration] = value;
+            }
+
+            public object Resolve(Type type)
+            {
+                // The same lock object is shared among all the nested containers,
+                // so no need to synchronize on new object for each time.
+                lock (_mostNestedContainer._syncRoot)
+                {
+                    var currentContainer = _mostNestedContainer;
+                    while (currentContainer != null)
+                    {
+                        if (currentContainer._registrations.TryGetValue(type, out var registration))
+                        {
+                            return registration.Resolve(this);
+                        }
+
+                        currentContainer = currentContainer._parentContainer;
+                    }
+
+                    throw new InvalidOperationException($"Type is not registered: {type.FullName}");
+                }
+            }
         }
     }
 }
