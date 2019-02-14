@@ -59,6 +59,14 @@ If this is difficult for a specific case, create a GitHub issue with the details
 
 ---------------
 
+`ArgumentSpecificationQueue` has been removed. Custom argument specifications are now queued using `ArgMatcher.Enqueue`.
+
+Reason: This was done as part of argument matching changes and refactoring of NSubstitute internals (#426, #404, and #438).
+
+Workaround: Replace uses of `ArgumentSpecificationQueue.EnqueueSpecFor` with `ArgumentMatcher.Enqueue`. See [this comment on #438](https://github.com/nsubstitute/NSubstitute/issues/438#issuecomment-463091034) for an example.
+
+---------------
+
 Removed `NSubstitute.Core.Extensions.Zip`.
 
 Reason: Zip is in NET40+ and NetStandard. Was formerly provided for NET35 compatibility.
