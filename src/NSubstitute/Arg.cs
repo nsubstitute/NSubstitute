@@ -96,7 +96,7 @@ namespace NSubstitute
         /// Alternate version of <see cref="Arg"/> matchers for compatibility with pre-C#7 compilers
         /// which do not support <c>ref</c> return types. Do not use unless you are unable to use <see cref="Arg"/>.
         ///
-        /// For more information see <see href="http://nsubstitute.github.io/help/compat-args">Compatibility Argument
+        /// For more information see <see href="https://nsubstitute.github.io/help/compat-args">Compatibility Argument
         /// Matchers</see> in the NSubstitute documentation.
         /// </summary>
         public static class Compat

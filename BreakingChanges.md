@@ -9,7 +9,7 @@ Reason: Previous NSubstitute versions had quite limited support for `out` and `r
 
 Workaround: If at all possible please update to a recent version of your .NET compiler (C# 7+, VB 2017, VB 15.3+, F# 4.1+). This should provide support for `ref` returns and make the code compile fine with the new `Arg` methods. These shipped with Visual Studio 2017. Visual Studio for Mac 2017 and JetBrains Rider 2017 also support C# 7+.
 
-If it is not possible for you to use a C# 7-compatible compiler, we have added an `Arg.Compat` class which has all the same members as `Arg`, just without the `ref` return type. If you replace `Arg.` references with `Arg.Compat.` in your project then you can continue to use older compilers with NSubstitute 4.x. Alternatively you can use a `NSubstitute.Compatibility.CompatArg` instance in your fixture which may make migration a bit easier. Both these approaches are described in the [Compatibility argument matchers](http://nsubstitute.github.io/help/compat-args) documentation.
+If it is not possible for you to use a C# 7-compatible compiler, we have added an `Arg.Compat` class which has all the same members as `Arg`, just without the `ref` return type. If you replace `Arg.` references with `Arg.Compat.` in your project then you can continue to use older compilers with NSubstitute 4.x. Alternatively you can use a `NSubstitute.Compatibility.CompatArg` instance in your fixture which may make migration a bit easier. Both these approaches are described in the [Compatibility argument matchers](https://nsubstitute.github.io/help/compat-args) documentation.
 
 ---------------
 
@@ -21,7 +21,7 @@ Reason: Previous NSubstitute releases had very limited support for matching `out
 
 Workaround:
 * Move the NSubstitute statement/assertion outside of the expression tree; or
-* Use an `Arg.Compat.` matcher as described above and in the [Compatibility argument matchers](http://nsubstitute.github.io/help/compat-args) documentation.
+* Use an `Arg.Compat.` matcher as described above and in the [Compatibility argument matchers](https://nsubstitute.github.io/help/compat-args) documentation.
 
 For example:
 
