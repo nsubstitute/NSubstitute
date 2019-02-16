@@ -17,7 +17,7 @@ It is optional but recommended to also install [NSubstitute.Analyzers.CSharp](ht
 
 ## Using NSubstitute in a test fixture
 
-So now you are staring at a blank test fixture (created with your favourite unit testing framework; for these examples we're using [NUnit](http://www.nunit.org/)), and are wondering where to start. 
+So now you are staring at a blank test fixture (created with your favourite unit testing framework; for these examples we're using [NUnit](https://nunit.org/)), and are wondering where to start. 
 
 First, add `using NSubstitute;` to your current C# file. This will give you everything you need to start substituting. 
 
