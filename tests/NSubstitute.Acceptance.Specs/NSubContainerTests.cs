@@ -209,6 +209,19 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void ShouldUseRegistrationFromForkContainerIfRequestComesFromParentContainerRegistration()
+        {
+            var sut = new NSubContainer();
+            sut.Register<ClassWithDependency, ClassWithDependency>(NSubLifetime.Transient);
+            sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.Transient);
+            var sutFork = sut.Customize().Register<ITestInterface, TestImplSingleCtor2>(NSubLifetime.Transient);
+
+            var sutForkResult = sutFork.Resolve<ClassWithDependency>();
+
+            Assert.That(sutForkResult.Dep, Is.AssignableTo<TestImplSingleCtor2>());
+        }
+
+        [Test]
         public void ShouldFailWithMeaningfulExceptionIfUnableToResolveType()
         {
             var sut = new NSubContainer();
