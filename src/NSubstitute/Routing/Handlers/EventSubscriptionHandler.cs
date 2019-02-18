@@ -29,15 +29,16 @@ namespace NSubstitute.Routing.Handlers
         private static bool CanBeSubscribeUnsubscribeCall(ICall call)
         {
             var methodInfo = call.GetMethodInfo();
-            var methodName = methodInfo.Name;
             
             // It's safe to verify method prefix and signature as according to the ECMA-335 II.22.28:
             // 18. Any AddOn method for an event whose Name is xxx shall have the signature: void add_xxx (<DelegateType> handler) (§I.10.4) [CLS] 
             // 19. Any RemoveOn method for an event whose Name is xxx shall have the signature: void remove_xxx(<DelegateType> handler) (§I.10.4) [CLS]
-            return methodInfo.IsSpecialName && 
-                   methodInfo.ReturnType == typeof(void) &&
-                   ( methodName.StartsWith("add_", StringComparison.Ordinal) ||
-                     methodName.StartsWith("remove_", StringComparison.Ordinal));
+            // Notice, even though it's correct to check the SpecialName flag, we don't do that deliberately.
+            // The reason is that some compilers (e.g. F#) might not emit this attribute and our library
+            // misbehaves in those cases. We use slightly slower, but robust check.
+            return methodInfo.ReturnType == typeof(void) &&
+                   (methodInfo.Name.StartsWith("add_", StringComparison.Ordinal) ||
+                    methodInfo.Name.StartsWith("remove_", StringComparison.Ordinal));
         }
 
         private static void If(ICall call, Func<ICall, Predicate<EventInfo>> meetsThisSpecification, Action<string, object> takeThisAction)
