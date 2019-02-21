@@ -28,10 +28,10 @@ namespace NSubstitute.Routing.Handlers
 
             var allCalls = _receivedCalls.AllCalls().ToList();
             var matchingCalls = allCalls.Where(callSpecification.IsSatisfiedBy).ToList();
-            var relatedCalls = allCalls.Where(allCallsToMethodSpec.IsSatisfiedBy).Except(matchingCalls);
 
             if (!_requiredQuantity.Matches(matchingCalls))
             {
+                var relatedCalls = allCalls.Where(allCallsToMethodSpec.IsSatisfiedBy).Except(matchingCalls);
                 _exceptionThrower.Throw(callSpecification, matchingCalls, relatedCalls, _requiredQuantity);
             }
             return RouteAction.Continue();
