@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.Arguments
@@ -11,8 +12,8 @@ namespace NSubstitute.Core.Arguments
         public IArgumentSpecification Create(object argument, IParameterInfo parameterInfo,
             ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
         {
-            return parameterInfo.IsParams
-                ? CreateSpecFromParamsArg(argument, parameterInfo, suppliedArgumentSpecifications)
+            return typeof(IEnumerable).IsAssignableFrom(parameterInfo.ParameterType) && parameterInfo.ParameterType != typeof(string)
+                ? CreateSpecFromParamsArg((IEnumerable)argument, parameterInfo, suppliedArgumentSpecifications)
                 : CreateSpecFromNonParamsArg(argument, parameterInfo, suppliedArgumentSpecifications);
         }
 
@@ -32,7 +33,7 @@ namespace NSubstitute.Core.Arguments
             throw new AmbiguousArgumentsException();
         }
 
-        private IArgumentSpecification CreateSpecFromParamsArg(object argument, IParameterInfo parameterInfo, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
+        private IArgumentSpecification CreateSpecFromParamsArg(IEnumerable argument, IParameterInfo parameterInfo, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
         {
             // Next specification is for the whole params array.
             if (suppliedArgumentSpecifications.IsNextFor(argument, parameterInfo.ParameterType))
@@ -53,15 +54,23 @@ namespace NSubstitute.Core.Arguments
                 return new ArgumentSpecification(parameterInfo.ParameterType, new EqualsArgumentMatcher(null));
             }
 
-            // User specified arguments using the native params syntax.
-            var arrayArg = argument as Array;
-            if (arrayArg == null)
+            var arrayArgumentSpecifications = UnwrapParamsArguments(argument.Cast<object>(), UnderlyingCollectionType(parameterInfo), suppliedArgumentSpecifications);
+            return new ArgumentSpecification(parameterInfo.ParameterType, new ArrayContentsArgumentMatcher(arrayArgumentSpecifications, parameterInfo.IsParams));
+        }
+
+        private static Type UnderlyingCollectionType(IParameterInfo parameterInfo)
+        {
+            if (parameterInfo.ParameterType.IsArray)
             {
-                throw new SubstituteInternalException($"Expected to get array argument, but got argument of '{argument.GetType().FullName}' type.");
+                return parameterInfo.ParameterType.GetElementType();
             }
 
-            var arrayArgumentSpecifications = UnwrapParamsArguments(arrayArg.Cast<object>(), parameterInfo.ParameterType.GetElementType(), suppliedArgumentSpecifications);
-            return new ArgumentSpecification(parameterInfo.ParameterType, new ArrayContentsArgumentMatcher(arrayArgumentSpecifications));
+            if (typeof(IEnumerable<>).IsAssignableFrom(parameterInfo.ParameterType))
+            {
+                return parameterInfo.ParameterType.GetGenericArguments().First();
+            }
+
+            return typeof(object);
         }
 
         private IEnumerable<IArgumentSpecification> UnwrapParamsArguments(IEnumerable<object> args, Type paramsElementType, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)

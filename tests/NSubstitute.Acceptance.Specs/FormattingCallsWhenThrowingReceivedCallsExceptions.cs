@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
@@ -17,6 +18,7 @@ namespace NSubstitute.Acceptance.Specs
             int this[string a, string b] { get; set; }
             void ParamsMethod(int a, params string[] strings);
             void IntParamsMethod(params int[] ints);
+            void OldCollection(IEnumerable items);
         }
 
         public class When_no_calls_are_made_to_the_expected_member : Context
@@ -36,6 +38,30 @@ namespace NSubstitute.Acceptance.Specs
             public void Should_report_the_method_we_were_expecting()
             {
                 ExceptionMessageContains(ExpectedCallMessagePrefix + "SampleMethod(5)");
+            }
+        }
+
+        public class When_using_old_collections_members_are_unwrapped : Context
+        {
+            protected override void ConfigureContext()
+            {
+                Sample.OldCollection(new System.Collections.ArrayList { 3, 4 });
+            }
+            protected override void ExpectedCall()
+            {
+                Sample.Received().OldCollection(new[] { 3, 8 });
+            }
+
+            [Test]
+            public void Should_report_the_method_we_were_expecting()
+            {
+                ExceptionMessageContains(ExpectedCallMessagePrefix + "OldCollection([3, 8])");
+            }
+
+            [Test]
+            public void Should_report_non_matching_calls()
+            {
+                ExceptionMessageContains("OldCollection([3, *4*])");
             }
         }
 
@@ -75,7 +101,9 @@ namespace NSubstitute.Acceptance.Specs
             {
                 Sample.SampleMethod("different", 1, new List<string>());
                 Sample.SampleMethod("string", 7, new List<string>());
-            }
+                Sample.SampleMethod("another", 4, new[] { "a", "c" });
+                Sample.SampleMethod("another", 1, new List<string> { "a", "c" });
+        }
 
             protected override void ExpectedCall()
             {
@@ -85,14 +113,16 @@ namespace NSubstitute.Acceptance.Specs
             [Test]
             public void Should_report_the_method_we_were_expecting()
             {
-                ExceptionMessageContains(ExpectedCallMessagePrefix + "SampleMethod(\"string\", 1, List<String>)");
+                ExceptionMessageContains(ExpectedCallMessagePrefix + @"SampleMethod(""string"", 1, [""a"", ""b""])");
             }
 
             [Test]
             public void Should_indicate_which_args_are_different()
             {
-                ExceptionMessageContains("SampleMethod(*\"different\"*, 1, *List<String>*)");
-                ExceptionMessageContains("SampleMethod(\"string\", *7*, *List<String>*)");
+                ExceptionMessageContains("SampleMethod(*\"different\"*, 1, [**])");
+                ExceptionMessageContains("SampleMethod(\"string\", *7*, [**])");
+                ExceptionMessageContains(@"SampleMethod(*""another""*, *4*, [""a"", *""c""*])");
+                ExceptionMessageContains(@"SampleMethod(*""another""*, 1, [""a"", *""c""*])");
             }
         }
 
