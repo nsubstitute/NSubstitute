@@ -23,43 +23,45 @@ First, add `using NSubstitute;` to your current C# file. This will give you ever
 
 Now let's say we have a basic calculator interface:
 
-{% examplecode csharp %}
+```csharp
 public interface ICalculator
 {
     int Add(int a, int b);
     string Mode { get; set; }
     event EventHandler PoweringUp;
 }
-{% endexamplecode %}
+```
 
-{% requiredcode %}
+<!--
+```requiredcode
 ICalculator calculator;
 [SetUp]
 public void SetUp() { calculator = Substitute.For<ICalculator>(); }
-{% endrequiredcode %}
+```
+-->
 
 We can ask NSubstitute to create a substitute instance for this type. We could ask for a stub, mock, fake, spy, test double etc., but why bother when we just want to substitute an instance we have some control over?
 
-{% examplecode csharp %}
+```csharp
 calculator = Substitute.For<ICalculator>();
-{% endexamplecode %}
+```
 
 ⚠️ **Note**: NSubstitute will only work properly with interfaces or with `virtual` members of classes. Be careful substituting for classes with non-virtual members. See [Creating a substitute](/help/creating-a-substitute/#substituting_infrequently_and_carefully_for_classes) for more information.
 
 Now we can tell our substitute to return a value for a call:
 
-{% examplecode csharp %}
+```csharp
 calculator.Add(1, 2).Returns(3);
 Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
-{% endexamplecode %}
+```
 
 We can check that our substitute received a call, and did not receive others:
 
-{% examplecode csharp %}
+```csharp
 calculator.Add(1, 2);
 calculator.Received().Add(1, 2);
 calculator.DidNotReceive().Add(5, 7);
-{% endexamplecode %}
+```
 
 If our `Received()` assertion fails, NSubstitute tries to give us some help as to what the problem might be:
 
@@ -73,48 +75,48 @@ If our `Received()` assertion fails, NSubstitute tries to give us some help as t
 
 We can also work with properties using the `Returns` syntax we use for methods, or just stick with plain old property setters (for read/write properties):
 
-{% examplecode csharp %}
+```csharp
 calculator.Mode.Returns("DEC");
 Assert.That(calculator.Mode, Is.EqualTo("DEC"));
 
 calculator.Mode = "HEX";
 Assert.That(calculator.Mode, Is.EqualTo("HEX"));
-{% endexamplecode %}
+```
 
 NSubstitute supports [argument matching](/help/argument-matchers/) for setting return values and asserting a call was received:
 
-{% examplecode csharp %}
+```csharp
 calculator.Add(10, -5);
 calculator.Received().Add(10, Arg.Any<int>());
 calculator.Received().Add(10, Arg.Is<int>(x => x < 0));
-{% endexamplecode %}
+```
 
 We can use argument matching as well as passing a function to `Returns()` to get some more behaviour out of our substitute (possibly too much, but that's your call):
 
-{% examplecode csharp %}
+```csharp
 calculator
    .Add(Arg.Any<int>(), Arg.Any<int>())
    .Returns(x => (int)x[0] + (int)x[1]);
 Assert.That(calculator.Add(5, 10), Is.EqualTo(15));
-{% endexamplecode %}
+```
 
 `Returns()` can also be called with multiple arguments to set up a sequence of return values.
 
-{% examplecode csharp %}
+```csharp
 calculator.Mode.Returns("HEX", "DEC", "BIN");
 Assert.That(calculator.Mode, Is.EqualTo("HEX"));
 Assert.That(calculator.Mode, Is.EqualTo("DEC"));
 Assert.That(calculator.Mode, Is.EqualTo("BIN"));
-{% endexamplecode %}
+```
 
 Finally, we can raise events on our substitutes (unfortunately C# dramatically restricts the extent to which this syntax can be cleaned up):
 
-{% examplecode csharp %}
+```csharp
 bool eventWasRaised = false;
 calculator.PoweringUp += (sender, args) => eventWasRaised = true;
 
 calculator.PoweringUp += Raise.Event();
 Assert.That(eventWasRaised);
-{% endexamplecode %}
+```
 
 That's pretty much all you need to get started with NSubstitute. Read on for more detailed feature descriptions, as well as for some of the less common requirements that NSubstitute supports.

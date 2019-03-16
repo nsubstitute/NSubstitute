@@ -5,7 +5,7 @@ layout: post
 
 Sometimes it is necessary to raise events declared on the types being substituted for. Consider the following example:
 
-{% examplecode csharp %}
+```csharp
 
 public interface IEngine {
     event EventHandler Idling;
@@ -19,8 +19,9 @@ public class LowFuelWarningEventArgs : EventArgs {
         PercentLeft = percentLeft;
     }
 }
-{% endexamplecode %}
-{% requiredcode %}
+```
+<!--
+```requiredcode
 IEngine engine;
 bool wasCalled;
 int numberOfEvents;
@@ -30,11 +31,12 @@ int numberOfEvents;
     numberOfEvents = 0;
     engine.Idling += (sender, args) => wasCalled = true;
 }
-{% endrequiredcode %}
+```
+-->
 
 Events are "interesting" creatures in the .NET world, as you can't pass around references to them like you can with other members. Instead, you can only add or remove handlers to events, and it is this add handler syntax that NSubstitute uses to raise events.
 
-{% examplecode csharp %}
+```csharp
 var wasCalled = false;
 engine.Idling += (sender, args) => wasCalled = true;
 
@@ -42,20 +44,20 @@ engine.Idling += (sender, args) => wasCalled = true;
 engine.Idling += Raise.EventWith(new object(), new EventArgs());
 
 Assert.True(wasCalled);
-{% endexamplecode %}
+```
 
 In the example above we don't really mind what sender and `EventArgs` our event is raised with, just that it was called. In this case NSubstitute can make our life easier by creating the required arguments for our event handler:
 
-{% examplecode csharp %}
+```csharp
 engine.Idling += Raise.Event();
 Assert.True(wasCalled);
-{% endexamplecode %}
+```
 
 ## Raising events when arguments do not have a default constructor
 
 NSubstitute will not always be able to create the event arguments for you. If your event args do not have a default constructor you will have to provide them yourself using `Raise.EventWith<TEventArgs>(...)`, as is the case for the `LowFuelWarning` event. NSubstitute will still create the sender for you if you don't provide it though.
 
-{% examplecode csharp %}
+```csharp
 engine.LowFuelWarning += (sender, args) => numberOfEvents++;
 
 //Raise event with specific args, any sender:
@@ -64,7 +66,7 @@ engine.LowFuelWarning += Raise.EventWith(new LowFuelWarningEventArgs(10));
 engine.LowFuelWarning += Raise.EventWith(new object(), new LowFuelWarningEventArgs(10));
 
 Assert.AreEqual(2, numberOfEvents);
-{% endexamplecode %}
+```
 
 ## Raising `Delegate` events
 
@@ -72,7 +74,7 @@ Sometimes events are declared with a _delegate_ that does not inherit from `Even
 
 The following examples shows raising an `INotifyPropertyChanged` event, which uses a `PropertyChangedEventHandler` delegate and requires two parameters.
 
-{% examplecode csharp %}
+```csharp
 var sub = Substitute.For<INotifyPropertyChanged>();
 bool wasCalled = false;
 sub.PropertyChanged += (sender, args) => wasCalled = true;
@@ -80,17 +82,17 @@ sub.PropertyChanged += (sender, args) => wasCalled = true;
 sub.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(this, new PropertyChangedEventArgs("test"));
 
 Assert.That(wasCalled);
-{% endexamplecode %}
+```
 
 
 ## Raising `Action` events
 In the `IEngine` example the `RevvedAt` event is declared as an `Action<int>`. This is another example of a delegate event, and we can use `Raise.Event<Action<int>>()` to raise our event.
 
-{% examplecode csharp %}
+```csharp
 int revvedAt = 0;;
 engine.RevvedAt += rpm => revvedAt = rpm;
 
 engine.RevvedAt += Raise.Event<Action<int>>(123);
 
 Assert.AreEqual(123, revvedAt);
-{% endexamplecode %}
+```

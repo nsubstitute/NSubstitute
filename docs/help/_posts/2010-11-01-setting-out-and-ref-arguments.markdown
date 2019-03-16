@@ -5,15 +5,15 @@ layout: post
 
 `Out` and `ref` arguments can be set using a [`Returns()` callback](/help/return-from-function), or using [`When..Do`](/help/callbacks).
 
-{% examplecode csharp %}
+```csharp
 public interface ILookup {
     bool TryLookup(string key, out string value);
 }
-{% endexamplecode %}
+```
 
 For the interface above we can configure the return value and set the output of the second argument like this:
 
-{% examplecode csharp %}
+```csharp
 //Arrange
 var lookup = Substitute.For<ILookup>();
 lookup
@@ -30,13 +30,13 @@ var result = lookup.TryLookup("hello", out value);
 //Assert
 Assert.True(result);
 Assert.AreEqual(value, "world!");
-{% endexamplecode %}
+```
 
 ## Matching after assignments
 
 Be careful when using an argument matcher with a reference we also assign to. The assignment can cause previously matching arguments to stop matching.
 
-{% examplecode csharp %}
+```csharp
 var counter = 0;
 var value = "";
 var lookup = Substitute.For<ILookup>();
@@ -57,5 +57,5 @@ Assert.AreEqual(1, counter);
 lookup.TryLookup("hello", out value);
 // Call does NOT match anymore, counter is still 1:
 Assert.AreEqual(1, counter);
-{% endexamplecode %}
+```
 

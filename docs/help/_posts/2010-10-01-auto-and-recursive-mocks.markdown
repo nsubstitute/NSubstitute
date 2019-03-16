@@ -11,18 +11,18 @@ _* Note:_ A pure virtual class is defined as one with all its public methods and
 
 Say we have the following types:
 
-{% examplecode csharp %}
+```csharp
 public interface INumberParser {
     IEnumerable<int> Parse(string expression);
 }
 public interface INumberParserFactory {
     INumberParser Create(char delimiter);
 }
-{% endexamplecode %}
+```
 
 We want to configure our `INumberParserFactory` to create a parser that will return a certain set of `int` for an `expresion`. We could manually create each substitute:
 
-{% examplecode csharp %}
+```csharp
 var factory = Substitute.For<INumberParserFactory>();
 var parser = Substitute.For<INumberParser>();
 factory.Create(',').Returns(parser);
@@ -31,34 +31,36 @@ parser.Parse("an expression").Returns(new[] {1,2,3});
 Assert.AreEqual(
     factory.Create(',').Parse("an expression"),
     new[] {1,2,3});
-{% endexamplecode %}
+```
 
 Or we could use the fact that a substitute for type `INumberParser` will automatically be returned for `INumberParserFactory.Create()`:
 
-{% examplecode csharp %}
+```csharp
 var factory = Substitute.For<INumberParserFactory>();
 factory.Create(',').Parse("an expression").Returns(new[] {1,2,3});
 
 Assert.AreEqual(
     factory.Create(',').Parse("an expression"),
     new[] {1,2,3});
-{% endexamplecode %}
+```
 
 Each time a recursively-subbed property or method is called with the same arguments it will return the same substitute. If a method is called with different arguments a new substitute will be returned.
 
-{% requiredcode %}
+<!--
+```requiredcode
 INumberParserFactory factory;
 [SetUp] public void SetUp() { factory = Substitute.For<INumberParserFactory>(); }
-{% endrequiredcode %}
+```
+-->
 
-{% examplecode csharp %}
+```csharp
 var firstCall = factory.Create(',');
 var secondCall = factory.Create(',');
 var thirdCallWithDiffArg = factory.Create('x');
 
 Assert.AreSame(firstCall, secondCall);
 Assert.AreNotSame(firstCall, thirdCallWithDiffArg);
-{% endexamplecode %}
+```
 
 _Note:_ Recursive substitutes will not be created for  non-purely virtual classes, as creating and using classes can have potentially unwanted side-effects. You'll therefore need to create and return these explicitly.
 
@@ -66,7 +68,7 @@ _Note:_ Recursive substitutes will not be created for  non-purely virtual classe
 
 It is not really an ideal practice, but when required we can also use recursive mocks to make it easier to set up chains of substitutes. For example:
 
-{% examplecode csharp %}
+```csharp
 public interface IContext {
     IRequest CurrentRequest { get; }
 }
@@ -78,17 +80,17 @@ public interface IIdentity {
     string Name { get; } 
     string[] Roles();
 }
-{% endexamplecode %}
+```
 
 To get the identity of the `CurrentRequest` to return a certain name, we could manually create substitutes for `IContext`, `IRequest`, and `IIdentity`, and then use `Returns()` to chain these substitutes together. Instead we can use the substitutes automatically created for each property and method:
 
-{% examplecode csharp %}
+```csharp
 var context = Substitute.For<IContext>();
 context.CurrentRequest.Identity.Name.Returns("My pet fish Eric");
 Assert.AreEqual(
     "My pet fish Eric", 
     context.CurrentRequest.Identity.Name);
-{% endexamplecode %} 
+``` 
     
 Here `CurrentRequest` is automatically going to return a substitute for `IRequest`, and the `IRequest` substitute will automatically return a substitute for `IIdentity`.
 
@@ -97,11 +99,11 @@ _Note:_ Setting up long chains of substitutes this way is a code smell: we are b
 ## Auto values
 Properties and methods returning types of `String` or `Array` will automatically get empty, non-null defaults. This can help avoid null reference exceptions in cases where you just need a reference returned but don't care about its specific properties.
 
-{% examplecode csharp %}
+```csharp
 var identity = Substitute.For<IIdentity>();
 Assert.AreEqual(String.Empty, identity.Name);
 Assert.AreEqual(0, identity.Roles().Length);
-{% endexamplecode %}
+```
 
 
 

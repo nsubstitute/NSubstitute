@@ -11,7 +11,7 @@ Partial substitutes allow us to create an object that acts like a real instance 
 
 In this example we want to test the `Read()` method logic without running `ReadFile()`.
 
-{% examplecode csharp %}
+```csharp
 public class SummingReader {
   public virtual int Read(string path) {
     var s = ReadFile(path);
@@ -19,11 +19,11 @@ public class SummingReader {
   }
   public virtual string ReadFile(string path) { return "the result of reading the file here"; }
 }
-{% endexamplecode %}
+```
 
 By default `ReadFile` may access a file on the file system, but we can `Substitute.ForPartsOf<SummingReader>()` and override `ReadFile` to return a substitute value, rather than loading data from a real file, using `Returns`:
 
-{% examplecode csharp %}
+```csharp
 [Test]
 public void ShouldSumAllNumbersInFile() {
   var reader = Substitute.ForPartsOf<SummingReader>();
@@ -33,7 +33,7 @@ public void ShouldSumAllNumbersInFile() {
 
   Assert.That(result, Is.EqualTo(15));
 }
-{% endexamplecode %}
+```
 
 Now the real `Read` method will execute, but `ReadFile` will return our substituted value instead of calling the original method, so we can run the test without having to worry about a real file system.
 
@@ -45,7 +45,7 @@ Note the **CAUTION** comment. If we had not used [`Configure()`](/help/configure
 
 We can't use `.Returns()` with void methods, but we can stop a void method on a partial substitute from calling the real method using `When .. DoNotCallBase`. (This also works for non-void methods, although generally we use `Configure()` and `Returns()` to override the base behaviour in these cases.)
 
-{% examplecode csharp %}
+```csharp
 public class EmailServer {
   public virtual void Send(string to, string from, string message) {
     // Insert real email sending code here
@@ -73,7 +73,7 @@ public void ShouldSendMultipleEmails() {
   server.Received().Send("bob", "nsubstitute", Arg.Any<string>());
   server.Received().Send("charlie", "nsubstitute", Arg.Any<string>());
 }
-{% endexamplecode %}
+```
 
 ## Test spies
 
