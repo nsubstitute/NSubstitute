@@ -1,6 +1,7 @@
 ### unreleased
 
-* [FIX] Fix event handling for code created by non-ECMA compliant compilers. (#500, #525, @zvjira)
+* [FIX] Do not fail on nested generic type formatting. (#515, @zvirja)
+* [FIX] Fix event handling for code created by non-ECMA compliant compilers. (#500, #525, @zvirja)
 * [UPDATE] Thanks to Julian Verdurmen (@304NotModified) for updating our website and links
 to HTTPS! All links to the NSub website should now go through https://nsubstitute.github.io,
 and other web links in the project also go through to HTTPS where supported.
