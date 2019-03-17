@@ -5,7 +5,7 @@ layout: post
 
 Sometimes calls need to be made in a specific order. Depending on the timing of calls like this is known as _temporal coupling_. Ideally we'd change our design to remove this coupling, but for times when we can't NSubstitute lets us resort to asserting the order of calls.
 
-{% examplecode csharp %}
+```csharp
 [Test]
 public void TestCommandRunWhileConnectionIsOpen() {
   var connection = Substitute.For<IConnection>();
@@ -20,13 +20,13 @@ public void TestCommandRunWhileConnectionIsOpen() {
     connection.Close();
   });
 }
-{% endexamplecode %}
+```
 
 If the calls were received in a different order then `Received.InOrder` will throw an exception and show the expected and actual calls.
 
 We can use standard [argument matchers](/help/argument-matchers/) to match calls, just as we would when [checking for a single received call](/help/received-calls/).
 
-{% examplecode csharp %}
+```csharp
 [Test]
 public void SubscribeToEventBeforeOpeningConnection() {
   var connection = Substitute.For<IConnection>();
@@ -38,9 +38,10 @@ public void SubscribeToEventBeforeOpeningConnection() {
     connection.Open();
   });
 }
-{% endexamplecode %}
+```
 
-{% requiredcode %}
+<!--
+```requiredcode
 public class Controller {
   IConnection connection;
   ICommand cmd;
@@ -63,5 +64,6 @@ public interface IConnection {
 public interface ICommand {
   void Run(IConnection c);
 }
-{% endrequiredcode %}
+```
+-->
 

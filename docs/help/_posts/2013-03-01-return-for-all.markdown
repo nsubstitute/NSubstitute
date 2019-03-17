@@ -15,11 +15,13 @@ There is also an overload that takes a `Func<CallInfo,T>` so the value to return
 
 One example of where this can be useful is a builder-style interface where each call returns a reference to itself.
 
-{% requiredcode %}
+<!--
+```requiredcode
 public interface IWidgetContainer {}
-{% endrequiredcode %}
+```
+-->
 
-{% examplecode csharp %}
+```csharp
 // using NSubstitute.Extensions;
 
 public interface IWidgetBuilder {
@@ -53,7 +55,7 @@ public void ShouldReturnWidgetsFromBuilder() {
 
   Assert.That(result, Is.EqualTo(builder.GetWidgets()));
 }
-{% endexamplecode %}
+```
 
 In this test `builder` will return a reference to itself whenever a call returns a value of type `IWidgetBuilder`, so the chained calls will all work on the same `builder` instance.
 
@@ -61,14 +63,16 @@ In this test `builder` will return a reference to itself whenever a call returns
 
 Calls will only use `.ReturnsForAll` values when NSubstitute can't find an explicitly stubbed value for the call. So if we set `sub.GetWidget().Returns(widget)`, that will take precendence over any values stubbed by `sub.ReturnsForAll<Widget>(otherWidget)`.
 
-{% requiredcode %}
+<!--
+```requiredcode
 public class Widget {}
 public interface IWidgetExample {
   Widget GetWidget(int i);
 }
-{% endrequiredcode %}
+```
+-->
 
-{% examplecode csharp %}
+```csharp
 [Test]
 public void ReturnsTakesPrecedence() {
   var widget = new Widget();
@@ -80,4 +84,4 @@ public void ReturnsTakesPrecedence() {
   Assert.That(sub.GetWidget(1), Is.SameAs(widget));
   Assert.That(sub.GetWidget(42), Is.SameAs(otherWidget));
 }
-{% endexamplecode %}
+```

@@ -3,10 +3,9 @@ module ExtractDocs =
     open System.IO
     open System.Text.RegularExpressions
 
-    let LiquidTagRegex = @"(?:\<!--\s*)?\{%\s*(?<tag>\w+).*\%}(?:\s*--\>)?" + // Tag start, optionally surrounded by HTML comments
-                                                                              //     e.g. "<!-- {% code %} -->"
-                         @"(?<contents>(?s:.*?))" +                           // Tag contents
-                         @"(?:\<!--\s*)?\{%\s*end\1\s*%\}(?:\s*--\>)?"        // Tag end w/optional comments. e.g. "<!-- {% endcode %} -->"
+    let LiquidTagRegex = @"```(?<tag>\w+)" +        // Tag start with argument. e.g. "```csharp"
+                         @"(?<contents>(?s:.*?))" + // Tag contents
+                         @"```?"                    // Tag end
     let TypeOrTestDeclRegex = @"(\[Test\]|(public |private |protected )?(class |interface )\w+\s*\{)"
 
     type LiquidTag = LiquidTag of name : string * contents : string
@@ -20,7 +19,7 @@ module ExtractDocs =
     let toCodeBlock (LiquidTag (name, c)) =
         let isTypeOrTestDecl s = Regex.IsMatch(s, TypeOrTestDeclRegex)
         match name with
-        | "examplecode"  -> if isTypeOrTestDecl c then Some (Declaration c) else Some (Snippet c)
+        | "csharp"       -> if isTypeOrTestDecl c then Some (Declaration c) else Some (Snippet c)
         | "requiredcode" -> Some (Declaration c)
         | _              -> None
 

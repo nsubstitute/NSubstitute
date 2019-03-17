@@ -1,4 +1,8 @@
-highlighter: none
+highlighter: rouge
 permalink: /:categories/:title/
 lsi: false
 markdown: KramdownPlus
+
+kramdown:
+    input: GFM
+    syntax_highlighter: rouge
