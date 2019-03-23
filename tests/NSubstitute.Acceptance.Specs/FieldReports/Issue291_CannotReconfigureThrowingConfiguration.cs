@@ -7,7 +7,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
 {
     public class Issue291_CannotReconfigureThrowingConfiguration
     {
-        // Based on: http://stackoverflow.com/q/42686269/906
+        // Based on: https://stackoverflow.com/q/42686269/906
 
         public interface IRequest { }
         public interface IResponse { }

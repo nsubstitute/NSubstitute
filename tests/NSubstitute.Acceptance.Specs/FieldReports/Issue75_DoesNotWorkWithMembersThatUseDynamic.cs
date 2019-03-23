@@ -45,7 +45,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             log.Received().Error(Arg.Is<Exception>(x => x.Message == errorResponse));
         }
 
-        // src: http://stackoverflow.com/questions/13182007/nsubstitute-mock-generic-method/
+        // src: https://stackoverflow.com/questions/13182007/nsubstitute-mock-generic-method/
         public interface ISettingsUtil
         {
             T GetConfig<T>(string setting, dynamic settings);
@@ -55,7 +55,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         [Pending, Explicit]
         public void AnotherTest()
         {
-            // Adapted from: http://stackoverflow.com/questions/13182007/nsubstitute-mock-generic-method/
+            // Adapted from: https://stackoverflow.com/questions/13182007/nsubstitute-mock-generic-method/
             var settingsUtil = Substitute.For<ISettingsUtil>();
             // This works:
             //SubstituteExtensions.Returns(settingsUtil.GetConfig<long>("maxImageSize", Arg.Any<dynamic>()), 100L);

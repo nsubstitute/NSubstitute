@@ -39,7 +39,7 @@ namespace NSubstitute.Specs
         [Test]
         public void All_nsub_exceptions_should_implement_serialisation_ctor_so_its_stacktrace_can_be_preserved()
         {
-            /* This is meant to be good practice (http://msdn.microsoft.com/en-us/library/ms229064.aspx), but
+            /* This is meant to be good practice (https://msdn.microsoft.com/en-us/library/ms229064.aspx), but
              * at one stage was also (or still is?) used to preserve stack traces from RaiseEventHandler.
              */
             foreach (var exceptionType in _exceptionTypes)
