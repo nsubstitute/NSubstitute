@@ -28,25 +28,25 @@ If you have questions, feature requests or feedback on NSubstitute please [raise
 Let's say we have a basic calculator interface:
 
 ```csharp
-    public interface ICalculator
-    {
-        int Add(int a, int b);
-        string Mode { get; set; }
-        event Action PoweringUp;
-    }
+public interface ICalculator
+{
+    int Add(int a, int b);
+    string Mode { get; set; }
+    event Action PoweringUp;
+}
 ```
 <!--
 ```requiredcode
-    ICalculator _calculator;
-    [SetUp]
-    public void SetUp() { _calculator = Substitute.For<ICalculator>(); }
+ICalculator _calculator;
+[SetUp]
+public void SetUp() { _calculator = Substitute.For<ICalculator>(); }
 ```
 -->
 
 We can ask NSubstitute to create a substitute instance for this type. We could ask for a stub, mock, fake, spy, test double etc., but why bother when we just want to substitute an instance we have some control over?
 
 ```csharp
-    _calculator = Substitute.For<ICalculator>();
+_calculator = Substitute.For<ICalculator>();
 ```
 
 ⚠️ **Note**: NSubstitute will only work properly with interfaces or with `virtual` members of classes. Be careful substituting for classes with non-virtual members. See [Creating a substitute](https://nsubstitute.github.io/help/creating-a-substitute/#substituting_infrequently_and_carefully_for_classes) for more information.
@@ -54,16 +54,16 @@ We can ask NSubstitute to create a substitute instance for this type. We could a
 Now we can tell our substitute to return a value for a call:
 
 ```csharp
-    _calculator.Add(1, 2).Returns(3);
-    Assert.That(_calculator.Add(1, 2), Is.EqualTo(3));
+_calculator.Add(1, 2).Returns(3);
+Assert.That(_calculator.Add(1, 2), Is.EqualTo(3));
 ```
 
 We can check that our substitute received a call, and did not receive others:
 
 ```csharp
-    _calculator.Add(1, 2);
-    _calculator.Received().Add(1, 2);
-    _calculator.DidNotReceive().Add(5, 7);
+_calculator.Add(1, 2);
+_calculator.Received().Add(1, 2);
+_calculator.DidNotReceive().Add(5, 7);
 ```
 
 If our Received() assertion fails, NSubstitute tries to give us some help as to what the problem might be:
@@ -79,47 +79,47 @@ If our Received() assertion fails, NSubstitute tries to give us some help as to 
 We can also work with properties using the Returns syntax we use for methods, or just stick with plain old property setters (for read/write properties):
 
 ```csharp
-    _calculator.Mode.Returns("DEC");
-    Assert.That(_calculator.Mode, Is.EqualTo("DEC"));
+_calculator.Mode.Returns("DEC");
+Assert.That(_calculator.Mode, Is.EqualTo("DEC"));
 
-    _calculator.Mode = "HEX";
-    Assert.That(_calculator.Mode, Is.EqualTo("HEX"));
+_calculator.Mode = "HEX";
+Assert.That(_calculator.Mode, Is.EqualTo("HEX"));
 ```
 
 NSubstitute supports argument matching for setting return values and asserting a call was received:
 
 ```csharp
-    _calculator.Add(10, -5);
-    _calculator.Received().Add(10, Arg.Any<int>());
-    _calculator.Received().Add(10, Arg.Is<int>(x => x < 0));
+_calculator.Add(10, -5);
+_calculator.Received().Add(10, Arg.Any<int>());
+_calculator.Received().Add(10, Arg.Is<int>(x => x < 0));
 ```
 
 We can use argument matching as well as passing a function to Returns() to get some more behaviour out of our substitute (possibly too much, but that's your call):
 
 ```csharp
-    _calculator
-       .Add(Arg.Any<int>(), Arg.Any<int>())
-       .Returns(x => (int)x[0] + (int)x[1]);
-    Assert.That(_calculator.Add(5, 10), Is.EqualTo(15));
+_calculator
+   .Add(Arg.Any<int>(), Arg.Any<int>())
+   .Returns(x => (int)x[0] + (int)x[1]);
+Assert.That(_calculator.Add(5, 10), Is.EqualTo(15));
 ```
 
 Returns() can also be called with multiple arguments to set up a sequence of return values.
 
 ```csharp
-    _calculator.Mode.Returns("HEX", "DEC", "BIN");
-    Assert.That(_calculator.Mode, Is.EqualTo("HEX"));
-    Assert.That(_calculator.Mode, Is.EqualTo("DEC"));
-    Assert.That(_calculator.Mode, Is.EqualTo("BIN"));
+_calculator.Mode.Returns("HEX", "DEC", "BIN");
+Assert.That(_calculator.Mode, Is.EqualTo("HEX"));
+Assert.That(_calculator.Mode, Is.EqualTo("DEC"));
+Assert.That(_calculator.Mode, Is.EqualTo("BIN"));
 ```
 
 Finally, we can raise events on our substitutes (unfortunately C# dramatically restricts the extent to which this syntax can be cleaned up):
 
 ```csharp
-    bool eventWasRaised = false;
-    _calculator.PoweringUp += () => eventWasRaised = true;
+bool eventWasRaised = false;
+_calculator.PoweringUp += () => eventWasRaised = true;
 
-    _calculator.PoweringUp += Raise.Event<Action>();
-    Assert.That(eventWasRaised);
+_calculator.PoweringUp += Raise.Event<Action>();
+Assert.That(eventWasRaised);
 ```
 
 ### Building
