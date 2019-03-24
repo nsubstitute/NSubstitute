@@ -13,16 +13,27 @@ namespace NSubstitute.Core
         private readonly object[] _arguments;
         private readonly object[] _originalArguments;
         private readonly object _target;
-        private readonly IParameterInfo[] _parameterInfos;
         private readonly IList<IArgumentSpecification> _argumentSpecifications;
+        private IParameterInfo[] _parameterInfosCached;
         private long? _sequenceNumber;
         private readonly Func<object> _baseMethod;
 
+        [Obsolete("This constructor is deprecated and will be removed in future version of product.")]
         public Call(MethodInfo methodInfo,
             object[] arguments,
             object target,
             IList<IArgumentSpecification> argumentSpecifications,
             IParameterInfo[] parameterInfos,
+            Func<object> baseMethod)
+            : this(methodInfo, arguments, target, argumentSpecifications, baseMethod)
+        {
+            _parameterInfosCached = parameterInfos ?? throw new ArgumentNullException(nameof(parameterInfos));
+        }
+
+        public Call(MethodInfo methodInfo,
+            object[] arguments,
+            object target,
+            IList<IArgumentSpecification> argumentSpecifications,
             Func<object> baseMethod)
         {
             _methodInfo = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
@@ -30,13 +41,20 @@ namespace NSubstitute.Core
             _originalArguments = arguments.ToArray();
             _target = target ?? throw new ArgumentNullException(nameof(target));
             _argumentSpecifications = argumentSpecifications ?? throw new ArgumentNullException(nameof(argumentSpecifications));
-            _parameterInfos = parameterInfos ?? throw new ArgumentNullException(nameof(parameterInfos));
             _baseMethod = baseMethod;
         }
 
         public IParameterInfo[] GetParameterInfos()
         {
-            return _parameterInfos;
+            // Don't worry about concurrency.
+            // Normally call is processed in a single thread.
+            // However even if race condition happens, we'll create an extra set of wrappers, which behaves the same.
+            if (_parameterInfosCached == null)
+            {
+                _parameterInfosCached = GetParameterInfoFromMethod(_methodInfo);
+            }
+
+            return _parameterInfosCached;
         }
 
         public IList<IArgumentSpecification> GetArgumentSpecifications()
@@ -65,15 +83,9 @@ namespace NSubstitute.Core
             return _baseMethod == null ? Maybe.Nothing<object>() : Maybe.Just(_baseMethod());
         }
 
-        public Type GetReturnType()
-        {
-            return _methodInfo.ReturnType;
-        }
+        public Type GetReturnType() => _methodInfo.ReturnType;
 
-        public MethodInfo GetMethodInfo()
-        {
-            return _methodInfo;
-        }
+        public MethodInfo GetMethodInfo() => _methodInfo;
 
         public object[] GetArguments()
         {
@@ -85,9 +97,19 @@ namespace NSubstitute.Core
             return _originalArguments;
         }
 
-        public object Target()
+        public object Target() => _target;
+
+        private static IParameterInfo[] GetParameterInfoFromMethod(MethodInfo methodInfo)
         {
-            return _target;
+            var parameters = methodInfo.GetParameters();
+            var parameterInfos = new IParameterInfo[parameters.Length];
+            
+            for (var i = 0; i < parameters.Length; i++)
+            {
+                parameterInfos[i] = new ParameterInfoWrapper(parameters[i]);
+            }
+
+            return parameterInfos;
         }
     }
 }
