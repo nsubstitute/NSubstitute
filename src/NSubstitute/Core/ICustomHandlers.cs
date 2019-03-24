@@ -9,7 +9,8 @@ namespace NSubstitute.Core
 
     public interface ICustomHandlers
     {
-        IEnumerable<ICallHandler> Handlers { get; }
+        IReadOnlyCollection<ICallHandler> Handlers { get; }
+
         void AddCustomHandlerFactory(CallHandlerFactory factory);
     }
 }
