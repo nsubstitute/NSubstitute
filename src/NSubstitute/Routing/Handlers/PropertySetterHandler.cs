@@ -19,7 +19,10 @@ namespace NSubstitute.Routing.Handlers
             if (_propertyHelper.IsCallToSetAReadWriteProperty(call))
             {
                 var callToPropertyGetter = _propertyHelper.CreateCallToPropertyGetterFromSetterCall(call);
-                var valueBeingSetOnProperty = call.GetArguments().Last();
+                // It's important to use original arguments, as it provides better performance.
+                // It's safe to use original arguments here, as only by-ref arguments might be modified,
+                // which should never happen for this case.
+                var valueBeingSetOnProperty = call.GetOriginalArguments().Last();
                 ConfigureCall.SetResultForCall(callToPropertyGetter, new ReturnValue(valueBeingSetOnProperty), MatchArgs.AsSpecifiedInCall);
             }
             return RouteAction.Continue();
