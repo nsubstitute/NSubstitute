@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 
@@ -11,7 +12,7 @@ namespace NSubstitute.Core
     {
         private readonly MethodInfo _methodInfo;
         private readonly object[] _arguments;
-        private readonly object[] _originalArguments;
+        private object[] _originalArguments;
         private readonly object _target;
         private readonly IList<IArgumentSpecification> _argumentSpecifications;
         private IParameterInfo[] _parameterInfosCached;
@@ -38,10 +39,14 @@ namespace NSubstitute.Core
         {
             _methodInfo = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
             _arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
-            _originalArguments = arguments.ToArray();
             _target = target ?? throw new ArgumentNullException(nameof(target));
             _argumentSpecifications = argumentSpecifications ?? throw new ArgumentNullException(nameof(argumentSpecifications));
             _baseMethod = baseMethod;
+
+            // Performance optimization - we don't want to create a copy on each call.
+            // Instead, we want to guard array only if "mutable" array property is accessed.
+            // Therefore, we keep tracking whether the "mutable" version is accessed and if so - create a copy on demand.
+            _originalArguments = _arguments;
         }
 
         public IParameterInfo[] GetParameterInfos()
@@ -89,6 +94,19 @@ namespace NSubstitute.Core
 
         public object[] GetArguments()
         {
+            // This method assumes that result might be mutated.
+            // Therefore, we should guard our array with original values to ensure it's unmodified.
+            // Also if array is empty - no sense to make a copy.
+            object[] originalArray = _originalArguments;
+            if (originalArray == _arguments && originalArray.Length > 0)
+            {
+                object[] copy = originalArray.ToArray();
+                // If it happens that _originalArguments doesn't point to the `_arguments` anymore -
+                // it might happen that other thread already created a copy and mutated the original `_arguments` array.
+                // In this case it's unsafe to replace it with a copy.
+                Interlocked.CompareExchange(ref _originalArguments, copy, originalArray);
+            }
+
             return _arguments;
         }
 
