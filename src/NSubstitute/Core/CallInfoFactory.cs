@@ -1,26 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace NSubstitute.Core
+﻿namespace NSubstitute.Core
 {
     public class CallInfoFactory : ICallInfoFactory
     {
         public CallInfo Create(ICall call)
         {
-            var arguments = GetArgumentsFromCall(call).ToArray();
+            var arguments = GetArgumentsFromCall(call);
             return new CallInfo(arguments);
         }
 
-        private static IEnumerable<Argument> GetArgumentsFromCall(ICall call)
+        private static Argument[] GetArgumentsFromCall(ICall call)
         {
-            var values = call.GetArguments();
-            var parameterInfos = call.GetParameterInfos();
+            var result = new Argument[call.GetOriginalArguments().Length];
 
-            for (var index = 0; index < values.Length; index++)
+            for (var i = 0; i < result.Length; i++)
             {
-                var i = index;
-                yield return new Argument(parameterInfos[i].ParameterType, () => values[i], x => values[i] = x);
+                result[i] = new Argument(call, i);
             }
+
+            return result;
         }
     }
 }
