@@ -16,9 +16,9 @@ namespace NSubstitute.Core
             _dequeueAllQueuedArgSpecs = dequeueAllQueuedArgSpecs;
         }
 
-        public IList<IArgumentSpecification> DequeueAllArgumentSpecificationsForMethod(MethodInfo methodInfo)
+        public IList<IArgumentSpecification> DequeueAllArgumentSpecificationsForMethod(int parametersCount)
         {
-            if (methodInfo.GetParameters().Length == 0)
+            if (parametersCount == 0)
             {
                 // We violate public contract, as mutable list was expected as result.
                 // However, in reality we never expect value to be mutated, so this optimization is fine.
@@ -28,6 +28,11 @@ namespace NSubstitute.Core
 
             var queuedArgSpecifications = _dequeueAllQueuedArgSpecs.Invoke();
             return queuedArgSpecifications;
+        }
+
+        public IList<IArgumentSpecification> DequeueAllArgumentSpecificationsForMethod(MethodInfo methodInfo)
+        {
+            return DequeueAllArgumentSpecificationsForMethod(methodInfo.GetParameters().Length);
         }
     }
 }
