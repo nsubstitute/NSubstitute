@@ -1,7 +1,7 @@
 language: csharp
-dotnet: 2.1.105
+dotnet: 2.1.502
 mono: none
-env: CONFIGURATION=Release FRAMEWORK=netcoreapp2.0
+env: CONFIGURATION=Release FRAMEWORK=netcoreapp2.1
 
 before_script:
   - dotnet --info
