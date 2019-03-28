@@ -52,5 +52,9 @@
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+ 
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
+    <DefineConstants>$(DefineConstants);SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY</DefineConstants>
+  </PropertyGroup>
 
 </Project>
