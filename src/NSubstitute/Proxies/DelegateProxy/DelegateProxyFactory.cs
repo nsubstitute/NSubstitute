@@ -12,125 +12,20 @@ using NSubstitute.Proxies.CastleDynamicProxy;
 
 namespace NSubstitute.Proxies.DelegateProxy
 {
+    [Obsolete("This class is deprecated and will be removed in future versions of the product.")]
     public class DelegateProxyFactory : IProxyFactory
     {
-        private const string MethodNameInsideProxyContainer = "Invoke";
-        private const string IsReadOnlyAttributeFullTypeName = "System.Runtime.CompilerServices.IsReadOnlyAttribute";
         private readonly CastleDynamicProxyFactory _castleObjectProxyFactory;
-        private readonly ConcurrentDictionary<Type, Type> _delegateContainerCache = new ConcurrentDictionary<Type, Type>();
 
         public DelegateProxyFactory(CastleDynamicProxyFactory objectProxyFactory)
         {
             _castleObjectProxyFactory = objectProxyFactory ?? throw new ArgumentNullException(nameof(objectProxyFactory));
         }
-        
+
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
         {
-            if (HasItems(additionalInterfaces))
-            {
-                throw new SubstituteException(
-                    "Can not specify additional interfaces when substituting for a delegate. " +
-                    "You must specify only a single delegate type if you need to substitute for a delegate.");
-            }
-            if (HasItems(constructorArguments))
-            {
-                throw new SubstituteException("Can not provide constructor arguments when substituting for a delegate.");
-            }
-
-            return DelegateProxy(typeToProxy, callRouter);
-        }
-
-        private static bool HasItems<T>(T[] array)
-        {
-            return array != null && array.Length > 0;
-        }
-
-        private object DelegateProxy(Type delegateType, ICallRouter callRouter)
-        {
-            var delegateContainer = _delegateContainerCache.GetOrAdd(delegateType, GenerateDelegateContainerInterface);
-            var invokeMethod = delegateContainer.GetMethod(MethodNameInsideProxyContainer);
-
-            var proxy = _castleObjectProxyFactory.GenerateProxy(callRouter, delegateContainer, Type.EmptyTypes, null);
-            return invokeMethod.CreateDelegate(delegateType, proxy);
-        }
-
-        private Type GenerateDelegateContainerInterface(Type delegateType)
-        {
-            var delegateSignature = delegateType.GetMethod("Invoke");
-            var delegateParameters = delegateSignature.GetParameters();
-
-            var typeName = $"NSubstituteDelegateProxy.DelegateContainer_{Guid.NewGuid():N}";
-
-            var typeBuilder = _castleObjectProxyFactory.DefineDynamicType(
-                typeName,
-                TypeAttributes.Abstract | TypeAttributes.Interface | TypeAttributes.Public);
-
-            // Notice, we don't copy the custom modifiers here.
-            // That's absolutely fine, as custom modifiers are ignored when delegate is constructed.
-            // See the related discussion here: https://github.com/dotnet/coreclr/issues/18401
-            var methodBuilder = typeBuilder
-                .DefineMethod(
-                    MethodNameInsideProxyContainer,
-                    MethodAttributes.Abstract | MethodAttributes.Virtual | MethodAttributes.Public,
-                    CallingConventions.Standard,
-                    delegateSignature.ReturnType,
-                    delegateSignature.GetParameters().Select(p => p.ParameterType).ToArray());
-
-            // Copy original method attributes, so "out" parameters are recognized later.
-            for (var i = 0; i < delegateParameters.Length; i++)
-            {
-                var parameter = delegateParameters[i];
-
-                // Increment position by 1 to skip the implicit "this" parameter.
-                var paramBuilder = methodBuilder.DefineParameter(i + 1, parameter.Attributes, parameter.Name);
-
-                // Read-only parameter ('in' keyword) is recognized by presence of the special attribute.
-                // If source parameter contained that attribute, ensure to copy it to the generated method.
-                // That helps Castle to understand that parameter is read-only and cannot be mutated.
-                DefineIsReadOnlyAttributeIfNeeded(parameter, paramBuilder);
-            }
-
-            // Preserve the original delegate type in attribute, so it can be retrieved later in code.
-            methodBuilder.SetCustomAttribute(
-                new CustomAttributeBuilder(
-                    typeof(ProxiedDelegateTypeAttribute).GetConstructors().Single(),
-                    new object[] {delegateType}));
-
-            return typeBuilder.CreateTypeInfo().AsType();
-        }
-
-        private static void DefineIsReadOnlyAttributeIfNeeded(ParameterInfo sourceParameter, ParameterBuilder paramBuilder)
-        {
-            // Read-only parameter can be by-ref only.
-            if (!sourceParameter.ParameterType.IsByRef)
-            {
-                return;
-            }
-
-            // Lookup for the attribute using full type name.
-            // That's required because compiler can embed that type directly to the client's assembly
-            // as type identity doesn't matter - only full type attribute name is checked.
-            var isReadOnlyAttrType = sourceParameter.CustomAttributes
-                .Select(ca => ca.AttributeType)
-                .FirstOrDefault(t => t.FullName.Equals(IsReadOnlyAttributeFullTypeName, StringComparison.Ordinal));
-
-            // Parameter doesn't contain the IsReadOnly attribute.
-            if (isReadOnlyAttrType == null)
-            {
-                return;
-            }
-
-            // If the compiler generated attribute is used (e.g. runtime doesn't contain the attribute),
-            // the generated attribute type might be internal, so we cannot referecnce it in the dynamic assembly.
-            // In this case use the attribute type from the current assembly, as we allow dynamic assembly
-            // to read our internal types.
-            if (!isReadOnlyAttrType.GetTypeInfo().IsVisible)
-            {
-                isReadOnlyAttrType = typeof(IsReadOnlyAttribute);
-            }
-
-            paramBuilder.SetCustomAttribute(
-                new CustomAttributeBuilder(isReadOnlyAttrType.GetConstructor(Type.EmptyTypes), new object[0]));
+            // Castle factory can now resolve delegate proxies as well.
+            return _castleObjectProxyFactory.GenerateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments);
         }
     }
 }

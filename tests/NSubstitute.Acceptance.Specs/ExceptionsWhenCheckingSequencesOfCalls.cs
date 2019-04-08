@@ -4,26 +4,27 @@ using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
 {
+    /***** Types should be declared outside of the class, otherwise they are rendered as nested in error message *****/
+    public interface IFoo
+    {
+        void Bar();
+        void Zap();
+    }
+
+    public interface IBaz
+    {
+        void Gloop(int i);
+        void Slop(object o, string s);
+    }
+
+    public interface IBar
+    {
+        int Huh();
+    }
+ 
     [TestFixture]
     public class ExceptionsWhenCheckingSequencesOfCalls
     {
-        public interface IFoo
-        {
-            void Bar();
-            void Zap();
-        }
-
-        public interface IBaz
-        {
-            void Gloop(int i);
-            void Slop(object o, string s);
-        }
-
-        public interface IBar
-        {
-            int Huh();
-        }
-
         [Test]
         public void When_missing_a_call()
         {
