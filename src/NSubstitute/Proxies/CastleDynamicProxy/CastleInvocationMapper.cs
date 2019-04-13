@@ -28,7 +28,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 baseMethod = () => result.Value;
             }
 
-            var queuedArgSpecifications = _argSpecificationDequeue.DequeueAllArgumentSpecificationsForMethod(castleInvocation.Method);
+            var queuedArgSpecifications = _argSpecificationDequeue.DequeueAllArgumentSpecificationsForMethod(castleInvocation.Arguments.Length);
             return _callFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy, queuedArgSpecifications, baseMethod);
         }
     }

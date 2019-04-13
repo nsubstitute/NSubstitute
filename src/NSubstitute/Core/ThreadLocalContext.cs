@@ -10,6 +10,8 @@ namespace NSubstitute.Core
 {
     public class ThreadLocalContext : IThreadLocalContext
     {
+        private static readonly IArgumentSpecification[] EmptySpecifications = new IArgumentSpecification[0];
+
         private readonly RobustThreadLocal<ICallRouter> _lastCallRouter;
         private readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications;
         private readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent;
@@ -44,7 +46,7 @@ namespace NSubstitute.Core
             if(!PendingSpecification.HasPendingCallSpecInfo())
                throw new CouldNotSetReturnDueToMissingInfoAboutLastCallException();
 
-            if (_argumentSpecifications.Value.Any())
+            if (_argumentSpecifications.Value.Count > 0)
             {
                 // Clear invalid arg specs so they will not affect other tests.
                 _argumentSpecifications.Value.Clear();
@@ -99,7 +101,19 @@ namespace NSubstitute.Core
             if (queue == null)
                 throw new SubstituteInternalException("Argument specification queue is null.");
 
-            _argumentSpecifications.Value = new List<IArgumentSpecification>();
+            if (queue.Count == 0)
+            {
+                // It's a performance optimization to avoid extra allocation and write access to ThreadLocal variable.
+                // We violate public contract, as mutable list was expected as result.
+                // However, in reality we never expect value to be mutated, so this optimization is fine.
+                // We are not allowed to change public contract due to SemVer, so keeping that as it is.
+                queue = EmptySpecifications;
+            }
+            else
+            {
+                _argumentSpecifications.Value = new List<IArgumentSpecification>();
+            }
+
             return queue;
         }
 
@@ -111,7 +125,11 @@ namespace NSubstitute.Core
         public Func<ICall, object[]> UsePendingRaisingEventArgumentsFactory()
         {
             var result = _getArgumentsForRaisingEvent.Value;
-            _getArgumentsForRaisingEvent.Value = null;
+            if (result != null)
+            {
+                _getArgumentsForRaisingEvent.Value = null;
+            }
+
             return result;
         }
 

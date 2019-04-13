@@ -46,7 +46,10 @@ namespace NSubstitute.Routing.Handlers
             var matchingEvent = GetEvents(call, meetsThisSpecification).FirstOrDefault();
             if (matchingEvent != null)
             {
-                takeThisAction(matchingEvent.Name, call.GetArguments()[0]);
+                // It's important to use original arguments, as it provides better performance.
+                // It's safe to use original arguments here, as only by-ref arguments might be modified,
+                // which should never happen for this case.
+                takeThisAction(matchingEvent.Name, call.GetOriginalArguments()[0]);
             }
         }
 

@@ -6,7 +6,9 @@ namespace NSubstitute.Core
 {
     public class CallBaseConfiguration : ICallBaseConfiguration
     {
-        private ConcurrentQueue<CallBaseRule> Rules { get; } = new ConcurrentQueue<CallBaseRule>();
+        // Even though ConcurrentStack allocates on each push, we expect that configuration happens rarely.
+        // Stack allows us to perform reverse enumeration (which is the most common operation) cheaply.
+        private ConcurrentStack<CallBaseRule> Rules { get; } = new ConcurrentStack<CallBaseRule>();
 
         /// <inheritdoc />
         public bool CallBaseByDefault { get; set; }
@@ -16,7 +18,7 @@ namespace NSubstitute.Core
         {
             if (callSpecification == null) throw new ArgumentNullException(nameof(callSpecification));
 
-            Rules.Enqueue(new CallBaseRule(callSpecification, callBase: false));
+            Rules.Push(new CallBaseRule(callSpecification, callBase: false));
         }
 
         /// <inheritdoc />
@@ -24,7 +26,7 @@ namespace NSubstitute.Core
         {
             if (callSpecification == null) throw new ArgumentNullException(nameof(callSpecification));
 
-            Rules.Enqueue(new CallBaseRule(callSpecification, callBase: true));
+            Rules.Push(new CallBaseRule(callSpecification, callBase: true));
         }
 
         /// <inheritdoc />
@@ -42,8 +44,16 @@ namespace NSubstitute.Core
 
         private bool TryGetExplicitConfiguration(ICall call, out bool callBase)
         {
+            callBase = default;
+
+            // Performance optimization, as enumerator retrieval allocates.
+            if (Rules.IsEmpty)
+            {
+                return false;
+            }
+
             // Use explicit foreach instead of LINQ to improve performance (avoid delegate construction).
-            foreach (var rule in Rules.Reverse())
+            foreach (var rule in Rules)
             {
                 if (rule.IsSatisfiedBy(call))
                 {
@@ -52,7 +62,6 @@ namespace NSubstitute.Core
                 }
             }
 
-            callBase = false;
             return false;
         }
 

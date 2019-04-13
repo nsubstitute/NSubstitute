@@ -123,7 +123,7 @@ Target "Benchmarks" (fun _ ->
 
     let benchmarkCsproj = root </> "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> FullName
     let benchmarkToRun = getBuildParamOrDefault "benchmark" "*" // Defaults to "*" (all)
-    [ "netcoreapp1.1" ]
+    [ "netcoreapp2.1" ]
     |> List.iter (fun framework ->
         traceImportant ("Benchmarking " + framework)
         let work = output </> "benchmark-" + framework

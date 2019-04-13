@@ -5,46 +5,74 @@ namespace NSubstitute.Core
 {
     public class CallResults : ICallResults
     {
-        readonly ICallInfoFactory _callInfoFactory;
-        ConcurrentQueue<ResultForCallSpec> _results;
+        private readonly ICallInfoFactory _callInfoFactory;
+        // There was made a decision to use ConcurrentStack instead of ConcurrentQueue here.
+        // The pros is that reverse enumeration is cheap. The cons is that stack allocates on each push.
+        // We presume that read operations will dominate, so stack suits better.
+        private readonly ConcurrentStack<ResultForCallSpec> _results;
 
         public CallResults(ICallInfoFactory callInfoFactory)
         {
-            _results = new ConcurrentQueue<ResultForCallSpec>();
+            _results = new ConcurrentStack<ResultForCallSpec>();
             _callInfoFactory = callInfoFactory;
         }
 
         public void SetResult(ICallSpecification callSpecification, IReturn result)
         {
-            _results.Enqueue(new ResultForCallSpec(callSpecification, result));
+            _results.Push(new ResultForCallSpec(callSpecification, result));
         }
 
         public bool TryGetResult(ICall call, out object result)
         {
-            result = null;
-            if (ReturnsVoidFrom(call)) return false;
+            result = default;
+            if (ReturnsVoidFrom(call))
+            {
+                return false;
+            }
 
-            var resultWrapper = _results.Reverse().FirstOrDefault(x => x.IsResultFor(call));
-            if(resultWrapper == null) return false;
+            var resultWrapper = FindResultForCall(call);
+            if (resultWrapper == null)
+            {
+                return false;
+            }
 
             result = resultWrapper.GetResult(_callInfoFactory.Create(call));
             return true;
         }
 
-        public void Clear()
+        private ResultForCallSpec FindResultForCall(ICall call)
         {
-            _results = new ConcurrentQueue<ResultForCallSpec>();
+            // Optimization for performance - enumerator makes allocation.
+            if (_results.IsEmpty)
+            {
+                return null;
+            }
+
+            foreach (var result in _results)
+            {
+                if (result.IsResultFor(call))
+                {
+                    return result;
+                }
+            }
+
+            return null;
         }
 
-        bool ReturnsVoidFrom(ICall call)
+        public void Clear()
+        {
+            _results.Clear();
+        }
+
+        private static bool ReturnsVoidFrom(ICall call)
         {
             return call.GetReturnType() == typeof(void);
         }
 
-        class ResultForCallSpec
+        private class ResultForCallSpec
         {
-            readonly ICallSpecification _callSpecification;
-            readonly IReturn _resultToReturn;
+            private readonly ICallSpecification _callSpecification;
+            private readonly IReturn _resultToReturn;
 
             public ResultForCallSpec(ICallSpecification callSpecification, IReturn resultToReturn)
             {

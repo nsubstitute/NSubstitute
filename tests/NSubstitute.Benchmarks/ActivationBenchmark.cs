@@ -5,6 +5,7 @@ using NSubstitute.Benchmarks.TestTypes;
 namespace NSubstitute.Benchmarks
 {
     [ClrJob, CoreJob]
+    [MemoryDiagnoser]
     public class ActivationBenchmark
     {
         [Benchmark]
@@ -26,9 +27,9 @@ namespace NSubstitute.Benchmarks
         }
 
         [Benchmark]
-        public CustomDelegate CreateDelegateSubstitute()
+        public IntDelegate CreateDelegateSubstitute()
         {
-            return Substitute.For<CustomDelegate>();
+            return Substitute.For<IntDelegate>();
         }
     }
 }

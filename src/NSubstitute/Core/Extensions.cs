@@ -86,5 +86,13 @@ namespace NSubstitute.Core
                 return indexOfBacktick > -1 ? tn.Substring(0, indexOfBacktick) : tn;
             }
         }
+
+        /// <summary>
+        /// Tries to cast sequence to array first before making a new array sequence.
+        /// </summary>
+        public static T[] AsArray<T>(this IEnumerable<T> sequence)
+        {
+            return sequence is T[] array ? array : sequence.ToArray();
+        }
     }
 }
