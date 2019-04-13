@@ -8,56 +8,41 @@ namespace NSubstitute.ReturnsExtensions
         /// <summary>
         /// Set null as returned value for this call.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsNull<T>(this T value) where T : class
         {
-            return value.Returns(i => null);
+            return value.Returns(default(T));
         }
 
         /// <summary>
         /// Set null as returned value for this call made with any arguments.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsNullForAnyArgs<T>(this T value) where T : class
         {
-            return value.ReturnsForAnyArgs(i => null);
+            return value.ReturnsForAnyArgs(default(T));
         }
 
         /// <summary>
         /// Set null as returned value for this call.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsNull<T>(this Task<T> value) where T : class
         {
-            return value.Returns(i => SubstituteExtensions.CompletedTask<T>(null));
+            return value.Returns(default(T));
         }
 
         /// <summary>
         /// Set null as returned value for this call.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsNull<T>(this ValueTask<T> value) where T : class
         {
-            return value.Returns(i => SubstituteExtensions.CompletedValueTask<T>(null));
+            return value.Returns(default(T));
         }
 
         /// <summary>
         /// Set null as returned value for this call made with any arguments.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsNullForAnyArgs<T>(this Task<T> value) where T : class
         {
-            return value.ReturnsForAnyArgs(i => SubstituteExtensions.CompletedTask<T>(null));
+            return value.ReturnsForAnyArgs(default(T));
         }
 
         /// <summary>
@@ -68,7 +53,7 @@ namespace NSubstitute.ReturnsExtensions
         /// <returns></returns>
         public static ConfiguredCall ReturnsNullForAnyArgs<T>(this ValueTask<T> value) where T : class
         {
-            return value.ReturnsForAnyArgs(i => SubstituteExtensions.CompletedValueTask<T>(null));
+            return value.ReturnsForAnyArgs(default(T));
         }
     }
 }
