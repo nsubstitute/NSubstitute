@@ -1,5 +1,4 @@
 using System.Collections.Concurrent;
-using System.Linq;
 
 namespace NSubstitute.Core
 {
@@ -36,7 +35,7 @@ namespace NSubstitute.Core
                 return false;
             }
 
-            result = resultWrapper.GetResult(_callInfoFactory.Create(call));
+            result = resultWrapper.GetResult(call, _callInfoFactory);
             return true;
         }
 
@@ -81,7 +80,16 @@ namespace NSubstitute.Core
             }
 
             public bool IsResultFor(ICall call) => _callSpecification.IsSatisfiedBy(call);
-            public object GetResult(CallInfo callInfo) => _resultToReturn.ReturnFor(callInfo);
+            public object GetResult(ICall call, ICallInfoFactory callInfoFactory)
+            {
+                if (_resultToReturn is ICallIndependentReturn callIndependentReturn)
+                {
+                    return callIndependentReturn.GetReturnValue();
+                }
+
+                var callInfo = callInfoFactory.Create(call);
+                return _resultToReturn.ReturnFor(callInfo);
+            }
         }
     }
 }
