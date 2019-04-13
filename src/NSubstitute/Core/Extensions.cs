@@ -25,6 +25,23 @@ namespace NSubstitute.Core
             return string.Join(separator, strings);
         }
 
+        public static bool IsDelegate(this Type type)
+        {
+            // From CLR via C# (see full answer here: https://stackoverflow.com/a/4833071/2009373)
+            // > The System.MulticastDelegate class is derived from System.Delegate,
+            // > which is itself derived from System.Object.
+            // > The reason why there are two delegate classes is historical and unfortunate;
+            // > there should be just one delegate class in the FCL.
+            // > Sadly, you need to be aware of both of these classes
+            // > because even though all delegate types you create have MulticastDelegate as a base class,
+            // > you'll occasionally manipulate your delegate types by using methods defined by the Delegate class
+            // > instead of the MulticastDelegate class.
+            //
+            // Basically, MulticastDelegate and Delegate mean the same, but using MulticastDelegate for base check
+            // is slightly faster, as internally type.BaseType is walked in a loop and MulticastDelegate is reached faster.
+            return type.GetTypeInfo().IsSubclassOf(typeof(MulticastDelegate));
+        }
+
         private static bool TypeCanBeNull(Type type)
         {
             return !type.GetTypeInfo().IsValueType || Nullable.GetUnderlyingType(type) != null;

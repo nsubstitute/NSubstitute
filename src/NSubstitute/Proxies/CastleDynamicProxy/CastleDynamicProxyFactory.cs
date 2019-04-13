@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
@@ -25,16 +24,20 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
         {
+            return typeToProxy.IsDelegate()
+                ? GenerateDelegateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments)
+                : GenerateTypeProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments);
+        }
+
+        private object GenerateTypeProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
+        {
             VerifyClassHasNotBeenPassedAsAnAdditionalInterface(additionalInterfaces);
 
             var proxyIdInterceptor = new ProxyIdInterceptor(typeToProxy);
-            var forwardingInterceptor = new CastleForwardingInterceptor(
-                new CastleInvocationMapper(
-                    _callFactory,
-                    _argSpecificationDequeue),
-                callRouter);
+            var forwardingInterceptor = CreateForwardingInterceptor(callRouter);
 
             var proxyGenerationOptions = GetOptionsToMixinCallRouterProvider(callRouter);
+
             var proxy = CreateProxyUsingCastleProxyGenerator(
                 typeToProxy,
                 additionalInterfaces,
@@ -46,13 +49,39 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             return proxy;
         }
 
-        /// <summary>
-        /// Dynamically define the type with specified <paramref name="typeName"/>.
-        /// </summary>
-        public TypeBuilder DefineDynamicType(string typeName, TypeAttributes flags)
+        private object GenerateDelegateProxy(ICallRouter callRouter, Type delegateType, Type[] additionalInterfaces, object[] constructorArguments)
         {
-            // It's important to use the signed module, as we exposed internals type to the signed module.
-            return _proxyGenerator.ProxyBuilder.ModuleScope.DefineType(inSignedModulePreferably: true, typeName, flags);
+            VerifyNoAdditionalInterfacesGivenForDelegate(additionalInterfaces);
+            VerifyNoConstructorArgumentsGivenForDelegate(constructorArguments);
+
+            var forwardingInterceptor = CreateForwardingInterceptor(callRouter);
+            // Keep this interceptor, so that real proxy ID can be retrieved by proxy.Target.ToString().
+            var proxyIdInterceptor = new ProxyIdInterceptor(delegateType);
+
+            var proxyGenerationOptions = GetOptionsToMixinCallRouterProvider(callRouter);
+            proxyGenerationOptions.AddDelegateTypeMixin(delegateType);
+
+            var proxy = CreateProxyUsingCastleProxyGenerator(
+                typeToProxy: typeof(object),
+                additionalInterfaces: null,
+                constructorArguments: null,
+                interceptors: new IInterceptor[] {proxyIdInterceptor, forwardingInterceptor},
+                proxyGenerationOptions);
+
+            forwardingInterceptor.SwitchToFullDispatchMode();
+
+            // Ideally we should use ProxyUtil.CreateDelegateToMixin(proxy, delegateType).
+            // But it's slower than code below due to extra checks it performs.
+            return proxy.GetType().GetMethod("Invoke").CreateDelegate(delegateType, proxy);
+        }
+
+        private CastleForwardingInterceptor CreateForwardingInterceptor(ICallRouter callRouter)
+        {
+            return new CastleForwardingInterceptor(
+                new CastleInvocationMapper(
+                    _callFactory,
+                    _argSpecificationDequeue),
+                callRouter);
         }
 
         private object CreateProxyUsingCastleProxyGenerator(Type typeToProxy, Type[] additionalInterfaces,
@@ -101,9 +130,27 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         private static void VerifyNoConstructorArgumentsGivenForInterface(object[] constructorArguments)
         {
-            if (constructorArguments != null && constructorArguments.Length > 0)
+            if (HasItems(constructorArguments))
             {
                 throw new SubstituteException("Can not provide constructor arguments when substituting for an interface.");
+            }
+        }
+
+        private static void VerifyNoConstructorArgumentsGivenForDelegate(object[] constructorArguments)
+        {
+            if (HasItems(constructorArguments))
+            {
+                throw new SubstituteException("Can not provide constructor arguments when substituting for a delegate.");
+            }
+        }
+
+        private static void VerifyNoAdditionalInterfacesGivenForDelegate(Type[] constructorArguments)
+        {
+            if (HasItems(constructorArguments))
+            {
+                throw new SubstituteException(
+                    "Can not specify additional interfaces when substituting for a delegate. " +
+                    "You must specify only a single delegate type if you need to substitute for a delegate.");
             }
         }
 
@@ -111,8 +158,15 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         {
             if (additionalInterfaces != null && additionalInterfaces.Any(x => x.GetTypeInfo().IsClass))
             {
-                throw new SubstituteException("Can not substitute for multiple classes. To substitute for multiple types only one type can be a concrete class; other types can only be interfaces.");
+                throw new SubstituteException(
+                    "Can not substitute for multiple classes. " +
+                    "To substitute for multiple types only one type can be a concrete class; other types can only be interfaces.");
             }
+        }
+ 
+        private static bool HasItems<T>(T[] array)
+        {
+            return array != null && array.Length > 0;
         }
 
         private class AllMethodsExceptCallRouterCallsHook : AllMethodsHook

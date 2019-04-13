@@ -17,7 +17,7 @@ namespace NSubstitute.Routing.AutoValues
         public bool CanProvideValueFor(Type type)
         {
             return type.GetTypeInfo().IsInterface
-                || type.GetTypeInfo().IsSubclassOf(typeof(Delegate))
+                || type.IsDelegate()
                 || IsPureVirtualClassWithParameterlessConstructor(type);
         }
 

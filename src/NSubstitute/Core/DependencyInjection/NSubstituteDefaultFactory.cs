@@ -1,7 +1,5 @@
 using NSubstitute.Core.Arguments;
-using NSubstitute.Proxies;
 using NSubstitute.Proxies.CastleDynamicProxy;
-using NSubstitute.Proxies.DelegateProxy;
 using NSubstitute.Routing;
 using NSubstitute.Routing.AutoValues;
 
@@ -39,10 +37,7 @@ namespace NSubstitute.Core.DependencyInjection
                 .RegisterPerScope<ISubstituteFactory, SubstituteFactory>()
                 .RegisterPerScope<ICallRouterResolver, CallRouterResolver>()
                 .RegisterPerScope<ISubstitutionContext, SubstitutionContext>()
-                .RegisterPerScope<CastleDynamicProxyFactory, CastleDynamicProxyFactory>()
-                .RegisterPerScope<DelegateProxyFactory, DelegateProxyFactory>()
-                .RegisterPerScope<IProxyFactory>(r =>
-                    new ProxyFactory(r.Resolve<DelegateProxyFactory>(), r.Resolve<CastleDynamicProxyFactory>()))
+                .RegisterPerScope<IProxyFactory, CastleDynamicProxyFactory>()
                 .RegisterPerScope<ICallFactory, CallFactory>()
                 .RegisterPerScope<IPropertyHelper, PropertyHelper>()
                 .RegisterSingleton<IReceivedCallsExceptionThrower, ReceivedCallsExceptionThrower>();
