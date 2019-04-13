@@ -17,15 +17,14 @@ For the interface above we can configure the return value and set the output of 
 //Arrange
 var lookup = Substitute.For<ILookup>();
 lookup
-    .TryLookup("hello", out Arg.Is(""))
+    .TryLookup("hello", out Arg.Any<string>())
     .Returns(x => { 
         x[1] = "world!";
         return true;
     });
 
 //Act
-var value = "";
-var result = lookup.TryLookup("hello", out value);
+var result = lookup.TryLookup("hello", out var value);
 
 //Assert
 Assert.True(result);
