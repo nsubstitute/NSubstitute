@@ -61,7 +61,12 @@ Received 2 non-matching calls (non-matching arguments indicated with '*' charact
 <li class="nuget">
 <a href="https://nuget.org/List/Packages/NSubstitute">Install via NuGet:</a> <code>Install-Package NSubstitute</code>
 </li>
-<li class="nuget"><a href="/help/nsubstitute-analysers/">Optional analysers for C# and VB</a></li>
+<li class="nuget"><a href="/help/nsubstitute-analysers/">Optional analysers for C#:</a>
+<code>Install-Package NSubstitute.<wbr>Analyzers.<wbr>CSharp</code>
+</li>
+<li class="nuget"><a href="/help/nsubstitute-analysers/">Optional analysers for VB:</a>
+<code>Install-Package NSubstitute.<wbr>Analyzers.<wbr>VisualBasic</code>
+</li>
 <li class="github">
 <a href="https://github.com/nsubstitute/nsubstitute">Source</a>
 </li>
