@@ -42,13 +42,13 @@ Original sub = new SubstituteForOriginal();
 
 For the case when `Original` is an interface this works perfectly; every member in the interface will be overridden with NSubstitute's logic for recording calls and returning configured values.
 
-There are some caveats when `Original` is a class though (hence all the [warnings about them in the documentation](creating-a-substitute/substituting-infrequently-and-carefully-for-classes)).
+There are some caveats when `Original` is a class though (hence all the [warnings about them in the documentation](/help/creating-a-substitute#substituting-infrequently-and-carefully-for-classes)).
 
 ### Non-virtual members
 
-If `DoStuffWith(string s)` is not `virtual`, the `SubstituteForOriginal` class will not be able to override it, so when it is called NSubstitute will not know about it. It is effective invisible to NSubstitute; it can't record calls to it, it can't configure values using `Returns`, nor can it run actions via `When..Do` or use argument matchers with it. Instead, the real base implementation of the member will run.
+If `DoStuffWith(string s)` is not `virtual`, the `SubstituteForOriginal` class will not be able to override it, so when it is called NSubstitute will not know about it. It is effectively invisible to NSubstitute; it can't record calls to it, it can't configure values using `Returns`, nor can it run actions via `When..Do` or use argument matchers with it. Instead, the real base implementation of the member will run.
 
-This can cause all sorts of problems if we accidentally attempt to configure a non-virtual call, because NSubstitute will get confused about which call you're talking about. Usually this will result in a run-time error, but in the worst case it can affect the outcome of your test, or even the following test in the suite. Thankfully we have [NSubstitute.Analyzers](nsubstitute-analyzers) to detect these cases at compile time.
+This can cause all sorts of problems if we accidentally attempt to configure a non-virtual call, because NSubstitute will get confused about which call you're talking about. Usually this will result in a run-time error, but in the worst case it can affect the outcome of your test, or even the following test in the suite. Thankfully we have [NSubstitute.Analyzers](/help/nsubstitute-analyzers) to detect these cases at compile time.
 
 ### Internal members
 
@@ -59,7 +59,7 @@ Similar limitations apply to `internal virtual` members. Because `SubstituteForO
 
 Remember that if the member is non-virtual, NSubstitute will not be able to see it regardless of whether it is `internal` or `InternalsVisibleTo` has been added.
 
-The good news here is that [NSubstitute.Analyzers](nsubstitute-analyzers) will also detect attempts to use `internal` members at compile time, and will suggest fixes for these cases.
+The good news is that [NSubstitute.Analyzers](/help/nsubstitute-analyzers) will also detect attempts to use `internal` members at compile time, and will suggest fixes for these cases.
 
 ### Real code
 
@@ -70,6 +70,6 @@ The final thing to notice here is that there is the potential for real logic fro
 * Be careful substituting for classes!
 * Where possible use interfaces instead.
 * Remember NSubstitute works by inheriting (or implementing from) your original type. If you can't override a member by manually writing a sub-class, then NSubstitute won't be able to either!
-* Install [NSubstitute.Analyzers](nsubstitute-analyzers) where ever you install NSubstitute. This will help you avoid these (and other) pitfalls.
+* Install [NSubstitute.Analyzers](/help/nsubstitute-analyzers) where ever you install NSubstitute. This will help you avoid these (and other) pitfalls.
 
 
