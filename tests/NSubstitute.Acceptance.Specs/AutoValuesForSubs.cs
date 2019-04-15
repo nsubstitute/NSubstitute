@@ -149,23 +149,36 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Should_auto_return_a_value_from_a_task() {
             var sub = Substitute.For<IFooWithTasks>();
-            Assert.That(sub.GetIntAsync().Result, Is.EqualTo(0));
+            var task = sub.GetIntAsync();
+            Assert.That(task.IsCompleted, Is.True);
+            Assert.That(task.Result, Is.EqualTo(0));
         }
 
         [Test]
         public void Should_auto_return_an_autosub_from_a_task() {
             var sub = Substitute.For<IFooWithTasks>();
-            var sample = sub.GetSample().Result;
-            AssertObjectIsASubstitute(sample);
 
+            var task = sub.GetSample();
+
+            Assert.That(task.IsCompleted, Is.True);
+            var sample = task.Result;
+            AssertObjectIsASubstitute(sample);
             sample.Name = "test";
             Assert.That(sample.Name, Is.EqualTo("test"));
+        }
+
+        [Test]
+        public void Should_auto_return_a_completed_non_generic_task() {
+            var sub = Substitute.For<IFooWithTasks>();
+            var task = sub.GetNonGenericTask();
+            Assert.That(task.IsCompleted, Is.True);
         }
 
         public interface IFooWithTasks 
         {
             System.Threading.Tasks.Task<ISample> GetSample();
             System.Threading.Tasks.Task<int> GetIntAsync();
+            System.Threading.Tasks.Task GetNonGenericTask();
         }
 
         [Test]
