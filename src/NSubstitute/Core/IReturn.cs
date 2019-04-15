@@ -13,22 +13,41 @@ namespace NSubstitute.Core
         bool CanBeAssignedTo(Type t);
     }
 
-    public class ReturnValue : IReturn
+    /// <summary>
+    /// Performance optimization. Allows to not construct <see cref="CallInfo"/> if configured result doesn't depend on it.
+    /// </summary>
+    internal interface ICallIndependentReturn
+    {
+        object GetReturnValue();
+    }
+
+    public class ReturnValue : IReturn, ICallIndependentReturn
     {        
         private readonly object _value;
-        public ReturnValue(object value) { _value = value; }
-        public object ReturnFor(CallInfo info) { return _value; }
-        public Type TypeOrNull() { return _value == null ? null : _value.GetType(); }
-        public bool CanBeAssignedTo(Type t) { return _value.IsCompatibleWith(t); }
+
+        public ReturnValue(object value)
+        {
+            _value = value;
+        }
+ 
+        public object GetReturnValue() => _value;
+        public object ReturnFor(CallInfo info) => GetReturnValue();
+        public Type TypeOrNull() => _value?.GetType();
+        public bool CanBeAssignedTo(Type t) => _value.IsCompatibleWith(t);
     }
 
     public class ReturnValueFromFunc<T> : IReturn
     {
         private readonly Func<CallInfo, T> _funcToReturnValue;
-        public ReturnValueFromFunc(Func<CallInfo, T> funcToReturnValue) { _funcToReturnValue = funcToReturnValue ?? ReturnNull(); }
-        public object ReturnFor(CallInfo info) { return _funcToReturnValue(info); }
-        public Type TypeOrNull() { return typeof (T); }
-        public bool CanBeAssignedTo(Type t) { return typeof (T).IsAssignableFrom(t); }
+
+        public ReturnValueFromFunc(Func<CallInfo, T> funcToReturnValue)
+        {
+            _funcToReturnValue = funcToReturnValue ?? ReturnNull();
+        }
+
+        public object ReturnFor(CallInfo info) => _funcToReturnValue(info);
+        public Type TypeOrNull() => typeof (T);
+        public bool CanBeAssignedTo(Type t) => typeof (T).IsAssignableFrom(t);
 
         private static Func<CallInfo, T> ReturnNull()
         {
@@ -37,7 +56,7 @@ namespace NSubstitute.Core
         }
     }
 
-    public class ReturnMultipleValues<T> : IReturn
+    public class ReturnMultipleValues<T> : IReturn, ICallIndependentReturn
     {
         private readonly ConcurrentQueue<T> _valuesToReturn;
         private readonly T _lastValue;
@@ -47,20 +66,13 @@ namespace NSubstitute.Core
             _valuesToReturn = new ConcurrentQueue<T>(values);
             _lastValue = values.LastOrDefault();
         }
-        public object ReturnFor(CallInfo info) { return GetNext(); }
-        public Type TypeOrNull() { return typeof (T); }
-        public bool CanBeAssignedTo(Type t) { return typeof (T).IsAssignableFrom(t); }
 
-        private T GetNext()
-        {
-            T nextResult;
-            if (_valuesToReturn.TryDequeue(out nextResult))
-            {
-                return nextResult;
-            }
+        public object GetReturnValue() => GetNext();
+        public object ReturnFor(CallInfo info) => GetReturnValue();
+        public Type TypeOrNull() => typeof (T);
+        public bool CanBeAssignedTo(Type t) => typeof (T).IsAssignableFrom(t);
 
-            return _lastValue;
-        }
+        private T GetNext() => _valuesToReturn.TryDequeue(out var nextResult) ? nextResult : _lastValue;
     }
 
     public class ReturnMultipleFuncsValues<T> : IReturn
@@ -73,19 +85,11 @@ namespace NSubstitute.Core
             _funcsToReturn = new ConcurrentQueue<Func<CallInfo, T>>(funcs);
             _lastFunc = funcs.LastOrDefault();
         }
-        public object ReturnFor(CallInfo info) { return GetNext(info); }
-        public Type TypeOrNull() { return typeof (T); }
-        public bool CanBeAssignedTo(Type t) { return typeof (T).IsAssignableFrom(t); }
+ 
+        public object ReturnFor(CallInfo info) => GetNext(info);
+        public Type TypeOrNull() => typeof (T);
+        public bool CanBeAssignedTo(Type t) => typeof (T).IsAssignableFrom(t);
 
-        private T GetNext(CallInfo info)
-        {
-            Func<CallInfo, T> nextFunc;
-            if (_funcsToReturn.TryDequeue(out nextFunc))
-            {
-                return nextFunc(info);
-            }
-
-            return _lastFunc(info);
-        }
+        private T GetNext(CallInfo info) => _funcsToReturn.TryDequeue(out var nextFunc) ? nextFunc(info) : _lastFunc(info);
     }
 }
