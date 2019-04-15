@@ -46,7 +46,7 @@ We can ask NSubstitute to create a substitute instance for this type. We could a
 calculator = Substitute.For<ICalculator>();
 ```
 
-⚠️ **Note**: NSubstitute will only work properly with interfaces or with class members that are overridable from the test assembly (`public virtual`, `protected virtual`, `protected internal virtual`, or `internal virtual` with `InternalsVisibleTo` attribute applied). Be careful substituting for classes with non-virtual members. See [Creating a substitute](/help/creating-a-substitute/#substituting_infrequently_and_carefully_for_classes) and [How NSubstitute works](how-nsub-works) for more information.
+⚠️ **Note**: NSubstitute will only work properly with interfaces or with class members that are overridable from the test assembly (`public virtual`, `protected virtual`, `protected internal virtual`, or `internal virtual` with `InternalsVisibleTo` attribute applied). Be careful substituting for classes with non-virtual members. See [Creating a substitute](/help/creating-a-substitute/#substituting_infrequently_and_carefully_for_classes) and [How NSubstitute works](/help/how-nsub-works) for more information.
 
 Now we can tell our substitute to return a value for a call:
 
