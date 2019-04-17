@@ -10,7 +10,11 @@ body {
 p{
   font-size:1.0em;
   line-height:1.6;
-  font-family:"Georgia"
+}
+
+ul {
+  font-size:1.0em;
+  line-height:1.6;
 }
 
 h1{font-size:2.5em}

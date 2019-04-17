@@ -15,9 +15,9 @@ This is how you'll normally create substitutes for types. Generally this type wi
 
 ⚠️ **Warning:** Substituting for classes can have some nasty side-effects!
 
-For starters, **NSubstitute can only work with *virtual* members of the class**, so any non-virtual code in the class will actually execute! If you try to substitute for a class that formats your hard drive in the constructor or in a non-virtual property setter then you're asking for trouble.
+For starters, **NSubstitute can only work with *virtual* members of the class** that are overridable in the test assembly, so any non-virtual code in the class will actually execute! If you try to substitute for a class that formats your hard drive in the constructor or in a non-virtual property setter then you're asking for trouble. (By overridable we mean `public virtual`, `protected virtual`, `protected internal virtual`, or `internal virtual` with `InternalsVisibleTo` attribute applied. See [How NSubstitute works](/help/how-nsub-works) for more information.)
 
-It also means features like `Received()`, `Returns()`, `Arg.Is()`, `Arg.Any()` and `When()..Do()` **will not work with these non-virtual members**. For example: `subClass.Received().NonVirtualCall()` will not actually run an assertion (it will always pass, even if there are no calls to `NonVirtualCall()`), and can even cause confusing problems with later tests. These features will work correctly with virtual members of the class, but we have to be careful to avoid the non-virtual ones.
+It also means features like `Received()`, `Returns()`, `Arg.Is()`, `Arg.Any()` and `When()..Do()` **will not work with these non-overridable members**. For example: `subClass.Received().NonVirtualCall()` will not actually run an assertion (it will always pass, even if there are no calls to `NonVirtualCall()`), and can even cause confusing problems with later tests. These features will work correctly with virtual members of the class, but we have to be careful to avoid the non-virtual ones.
 
 For these reasons we strongly recommend using [NSubstitute.Analyzers](/help/nsubstitute-analysers/) to detect these cases, and sticking to substituting for interfaces as much as possible. (Interfaces are always safe to substitute and do not suffer from any of the limitations that class substitutes do.)
 
