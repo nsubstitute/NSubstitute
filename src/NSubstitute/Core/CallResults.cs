@@ -29,33 +29,35 @@ namespace NSubstitute.Core
                 return false;
             }
 
-            var resultWrapper = FindResultForCall(call);
-            if (resultWrapper == null)
+            if (!TryFindResultForCall(call, out var configuredResult))
             {
                 return false;
             }
 
-            result = resultWrapper.GetResult(call, _callInfoFactory);
+            result = configuredResult.GetResult(call, _callInfoFactory);
             return true;
         }
 
-        private ResultForCallSpec FindResultForCall(ICall call)
+        private bool TryFindResultForCall(ICall call, out ResultForCallSpec configuredResult)
         {
             // Optimization for performance - enumerator makes allocation.
             if (_results.IsEmpty)
             {
-                return null;
+                configuredResult = default;
+                return false;
             }
 
             foreach (var result in _results)
             {
                 if (result.IsResultFor(call))
                 {
-                    return result;
+                    configuredResult = result;
+                    return true;
                 }
             }
 
-            return null;
+            configuredResult = default;
+            return false;
         }
 
         public void Clear()
@@ -68,7 +70,7 @@ namespace NSubstitute.Core
             return call.GetReturnType() == typeof(void);
         }
 
-        private class ResultForCallSpec
+        private readonly struct ResultForCallSpec
         {
             private readonly ICallSpecification _callSpecification;
             private readonly IReturn _resultToReturn;
