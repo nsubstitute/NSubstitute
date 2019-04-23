@@ -21,12 +21,16 @@ public interface IFormatter {
   string Format(object o);
 }
 public interface IWidgetFactory {
-  string Make(int i);
+  string Make(WidgetInfo info);
+}
+public class WidgetInfo {
+  public string Name { get; set; }
+  public int Quantity { get; set; }
 }
 public class Sprocket {
   IWidgetFactory wf;
   public Sprocket(IWidgetFactory wf) { this.wf = wf; }
-  public void StartWithWidget(int i) { wf.Make(i); }
+  public void StartWithWidget(WidgetInfo info) { wf.Make(info); }
 }
 ICalculator calculator;
 IFormatter formatter;
@@ -129,7 +133,16 @@ Occasionally argument matchers get used in ways that cause unexpected results fo
 
 ### Using matchers outside of stubbing or checking received calls
 
-Argument matchers should only be used when setting return values or checking received calls. Using `Arg.Is` or `Arg.Any` without a call to `Returns(...)` or `Received()` can cause your tests to behave in unexpected ways.
+Argument matchers should only be used when specifying calls for the purposes of setting return values, checking received calls, or configuring callbacks (for example: with `Returns`, `Received` or `When`). Using `Arg.Is` or `Arg.Any` in other situations can cause your tests to behave in unexpected ways.
+
+Argument matchers should only be used for:
+
+* Specifying a call when using `Returns` and `ReturnsForAnyArgs`
+* Specifying a call within a `When` or `WhenForAnyArgs` block to configure a callback/call action
+* Specifying a call to check with `Received`, `DidNotReceive` and `Received.InOrder`
+* Configuring a callback with `Arg.Do` or `Arg.Invoke`
+
+Using an argument matcher without one of these calls is most likely an error.
 
 For example:
 
@@ -140,25 +153,60 @@ var widgetFactory = Substitute.For<IWidgetFactory>();
 var subject = new Sprocket(widgetFactory);
 
 // OK: Use arg matcher for a return value:
-widgetFactory.Make(Arg.Is<int>(x => x > 10)).Returns(TestWidget);
+widgetFactory.Make(Arg.Is<WidgetInfo>(x => x.Quantity > 10)).Returns(TestWidget);
 
 /* ACT */
 
 // NOT OK: arg matcher used with a real call:
-//   subject.StartWithWidget(Arg.Any<int>());
+//   subject.StartWithWidget(Arg.Any<WidgetInfo>());
 
 // Use a real argument instead:
-subject.StartWithWidget(4);
+subject.StartWithWidget(new WidgetInfo { Name = "Test", Quantity = 4 });
 
 /* ASSERT */
 
 // OK: Use arg matcher to check a call was received:
-widgetFactory.Received().Make(Arg.Is<int>(x => x > 0));
+widgetFactory.Received().Make(Arg.Is<WidgetInfo>(x => x.Name == "Test"));
 ```
 
-In this example it would be an error to use an argument matcher in the `ACT` part of this test. Even if we don't mind what specific argument we pass to our subject, `Arg.Any` is only for substitutes, and only for setting return values or checking received calls; not for real calls.
+In this example it would be an error to use an argument matcher in the `ACT` part of this test. Even if we don't mind what specific argument we pass to our subject, `Arg.Any` is only for substitutes, and only for specifying a call while setting return values, checking received calls or for configuring callbacks; not for real calls.
 
-(If you do want to indicate to readers that the precise argument used for a real call doesn't matter you could use a variable such as `var someInt = 4; subject.StartWithWidget(someInt);` or similar. Just stay clear of argument matchers for this!)
+(If you do want to indicate to readers that the precise argument used for a real call doesn't matter you could use a variable such as `var someWidget = new WidgetInfo(); subject.StartWithWidget(someWidget);` or similar. Just stay clear of argument matchers for this!)
+
+Similarly, we should not use an arg matcher as a real value to return from a call (even a substituted one):
+
+```csharp
+var widgetFactory = Substitute.For<IWidgetFactory>();
+
+// NOT OK: using an arg matcher as a value, not to specify a call:
+//    widgetFactory.Make(new WidgetInfo { Name = "Test" }).Returns(Arg.Any<string>());
+
+// Instead use something like:
+widgetFactory.Make(new WidgetInfo { Name = "Test" }).Returns("any widget");
+```
+
+Another legal use of argument matchers is specifying calls when configuring callbacks:
+
+```csharp
+/* ARRANGE */
+var widgetFactory = Substitute.For<IWidgetFactory>();
+var subject = new Sprocket(widgetFactory);
+
+// OK: Use arg matcher to configure a callback:
+var testLog = new List<string>();
+widgetFactory.When(x => x.Make(Arg.Any<WidgetInfo>())).Do(x => testLog.Add(x.Arg<WidgetInfo>().Name));
+
+// OK: Use Arg.Do to configure a callback:
+var testLog2 = new List<string>();
+widgetFactory.Make(Arg.Do<WidgetInfo>(info => testLog2.Add(info.Name)));
+
+/* ACT */
+subject.StartWithWidget(new WidgetInfo { Name = "Test Widget" });
+
+/* ASSERT */
+Assert.AreEqual(new[] { "Test Widget" }, testLog);
+Assert.AreEqual(new[] { "Test Widget" }, testLog2);
+```
 
 ### Modifying values being matched
 
