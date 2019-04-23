@@ -179,10 +179,10 @@ Similarly, we should not use an arg matcher as a real value to return from a cal
 var widgetFactory = Substitute.For<IWidgetFactory>();
 
 // NOT OK: using an arg matcher as a value, not to specify a call:
-//    widgetFactory.Make(new WidgetInfo { Name = "Test" }).Returns(Arg.Any<string>());
+//    widgetFactory.Make(Arg.Any<WidgetInfo>()).Returns(Arg.Any<string>());
 
 // Instead use something like:
-widgetFactory.Make(new WidgetInfo { Name = "Test" }).Returns("any widget");
+widgetFactory.Make(Arg.Any<WidgetInfo>()).Returns("any widget");
 ```
 
 Another legal use of argument matchers is specifying calls when configuring callbacks:
