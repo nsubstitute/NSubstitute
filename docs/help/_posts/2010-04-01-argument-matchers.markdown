@@ -22,6 +22,7 @@ public interface IFormatter {
 }
 public interface IWidgetFactory {
   string Make(WidgetInfo info);
+  string MakeDefaultWidget();
 }
 public class WidgetInfo {
   public string Name { get; set; }
@@ -179,10 +180,10 @@ Similarly, we should not use an arg matcher as a real value to return from a cal
 var widgetFactory = Substitute.For<IWidgetFactory>();
 
 // NOT OK: using an arg matcher as a value, not to specify a call:
-//    widgetFactory.Make(Arg.Any<WidgetInfo>()).Returns(Arg.Any<string>());
+//    widgetFactory.MakeDefaultWidget().Returns(Arg.Any<string>());
 
 // Instead use something like:
-widgetFactory.Make(Arg.Any<WidgetInfo>()).Returns("any widget");
+widgetFactory.MakeDefaultWidget().Returns("any widget");
 ```
 
 Another legal use of argument matchers is specifying calls when configuring callbacks:
