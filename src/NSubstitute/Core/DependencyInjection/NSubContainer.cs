@@ -58,7 +58,7 @@ namespace NSubstitute.Core.DependencyInjection
                 return ctor.Invoke(args);
             }
 
-            AddRegistration(typeof(TKey), new Registration(Factory, lifetime));
+            SetRegistration(typeof(TKey), new Registration(Factory, lifetime));
 
             return this;
         }
@@ -70,7 +70,28 @@ namespace NSubstitute.Core.DependencyInjection
                 return factory.Invoke(scope);
             }
 
-            AddRegistration(typeof(TKey), new Registration(Factory, lifetime));
+            SetRegistration(typeof(TKey), new Registration(Factory, lifetime));
+
+            return this;
+        }
+
+        public IConfigurableNSubContainer Decorate<TKey>(Func<TKey, INSubResolver, TKey> factory)
+        {
+            Registration existingRegistration = TryFindRegistration(typeof(TKey));
+            if (existingRegistration == null)
+            {
+                throw new ArgumentException("Cannot decorate type " + typeof(TKey).FullName +" as implementation is not registered.");
+            }
+
+            object Factory(Scope scope)
+            {
+                // Resolve original implementation using registration from parent container.
+                // This way we avoid recursion and support even nested decorators.
+                var originalInstance = (TKey) scope.Resolve(existingRegistration);
+                return factory.Invoke(originalInstance, scope);
+            }
+
+            SetRegistration(typeof(TKey), new Registration(Factory, existingRegistration.Lifetime));
 
             return this;
         }
@@ -85,7 +106,7 @@ namespace NSubstitute.Core.DependencyInjection
             return new Scope(this);
         }
 
-        private void AddRegistration(Type type, Registration registration)
+        private void SetRegistration(Type type, Registration registration)
         {
             lock (_syncRoot)
             {
@@ -93,21 +114,43 @@ namespace NSubstitute.Core.DependencyInjection
             }
         }
 
+        private Registration TryFindRegistration(Type type)
+        {
+            // Both read and write accesses to dictionary should be synchronized.
+            // The same lock object is shared among all the nested containers,
+            // so we synchronize across the whole containers graph.
+            lock (_syncRoot)
+            {
+                var currentContainer = this;
+                while (currentContainer != null)
+                {
+                    if (currentContainer._registrations.TryGetValue(type, out var registration))
+                    {
+                        return registration;
+                    }
+
+                    currentContainer = currentContainer._parentContainer;
+                }
+
+                return null;
+            }
+        }
+
         private class Registration
         {
             private readonly Func<Scope, object> _factory;
-            private readonly NSubLifetime _lifetime;
             private object _singletonValue;
+            public NSubLifetime Lifetime { get; }
 
             public Registration(Func<Scope, object> factory, NSubLifetime lifetime)
             {
                 _factory = factory;
-                _lifetime = lifetime;
+                Lifetime = lifetime;
             }
 
             public object Resolve(Scope scope)
             {
-                switch (_lifetime)
+                switch (Lifetime)
                 {
                     case NSubLifetime.Transient:
                         return _factory.Invoke(scope);
@@ -141,10 +184,7 @@ namespace NSubstitute.Core.DependencyInjection
                 _mostNestedContainer = mostNestedContainer;
             }
 
-            public T Resolve<T>()
-            {
-                return (T) Resolve(typeof(T));
-            }
+            public T Resolve<T>() => (T) Resolve(typeof(T));
 
             public bool TryGetCached(Registration registration, out object result)
             {
@@ -159,21 +199,24 @@ namespace NSubstitute.Core.DependencyInjection
             public object Resolve(Type type)
             {
                 // The same lock object is shared among all the nested containers,
-                // so no need to synchronize on new object for each time.
+                // so we synchronize across the whole containers graph.
                 lock (_mostNestedContainer._syncRoot)
                 {
-                    var currentContainer = _mostNestedContainer;
-                    while (currentContainer != null)
-                    {
-                        if (currentContainer._registrations.TryGetValue(type, out var registration))
-                        {
-                            return registration.Resolve(this);
-                        }
+                    Registration registration = _mostNestedContainer.TryFindRegistration(type);
+                    if (registration == null)
+                        throw new InvalidOperationException($"Type is not registered: {type.FullName}");
 
-                        currentContainer = currentContainer._parentContainer;
-                    }
+                    return registration.Resolve(this);
+                }
+            }
 
-                    throw new InvalidOperationException($"Type is not registered: {type.FullName}");
+            public object Resolve(Registration registration)
+            {
+                // The same lock object is shared among all the nested containers,
+                // so we synchronize across the whole containers graph.
+                lock (_mostNestedContainer._syncRoot)
+                {
+                    return registration.Resolve(this);
                 }
             }
         }
