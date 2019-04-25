@@ -8,7 +8,7 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
-    public class Call : ICall
+    public class Call : ICall, /* Performance optimization */ CallCollection.IReceivedCallEntry
     {
         private readonly MethodInfo _methodInfo;
         private readonly object[] _arguments;
@@ -128,6 +128,20 @@ namespace NSubstitute.Core
             }
 
             return parameterInfos;
+        }
+
+        /* Performance optimization.
+           Allows Call to carry additional information, required by received calls registry. */
+
+        // 0 - not owned, default; 1 - owned; -1 - skipped. Use int because of Interlocked compatibility.
+        private int _callEntryState;
+        ICall CallCollection.IReceivedCallEntry.Call => this;
+        bool CallCollection.IReceivedCallEntry.IsSkipped => _callEntryState == -1;
+        void CallCollection.IReceivedCallEntry.Skip() => _callEntryState = -1;
+
+        bool CallCollection.IReceivedCallEntry.TryTakeEntryOwnership()
+        {
+            return Interlocked.CompareExchange(ref _callEntryState, 1, 0) == 0;
         }
     }
 }

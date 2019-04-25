@@ -1,5 +1,7 @@
 ### unreleased
 
+* [UPDATE] Various performance improvements. (#536, #542, #547, @zvirja)
+* [UPDATE] Use Castle.Proxy library to generate delegate proxies. (#537, @zvirja)
 * [FIX] Do not fail on nested generic type formatting. (#515, @zvirja)
 * [FIX] Fix event handling for code created by non-ECMA compliant compilers. (#500, #525, @zvirja)
 * [UPDATE] Thanks to Julian Verdurmen (@304NotModified) for updating our website and links

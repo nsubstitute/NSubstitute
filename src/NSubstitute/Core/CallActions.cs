@@ -1,14 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Concurrent;
 
 namespace NSubstitute.Core
 {
     public class CallActions : ICallActions
     {
-        static readonly Action<CallInfo> EmptyAction = x => { };
-        readonly ICallInfoFactory _callInfoFactory;
-        readonly List<CallAction> _actions = new List<CallAction>();
+        private static readonly Action<CallInfo> EmptyAction = x => { };
+ 
+        private readonly ICallInfoFactory _callInfoFactory;
+        // Collection consideration.
+        // We need to have a thread-safe collection which should be enumerated in add order.
+        // Even though Queue allocates on each enumeration, we expect callbacks to occur rarely,
+        // so it shouldn't be a big issue.
+        // If we want to optimize it later, we should probably take a look at System.Collections.Immutable.
+        private ConcurrentQueue<CallAction> _actions = new ConcurrentQueue<CallAction>();
 
         public CallActions(ICallInfoFactory callInfoFactory)
         {
@@ -17,29 +22,39 @@ namespace NSubstitute.Core
 
         public void Add(ICallSpecification callSpecification, Action<CallInfo> action)
         {
-            _actions.Add(new CallAction(callSpecification, action));
+            _actions.Enqueue(new CallAction(callSpecification, action));
         }
 
         public void Add(ICallSpecification callSpecification)
         {
-            _actions.Add(new CallAction(callSpecification, EmptyAction));
+            Add(callSpecification, EmptyAction);
         }
 
         public void MoveActionsForSpecToNewSpec(ICallSpecification oldCallSpecification, ICallSpecification newCallSpecification)
         {
-            foreach (var action in _actions.Where(x => x.IsFor(oldCallSpecification)))
+            foreach (var action in _actions)
             {
-                action.UpdateCallSpecification(newCallSpecification);
+                if (action.IsFor(oldCallSpecification))
+                {
+                    action.UpdateCallSpecification(newCallSpecification);
+                }
             }
         }
 
         public void Clear()
         {
-            _actions.Clear();
+            // Collection doesn't have a clear method.
+            _actions = new ConcurrentQueue<CallAction>();
         }
 
         public void InvokeMatchingActions(ICall call)
         {
+            // Performance optimization - enumeration allocates enumerator object.
+            if (_actions.IsEmpty)
+            {
+                return;
+            }
+ 
             CallInfo callInfo = null;
             foreach (var action in _actions)
             {
@@ -56,7 +71,7 @@ namespace NSubstitute.Core
             }
         }
 
-        class CallAction
+        private class CallAction
         {
             public CallAction(ICallSpecification callSpecification, Action<CallInfo> action)
             {
@@ -66,14 +81,15 @@ namespace NSubstitute.Core
 
             private ICallSpecification _callSpecification;
             private readonly Action<CallInfo> _action;
-            public bool IsSatisfiedBy(ICall call) { return _callSpecification.IsSatisfiedBy(call); }
+            public bool IsSatisfiedBy(ICall call) => _callSpecification.IsSatisfiedBy(call);
+
             public void Invoke(CallInfo callInfo)
             {
                 _action(callInfo);
                 _callSpecification.InvokePerArgumentActions(callInfo);
             }
-            public bool IsFor(ICallSpecification spec) { return _callSpecification == spec; }
-            public void UpdateCallSpecification(ICallSpecification spec) { _callSpecification = spec; }
+            public bool IsFor(ICallSpecification spec) => _callSpecification == spec;
+            public void UpdateCallSpecification(ICallSpecification spec) => _callSpecification = spec;
         }
     }
 }

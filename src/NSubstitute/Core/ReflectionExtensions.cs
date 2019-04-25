@@ -8,10 +8,17 @@ namespace NSubstitute.Core
     {
         public static PropertyInfo GetPropertyFromSetterCallOrNull(this MethodInfo call)
         {
-            if(!CanBePropertySetterCall(call)) return null;
+            if (!CanBePropertySetterCall(call)) return null;
 
             var properties = call.DeclaringType.GetProperties();
-            return properties.FirstOrDefault(x => x.GetSetMethod() == call);
+
+            // Don't use .FirstOrDefault() lambda, as closure leads to allocation even if not reached.
+            foreach (var property in properties)
+            {
+                if (property.GetSetMethod() == call) return property;
+            }
+
+            return null;
         }
 
         public static PropertyInfo GetPropertyFromGetterCallOrNull(this MethodInfo call)

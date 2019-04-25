@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.Routing;
@@ -16,7 +14,7 @@ namespace NSubstitute.Core
         private readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications;
         private readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent;
         private readonly RobustThreadLocal<IQuery> _currentQuery;
-        private readonly RobustThreadLocal<PendingSpecificationInfo> _pendingSpecificationInfo;
+        private readonly RobustThreadLocal<PendingSpecInfoData> _pendingSpecificationInfo;
         private readonly RobustThreadLocal<Tuple<ICallRouter, Func<ISubstituteState, IRoute>>> _nextRouteFactory;
         public IPendingSpecification PendingSpecification { get; }
 
@@ -26,7 +24,7 @@ namespace NSubstitute.Core
             _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
             _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
             _currentQuery = new RobustThreadLocal<IQuery>();
-            _pendingSpecificationInfo = new RobustThreadLocal<PendingSpecificationInfo>();
+            _pendingSpecificationInfo = new RobustThreadLocal<PendingSpecInfoData>();
             _nextRouteFactory = new RobustThreadLocal<Tuple<ICallRouter, Func<ISubstituteState, IRoute>>>();
 
             PendingSpecification = new PendingSpecificationWrapper(_pendingSpecificationInfo);
@@ -159,38 +157,73 @@ namespace NSubstitute.Core
 
         private class PendingSpecificationWrapper : IPendingSpecification
         {
-            private readonly RobustThreadLocal<PendingSpecificationInfo> _valueHolder;
+            private readonly RobustThreadLocal<PendingSpecInfoData> _valueHolder;
 
-            public PendingSpecificationWrapper(RobustThreadLocal<PendingSpecificationInfo> valueHolder)
+            public PendingSpecificationWrapper(RobustThreadLocal<PendingSpecInfoData> valueHolder)
             {
                 _valueHolder = valueHolder;
             }
 
             public bool HasPendingCallSpecInfo()
             {
-                return _valueHolder.Value != null;
+                return _valueHolder.Value.HasValue;
             }
 
             public PendingSpecificationInfo UseCallSpecInfo()
             {
                 var info = _valueHolder.Value;
                 Clear();
-                return info;
+                return info.ToPendingSpecificationInfo();
             }
 
             public void SetCallSpecification(ICallSpecification callSpecification)
             {
-                _valueHolder.Value = PendingSpecificationInfo.FromCallSpecification(callSpecification);
+                _valueHolder.Value = PendingSpecInfoData.FromCallSpecification(callSpecification);
             }
 
             public void SetLastCall(ICall lastCall)
             {
-                _valueHolder.Value = PendingSpecificationInfo.FromLastCall(lastCall);
+                _valueHolder.Value = PendingSpecInfoData.FromLastCall(lastCall);
             }
 
             public void Clear()
             {
-                _valueHolder.Value = null;
+                _valueHolder.Value = default;
+            }
+        }
+
+        private readonly struct PendingSpecInfoData
+        {
+            private readonly ICallSpecification _callSpecification;
+            private readonly ICall _lastCall;
+
+            public bool HasValue => _lastCall != null || _callSpecification != null;
+
+            private PendingSpecInfoData(ICallSpecification callSpecification, ICall lastCall)
+            {
+                _callSpecification = callSpecification;
+                _lastCall = lastCall;
+            }
+
+            public PendingSpecificationInfo ToPendingSpecificationInfo()
+            {
+                if (_callSpecification != null)
+                    return PendingSpecificationInfo.FromCallSpecification(_callSpecification);
+
+                if (_lastCall != null)
+                    return PendingSpecificationInfo.FromLastCall(_lastCall);
+
+                return null;
+            }
+
+            public static PendingSpecInfoData FromLastCall(ICall lastCall)
+            {
+                return new PendingSpecInfoData(null, lastCall);
+            }
+
+            public static PendingSpecInfoData FromCallSpecification(ICallSpecification callSpecification)
+            {
+                return new PendingSpecInfoData(callSpecification, null);
             }
         }
     }
