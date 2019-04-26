@@ -10,7 +10,7 @@
     <PackageTags>mocking;mocks;testing;unit-testing;TDD;AAA</PackageTags>
     <PackageIconUrl>https://nsubstitute.github.io/images/nsubstitute-100x100.png</PackageIconUrl>
     <PackageProjectUrl>https://nsubstitute.github.io/</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/nsubstitute/NSubstitute/raw/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup>
