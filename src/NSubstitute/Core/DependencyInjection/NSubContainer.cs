@@ -85,8 +85,8 @@ namespace NSubstitute.Core.DependencyInjection
 
             object Factory(Scope scope)
             {
-                // Resolve original implementation using registration from parent container.
-                // This way we avoid recursion and support even nested decorators.
+                // Freeze original registration discovered during decoration.
+                // This way we avoid recursion and support nested decorators.
                 var originalInstance = (TKey) scope.Resolve(existingRegistration);
                 return factory.Invoke(originalInstance, scope);
             }
