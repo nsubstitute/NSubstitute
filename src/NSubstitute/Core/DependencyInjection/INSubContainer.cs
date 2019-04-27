@@ -27,6 +27,13 @@ namespace NSubstitute.Core.DependencyInjection
         IConfigurableNSubContainer Register<TKey, TImpl>(NSubLifetime lifetime) where TImpl : TKey;
 
         IConfigurableNSubContainer Register<TKey>(Func<INSubResolver, TKey> factory, NSubLifetime lifetime);
+
+        /// <summary>
+        /// Decorates the original implementation with a custom decorator.
+        /// The factory method is provided with an original implementation instance.
+        /// The lifetime of decorated implementation is used.
+        /// </summary>
+        IConfigurableNSubContainer Decorate<TKey>(Func<TKey, INSubResolver, TKey> factory);
     }
 
     public static class ConfigurableNSubContainerExtensions
