@@ -98,8 +98,7 @@ namespace NSubstitute.Routing
         public IRoute RecordReplay(ISubstituteState state)
         {
             return new Route(new ICallHandler[] {
-                new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
-                , new TrackLastCallHandler(_threadLocalContext.PendingSpecification)
+                new TrackLastCallHandler(_threadLocalContext.PendingSpecification)
                 , new RecordCallHandler(state.ReceivedCalls, _sequenceNumberGenerator)
                 , new EventSubscriptionHandler(state.EventHandlerRegistry)
                 , new PropertySetterHandler(_propertyHelper, state.ConfigureCall)
