@@ -4,6 +4,7 @@ using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.ClearExtensions;
 using System.Threading.Tasks;
+using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
 
 namespace NSubstitute
@@ -40,6 +41,8 @@ namespace NSubstitute
         /// <param name="returnThese">Optionally use these values next</param>
         public static ConfiguredCall Returns<T>(this Task<T> value, T returnThis, params T[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+ 
             var wrappedReturnValue = CompletedTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(CompletedTask).ToArray() : null;
 
@@ -54,6 +57,8 @@ namespace NSubstitute
         /// <param name="returnThese">Optionally use these functions next</param>
         public static ConfiguredCall Returns<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+ 
             var wrappedFunc = WrapFuncInTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInTask).ToArray() : null;
 
@@ -68,6 +73,8 @@ namespace NSubstitute
         /// <param name="returnThese">Optionally use these values next</param>
         public static ConfiguredCall Returns<T>(this ValueTask<T> value, T returnThis, params T[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+ 
             var wrappedReturnValue = CompletedValueTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(CompletedValueTask).ToArray() : null;
 
@@ -82,6 +89,8 @@ namespace NSubstitute
         /// <param name="returnThese">Optionally use these functions next</param>
         public static ConfiguredCall Returns<T>(this ValueTask<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+ 
             var wrappedFunc = WrapFuncInValueTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInValueTask).ToArray() : null;
 
@@ -96,6 +105,8 @@ namespace NSubstitute
         /// <param name="returnThese">Optionally return these values next</param>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, T returnThis, params T[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+
             var wrappedReturnValue = CompletedTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(CompletedTask).ToArray() : null;
 
@@ -110,6 +121,8 @@ namespace NSubstitute
         /// <param name="returnThese">Optionally use these functions next</param>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+
             var wrappedFunc = WrapFuncInTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInTask).ToArray() : null;
             
@@ -124,6 +137,8 @@ namespace NSubstitute
         /// <param name="returnThese">Optionally return these values next</param>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this ValueTask<T> value, T returnThis, params T[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+
             var wrappedReturnValue = CompletedValueTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(CompletedValueTask).ToArray() : null;
 
@@ -138,6 +153,8 @@ namespace NSubstitute
         /// <param name="returnThese">Optionally use these functions next</param>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this ValueTask<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+
             var wrappedFunc = WrapFuncInValueTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInValueTask).ToArray() : null;
 
@@ -353,6 +370,22 @@ namespace NSubstitute
         private static ValueTask<T> CompletedValueTask<T>(T result)
         {
             return new ValueTask<T>(result);
+        }
+
+        private static void ReThrowOnNSubstituteFault<T>(Task<T> task)
+        {
+            if (task.IsFaulted && task.Exception.InnerExceptions.FirstOrDefault() is SubstituteException)
+            {
+                task.GetAwaiter().GetResult();
+            }
+        }
+
+        private static void ReThrowOnNSubstituteFault<T>(ValueTask<T> task)
+        {
+            if (task.IsFaulted && task.AsTask().Exception.InnerExceptions.FirstOrDefault() is SubstituteException)
+            {
+                task.GetAwaiter().GetResult();
+            }
         }
     }
 }

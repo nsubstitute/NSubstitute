@@ -1,5 +1,6 @@
 ### unreleased
 
+* [FIX] Re-throw captured NSubstitute exceptions when configuring async methods. (#533, @zvirja)
 * [UPDATE] Various performance improvements. (#536, #542, #547, @zvirja)
 * [UPDATE] Use Castle.Proxy library to generate delegate proxies. (#537, @zvirja)
 * [FIX] Do not fail on nested generic type formatting. (#515, @zvirja)
