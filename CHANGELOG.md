@@ -1,4 +1,4 @@
-### unreleased
+### 4.1.0 (May 2019)
 
 * [FIX] Re-throw captured NSubstitute exceptions when configuring async methods. (#533, @zvirja)
 * [UPDATE] Various performance improvements. (#536, #542, #547, @zvirja)
@@ -8,6 +8,7 @@
 * [UPDATE] Thanks to Julian Verdurmen (@304NotModified) for updating our website and links
 to HTTPS! All links to the NSub website should now go through https://nsubstitute.github.io,
 and other web links in the project also go through to HTTPS where supported.
+* [UPDATE] Documentation updates (#516 thanks to Michael Freidgeim @MNF; #530, #531 thanks to @304NotModified; #540, #549)
 
 ### 4.0.0 (January 2019)
 
