@@ -1,3 +1,6 @@
+### unreleased
+
+
 ### 4.1.0 (May 2019)
 
 * [FIX] Re-throw captured NSubstitute exceptions when configuring async methods. (#533, @zvirja)
