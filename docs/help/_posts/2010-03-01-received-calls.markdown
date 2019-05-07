@@ -114,8 +114,8 @@ NSubstitute can also check calls were received or not received but ignore the ar
 ```csharp
 calculator.Add(1, 3);
 
-calculator.ReceivedWithAnyArgs().Add(1,1);
-calculator.DidNotReceiveWithAnyArgs().Subtract(0,0);
+calculator.ReceivedWithAnyArgs().Add(default, default);
+calculator.DidNotReceiveWithAnyArgs().Subtract(default, default);
 ```
 
 ## Checking calls to properties

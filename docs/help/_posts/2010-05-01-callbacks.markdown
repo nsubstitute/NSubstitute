@@ -19,13 +19,13 @@ ICalculator calculator;
 ```csharp
 var counter = 0;
 calculator
-    .Add(0,0)
+    .Add(default, default)
     .ReturnsForAnyArgs(x => 0)
     .AndDoes(x => counter++);
 
-calculator.Add(7,3);
-calculator.Add(2,2);
-calculator.Add(11,-3);
+calculator.Add(7, 3);
+calculator.Add(2, 2);
+calculator.Add(11, -3);
 Assert.AreEqual(counter, 3);
 ```
 
