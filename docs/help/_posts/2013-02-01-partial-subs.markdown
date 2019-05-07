@@ -62,7 +62,7 @@ public class EmailServer {
 [Test]
 public void ShouldSendMultipleEmails() {
   var server = Substitute.ForPartsOf<EmailServer>();
-  server.WhenForAnyArgs(x => x.Send("", "", "")).DoNotCallBase(); // Make sure Send won't call real implementation
+  server.WhenForAnyArgs(x => x.Send(default, default, default)).DoNotCallBase(); // Make sure Send won't call real implementation
 
   server.SendMultiple(
     new [] { "alice", "bob", "charlie" },

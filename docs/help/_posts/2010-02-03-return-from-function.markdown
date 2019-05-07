@@ -42,7 +42,7 @@ public interface IFoo {
 
 ```csharp
 var foo = Substitute.For<IFoo>();
-foo.Bar(0, "").ReturnsForAnyArgs(x => "Hello " + x.Arg<string>());
+foo.Bar(default, default).ReturnsForAnyArgs(x => "Hello " + x.Arg<string>());
 Assert.That(foo.Bar(1, "World"), Is.EqualTo("Hello World"));
 ```
 
@@ -55,7 +55,7 @@ This technique can also be used to get a callback whenever a call is made:
 ```csharp
 var counter = 0;
 calculator
-    .Add(0, 0)
+    .Add(default, default)
     .ReturnsForAnyArgs(x => {
         counter++;
         return 0;
@@ -72,7 +72,7 @@ Alternatively the callback can be specified after the `Returns` using `AndDoes`:
 ```csharp
 var counter = 0;
 calculator
-    .Add(0, 0)
+    .Add(default, default)
     .ReturnsForAnyArgs(x => 0)
     .AndDoes(x => counter++);
 

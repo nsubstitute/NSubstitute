@@ -17,7 +17,7 @@ ICalculator calculator;
 A call can be configured to return a value regardless of the arguments passed using the `ReturnsForAnyArgs()` extension method.
 
 ```csharp
-calculator.Add(1, 2).ReturnsForAnyArgs(100); 
+calculator.Add(default, default).ReturnsForAnyArgs(100); 
 Assert.AreEqual(100, calculator.Add(1, 2));
 Assert.AreEqual(100, calculator.Add(-7, 15));
 ```
