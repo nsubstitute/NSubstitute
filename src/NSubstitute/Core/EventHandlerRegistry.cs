@@ -1,32 +1,54 @@
+using System;
 using System.Collections.Generic;
 
 namespace NSubstitute.Core
 {
     public class EventHandlerRegistry : IEventHandlerRegistry
     {
-        readonly Dictionary<string, List<object>> _handlersForEvent = new Dictionary<string, List<object>>();
+        // Collection consideration - events are used very rarely, so it makes no sense to allocate concurrent collection.
+        // Events are not expected to be configured/raised concurrently, so simple locking should be sufficient.
+        // List lookup is O(n), but for really small size performance is comparable to dictionary.
+        // Given that normally a few events are configured only, it should be totally fine.
+        private readonly List<Tuple<string, List<object>>> _handlersForEvent = new List<Tuple<string, List<object>>>();
 
         public void Add(string eventName, object handler)
         {
-            Handlers(eventName).Add(handler);    
+            lock (_handlersForEvent)
+            {
+                Handlers(eventName).Add(handler);
+            }
         }
 
         public void Remove(string eventName, object handler)
         {
-            Handlers(eventName).Remove(handler);
+            lock (_handlersForEvent)
+            {
+                Handlers(eventName).Remove(handler);
+            }
         }
 
         public IEnumerable<object> GetHandlers(string eventName)
         {
-            var snapshotOfHandlersForEvent = Handlers(eventName).ToArray();
-            return snapshotOfHandlersForEvent;
+            lock (_handlersForEvent)
+            {
+                // Make snapshot to make code thread-safe.
+                return Handlers(eventName).ToArray();
+            }
         }
 
         private List<object> Handlers(string eventName)
         {
-            if (!_handlersForEvent.ContainsKey(eventName))
-                _handlersForEvent[eventName] = new List<object>();
-            return _handlersForEvent[eventName];
+            foreach (var pair in _handlersForEvent)
+            {
+                if (pair.Item1 == eventName)
+                {
+                    return pair.Item2;
+                }
+            }
+
+            var newPair = Tuple.Create(eventName, new List<object>());
+            _handlersForEvent.Add(newPair);
+            return newPair.Item2;
         }
     }
 }
