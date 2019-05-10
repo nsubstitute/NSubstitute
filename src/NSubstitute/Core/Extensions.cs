@@ -42,6 +42,11 @@ namespace NSubstitute.Core
             return type.GetTypeInfo().IsSubclassOf(typeof(MulticastDelegate));
         }
 
+        public static MethodInfo GetInvokeMethod(this Type type)
+        {
+            return type.GetMethod("Invoke");
+        }
+
         private static bool TypeCanBeNull(Type type)
         {
             return !type.GetTypeInfo().IsValueType || Nullable.GetUnderlyingType(type) != null;

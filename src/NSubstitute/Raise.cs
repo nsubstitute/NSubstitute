@@ -1,4 +1,7 @@
 using System;
+using System.Linq;
+using System.Reflection;
+using NSubstitute.Core;
 using NSubstitute.Core.Events;
 
 namespace NSubstitute
@@ -45,7 +48,42 @@ namespace NSubstitute
         /// </summary>
         public static DelegateEventWrapper<THandler> Event<THandler>(params object[] arguments)
         {
-            return new DelegateEventWrapper<THandler>(arguments);
+            var normalizedArgs = FixParamsArrayAmbiguity(arguments, typeof(THandler));
+            return new DelegateEventWrapper<THandler>(normalizedArgs);
+        }
+
+        /// <summary>
+        /// If delegate takes single parameter of array type, it's impossible to distinguish
+        /// whether input array represents all arguments, or the first argument only.
+        /// If we find that ambiguity might happen, we wrap user input in an extra array.
+        /// </summary>
+        private static object[] FixParamsArrayAmbiguity(object[] arguments, Type delegateType)
+        {
+            ParameterInfo[] invokeMethodParameters = delegateType.GetInvokeMethod().GetParameters();
+            if (invokeMethodParameters.Length != 1)
+            {
+                return arguments;
+            }
+
+            Type singleParameterType = invokeMethodParameters[0].ParameterType;
+            if (!singleParameterType.IsArray)
+            {
+                return arguments;
+            }
+
+            // Check if native non-params syntax was used.
+            // This way actual value is already wrapped in array and we don't need to extra-wrap it.
+            if (arguments.Length == 1 && singleParameterType.IsInstanceOfType(arguments[0]))
+            {
+                return arguments;
+            }
+
+            if (singleParameterType.IsInstanceOfType(arguments))
+            {
+                return new object[] {arguments};
+            }
+
+            return arguments;
         }
     }
 }
