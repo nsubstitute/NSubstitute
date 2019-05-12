@@ -72,7 +72,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
             // Ideally we should use ProxyUtil.CreateDelegateToMixin(proxy, delegateType).
             // But it's slower than code below due to extra checks it performs.
-            return proxy.GetType().GetMethod("Invoke").CreateDelegate(delegateType, proxy);
+            return proxy.GetType().GetInvokeMethod().CreateDelegate(delegateType, proxy);
         }
 
         private CastleForwardingInterceptor CreateForwardingInterceptor(ICallRouter callRouter)

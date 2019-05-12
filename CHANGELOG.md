@@ -1,5 +1,6 @@
 ### unreleased
 
+* [FIX] Raise events for delegates taking single array argument of reference element type. (#560, @zvirja)
 
 ### 4.1.0 (May 2019)
 
