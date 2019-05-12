@@ -1,6 +1,8 @@
 ### unreleased
 
 * [FIX] Raise events for delegates taking single array argument of reference element type. (#560, @zvirja)
+* [NEW] `Quantity.Within(min, max)` to assert a call was received within a range of times.
+This is available in the `NSubstitute.ReceivedExtensions` namespace. (#558)
 
 ### 4.1.0 (May 2019)
 
