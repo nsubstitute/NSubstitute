@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core;
 
@@ -47,6 +48,13 @@ namespace NSubstitute.ReceivedExtensions
         public static Quantity Exactly(int number) { return number == 0 ? None() : new ExactQuantity(number); }
         public static Quantity AtLeastOne() { return new AnyNonZeroQuantity(); }
         public static Quantity None() { return new NoneQuantity(); }
+        /// <summary>
+        /// A non-zero quantity between the given minimum and maximum numbers (inclusive).
+        /// </summary>
+        /// <param name="minInclusive">Minimum quantity (inclusive). Must be greater than or equal to 0.</param>
+        /// <param name="maxInclusive">Maximum quantity (inclusive). Must be greater than minInclusive.</param>
+        /// <returns></returns>
+        public static Quantity Within(int minInclusive, int maxInclusive) { return new RangeQuantity(minInclusive, maxInclusive); }
 
         /// <summary>
         /// Returns whether the given collection contains the required quantity of items.
@@ -154,6 +162,33 @@ namespace NSubstitute.ReceivedExtensions
             }
 
             public override int GetHashCode() { return 0; }
+        }
+
+        private class RangeQuantity : Quantity
+        {
+            private readonly int minInclusive;
+            private readonly int maxInclusive;
+            public RangeQuantity(int minInclusive, int maxInclusive) {
+                if (minInclusive < 0) {
+                    throw new ArgumentOutOfRangeException(nameof(minInclusive),
+                        $"{nameof(minInclusive)} must be >= 0, but was {minInclusive}.");
+                }
+                if (maxInclusive <= minInclusive) {
+                    throw new ArgumentOutOfRangeException(nameof(maxInclusive),
+                        $"{nameof(maxInclusive)} must be greater than {nameof(minInclusive)} (was {maxInclusive}, required > {minInclusive}).");
+                }
+                this.minInclusive = minInclusive;
+                this.maxInclusive = maxInclusive;
+            }
+            public override string Describe(string singularNoun, string pluralNoun) =>
+                $"between {minInclusive} and {maxInclusive} (inclusive) {((maxInclusive == 1) ? singularNoun : pluralNoun)}";
+
+            public override bool Matches<T>(IEnumerable<T> items) {
+                var count = items.Count();
+                return count >= minInclusive && count <= maxInclusive;
+            }
+
+            public override bool RequiresMoreThan<T>(IEnumerable<T> items) => items.Count() < minInclusive;
         }
     }
 }
