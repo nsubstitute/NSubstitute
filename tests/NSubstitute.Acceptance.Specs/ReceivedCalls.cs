@@ -275,7 +275,7 @@ namespace NSubstitute.Acceptance.Specs
             var ex = Assert.Throws<ReceivedCallsException>(() =>
                 _car.Received(Quantity.Within(2, 5)).Idle()
             );
-            StringAssert.Contains("between 2 and 5 (inclusive) call", ex.Message);
+            StringAssert.Contains("between 2 and 5 (inclusive) calls", ex.Message);
         }
 
         [Test]

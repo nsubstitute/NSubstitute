@@ -48,6 +48,12 @@ namespace NSubstitute.ReceivedExtensions
         public static Quantity Exactly(int number) { return number == 0 ? None() : new ExactQuantity(number); }
         public static Quantity AtLeastOne() { return new AnyNonZeroQuantity(); }
         public static Quantity None() { return new NoneQuantity(); }
+        /// <summary>
+        /// A non-zero quantity between the given minimum and maximum numbers (inclusive).
+        /// </summary>
+        /// <param name="minInclusive">Minimum quantity (inclusive). Must be greater than or equal to 0.</param>
+        /// <param name="maxInclusive">Maximum quantity (inclusive). Must be greater than minInclusive.</param>
+        /// <returns></returns>
         public static Quantity Within(int minInclusive, int maxInclusive) { return new RangeQuantity(minInclusive, maxInclusive); }
 
         /// <summary>
