@@ -1,4 +1,4 @@
-### unreleased
+### 4.2.0 (May 2019)
 
 * [FIX] Raise events for delegates taking single array argument of reference element type. (#560, @zvirja)
 * [NEW] `Quantity.Within(min, max)` to assert a call was received within a range of times.
