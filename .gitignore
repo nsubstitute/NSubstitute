@@ -49,6 +49,7 @@ TestResult.xml
 dlldata.c
 
 # .NET Core
+build.fsx.lock
 project.lock.json
 project.fragment.lock.json
 artifacts/
