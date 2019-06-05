@@ -1,4 +1,5 @@
-﻿using NSubstitute.Core;
+﻿using System.Linq;
+using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
 {
@@ -19,7 +20,14 @@ namespace NSubstitute.Routing.Handlers
         {
             var callSpec = _callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
             _pendingCallSpecification.SetCallSpecification(callSpec);
-            _callActions.Add(callSpec);
+
+            // Performance optimization - don't register call actions if current argument matchers
+            // don't have any callbacks.
+            if (call.GetArgumentSpecifications().Any(x => x.HasAction))
+            {
+                _callActions.Add(callSpec);
+            }
+
             return RouteAction.Continue();
         }
     }

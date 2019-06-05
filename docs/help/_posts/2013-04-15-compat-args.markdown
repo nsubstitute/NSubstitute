@@ -11,7 +11,8 @@ If you have C# 7.0-compatible tooling installed you can [set `<LangVersion />` i
 
 Stuck with pre-7.0 tooling? Then use `Arg.Compat` instead of `Arg`, or use `CompatArg` in the `NSubstitute.Compatibility` namespace. `Arg.Compat` will work everywhere `Arg` does, with the exception of matching `out` and `ref` args. For example, if the documentation mentions `Arg.Is(42)`, you can instead use `Arg.Compat.Is(42)`. `CompatArg` is a bit trickier to setup, but may make migrating between `Arg` and `Arg.Compat` easier in some cases. Both options are described below.
 
-{% requiredcode %}
+<!--
+```requiredcode
 public interface ICalculator {
     int Add(int a, int b);
 }
@@ -19,13 +20,14 @@ ICalculator calculator;
 [SetUp] public void SetUp() { 
     calculator = Substitute.For<ICalculator>(); 
 }
-{% endrequiredcode %}
+```
+-->
 
 ## Using `Arg.Compat`
 
 The simplest work-around if you are stuck on pre-C#7 is to use `Arg.Compat.` wherever you would normally use `Arg.`. To migrate existing code, replace all instances of `Arg.` with `Arg.Compat.`.
 
-{% examplecode csharp %}
+```csharp
 calculator.Add(1, -10);
 
 // Instead of `Arg.Is<int>(x => x < 0)`, use:
@@ -39,13 +41,13 @@ calculator
 // Same for Returns and DidNotReceive:
 calculator.Add(Arg.Compat.Any<int>(), Arg.Compat.Is(42)).Returns(123);
 calculator.DidNotReceive().Add(Arg.Compat.Is<int>(x => x > 10), -10);
-{% endexamplecode %}
+```
 
 ## Using `NSubstitute.Compatibility.CompatArg`
 
 If you have a project with lots of existing arg matchers then migrating to `Arg.Compat` can require a lot of code changes. A smaller change is to instead use an instance of the `CompatArg` class in the `NSubstitute.Compatibility` namespace. This approach may also make it easier to upgrade to the newer `Arg` matchers in future.
 
-{% examplecode csharp %}
+```csharp
 [TestFixture]
 public class SampleCompatArgFixture {
 
@@ -63,11 +65,11 @@ public class SampleCompatArgFixture {
         calculator.Received().Add(1, Arg.Is<int>(x => x < 0));
     }
 }
-{% endexamplecode %}
+```
 
 This works particularly well if a common test base class is used.
 
-{% examplecode csharp %}
+```csharp
 public class BaseTestFixture {
 
     // Declare Arg field. Any existing `Arg` references will now go via `CompatArg`, instead
@@ -75,7 +77,7 @@ public class BaseTestFixture {
     protected static readonly NSubstitute.Compatibility.CompatArg Arg = NSubstitute.Compatibility.CompatArg.Instance;
 
 }
-{% endexamplecode %}
+```
 
 If you are later able to update the C# compiler your project is using, you can remove the `CompatArg` field and all `Arg` references will go through standard arg matchers (and you'll now be able to use them with `out` and `ref` parameters!).
 
@@ -87,15 +89,17 @@ As of NSubstitute 4.0 argument matchers can no longer be used in expression tree
 
 The `Arg.Compat` matchers can be used to work around this issue. They do not return by reference so they are fine to use in expression trees. 
 
-{% requiredcode %}
+<!--
+```requiredcode
 // Pretending this takes an Expression<Action> arg (rather than adding a reference to
 // System.Linq.Expression).
 protected void specify(Action expectation) {
     expectation();
 }
-{% endrequiredcode %}
+```
+-->
 
-{% examplecode csharp %}
+```csharp
 public interface IFoo { void DoStuff(int i); }
 
 [Test]
@@ -111,6 +115,6 @@ public void Sample() {
     // Or re-write without expression tree if possible:
     sub.Received().DoStuff(Arg.Any<int>());
 }
-{% endexamplecode %}
+```
 
 

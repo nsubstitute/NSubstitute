@@ -1,3 +1,29 @@
+### unreleased
+
+
+### 4.2.0 (May 2019)
+
+* [FIX] Raise events for delegates taking single array argument of reference element type. (#560, @zvirja)
+* [NEW] `Quantity.Within(min, max)` to assert a call was received within a range of times.
+This is available in the `NSubstitute.ReceivedExtensions` namespace. (#558)
+
+### 4.1.0 (May 2019)
+
+* [FIX] Re-throw captured NSubstitute exceptions when configuring async methods. (#533, @zvirja)
+* [UPDATE] Various performance improvements. (#536, #542, #547, @zvirja)
+* [UPDATE] Use Castle.Proxy library to generate delegate proxies. (#537, @zvirja)
+* [FIX] Do not fail on nested generic type formatting. (#515, @zvirja)
+* [FIX] Fix event handling for code created by non-ECMA compliant compilers. (#500, #525, @zvirja)
+* [UPDATE] Thanks to Julian Verdurmen (@304NotModified) for updating our website and links
+to HTTPS! All links to the NSub website should now go through https://nsubstitute.github.io,
+and other web links in the project also go through to HTTPS where supported.
+* [UPDATE] Documentation updates (#516 thanks to Michael Freidgeim @MNF; #530, #531 thanks to @304NotModified; #540, #549)
+
+### 4.0.0 (January 2019)
+
+_Promoted 4.0.0 Release Candidate 1 with no code changes. See the release candidate's notes
+for a full list of changes since 3.1.0._
+
 ### 4.0.0 Release Candidate 1 (November 2018)
 
 Thanks to core team member Alex Povar (@zvirja) for putting a huge amount of work into
@@ -230,7 +256,7 @@ released.
 * [BREAKING] Raise.Action() methods removed. Use Raise.Event<THandler>() (e.g. Raise.Event<Action>>()).
 * [BREAKING] Renamed Raise.Event<TEventArgs>() methods to Raise.EventWith<TEventArgs>().
 * [UPDATE] Arg matchers can be specified using more specific, compatible type (Arg.Is<string>(..) for arg of type object).
-* [NEW] NSubstitute website and documentation http://nsubstitute.github.com
+* [NEW] NSubstitute website and documentation https://nsubstitute.github.io
 * [FIX] Formating for argument matchers that take predicate functions.
 * [FIX] Match single argument matcher passed to params arg (#34)
 * [FIX] Detect ambiguous arg matchers in additional case (#31)

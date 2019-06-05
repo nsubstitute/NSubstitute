@@ -2,6 +2,8 @@
 {
     public abstract class AbstractClassWithSingleMethod
     {
-        public abstract int Method(string arg);
+        public abstract int IntMethod(string arg);
+
+        public abstract void VoidMethod(object arg);
     }
 }

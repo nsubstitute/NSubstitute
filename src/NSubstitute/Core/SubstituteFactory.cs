@@ -64,14 +64,14 @@ namespace NSubstitute.Core
 
         private static Type GetPrimaryProxyType(Type[] typesToProxy)
         {
-            return typesToProxy.FirstOrDefault(t => t.GetTypeInfo().IsSubclassOf(typeof(Delegate)))
+            return typesToProxy.FirstOrDefault(t => t.IsDelegate())
                 ?? typesToProxy.FirstOrDefault(t => t.GetTypeInfo().IsClass)
                 ?? typesToProxy.First();
         }
 
         private static bool CanCallBaseImplementation(Type primaryProxyType)
         {
-            var isDelegate = primaryProxyType.GetTypeInfo().IsSubclassOf(typeof(Delegate));
+            var isDelegate = primaryProxyType.IsDelegate();
             var isClass = primaryProxyType.GetTypeInfo().IsClass;
 
             return isClass && !isDelegate;

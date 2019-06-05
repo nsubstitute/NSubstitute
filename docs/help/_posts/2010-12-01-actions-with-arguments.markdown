@@ -13,12 +13,14 @@ Say our class under test needs to call a method on a dependency, and provide a c
 
 Let's look at a contrived example. Say we are testing an `OrderPlacedCommand`, which needs to use an `IOrderProcessor` to process the order, then raise and event using `IEvents` when this completes successfully.
 
-{% requiredcode %}
+<!--
+```requiredcode
 public interface ICart { int OrderId { get; set; } }
 public interface IEvents { void RaiseOrderProcessed(int orderId); }
-{% endrequiredcode %}
+```
+-->
 
-{% examplecode csharp %}
+```csharp
 public interface IOrderProcessor {
     void ProcessOrder(int orderId, Action<bool> orderProcessed);
 }
@@ -37,11 +39,11 @@ public class OrderPlacedCommand {
         );
     }
 }
-{% endexamplecode %}
+```
 
 In our test we can use `Arg.Invoke` to simulate the situation where the `IOrderProcessor` finishes processing the order and invokes the callback to tell the calling code it is finished.
 
-{% examplecode csharp %}
+```csharp
 [Test]
 public void Placing_order_should_raise_order_processed_when_processing_is_successful() {
     //Arrange
@@ -59,7 +61,7 @@ public void Placing_order_should_raise_order_processed_when_processing_is_succes
     //Assert
     events.Received().RaiseOrderProcessed(3);
 }
-{% endexamplecode %}
+```
 
 Here we setup the `processor` to invoke the callback whenever processing an order with id 3. We set it up to pass `true` to this callback using `Arg.Invoke(true)`.
 
@@ -69,24 +71,26 @@ There are several overloads to `Arg.Invoke` that let us invoke callbacks with va
 
 Sometimes we may not want to invoke a callback immediately. Or maybe we want to store all instances of a particular argument passed to a method. Or even just capture a single argument for inspection later. We can use `Arg.Do` for these purposes. `Arg.Do` calls the action we give it with the argument used for each matching call.
 
-{% requiredcode %}
+<!--
+```requiredcode
 public interface ICalculator { int Multiply(int a, int b); }
 ICalculator calculator;
 [SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
-{% endrequiredcode %}
+```
+-->
 
-{% examplecode csharp %}
+```csharp
 var argumentUsed = 0;
 calculator.Multiply(Arg.Any<int>(), Arg.Do<int>(x => argumentUsed = x));
 
 calculator.Multiply(123, 42);
 
 Assert.AreEqual(42, argumentUsed);
-{% endexamplecode %}
+```
 
 Here we specify that a call to `Multiply` with any first argument should pass the second argument and put it in the `argumentUsed` variable. This can be quite useful when we want to assert several properties on an argument (for types more complex than `int` that is).
 
-{% examplecode csharp %}
+```csharp
 var firstArgsBeingMultiplied = new List<int>();
 calculator.Multiply(Arg.Do<int>(x => firstArgsBeingMultiplied.Add(x)), 10);
 
@@ -95,7 +99,7 @@ calculator.Multiply(5, 10);
 calculator.Multiply(7, 4567); //Will not match our Arg.Do as second arg is not 10
 
 Assert.AreEqual(firstArgsBeingMultiplied, new[] { 2, 5 });
-{% endexamplecode %}
+```
 
 Here our `Arg.Do` takes whatever `int` is passed as the first argument to `Multiply` and adds it to a list whenever the second argument is 10.
 
@@ -103,7 +107,7 @@ Here our `Arg.Do` takes whatever `int` is passed as the first argument to `Multi
 
 Argument actions act just like the [`Arg.Any<T>()` argument matcher](/help/argument-matchers) in that they specify a call where that argument is any type compatible with `T` (and so can be used for [setting return values](/help/return-for-args) and [checking received calls](/help/received-calls)). They just have the added element of interacting with a specific argument of any call that matches that specification.
 
-{% examplecode csharp %}
+```csharp
 var numberOfCallsWhereFirstArgIsLessThan0 = 0;
 //Specify a call where the first arg is less than 0, and the second is any int.
 //When this specification is met we'll increment a counter in the Arg.Do action for 
@@ -123,5 +127,5 @@ var results = new[] {
 
 Assert.AreEqual(3, numberOfCallsWhereFirstArgIsLessThan0); //3 of 4 calls have first arg < 0
 Assert.AreEqual(results, new[] {123, 123, 123, 0}); //Last call returns 0, not 123
-{% endexamplecode %}
+```
 

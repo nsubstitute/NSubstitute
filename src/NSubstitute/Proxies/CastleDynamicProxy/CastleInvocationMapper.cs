@@ -23,13 +23,21 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 !castleInvocation.MethodInvocationTarget.IsAbstract &&
                 !castleInvocation.MethodInvocationTarget.IsFinal)
             {
-                Func<object> baseResult = () => { castleInvocation.Proceed(); return castleInvocation.ReturnValue; };
-                var result = new Lazy<object>(baseResult);
-                baseMethod = () => result.Value;
+                baseMethod = CreateBaseResultInvocation(castleInvocation);
             }
 
-            var queuedArgSpecifications = _argSpecificationDequeue.DequeueAllArgumentSpecificationsForMethod(castleInvocation.Method);
+            var queuedArgSpecifications = _argSpecificationDequeue.DequeueAllArgumentSpecificationsForMethod(castleInvocation.Arguments.Length);
             return _callFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy, queuedArgSpecifications, baseMethod);
+        }
+
+        private static Func<object> CreateBaseResultInvocation(IInvocation invocation)
+        {
+            // Notice, it's important to keep this as a separate method, as methods with lambda closures
+            // always allocate, even if delegate is not actually constructed.
+            // This way we make allocation only if indeed required.
+            Func<object> baseResult = () => { invocation.Proceed(); return invocation.ReturnValue; };
+            var result = new Lazy<object>(baseResult);
+            return () => result.Value;
         }
     }
 }

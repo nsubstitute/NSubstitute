@@ -5,13 +5,15 @@ layout: post
 
 [Callbacks](/help/callbacks) can be used to throw exceptions when a member is called.
 
-{% requiredcode %}
+<!--
+```requiredcode
 public interface ICalculator { int Add(int a, int b); }
 ICalculator calculator;
 [SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
-{% endrequiredcode %}
+```
+-->
 
-{% examplecode csharp %}
+```csharp
 //For non-voids:
 calculator.Add(-1, -1).Returns(x => { throw new Exception(); });
 
@@ -23,5 +25,5 @@ calculator
 //Both calls will now throw.
 Assert.Throws<Exception>(() => calculator.Add(-1, -1));
 Assert.Throws<Exception>(() => calculator.Add(-2, -2));
-{% endexamplecode %}
+```
 

@@ -4,6 +4,7 @@ using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.ClearExtensions;
 using System.Threading.Tasks;
+using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
 
 namespace NSubstitute
@@ -13,172 +14,162 @@ namespace NSubstitute
         /// <summary>
         /// Set a return value for this call.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Value to return</param>
         /// <param name="returnThese">Optionally return these values next</param>
-        /// <returns></returns>
         public static ConfiguredCall Returns<T>(this T value, T returnThis, params T[] returnThese)
         {
-            return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
+            return ConfigureReturn(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
         /// <summary>
         /// Set a return value for this call, calculated by the provided function.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
-        /// <returns></returns>
         public static ConfiguredCall Returns<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
-            return Returns(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
+            return ConfigureReturn(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
         }
 
         /// <summary>
         /// Set a return value for this call. The value(s) to be returned will be wrapped in Tasks.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Value to return. Will be wrapped in a Task</param>
         /// <param name="returnThese">Optionally use these values next</param>
-        /// <returns></returns>
         public static ConfiguredCall Returns<T>(this Task<T> value, T returnThis, params T[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+ 
             var wrappedReturnValue = CompletedTask(returnThis);
+            var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(CompletedTask).ToArray() : null;
 
-            var wrappedParameters = returnThese.Select(CompletedTask);
-
-            return Returns(MatchArgs.AsSpecifiedInCall, wrappedReturnValue, wrappedParameters.ToArray());
+            return ConfigureReturn(MatchArgs.AsSpecifiedInCall, wrappedReturnValue, wrappedReturnThese);
         }
 
         /// <summary>
         /// Set a return value for this call, calculated by the provided function. The value(s) to be returned will be wrapped in Tasks.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
-        /// <returns></returns>
         public static ConfiguredCall Returns<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+ 
             var wrappedFunc = WrapFuncInTask(returnThis);
-            var wrappedFuncs = returnThese.Select(WrapFuncInTask);
+            var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInTask).ToArray() : null;
 
-            return Returns(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedFuncs.ToArray());
+            return ConfigureReturn(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedReturnThese);
         }
 
         /// <summary>
         /// Set a return value for this call. The value(s) to be returned will be wrapped in ValueTasks.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Value to return. Will be wrapped in a ValueTask</param>
         /// <param name="returnThese">Optionally use these values next</param>
-        /// <returns></returns>
         public static ConfiguredCall Returns<T>(this ValueTask<T> value, T returnThis, params T[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+ 
             var wrappedReturnValue = CompletedValueTask(returnThis);
+            var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(CompletedValueTask).ToArray() : null;
 
-            var wrappedParameters = returnThese.Select(CompletedValueTask);
-
-            return Returns(MatchArgs.AsSpecifiedInCall, wrappedReturnValue, wrappedParameters.ToArray());
+            return ConfigureReturn(MatchArgs.AsSpecifiedInCall, wrappedReturnValue, wrappedReturnThese);
         }
 
         /// <summary>
         /// Set a return value for this call, calculated by the provided function. The value(s) to be returned will be wrapped in ValueTasks.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
-        /// <returns></returns>
         public static ConfiguredCall Returns<T>(this ValueTask<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+ 
             var wrappedFunc = WrapFuncInValueTask(returnThis);
-            var wrappedFuncs = returnThese.Select(WrapFuncInValueTask);
+            var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInValueTask).ToArray() : null;
 
-            return Returns(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedFuncs.ToArray());
+            return ConfigureReturn(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedReturnThese);
         }
 
         /// <summary>
         /// Set a return value for this call made with any arguments. The value(s) to be returned will be wrapped in Tasks.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Value to return</param>
         /// <param name="returnThese">Optionally return these values next</param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, T returnThis, params T[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+
             var wrappedReturnValue = CompletedTask(returnThis);
+            var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(CompletedTask).ToArray() : null;
 
-            var wrappedParameters = returnThese.Select(CompletedTask);
-
-            return Returns(MatchArgs.Any, wrappedReturnValue, wrappedParameters.ToArray());
+            return ConfigureReturn(MatchArgs.Any, wrappedReturnValue, wrappedReturnThese);
         }
 
         /// <summary>
         /// Set a return value for this call made with any arguments, calculated by the provided function. The value(s) to be returned will be wrapped in Tasks.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+
             var wrappedFunc = WrapFuncInTask(returnThis);
-            var wrappedFuncs = returnThese.Select(WrapFuncInTask);
+            var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInTask).ToArray() : null;
             
-            return Returns(MatchArgs.Any, wrappedFunc, wrappedFuncs.ToArray());
+            return ConfigureReturn(MatchArgs.Any, wrappedFunc, wrappedReturnThese);
         }
 
         /// <summary>
         /// Set a return value for this call made with any arguments. The value(s) to be returned will be wrapped in ValueTasks.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Value to return</param>
         /// <param name="returnThese">Optionally return these values next</param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this ValueTask<T> value, T returnThis, params T[] returnThese)
         {
+            ReThrowOnNSubstituteFault(value);
+
             var wrappedReturnValue = CompletedValueTask(returnThis);
+            var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(CompletedValueTask).ToArray() : null;
 
-            var wrappedParameters = returnThese.Select(CompletedValueTask);
-
-            return Returns(MatchArgs.Any, wrappedReturnValue, wrappedParameters.ToArray());
+            return ConfigureReturn(MatchArgs.Any, wrappedReturnValue, wrappedReturnThese);
         }
 
         /// <summary>
         /// Set a return value for this call made with any arguments, calculated by the provided function. The value(s) to be returned will be wrapped in ValueTasks.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this ValueTask<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
-            var wrappedFunc = WrapFuncInValueTask(returnThis);
-            var wrappedFuncs = returnThese.Select(WrapFuncInValueTask);
+            ReThrowOnNSubstituteFault(value);
 
-            return Returns(MatchArgs.Any, wrappedFunc, wrappedFuncs.ToArray());
+            var wrappedFunc = WrapFuncInValueTask(returnThis);
+            var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInValueTask).ToArray() : null;
+
+            return ConfigureReturn(MatchArgs.Any, wrappedFunc, wrappedReturnThese);
         }
 
         /// <summary>
         /// Set a return value for this call made with any arguments.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="returnThis">Value to return</param>
         /// <param name="returnThese">Optionally return these values next</param>
-        /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese)
         {
-            return Returns(MatchArgs.Any, returnThis, returnThese);
+            return ConfigureReturn(MatchArgs.Any, returnThis, returnThese);
         }
 
         /// <summary>
@@ -191,10 +182,10 @@ namespace NSubstitute
         /// <returns></returns>
         public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
         {
-            return Returns(MatchArgs.Any, returnThis, returnThese);
+            return ConfigureReturn(MatchArgs.Any, returnThis, returnThese);
         }
 
-        internal static ConfiguredCall Returns<T>(MatchArgs matchArgs, T returnThis, params T[] returnThese)
+        private static ConfiguredCall ConfigureReturn<T>(MatchArgs matchArgs, T returnThis, T[] returnThese)
         {
             IReturn returnValue;
             if (returnThese == null || returnThese.Length == 0)
@@ -211,7 +202,7 @@ namespace NSubstitute
                 .LastCallShouldReturn(returnValue, matchArgs);
         }
 
-        internal static ConfiguredCall Returns<T>(MatchArgs matchArgs, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+        private static ConfiguredCall ConfigureReturn<T>(MatchArgs matchArgs, Func<CallInfo, T> returnThis, Func<CallInfo, T>[] returnThese)
         {
             IReturn returnValue;
             if (returnThese == null || returnThese.Length == 0)
@@ -371,14 +362,30 @@ namespace NSubstitute
             return x => CompletedValueTask(returnThis(x));
         }
 
-        internal static Task<T> CompletedTask<T>(T result) 
+        private static Task<T> CompletedTask<T>(T result) 
         {
             return Task.FromResult(result);
         }
 
-        internal static ValueTask<T> CompletedValueTask<T>(T result)
+        private static ValueTask<T> CompletedValueTask<T>(T result)
         {
             return new ValueTask<T>(result);
+        }
+
+        private static void ReThrowOnNSubstituteFault<T>(Task<T> task)
+        {
+            if (task.IsFaulted && task.Exception.InnerExceptions.FirstOrDefault() is SubstituteException)
+            {
+                task.GetAwaiter().GetResult();
+            }
+        }
+
+        private static void ReThrowOnNSubstituteFault<T>(ValueTask<T> task)
+        {
+            if (task.IsFaulted && task.AsTask().Exception.InnerExceptions.FirstOrDefault() is SubstituteException)
+            {
+                task.GetAwaiter().GetResult();
+            }
         }
     }
 }

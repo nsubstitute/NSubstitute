@@ -22,7 +22,7 @@ namespace NSubstitute.Core.Events
 
         protected override object[] WorkOutRequiredArguments(ICall call)
         {
-            var requiredArgs = typeof(T).GetMethod("Invoke").GetParameters();
+            var requiredArgs = typeof(T).GetInvokeMethod().GetParameters();
 
             if (_providedArguments.Length < 2 && LooksLikeAnEventStyleCall(requiredArgs))
             {

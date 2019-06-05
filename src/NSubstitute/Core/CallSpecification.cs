@@ -9,7 +9,7 @@ namespace NSubstitute.Core
     public class CallSpecification : ICallSpecification
     {
         private readonly MethodInfo _methodInfo;
-        readonly IArgumentSpecification[] _argumentSpecifications;
+        private readonly IArgumentSpecification[] _argumentSpecifications;
 
         public CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications)
         {
@@ -17,26 +17,46 @@ namespace NSubstitute.Core
             _argumentSpecifications = argumentSpecifications.ToArray();
         }
 
-        public MethodInfo GetMethodInfo() { return _methodInfo; }
+        public MethodInfo GetMethodInfo() => _methodInfo;
 
-        public Type ReturnType() { return _methodInfo.ReturnType; }
+        public Type ReturnType() => _methodInfo.ReturnType;
 
         public bool IsSatisfiedBy(ICall call)
         {
-            if (!AreComparable(GetMethodInfo(), call.GetMethodInfo())) return false;
-            if (HasDifferentNumberOfArguments(call)) return false;
-            if (NonMatchingArguments(call).Any()) return false;
+            if (!AreComparable(GetMethodInfo(), call.GetMethodInfo()))
+            {
+                return false;
+            }
+
+            if (HasDifferentNumberOfArguments(call))
+            {
+                return false;
+            }
+
+            if (!IsMatchingArgumentSpecifications(call))
+            {
+                return false;
+            }
+ 
             return true;
         }
 
-	    bool AreComparable(MethodInfo a, MethodInfo b)
+        private static bool AreComparable(MethodInfo a, MethodInfo b)
 	    {
-            if (a == b) return true;
-	        if (a.IsGenericMethod && b.IsGenericMethod) return CanCompareGenericMethods(a, b);
+            if (a == b)
+            {
+                return true;
+            }
+            
+            if (a.IsGenericMethod && b.IsGenericMethod)
+            {
+                return CanCompareGenericMethods(a, b);
+            }
+            
 	        return false;
 		}
 
-        bool CanCompareGenericMethods(MethodInfo a, MethodInfo b)
+        private static bool CanCompareGenericMethods(MethodInfo a, MethodInfo b)
         {
 			return
 				   AreEquivalentDefinitions(a, b)
@@ -44,12 +64,12 @@ namespace NSubstitute.Core
 				&& TypesAreAllEquivalent(a.GetGenericArguments(), b.GetGenericArguments());
         }
 
-        Type[] ParameterTypes(MethodInfo info)
+        private static Type[] ParameterTypes(MethodInfo info)
 		{
 			return info.GetParameters().Select(p=>p.ParameterType).ToArray();
 		}
 
-	    static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
+	    private static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
 	    {
 	        if (aArgs.Length != bArgs.Length) return false;
 	        for (var i = 0; i < aArgs.Length; i++)
@@ -63,12 +83,26 @@ namespace NSubstitute.Core
 	        return true;
 	    }
 
-	    bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
+	    private static bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
 	    {
 		    return a.IsGenericMethod == b.IsGenericMethod
                    && a.ReturnType == b.ReturnType
                    && a.Name.Equals(b.Name, StringComparison.Ordinal);
 	    }
+
+        private bool IsMatchingArgumentSpecifications(ICall call)
+        {
+            object[] arguments = call.GetOriginalArguments();
+            for (int i = 0; i < arguments.Length; i++)
+            {
+                if (!_argumentSpecifications[i].IsSatisfiedBy(arguments[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         public IEnumerable<ArgumentMatchInfo> NonMatchingArguments(ICall call)
         {

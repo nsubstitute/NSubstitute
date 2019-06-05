@@ -4,16 +4,18 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecification : IArgumentSpecification
     {
-        static readonly Action<object> NoOpAction = x => { };
-        readonly Type _forType;
-        readonly IArgumentMatcher _matcher;
-        readonly Action<object> _action;
+        private static readonly Action<object> NoOpAction = x => { };
+ 
+        private readonly IArgumentMatcher _matcher;
+        private readonly Action<object> _action;
+        public Type ForType { get; }
+        public bool HasAction => _action != NoOpAction;
 
         public ArgumentSpecification(Type forType, IArgumentMatcher matcher) : this(forType, matcher, NoOpAction) { }
 
         public ArgumentSpecification(Type forType, IArgumentMatcher matcher, Action<object> action)
         {
-            _forType = forType;
+            ForType = forType;
             _matcher = matcher;
             _action = action;
         }
@@ -42,14 +44,12 @@ namespace NSubstitute.Core.Arguments
                 : matcherFormatter.Format(argument, isSatisfiedByArg);
         }
 
-        public Type ForType { get { return _forType; } }
-
-        public override string ToString() { return _matcher.ToString(); }
+        public override string ToString() => _matcher.ToString();
 
         public IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType)
         {
-            //Don't pass RunActionIfTypeIsCompatible method if no action is present.
-            //Otherwise, unnecessary closure will keep reference to this and will keep it alive.
+            // Don't pass RunActionIfTypeIsCompatible method if no action is present.
+            // Otherwise, unnecessary closure will keep reference to this and will keep it alive.
             return new ArgumentSpecification(
                 requiredType,
                 new AnyArgumentMatcher(requiredType),

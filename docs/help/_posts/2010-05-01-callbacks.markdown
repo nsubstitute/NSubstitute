@@ -5,27 +5,29 @@ layout: post
 
 Sometimes it is useful to execute some arbitrary code whenever a particular call is made. We have already seen an example of this when [passing functions to `Returns()`](/help/return-from-function/#callbacks).
 
-{% requiredcode %}
+<!--
+```requiredcode
 public interface ICalculator {
 	int Add(int a, int b);
 	string Mode { get; set; }
 }
 ICalculator calculator;
 [SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
-{% endrequiredcode %}
+```
+-->
 
-{% examplecode csharp %}
+```csharp
 var counter = 0;
 calculator
-    .Add(0,0)
+    .Add(default, default)
     .ReturnsForAnyArgs(x => 0)
     .AndDoes(x => counter++);
 
-calculator.Add(7,3);
-calculator.Add(2,2);
-calculator.Add(11,-3);
+calculator.Add(7, 3);
+calculator.Add(2, 2);
+calculator.Add(11, -3);
 Assert.AreEqual(counter, 3);
-{% endexamplecode %}
+```
 
 The [Return from a function](/help/return-from-function) topic has more information on the arguments passed to the callback.
 
@@ -37,7 +39,7 @@ The [Return from a function](/help/return-from-function) topic has more informat
 
 `When..Do` uses two calls to configure our callback. First, `When()` is called on the substitute and passed a function. The argument to the function is the substitute itself, and we can call the member we are interested in here, even if it returns `void`. We then call `Do()` and pass in our callback that will be executed when the substitute's member is called.
 
-{% examplecode csharp %}
+```csharp
 public interface IFoo {
     void SayHello(string to);
 }
@@ -52,13 +54,13 @@ public void SayHello() {
     foo.SayHello("World");
     Assert.AreEqual(2, counter);
 }
-{% endexamplecode %}
+```
 
 The argument passed to the `Do()` method is the same call information passed to the [`Returns()` callback](/help/return-from-function), which gives us access to the arguments used for the call.
 
 Note that we can also use `When..Do` syntax for non-void members, but generally the `Returns()` syntax is preferred for brevity and clarity. You may still find it useful for non-voids when you want to execute a function without changing a previous return value.
 
-{% examplecode csharp %}
+```csharp
 var counter = 0;
 calculator.Add(1, 2).Returns(3);
 calculator
@@ -68,7 +70,7 @@ calculator
 var result = calculator.Add(1, 2);
 Assert.AreEqual(3, result);
 Assert.AreEqual(1, counter);
-{% endexamplecode %}
+```
 
 ## Per argument callbacks
 
@@ -81,11 +83,13 @@ Argument callbacks give us slightly more concise code in a style that is more in
 
 The `Callback` builder lets us create more complex `Do()` scenarios.  We can use `Callback.First()` followed by `Then()`, `ThenThrow()` and `ThenKeepDoing()` to build chains of callbacks. We can also use `Always()` and `AlwaysThrow()` to specify callbacks called every time. Note that a callback set by an `Always()` method will be called even if other callbacks will throw an exception.
 
-{% requiredcode %}
+<!--
+```requiredcode
 public interface ISomething { void Something(); }
-{% endrequiredcode %}
+```
+-->
 
-{% examplecode csharp %}
+```csharp
 var sub = Substitute.For<ISomething>();
 
 var calls = new List<string>();
@@ -107,5 +111,5 @@ for (int i = 0; i < 5; i++)
 }
 Assert.That(String.Concat(calls), Is.EqualTo("123++"));
 Assert.That(counter, Is.EqualTo(5));
-{% endexamplecode %}
+```
 

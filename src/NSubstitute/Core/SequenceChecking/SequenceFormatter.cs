@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NSubstitute.Core.Arguments;
-using NSubstitute.Proxies.DelegateProxy;
 
 namespace NSubstitute.Core.SequenceChecking
 {
@@ -100,10 +99,7 @@ namespace NSubstitute.Core.SequenceChecking
 
                 var instanceIdentifier = includeInstanceNumber ? _instanceNumber + "@" : "";
 
-                var delegateType = MethodInfo.GetCustomAttribute<ProxiedDelegateTypeAttribute>()?.DelegateType;
-                var declaringTypeName = delegateType != null
-                    ? delegateType.GetNonMangledTypeName()
-                    : MethodInfo.DeclaringType.Name;
+                var declaringTypeName = MethodInfo.DeclaringType.GetNonMangledTypeName();
                 return string.Format("{1}{0}.{2}", declaringTypeName, instanceIdentifier, call);
             }
 

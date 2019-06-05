@@ -5,6 +5,7 @@ using NSubstitute.Benchmarks.TestTypes;
 namespace NSubstitute.Benchmarks
 {
     [ClrJob, CoreJob]
+    [MemoryDiagnoser]
     public class ToStringCallBenchmark
     {
         private readonly IInterfaceWithSingleMethod _interfaceProxy;

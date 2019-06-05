@@ -16,7 +16,9 @@ namespace NSubstitute.Core
 
         public ICallRouter Create(ISubstituteState substituteState, bool canConfigureBaseCalls)
         {
-            return new CallRouter(substituteState, _threadLocalContext, _routeFactory, canConfigureBaseCalls);
+            // Cache popular routes which are bound to the particular substitute state when it's possible.
+            var factoryWithCachedRoutes = new RouteFactoryCacheWrapper(_routeFactory);
+            return new CallRouter(substituteState, _threadLocalContext, factoryWithCachedRoutes, canConfigureBaseCalls);
         }
     }
 }

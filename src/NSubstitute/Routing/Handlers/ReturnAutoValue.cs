@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.Routing.AutoValues;
 
@@ -12,14 +13,14 @@ namespace NSubstitute.Routing.Handlers
     }
     public class ReturnAutoValue : ICallHandler
     {
-        private readonly IEnumerable<IAutoValueProvider> _autoValueProviders;
+        private readonly IAutoValueProvider[] _autoValueProviders;
         private readonly ICallResults _callResults;
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly AutoValueBehaviour _autoValueBehaviour;
 
         public ReturnAutoValue(AutoValueBehaviour autoValueBehaviour, IEnumerable<IAutoValueProvider> autoValueProviders, ICallResults callResults, ICallSpecificationFactory callSpecificationFactory)
         {
-            _autoValueProviders = autoValueProviders;
+            _autoValueProviders = autoValueProviders.AsArray();
             _callResults = callResults;
             _callSpecificationFactory = callSpecificationFactory;
             _autoValueBehaviour = autoValueBehaviour;

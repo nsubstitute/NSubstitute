@@ -209,6 +209,19 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void ShouldUseRegistrationFromForkContainerIfRequestComesFromParentContainerRegistration()
+        {
+            var sut = new NSubContainer();
+            sut.Register<ClassWithDependency, ClassWithDependency>(NSubLifetime.Transient);
+            sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.Transient);
+            var sutFork = sut.Customize().Register<ITestInterface, TestImplSingleCtor2>(NSubLifetime.Transient);
+
+            var sutForkResult = sutFork.Resolve<ClassWithDependency>();
+
+            Assert.That(sutForkResult.Dep, Is.AssignableTo<TestImplSingleCtor2>());
+        }
+
+        [Test]
         public void ShouldFailWithMeaningfulExceptionIfUnableToResolveType()
         {
             var sut = new NSubContainer();
@@ -231,6 +244,120 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(result1, Is.Not.SameAs(result2));
             Assert.That(result1.Dep, Is.SameAs(result2.Dep));
+        }
+
+        [Test]
+        public void ShouldDecorateTheExistingRegistration()
+        {
+            var sut = new NSubContainer();
+            sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.PerScope);
+
+            var sutFork = sut
+                .Customize()
+                .Decorate<ITestInterface>((impl, r) => new TestImplDecorator(impl));
+            var result = sutFork.Resolve<ITestInterface>();
+
+            Assert.That(result, Is.TypeOf<TestImplDecorator>());
+            Assert.That(((TestImplDecorator) result).Inner, Is.TypeOf<TestImplSingleCtor>());
+        }
+
+        [Test]
+        public void ShouldBePossibleToCreateNestedDecorators()
+        {
+            var sut = new NSubContainer();
+            sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.PerScope);
+
+            var sutFork = sut
+                .Customize()
+                .Decorate<ITestInterface>((impl, r) => new TestImplDecorator(impl));
+            var sutForkFork = sutFork
+                .Customize()
+                .Decorate<ITestInterface>((impl, r) => new TestImplDecorator(impl));
+            var result = sutForkFork.Resolve<ITestInterface>();
+
+            var mostInner = ((result as TestImplDecorator)?.Inner as TestImplDecorator)?.Inner;
+            Assert.That(mostInner, Is.TypeOf<TestImplSingleCtor>());
+        }
+
+        [Test]
+        public void ShouldFailIfTypeToDecorateDoesNotExist()
+        {
+            var sut = new NSubContainer();
+
+            var ex = Assert.Throws<ArgumentException>(
+                () => sut.Decorate<ITestInterface>((impl, r) => new TestImplDecorator(impl)));
+            Assert.That(ex.Message, Contains.Substring("implementation is not registered"));
+        }
+
+        [Test]
+        public void ShouldDecorateWhenRegisteredOnSameContainer()
+        {
+            var sut = new NSubContainer();
+            sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.Transient);
+
+            sut.Decorate<ITestInterface>((impl, r) => new TestImplDecorator(impl));
+            var result = sut.Resolve<ITestInterface>();
+
+            Assert.That(result, Is.TypeOf<TestImplDecorator>());
+        }
+
+        [Test]
+        public void ShouldPinDecoratedRegistrationAtRegistrationTime()
+        {
+            var sut = new NSubContainer();
+            sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.Transient);
+            var sutFork = sut.Customize().Decorate<ITestInterface>((impl, r) => new TestImplDecorator(impl));
+
+            // Override registration. Very rare case
+            sut.Register<ITestInterface, TestImplSingleCtor2>(NSubLifetime.Transient);
+            var result = sutFork.Resolve<ITestInterface>();
+
+            Assert.That(result, Is.TypeOf<TestImplDecorator>());
+            Assert.That(((TestImplDecorator) result).Inner, Is.TypeOf<TestImplSingleCtor>());
+        }
+
+        [Test]
+        public void ShouldUseSameLifetimeForDecorator_TransientCase()
+        {
+            var sut = new NSubContainer();
+            sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.Transient);
+
+            sut.Decorate<ITestInterface>((impl, r) => new TestImplDecorator(impl));
+            var scope = sut.CreateScope();
+            var result1 = scope.Resolve<ITestInterface>();
+            var result2 = scope.Resolve<ITestInterface>();
+
+            Assert.That(result1, Is.Not.SameAs(result2));
+            Assert.That(((TestImplDecorator) result1).Inner, Is.Not.SameAs(((TestImplDecorator) result2).Inner));
+        }
+
+        [Test]
+        public void ShouldUseSameLifetimeForDecorator_PerScopeCase()
+        {
+            var sut = new NSubContainer();
+            sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.PerScope);
+
+            sut.Decorate<ITestInterface>((impl, r) => new TestImplDecorator(impl));
+            var scope = sut.CreateScope();
+            var result1 = scope.Resolve<ITestInterface>();
+            var result2 = scope.Resolve<ITestInterface>();
+
+            Assert.That(result1, Is.SameAs(result2));
+            Assert.That(((TestImplDecorator) result1).Inner, Is.SameAs(((TestImplDecorator) result2).Inner));
+        }
+
+        [Test]
+        public void ShouldUseSameLifetimeForDecorator_SingletonCase()
+        {
+            var sut = new NSubContainer();
+            sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.Singleton);
+
+            sut.Decorate<ITestInterface>((impl, r) => new TestImplDecorator(impl));
+            var result1 = sut.Resolve<ITestInterface>();
+            var result2 = sut.Resolve<ITestInterface>();
+
+            Assert.That(result1, Is.SameAs(result2));
+            Assert.That(((TestImplDecorator) result1).Inner, Is.SameAs(((TestImplDecorator) result2).Inner));
         }
 
         public interface ITestInterface
@@ -285,6 +412,16 @@ namespace NSubstitute.Acceptance.Specs
             {
                 TestInterfaceDep = testInterfaceDep;
                 ClassWithDependencyDep = classWithDependencyDep;
+            }
+        }
+
+        public class TestImplDecorator : ITestInterface
+        {
+            public ITestInterface Inner { get; }
+
+            public TestImplDecorator(ITestInterface inner)
+            {
+                Inner = inner;
             }
         }
     }

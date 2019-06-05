@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using NSubstitute.Exceptions;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -245,6 +246,66 @@ namespace NSubstitute.Acceptance.Specs
             _car.RecordServiceDates(ServiceDates);
 
             _car.Received().RecordServiceDates(ServiceDates);
+        }
+
+        [Test]
+        [TestCase(1, false)]
+        [TestCase(2, true)]
+        [TestCase(3, true)]
+        [TestCase(4, true)]
+        [TestCase(5, true)]
+        [TestCase(6, false)]
+        public void Check_call_was_received_within_a_range_of_times(int numberOfCalls, bool shouldPass) {
+            for (var i = 0; i < numberOfCalls; i++) {
+                _car.Idle();
+            }
+
+            if (shouldPass) {
+                _car.Received(Quantity.Within(2, 5)).Idle();
+            } else {
+                Assert.Throws<ReceivedCallsException>(() => 
+                    _car.Received(Quantity.Within(2, 5)).Idle()
+                );
+            }
+        }
+
+        [Test]
+        public void Throw_when_call_was_not_received_within_a_range_of_times() {
+            _car.Idle();
+            var ex = Assert.Throws<ReceivedCallsException>(() =>
+                _car.Received(Quantity.Within(2, 5)).Idle()
+            );
+            StringAssert.Contains("between 2 and 5 (inclusive) calls", ex.Message);
+        }
+
+        [Test]
+        public void Throw_when_call_was_received_too_many_times_within_a_range() {
+            _car.Idle();
+            _car.Idle();
+            var ex = Assert.Throws<ReceivedCallsException>(() =>
+                _car.Received(Quantity.Within(0, 1)).Idle()
+            );
+            StringAssert.Contains("between 0 and 1 (inclusive) call", ex.Message);
+        }
+
+        [Test]
+        public void Throw_when_invalid_range_given() {
+            _car.Idle();
+            _car.Idle();
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>
+                _car.Received(Quantity.Within(3, 2)).Idle()
+            );
+            StringAssert.Contains("maxInclusive must be greater than minInclusive (was 2, required > 3).", ex.Message);
+        }
+
+        [Test]
+        public void Throw_when_negative_min_range_given() {
+            _car.Idle();
+            _car.Idle();
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>
+                _car.Received(Quantity.Within(-1, 1)).Idle()
+            );
+            StringAssert.Contains("minInclusive must be >= 0, but was -1.", ex.Message);
         }
 
         public interface ICar

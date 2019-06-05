@@ -7,7 +7,7 @@ namespace NSubstitute.Core
         private readonly List<ICallHandler> _handlers = new List<ICallHandler>();
         private readonly ISubstituteState _substituteState;
 
-        public IEnumerable<ICallHandler> Handlers => _handlers;
+        public IReadOnlyCollection<ICallHandler> Handlers => _handlers;
 
         public CustomHandlers(ISubstituteState substituteState)
         {

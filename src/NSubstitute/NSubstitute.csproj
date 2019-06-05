@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>NSubstitute is a friendly substitute for .NET mocking frameworks. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
+    <Description>NSubstitute is a friendly substitute for .NET mocking libraries. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
     <Version>3.0.0</Version>
     <Authors>Anthony Egerton;David Tchepak;Alexandr Nikitin;Alex Povar</Authors>
     <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net46</TargetFrameworks>
     <AssemblyName>NSubstitute</AssemblyName>
     <PackageId>NSubstitute</PackageId>
     <PackageTags>mocking;mocks;testing;unit-testing;TDD;AAA</PackageTags>
-    <PackageIconUrl>http://nsubstitute.github.com/images/nsubstitute-100x100.png</PackageIconUrl>
-    <PackageProjectUrl>http://nsubstitute.github.com/</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/nsubstitute/NSubstitute/raw/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageIconUrl>https://nsubstitute.github.io/images/nsubstitute-100x100.png</PackageIconUrl>
+    <PackageProjectUrl>https://nsubstitute.github.io/</PackageProjectUrl>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -39,7 +39,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="4.3.1-*" />
+    <PackageReference Include="Castle.Core" Version="4.4.0-*" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*" />
   </ItemGroup>
   
@@ -52,5 +52,9 @@
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+ 
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
+    <DefineConstants>$(DefineConstants);SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY</DefineConstants>
+  </PropertyGroup>
 
 </Project>

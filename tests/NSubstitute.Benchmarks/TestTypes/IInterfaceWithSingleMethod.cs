@@ -2,6 +2,7 @@
 {
     public interface IInterfaceWithSingleMethod
     {
-        int Method(string arg);
+        int IntMethod(string arg);
+        void VoidMethod(string arg);
     }
 }

@@ -137,7 +137,7 @@ Target.create "Benchmarks" (fun _ ->
 
     let benchmarkCsproj = root </> "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> Path.getFullName
     let benchmarkToRun = Environment.environVarOrDefault "benchmark" "*" // Defaults to "*" (all)
-    [ "netcoreapp1.1" ]
+    [ "netcoreapp2.1" ]
     |> List.iter (fun framework ->
         Trace.traceImportant ("Benchmarking " + framework)
         let work = output </> "benchmark-" + framework
