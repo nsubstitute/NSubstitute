@@ -4,7 +4,7 @@ nuget Fake.DotNet
 nuget Fake.DotNet.Cli
 nuget Fake.Tools.Git
 nuget Fake.Core.Target //"
-#load "./.fake/build.fsx/intellisense.fsx"
+#load ".fake/build.fsx/intellisense.fsx"
 #load @"ExtractDocs.fsx"
 
 open System
