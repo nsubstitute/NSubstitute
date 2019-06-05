@@ -1,11 +1,12 @@
 @echo off
-
 cls
 set encoding=utf-8
 
 SET SCRIPT_DIR=%~dp0
+SET TOOL_PATH=%SCRIPT_DIR%\.fake
 
-"%SCRIPT_DIR%\nuget.exe" restore "%SCRIPT_DIR%\packages.config" -PackagesDirectory "%SCRIPT_DIR%\packages"
+IF NOT EXIST "%TOOL_PATH%\fake.exe" (
+  dotnet tool install fake-cli --tool-path %TOOL_PATH%
+)
 
-REM If changing FAKE version, also update build.sh
-"%SCRIPT_DIR%\packages/FAKE.5.8.4/tools/Fake.exe" "%SCRIPT_DIR%\build.fsx" %*
+"%TOOL_PATH%/fake.exe" %*
