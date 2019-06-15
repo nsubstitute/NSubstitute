@@ -12,7 +12,7 @@ before_test:
   - dotnet --info
 
 test_script:
-  - build/build.cmd All
+  - build\build.cmd run build\build.fsx --target All
 
 artifacts:
 - path: bin\Release\NSubstitute\*.nupkg
