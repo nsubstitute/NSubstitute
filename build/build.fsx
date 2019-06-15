@@ -6,6 +6,10 @@ nuget Fake.Tools.Git
 nuget Fake.Core.Target //"
 #load ".fake/build.fsx/intellisense.fsx"
 #load @"ExtractDocs.fsx"
+// Workaround to make Intellisense work, see https://github.com/fsharp/FAKE/issues/1938
+#if !FAKE
+  #r "netstandard"
+#endif
 
 open System
 open System.Diagnostics
