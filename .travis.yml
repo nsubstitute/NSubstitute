@@ -9,4 +9,4 @@ before_script:
   - dotnet restore
 
 script:
-  - build/build.sh run build/build.fsx --target Default
+  - dotnet test -c $CONFIGURATION -f $FRAMEWORK tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj
