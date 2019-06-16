@@ -26,6 +26,9 @@ open Fake.Tools
 
 open ExtractDocs
 
+let target = Target.create
+let description = Target.description
+
 module FileReaderWriter =
     let Read file = File.ReadAllText(file)
     let Write file text = File.WriteAllText(file, text)
@@ -97,45 +100,45 @@ let additionalArgs = [
 
 let output = root </> "bin" </> configuration
 
-Target.create "Default" ignore
-Target.create "All" ignore
+target "Default" ignore
+target "All" ignore
 
-//Description("Clean compilation artifacts and remove output bin directory")
-Target.create "Clean" (fun _ ->
+description("Clean compilation artifacts and remove output bin directory")
+target "Clean" (fun _ ->
     DotNet.exec (fun p -> { p with WorkingDirectory = root }) "clean"
         (sprintf "--configuration %s --verbosity minimal" configuration)
         |> ignore
     Shell.cleanDirs [ output ]
 )
 
-//Description("Restore dependencies")
-Target.create "Restore" (fun _ ->
+description("Restore dependencies")
+target "Restore" (fun _ ->
     DotNet.restore (fun p -> p) "NSubstitute.sln"
 )
 
-//Description("Compile all projects")
-Target.create "Build" (fun _ ->
+description("Compile all projects")
+target "Build" (fun _ ->
     DotNet.build (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
                                     MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
                                     "NSubstitute.sln"
 )
 
-//Description("Run tests")
-Target.create "Test" (fun _ ->
+description("Run tests")
+target "Test" (fun _ ->
     DotNet.test (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
                                    MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
                                    "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
 )
 
-//Description("Generate Nuget package")
-Target.create "Package" (fun _ ->
+description("Generate Nuget package")
+target "Package" (fun _ ->
     DotNet.pack (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
                                    MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
                                    "src/NSubstitute/NSubstitute.csproj"
 )
 
-//Description("Run all benchmarks. Must be run with configuration=Release.")
-Target.create "Benchmarks" (fun _ ->
+description("Run all benchmarks. Must be run with configuration=Release.")
+target "Benchmarks" (fun _ ->
     if configuration <> "Release" then
         failwith "Benchmarks can only be run in Release mode. Please re-run the build in Release configuration."
 
@@ -152,8 +155,8 @@ Target.create "Benchmarks" (fun _ ->
     )
 )
 
-//Description("Extract, build and test code from documentation.")
-Target.create "TestCodeFromDocs" <| fun _ ->
+description("Extract, build and test code from documentation.")
+target "TestCodeFromDocs" <| fun _ ->
     let outputCodePath = output </> "CodeFromDocs"
     Directory.create outputCodePath
     // generate samples from docs
@@ -188,8 +191,8 @@ let tryFindFileOnPath (file : string) : string option =
     |> Seq.append ["."]
     |> fun path -> ProcessUtils.tryFindFile path file
 
-//Description("Build documentation website. Requires Ruby, bundler and jekyll.")
-Target.create "Documentation" <| fun _ -> 
+description("Build documentation website. Requires Ruby, bundler and jekyll.")
+target "Documentation" <| fun _ -> 
     Trace.log "Building site..."
     let exe = [ "bundle.bat"; "bundle" ]
                 |> Seq.map tryFindFileOnPath
@@ -218,8 +221,8 @@ Target.create "Documentation" <| fun _ ->
     else
         "failed to build site" |> failwith
 
-//Description("List targets, similar to `rake -T`. For more details, run `--listTargets` instead.")
-Target.create "-T" <| fun _ ->
+description("List targets, similar to `rake -T`. For more details, run `--listTargets` instead.")
+target "-T" <| fun _ ->
     printfn "Optional config options:"
     printfn "  configuration=Debug|Release"
     printfn "  benchmark=*|<benchmark name>  (only for Benchmarks target in Release mode)"
