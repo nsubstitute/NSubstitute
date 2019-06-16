@@ -210,7 +210,7 @@ Target.create "Documentation" <| fun _ ->
                     FileName = exe,
                     WorkingDirectory = workingDir,
                     Arguments = "exec jekyll build -d \"" + docOutputRelativeToWorkingDir + "\"")
-    let proc = new Process(StartInfo = p)
+    let proc = Process.Start(p)
     proc.WaitForExit()
     let result = proc.ExitCode
     if result = 0 then
