@@ -20,4 +20,4 @@ if ! [ -e "$FAKE" ]
 then
   dotnet tool install fake-cli --tool-path "$TOOL_PATH"
 fi
-"$FAKE" "$@"
+"$FAKE" run "$SCRIPT_PATH/build.fsx" "$@"
