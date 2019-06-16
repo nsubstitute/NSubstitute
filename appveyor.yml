@@ -2,7 +2,7 @@ os: Visual Studio 2017
 build: off
 
 environment:
-  Configuration: Release
+  CONFIGURATION: Release
 
 install:
   - set PATH=C:\Ruby22\bin;%PATH%
@@ -12,7 +12,7 @@ before_test:
   - dotnet --info
 
 test_script:
-  - build/build.cmd All
+  - build\build.cmd --target All
 
 artifacts:
 - path: bin\Release\NSubstitute\*.nupkg

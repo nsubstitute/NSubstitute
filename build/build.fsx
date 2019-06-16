@@ -1,11 +1,33 @@
-#r @"packages/FAKE.4.63.0/tools/FakeLib.dll"
+#r "paket:
+nuget Fake.IO.FileSystem
+nuget Fake.DotNet
+nuget Fake.DotNet.Cli
+nuget Fake.Tools.Git
+nuget Fake.Core.Target //"
+#load ".fake/build.fsx/intellisense.fsx"
 #load @"ExtractDocs.fsx"
+// Workaround to make Intellisense work, see https://github.com/fsharp/FAKE/issues/1938
+#if !FAKE
+  #r "netstandard"
+#endif
 
-open Fake
 open System
+open System.Diagnostics
 open System.IO
 open System.Text.RegularExpressions
+
+open Fake.Core
+open Fake.Core.TargetOperators
+open Fake.DotNet
+open Fake.IO
+open Fake.IO.Globbing.Operators
+open Fake.IO.FileSystemOperators
+open Fake.Tools
+
 open ExtractDocs
+
+let target = Target.create
+let description = Target.description
 
 module FileReaderWriter =
     let Read file = File.ReadAllText(file)
@@ -21,14 +43,14 @@ module ExamplesToCode =
     let ConvertFile file targetDir =
         let fileName = Path.GetFileNameWithoutExtension(file)
         let target = targetDir @@ fileName + ".cs"
-        log <| sprintf "Converting %s to %s" file target
+        Trace.log <| sprintf "Converting %s to %s" file target
         TransformFile file target (ExtractDocs.strToFixture fileName)
 
     let Convert paths targetDir =
         let paths = paths |> Seq.toList
         for p in paths do
-            trace <| sprintf "Convert from %s to %s" p targetDir
-            let files = !! "*.markdown" ++ "*.html" ++ "*.md" |> SetBaseDir p
+            Trace.trace <| sprintf "Convert from %s to %s" p targetDir
+            let files = !! "*.markdown" ++ "*.html" ++ "*.md" |> GlobbingPattern.setBaseDir p
             for file in files do
                 ConvertFile file targetDir
 
@@ -64,80 +86,79 @@ let getVersion () =
 
     { assembly = assemblyVersion; file = fileVersion; info = infoVersion; package = packageVersion }
  
-let root = __SOURCE_DIRECTORY__ </> ".." |> FullName
+let root = __SOURCE_DIRECTORY__ </> ".." |> Path.getFullName
 
-let configuration = getBuildParamOrDefault "configuration" "Debug"
+let configuration = Environment.environVarOrDefault "configuration" "Debug"
 let version = getVersion ()
 
-let additionalArgs =
-    [ sprintf "-p:AssemblyVersion=\"%s\"" version.assembly
-    ; sprintf "-p:FileVersion=\"%s\"" version.file
-    ; sprintf "-p:InformationalVersion=\"%s\"" version.info
-    ; sprintf "-p:PackageVersion=\"%s\"" version.package
-    ]
+let additionalArgs = [
+    "AssemblyVersion", version.assembly
+    "FileVersion", version.file
+    "InformationalVersion", version.info
+    "PackageVersion", version.package
+]
 
 let output = root </> "bin" </> configuration
 
-Target "Default" DoNothing
-Target "All" DoNothing
+target "Default" ignore
+target "All" ignore
 
-Description("Clean compilation artifacts and remove output bin directory")
-Target "Clean" (fun _ ->
-    DotNetCli.RunCommand (fun p -> { p with WorkingDir = root })
-                         (sprintf "clean --configuration %s --verbosity minimal" configuration)
-
-    CleanDirs [ output ]
+description("Clean compilation artifacts and remove output bin directory")
+target "Clean" (fun _ ->
+    DotNet.exec (fun p -> { p with WorkingDirectory = root }) "clean"
+        (sprintf "--configuration %s --verbosity minimal" configuration)
+        |> ignore
+    Shell.cleanDirs [ output ]
 )
 
-Description("Restore dependencies")
-Target "Restore" (fun _ ->
-    DotNetCli.Restore (fun p -> { p with WorkingDir = root } )
+description("Restore dependencies")
+target "Restore" (fun _ ->
+    DotNet.restore (fun p -> p) "NSubstitute.sln"
 )
 
-Description("Compile all projects")
-Target "Build" (fun _ ->
-    DotNetCli.Build (fun p -> { p with WorkingDir = root
-                                       Configuration = configuration
-                                       AdditionalArgs = additionalArgs })
+description("Compile all projects")
+target "Build" (fun _ ->
+    DotNet.build (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
+                                    MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
+                                    "NSubstitute.sln"
 )
 
-Description("Run tests")
-Target "Test" (fun _ ->
-    DotNetCli.Test (fun p -> { p with WorkingDir = root
-                                      Project = "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
-                                      Configuration = configuration })
+description("Run tests")
+target "Test" (fun _ ->
+    DotNet.test (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
+                                   MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
+                                   "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
 )
 
-Description("Generate Nuget package")
-Target "Package" (fun _ ->
-    DotNetCli.Pack (fun p -> { p with WorkingDir = root
-                                      Configuration = configuration
-                                      Project = "src/NSubstitute/NSubstitute.csproj"
-                                      AdditionalArgs = additionalArgs })
+description("Generate Nuget package")
+target "Package" (fun _ ->
+    DotNet.pack (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
+                                   MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
+                                   "src/NSubstitute/NSubstitute.csproj"
 )
 
-Description("Run all benchmarks. Must be run with configuration=Release.")
-Target "Benchmarks" (fun _ ->
+description("Run all benchmarks. Must be run with configuration=Release.")
+target "Benchmarks" (fun _ ->
     if configuration <> "Release" then
         failwith "Benchmarks can only be run in Release mode. Please re-run the build in Release configuration."
 
-    let benchmarkCsproj = root </> "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> FullName
-    let benchmarkToRun = getBuildParamOrDefault "benchmark" "*" // Defaults to "*" (all)
+    let benchmarkCsproj = root </> "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> Path.getFullName
+    let benchmarkToRun = Environment.environVarOrDefault "benchmark" "*" // Defaults to "*" (all)
     [ "netcoreapp2.1" ]
     |> List.iter (fun framework ->
-        traceImportant ("Benchmarking " + framework)
+        Trace.traceImportant ("Benchmarking " + framework)
         let work = output </> "benchmark-" + framework
-        ensureDirectory work
-        DotNetCli.RunCommand
-            (fun p -> { p with WorkingDir = work; TimeOut = TimeSpan.FromHours 2. })
-            ("run --framework " + framework + " --project " + benchmarkCsproj + " -- " + benchmarkToRun)
+        Directory.ensure work
+        DotNet.exec (fun p -> { p with WorkingDirectory = work }) "run"
+            ("--framework " + framework + " --project " + benchmarkCsproj + " -- " + benchmarkToRun)
+            |> ignore
     )
 )
 
-Description("Extract, build and test code from documentation.")
-Target "TestCodeFromDocs" <| fun _ ->
+description("Extract, build and test code from documentation.")
+target "TestCodeFromDocs" <| fun _ ->
     let outputCodePath = output </> "CodeFromDocs"
-    CreateDir outputCodePath
+    Directory.create outputCodePath
     // generate samples from docs
     ExamplesToCode.Convert [ root </> "docs/"; root </> "docs/help/_posts/"; root ] outputCodePath
     // compile code samples
@@ -161,47 +182,52 @@ Target "TestCodeFromDocs" <| fun _ ->
     """
     let projPath = outputCodePath </> "Docs.csproj"
     FileReaderWriter.Write projPath csproj
-    DotNetCli.Restore (fun p -> { p with Project = projPath })
-    DotNetCli.Build (fun p -> { p with Project = projPath })
-    DotNetCli.Test (fun p -> { p with Project = projPath })
+    DotNet.restore (fun p -> p) projPath
+    DotNet.build (fun p -> p) projPath
+    DotNet.test (fun p -> p) projPath
 
 let tryFindFileOnPath (file : string) : string option =
     Environment.GetEnvironmentVariable("PATH").Split([| Path.PathSeparator |])
     |> Seq.append ["."]
-    |> fun path -> tryFindFile path file
+    |> fun path -> ProcessUtils.tryFindFile path file
 
-Description("Build documentation website. Requires Ruby, bundler and jekyll.")
-Target "Documentation" <| fun _ -> 
-    log "Building site..."
+description("Build documentation website. Requires Ruby, bundler and jekyll.")
+target "Documentation" <| fun _ -> 
+    Trace.log "Building site..."
     let exe = [ "bundle.bat"; "bundle" ]
                 |> Seq.map tryFindFileOnPath
                 |> Seq.collect (Option.toList)
                 |> Seq.tryFind (fun _ -> true)
-                |> function | Some x -> log ("using " + x); x
-                            | None   -> log ("count not find exe"); "bundle"
+                |> function | Some x -> Trace.log ("using " + x); x
+                            | None   -> Trace.log ("count not find exe"); "bundle"
 
     let workingDir = root </> "docs/"
     let docOutputRelativeToWorkingDir = ".." </> output </> "nsubstitute.github.com"
-    let result = 
-        ExecProcess (fun info -> 
-                        info.UseShellExecute <- false
-                        info.CreateNoWindow <- true
-                        info.FileName <- exe
-                        info.WorkingDirectory <- workingDir
-                        info.Arguments <- "exec jekyll build -d \"" + docOutputRelativeToWorkingDir + "\"")
-                    (TimeSpan.FromMinutes 5.)
+    
+    // TODO migrate the following to FAKE API: CreateProcess.ofStartInfo(p)
+    // https://fake.build/apidocs/v5/fake-core-createprocess.html
+    // that doesn't work for some reason
+    let p = ProcessStartInfo(
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    FileName = exe,
+                    WorkingDirectory = workingDir,
+                    Arguments = "exec jekyll build -d \"" + docOutputRelativeToWorkingDir + "\"")
+    let proc = Process.Start(p)
+    proc.WaitForExit()
+    let result = proc.ExitCode
     if result = 0 then
-        "Site built in " + docOutputRelativeToWorkingDir |> log
+        "Site built in " + docOutputRelativeToWorkingDir |> Trace.log
     else
         "failed to build site" |> failwith
 
-Description("List targets, similar to `rake -T`. For more details, run `--listTargets` instead.")
-Target "-T" <| fun _ ->
+description("List targets, similar to `rake -T`. For more details, run `--listTargets` instead.")
+target "-T" <| fun _ ->
     printfn "Optional config options:"
     printfn "  configuration=Debug|Release"
     printfn "  benchmark=*|<benchmark name>  (only for Benchmarks target in Release mode)"
     printfn ""
-    PrintTargets()
+    Target.listAvailable()
 
 "Clean" ?=> "Build"
 "Clean" ?=> "Test"
@@ -221,4 +247,4 @@ Target "-T" <| fun _ ->
 "Default"       <== [ "Restore"; "Build"; "Test" ]
 "All"           <== [ "Clean"; "Default"; "Documentation"; "Package" ]
 
-RunTargetOrDefault "Default"
+Target.runOrDefault "Default"
