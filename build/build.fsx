@@ -99,6 +99,7 @@ let additionalArgs = [
 ]
 
 let output = root </> "bin" </> configuration
+let solution = (root </> "NSubstitute.sln")
 
 target "Default" ignore
 target "All" ignore
@@ -113,28 +114,28 @@ target "Clean" (fun _ ->
 
 description("Restore dependencies")
 target "Restore" (fun _ ->
-    DotNet.restore (fun p -> p) "NSubstitute.sln"
+    DotNet.restore (fun p -> p) solution
 )
 
 description("Compile all projects")
 target "Build" (fun _ ->
     DotNet.build (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
                                     MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
-                                    "NSubstitute.sln"
+                                    solution
 )
 
 description("Run tests")
 target "Test" (fun _ ->
     DotNet.test (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
                                    MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
-                                   "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj"
+                                   (root </> "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj")
 )
 
 description("Generate Nuget package")
 target "Package" (fun _ ->
     DotNet.pack (fun p -> { p with Configuration = DotNet.BuildConfiguration.fromString configuration
                                    MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }}) 
-                                   "src/NSubstitute/NSubstitute.csproj"
+                                   (root </> "src/NSubstitute/NSubstitute.csproj")
 )
 
 description("Run all benchmarks. Must be run with configuration=Release.")
