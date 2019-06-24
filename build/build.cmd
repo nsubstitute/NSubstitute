@@ -9,4 +9,4 @@ IF NOT EXIST "%TOOL_PATH%\fake.exe" (
   dotnet tool install fake-cli --tool-path %TOOL_PATH%
 )
 
-"%TOOL_PATH%\fake.exe" run %SCRIPT_DIR%\build.fsx %*
+"%TOOL_PATH%\fake.exe" --silent run %SCRIPT_DIR%\build.fsx %*

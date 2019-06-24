@@ -166,7 +166,8 @@ target "TestCodeFromDocs" <| fun _ ->
     let csproj = """
         <Project Sdk="Microsoft.NET.Sdk">
           <PropertyGroup>
-            <TargetFrameworks>netcoreapp1.1;net46</TargetFrameworks>
+            <TargetFrameworks>netcoreapp2.1;net46</TargetFrameworks>
+            <LangVersion>latest</LangVersion>
           </PropertyGroup>
           <ItemGroup>
             <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
