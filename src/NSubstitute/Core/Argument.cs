@@ -60,7 +60,7 @@ namespace NSubstitute.Core
 
         public bool CanSetValueWithInstanceOf(Type type)
         {
-            return AsNonByRefType(ActualType).IsAssignableFrom(type);
+            return AsNonByRefType(DeclaredType).IsAssignableFrom(type);
         }
 
         private static Type AsNonByRefType(Type type)
