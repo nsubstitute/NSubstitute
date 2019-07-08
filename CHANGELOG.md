@@ -1,5 +1,5 @@
 ### unreleased
-
+* [FIX] It might be impossible to assign `ref` and `out` arguments using type-compatible value. (#577, @zvirja)
 
 ### 4.2.0 (May 2019)
 
