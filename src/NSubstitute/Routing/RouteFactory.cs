@@ -34,7 +34,6 @@ namespace NSubstitute.Routing
             return new Route(new ICallHandler[] {
                 new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
                 , new AddCallToQueryResultHandler(_threadLocalContext)
-                , new ReturnConfiguredResultHandler(state.CallResults)
                 , new ReturnAutoValue(AutoValueBehaviour.UseValueForSubsequentCalls, state.AutoValueProviders, state.AutoValuesCallResults, _callSpecificationFactory)
                 , ReturnDefaultForReturnTypeHandler()
             });
