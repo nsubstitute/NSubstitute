@@ -1,4 +1,5 @@
-### unreleased
+### 4.2.1 (July 2019)
+
 * [FIX] It might be impossible to assign `ref` and `out` arguments using type-compatible value. (#577, @zvirja)
 * [FIX] Configured result is returned in the `Received.InOrder` check causing tests to fail sometimes. (#569, @zvirja)
 
