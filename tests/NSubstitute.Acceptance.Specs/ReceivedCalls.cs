@@ -335,14 +335,14 @@ namespace NSubstitute.Acceptance.Specs
             {
                 Thread.CurrentThread.IsBackground = true;
 
-                Thread.Sleep(TimeSpan.FromMilliseconds(500));
+                Thread.Sleep(TimeSpan.FromMilliseconds(750));
                 _car.Rev();
             });
 
             thread.Start();
 
             Assert.Throws<ReceivedCallsException>(() =>
-                _car.ReceivedWithin(TimeSpan.FromMilliseconds(100)).Rev()
+                _car.ReceivedWithin(TimeSpan.FromMilliseconds(50)).Rev()
             );
         }
 
