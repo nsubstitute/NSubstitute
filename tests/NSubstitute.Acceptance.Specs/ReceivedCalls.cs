@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
@@ -331,56 +332,58 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Throw_when_call_was_not_recieved_within_time_period()
         {
-            var thread = new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
+            var expectedRevCount = 1234;
 
-                Thread.Sleep(TimeSpan.FromMilliseconds(750));
-                _car.Rev();
+            var thread = new Thread(x =>
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(10));
+                _car.RevAt(expectedRevCount);
             });
 
             thread.Start();
 
             Assert.Throws<ReceivedCallsException>(() =>
-                _car.ReceivedWithin(TimeSpan.FromMilliseconds(50)).Rev()
+                _car.ReceivedWithin(TimeSpan.FromMilliseconds(250)).RevAt(expectedRevCount)
             );
         }
 
         [Test]
         public void Check_when_call_was_recieved_within_time_period()
         {
+            var expectedRevCount = 2345;
+
             var thread = new Thread(() =>
             {
-                Thread.CurrentThread.IsBackground = true;
-
-                Thread.Sleep(TimeSpan.FromMilliseconds(200));
-                _car.Rev();
+                Thread.Sleep(TimeSpan.FromMilliseconds(100));
+                _car.RevAt(expectedRevCount);
             });
 
             thread.Start();
 
-            _car.ReceivedWithin(TimeSpan.FromMilliseconds(500)).Rev();
+            _car.ReceivedWithin(TimeSpan.FromMilliseconds(500)).RevAt(expectedRevCount);
         }
 
         [Test]
         public void Throw_when_all_calls_are_not_recieved_within_time_period()
         {
+            var expectedRevCount = 3456;
+
             var thread = new Thread(() =>
             {
-                Thread.CurrentThread.IsBackground = true;
+                Thread.Sleep(TimeSpan.FromMilliseconds(50));
+                _car.RevAt(expectedRevCount);
 
-                _car.Rev();
-                _car.Rev();
+                Thread.Sleep(TimeSpan.FromMilliseconds(50));
+                _car.RevAt(expectedRevCount);
 
-                Thread.Sleep(TimeSpan.FromMilliseconds(250));
-
-                _car.Rev();
+                Thread.Sleep(TimeSpan.FromMilliseconds(50));
+                _car.RevAt(expectedRevCount);
             });
 
             thread.Start();
 
             Assert.Throws<ReceivedCallsException>(() =>
-                _car.ReceivedWithin(3, TimeSpan.FromMilliseconds(250)).Rev()
+                _car.ReceivedWithin(3, TimeSpan.FromMilliseconds(100)).RevAt(expectedRevCount)
             );
         }
 
