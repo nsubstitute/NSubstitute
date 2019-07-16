@@ -7,7 +7,7 @@ namespace NSubstitute.Routing
     public interface IRouteFactory
     {
         IRoute CallQuery(ISubstituteState state);
-        IRoute CheckReceivedCalls(ISubstituteState state, MatchArgs matchArgs, Quantity requiredQuantity);
+        IRoute CheckReceivedCalls(ISubstituteState state, MatchArgs matchArgs, Quantity requiredQuantity, TimeSpan timeSpan);
         IRoute DoWhenCalled(ISubstituteState state, Action<CallInfo> doAction, MatchArgs matchArgs);
         IRoute DoNotCallBase(ISubstituteState state, MatchArgs matchArgs);
         IRoute CallBase(ISubstituteState state, MatchArgs matchArgs);

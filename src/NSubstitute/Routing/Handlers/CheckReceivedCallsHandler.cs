@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using NSubstitute.Core;
 using NSubstitute.ReceivedExtensions;
 
@@ -11,25 +14,37 @@ namespace NSubstitute.Routing.Handlers
         private readonly IReceivedCallsExceptionThrower _exceptionThrower;
         private readonly MatchArgs _matchArgs;
         private readonly Quantity _requiredQuantity;
+        private readonly TimeSpan _requiredTimeSpan;
 
-        public CheckReceivedCallsHandler(ICallCollection receivedCalls, ICallSpecificationFactory callSpecificationFactory, IReceivedCallsExceptionThrower exceptionThrower, MatchArgs matchArgs, Quantity requiredQuantity)
+        public CheckReceivedCallsHandler(ICallCollection receivedCalls, ICallSpecificationFactory callSpecificationFactory, IReceivedCallsExceptionThrower exceptionThrower, MatchArgs matchArgs, Quantity requiredQuantity, TimeSpan requiredTimeSpan)
         {
             _receivedCalls = receivedCalls;
             _callSpecificationFactory = callSpecificationFactory;
             _exceptionThrower = exceptionThrower;
             _matchArgs = matchArgs;
             _requiredQuantity = requiredQuantity;
+            _requiredTimeSpan = requiredTimeSpan;
         }
 
         public RouteAction Handle(ICall call)
         {
-            var callSpecification = _callSpecificationFactory.CreateFrom(call, _matchArgs);
-            var allCallsToMethodSpec = _callSpecificationFactory.CreateFrom(call, MatchArgs.Any);
+            ICallSpecification callSpecification = _callSpecificationFactory.CreateFrom(call, _matchArgs);
+            ICallSpecification allCallsToMethodSpec = _callSpecificationFactory.CreateFrom(call, MatchArgs.Any);
 
-            var allCalls = _receivedCalls.AllCalls().ToList();
-            var matchingCalls = allCalls.Where(callSpecification.IsSatisfiedBy).ToList();
+            List<ICall> allCalls = _receivedCalls.AllCalls().ToList();
+            List<ICall> matchingCalls = allCalls.Where(callSpecification.IsSatisfiedBy).ToList();
 
-            if (!_requiredQuantity.Matches(matchingCalls))
+            var foundMatchingCalls = SpinWait.SpinUntil(() =>
+            {
+                callSpecification = _callSpecificationFactory.CreateFrom(call, _matchArgs);
+                allCallsToMethodSpec = _callSpecificationFactory.CreateFrom(call, MatchArgs.Any);
+
+                allCalls = _receivedCalls.AllCalls().ToList();
+                matchingCalls = allCalls.Where(callSpecification.IsSatisfiedBy).ToList();
+                return _requiredQuantity.Matches(matchingCalls);
+            }, _requiredTimeSpan);
+
+            if (!foundMatchingCalls)
             {
                 var relatedCalls = allCalls.Where(allCallsToMethodSpec.IsSatisfiedBy).Except(matchingCalls);
                 _exceptionThrower.Throw(callSpecification, matchingCalls, relatedCalls, _requiredQuantity);

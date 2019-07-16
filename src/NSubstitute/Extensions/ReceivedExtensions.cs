@@ -19,7 +19,24 @@ namespace NSubstitute.ReceivedExtensions
             var context = SubstitutionContext.Current;
             var callRouter = context.GetCallRouterFor(substitute);
 
-            context.ThreadContext.SetNextRoute(callRouter, x => context.RouteFactory.CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, requiredQuantity));
+            context.ThreadContext.SetNextRoute(callRouter, x => context.RouteFactory.CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, requiredQuantity, TimeSpan.Zero));
+            return substitute;
+        }
+
+        /// <summary>
+        /// Checks this substitute has received the following call the required number of times.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="substitute"></param>
+        /// <param name="requiredQuantity"></param>
+        /// <param name="timeSpan"></param>
+        /// <returns></returns>
+        public static T ReceivedWithin<T>(this T substitute, Quantity requiredQuantity, TimeSpan timeSpan)
+        {
+            var context = SubstitutionContext.Current;
+            var callRouter = context.GetCallRouterFor(substitute);
+
+            context.ThreadContext.SetNextRoute(callRouter, x => context.RouteFactory.CheckReceivedCalls(x, MatchArgs.AsSpecifiedInCall, requiredQuantity, timeSpan));
             return substitute;
         }
 
@@ -35,7 +52,7 @@ namespace NSubstitute.ReceivedExtensions
             var context = SubstitutionContext.Current;
             var callRouter = context.GetCallRouterFor(substitute);
 
-            context.ThreadContext.SetNextRoute(callRouter, x => context.RouteFactory.CheckReceivedCalls(x, MatchArgs.Any, requiredQuantity));
+            context.ThreadContext.SetNextRoute(callRouter, x => context.RouteFactory.CheckReceivedCalls(x, MatchArgs.Any, requiredQuantity, TimeSpan.Zero));
             return substitute;
         }
     }

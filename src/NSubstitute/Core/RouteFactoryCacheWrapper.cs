@@ -41,8 +41,8 @@ namespace NSubstitute.Core
         public IRoute CallQuery(ISubstituteState state) =>
             _factory.CallQuery(state);
 
-        public IRoute CheckReceivedCalls(ISubstituteState state, MatchArgs matchArgs, Quantity requiredQuantity) =>
-            _factory.CheckReceivedCalls(state, matchArgs, requiredQuantity);
+        public IRoute CheckReceivedCalls(ISubstituteState state, MatchArgs matchArgs, Quantity requiredQuantity, TimeSpan timeSpan) =>
+            _factory.CheckReceivedCalls(state, matchArgs, requiredQuantity, timeSpan);
 
         public IRoute DoWhenCalled(ISubstituteState state, Action<CallInfo> doAction, MatchArgs matchArgs) =>
             _factory.DoWhenCalled(state, doAction, matchArgs);

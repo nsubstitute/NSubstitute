@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading;
 using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
@@ -306,6 +307,81 @@ namespace NSubstitute.Acceptance.Specs
                 _car.Received(Quantity.Within(-1, 1)).Idle()
             );
             StringAssert.Contains("minInclusive must be >= 0, but was -1.", ex.Message);
+        }
+
+        [Test]
+        public void Throw_when_call_was_not_recieved_in_time()
+        {
+            var thread = new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+
+                Thread.Sleep(TimeSpan.FromMilliseconds(100));
+                _car.Rev();
+            });
+
+            thread.Start();
+
+            Assert.Throws<ReceivedCallsException>(() =>
+                _car.Received().Rev()
+            );
+        }
+
+
+        [Test]
+        public void Throw_when_call_was_not_recieved_within_time_period()
+        {
+            var thread = new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+
+                Thread.Sleep(TimeSpan.FromMilliseconds(500));
+                _car.Rev();
+            });
+
+            thread.Start();
+
+            Assert.Throws<ReceivedCallsException>(() =>
+                _car.ReceivedWithin(TimeSpan.FromMilliseconds(100)).Rev()
+            );
+        }
+
+        [Test]
+        public void Check_when_call_was_recieved_within_time_period()
+        {
+            var thread = new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+
+                Thread.Sleep(TimeSpan.FromMilliseconds(200));
+                _car.Rev();
+            });
+
+            thread.Start();
+
+            _car.ReceivedWithin(TimeSpan.FromMilliseconds(500)).Rev();
+        }
+
+        [Test]
+        public void Throw_when_all_calls_are_not_recieved_within_time_period()
+        {
+            var thread = new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+
+                _car.Rev();
+                _car.Rev();
+
+                Thread.Sleep(TimeSpan.FromMilliseconds(250));
+
+                _car.Rev();
+            });
+
+            thread.Start();
+
+            Assert.Throws<ReceivedCallsException>(() =>
+                _car.ReceivedWithin(3, TimeSpan.FromMilliseconds(250)).Rev()
+            );
         }
 
         public interface ICar

@@ -229,11 +229,27 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Checks this substitute has recieved the following call within the required time period.
+        /// </summary>
+        public static T ReceivedWithin<T>(this T substitute, TimeSpan timeperiod) where T : class
+        {
+            return substitute.ReceivedWithin(Quantity.AtLeastOne(), timeperiod);
+        }
+
+        /// <summary>
         /// Checks this substitute has received the following call the required number of times.
         /// </summary>
         public static T Received<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
             return substitute.Received(Quantity.Exactly(requiredNumberOfCalls));
+        }
+
+        /// <summary>
+        /// Checks this substitute has received the following call the required number of times within the required time period.
+        /// </summary>
+        public static T ReceivedWithin<T>(this T substitute, int requiredNumberOfCalls, TimeSpan timeperiod) where T : class
+        {
+            return substitute.ReceivedWithin(Quantity.Exactly(requiredNumberOfCalls), timeperiod);
         }
 
         /// <summary>

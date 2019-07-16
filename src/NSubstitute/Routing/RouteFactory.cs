@@ -38,12 +38,12 @@ namespace NSubstitute.Routing
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
-        public IRoute CheckReceivedCalls(ISubstituteState state, MatchArgs matchArgs, Quantity requiredQuantity)
+        public IRoute CheckReceivedCalls(ISubstituteState state, MatchArgs matchArgs, Quantity requiredQuantity, TimeSpan timeSpan)
         {
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(_threadLocalContext)
                 , new ClearUnusedCallSpecHandler(_threadLocalContext.PendingSpecification)
-                , new CheckReceivedCallsHandler(state.ReceivedCalls, _callSpecificationFactory, _receivedCallsExceptionThrower, matchArgs, requiredQuantity)
+                , new CheckReceivedCallsHandler(state.ReceivedCalls, _callSpecificationFactory, _receivedCallsExceptionThrower, matchArgs, requiredQuantity, timeSpan)
                 , new ReturnAutoValue(AutoValueBehaviour.ReturnAndForgetValue, state.AutoValueProviders, state.AutoValuesCallResults, _callSpecificationFactory)
                 , ReturnDefaultForReturnTypeHandler()
             });
