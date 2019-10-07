@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net462;netcoreapp2.1</TargetFrameworks>
+    <TargetIsNetFx Condition="$(TargetFramework.StartsWith('net4'))">true</TargetIsNetFx>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -17,6 +18,12 @@
     <EmbeddedResource Remove="BenchmarkDotNet.Artifacts\**" />
     <None Remove="BenchmarkDotNet.Artifacts\**" />
   </ItemGroup>
+
+  <!-- ReferenceAssemblies so we can build netfx targets on non-windows enviroments -->
+  <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.10.14" />
     <ProjectReference Include="..\..\src\NSubstitute\NSubstitute.csproj" />
