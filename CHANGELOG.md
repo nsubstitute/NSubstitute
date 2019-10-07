@@ -1,5 +1,7 @@
 ### unreleased
 
+* [UPDATE] Build update to run on non-Windows platforms. Thanks @joaopgrassi! (#592, #335)
+
 ### 4.2.1 (July 2019)
 
 * [FIX] It might be impossible to assign `ref` and `out` arguments using type-compatible value. (#577, @zvirja)
