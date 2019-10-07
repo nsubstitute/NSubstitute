@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0;netcoreapp1.1;net46;net45</TargetFrameworks>
-
+    <TargetIsNetFx Condition="$(TargetFramework.StartsWith('net4'))">true</TargetIsNetFx>    
     <!-- Enable the latest C# features -->
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -15,13 +15,18 @@
     <OutputPath>..\..\bin\Release\NSubstitute.Acceptance.Specs\</OutputPath>
   </PropertyGroup>
 
+  <!-- ReferenceAssemblies so we can build netfx targets on non-windows enviroments -->
+  <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)'=='net46' OR '$(TargetFramework)'=='net45'">
+  <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
