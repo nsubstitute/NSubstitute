@@ -4,11 +4,6 @@
     <TargetFrameworks>netcoreapp2.0;netcoreapp1.1;net46;net45</TargetFrameworks>
   </PropertyGroup>
 
-  <!-- ReferenceAssemblies so we can build netfx targets on non-windows enviroments -->
-  <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="NUnit" Version="3.10.1" />

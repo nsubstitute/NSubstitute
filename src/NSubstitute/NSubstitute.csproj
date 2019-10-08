@@ -17,6 +17,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <AssemblyOriginatorKeyFile>nsubstitute.snk</AssemblyOriginatorKeyFile>
@@ -27,11 +29,6 @@
     <DocumentationFile>..\..\bin\$(Configuration)\NSubstitute\$(TargetFramework)\NSubstitute.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
-
-  <!-- ReferenceAssemblies so we can build netfx targets on non-windows enviroments -->
-  <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.0-*" />

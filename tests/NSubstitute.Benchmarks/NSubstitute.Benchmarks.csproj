@@ -9,11 +9,6 @@
     <EmbeddedResource Remove="BenchmarkDotNet.Artifacts\**" />
     <None Remove="BenchmarkDotNet.Artifacts\**" />
   </ItemGroup>
-
-  <!-- ReferenceAssemblies so we can build netfx targets on non-windows enviroments -->
-  <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" />
-  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.10.14" />
