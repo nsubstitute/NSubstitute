@@ -2,15 +2,6 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net462;netcoreapp2.1</TargetFrameworks>
-    <TargetIsNetFx Condition="$(TargetFramework.StartsWith('net4'))">true</TargetIsNetFx>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <OutputPath>..\..\bin\Debug\NSubstitute.Benchmarks\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\bin\Release\NSubstitute.Benchmarks\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +12,7 @@
 
   <!-- ReferenceAssemblies so we can build netfx targets on non-windows enviroments -->
   <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" />
   </ItemGroup>
   
   <ItemGroup>

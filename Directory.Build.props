@@ -1,0 +1,25 @@
+<Project>
+
+  <!-- Contains global properties for all projects in the solution.
+  These can be overridden in inner folders, if necessary. 
+  See more here https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2019 -->
+  
+  <PropertyGroup>
+    <TargetIsNetFx Condition="$(TargetFramework.StartsWith('net4'))">true</TargetIsNetFx>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <OutputPath>..\..\bin\Debug\$(MSBuildProjectName)\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\bin\Release\$(MSBuildProjectName)\</OutputPath>
+  </PropertyGroup>
+
+</Project>

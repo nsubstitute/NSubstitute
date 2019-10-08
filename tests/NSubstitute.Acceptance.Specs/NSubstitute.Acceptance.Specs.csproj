@@ -2,22 +2,11 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0;netcoreapp1.1;net46;net45</TargetFrameworks>
-    <TargetIsNetFx Condition="$(TargetFramework.StartsWith('net4'))">true</TargetIsNetFx>    
-    <!-- Enable the latest C# features -->
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <OutputPath>..\..\bin\Debug\NSubstitute.Acceptance.Specs\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\bin\Release\NSubstitute.Acceptance.Specs\</OutputPath>
   </PropertyGroup>
 
   <!-- ReferenceAssemblies so we can build netfx targets on non-windows enviroments -->
   <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" />
   </ItemGroup>
 
   <ItemGroup>

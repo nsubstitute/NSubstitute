@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>NSubstitute is a friendly substitute for .NET mocking libraries. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
@@ -17,27 +17,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetIsNetFx Condition="$(TargetFramework.StartsWith('net4'))">true</TargetIsNetFx>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <AssemblyOriginatorKeyFile>nsubstitute.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-
-    <!-- Enable the latest C# features -->
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <OutputPath>..\..\bin\Debug\NSubstitute\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\bin\Release\NSubstitute\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -47,7 +30,7 @@
 
   <!-- ReferenceAssemblies so we can build netfx targets on non-windows enviroments -->
   <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" />
   </ItemGroup>
 
   <ItemGroup>
