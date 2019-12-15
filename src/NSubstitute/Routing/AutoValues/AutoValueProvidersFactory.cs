@@ -12,7 +12,7 @@ namespace NSubstitute.Routing.AutoValues
             IAutoValueProvider[] result = null;
             var lazyResult = new Lazy<IReadOnlyCollection<IAutoValueProvider>>(
                 () => result ?? throw new InvalidOperationException("Value was not constructed yet."),
-                LazyThreadSafetyMode.None);
+                LazyThreadSafetyMode.PublicationOnly);
 
             result = new IAutoValueProvider[]
             {

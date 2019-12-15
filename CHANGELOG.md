@@ -1,6 +1,7 @@
 ### unreleased
 
 * [UPDATE] Build update to run on non-Windows platforms. Thanks @joaopgrassi! (#592, #335)
+* [FIX] Fix NSubstitute could fail in concurrent environment due to auto-value providers initialization. (#600, @zvirja)
 
 ### 4.2.1 (July 2019)
 
