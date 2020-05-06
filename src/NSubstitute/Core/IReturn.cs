@@ -39,21 +39,21 @@ namespace NSubstitute.Core
 
     public class ReturnValueFromFunc<T> : IReturn
     {
-        private readonly Func<CallInfo, T?> _funcToReturnValue;
+        private readonly Func<CallInfo<T>, T?> _funcToReturnValue;
 
-        public ReturnValueFromFunc(Func<CallInfo, T?>? funcToReturnValue)
+        public ReturnValueFromFunc(Func<CallInfo<T>, T?>? funcToReturnValue)
         {
             _funcToReturnValue = funcToReturnValue ?? ReturnNull();
         }
 
-        public object? ReturnFor(CallInfo info) => _funcToReturnValue(info);
-        public Type TypeOrNull() => typeof (T);
-        public bool CanBeAssignedTo(Type t) => typeof (T).IsAssignableFrom(t);
+        public object? ReturnFor(CallInfo info) => _funcToReturnValue(new CallInfo<T>(info));
+        public Type TypeOrNull() => typeof(T);
+        public bool CanBeAssignedTo(Type t) => typeof(T).IsAssignableFrom(t);
 
         private static Func<CallInfo, T?> ReturnNull()
         {
             if (typeof(T).GetTypeInfo().IsValueType) throw new CannotReturnNullForValueType(typeof(T));
-            return x => default(T);
+            return x => default;
         }
     }
 
@@ -70,27 +70,28 @@ namespace NSubstitute.Core
 
         public object? GetReturnValue() => GetNext();
         public object? ReturnFor(CallInfo info) => GetReturnValue();
-        public Type TypeOrNull() => typeof (T);
-        public bool CanBeAssignedTo(Type t) => typeof (T).IsAssignableFrom(t);
+        public Type TypeOrNull() => typeof(T);
+        public bool CanBeAssignedTo(Type t) => typeof(T).IsAssignableFrom(t);
 
         private T? GetNext() => _valuesToReturn.TryDequeue(out var nextResult) ? nextResult : _lastValue;
     }
 
     public class ReturnMultipleFuncsValues<T> : IReturn
     {
-        private readonly ConcurrentQueue<Func<CallInfo, T?>> _funcsToReturn;
-        private readonly Func<CallInfo, T?> _lastFunc;
+        private readonly ConcurrentQueue<Func<CallInfo<T>, T?>> _funcsToReturn;
+        private readonly Func<CallInfo<T>, T?> _lastFunc;
 
-        public ReturnMultipleFuncsValues(Func<CallInfo, T?>[] funcs)
+        public ReturnMultipleFuncsValues(Func<CallInfo<T>, T?>[] funcs)
         {
-            _funcsToReturn = new ConcurrentQueue<Func<CallInfo, T?>>(funcs);
+            _funcsToReturn = new ConcurrentQueue<Func<CallInfo<T>, T?>>(funcs);
             _lastFunc = funcs.Last();
         }
 
         public object? ReturnFor(CallInfo info) => GetNext(info);
-        public Type TypeOrNull() => typeof (T);
-        public bool CanBeAssignedTo(Type t) => typeof (T).IsAssignableFrom(t);
+        public Type TypeOrNull() => typeof(T);
+        public bool CanBeAssignedTo(Type t) => typeof(T).IsAssignableFrom(t);
 
-        private T? GetNext(CallInfo info) => _funcsToReturn.TryDequeue(out var nextFunc) ? nextFunc(info) : _lastFunc(info);
+        private T? GetNext(CallInfo info) =>
+            _funcsToReturn.TryDequeue(out var nextFunc) ? nextFunc(new CallInfo<T>(info)) : _lastFunc(new CallInfo<T>(info));
     }
 }

@@ -24,8 +24,8 @@ namespace NSubstitute
         /// <param name="value"></param>
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
-        public static ConfiguredCall Returns<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese) =>
-            ConfigureReturn(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
+        public static ConfiguredCall Returns<T>(this T value, Func<CallInfo<T>, T> returnThis, params Func<CallInfo<T>, T>[] returnThese) =>
+            ConfigureFuncReturn(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
 
         /// <summary>
         /// Set a return value for this call made with any arguments.
@@ -43,8 +43,8 @@ namespace NSubstitute
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
         /// <returns></returns>
-        public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese) =>
-            ConfigureReturn(MatchArgs.Any, returnThis, returnThese);
+        public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<CallInfo<T>, T> returnThis, params Func<CallInfo<T>, T>[] returnThese) =>
+            ConfigureFuncReturn(MatchArgs.Any, returnThis, returnThese);
 
 #nullable restore
         private static ConfiguredCall ConfigureReturn<T>(MatchArgs matchArgs, T? returnThis, T?[]? returnThese)
@@ -64,7 +64,7 @@ namespace NSubstitute
                 .LastCallShouldReturn(returnValue, matchArgs);
         }
 
-        private static ConfiguredCall ConfigureReturn<T>(MatchArgs matchArgs, Func<CallInfo, T?> returnThis, Func<CallInfo, T?>[]? returnThese)
+        private static ConfiguredCall ConfigureFuncReturn<T>(MatchArgs matchArgs, Func<CallInfo<T>, T?> returnThis, Func<CallInfo<T>, T?>[]? returnThese)
         {
             IReturn returnValue;
             if (returnThese == null || returnThese.Length == 0)

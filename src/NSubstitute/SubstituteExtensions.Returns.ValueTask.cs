@@ -40,7 +40,7 @@ namespace NSubstitute
             var wrappedFunc = WrapFuncInValueTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInValueTask).ToArray() : null;
 
-            return ConfigureReturn(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedReturnThese);
+            return ConfigureFuncReturn(MatchArgs.AsSpecifiedInCall, wrappedFunc, wrappedReturnThese);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace NSubstitute
             var wrappedFunc = WrapFuncInValueTask(returnThis);
             var wrappedReturnThese = returnThese.Length > 0 ? returnThese.Select(WrapFuncInValueTask).ToArray() : null;
 
-            return ConfigureReturn(MatchArgs.Any, wrappedFunc, wrappedReturnThese);
+            return ConfigureFuncReturn(MatchArgs.Any, wrappedFunc, wrappedReturnThese);
         }
 
 #nullable restore

@@ -12,10 +12,25 @@ namespace NSubstitute.Core
     public class CallInfo
     {
         private readonly Argument[] _callArguments;
+        private readonly Func<Maybe<object>> _baseResult;
 
-        public CallInfo(Argument[] callArguments)
+        public CallInfo(Argument[] callArguments, Func<Maybe<object>> baseResult)
         {
             _callArguments = callArguments;
+            _baseResult = baseResult;
+        }
+
+        protected CallInfo(CallInfo info) : this(info._callArguments, info._baseResult) {
+        }
+
+        /// <summary>
+        /// Call and returns the result from the base implementation of a substitute for a class.
+        /// Will throw an exception if no base implementation exists.
+        /// </summary>
+        /// <returns>Result from base implementation</returns>
+        /// <exception cref="NoBaseImplementationException">Throws in no base implementation exists</exception>
+        protected object GetBaseResult() {
+            return _baseResult().ValueOr(() => throw new NoBaseImplementationException());
         }
 
         /// <summary>

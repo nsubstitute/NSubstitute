@@ -5,7 +5,7 @@
         public CallInfo Create(ICall call)
         {
             var arguments = GetArgumentsFromCall(call);
-            return new CallInfo(arguments);
+            return new CallInfo(arguments, () => call.TryCallBase());
         }
 
         private static Argument[] GetArgumentsFromCall(ICall call)
