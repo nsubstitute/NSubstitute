@@ -10,12 +10,10 @@ namespace NSubstitute.Core
         {
             if (!CanBePropertySetterCall(call)) return null;
 
-            var properties = call.DeclaringType.GetProperties();
-
             // Don't use .FirstOrDefault() lambda, as closure leads to allocation even if not reached.
-            foreach (var property in properties)
+            foreach (var property in GetAllProperties(call.DeclaringType))
             {
-                if (property.GetSetMethod() == call) return property;
+                if (property.GetSetMethod(nonPublic: true) == call) return property;
             }
 
             return null;
@@ -23,13 +21,13 @@ namespace NSubstitute.Core
 
         public static PropertyInfo GetPropertyFromGetterCallOrNull(this MethodInfo call)
         {
-            var properties = call.DeclaringType.GetProperties();
-            return properties.FirstOrDefault(x => x.GetGetMethod() == call);
+            return GetAllProperties(call.DeclaringType)
+                .FirstOrDefault(x => x.GetGetMethod(nonPublic: true) == call);
         }
 
         public static bool IsParams(this ParameterInfo parameterInfo)
         {
-            return parameterInfo.IsDefined(typeof(ParamArrayAttribute), false);
+            return parameterInfo.IsDefined(typeof(ParamArrayAttribute), inherit: false);
         }
 
         private static bool CanBePropertySetterCall(MethodInfo call)
@@ -41,6 +39,11 @@ namespace NSubstitute.Core
             // The reason is that some compilers (e.g. F#) might not emit this attribute and our library
             // misbehaves in those cases. We use slightly slower, but robust check.
             return call.Name.StartsWith("set_", StringComparison.Ordinal);
+        }
+
+        private static PropertyInfo[] GetAllProperties(Type type)
+        {
+            return type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         }
     }
 }
