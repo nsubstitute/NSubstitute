@@ -40,7 +40,7 @@ Assert.AreNotEqual(calculator.Add(3, 6), 3);
 ```
 
 ## For properties
-The return value for a property can be set in the same was as for a method, using `Returns()`. You can also just use plain old property setters for read/write properties; they'll behave just the way you expect them to.
+The return value for a property can be set in the same way as for a method, using `Returns()`. You can also just use plain old property setters for read/write properties; they'll behave just the way you expect them to.
 
 ```csharp
 calculator.Mode.Returns("DEC");
