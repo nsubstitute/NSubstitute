@@ -1,4 +1,5 @@
 ### unreleased
+* [NEW] Add .NET 5 support
 
 ### 4.2.2 (Jun 2020)
 
