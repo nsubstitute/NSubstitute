@@ -19,7 +19,7 @@ namespace NSubstitute.Core
             _results.SetResult(new MatchingReturnTypeSpecification(type), resultToReturn);
         }
 
-        public bool TryGetResult(ICall call, out object result)
+        public bool TryGetResult(ICall call, out object? result)
         {
             return _results.TryGetResult(call, out result);
         }

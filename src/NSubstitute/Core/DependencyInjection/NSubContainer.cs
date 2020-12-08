@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -18,7 +19,7 @@ namespace NSubstitute.Core.DependencyInjection
     /// </summary>
     public class NSubContainer : IConfigurableNSubContainer
     {
-        private readonly NSubContainer _parentContainer;
+        private readonly NSubContainer? _parentContainer;
         private readonly object _syncRoot;
         private readonly Dictionary<Type, Registration> _registrations = new Dictionary<Type, Registration>();
 
@@ -36,9 +37,11 @@ namespace NSubstitute.Core.DependencyInjection
             _syncRoot = parentContainer._syncRoot;
         }
 
-        public T Resolve<T>() => CreateScope().Resolve<T>();
+        public T Resolve<T>() where T : notnull => CreateScope().Resolve<T>();
 
-        public IConfigurableNSubContainer Register<TKey, TImpl>(NSubLifetime lifetime) where TImpl : TKey
+        public IConfigurableNSubContainer Register<TKey, TImpl>(NSubLifetime lifetime)
+            where TKey : notnull
+            where TImpl : TKey
         {
             var constructors = typeof(TImpl).GetConstructors();
             if (constructors.Length != 1)
@@ -64,6 +67,7 @@ namespace NSubstitute.Core.DependencyInjection
         }
 
         public IConfigurableNSubContainer Register<TKey>(Func<INSubResolver, TKey> factory, NSubLifetime lifetime)
+            where TKey: notnull
         {
             object Factory(Scope scope)
             {
@@ -76,8 +80,9 @@ namespace NSubstitute.Core.DependencyInjection
         }
 
         public IConfigurableNSubContainer Decorate<TKey>(Func<TKey, INSubResolver, TKey> factory)
+            where TKey : notnull
         {
-            Registration existingRegistration = TryFindRegistration(typeof(TKey));
+            Registration? existingRegistration = TryFindRegistration(typeof(TKey));
             if (existingRegistration == null)
             {
                 throw new ArgumentException("Cannot decorate type " + typeof(TKey).FullName +" as implementation is not registered.");
@@ -114,7 +119,7 @@ namespace NSubstitute.Core.DependencyInjection
             }
         }
 
-        private Registration TryFindRegistration(Type type)
+        private Registration? TryFindRegistration(Type type)
         {
             // Both read and write accesses to dictionary should be synchronized.
             // The same lock object is shared among all the nested containers,
@@ -139,7 +144,7 @@ namespace NSubstitute.Core.DependencyInjection
         private class Registration
         {
             private readonly Func<Scope, object> _factory;
-            private object _singletonValue;
+            private object? _singletonValue;
             public NSubLifetime Lifetime { get; }
 
             public Registration(Func<Scope, object> factory, NSubLifetime lifetime)
@@ -184,9 +189,9 @@ namespace NSubstitute.Core.DependencyInjection
                 _mostNestedContainer = mostNestedContainer;
             }
 
-            public T Resolve<T>() => (T) Resolve(typeof(T));
+            public T Resolve<T>() where T : notnull => (T) Resolve(typeof(T));
 
-            public bool TryGetCached(Registration registration, out object result)
+            public bool TryGetCached(Registration registration, [MaybeNullWhen(false)] out object result)
             {
                 return _cache.TryGetValue(registration, out result);
             }
@@ -202,7 +207,7 @@ namespace NSubstitute.Core.DependencyInjection
                 // so we synchronize across the whole containers graph.
                 lock (_mostNestedContainer._syncRoot)
                 {
-                    Registration registration = _mostNestedContainer.TryFindRegistration(type);
+                    Registration? registration = _mostNestedContainer.TryFindRegistration(type);
                     if (registration == null)
                         throw new InvalidOperationException($"Type is not registered: {type.FullName}");
 

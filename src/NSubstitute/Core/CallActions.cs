@@ -55,7 +55,7 @@ namespace NSubstitute.Core
                 return;
             }
  
-            CallInfo callInfo = null;
+            CallInfo? callInfo = null;
             foreach (var action in _actions)
             {
                 if (!action.IsSatisfiedBy(call))

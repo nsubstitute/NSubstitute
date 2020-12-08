@@ -13,7 +13,7 @@ namespace NSubstitute.Core.Arguments
             _argumentSpecifications = argumentSpecifications.ToArray();
         }
 
-        public bool IsSatisfiedBy(object argument)
+        public bool IsSatisfiedBy(object? argument)
         {
             if (argument != null)
             {
@@ -33,10 +33,9 @@ namespace NSubstitute.Core.Arguments
             return string.Join(", ", _argumentSpecifications.Select(x => x.ToString()));
         }
 
-        public string Format(object argument, bool highlight)
+        public string Format(object? argument, bool highlight)
         {
-            var enumerableArgs = argument as IEnumerable;
-            var argArray = enumerableArgs != null ? enumerableArgs.Cast<object>().ToArray() : new object[0];
+            var argArray = argument is IEnumerable enumerableArgs ? enumerableArgs.Cast<object>().ToArray() : new object[0];
             return Format(argArray, _argumentSpecifications).Join(", ");
         }
 

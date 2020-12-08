@@ -14,9 +14,9 @@ namespace NSubstitute.Core.Arguments
             _predicateDescription = predicate.ToString();
         }
 
-        public bool IsSatisfiedBy(object argument)
+        public bool IsSatisfiedBy(object? argument)
         {
-            return _predicate((T)argument);
+            return _predicate((T)argument!);
         }
 
         public override string ToString() { return _predicateDescription; }

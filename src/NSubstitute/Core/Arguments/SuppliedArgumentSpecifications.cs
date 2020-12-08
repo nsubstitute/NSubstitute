@@ -18,12 +18,12 @@ namespace NSubstitute.Core.Arguments
         }
 
 
-        public bool AnyFor(object argument, Type argumentType)
+        public bool AnyFor(object? argument, Type argumentType)
         {
             return AllSpecifications.Any(x => _argSpecCompatibilityTester.IsSpecificationCompatible(x, argument, argumentType));
         }
 
-        public bool IsNextFor(object argument, Type argumentType)
+        public bool IsNextFor(object? argument, Type argumentType)
         {
             if (_queue.Count <= 0) { return false; }
             var nextArgSpec = _queue.Peek();

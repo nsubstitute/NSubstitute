@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
@@ -11,9 +12,9 @@ namespace NSubstitute.Core
         /// <summary>
         /// Checks if the instance can be used when a <paramref name="type"/> is expected.
         /// </summary>
-        public static bool IsCompatibleWith(this object instance, Type type)
+        public static bool IsCompatibleWith(this object? instance, Type type)
         {
-            var requiredType = type.IsByRef ? type.GetElementType() : type;
+            var requiredType = type.IsByRef ? type.GetElementType()! : type;
             return instance == null ? TypeCanBeNull(requiredType) : requiredType.IsInstanceOfType(instance);
         }
 
@@ -44,7 +45,7 @@ namespace NSubstitute.Core
 
         public static MethodInfo GetInvokeMethod(this Type type)
         {
-            return type.GetMethod("Invoke");
+            return type.GetMethod("Invoke") ?? throw new SubstituteInternalException("Expected delegate type");
         }
 
         private static bool TypeCanBeNull(Type type)
@@ -66,7 +67,7 @@ namespace NSubstitute.Core
 
             void AppendTypeNameRecursively(Type currentType)
             {
-                Type declaringType = currentType.DeclaringType;
+                Type? declaringType = currentType.DeclaringType;
                 if (declaringType != null)
                 {
                     AppendTypeNameRecursively(declaringType);
@@ -102,7 +103,7 @@ namespace NSubstitute.Core
 
             string GetTypeNameWithoutGenericArity(Type t)
             {
-                var tn = t.Name;
+                var tn = t.Name!;
                 var indexOfBacktick = tn.IndexOf('`');
                 // For nested generic types the back stick symbol might be missing.
                 return indexOfBacktick > -1 ? tn.Substring(0, indexOfBacktick) : tn;

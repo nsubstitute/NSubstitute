@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using NSubstitute.Exceptions;
+
+// Disable nullability for entry-point API
+#nullable disable annotations
 
 namespace NSubstitute.Core
 {
@@ -75,15 +79,15 @@ namespace NSubstitute.Core
             throw new ArgumentNotFoundException("Can not find an argument of type " + typeof(T).FullName + " to this call.");
         }
 
-        private bool TryGetArg<T>(Func<Argument, bool> condition, out T value)
+        private bool TryGetArg<T>(Func<Argument, bool> condition, [MaybeNull] out T value)
         {
-            value = default(T);
+            value = default;
 
             var matchingArgs = _callArguments.Where(condition);
             if (!matchingArgs.Any()) return false;
             ThrowIfMoreThanOne<T>(matchingArgs);
 
-            value = (T)matchingArgs.First().Value;
+            value = (T)matchingArgs.First().Value!;
             return true;
         }
 
@@ -107,24 +111,22 @@ namespace NSubstitute.Core
         /// <typeparam name="T">The type of the argument to retrieve</typeparam>
         /// <param name="position">The zero-based position of the argument to retrieve</param>
         /// <returns>The argument passed to the call, or throws if there is not exactly one argument of this type</returns>
+        [return: MaybeNull]
         public T ArgAt<T>(int position)
         {
-            T arg;
             if (position >= _callArguments.Length)
             {
                 throw new ArgumentOutOfRangeException("position", "There is no argument at position " + position);
             }
             try
             {
-                arg = (T) (_callArguments[position].Value);
+                return (T) _callArguments[position].Value!;
             }
             catch (InvalidCastException)
             {
                 throw new InvalidCastException("Couldn't convert parameter at position"
                     + position + " to type " + typeof(T).FullName);
             }
-            
-            return arg;
         }
         
         private static string DisplayTypes(IEnumerable<Type> types)

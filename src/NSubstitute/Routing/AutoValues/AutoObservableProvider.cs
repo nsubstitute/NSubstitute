@@ -20,7 +20,7 @@ namespace NSubstitute.Routing.AutoValues
             return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IObservable<>);
         }
 
-        public object GetValue(Type type)
+        public object? GetValue(Type type)
         {
             if (!CanProvideValueFor(type)) 
                 throw new InvalidOperationException();
@@ -30,10 +30,10 @@ namespace NSubstitute.Routing.AutoValues
             var value = valueProvider == null ? GetDefault(type) : valueProvider.GetValue(innerType);
             return Activator.CreateInstance(
                     typeof(ReturnObservable<>).MakeGenericType(innerType)
-                    , new object[] { value });
+                    , new object?[] { value });
         }
 
-        private static object GetDefault(Type type)
+        private static object? GetDefault(Type type)
         {
             return type.GetTypeInfo().IsValueType ? Activator.CreateInstance(type) : null;
         }

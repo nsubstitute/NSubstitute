@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
+
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
 
 namespace NSubstitute.ReceivedExtensions
 {
@@ -16,6 +20,8 @@ namespace NSubstitute.ReceivedExtensions
         /// <returns></returns>
         public static T Received<T>(this T substitute, Quantity requiredQuantity)
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var context = SubstitutionContext.Current;
             var callRouter = context.GetCallRouterFor(substitute);
 
@@ -32,6 +38,8 @@ namespace NSubstitute.ReceivedExtensions
         /// <returns></returns>
         public static T ReceivedWithAnyArgs<T>(this T substitute, Quantity requiredQuantity)
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var context = SubstitutionContext.Current;
             var callRouter = context.GetCallRouterFor(substitute);
 

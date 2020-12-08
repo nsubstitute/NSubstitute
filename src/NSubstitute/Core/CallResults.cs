@@ -21,7 +21,7 @@ namespace NSubstitute.Core
             _results.Push(new ResultForCallSpec(callSpecification, result));
         }
 
-        public bool TryGetResult(ICall call, out object result)
+        public bool TryGetResult(ICall call, out object? result)
         {
             result = default;
             if (ReturnsVoidFrom(call))
@@ -82,7 +82,7 @@ namespace NSubstitute.Core
             }
 
             public bool IsResultFor(ICall call) => _callSpecification.IsSatisfiedBy(call);
-            public object GetResult(ICall call, ICallInfoFactory callInfoFactory)
+            public object? GetResult(ICall call, ICallInfoFactory callInfoFactory)
             {
                 if (_resultToReturn is ICallIndependentReturn callIndependentReturn)
                 {

@@ -12,7 +12,7 @@ namespace NSubstitute.Core.Arguments
             _defaultForType = defaultForType;
         }
 
-        public bool IsDefault(object value, Type forType)
+        public bool IsDefault(object? value, Type forType)
         {
             return EqualityComparer<object>.Default.Equals(value, _defaultForType.GetDefaultFor(forType));
         }

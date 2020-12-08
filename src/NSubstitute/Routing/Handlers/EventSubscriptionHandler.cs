@@ -49,7 +49,7 @@ namespace NSubstitute.Routing.Handlers
                 // It's important to use original arguments, as it provides better performance.
                 // It's safe to use original arguments here, as only by-ref arguments might be modified,
                 // which should never happen for this case.
-                takeThisAction(matchingEvent.Name, call.GetOriginalArguments()[0]);
+                takeThisAction(matchingEvent.Name, call.GetOriginalArguments()[0]!);
             }
         }
 
@@ -66,7 +66,7 @@ namespace NSubstitute.Routing.Handlers
         private static IEnumerable<EventInfo> GetEvents(ICall call, Func<ICall, Predicate<EventInfo>> createPredicate)
         {
             var predicate = createPredicate(call);
-            return call.GetMethodInfo().DeclaringType.GetEvents().Where(x => predicate(x));
+            return call.GetMethodInfo().DeclaringType!.GetEvents().Where(x => predicate(x));
         }
     }
 }

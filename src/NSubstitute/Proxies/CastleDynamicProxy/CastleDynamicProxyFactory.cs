@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
@@ -22,14 +23,14 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
         }
 
-        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
+        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, object?[]? constructorArguments)
         {
             return typeToProxy.IsDelegate()
                 ? GenerateDelegateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments)
                 : GenerateTypeProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments);
         }
 
-        private object GenerateTypeProxy(ICallRouter callRouter, Type typeToProxy, Type[] additionalInterfaces, object[] constructorArguments)
+        private object GenerateTypeProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, object?[]? constructorArguments)
         {
             VerifyClassHasNotBeenPassedAsAnAdditionalInterface(additionalInterfaces);
 
@@ -49,7 +50,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             return proxy;
         }
 
-        private object GenerateDelegateProxy(ICallRouter callRouter, Type delegateType, Type[] additionalInterfaces, object[] constructorArguments)
+        private object GenerateDelegateProxy(ICallRouter callRouter, Type delegateType, Type[]? additionalInterfaces, object?[]? constructorArguments)
         {
             VerifyNoAdditionalInterfacesGivenForDelegate(additionalInterfaces);
             VerifyNoConstructorArgumentsGivenForDelegate(constructorArguments);
@@ -84,8 +85,8 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 callRouter);
         }
 
-        private object CreateProxyUsingCastleProxyGenerator(Type typeToProxy, Type[] additionalInterfaces,
-                                                            object[] constructorArguments,
+        private object CreateProxyUsingCastleProxyGenerator(Type typeToProxy, Type[]? additionalInterfaces,
+                                                            object?[]? constructorArguments,
                                                             IInterceptor[] interceptors,
                                                             ProxyGenerationOptions proxyGenerationOptions)
         {
@@ -128,7 +129,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             return options;
         }
 
-        private static void VerifyNoConstructorArgumentsGivenForInterface(object[] constructorArguments)
+        private static void VerifyNoConstructorArgumentsGivenForInterface(object?[]? constructorArguments)
         {
             if (HasItems(constructorArguments))
             {
@@ -136,7 +137,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             }
         }
 
-        private static void VerifyNoConstructorArgumentsGivenForDelegate(object[] constructorArguments)
+        private static void VerifyNoConstructorArgumentsGivenForDelegate(object?[]? constructorArguments)
         {
             if (HasItems(constructorArguments))
             {
@@ -144,7 +145,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             }
         }
 
-        private static void VerifyNoAdditionalInterfacesGivenForDelegate(Type[] constructorArguments)
+        private static void VerifyNoAdditionalInterfacesGivenForDelegate(Type[]? constructorArguments)
         {
             if (HasItems(constructorArguments))
             {
@@ -154,7 +155,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             }
         }
 
-        private static void VerifyClassHasNotBeenPassedAsAnAdditionalInterface(Type[] additionalInterfaces)
+        private static void VerifyClassHasNotBeenPassedAsAnAdditionalInterface(Type[]? additionalInterfaces)
         {
             if (additionalInterfaces != null && additionalInterfaces.Any(x => x.GetTypeInfo().IsClass))
             {
@@ -164,7 +165,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             }
         }
  
-        private static bool HasItems<T>(T[] array)
+        private static bool HasItems<T>(T[]? array)
         {
             return array != null && array.Length > 0;
         }

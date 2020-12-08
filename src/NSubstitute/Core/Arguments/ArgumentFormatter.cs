@@ -8,13 +8,13 @@ namespace NSubstitute.Core.Arguments
     {
         internal static IArgumentFormatter Default { get; } = new ArgumentFormatter();
 
-        public string Format(object argument, bool highlight)
+        public string Format(object? argument, bool highlight)
         {
             var formatted = Format(argument);
             return highlight ? "*" + formatted + "*" : formatted;
         }
 
-        private string Format(object arg)
+        private string Format(object? arg)
         {
             switch (arg)
             {
@@ -24,11 +24,11 @@ namespace NSubstitute.Core.Arguments
                 case string str:
                     return string.Format(CultureInfo.InvariantCulture, "\"{0}\"", str);
 
-                case object obj when obj.GetType().GetMethod(nameof(ToString), Type.EmptyTypes).DeclaringType == typeof(object):
+                case object obj when obj.GetType().GetMethod(nameof(ToString), Type.EmptyTypes)!.DeclaringType == typeof(object):
                     return arg.GetType().GetNonMangledTypeName();
 
                 default:
-                    return arg.ToString();
+                    return arg.ToString() ?? string.Empty;
             }
        }
     }

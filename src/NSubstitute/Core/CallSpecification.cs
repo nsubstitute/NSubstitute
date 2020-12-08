@@ -92,7 +92,7 @@ namespace NSubstitute.Core
 
         private bool IsMatchingArgumentSpecifications(ICall call)
         {
-            object[] arguments = call.GetOriginalArguments();
+            object?[] arguments = call.GetOriginalArguments();
             for (int i = 0; i < arguments.Length; i++)
             {
                 if (!_argumentSpecifications[i].IsSatisfiedBy(arguments[i]))
@@ -114,7 +114,7 @@ namespace NSubstitute.Core
 
         public override string ToString()
         {
-            var argSpecsAsStrings = _argumentSpecifications.Select(x => x.ToString()).ToArray();
+            var argSpecsAsStrings = _argumentSpecifications.Select(x => x.ToString() ?? string.Empty).ToArray();
             return CallFormatter.Default.Format(GetMethodInfo(), argSpecsAsStrings);
         }
 
@@ -123,7 +123,7 @@ namespace NSubstitute.Core
             return CallFormatter.Default.Format(call.GetMethodInfo(), FormatArguments(call.GetOriginalArguments()));
         }
 
-        private IEnumerable<string> FormatArguments(IEnumerable<object> arguments)
+        private IEnumerable<string> FormatArguments(IEnumerable<object?> arguments)
         {
             return arguments.Zip(_argumentSpecifications, (arg, spec) => spec.FormatArgument(arg)).ToArray();
         }

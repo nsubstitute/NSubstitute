@@ -10,22 +10,22 @@ namespace NSubstitute.Core
     {
         private static readonly IArgumentSpecification[] EmptySpecifications = new IArgumentSpecification[0];
 
-        private readonly RobustThreadLocal<ICallRouter> _lastCallRouter;
+        private readonly RobustThreadLocal<ICallRouter?> _lastCallRouter;
         private readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications;
-        private readonly RobustThreadLocal<Func<ICall, object[]>> _getArgumentsForRaisingEvent;
-        private readonly RobustThreadLocal<IQuery> _currentQuery;
+        private readonly RobustThreadLocal<Func<ICall, object?[]>?> _getArgumentsForRaisingEvent;
+        private readonly RobustThreadLocal<IQuery?> _currentQuery;
         private readonly RobustThreadLocal<PendingSpecInfoData> _pendingSpecificationInfo;
-        private readonly RobustThreadLocal<Tuple<ICallRouter, Func<ISubstituteState, IRoute>>> _nextRouteFactory;
+        private readonly RobustThreadLocal<Tuple<ICallRouter, Func<ISubstituteState, IRoute>>?> _nextRouteFactory;
         public IPendingSpecification PendingSpecification { get; }
 
         public ThreadLocalContext()
         {
-            _lastCallRouter = new RobustThreadLocal<ICallRouter>();
+            _lastCallRouter = new RobustThreadLocal<ICallRouter?>();
             _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
-            _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object[]>>();
-            _currentQuery = new RobustThreadLocal<IQuery>();
+            _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object?[]>?>();
+            _currentQuery = new RobustThreadLocal<IQuery?>();
             _pendingSpecificationInfo = new RobustThreadLocal<PendingSpecInfoData>();
-            _nextRouteFactory = new RobustThreadLocal<Tuple<ICallRouter, Func<ISubstituteState, IRoute>>>();
+            _nextRouteFactory = new RobustThreadLocal<Tuple<ICallRouter, Func<ISubstituteState, IRoute>>?>();
 
             PendingSpecification = new PendingSpecificationWrapper(_pendingSpecificationInfo);
         }
@@ -51,7 +51,7 @@ namespace NSubstitute.Core
                 throw new UnexpectedArgumentMatcherException();
             }
 
-            var pendingSpecInfo = PendingSpecification.UseCallSpecInfo();
+            var pendingSpecInfo = PendingSpecification.UseCallSpecInfo()!;
             var configuredCall = lastCallRouter.LastCallShouldReturn(value, matchArgs, pendingSpecInfo);
             ClearLastCallRouter();
             return configuredCall;
@@ -65,7 +65,7 @@ namespace NSubstitute.Core
             _nextRouteFactory.Value = Tuple.Create(callRouter, nextRouteFactory);
         }
 
-        public Func<ISubstituteState, IRoute> UseNextRoute(ICallRouter callRouter)
+        public Func<ISubstituteState, IRoute>? UseNextRoute(ICallRouter callRouter)
         {
             if (callRouter == null) throw new ArgumentNullException(nameof(callRouter));
             
@@ -115,12 +115,12 @@ namespace NSubstitute.Core
             return queue;
         }
 
-        public void SetPendingRaisingEventArgumentsFactory(Func<ICall, object[]> getArguments)
+        public void SetPendingRaisingEventArgumentsFactory(Func<ICall, object?[]> getArguments)
         {
             _getArgumentsForRaisingEvent.Value = getArguments;
         }
 
-        public Func<ICall, object[]> UsePendingRaisingEventArgumentsFactory()
+        public Func<ICall, object?[]>? UsePendingRaisingEventArgumentsFactory()
         {
             var result = _getArgumentsForRaisingEvent.Value;
             if (result != null)
@@ -169,7 +169,7 @@ namespace NSubstitute.Core
                 return _valueHolder.Value.HasValue;
             }
 
-            public PendingSpecificationInfo UseCallSpecInfo()
+            public PendingSpecificationInfo? UseCallSpecInfo()
             {
                 var info = _valueHolder.Value;
                 Clear();
@@ -194,18 +194,18 @@ namespace NSubstitute.Core
 
         private readonly struct PendingSpecInfoData
         {
-            private readonly ICallSpecification _callSpecification;
-            private readonly ICall _lastCall;
+            private readonly ICallSpecification? _callSpecification;
+            private readonly ICall? _lastCall;
 
             public bool HasValue => _lastCall != null || _callSpecification != null;
 
-            private PendingSpecInfoData(ICallSpecification callSpecification, ICall lastCall)
+            private PendingSpecInfoData(ICallSpecification? callSpecification, ICall? lastCall)
             {
                 _callSpecification = callSpecification;
                 _lastCall = lastCall;
             }
 
-            public PendingSpecificationInfo ToPendingSpecificationInfo()
+            public PendingSpecificationInfo? ToPendingSpecificationInfo()
             {
                 if (_callSpecification != null)
                     return PendingSpecificationInfo.FromCallSpecification(_callSpecification);

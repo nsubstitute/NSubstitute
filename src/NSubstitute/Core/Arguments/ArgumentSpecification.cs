@@ -4,30 +4,30 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecification : IArgumentSpecification
     {
-        private static readonly Action<object> NoOpAction = x => { };
+        private static readonly Action<object?> NoOpAction = x => { };
  
         private readonly IArgumentMatcher _matcher;
-        private readonly Action<object> _action;
+        private readonly Action<object?> _action;
         public Type ForType { get; }
         public bool HasAction => _action != NoOpAction;
 
         public ArgumentSpecification(Type forType, IArgumentMatcher matcher) : this(forType, matcher, NoOpAction) { }
 
-        public ArgumentSpecification(Type forType, IArgumentMatcher matcher, Action<object> action)
+        public ArgumentSpecification(Type forType, IArgumentMatcher matcher, Action<object?> action)
         {
             ForType = forType;
             _matcher = matcher;
             _action = action;
         }
 
-        public bool IsSatisfiedBy(object argument)
+        public bool IsSatisfiedBy(object? argument)
         {
             if (!IsCompatibleWith(argument)) return false;
             try { return _matcher.IsSatisfiedBy(argument); }
             catch { return false; }
         }
 
-        public string DescribeNonMatch(object argument)
+        public string DescribeNonMatch(object? argument)
         {
             var describable = _matcher as IDescribeNonMatches;
             if (describable == null) return string.Empty;
@@ -35,7 +35,7 @@ namespace NSubstitute.Core.Arguments
             return IsCompatibleWith(argument) ? describable.DescribeFor(argument) : GetIncompatibleTypeMessage(argument);
         }
 
-        public string FormatArgument(object argument)
+        public string FormatArgument(object? argument)
         {
             var isSatisfiedByArg = IsSatisfiedBy(argument);
             var matcherFormatter = _matcher as IArgumentFormatter;
@@ -44,7 +44,7 @@ namespace NSubstitute.Core.Arguments
                 : matcherFormatter.Format(argument, isSatisfiedByArg);
         }
 
-        public override string ToString() => _matcher.ToString();
+        public override string ToString() => _matcher.ToString() ?? string.Empty;
 
         public IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType)
         {
@@ -56,23 +56,23 @@ namespace NSubstitute.Core.Arguments
                 _action == NoOpAction ? NoOpAction : RunActionIfTypeIsCompatible);
         }
 
-        public void RunAction(object argument)
+        public void RunAction(object? argument)
         {
             _action(argument);
         }
 
-        private void RunActionIfTypeIsCompatible(object argument)
+        private void RunActionIfTypeIsCompatible(object? argument)
         {
             if (!argument.IsCompatibleWith(ForType)) return;
             _action(argument);
         }
 
-        private bool IsCompatibleWith(object argument)
+        private bool IsCompatibleWith(object? argument)
         {
             return argument.IsCompatibleWith(ForType);
         }
 
-        private string GetIncompatibleTypeMessage(object argument)
+        private string GetIncompatibleTypeMessage(object? argument)
         {
             var argumentType = argument == null ? typeof(object) : argument.GetType();
             return string.Format("Expected an argument compatible with type {0}. Actual type was {1}.", ForType, argumentType);

@@ -1,5 +1,9 @@
 ﻿using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
+
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
 
 namespace NSubstitute.Extensions
 {
@@ -14,8 +18,10 @@ namespace NSubstitute.Extensions
         /// <returns></returns>
         public static void ReturnsForAll<T>(this object substitute, T returnThis)
         {
-            var _callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
-            _callRouter.SetReturnForType(typeof(T), new ReturnValue(returnThis));
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
+            var callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
+            callRouter.SetReturnForType(typeof(T), new ReturnValue(returnThis));
         }
         
         /// <summary>
@@ -27,6 +33,8 @@ namespace NSubstitute.Extensions
         /// <returns></returns>
         public static void ReturnsForAll<T>(this object substitute, Func<CallInfo, T> returnThis)
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var _callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
             _callRouter.SetReturnForType(typeof(T), new ReturnValueFromFunc<T>(returnThis));
         }

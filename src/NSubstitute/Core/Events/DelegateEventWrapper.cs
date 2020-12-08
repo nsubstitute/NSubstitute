@@ -6,21 +6,24 @@ namespace NSubstitute.Core.Events
 {
     public class DelegateEventWrapper<T> : RaiseEventWrapper
     {
-        readonly object[] _providedArguments;
+        readonly object?[] _providedArguments;
         protected override string RaiseMethodName { get { return "Raise.Event"; } }
 
-        public DelegateEventWrapper(params object[] arguments)
+        public DelegateEventWrapper(params object?[] arguments)
         {
             _providedArguments = arguments ?? new object[0];
         }
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
         public static implicit operator T(DelegateEventWrapper<T> wrapper)
         {
             RaiseEvent(wrapper);
             return default(T);
         }
+#nullable restore annotations
 
-        protected override object[] WorkOutRequiredArguments(ICall call)
+        protected override object?[] WorkOutRequiredArguments(ICall call)
         {
             var requiredArgs = typeof(T).GetInvokeMethod().GetParameters();
 
@@ -44,10 +47,10 @@ namespace NSubstitute.Core.Events
                    typeof(EventArgs).IsAssignableFrom(parameters[1].ParameterType);
         }
 
-        object[] WorkOutSenderAndEventArgs(Type eventArgsType, ICall call)
+        object?[] WorkOutSenderAndEventArgs(Type eventArgsType, ICall call)
         {
-            object sender;
-            object eventArgs;
+            object? sender;
+            object? eventArgs;
             if (_providedArguments.Length == 0)
             {
                 sender = call.Target();
@@ -66,7 +69,7 @@ namespace NSubstitute.Core.Events
             return new[] { sender, eventArgs };
         }
 
-        bool RequiredArgsHaveBeenProvided(object[] providedArgs, ParameterInfo[] requiredArgs)
+        bool RequiredArgsHaveBeenProvided(object?[] providedArgs, ParameterInfo[] requiredArgs)
         {
             if (providedArgs.Length != requiredArgs.Length) return false;
             for (var i = 0; i < providedArgs.Length; i++)

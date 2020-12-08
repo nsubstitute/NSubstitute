@@ -9,11 +9,11 @@ namespace NSubstitute.Routing.AutoValues
             return type.IsArray;
         }
 
-        public object GetValue(Type type)
+        public object? GetValue(Type type)
         {
             var rank = type.GetArrayRank();
             var dimensionLengths = new int[rank];
-            return Array.CreateInstance(type.GetElementType(), dimensionLengths);
+            return Array.CreateInstance(type.GetElementType()!, dimensionLengths);
         }
     }
 }

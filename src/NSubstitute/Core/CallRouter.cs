@@ -58,7 +58,7 @@ namespace NSubstitute.Core
         public void SetRoute(Func<ISubstituteState, IRoute> getRoute) => 
             _threadContext.SetNextRoute(this, getRoute);
 
-        public object Route(ICall call)
+        public object? Route(ICall call)
         {
             _threadContext.SetLastCallRouter(this);
 
@@ -71,7 +71,7 @@ namespace NSubstitute.Core
             return routeToUse.Handle(call);
         }
 
-        private IRoute ResolveCurrentRoute(ICall call, bool isQuerying, Func<ICall, object[]> pendingRaisingEventArgs, Func<ISubstituteState, IRoute> queuedNextRouteFactory)
+        private IRoute ResolveCurrentRoute(ICall call, bool isQuerying, Func<ICall, object?[]>? pendingRaisingEventArgs, Func<ISubstituteState, IRoute>? queuedNextRouteFactory)
         {
             if (isQuerying)
             {

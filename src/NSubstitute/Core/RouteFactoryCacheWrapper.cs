@@ -53,7 +53,7 @@ namespace NSubstitute.Core
         public IRoute CallBase(ISubstituteState state, MatchArgs matchArgs) =>
             _factory.CallBase(state, matchArgs);
 
-        public IRoute RaiseEvent(ISubstituteState state, Func<ICall, object[]> getEventArguments) =>
+        public IRoute RaiseEvent(ISubstituteState state, Func<ICall, object?[]> getEventArguments) =>
             _factory.RaiseEvent(state, getEventArguments);
 
         private readonly struct CachedRoute

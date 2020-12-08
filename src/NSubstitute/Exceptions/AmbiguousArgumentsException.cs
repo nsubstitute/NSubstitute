@@ -29,7 +29,7 @@ namespace NSubstitute.Exceptions
         }
 
         public AmbiguousArgumentsException(MethodInfo method,
-            IEnumerable<object> invocationArguments,
+            IEnumerable<object?> invocationArguments,
             IEnumerable<IArgumentSpecification> matchedSpecifications,
             IEnumerable<IArgumentSpecification> allSpecifications)
             : this(BuildExceptionMessage(method, invocationArguments, matchedSpecifications, allSpecifications))
@@ -37,13 +37,13 @@ namespace NSubstitute.Exceptions
         }
 
         private static string BuildExceptionMessage(MethodInfo method,
-            IEnumerable<object> invocationArguments,
+            IEnumerable<object?> invocationArguments,
             IEnumerable<IArgumentSpecification> matchedSpecifications,
             IEnumerable<IArgumentSpecification> allSpecifications)
         {
-            string methodSignature = null;
-            string methodArgsWithHighlightedPossibleArgSpecs = null;
-            string matchedSpecificationsInfo = null;
+            string? methodSignature = null;
+            string? methodArgsWithHighlightedPossibleArgSpecs = null;
+            string? matchedSpecificationsInfo = null;
             if (CallFormatter.Default.CanFormat(method))
             {
                 var argsWithInlinedParamsArray = invocationArguments.ToArray();
@@ -107,10 +107,10 @@ namespace NSubstitute.Exceptions
                 var type = p.ParameterType;
 
                 if (p.IsOut)
-                    return "out " + type.GetElementType().GetNonMangledTypeName();
+                    return "out " + type.GetElementType()!.GetNonMangledTypeName();
 
                 if (type.IsByRef)
-                    return "ref " + type.GetElementType().GetNonMangledTypeName();
+                    return "ref " + type.GetElementType()!.GetNonMangledTypeName();
 
                 if (p.IsParams())
                     return "params " + type.GetNonMangledTypeName();
@@ -119,7 +119,7 @@ namespace NSubstitute.Exceptions
             });
         }
 
-        private static IEnumerable<string> FormatMethodArguments(IEnumerable<object> arguments)
+        private static IEnumerable<string> FormatMethodArguments(IEnumerable<object?> arguments)
         {
             var defaultChecker = new DefaultChecker(new DefaultForType());
 
@@ -130,9 +130,9 @@ namespace NSubstitute.Exceptions
             });
         }
 
-        private static IEnumerable<string> PadNonMatchedSpecifications(IEnumerable<IArgumentSpecification> matchedSpecifications, IEnumerable<object> allArguments)
+        private static IEnumerable<string> PadNonMatchedSpecifications(IEnumerable<IArgumentSpecification> matchedSpecifications, IEnumerable<object?> allArguments)
         {
-            var allMatchedSpecs = matchedSpecifications.Select(x => x.ToString()).ToArray();
+            var allMatchedSpecs = matchedSpecifications.Select(x => x.ToString() ?? string.Empty).ToArray();
 
             int nonResolvedArgumentsCount = allArguments.Count() - allMatchedSpecs.Length;
             var nonResolvedArgsPlaceholders = Enumerable.Repeat("???", nonResolvedArgumentsCount);

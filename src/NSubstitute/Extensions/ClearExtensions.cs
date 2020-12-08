@@ -1,5 +1,9 @@
 ﻿using System;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
+
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
 
 namespace NSubstitute.ClearExtensions
 {
@@ -16,8 +20,10 @@ namespace NSubstitute.ClearExtensions
         /// </remarks>
         public static void ClearSubstitute<T>(this T substitute, ClearOptions options = ClearOptions.All) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var context = SubstitutionContext.Current;
-            var router = context.GetCallRouterFor(substitute);
+            var router = context.GetCallRouterFor(substitute!);
             router.Clear(options);
         }
     }

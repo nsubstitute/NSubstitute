@@ -1,19 +1,20 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NSubstitute.Core
 {
-    internal class ReturnObservable<T> : IObservable<T>
+    internal class ReturnObservable<T> : IObservable<T?>
     {
-        T _value;
+        T? _value;
 
-        public ReturnObservable() : this(default(T)) { }
+        public ReturnObservable() : this(default) { }
 
-        public ReturnObservable(T value)
+        public ReturnObservable(T? value)
         {
             _value = value;
         }
 
-        public IDisposable Subscribe(IObserver<T> observer)
+        public IDisposable Subscribe(IObserver<T?> observer)
         {
             observer.OnNext(_value);
             observer.OnCompleted();

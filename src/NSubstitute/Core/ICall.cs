@@ -9,14 +9,14 @@ namespace NSubstitute.Core
     {
         Type GetReturnType();
         MethodInfo GetMethodInfo();
-        object[] GetArguments();
-        object[] GetOriginalArguments();
+        object?[] GetArguments();
+        object?[] GetOriginalArguments();
         object Target();
         IParameterInfo[] GetParameterInfos();
         IList<IArgumentSpecification> GetArgumentSpecifications();
         void AssignSequenceNumber(long number);
         long GetSequenceNumber();
         bool CanCallBase { get; }
-        Maybe<object> TryCallBase();
+        Maybe<object?> TryCallBase();
     }
 }

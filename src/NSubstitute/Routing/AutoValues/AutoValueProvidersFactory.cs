@@ -9,7 +9,7 @@ namespace NSubstitute.Routing.AutoValues
     {
         public IReadOnlyCollection<IAutoValueProvider> CreateProviders(ISubstituteFactory substituteFactory)
         {
-            IAutoValueProvider[] result = null;
+            IAutoValueProvider[]? result = null;
             var lazyResult = new Lazy<IReadOnlyCollection<IAutoValueProvider>>(
                 () => result ?? throw new InvalidOperationException("Value was not constructed yet."),
                 LazyThreadSafetyMode.PublicationOnly);

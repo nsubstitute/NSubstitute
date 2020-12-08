@@ -25,7 +25,7 @@ namespace NSubstitute.Core
         [Obsolete("This property is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.PendingSpecification) + " property instead. " +
                   "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.PendingSpecification) + ".")]
-        PendingSpecificationInfo PendingSpecificationInfo { get; set; }
+        PendingSpecificationInfo? PendingSpecificationInfo { get; set; }
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.LastCallShouldReturn) + "() method instead. " +
@@ -55,7 +55,7 @@ namespace NSubstitute.Core
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.UsePendingRaisingEventArgumentsFactory) + "() method instead. " +
                   "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.UsePendingRaisingEventArgumentsFactory) + "().")]
-        Func<ICall, object[]> DequeuePendingRaisingEventArguments();
+        Func<ICall, object?[]>? DequeuePendingRaisingEventArguments();
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.RunInQueryContext) + "() method instead. " +

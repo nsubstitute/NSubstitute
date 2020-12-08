@@ -4,20 +4,22 @@ namespace NSubstitute.Core.Events
 {
     public class EventHandlerWrapper<TEventArgs> : RaiseEventWrapper where TEventArgs : EventArgs
     {
-        readonly object _sender;
-        readonly EventArgs _eventArgs;
+        readonly object? _sender;
+        readonly EventArgs? _eventArgs;
         protected override string RaiseMethodName { get { return "Raise.EventWith"; } }
 
         public EventHandlerWrapper() : this(null, null) { }
 
-        public EventHandlerWrapper(EventArgs eventArgs) : this(null, eventArgs) { }
+        public EventHandlerWrapper(EventArgs? eventArgs) : this(null, eventArgs) { }
 
-        public EventHandlerWrapper(object sender, EventArgs eventArgs)
+        public EventHandlerWrapper(object? sender, EventArgs? eventArgs)
         {
             _sender = sender;
             _eventArgs = eventArgs;
         }
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
         public static implicit operator EventHandler(EventHandlerWrapper<TEventArgs> wrapper)
         {
             RaiseEvent(wrapper);
@@ -29,6 +31,7 @@ namespace NSubstitute.Core.Events
             RaiseEvent(wrapper);
             return null;
         }
+#nullable restore annotations
 
         protected override object[] WorkOutRequiredArguments(ICall call)
         {

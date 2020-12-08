@@ -11,17 +11,17 @@ namespace NSubstitute.Core
     public class Call : ICall, /* Performance optimization */ CallCollection.IReceivedCallEntry
     {
         private readonly MethodInfo _methodInfo;
-        private readonly object[] _arguments;
-        private object[] _originalArguments;
+        private readonly object?[] _arguments;
+        private object?[] _originalArguments;
         private readonly object _target;
         private readonly IList<IArgumentSpecification> _argumentSpecifications;
-        private IParameterInfo[] _parameterInfosCached;
+        private IParameterInfo[]? _parameterInfosCached;
         private long? _sequenceNumber;
-        private readonly Func<object> _baseMethod;
+        private readonly Func<object>? _baseMethod;
 
         [Obsolete("This constructor is deprecated and will be removed in future version of product.")]
         public Call(MethodInfo methodInfo,
-            object[] arguments,
+            object?[] arguments,
             object target,
             IList<IArgumentSpecification> argumentSpecifications,
             IParameterInfo[] parameterInfos,
@@ -32,10 +32,10 @@ namespace NSubstitute.Core
         }
 
         public Call(MethodInfo methodInfo,
-            object[] arguments,
+            object?[] arguments,
             object target,
             IList<IArgumentSpecification> argumentSpecifications,
-            Func<object> baseMethod)
+            Func<object>? baseMethod)
         {
             _methodInfo = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
             _arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
@@ -83,24 +83,24 @@ namespace NSubstitute.Core
 
         public bool CanCallBase => _baseMethod != null;
 
-        public Maybe<object> TryCallBase()
+        public Maybe<object?> TryCallBase()
         {
-            return _baseMethod == null ? Maybe.Nothing<object>() : Maybe.Just(_baseMethod());
+            return _baseMethod == null ? Maybe.Nothing<object?>() : Maybe.Just<object?>(_baseMethod());
         }
 
         public Type GetReturnType() => _methodInfo.ReturnType;
 
         public MethodInfo GetMethodInfo() => _methodInfo;
 
-        public object[] GetArguments()
+        public object?[] GetArguments()
         {
             // This method assumes that result might be mutated.
             // Therefore, we should guard our array with original values to ensure it's unmodified.
             // Also if array is empty - no sense to make a copy.
-            object[] originalArray = _originalArguments;
+            object?[] originalArray = _originalArguments;
             if (originalArray == _arguments && originalArray.Length > 0)
             {
-                object[] copy = originalArray.ToArray();
+                object?[] copy = originalArray.ToArray();
                 // If it happens that _originalArguments doesn't point to the `_arguments` anymore -
                 // it might happen that other thread already created a copy and mutated the original `_arguments` array.
                 // In this case it's unsafe to replace it with a copy.
@@ -110,7 +110,7 @@ namespace NSubstitute.Core
             return _arguments;
         }
 
-        public object[] GetOriginalArguments()
+        public object?[] GetOriginalArguments()
         {
             return _originalArguments;
         }

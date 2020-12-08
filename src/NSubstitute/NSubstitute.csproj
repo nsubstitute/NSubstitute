@@ -30,7 +30,14 @@
 
   <PropertyGroup>
     <DocumentationFile>..\..\bin\$(Configuration)\NSubstitute\$(TargetFramework)\NSubstitute.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
+    <NoWarn>$(NoWarn);1701;1702;1705;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Nullable Condition="'$(TargetIsNet5)' == 'true'">enable</Nullable>
+    <!-- Nullability does not work nicely for older versions of .NET, so just disable nullability for those versions. -->
+    <!-- CS8632 - The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. -->
+    <NoWarn Condition="'$(TargetIsNet5)' != 'true'">$(NoWarn);CS8632</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,7 +45,7 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*"
                       Condition="'$(TargetIsNet5)' != 'true'" />
   </ItemGroup>
-  
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0-*" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0-*" />
@@ -46,6 +53,10 @@
 
   <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
     <DefineConstants>$(DefineConstants);SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetIsNet5)' == 'true'">
+    <DefineConstants>$(DefineConstants);SYSTEM_DIAGNOSTICS_CODEANALYSIS_NULLABILITY</DefineConstants>
   </PropertyGroup>
 
 </Project>

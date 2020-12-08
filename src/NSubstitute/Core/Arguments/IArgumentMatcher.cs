@@ -10,7 +10,7 @@ namespace NSubstitute.Core.Arguments
         /// Checks whether the <paramref name="argument"/> satisfies the condition of the matcher.
         /// If this throws an exception the argument will be treated as non-matching.
         /// </summary>
-        bool IsSatisfiedBy(object argument);
+        bool IsSatisfiedBy(object? argument);
     }
 
     /// <summary>
@@ -24,6 +24,6 @@ namespace NSubstitute.Core.Arguments
         /// Checks whether the <paramref name="argument"/> satisfies the condition of the matcher.
         /// If this throws an exception the argument will be treated as non-matching.
         /// </summary>
-        bool IsSatisfiedBy(T argument);
+        bool IsSatisfiedBy(T? argument);
     }
 }

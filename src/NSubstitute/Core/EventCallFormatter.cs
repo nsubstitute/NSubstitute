@@ -21,12 +21,12 @@ namespace NSubstitute.Core
 
         public bool CanFormat(MethodInfo methodInfo)
         {
-            return methodInfo.DeclaringType.GetEvents().Any(x => _eventsToFormat(methodInfo)(x));
+            return methodInfo.DeclaringType!.GetEvents().Any(x => _eventsToFormat(methodInfo)(x));
         }
 
         public string Format(MethodInfo methodInfo, IEnumerable<string> arguments)
         {
-            var eventInfo = methodInfo.DeclaringType.GetEvents().First(x => _eventsToFormat(methodInfo)(x));
+            var eventInfo = methodInfo.DeclaringType!.GetEvents().First(x => _eventsToFormat(methodInfo)(x));
             return Format(eventInfo, _eventOperator, arguments);
         }
 

@@ -17,7 +17,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         public virtual ICall Map(IInvocation castleInvocation)
         {
-            Func<object> baseMethod = null;
+            Func<object>? baseMethod = null;
             if (castleInvocation.InvocationTarget != null &&
                 castleInvocation.MethodInvocationTarget.IsVirtual &&
                 !castleInvocation.MethodInvocationTarget.IsAbstract &&

@@ -75,7 +75,7 @@ namespace NSubstitute.Routing
                 , ReturnDefaultForReturnTypeHandler()
             });
         }
-        public IRoute RaiseEvent(ISubstituteState state, Func<ICall, object[]> getEventArguments)
+        public IRoute RaiseEvent(ISubstituteState state, Func<ICall, object?[]> getEventArguments)
         {
             return new Route(new ICallHandler[] {
                 new ClearLastCallRouterHandler(_threadLocalContext)

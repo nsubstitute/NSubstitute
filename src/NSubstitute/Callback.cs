@@ -3,6 +3,9 @@ using System.Collections.Concurrent;
 using NSubstitute.Callbacks;
 using NSubstitute.Core;
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute
 {
     /// <summary>
@@ -72,7 +75,8 @@ namespace NSubstitute
             return AlwaysThrow(info => exception);
         }
 
-        protected static Action<CallInfo> ToCallback<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+        protected static Action<CallInfo> ToCallback<TException>(Func<CallInfo, TException> throwThis)
+            where TException : notnull, Exception
         {
             return ci => { if (throwThis != null) throw throwThis(ci); };
         }
@@ -111,8 +115,7 @@ namespace NSubstitute
 
         private void CallFromStack(CallInfo callInfo)
         {
-            Action<CallInfo> callback;
-            if (callbackQueue.TryDequeue(out callback))
+            if (callbackQueue.TryDequeue(out var callback))
             {
                 callback(callInfo);
             }

@@ -21,16 +21,16 @@ namespace NSubstitute.Core
         /// Returns the previously configured next route and resets the stored value.
         /// If route was configured for the different router, returns <see langword="null"/> and persist the route info.
         /// </summary>
-        Func<ISubstituteState, IRoute> UseNextRoute(ICallRouter callRouter);
+        Func<ISubstituteState, IRoute>? UseNextRoute(ICallRouter callRouter);
 
         void EnqueueArgumentSpecification(IArgumentSpecification spec);
         IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
 
-        void SetPendingRaisingEventArgumentsFactory(Func<ICall, object[]> getArguments);
+        void SetPendingRaisingEventArgumentsFactory(Func<ICall, object?[]> getArguments);
         /// <summary>
         /// Returns the previously set arguments factory and resets the stored value.
         /// </summary>
-        Func<ICall, object[]> UsePendingRaisingEventArgumentsFactory();
+        Func<ICall, object?[]>? UsePendingRaisingEventArgumentsFactory();
 
         bool IsQuerying { get; }
         /// <summary>

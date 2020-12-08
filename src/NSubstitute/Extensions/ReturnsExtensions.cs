@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 using NSubstitute.Core;
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute.ReturnsExtensions
 {
     public static class ReturnsExtensions

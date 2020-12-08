@@ -9,7 +9,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
     public class ProxyIdInterceptor : IInterceptor
     {
         private readonly Type _primaryProxyType;
-        private string _cachedProxyId;
+        private string? _cachedProxyId;
 
         public ProxyIdInterceptor(Type primaryProxyType)
         {

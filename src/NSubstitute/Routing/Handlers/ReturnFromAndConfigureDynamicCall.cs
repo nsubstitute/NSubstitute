@@ -50,22 +50,22 @@ namespace NSubstitute.Routing.Handlers
 
         public class DynamicStub
         {
-            public ConfiguredCall Returns<T>(T returnThis, params T[] returnThese)
+            public ConfiguredCall Returns<T>(T? returnThis, params T?[] returnThese)
             {
                 return default(T).Returns(returnThis, returnThese);
             }
 
-            public ConfiguredCall Returns<T>(Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+            public ConfiguredCall Returns<T>(Func<CallInfo, T?> returnThis, params Func<CallInfo, T?>[] returnThese)
             {
                 return default(T).Returns(returnThis, returnThese);
             }
 
-            public ConfiguredCall ReturnsForAnyArgs<T>(T returnThis, params T[] returnThese)
+            public ConfiguredCall ReturnsForAnyArgs<T>(T? returnThis, params T?[] returnThese)
             {
                 return default(T).ReturnsForAnyArgs(returnThis, returnThese);
             }
 
-            public ConfiguredCall ReturnsForAnyArgs<T>(Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+            public ConfiguredCall ReturnsForAnyArgs<T>(Func<CallInfo, T?> returnThis, params Func<CallInfo, T?>[] returnThese)
             {
                 return default(T).ReturnsForAnyArgs(returnThis, returnThese);
             }

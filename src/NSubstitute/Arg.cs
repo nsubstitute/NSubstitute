@@ -2,6 +2,9 @@ using System;
 using System.Linq.Expressions;
 using NSubstitute.Core.Arguments;
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute
 {
     /// <summary>
@@ -89,7 +92,7 @@ namespace NSubstitute
         /// </summary>
         public static ref T Do<T>(Action<T> useArgument)
         {
-            return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T) x));
+            return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T) x!));
         }
 
         /// <summary>

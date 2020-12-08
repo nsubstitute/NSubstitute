@@ -45,9 +45,9 @@ namespace NSubstitute.Core
 
         private class CallSequenceNumberComparer : IEqualityComparer<ICall>
         {
-            public bool Equals(ICall x, ICall y)
+            public bool Equals(ICall? x, ICall? y)
             {
-                return x.GetSequenceNumber() == y.GetSequenceNumber();
+                return x?.GetSequenceNumber() == y?.GetSequenceNumber();
             }
 
             public int GetHashCode(ICall obj)

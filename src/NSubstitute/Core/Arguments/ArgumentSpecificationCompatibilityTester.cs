@@ -12,14 +12,14 @@ namespace NSubstitute.Core.Arguments
             _defaultChecker = defaultChecker ?? throw new ArgumentNullException(nameof(defaultChecker));
         }
 
-        public bool IsSpecificationCompatible(IArgumentSpecification specification, object argumentValue, Type argumentType)
+        public bool IsSpecificationCompatible(IArgumentSpecification specification, object? argumentValue, Type argumentType)
         {
             var typeArgSpecIsFor = specification.ForType;
             return AreTypesCompatible(argumentType, typeArgSpecIsFor)
                    && IsProvidedArgumentTheOneWeWouldGetUsingAnArgSpecForThisType(argumentValue, typeArgSpecIsFor);
         }
 
-        private bool IsProvidedArgumentTheOneWeWouldGetUsingAnArgSpecForThisType(object argument, Type typeArgSpecIsFor)
+        private bool IsProvidedArgumentTheOneWeWouldGetUsingAnArgSpecForThisType(object? argument, Type typeArgSpecIsFor)
         {
             return _defaultChecker.IsDefault(argument, typeArgSpecIsFor);
         }
