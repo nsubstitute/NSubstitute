@@ -1,6 +1,9 @@
 ﻿using System;
 using NSubstitute.Core;
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute.ExceptionExtensions
 {
     public static class ExceptionExtensions
@@ -23,7 +26,7 @@ namespace NSubstitute.ExceptionExtensions
         /// <param name="value"></param>
         /// <returns></returns>
         public static ConfiguredCall Throws<TException>(this object value)
-            where TException : Exception, new()
+            where TException : notnull, Exception, new()
         {
             return value.Returns(_ => { throw new TException(); });
         }
@@ -57,7 +60,7 @@ namespace NSubstitute.ExceptionExtensions
         /// <param name="value"></param>
         /// <returns></returns>
         public static ConfiguredCall ThrowsForAnyArgs<TException>(this object value)
-            where TException : Exception, new()
+            where TException : notnull, Exception, new()
         {
             return value.ReturnsForAnyArgs(_ => { throw new TException(); });
         }

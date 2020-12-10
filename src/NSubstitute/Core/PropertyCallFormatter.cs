@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
@@ -14,6 +15,7 @@ namespace NSubstitute.Core
         public string Format(MethodInfo methodInfo, IEnumerable<string> arguments)
         {
             var propertyInfo = GetPropertyFromGetterOrSetterCall(methodInfo);
+            if (propertyInfo is null) throw new SubstituteInternalException("The 'CanFormat' method should have guarded it.");
             var numberOfIndexParams = propertyInfo.GetIndexParameters().Length;
             var propertyName =
                 (numberOfIndexParams == 0)
@@ -23,7 +25,7 @@ namespace NSubstitute.Core
             return propertyName + FormatArgsAfterIndexParamsAsSetterArgs(numberOfIndexParams, arguments);
         }
 
-        private PropertyInfo GetPropertyFromGetterOrSetterCall(MethodInfo methodInfoOfCall)
+        private PropertyInfo? GetPropertyFromGetterOrSetterCall(MethodInfo methodInfoOfCall)
         {
             return methodInfoOfCall.GetPropertyFromSetterCallOrNull() ?? methodInfoOfCall.GetPropertyFromGetterCallOrNull();
         }

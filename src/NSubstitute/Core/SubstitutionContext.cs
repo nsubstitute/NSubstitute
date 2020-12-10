@@ -59,7 +59,7 @@ namespace NSubstitute.Core
         [Obsolete("This property is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.PendingSpecification) + " property instead. " +
                   "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.PendingSpecification) + ".")]
-        public PendingSpecificationInfo PendingSpecificationInfo
+        public PendingSpecificationInfo? PendingSpecificationInfo
         {
             get
             {
@@ -83,8 +83,8 @@ namespace NSubstitute.Core
                 // Emulate the old API. A bit clumsy, however it's here for the backward compatibility only
                 // and is not expected to be used frequently.
                 var unwrappedValue = value.Handle(
-                    spec => Tuple.Create(spec, (ICall) null),
-                    call => Tuple.Create((ICallSpecification) null, call));
+                    spec => Tuple.Create<ICallSpecification?, ICall?>(spec, null),
+                    call => Tuple.Create<ICallSpecification?, ICall?>(null, call));
 
                 if (unwrappedValue.Item1 != null)
                 {
@@ -92,7 +92,7 @@ namespace NSubstitute.Core
                 }
                 else
                 {
-                    ThreadContext.PendingSpecification.SetLastCall(unwrappedValue.Item2);
+                    ThreadContext.PendingSpecification.SetLastCall(unwrappedValue.Item2!);
                 }
             }
         }
@@ -141,7 +141,7 @@ namespace NSubstitute.Core
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.UsePendingRaisingEventArgumentsFactory) + "() method instead. " +
                   "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.UsePendingRaisingEventArgumentsFactory) + "().")]
-        public Func<ICall, object[]> DequeuePendingRaisingEventArguments() =>
+        public Func<ICall, object?[]>? DequeuePendingRaisingEventArguments() =>
             ThreadContext.UsePendingRaisingEventArgumentsFactory();
 
         [Obsolete("This method is obsolete and will be removed in a future version of the product. " +

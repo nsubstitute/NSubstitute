@@ -5,15 +5,15 @@ namespace NSubstitute.Core
 {
     public class Argument
     {
-        private readonly ICall _call;
+        private readonly ICall? _call;
         private readonly int _argIndex;
 
-        private readonly Type _declaredType;
-        private readonly Func<object> _getValue;
-        private readonly Action<object> _setValue;
+        private readonly Type? _declaredType;
+        private readonly Func<object?>? _getValue;
+        private readonly Action<object?>? _setValue;
 
         [Obsolete("This constructor overload is deprecated and will be removed in the next version.")]
-        public Argument(Type declaredType, Func<object> getValue, Action<object> setValue)
+        public Argument(Type declaredType, Func<object?> getValue, Action<object?> setValue)
         {
             _declaredType = declaredType;
             _getValue = getValue;
@@ -26,9 +26,9 @@ namespace NSubstitute.Core
             _argIndex = argIndex;
         }
 
-        public object Value
+        public object? Value
         {
-            get => _getValue != null ? _getValue() : _call.GetArguments()[_argIndex];
+            get => _getValue != null ? _getValue() : _call!.GetArguments()[_argIndex];
             set
             {
                 if (_setValue != null)
@@ -37,14 +37,14 @@ namespace NSubstitute.Core
                 }
                 else
                 {
-                    _call.GetArguments()[_argIndex] = value;
+                    _call!.GetArguments()[_argIndex] = value;
                 }
             }
         }
 
         public bool IsByRef => DeclaredType.IsByRef;
 
-        public Type DeclaredType => _declaredType ?? _call.GetParameterInfos()[_argIndex].ParameterType;
+        public Type DeclaredType => _declaredType ?? _call!.GetParameterInfos()[_argIndex].ParameterType;
 
         public Type ActualType => Value == null ? DeclaredType : Value.GetType();
 
@@ -65,7 +65,7 @@ namespace NSubstitute.Core
 
         private static Type AsNonByRefType(Type type)
         {
-            return type.IsByRef ? type.GetElementType() : type;
+            return type.IsByRef ? type.GetElementType()! : type;
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NSubstitute.Core
 {
     /// <summary>
     /// Particularly poor implementation of Maybe/Option type.
-    /// This is just filling an immediate need; use FSharpOption or XSharpx or similar for a 
+    /// This is just filling an immediate need; use FSharpOption or XSharpx or similar for a
     /// real implementation.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -27,7 +28,7 @@ namespace NSubstitute.Core
         public Maybe<T> OrElse(Maybe<T> other) { return OrElse(() => other); }
         public T ValueOr(Func<T> other) { return Fold(other, x => x); }
         public T ValueOr(T other) { return ValueOr(() => other); }
-        public T ValueOrDefault() { return ValueOr(default(T)); }
+        public T? ValueOrDefault() { return ValueOr(default(T)!); }
 
         public TResult Fold<TResult>(Func<TResult> handleNoValue, Func<T, TResult> handleValue)
         {

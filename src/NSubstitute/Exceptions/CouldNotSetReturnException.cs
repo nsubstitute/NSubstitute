@@ -40,13 +40,13 @@ namespace NSubstitute.Exceptions
 
     public class CouldNotSetReturnDueToTypeMismatchException : CouldNotSetReturnException
     {
-        public CouldNotSetReturnDueToTypeMismatchException(Type returnType, MethodInfo member) : base(DescribeProblem(returnType, member)) { }
+        public CouldNotSetReturnDueToTypeMismatchException(Type? returnType, MethodInfo member) : base(DescribeProblem(returnType, member)) { }
 
-        private static string DescribeProblem(Type typeOfReturnValueOrNull, MethodInfo member)
+        private static string DescribeProblem(Type? typeOfReturnValue, MethodInfo member)
         {
-            return typeOfReturnValueOrNull == null 
-                ? String.Format("Can not return null for {0}.{1} (expected type {2}).", member.DeclaringType.Name, member.Name, member.ReturnType.Name) 
-                : String.Format("Can not return value of type {0} for {1}.{2} (expected type {3}).", typeOfReturnValueOrNull.Name, member.DeclaringType.Name, member.Name, member.ReturnType.Name);
+            return typeOfReturnValue == null 
+                ? string.Format("Can not return null for {0}.{1} (expected type {2}).", member.DeclaringType!.Name, member.Name, member.ReturnType.Name) 
+                : string.Format("Can not return value of type {0} for {1}.{2} (expected type {3}).", typeOfReturnValue.Name, member.DeclaringType!.Name, member.Name, member.ReturnType.Name);
         }
     }
 }

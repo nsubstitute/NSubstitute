@@ -15,7 +15,7 @@ namespace NSubstitute.Routing
 
         public IEnumerable<ICallHandler> Handlers => _handlers;
 
-        public object Handle(ICall call)
+        public object? Handle(ICall call)
         {
             // This is a hot method which is invoked frequently and has major impact on performance.
             // Therefore, the LINQ cycle was unwinded to for loop.

@@ -8,6 +8,6 @@ namespace NSubstitute.Core
         /// </summary>
         /// <param name="argument"></param>
         /// <returns>Description of the non-match, or <see cref="string.Empty" /> if no description can be provided.</returns>
-        string DescribeFor(object argument);
+        string DescribeFor(object? argument);
     }
 }

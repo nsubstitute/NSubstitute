@@ -1,7 +1,8 @@
 namespace NSubstitute.Exceptions
 {
-    public class NullSubstituteReferenceException : NotASubstituteException
+    public class NullSubstituteReferenceException : SubstituteException
     {
-        public NullSubstituteReferenceException() { }
+        const string Explanation = "NSubstitute extension methods like .Received() can only be called on non-null objects.";
+        public NullSubstituteReferenceException() : base(Explanation) { }
     }
 }

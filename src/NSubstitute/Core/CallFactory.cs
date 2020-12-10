@@ -8,12 +8,12 @@ namespace NSubstitute.Core
 {
     public class CallFactory : ICallFactory
     {
-        public ICall Create(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications, Func<object> baseMethod)
+        public ICall Create(MethodInfo methodInfo, object?[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications, Func<object>? baseMethod)
         {
             return new Call(methodInfo, arguments, target, argumentSpecifications , baseMethod);
         }
 
-        public ICall Create(MethodInfo methodInfo, object[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications)
+        public ICall Create(MethodInfo methodInfo, object?[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications)
         {
             return new Call(methodInfo, arguments, target, argumentSpecifications, baseMethod: null);
         }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute
 {
     public static class SubstituteExtensions
@@ -225,6 +228,8 @@ namespace NSubstitute
         /// </summary>
         public static T Received<T>(this T substitute) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             return substitute.Received(Quantity.AtLeastOne());
         }
 
@@ -233,6 +238,8 @@ namespace NSubstitute
         /// </summary>
         public static T Received<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             return substitute.Received(Quantity.Exactly(requiredNumberOfCalls));
         }
 
@@ -241,6 +248,8 @@ namespace NSubstitute
         /// </summary>
         public static T DidNotReceive<T>(this T substitute) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException(); 
+
             return substitute.Received(Quantity.None());
         }
 
@@ -249,6 +258,8 @@ namespace NSubstitute
         /// </summary>
         public static T ReceivedWithAnyArgs<T>(this T substitute) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             return substitute.ReceivedWithAnyArgs(Quantity.AtLeastOne());
         }
 
@@ -257,6 +268,8 @@ namespace NSubstitute
         /// </summary>
         public static T ReceivedWithAnyArgs<T>(this T substitute, int requiredNumberOfCalls) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             return substitute.ReceivedWithAnyArgs(Quantity.Exactly(requiredNumberOfCalls));
         }
 
@@ -265,6 +278,8 @@ namespace NSubstitute
         /// </summary>
         public static T DidNotReceiveWithAnyArgs<T>(this T substitute) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             return substitute.ReceivedWithAnyArgs(Quantity.None());
         }
 
@@ -278,6 +293,8 @@ namespace NSubstitute
         /// </remarks>
         public static void ClearReceivedCalls<T>(this T substitute) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             substitute.ClearSubstitute(ClearOptions.ReceivedCalls);
         }
 
@@ -287,6 +304,8 @@ namespace NSubstitute
         /// </summary>
         public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var context = SubstitutionContext.Current;
             return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.AsSpecifiedInCall);
         }
@@ -297,6 +316,8 @@ namespace NSubstitute
         /// </summary>
         public static WhenCalled<T> When<T>(this T substitute, Func<T, Task> substituteCall) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var context = SubstitutionContext.Current;
             return new WhenCalled<T>(context, substitute, x => substituteCall(x), MatchArgs.AsSpecifiedInCall);
         }
@@ -307,6 +328,8 @@ namespace NSubstitute
         /// </summary>
         public static WhenCalled<TSubstitute> When<TSubstitute, TResult>(this TSubstitute substitute, Func<TSubstitute, ValueTask<TResult>> substituteCall) where TSubstitute : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var context = SubstitutionContext.Current;
             return new WhenCalled<TSubstitute>(context, substitute, x => substituteCall(x), MatchArgs.AsSpecifiedInCall);
         }
@@ -317,6 +340,8 @@ namespace NSubstitute
         /// </summary>
         public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Action<T> substituteCall) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var context = SubstitutionContext.Current;
             return new WhenCalled<T>(context, substitute, substituteCall, MatchArgs.Any);
         }
@@ -327,6 +352,8 @@ namespace NSubstitute
         /// </summary>
         public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Func<T, Task> substituteCall) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var context = SubstitutionContext.Current;
             return new WhenCalled<T>(context, substitute, x => substituteCall(x), MatchArgs.Any);
         }
@@ -337,6 +364,8 @@ namespace NSubstitute
         /// </summary>
         public static WhenCalled<TSubstitute> WhenForAnyArgs<TSubstitute, TResult>(this TSubstitute substitute, Func<TSubstitute, ValueTask<TResult>> substituteCall) where TSubstitute : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+
             var context = SubstitutionContext.Current;
             return new WhenCalled<TSubstitute>(context, substitute, x => substituteCall(x), MatchArgs.Any);
         }
@@ -346,9 +375,11 @@ namespace NSubstitute
         /// </summary>
         public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+ 
             return SubstitutionContext
                 .Current
-                .GetCallRouterFor(substitute)
+                .GetCallRouterFor(substitute!)
                 .ReceivedCalls();
         }
 
@@ -374,7 +405,7 @@ namespace NSubstitute
 
         private static void ReThrowOnNSubstituteFault<T>(Task<T> task)
         {
-            if (task.IsFaulted && task.Exception.InnerExceptions.FirstOrDefault() is SubstituteException)
+            if (task.IsFaulted && task.Exception!.InnerExceptions.FirstOrDefault() is SubstituteException)
             {
                 task.GetAwaiter().GetResult();
             }
@@ -382,7 +413,7 @@ namespace NSubstitute
 
         private static void ReThrowOnNSubstituteFault<T>(ValueTask<T> task)
         {
-            if (task.IsFaulted && task.AsTask().Exception.InnerExceptions.FirstOrDefault() is SubstituteException)
+            if (task.IsFaulted && task.AsTask().Exception!.InnerExceptions.FirstOrDefault() is SubstituteException)
             {
                 task.GetAwaiter().GetResult();
             }

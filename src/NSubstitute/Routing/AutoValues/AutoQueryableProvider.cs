@@ -11,7 +11,7 @@ namespace NSubstitute.Routing.AutoValues
             return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IQueryable<>);
         }
 
-        public object GetValue(Type type)
+        public object? GetValue(Type type)
         {
             if (!CanProvideValueFor(type))
                 throw new InvalidOperationException();

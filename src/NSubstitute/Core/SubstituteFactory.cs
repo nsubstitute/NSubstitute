@@ -24,7 +24,7 @@ namespace NSubstitute.Core
         /// <param name="typesToProxy"></param>
         /// <param name="constructorArguments"></param>
         /// <returns></returns>
-        public object Create(Type[] typesToProxy, object[] constructorArguments)
+        public object Create(Type[] typesToProxy, object?[] constructorArguments)
         {
             return Create(typesToProxy, constructorArguments, callBaseByDefault: false);
         }
@@ -37,7 +37,7 @@ namespace NSubstitute.Core
         /// <param name="typesToProxy"></param>
         /// <param name="constructorArguments"></param>
         /// <returns></returns>
-        public object CreatePartial(Type[] typesToProxy, object[] constructorArguments)
+        public object CreatePartial(Type[] typesToProxy, object?[] constructorArguments)
         {
             var primaryProxyType = GetPrimaryProxyType(typesToProxy);
             if (!CanCallBaseImplementation(primaryProxyType))
@@ -48,7 +48,7 @@ namespace NSubstitute.Core
             return Create(typesToProxy, constructorArguments, callBaseByDefault: true);
         }
 
-        private object Create(Type[] typesToProxy, object[] constructorArguments, bool callBaseByDefault)
+        private object Create(Type[] typesToProxy, object?[] constructorArguments, bool callBaseByDefault)
         {
             var substituteState = _substituteStateFactory.Create(this);
             substituteState.CallBaseConfiguration.CallBaseByDefault = callBaseByDefault;

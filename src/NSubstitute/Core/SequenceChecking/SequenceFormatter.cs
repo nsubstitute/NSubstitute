@@ -44,8 +44,7 @@ namespace NSubstitute.Core.SequenceChecking
             var lookup = new Dictionary<Type, object>();
             foreach (var x in _query)
             {
-                object instance;
-                if (lookup.TryGetValue(x.DeclaringType, out instance))
+                if (lookup.TryGetValue(x.DeclaringType, out var instance))
                 {
                     if (!ReferenceEquals(x.Target, instance)) { return true; }
                 }
@@ -60,8 +59,8 @@ namespace NSubstitute.Core.SequenceChecking
         private class CallData
         {
             private readonly int _instanceNumber;
-            private readonly ICall _call;
-            private readonly CallSpecAndTarget _specAndTarget;
+            private readonly ICall? _call;
+            private readonly CallSpecAndTarget? _specAndTarget;
 
             public CallData(int instanceNumber, CallSpecAndTarget specAndTarget)
             {
@@ -75,37 +74,32 @@ namespace NSubstitute.Core.SequenceChecking
                 _call = call;
             }
 
-            private MethodInfo MethodInfo
-            {
-                get
-                {
-                    return _call == null
-                               ? _specAndTarget.CallSpecification.GetMethodInfo()
-                               : _call.GetMethodInfo();
-                }
-            }
+            private MethodInfo MethodInfo =>
+                _call != null
+                    ? _call.GetMethodInfo()
+                    : _specAndTarget!.CallSpecification.GetMethodInfo();
 
-            public object Target { get { return _call == null ? _specAndTarget.Target : _call.Target(); } }
+            public object Target => _call != null ? _call.Target() : _specAndTarget!.Target;
 
-            public Type DeclaringType { get { return MethodInfo.DeclaringType; } }
+            public Type DeclaringType => MethodInfo.DeclaringType!;
 
             public string Format(bool multipleInstances, bool includeInstanceNumber)
             {
-                var call = (_call == null) 
-                    ? Format(_specAndTarget) 
-                    : Format(_call);
+                var call = _call != null 
+                    ? Format(_call) 
+                    : Format(_specAndTarget!);
 
-                if (!multipleInstances) { return call; }
+                if (!multipleInstances) return call;
 
                 var instanceIdentifier = includeInstanceNumber ? _instanceNumber + "@" : "";
 
-                var declaringTypeName = MethodInfo.DeclaringType.GetNonMangledTypeName();
+                var declaringTypeName = MethodInfo.DeclaringType!.GetNonMangledTypeName();
                 return string.Format("{1}{0}.{2}", declaringTypeName, instanceIdentifier, call);
             }
 
             private string Format(CallSpecAndTarget x)
             {
-                return x.CallSpecification.ToString();
+                return x.CallSpecification.ToString() ?? string.Empty;
             }
 
             private string Format(ICall call)
@@ -122,7 +116,7 @@ namespace NSubstitute.Core.SequenceChecking
                 var argsWithParamsExpanded =
                     arguments
                         .SelectMany(a => a.ParamInfo.IsParams()
-                                          ? ((IEnumerable) a.Argument).Cast<object>()
+                                          ? ((IEnumerable) a.Argument!).Cast<object>()
                                           : ToEnumerable(a.Argument))
                         .Select(x => ArgumentFormatter.Default.Format(x, false))
                         .ToArray();
@@ -139,9 +133,9 @@ namespace NSubstitute.Core.SequenceChecking
         private class ArgAndParamInfo
         {
             public ParameterInfo ParamInfo { get; private set; }
-            public object Argument { get; private set; }
+            public object? Argument { get; private set; }
 
-            public ArgAndParamInfo(ParameterInfo paramInfo, object argument)
+            public ArgAndParamInfo(ParameterInfo paramInfo, object? argument)
             {
                 ParamInfo = paramInfo;
                 Argument = argument;

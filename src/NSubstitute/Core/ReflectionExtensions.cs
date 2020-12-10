@@ -6,7 +6,7 @@ namespace NSubstitute.Core
 {
     public static class ReflectionExtensions
     {
-        public static PropertyInfo GetPropertyFromSetterCallOrNull(this MethodInfo call)
+        public static PropertyInfo? GetPropertyFromSetterCallOrNull(this MethodInfo call)
         {
             if (!CanBePropertySetterCall(call)) return null;
 
@@ -19,7 +19,7 @@ namespace NSubstitute.Core
             return null;
         }
 
-        public static PropertyInfo GetPropertyFromGetterCallOrNull(this MethodInfo call)
+        public static PropertyInfo? GetPropertyFromGetterCallOrNull(this MethodInfo call)
         {
             return GetAllProperties(call.DeclaringType)
                 .FirstOrDefault(x => x.GetGetMethod(nonPublic: true) == call);
@@ -41,9 +41,11 @@ namespace NSubstitute.Core
             return call.Name.StartsWith("set_", StringComparison.Ordinal);
         }
 
-        private static PropertyInfo[] GetAllProperties(Type type)
+        private static PropertyInfo[] GetAllProperties(Type? type)
         {
-            return type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            return type != null
+                ? type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                : new PropertyInfo[0];
         }
     }
 }

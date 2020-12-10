@@ -13,6 +13,6 @@ namespace NSubstitute.Core.Arguments
 
         public override string ToString() => "any " + _typeArgMustBeCompatibleWith.GetNonMangledTypeName();
 
-        public bool IsSatisfiedBy(object argument) => argument.IsCompatibleWith(_typeArgMustBeCompatibleWith);
+        public bool IsSatisfiedBy(object? argument) => argument.IsCompatibleWith(_typeArgMustBeCompatibleWith);
     }
 }

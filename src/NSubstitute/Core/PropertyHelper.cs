@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using NSubstitute.Core.Arguments;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {
@@ -19,29 +21,31 @@ namespace NSubstitute.Core
         
         public bool IsCallToSetAReadWriteProperty(ICall call)
         {
-            var propertySetter = GetPropertyFromSetterCallOrNull(call);
+            var propertySetter = GetPropertyFromSetterCall(call);
             return PropertySetterExistsAndHasAGetMethod(propertySetter);
         }
 
-        private bool PropertySetterExistsAndHasAGetMethod(PropertyInfo propertySetter)
+        private bool PropertySetterExistsAndHasAGetMethod([NotNullWhen(true)] PropertyInfo? propertySetter)
         {
             return propertySetter != null && propertySetter.GetGetMethod(nonPublic: true) != null;
         }
 
-        private PropertyInfo GetPropertyFromSetterCallOrNull(ICall call)
+        private PropertyInfo? GetPropertyFromSetterCall(ICall call)
         {
             return call.GetMethodInfo().GetPropertyFromSetterCallOrNull();
         }
 
         public ICall CreateCallToPropertyGetterFromSetterCall(ICall callToSetter)
         {
-            var propertyInfo = GetPropertyFromSetterCallOrNull(callToSetter);
+            var propertyInfo = GetPropertyFromSetterCall(callToSetter);
             if (!PropertySetterExistsAndHasAGetMethod(propertyInfo))
             {
                 throw new InvalidOperationException("Could not find a GetMethod for \"" + callToSetter.GetMethodInfo() + "\"");
             }
 
             var getter = propertyInfo.GetGetMethod(nonPublic: true);
+            if (getter is null) throw new SubstituteInternalException("A property with a getter expected.");
+ 
             var getterArgs = SkipLast(callToSetter.GetOriginalArguments());
             var getterArgumentSpecifications = GetGetterCallSpecificationsFromSetterCall(callToSetter);
 

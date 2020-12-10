@@ -4,6 +4,6 @@ namespace NSubstitute.Routing
 {
     public interface IRoute
     {
-        object Handle(ICall call);
+        object? Handle(ICall call);
     }
 }

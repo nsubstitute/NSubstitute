@@ -6,7 +6,7 @@ namespace NSubstitute.Core.Events
 {
     public abstract class RaiseEventWrapper
     {
-        protected abstract object[] WorkOutRequiredArguments(ICall call);
+        protected abstract object?[] WorkOutRequiredArguments(ICall call);
         protected abstract string RaiseMethodName { get; }
 
         protected EventArgs GetDefaultForEventArgType(Type type)
@@ -24,7 +24,7 @@ namespace NSubstitute.Core.Events
             return (EventArgs)defaultConstructor.Invoke(new object[0]);
         }
 
-        static ConstructorInfo GetDefaultConstructor(Type type)
+        static ConstructorInfo? GetDefaultConstructor(Type type)
         {
             return type.GetConstructor(Type.EmptyTypes);
         }

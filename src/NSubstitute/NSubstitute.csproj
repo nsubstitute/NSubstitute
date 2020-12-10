@@ -3,17 +3,20 @@
   <PropertyGroup>
     <Description>NSubstitute is a friendly substitute for .NET mocking libraries. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
     <Version>3.0.0</Version>
-    <Authors>Anthony Egerton;David Tchepak;Alexandr Nikitin;Alex Povar</Authors>
+    <Authors>Anthony Egerton;David Tchepak;Alexandr Nikitin;Oleksandr Povar</Authors>
     <AssemblyName>NSubstitute</AssemblyName>
     <PackageId>NSubstitute</PackageId>
     <PackageTags>mocking;mocks;testing;unit-testing;TDD;AAA</PackageTags>
-    <PackageIconUrl>https://nsubstitute.github.io/images/nsubstitute-100x100.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://nsubstitute.github.io/</PackageProjectUrl>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\docs\images\nsubstitute-100x100.png" Pack="true" PackagePath="icon.png" Visible="false" />
+  </ItemGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net46;net5.0</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -27,26 +30,33 @@
 
   <PropertyGroup>
     <DocumentationFile>..\..\bin\$(Configuration)\NSubstitute\$(TargetFramework)\NSubstitute.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
+    <NoWarn>$(NoWarn);1701;1702;1705;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Nullable Condition="'$(TargetIsNet5)' == 'true'">enable</Nullable>
+    <!-- Nullability does not work nicely for older versions of .NET, so just disable nullability for those versions. -->
+    <!-- CS8632 - The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. -->
+    <NoWarn Condition="'$(TargetIsNet5)' != 'true'">$(NoWarn);CS8632</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.0-*" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*"
+                      Condition="'$(TargetIsNet5)' != 'true'" />
   </ItemGroup>
-  
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0-*" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0-*" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
- 
   <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
     <DefineConstants>$(DefineConstants);SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetIsNet5)' == 'true'">
+    <DefineConstants>$(DefineConstants);SYSTEM_DIAGNOSTICS_CODEANALYSIS_NULLABILITY</DefineConstants>
   </PropertyGroup>
 
 </Project>

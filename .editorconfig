@@ -1,5 +1,8 @@
 root = true
 
+[*]
+trim_trailing_whitespace = true
+
 [*.{cs,fs,fsx}]
 indent_size = 4
 indent_style = space

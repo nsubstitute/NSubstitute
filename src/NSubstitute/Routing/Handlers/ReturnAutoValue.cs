@@ -48,7 +48,7 @@ namespace NSubstitute.Routing.Handlers
             return RouteAction.Continue();
         }
 
-        private object GetResultValueUsingProvider(ICall call, Type type, IAutoValueProvider provider)
+        private object? GetResultValueUsingProvider(ICall call, Type type, IAutoValueProvider provider)
         {
             var valueToReturn = provider.GetValue(type);
             if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)

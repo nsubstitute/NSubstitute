@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
 namespace NSubstitute.Core
@@ -11,7 +12,7 @@ namespace NSubstitute.Core
     internal class RobustThreadLocal<T>
     {
         private readonly ThreadLocal<T> _threadLocal;
-        private readonly Func<T> _initalValueFactory;
+        private readonly Func<T>? _initialValueFactory;
 
         public RobustThreadLocal()
         {
@@ -20,7 +21,7 @@ namespace NSubstitute.Core
 
         public RobustThreadLocal(Func<T> initialValueFactory)
         {
-            _initalValueFactory = initialValueFactory ?? throw new ArgumentNullException(nameof(initialValueFactory));
+            _initialValueFactory = initialValueFactory;
             _threadLocal = new ThreadLocal<T>(initialValueFactory);
         }
 
@@ -28,13 +29,15 @@ namespace NSubstitute.Core
         {
             get
             {
+                // Suppress nullability for result, as we trust type by usage.
+                // For non-nullable we expect ctor with default to be used.
                 try
                 {
-                    return _threadLocal.Value;
+                    return _threadLocal.Value!;
                 }
                 catch (ObjectDisposedException)
                 {
-                    return _initalValueFactory != null ? _initalValueFactory.Invoke() : default(T);
+                    return _initialValueFactory != null ? _initialValueFactory.Invoke() : default!;
                 }
             }
             set

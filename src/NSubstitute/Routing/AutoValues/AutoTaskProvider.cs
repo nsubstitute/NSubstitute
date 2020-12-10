@@ -33,18 +33,18 @@ namespace NSubstitute.Routing.AutoValues
                 var value = valueProvider == null ? GetDefault(type) : valueProvider.GetValue(taskType);
                 var taskCompletionSourceType = typeof(TaskCompletionSource<>).MakeGenericType(taskType);
                 var taskCompletionSource = Activator.CreateInstance(taskCompletionSourceType);
-                taskCompletionSourceType.GetMethod("SetResult").Invoke(taskCompletionSource, new[] { value });
-                return taskCompletionSourceType.GetProperty("Task").GetValue(taskCompletionSource, null);
+                taskCompletionSourceType.GetMethod(nameof(TaskCompletionSource<object>.SetResult))!.Invoke(taskCompletionSource, new[] {value});
+                return taskCompletionSourceType.GetProperty(nameof(TaskCompletionSource<object>.Task))!.GetValue( taskCompletionSource, null)!;
             }
             else
             {
-                var taskCompletionSource = new TaskCompletionSource<object>();
+                var taskCompletionSource = new TaskCompletionSource<object?>();
                 taskCompletionSource.SetResult(null);
                 return taskCompletionSource.Task;
             }
         }
 
-        private static object GetDefault(Type type)
+        private static object? GetDefault(Type type)
         {
             return type.GetTypeInfo().IsValueType ? Activator.CreateInstance(type) : null;
         }

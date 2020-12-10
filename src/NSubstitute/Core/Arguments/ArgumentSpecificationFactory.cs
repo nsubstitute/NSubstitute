@@ -8,7 +8,7 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecificationFactory : IArgumentSpecificationFactory
     {
-        public IArgumentSpecification Create(object argument, IParameterInfo parameterInfo,
+        public IArgumentSpecification Create(object? argument, IParameterInfo parameterInfo,
             ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
         {
             return parameterInfo.IsParams
@@ -16,7 +16,7 @@ namespace NSubstitute.Core.Arguments
                 : CreateSpecFromNonParamsArg(argument, parameterInfo, suppliedArgumentSpecifications);
         }
 
-        private IArgumentSpecification CreateSpecFromNonParamsArg(object argument, IParameterInfo parameterInfo, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
+        private IArgumentSpecification CreateSpecFromNonParamsArg(object? argument, IParameterInfo parameterInfo, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
         {
             if (suppliedArgumentSpecifications.IsNextFor(argument, parameterInfo.ParameterType))
             {
@@ -32,7 +32,7 @@ namespace NSubstitute.Core.Arguments
             throw new AmbiguousArgumentsException();
         }
 
-        private IArgumentSpecification CreateSpecFromParamsArg(object argument, IParameterInfo parameterInfo, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
+        private IArgumentSpecification CreateSpecFromParamsArg(object? argument, IParameterInfo parameterInfo, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
         {
             // Next specification is for the whole params array.
             if (suppliedArgumentSpecifications.IsNextFor(argument, parameterInfo.ParameterType))
@@ -60,11 +60,11 @@ namespace NSubstitute.Core.Arguments
                 throw new SubstituteInternalException($"Expected to get array argument, but got argument of '{argument.GetType().FullName}' type.");
             }
 
-            var arrayArgumentSpecifications = UnwrapParamsArguments(arrayArg.Cast<object>(), parameterInfo.ParameterType.GetElementType(), suppliedArgumentSpecifications);
+            var arrayArgumentSpecifications = UnwrapParamsArguments(arrayArg.Cast<object?>(), parameterInfo.ParameterType.GetElementType()!, suppliedArgumentSpecifications);
             return new ArgumentSpecification(parameterInfo.ParameterType, new ArrayContentsArgumentMatcher(arrayArgumentSpecifications));
         }
 
-        private IEnumerable<IArgumentSpecification> UnwrapParamsArguments(IEnumerable<object> args, Type paramsElementType, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
+        private IEnumerable<IArgumentSpecification> UnwrapParamsArguments(IEnumerable<object?> args, Type paramsElementType, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
         {
             var fakeParameterInfo = new ParameterInfoFromType(paramsElementType);
             var result = new List<IArgumentSpecification>();

@@ -10,7 +10,7 @@ namespace NSubstitute.Core
         private static readonly object BoxedLong = default(long);
         private static readonly object BoxedDouble = default(double);
 
-        public object GetDefaultFor(Type type)
+        public object? GetDefaultFor(Type type)
         {
             if (IsVoid(type)) return null;
             if (type.GetTypeInfo().IsValueType) return DefaultInstanceOfValueType(type);
@@ -42,7 +42,7 @@ namespace NSubstitute.Core
                 return BoxedDouble;
             }
 
-            return Activator.CreateInstance(returnType);
+            return Activator.CreateInstance(returnType)!;
         }
     }
 }

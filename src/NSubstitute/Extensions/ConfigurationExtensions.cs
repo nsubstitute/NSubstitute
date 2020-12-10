@@ -1,4 +1,9 @@
-﻿using NSubstitute.Core;
+﻿using System;
+using NSubstitute.Core;
+using NSubstitute.Exceptions;
+
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
 
 namespace NSubstitute.Extensions
 {
@@ -21,8 +26,10 @@ namespace NSubstitute.Extensions
         /// </summary>
         public static T Configure<T>(this T substitute) where T : class
         {
+            if (substitute == null) throw new NullSubstituteReferenceException();
+ 
             var context = SubstitutionContext.Current;
-            var callRouter = context.GetCallRouterFor(substitute);
+            var callRouter = context.GetCallRouterFor(substitute!);
             context.ThreadContext.SetNextRoute(callRouter, context.RouteFactory.RecordCallSpecification);
 
             return substitute;

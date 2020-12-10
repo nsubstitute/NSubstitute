@@ -1,11 +1,11 @@
-os: Visual Studio 2017
+os: Visual Studio 2019
 build: off
 
 environment:
   CONFIGURATION: Release
 
 install:
-  - set PATH=C:\Ruby22\bin;%PATH%
+  - set PATH=C:\Ruby25\bin;%PATH%
   - bundle install      
 
 before_test:

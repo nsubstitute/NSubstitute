@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using NSubstitute.Exceptions;
 
@@ -44,7 +45,7 @@ namespace NSubstitute.Core
         {
             return _callEntries
                 .Where(e => !e.IsSkipped)
-                .Select(e => e.Call)
+                .Select(e => e.Call!)
                 .ToArray();
         }
 
@@ -60,7 +61,8 @@ namespace NSubstitute.Core
         /// </summary>
         internal interface IReceivedCallEntry
         {
-            ICall Call { get; }
+            ICall? Call { get; }
+            [MemberNotNullWhen(false, nameof(Call))]
             bool IsSkipped { get; }
             void Skip();
             bool TryTakeEntryOwnership();
@@ -73,8 +75,9 @@ namespace NSubstitute.Core
         /// </summary>
         private class ReceivedCallEntry : IReceivedCallEntry
         {
-            public ICall Call { get; private set; }
+            public ICall? Call { get; private set; }
 
+            [MemberNotNullWhen(false, nameof(Call))]
             public bool IsSkipped => Call == null;
 
             public void Skip() => Call = null; // Null the hold value to reclaim a bit of memory.
