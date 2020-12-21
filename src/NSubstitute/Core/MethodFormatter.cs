@@ -17,11 +17,15 @@ namespace NSubstitute.Core
             return $"{methodInfo.Name}{FormatGenericType(methodInfo)}({args})";
         }
 
-        private string FormatGenericType(MethodInfo methodInfoOfCall)
+        private static string FormatGenericType(MethodInfo methodInfoOfCall)
         {
-            if (!methodInfoOfCall.IsGenericMethod) return string.Empty;
+            if (!methodInfoOfCall.IsGenericMethod)
+            {
+                return string.Empty;
+            }
+
             var genericArgs = methodInfoOfCall.GetGenericArguments();
-            return "<" + string.Join(", ", genericArgs.Select(x => x.GetNonMangledTypeName()).ToArray()) + ">";
+            return $"<{string.Join(", ", genericArgs.Select(x => x.GetNonMangledTypeName()))}>";
         }
     }
 }

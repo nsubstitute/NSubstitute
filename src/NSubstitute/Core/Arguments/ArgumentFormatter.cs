@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Reflection;
 
 namespace NSubstitute.Core.Arguments
@@ -16,20 +15,16 @@ namespace NSubstitute.Core.Arguments
 
         private string Format(object? arg)
         {
-            switch (arg)
+            return arg switch
             {
-                case null:
-                    return "<null>";
+                null                                 => "<null>",
+                string str                           => $"\"{str}\"",
+                { } obj when HasDefaultToString(obj) => arg.GetType().GetNonMangledTypeName(),
+                _                                    => arg.ToString() ?? string.Empty
+            };
 
-                case string str:
-                    return string.Format(CultureInfo.InvariantCulture, "\"{0}\"", str);
-
-                case object obj when obj.GetType().GetMethod(nameof(ToString), Type.EmptyTypes)!.DeclaringType == typeof(object):
-                    return arg.GetType().GetNonMangledTypeName();
-
-                default:
-                    return arg.ToString() ?? string.Empty;
-            }
-       }
+            static bool HasDefaultToString(object obj)
+                => obj.GetType().GetMethod(nameof(ToString), Type.EmptyTypes)!.DeclaringType == typeof(object);
+        }
     }
 }

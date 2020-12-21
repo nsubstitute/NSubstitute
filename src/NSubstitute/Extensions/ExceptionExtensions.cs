@@ -14,10 +14,8 @@ namespace NSubstitute.ExceptionExtensions
         /// <param name="value"></param>
         /// <param name="ex">Exception to throw</param>
         /// <returns></returns>
-        public static ConfiguredCall Throws(this object value, Exception ex)
-        {
-            return value.Returns(_ => { throw ex; });
-        }
+        public static ConfiguredCall Throws(this object value, Exception ex) =>
+            value.Returns(_ => throw ex);
 
         /// <summary>
         /// Throw an exception of the given type for this call.
@@ -28,7 +26,7 @@ namespace NSubstitute.ExceptionExtensions
         public static ConfiguredCall Throws<TException>(this object value)
             where TException : notnull, Exception, new()
         {
-            return value.Returns(_ => { throw new TException(); });
+            return value.Returns(_ => throw new TException());
         }
 
         /// <summary>
@@ -37,10 +35,8 @@ namespace NSubstitute.ExceptionExtensions
         /// <param name="value"></param>
         /// <param name="createException">Func creating exception object</param>
         /// <returns></returns>
-        public static ConfiguredCall Throws(this object value, Func<CallInfo, Exception> createException)
-        {
-            return value.Returns(ci => { throw createException(ci); });
-        }
+        public static ConfiguredCall Throws(this object value, Func<CallInfo, Exception> createException) =>
+            value.Returns(ci => throw createException(ci));
 
         /// <summary>
         /// Throw an exception for this call made with any arguments.
@@ -48,10 +44,8 @@ namespace NSubstitute.ExceptionExtensions
         /// <param name="value"></param>
         /// <param name="ex">Exception to throw</param>
         /// <returns></returns>
-        public static ConfiguredCall ThrowsForAnyArgs(this object value, Exception ex)
-        {
-            return value.ReturnsForAnyArgs(_ => { throw ex; });
-        }
+        public static ConfiguredCall ThrowsForAnyArgs(this object value, Exception ex) =>
+            value.ReturnsForAnyArgs(_ => throw ex);
 
         /// <summary>
         /// Throws an exception of the given type for this call made with any arguments.
@@ -62,7 +56,7 @@ namespace NSubstitute.ExceptionExtensions
         public static ConfiguredCall ThrowsForAnyArgs<TException>(this object value)
             where TException : notnull, Exception, new()
         {
-            return value.ReturnsForAnyArgs(_ => { throw new TException(); });
+            return value.ReturnsForAnyArgs(_ => throw new TException());
         }
 
         /// <summary>
@@ -71,9 +65,7 @@ namespace NSubstitute.ExceptionExtensions
         /// <param name="value"></param>
         /// <param name="createException">Func creating exception object</param>
         /// <returns></returns>
-        public static ConfiguredCall ThrowsForAnyArgs(this object value, Func<CallInfo, Exception> createException)
-        {
-            return value.ReturnsForAnyArgs(ci => { throw createException(ci); });
-        }
+        public static ConfiguredCall ThrowsForAnyArgs(this object value, Func<CallInfo, Exception> createException) =>
+            value.ReturnsForAnyArgs(ci => throw createException(ci));
     }
 }

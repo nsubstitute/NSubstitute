@@ -21,12 +21,12 @@ namespace NSubstitute.Routing
             IPropertyHelper propertyHelper,
             IDefaultForType defaultForType)
         {
-            _sequenceNumberGenerator = sequenceNumberGenerator ?? throw new ArgumentNullException(nameof(sequenceNumberGenerator));
-            _threadLocalContext = threadLocalContext ?? throw new ArgumentNullException(nameof(threadLocalContext));
-            _callSpecificationFactory = callSpecificationFactory ?? throw new ArgumentNullException(nameof(callSpecificationFactory));
-            _receivedCallsExceptionThrower = receivedCallsExceptionThrower ?? throw new ArgumentNullException(nameof(receivedCallsExceptionThrower));
-            _propertyHelper = propertyHelper ?? throw new ArgumentNullException(nameof(propertyHelper));
-            _defaultForType = defaultForType ?? throw new ArgumentNullException(nameof(defaultForType));
+            _sequenceNumberGenerator = sequenceNumberGenerator;
+            _threadLocalContext = threadLocalContext;
+            _callSpecificationFactory = callSpecificationFactory;
+            _receivedCallsExceptionThrower = receivedCallsExceptionThrower;
+            _propertyHelper = propertyHelper;
+            _defaultForType = defaultForType;
         }
 
         public IRoute CallQuery(ISubstituteState state)
@@ -112,9 +112,6 @@ namespace NSubstitute.Routing
             });
         }
 
-        private ReturnDefaultForReturnTypeHandler ReturnDefaultForReturnTypeHandler()
-        {
-            return new ReturnDefaultForReturnTypeHandler(_defaultForType);
-        }
+        private ReturnDefaultForReturnTypeHandler ReturnDefaultForReturnTypeHandler() => new(_defaultForType);
     }
 }

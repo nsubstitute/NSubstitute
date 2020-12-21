@@ -7,8 +7,10 @@ namespace NSubstitute.Core
 {
     public class EventCallFormatter : IMethodInfoFormatter
     {
-        public static readonly Func<MethodInfo, Predicate<EventInfo>> IsSubscription = call => (eventInfo => eventInfo.GetAddMethod() == call);
-        public static readonly Func<MethodInfo, Predicate<EventInfo>> IsUnsubscription = call => (eventInfo => eventInfo.GetRemoveMethod() == call);
+        public static readonly Func<MethodInfo, Predicate<EventInfo>> IsSubscription =
+            call => (eventInfo => eventInfo.GetAddMethod() == call);
+        public static readonly Func<MethodInfo, Predicate<EventInfo>> IsUnsubscription =
+            call => (eventInfo => eventInfo.GetRemoveMethod() == call);
 
         private readonly Func<MethodInfo, Predicate<EventInfo>> _eventsToFormat;
         private readonly string _eventOperator;
@@ -16,7 +18,7 @@ namespace NSubstitute.Core
         public EventCallFormatter(Func<MethodInfo, Predicate<EventInfo>> eventsToFormat)
         {
             _eventsToFormat = eventsToFormat;
-            _eventOperator = (eventsToFormat == IsSubscription) ? "+=" : "-=";
+            _eventOperator = eventsToFormat == IsSubscription ? "+=" : "-=";
         }
 
         public bool CanFormat(MethodInfo methodInfo)
@@ -30,9 +32,7 @@ namespace NSubstitute.Core
             return Format(eventInfo, _eventOperator, arguments);
         }
 
-        private string Format(EventInfo eventInfo, string eventOperator, IEnumerable<string> arguments)
-        {
-            return string.Format("{0} {1} {2}", eventInfo.Name, eventOperator, arguments.Join(", "));
-        }
+        private string Format(EventInfo eventInfo, string eventOperator, IEnumerable<string> arguments) =>
+            $"{eventInfo.Name} {eventOperator} {arguments.Join(", ")}";
     }
 }

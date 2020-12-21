@@ -25,11 +25,11 @@ namespace NSubstitute.Core
         /// <returns>The value of the argument at the given index</returns>
         public object this[int index]
         {
-            get { return _callArguments[index].Value; }
+            get => _callArguments[index].Value;
             set
             {
                 var argument = _callArguments[index];
-                EnsureArgIsSettable(argument, index, value); 
+                EnsureArgIsSettable(argument, index, value);
                 argument.Value = value;
             }
         }
@@ -51,19 +51,13 @@ namespace NSubstitute.Core
         /// Get the arguments passed to this call.
         /// </summary>
         /// <returns>Array of all arguments passed to this call</returns>
-        public object[] Args()
-        {
-            return _callArguments.Select(x => x.Value).ToArray();
-        }
+        public object[] Args() => _callArguments.Select(x => x.Value).ToArray();
 
         /// <summary>
         /// Gets the types of all the arguments passed to this call.
         /// </summary>
         /// <returns>Array of types of all arguments passed to this call</returns>
-        public Type[] ArgTypes()
-        {
-            return _callArguments.Select(x => x.DeclaredType).ToArray();
-        }
+        public Type[] ArgTypes() => _callArguments.Select(x => x.DeclaredType).ToArray();
 
         /// <summary>
         /// Gets the argument of type `T` passed to this call. This will throw if there are no arguments
@@ -79,7 +73,7 @@ namespace NSubstitute.Core
             throw new ArgumentNotFoundException("Can not find an argument of type " + typeof(T).FullName + " to this call.");
         }
 
-        private bool TryGetArg<T>(Func<Argument, bool> condition, [MaybeNull] out T value)
+        private bool TryGetArg<T>(Func<Argument, bool> condition, [MaybeNullWhen(false)] out T value)
         {
             value = default;
 
@@ -111,27 +105,25 @@ namespace NSubstitute.Core
         /// <typeparam name="T">The type of the argument to retrieve</typeparam>
         /// <param name="position">The zero-based position of the argument to retrieve</param>
         /// <returns>The argument passed to the call, or throws if there is not exactly one argument of this type</returns>
-        [return: MaybeNull]
         public T ArgAt<T>(int position)
         {
             if (position >= _callArguments.Length)
             {
-                throw new ArgumentOutOfRangeException("position", "There is no argument at position " + position);
+                throw new ArgumentOutOfRangeException(nameof(position), $"There is no argument at position {position}");
             }
+
             try
             {
                 return (T) _callArguments[position].Value!;
             }
             catch (InvalidCastException)
             {
-                throw new InvalidCastException("Couldn't convert parameter at position"
-                    + position + " to type " + typeof(T).FullName);
+                throw new InvalidCastException(
+                    $"Couldn't convert parameter at position {position} to type {typeof(T).FullName}");
             }
         }
-        
-        private static string DisplayTypes(IEnumerable<Type> types)
-        {
-            return string.Join(", ", types.Select(x => x.Name).ToArray());
-        }
+
+        private static string DisplayTypes(IEnumerable<Type> types) =>
+            string.Join(", ", types.Select(x => x.Name).ToArray());
     }
 }

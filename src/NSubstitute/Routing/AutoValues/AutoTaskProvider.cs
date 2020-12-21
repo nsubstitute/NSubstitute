@@ -15,10 +15,7 @@ namespace NSubstitute.Routing.AutoValues
             _autoValueProviders = autoValueProviders;
         }
 
-        public bool CanProvideValueFor(Type type)
-        {
-            return typeof (Task).IsAssignableFrom(type);
-        }
+        public bool CanProvideValueFor(Type type) => typeof(Task).IsAssignableFrom(type);
 
         public object GetValue(Type type)
         {

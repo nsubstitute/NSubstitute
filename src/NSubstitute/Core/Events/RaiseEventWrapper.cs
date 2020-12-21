@@ -12,6 +12,7 @@ namespace NSubstitute.Core.Events
         protected EventArgs GetDefaultForEventArgType(Type type)
         {
             if (type == typeof(EventArgs)) return EventArgs.Empty;
+
             var defaultConstructor = GetDefaultConstructor(type);
             if (defaultConstructor == null)
             {
@@ -24,10 +25,7 @@ namespace NSubstitute.Core.Events
             return (EventArgs)defaultConstructor.Invoke(new object[0]);
         }
 
-        static ConstructorInfo? GetDefaultConstructor(Type type)
-        {
-            return type.GetConstructor(Type.EmptyTypes);
-        }
+        private static ConstructorInfo? GetDefaultConstructor(Type type) => type.GetConstructor(Type.EmptyTypes);
 
         protected static void RaiseEvent(RaiseEventWrapper wrapper)
         {

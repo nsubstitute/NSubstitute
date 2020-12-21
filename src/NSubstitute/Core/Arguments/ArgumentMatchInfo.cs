@@ -11,9 +11,9 @@
 
         private readonly object? _argument;
         private readonly IArgumentSpecification _specification;
-        public int Index { get; private set; }
+        public int Index { get; }
 
-        public bool IsMatch { get { return _specification.IsSatisfiedBy(_argument); } }
+        public bool IsMatch => _specification.IsSatisfiedBy(_argument);
 
         public string DescribeNonMatch()
         {

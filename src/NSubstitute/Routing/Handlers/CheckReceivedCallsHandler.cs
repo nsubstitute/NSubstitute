@@ -34,6 +34,7 @@ namespace NSubstitute.Routing.Handlers
                 var relatedCalls = allCalls.Where(allCallsToMethodSpec.IsSatisfiedBy).Except(matchingCalls);
                 _exceptionThrower.Throw(callSpecification, matchingCalls, relatedCalls, _requiredQuantity);
             }
+
             return RouteAction.Continue();
         }
     }

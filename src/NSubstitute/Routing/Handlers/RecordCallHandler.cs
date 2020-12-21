@@ -17,6 +17,7 @@ namespace NSubstitute.Routing.Handlers
         {
             call.AssignSequenceNumber(_generator.Next());
             _callCollection.Add(call);
+
             return RouteAction.Continue();
         }
     }

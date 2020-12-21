@@ -22,7 +22,7 @@ namespace NSubstitute.Core
 
         public Argument(ICall call, int argIndex)
         {
-            _call = call ?? throw new ArgumentNullException(nameof(call));
+            _call = call;
             _argIndex = argIndex;
         }
 
@@ -48,24 +48,16 @@ namespace NSubstitute.Core
 
         public Type ActualType => Value == null ? DeclaredType : Value.GetType();
 
-        public bool IsDeclaredTypeEqualToOrByRefVersionOf(Type type)
-        {
-            return AsNonByRefType(DeclaredType) == type;
-        }
+        public bool IsDeclaredTypeEqualToOrByRefVersionOf(Type type) =>
+            AsNonByRefType(DeclaredType) == type;
 
-        public bool IsValueAssignableTo(Type type)
-        {
-            return type.IsAssignableFrom(AsNonByRefType(ActualType));
-        }
+        public bool IsValueAssignableTo(Type type) =>
+            type.IsAssignableFrom(AsNonByRefType(ActualType));
 
-        public bool CanSetValueWithInstanceOf(Type type)
-        {
-            return AsNonByRefType(DeclaredType).IsAssignableFrom(type);
-        }
+        public bool CanSetValueWithInstanceOf(Type type) =>
+            AsNonByRefType(DeclaredType).IsAssignableFrom(type);
 
-        private static Type AsNonByRefType(Type type)
-        {
-            return type.IsByRef ? type.GetElementType()! : type;
-        }
+        private static Type AsNonByRefType(Type type) =>
+            type.IsByRef ? type.GetElementType()! : type;
     }
 }

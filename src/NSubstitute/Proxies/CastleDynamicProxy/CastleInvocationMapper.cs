@@ -6,7 +6,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 {
     public class CastleInvocationMapper
     {
-        readonly ICallFactory _callFactory;
+        private readonly ICallFactory _callFactory;
         private readonly IArgumentSpecificationDequeue _argSpecificationDequeue;
 
         public CastleInvocationMapper(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue)

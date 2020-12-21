@@ -10,7 +10,7 @@ namespace NSubstitute.Routing
 
         public Route(ICallHandler[] handlers)
         {
-            _handlers = handlers ?? throw new ArgumentNullException(nameof(handlers));
+            _handlers = handlers;
         }
 
         public IEnumerable<ICallHandler> Handlers => _handlers;

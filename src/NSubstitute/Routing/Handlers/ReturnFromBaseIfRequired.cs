@@ -9,13 +9,11 @@ namespace NSubstitute.Routing.Handlers
 
         public ReturnFromBaseIfRequired(ICallBaseConfiguration config)
         {
-            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _config = config;
         }
 
         public RouteAction Handle(ICall call)
         {
-            if (call == null) throw new ArgumentNullException(nameof(call));
-
             if (_config.ShouldCallBase(call))
             {
                 return call

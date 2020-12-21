@@ -12,15 +12,20 @@ namespace NSubstitute.Core
 
         public object? GetDefaultFor(Type type)
         {
-            if (IsVoid(type)) return null;
-            if (type.GetTypeInfo().IsValueType) return DefaultInstanceOfValueType(type);
+            if (IsVoid(type))
+            {
+                return null;
+            }
+
+            if (type.GetTypeInfo().IsValueType)
+            {
+                return DefaultInstanceOfValueType(type);
+            }
+
             return null;
         }
 
-        private bool IsVoid(Type returnType)
-        {
-            return returnType == typeof(void);
-        }
+        private bool IsVoid(Type returnType) => returnType == typeof(void);
 
         private object DefaultInstanceOfValueType(Type returnType)
         {

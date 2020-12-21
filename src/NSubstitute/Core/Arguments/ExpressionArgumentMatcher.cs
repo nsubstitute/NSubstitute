@@ -5,20 +5,17 @@ namespace NSubstitute.Core.Arguments
 {
     public class ExpressionArgumentMatcher<T> : IArgumentMatcher
     {
-        readonly string _predicateDescription;
-        private readonly Predicate<T> _predicate;
+        private readonly string _predicateDescription;
+        private readonly Predicate<T?> _predicate;
 
-        public ExpressionArgumentMatcher(Expression<Predicate<T>> predicate)
+        public ExpressionArgumentMatcher(Expression<Predicate<T?>> predicate)
         {
             _predicate = predicate.Compile();
             _predicateDescription = predicate.ToString();
         }
 
-        public bool IsSatisfiedBy(object? argument)
-        {
-            return _predicate((T)argument!);
-        }
+        public bool IsSatisfiedBy(object? argument) => _predicate((T?)argument!);
 
-        public override string ToString() { return _predicateDescription; }
+        public override string ToString() => _predicateDescription;
     }
 }

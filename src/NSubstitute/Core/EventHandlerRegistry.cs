@@ -9,7 +9,7 @@ namespace NSubstitute.Core
         // Events are not expected to be configured/raised concurrently, so simple locking should be sufficient.
         // List lookup is O(n), but for really small size performance is comparable to dictionary.
         // Given that normally a few events are configured only, it should be totally fine.
-        private readonly List<Tuple<string, List<object>>> _handlersForEvent = new List<Tuple<string, List<object>>>();
+        private readonly List<Tuple<string, List<object>>> _handlersForEvent = new();
 
         public void Add(string eventName, object handler)
         {

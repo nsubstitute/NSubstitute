@@ -72,7 +72,7 @@ namespace NSubstitute
         /// <returns></returns>
         public static Callback AlwaysThrow<TException>(TException exception) where TException : Exception
         {
-            return AlwaysThrow(info => exception);
+            return AlwaysThrow(_ => exception);
         }
 
         protected static Action<CallInfo> ToCallback<TException>(Func<CallInfo, TException> throwThis)
@@ -93,12 +93,12 @@ namespace NSubstitute
 
         protected void SetAlwaysDo(Action<CallInfo> always)
         {
-            alwaysDo = always == null ? x => { } :  always;
+            alwaysDo = always ?? (_ => { });
         }
 
         protected void SetKeepDoing(Action<CallInfo> keep)
         {
-            keepDoing = keep == null ? x => { } :  keep;
+            keepDoing = keep ?? (_ => { });
         }
 
         public void Call(CallInfo callInfo)

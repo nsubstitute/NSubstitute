@@ -2,25 +2,19 @@ namespace NSubstitute.Core
 {
     public class RouteAction
     {
-        private readonly object? _returnValue;
-        private readonly bool _hasReturnValue;
+        private static readonly RouteAction _continue = new(hasReturnValue: false, null);
 
-        public bool HasReturnValue { get { return _hasReturnValue; } }
-        public object? ReturnValue { get { return _returnValue; } }
+        public bool HasReturnValue { get; }
 
-        private static readonly RouteAction _continue = new RouteAction();
-        public static RouteAction Continue() { return _continue; }
-        public static RouteAction Return(object? value) { return new RouteAction(value); }
+        public object? ReturnValue { get; }
 
-        private RouteAction()
+        public static RouteAction Continue() => _continue;
+        public static RouteAction Return(object? value) => new(hasReturnValue: true, value);
+
+        private RouteAction(bool hasReturnValue, object? returnValue)
         {
-            _hasReturnValue = false;
-        }
-
-        private RouteAction(object? returnValue)
-        {
-            _returnValue = returnValue;
-            _hasReturnValue = true;
+            HasReturnValue = hasReturnValue;
+            ReturnValue = returnValue;
         }
     }
 }

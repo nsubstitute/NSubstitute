@@ -7,19 +7,13 @@ namespace NSubstitute.Core
     {
         public ICallRouter ResolveFor(object substitute)
         {
-            if (substitute == null) throw new NullSubstituteReferenceException();
-
-            if (substitute is ICallRouterProvider callRouterProvider)
+            return substitute switch
             {
-                return callRouterProvider.GetCallRouter();
-            }
-
-            if (substitute is Delegate delegateProxy && delegateProxy.Target is ICallRouterProvider delegateCallRouter)
-            {
-                return delegateCallRouter.GetCallRouter();
-            }
-
-            throw new NotASubstituteException();
+                null                                              => throw new NullSubstituteReferenceException(),
+                ICallRouterProvider provider                      => provider.GetCallRouter(),
+                Delegate { Target: ICallRouterProvider provider } => provider.GetCallRouter(),
+                _                                                 => throw new NotASubstituteException()
+            };
         }
     }
 }

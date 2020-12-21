@@ -25,15 +25,16 @@ namespace NSubstitute.Core.Arguments
 
         public bool IsNextFor(object? argument, Type argumentType)
         {
-            if (_queue.Count <= 0) { return false; }
+            if (_queue.Count == 0)
+            {
+                return false;
+            }
+
             var nextArgSpec = _queue.Peek();
             return _argSpecCompatibilityTester.IsSpecificationCompatible(nextArgSpec, argument, argumentType);
         }
 
-        public IArgumentSpecification Dequeue()
-        {
-            return _queue.Dequeue();
-        }
+        public IArgumentSpecification Dequeue() => _queue.Dequeue();
 
         public IEnumerable<IArgumentSpecification> DequeueRemaining()
         {

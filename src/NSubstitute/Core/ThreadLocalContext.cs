@@ -59,16 +59,11 @@ namespace NSubstitute.Core
 
         public void SetNextRoute(ICallRouter callRouter, Func<ISubstituteState, IRoute> nextRouteFactory)
         {
-            if (callRouter == null) throw new ArgumentNullException(nameof(callRouter));
-            if (nextRouteFactory == null) throw new ArgumentNullException(nameof(nextRouteFactory));
-
             _nextRouteFactory.Value = Tuple.Create(callRouter, nextRouteFactory);
         }
 
         public Func<ISubstituteState, IRoute>? UseNextRoute(ICallRouter callRouter)
         {
-            if (callRouter == null) throw new ArgumentNullException(nameof(callRouter));
-            
             var value = _nextRouteFactory.Value;
             if (value != null && ReferenceEquals(callRouter, value.Item1))
             {

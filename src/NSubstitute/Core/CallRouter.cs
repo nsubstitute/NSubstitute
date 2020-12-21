@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.Routing;
 
@@ -55,7 +53,7 @@ namespace NSubstitute.Core
             return _substituteState.ReceivedCalls.AllCalls();
         }
 
-        public void SetRoute(Func<ISubstituteState, IRoute> getRoute) => 
+        public void SetRoute(Func<ISubstituteState, IRoute> getRoute) =>
             _threadContext.SetNextRoute(this, getRoute);
 
         public object? Route(ICall call)
@@ -103,10 +101,6 @@ namespace NSubstitute.Core
 
         public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs, PendingSpecificationInfo pendingSpecInfo)
         {
-            if (returnValue == null) throw new ArgumentNullException(nameof(returnValue));
-            if (matchArgs == null) throw new ArgumentNullException(nameof(matchArgs));
-            if (pendingSpecInfo == null) throw new ArgumentNullException(nameof(pendingSpecInfo));
-
             return _substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs, pendingSpecInfo);
         }
 

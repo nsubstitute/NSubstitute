@@ -20,6 +20,7 @@ namespace NSubstitute.Core
             {
                 AppendNonMatchingCalls(callSpecification, nonMatchingCalls, builder);
             }
+
             throw new ReceivedCallsException(builder.ToString());
         }
 
@@ -67,8 +68,10 @@ namespace NSubstitute.Core
 
         private string DescribeNonMatches(ICall call, ICallSpecification callSpecification)
         {
-            var nonMatches = callSpecification.NonMatchingArguments(call) ?? new ArgumentMatchInfo[0];
-            var nonMatchingArgDescriptions = nonMatches.Select(x => x.DescribeNonMatch()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            var nonMatchingArgDescriptions = callSpecification
+                .NonMatchingArguments(call)
+                .Select(x => x.DescribeNonMatch())
+                .Where(x => !string.IsNullOrEmpty(x));
             return string.Join("\n", nonMatchingArgDescriptions);
         }
     }

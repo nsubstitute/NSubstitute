@@ -13,9 +13,9 @@ namespace NSubstitute.Core
 
         public SubstituteFactory(ISubstituteStateFactory substituteStateFactory, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory)
         {
-            _substituteStateFactory = substituteStateFactory ?? throw new ArgumentNullException(nameof(substituteStateFactory));
-            _callRouterFactory = callRouterFactory ?? throw new ArgumentNullException(nameof(callRouterFactory));
-            _proxyFactory = proxyFactory ?? throw new ArgumentNullException(nameof(proxyFactory));
+            _substituteStateFactory = substituteStateFactory;
+            _callRouterFactory = callRouterFactory;
+            _proxyFactory = proxyFactory;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace NSubstitute.Core
 
         /// <summary>
         /// Create an instance of the given types, with calls configured to call the base implementation
-        /// where possible. Parts of the instance can be substituted using 
+        /// where possible. Parts of the instance can be substituted using
         /// <see cref="SubstituteExtensions.Returns{T}(T,T,T[])">Returns()</see>.
         /// </summary>
         /// <param name="typesToProxy"></param>

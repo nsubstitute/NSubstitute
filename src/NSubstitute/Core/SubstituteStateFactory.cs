@@ -13,9 +13,9 @@ namespace NSubstitute.Core
             ICallInfoFactory callInfoFactory,
             IAutoValueProvidersFactory autoValueProvidersFactory)
         {
-            _callSpecificationFactory = callSpecificationFactory ?? throw new ArgumentNullException(nameof(callSpecificationFactory));
-            _callInfoFactory = callInfoFactory ?? throw new ArgumentNullException(nameof(callInfoFactory));
-            _autoValueProvidersFactory = autoValueProvidersFactory ?? throw new ArgumentNullException(nameof(autoValueProvidersFactory));
+            _callSpecificationFactory = callSpecificationFactory;
+            _callInfoFactory = callInfoFactory;
+            _autoValueProvidersFactory = autoValueProvidersFactory;
         }
 
         public ISubstituteState Create(ISubstituteFactory substituteFactory)

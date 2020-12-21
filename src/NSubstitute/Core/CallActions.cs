@@ -6,14 +6,14 @@ namespace NSubstitute.Core
     public class CallActions : ICallActions
     {
         private static readonly Action<CallInfo> EmptyAction = x => { };
- 
+
         private readonly ICallInfoFactory _callInfoFactory;
         // Collection consideration.
         // We need to have a thread-safe collection which should be enumerated in add order.
         // Even though Queue allocates on each enumeration, we expect callbacks to occur rarely,
         // so it shouldn't be a big issue.
         // If we want to optimize it later, we should probably take a look at System.Collections.Immutable.
-        private ConcurrentQueue<CallAction> _actions = new ConcurrentQueue<CallAction>();
+        private ConcurrentQueue<CallAction> _actions = new();
 
         public CallActions(ICallInfoFactory callInfoFactory)
         {
@@ -54,7 +54,7 @@ namespace NSubstitute.Core
             {
                 return;
             }
- 
+
             CallInfo? callInfo = null;
             foreach (var action in _actions)
             {
@@ -62,10 +62,7 @@ namespace NSubstitute.Core
                     continue;
 
                 // Optimization. Initialize call lazily, as most of times there are no callbacks.
-                if (callInfo == null)
-                {
-                    callInfo = _callInfoFactory.Create(call);
-                }
+                callInfo ??= _callInfoFactory.Create(call);
 
                 action.Invoke(callInfo);
             }

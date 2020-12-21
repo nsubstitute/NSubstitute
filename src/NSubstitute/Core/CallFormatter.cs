@@ -12,14 +12,15 @@ namespace NSubstitute.Core
 
         public CallFormatter()
         {
-            _methodInfoFormatters = new IMethodInfoFormatter[] { 
-                new PropertyCallFormatter(), 
-                new EventCallFormatter(EventCallFormatter.IsSubscription), 
-                new EventCallFormatter(EventCallFormatter.IsUnsubscription), 
+            _methodInfoFormatters = new IMethodInfoFormatter[] {
+                new PropertyCallFormatter(),
+                new EventCallFormatter(EventCallFormatter.IsSubscription),
+                new EventCallFormatter(EventCallFormatter.IsUnsubscription),
                 new MethodFormatter() };
         }
 
-        public bool CanFormat(MethodInfo methodInfo) { return true; }
+        public bool CanFormat(MethodInfo methodInfo) => true;
+
         public string Format(MethodInfo methodInfoOfCall, IEnumerable<string> formattedArguments)
         {
             return _methodInfoFormatters

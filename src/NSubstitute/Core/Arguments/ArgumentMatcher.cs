@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.Arguments
 {
@@ -13,28 +14,20 @@ namespace NSubstitute.Core.Arguments
         {
             if (argumentMatcher == null) throw new ArgumentNullException(nameof(argumentMatcher));
 
-            IArgumentMatcher nonGenericMatcher;
-            if (argumentMatcher is IDescribeNonMatches)
+            IArgumentMatcher nonGenericMatcher = argumentMatcher switch
             {
-                nonGenericMatcher = new GenericToNonGenericMatcherProxyWithDescribe<T>(argumentMatcher);
-            }
-            else
-            {
-                nonGenericMatcher = new GenericToNonGenericMatcherProxy<T>(argumentMatcher);
-            }
+                IDescribeNonMatches => new GenericToNonGenericMatcherProxyWithDescribe<T>(argumentMatcher),
+                _                   => new GenericToNonGenericMatcherProxy<T>(argumentMatcher)
+            };
 
             return ref EnqueueArgSpecification<T>(new ArgumentSpecification(typeof(T), nonGenericMatcher));
         }
 
-        internal static ref T? Enqueue<T>(IArgumentMatcher argumentMatcher)
-        {
-            return ref EnqueueArgSpecification<T>(new ArgumentSpecification(typeof(T), argumentMatcher));
-        }
+        internal static ref T? Enqueue<T>(IArgumentMatcher argumentMatcher) =>
+            ref EnqueueArgSpecification<T>(new ArgumentSpecification(typeof(T), argumentMatcher));
 
-        internal static ref T? Enqueue<T>(IArgumentMatcher argumentMatcher, Action<object?> action)
-        {
-            return ref EnqueueArgSpecification<T>(new ArgumentSpecification(typeof(T), argumentMatcher, action));
-        }
+        internal static ref T? Enqueue<T>(IArgumentMatcher argumentMatcher, Action<object?> action) =>
+            ref EnqueueArgSpecification<T>(new ArgumentSpecification(typeof(T), argumentMatcher, action));
 
         private static ref T? EnqueueArgSpecification<T>(IArgumentSpecification specification)
         {
@@ -51,14 +44,14 @@ namespace NSubstitute.Core.Arguments
                 _matcher = matcher;
             }
 
-            public bool IsSatisfiedBy(object? argument) => _matcher.IsSatisfiedBy((T) argument!);
+            public bool IsSatisfiedBy(object? argument) => _matcher.IsSatisfiedBy((T?) argument!);
         }
 
         private class GenericToNonGenericMatcherProxyWithDescribe<T> : GenericToNonGenericMatcherProxy<T>, IDescribeNonMatches
         {
             public GenericToNonGenericMatcherProxyWithDescribe(IArgumentMatcher<T> matcher) : base(matcher)
             {
-                if (matcher as IDescribeNonMatches == null) throw new ArgumentException("Should implement IDescribeNonMatches type.");
+                if (matcher is not IDescribeNonMatches) throw new SubstituteInternalException("Should implement IDescribeNonMatches type.");
             }
 
             public string DescribeFor(object? argument) => ((IDescribeNonMatches) _matcher).DescribeFor(argument);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Linq;
 
 namespace NSubstitute.Core
 {
@@ -8,7 +7,7 @@ namespace NSubstitute.Core
     {
         // Even though ConcurrentStack allocates on each push, we expect that configuration happens rarely.
         // Stack allows us to perform reverse enumeration (which is the most common operation) cheaply.
-        private ConcurrentStack<CallBaseRule> Rules { get; } = new ConcurrentStack<CallBaseRule>();
+        private ConcurrentStack<CallBaseRule> Rules { get; } = new();
 
         /// <inheritdoc />
         public bool CallBaseByDefault { get; set; }
@@ -16,30 +15,21 @@ namespace NSubstitute.Core
         /// <inheritdoc />
         public void Exclude(ICallSpecification callSpecification)
         {
-            if (callSpecification == null) throw new ArgumentNullException(nameof(callSpecification));
-
             Rules.Push(new CallBaseRule(callSpecification, callBase: false));
         }
 
         /// <inheritdoc />
         public void Include(ICallSpecification callSpecification)
         {
-            if (callSpecification == null) throw new ArgumentNullException(nameof(callSpecification));
-
             Rules.Push(new CallBaseRule(callSpecification, callBase: true));
         }
 
         /// <inheritdoc />
         public bool ShouldCallBase(ICall call)
         {
-            if (call == null) throw new ArgumentNullException(nameof(call));
-
-            if (TryGetExplicitConfiguration(call, out bool callBase))
-            {
-                return callBase;
-            }
-
-            return CallBaseByDefault;
+            return TryGetExplicitConfiguration(call, out bool callBase)
+                ? callBase
+                : CallBaseByDefault;
         }
 
         private bool TryGetExplicitConfiguration(ICall call, out bool callBase)
@@ -65,9 +55,9 @@ namespace NSubstitute.Core
             return false;
         }
 
-        private struct CallBaseRule
+        private readonly struct CallBaseRule
         {
-            public ICallSpecification CallSpecification { get; }
+            private ICallSpecification CallSpecification { get; }
             public bool CallBase { get; }
 
             public CallBaseRule(ICallSpecification callSpecification, bool callBase)

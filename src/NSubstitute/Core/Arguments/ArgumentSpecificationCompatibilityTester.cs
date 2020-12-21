@@ -9,7 +9,7 @@ namespace NSubstitute.Core.Arguments
 
         public ArgumentSpecificationCompatibilityTester(IDefaultChecker defaultChecker)
         {
-            _defaultChecker = defaultChecker ?? throw new ArgumentNullException(nameof(defaultChecker));
+            _defaultChecker = defaultChecker;
         }
 
         public bool IsSpecificationCompatible(IArgumentSpecification specification, object? argumentValue, Type argumentType)
