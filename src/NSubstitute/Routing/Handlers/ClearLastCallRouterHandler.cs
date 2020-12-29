@@ -3,7 +3,7 @@
 namespace NSubstitute.Routing.Handlers
 {
     /// <summary>
-    /// Clears last call router on SubstitutionContext for routes that do not require it. 
+    /// Clears last call router on SubstitutionContext for routes that do not require it.
     /// </summary>
     /// <remarks>
     /// This is to help prevent static state bleeding over into future calls.
@@ -20,6 +20,7 @@ namespace NSubstitute.Routing.Handlers
         public RouteAction Handle(ICall call)
         {
             _threadContext.ClearLastCallRouter();
+
             return RouteAction.Continue();
         }
     }

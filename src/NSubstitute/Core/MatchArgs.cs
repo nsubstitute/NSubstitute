@@ -2,20 +2,17 @@ using System.Diagnostics;
 
 namespace NSubstitute.Core
 {
-    [DebuggerDisplay("{" + nameof(GetDebugDisplayName) + "}")]
+    [DebuggerDisplay("{" + nameof(_name) + "}")]
     public class MatchArgs
     {
-        public static readonly MatchArgs AsSpecifiedInCall = new MatchArgs();
-        public static readonly MatchArgs Any = new MatchArgs();
+        private readonly string _name;
 
-        private MatchArgs() { }
+        public static readonly MatchArgs AsSpecifiedInCall = new(nameof(AsSpecifiedInCall));
+        public static readonly MatchArgs Any = new(nameof(Any));
 
-        private string GetDebugDisplayName()
+        private MatchArgs(string name)
         {
-            if (this == AsSpecifiedInCall) return nameof(AsSpecifiedInCall);
-            if (this == Any) return nameof(Any);
-
-            return "UNKNOWN";
+            _name = name;
         }
     }
 }

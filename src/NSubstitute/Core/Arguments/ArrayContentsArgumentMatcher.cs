@@ -18,20 +18,18 @@ namespace NSubstitute.Core.Arguments
             if (argument != null)
             {
                 var argumentArray = ((IEnumerable) argument).Cast<object>().ToArray();
-                if (argumentArray.Length == _argumentSpecifications.Count())
+                if (argumentArray.Length == _argumentSpecifications.Length)
                 {
-                    return
-                        _argumentSpecifications.Select(
-                            (value, index) => value.IsSatisfiedBy(argumentArray[index])).All(x => x);
+                    return _argumentSpecifications
+                        .Select((spec, index) => spec.IsSatisfiedBy(argumentArray[index]))
+                        .All(x => x);
                 }
             }
+
             return false;
         }
 
-        public override string ToString()
-        {
-            return string.Join(", ", _argumentSpecifications.Select(x => x.ToString()));
-        }
+        public override string ToString() => string.Join(", ", _argumentSpecifications.Select(x => x.ToString()));
 
         public string Format(object? argument, bool highlight)
         {

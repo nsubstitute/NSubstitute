@@ -12,13 +12,13 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         public CastleForwardingInterceptor(CastleInvocationMapper invocationMapper, ICallRouter callRouter)
         {
-            _invocationMapper = invocationMapper ?? throw new ArgumentNullException(nameof(invocationMapper));
-            _callRouter = callRouter ?? throw new ArgumentNullException(nameof(callRouter));
+            _invocationMapper = invocationMapper;
+            _callRouter = callRouter;
         }
 
         public void Intercept(IInvocation invocation)
         {
-            var mappedInvocation = _invocationMapper.Map(invocation);
+            ICall mappedInvocation = _invocationMapper.Map(invocation);
 
             if (_fullDispatchMode)
             {

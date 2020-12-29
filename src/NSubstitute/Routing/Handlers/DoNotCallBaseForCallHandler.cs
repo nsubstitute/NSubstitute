@@ -12,9 +12,9 @@ namespace NSubstitute.Routing.Handlers
 
         public DoNotCallBaseForCallHandler(ICallSpecificationFactory callSpecificationFactory, ICallBaseConfiguration callBaseConfig, MatchArgs matchArgs)
         {
-            _callSpecificationFactory = callSpecificationFactory ?? throw new ArgumentNullException(nameof(callSpecificationFactory));
-            _callBaseConfig = callBaseConfig ?? throw new ArgumentNullException(nameof(callBaseConfig));
-            _matchArgs = matchArgs ?? throw new ArgumentNullException(nameof(matchArgs));
+            _callSpecificationFactory = callSpecificationFactory;
+            _callBaseConfig = callBaseConfig;
+            _matchArgs = matchArgs;
         }
 
         public RouteAction Handle(ICall call)

@@ -10,8 +10,8 @@ namespace NSubstitute.Core
 
         public CallRouterFactory(IThreadLocalContext threadLocalContext, IRouteFactory routeFactory)
         {
-            _threadLocalContext = threadLocalContext ?? throw new ArgumentNullException(nameof(threadLocalContext));
-            _routeFactory = routeFactory ?? throw new ArgumentNullException(nameof(routeFactory));
+            _threadLocalContext = threadLocalContext;
+            _routeFactory = routeFactory;
         }
 
         public ICallRouter Create(ISubstituteState substituteState, bool canConfigureBaseCalls)

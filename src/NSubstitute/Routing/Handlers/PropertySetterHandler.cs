@@ -6,12 +6,12 @@ namespace NSubstitute.Routing.Handlers
     public class PropertySetterHandler : ICallHandler
     {
         private readonly IPropertyHelper _propertyHelper;
-        readonly IConfigureCall ConfigureCall;
+        private readonly IConfigureCall _configureCall;
 
         public PropertySetterHandler(IPropertyHelper propertyHelper, IConfigureCall configureCall)
         {
             _propertyHelper = propertyHelper;
-            ConfigureCall = configureCall;
+            _configureCall = configureCall;
         }
 
         public RouteAction Handle(ICall call)
@@ -23,8 +23,9 @@ namespace NSubstitute.Routing.Handlers
                 // It's safe to use original arguments here, as only by-ref arguments might be modified,
                 // which should never happen for this case.
                 var valueBeingSetOnProperty = call.GetOriginalArguments().Last();
-                ConfigureCall.SetResultForCall(callToPropertyGetter, new ReturnValue(valueBeingSetOnProperty), MatchArgs.AsSpecifiedInCall);
+                _configureCall.SetResultForCall(callToPropertyGetter, new ReturnValue(valueBeingSetOnProperty), MatchArgs.AsSpecifiedInCall);
             }
+
             return RouteAction.Continue();
         }
     }

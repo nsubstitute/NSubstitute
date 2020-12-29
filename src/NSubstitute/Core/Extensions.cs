@@ -21,10 +21,8 @@ namespace NSubstitute.Core
         /// <summary>
         /// Join the <paramref name="strings"/> using <paramref name="separator"/>.
         /// </summary>
-        public static string Join(this IEnumerable<string> strings, string separator)
-        {
-            return string.Join(separator, strings);
-        }
+        public static string Join(this IEnumerable<string> strings, string separator) =>
+            string.Join(separator, strings);
 
         public static bool IsDelegate(this Type type)
         {
@@ -71,7 +69,7 @@ namespace NSubstitute.Core
                 if (declaringType != null)
                 {
                     AppendTypeNameRecursively(declaringType);
-                    resultTypeName.Append("+");
+                    resultTypeName.Append('+');
                 }
 
                 resultTypeName.Append(GetTypeNameWithoutGenericArity(currentType));
@@ -93,17 +91,17 @@ namespace NSubstitute.Core
 
                 alreadyHandledGenericArgumentsCount += ownGenericArguments.Length;
 
-                resultTypeName.Append("<");
+                resultTypeName.Append('<');
                 resultTypeName.Append(ownGenericArguments.Join(", "));
-                resultTypeName.Append(">");
+                resultTypeName.Append('>');
             }
 
             AppendTypeNameRecursively(type);
             return resultTypeName.ToString();
 
-            string GetTypeNameWithoutGenericArity(Type t)
+            static string GetTypeNameWithoutGenericArity(Type type)
             {
-                var tn = t.Name!;
+                var tn = type.Name!;
                 var indexOfBacktick = tn.IndexOf('`');
                 // For nested generic types the back stick symbol might be missing.
                 return indexOfBacktick > -1 ? tn.Substring(0, indexOfBacktick) : tn;

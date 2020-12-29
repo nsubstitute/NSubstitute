@@ -4,9 +4,9 @@ namespace NSubstitute.Core.Events
 {
     public class EventHandlerWrapper<TEventArgs> : RaiseEventWrapper where TEventArgs : EventArgs
     {
-        readonly object? _sender;
-        readonly EventArgs? _eventArgs;
-        protected override string RaiseMethodName { get { return "Raise.EventWith"; } }
+        private readonly object? _sender;
+        private readonly EventArgs? _eventArgs;
+        protected override string RaiseMethodName => "Raise.EventWith";
 
         public EventHandlerWrapper() : this(null, null) { }
 
@@ -35,12 +35,8 @@ namespace NSubstitute.Core.Events
 
         protected override object[] WorkOutRequiredArguments(ICall call)
         {
-            var sender = _sender;
-            var eventArgs = _eventArgs;
-            if (sender == null)
-                sender = call.Target();
-            if (eventArgs == null)
-                eventArgs = GetDefaultForEventArgType(typeof(TEventArgs));
+            var sender = _sender ?? call.Target();
+            var eventArgs = _eventArgs ?? GetDefaultForEventArgType(typeof(TEventArgs));
             return new[] { sender, eventArgs };
         }
     }

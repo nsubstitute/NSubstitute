@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace NSubstitute.Core
 {
     internal class ReturnObservable<T> : IObservable<T?>
     {
-        T? _value;
+        private readonly T? _value;
 
         public ReturnObservable() : this(default) { }
 
@@ -25,14 +24,7 @@ namespace NSubstitute.Core
 
     internal class EmptyDisposable : IDisposable
     {
-        static IDisposable _empty = new EmptyDisposable();
-        public static IDisposable Instance
-        {
-            get
-            {
-                return _empty;
-            }
-        }
+        public static IDisposable Instance { get; } = new EmptyDisposable();
 
         public void Dispose() { }
     }

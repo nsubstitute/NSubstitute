@@ -37,10 +37,10 @@ namespace NSubstitute.Core
             IList<IArgumentSpecification> argumentSpecifications,
             Func<object>? baseMethod)
         {
-            _methodInfo = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
-            _arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
-            _target = target ?? throw new ArgumentNullException(nameof(target));
-            _argumentSpecifications = argumentSpecifications ?? throw new ArgumentNullException(nameof(argumentSpecifications));
+            _methodInfo = methodInfo;
+            _arguments = arguments;
+            _target = target;
+            _argumentSpecifications = argumentSpecifications;
             _baseMethod = baseMethod;
 
             // Performance optimization - we don't want to create a copy on each call.
@@ -54,32 +54,17 @@ namespace NSubstitute.Core
             // Don't worry about concurrency.
             // Normally call is processed in a single thread.
             // However even if race condition happens, we'll create an extra set of wrappers, which behaves the same.
-            if (_parameterInfosCached == null)
-            {
-                _parameterInfosCached = GetParameterInfoFromMethod(_methodInfo);
-            }
-
-            return _parameterInfosCached;
+            return _parameterInfosCached ??= GetParameterInfoFromMethod(_methodInfo);
         }
 
-        public IList<IArgumentSpecification> GetArgumentSpecifications()
-        {
-            return _argumentSpecifications;
-        }
+        public IList<IArgumentSpecification> GetArgumentSpecifications() => _argumentSpecifications;
 
         public void AssignSequenceNumber(long number)
         {
             _sequenceNumber = number;
         }
 
-        public long GetSequenceNumber()
-        {
-            if (_sequenceNumber == null)
-            {
-                throw new MissingSequenceNumberException();
-            }
-            return _sequenceNumber.Value;
-        }
+        public long GetSequenceNumber() => _sequenceNumber ?? throw new MissingSequenceNumberException();
 
         public bool CanCallBase => _baseMethod != null;
 
@@ -110,10 +95,7 @@ namespace NSubstitute.Core
             return _arguments;
         }
 
-        public object?[] GetOriginalArguments()
-        {
-            return _originalArguments;
-        }
+        public object?[] GetOriginalArguments() => _originalArguments;
 
         public object Target() => _target;
 
@@ -121,7 +103,7 @@ namespace NSubstitute.Core
         {
             var parameters = methodInfo.GetParameters();
             var parameterInfos = new IParameterInfo[parameters.Length];
-            
+
             for (var i = 0; i < parameters.Length; i++)
             {
                 parameterInfos[i] = new ParameterInfoWrapper(parameters[i]);

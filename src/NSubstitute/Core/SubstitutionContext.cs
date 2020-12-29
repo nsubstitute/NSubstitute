@@ -28,11 +28,11 @@ namespace NSubstitute.Core
             ICallRouterResolver callRouterResolver,
             SequenceNumberGenerator sequenceNumberGenerator)
         {
-            SubstituteFactory = substituteFactory ?? throw new ArgumentNullException(nameof(substituteFactory));
-            RouteFactory = routeFactory ?? throw new ArgumentNullException(nameof(routeFactory));
-            CallSpecificationFactory = callSpecificationFactory ?? throw new ArgumentNullException(nameof(callSpecificationFactory));
-            ThreadContext = threadLocalContext ?? throw new ArgumentNullException(nameof(threadLocalContext));
-            _callRouterResolver = callRouterResolver ?? throw new ArgumentNullException(nameof(callRouterResolver));
+            SubstituteFactory = substituteFactory;
+            RouteFactory = routeFactory;
+            CallSpecificationFactory = callSpecificationFactory;
+            ThreadContext = threadLocalContext;
+            _callRouterResolver = callRouterResolver;
 
 #pragma warning disable 618 // Obsolete
             SequenceNumberGenerator = sequenceNumberGenerator;
@@ -50,7 +50,7 @@ namespace NSubstitute.Core
 
         [Obsolete("This property is obsolete and will be removed in a future version of the product.")]
         public SequenceNumberGenerator SequenceNumberGenerator { get; }
- 
+
         [Obsolete("This property is obsolete and will be removed in a future version of the product. " +
                   "Use the " + nameof(ThreadContext) + "." + nameof(IThreadLocalContext.IsQuerying) + " property instead. " +
                   "For example: SubstitutionContext.Current.ThreadContext." + nameof(IThreadLocalContext.IsQuerying) + ".")]

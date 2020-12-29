@@ -13,14 +13,14 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         public ProxyIdInterceptor(Type primaryProxyType)
         {
-            _primaryProxyType = primaryProxyType ?? throw new ArgumentNullException(nameof(primaryProxyType));
+            _primaryProxyType = primaryProxyType;
         }
 
         public void Intercept(IInvocation invocation)
         {
             if (IsDefaultToStringMethod(invocation.Method))
             {
-                invocation.ReturnValue = _cachedProxyId ?? (_cachedProxyId = GenerateId(invocation));
+                invocation.ReturnValue = _cachedProxyId ??= GenerateId(invocation);
                 return;
             }
 

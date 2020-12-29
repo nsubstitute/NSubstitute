@@ -6,12 +6,10 @@ namespace NSubstitute.Routing.AutoValues
 {
     public class AutoQueryableProvider : IAutoValueProvider
     {
-        public bool CanProvideValueFor(Type type)
-        {
-            return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IQueryable<>);
-        }
+        public bool CanProvideValueFor(Type type) =>
+            type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IQueryable<>);
 
-        public object? GetValue(Type type)
+        public object GetValue(Type type)
         {
             if (!CanProvideValueFor(type))
                 throw new InvalidOperationException();

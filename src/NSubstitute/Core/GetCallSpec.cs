@@ -17,8 +17,6 @@ namespace NSubstitute.Core
 
         public ICallSpecification FromPendingSpecification(MatchArgs matchArgs, PendingSpecificationInfo pendingSpecInfo)
         {
-            if (pendingSpecInfo == null) throw new ArgumentNullException(nameof(pendingSpecInfo));
-
             return pendingSpecInfo.Handle(
                 callSpec => FromExistingSpec(callSpec, matchArgs),
                 lastCall =>
@@ -38,7 +36,7 @@ namespace NSubstitute.Core
             return matchArgs == MatchArgs.AsSpecifiedInCall ? spec : UpdateCallSpecToMatchAnyArgs(spec);
         }
 
-        ICallSpecification UpdateCallSpecToMatchAnyArgs(ICallSpecification callSpecification)
+        private ICallSpecification UpdateCallSpecToMatchAnyArgs(ICallSpecification callSpecification)
         {
             var anyArgCallSpec = callSpecification.CreateCopyThatMatchesAnyArguments();
             _callActions.MoveActionsForSpecToNewSpec(callSpecification, anyArgCallSpec);

@@ -4,7 +4,7 @@ namespace NSubstitute.Core
 {
     public class CallSpecificationFactory : ICallSpecificationFactory
     {
-        readonly IArgumentSpecificationsFactory _argumentSpecificationsFactory;
+        private readonly IArgumentSpecificationsFactory _argumentSpecificationsFactory;
 
         public CallSpecificationFactory(IArgumentSpecificationsFactory argumentSpecificationsFactory)
         {

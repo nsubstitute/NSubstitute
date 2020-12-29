@@ -30,9 +30,9 @@ namespace NSubstitute.Core.SequenceChecking
             _requiresInstanceNumbers = HasMultipleCallsOnSameType();
         }
 
-        public string FormatQuery() { return Format(_query); }
+        public string FormatQuery() => Format(_query);
 
-        public string FormatActualCalls() { return Format(_actualCalls); }
+        public string FormatActualCalls() => Format(_actualCalls);
 
         private string Format(CallData[] calls)
         {
@@ -85,8 +85,8 @@ namespace NSubstitute.Core.SequenceChecking
 
             public string Format(bool multipleInstances, bool includeInstanceNumber)
             {
-                var call = _call != null 
-                    ? Format(_call) 
+                var call = _call != null
+                    ? Format(_call)
                     : Format(_specAndTarget!);
 
                 if (!multipleInstances) return call;
@@ -132,8 +132,8 @@ namespace NSubstitute.Core.SequenceChecking
 
         private class ArgAndParamInfo
         {
-            public ParameterInfo ParamInfo { get; private set; }
-            public object? Argument { get; private set; }
+            public ParameterInfo ParamInfo { get; }
+            public object? Argument { get; }
 
             public ArgAndParamInfo(ParameterInfo paramInfo, object? argument)
             {

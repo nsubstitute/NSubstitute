@@ -4,8 +4,8 @@ namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecification : IArgumentSpecification
     {
-        private static readonly Action<object?> NoOpAction = x => { };
- 
+        private static readonly Action<object?> NoOpAction = _ => { };
+
         private readonly IArgumentMatcher _matcher;
         private readonly Action<object?> _action;
         public Type ForType { get; }
@@ -22,26 +22,40 @@ namespace NSubstitute.Core.Arguments
 
         public bool IsSatisfiedBy(object? argument)
         {
-            if (!IsCompatibleWith(argument)) return false;
-            try { return _matcher.IsSatisfiedBy(argument); }
-            catch { return false; }
+            if (!IsCompatibleWith(argument))
+            {
+                return false;
+            }
+
+            try
+            {
+                return _matcher.IsSatisfiedBy(argument);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public string DescribeNonMatch(object? argument)
         {
-            var describable = _matcher as IDescribeNonMatches;
-            if (describable == null) return string.Empty;
+            if (!IsCompatibleWith(argument))
+            {
+                return GetIncompatibleTypeMessage(argument);
+            }
 
-            return IsCompatibleWith(argument) ? describable.DescribeFor(argument) : GetIncompatibleTypeMessage(argument);
+            return _matcher is IDescribeNonMatches describe
+                ? describe.DescribeFor(argument)
+                : string.Empty;
         }
 
         public string FormatArgument(object? argument)
         {
             var isSatisfiedByArg = IsSatisfiedBy(argument);
-            var matcherFormatter = _matcher as IArgumentFormatter;
-            return matcherFormatter == null
-                ? ArgumentFormatter.Default.Format(argument, !isSatisfiedByArg)
-                : matcherFormatter.Format(argument, isSatisfiedByArg);
+
+            return _matcher is IArgumentFormatter matcherFormatter
+                ? matcherFormatter.Format(argument, highlight: !isSatisfiedByArg)
+                : ArgumentFormatter.Default.Format(argument, highlight: !isSatisfiedByArg);
         }
 
         public override string ToString() => _matcher.ToString() ?? string.Empty;
@@ -63,19 +77,18 @@ namespace NSubstitute.Core.Arguments
 
         private void RunActionIfTypeIsCompatible(object? argument)
         {
-            if (!argument.IsCompatibleWith(ForType)) return;
-            _action(argument);
+            if (argument.IsCompatibleWith(ForType))
+            {
+                _action(argument);
+            }
         }
 
-        private bool IsCompatibleWith(object? argument)
-        {
-            return argument.IsCompatibleWith(ForType);
-        }
+        private bool IsCompatibleWith(object? argument) => argument.IsCompatibleWith(ForType);
 
         private string GetIncompatibleTypeMessage(object? argument)
         {
             var argumentType = argument == null ? typeof(object) : argument.GetType();
-            return string.Format("Expected an argument compatible with type {0}. Actual type was {1}.", ForType, argumentType);
+            return $"Expected an argument compatible with type '{ForType}'. Actual type was '{argumentType}'.";
         }
     }
 }

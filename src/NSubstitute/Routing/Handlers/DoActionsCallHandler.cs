@@ -14,6 +14,7 @@ namespace NSubstitute.Routing.Handlers
         public RouteAction Handle(ICall call)
         {
             _callActions.InvokeMatchingActions(call);
+
             return RouteAction.Continue();
         }
     }

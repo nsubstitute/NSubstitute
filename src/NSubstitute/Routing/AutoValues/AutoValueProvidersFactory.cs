@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using NSubstitute.Core;
+using NSubstitute.Exceptions;
 
 namespace NSubstitute.Routing.AutoValues
 {
@@ -11,7 +12,7 @@ namespace NSubstitute.Routing.AutoValues
         {
             IAutoValueProvider[]? result = null;
             var lazyResult = new Lazy<IReadOnlyCollection<IAutoValueProvider>>(
-                () => result ?? throw new InvalidOperationException("Value was not constructed yet."),
+                () => result ?? throw new SubstituteInternalException("Value was not constructed yet."),
                 LazyThreadSafetyMode.PublicationOnly);
 
             result = new IAutoValueProvider[]

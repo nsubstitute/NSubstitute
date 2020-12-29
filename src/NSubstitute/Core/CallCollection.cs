@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -9,12 +8,10 @@ namespace NSubstitute.Core
 {
     public class CallCollection : ICallCollection
     {
-        private ConcurrentQueue<IReceivedCallEntry> _callEntries = new ConcurrentQueue<IReceivedCallEntry>();
+        private ConcurrentQueue<IReceivedCallEntry> _callEntries = new();
 
         public void Add(ICall call)
         {
-            if (call == null) throw new ArgumentNullException(nameof(call));
-
             IReceivedCallEntry callEntry;
             if (call is IReceivedCallEntry callAsEntry && callAsEntry.TryTakeEntryOwnership())
             {
@@ -24,14 +21,12 @@ namespace NSubstitute.Core
             {
                 callEntry = new ReceivedCallEntry(call);
             }
- 
+
             _callEntries.Enqueue(callEntry);
         }
 
         public void Delete(ICall call)
         {
-            if (call == null) throw new ArgumentNullException(nameof(call));
-
             var callWrapper = _callEntries.FirstOrDefault(e => !e.IsSkipped && call.Equals(e.Call));
             if (callWrapper == null)
             {
@@ -54,7 +49,7 @@ namespace NSubstitute.Core
             // Queue doesn't have a Clear method.
             _callEntries = new ConcurrentQueue<IReceivedCallEntry>();
         }
- 
+
         /// <summary>
         /// Performance optimization. Allows to mark call as deleted without allocating extra wrapper.
         /// To play safely, we track ownership, so object can be re-used only once.

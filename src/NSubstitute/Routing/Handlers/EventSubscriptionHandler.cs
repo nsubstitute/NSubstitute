@@ -29,9 +29,9 @@ namespace NSubstitute.Routing.Handlers
         private static bool CanBeSubscribeUnsubscribeCall(ICall call)
         {
             var methodInfo = call.GetMethodInfo();
-            
+
             // It's safe to verify method prefix and signature as according to the ECMA-335 II.22.28:
-            // 18. Any AddOn method for an event whose Name is xxx shall have the signature: void add_xxx (<DelegateType> handler) (§I.10.4) [CLS] 
+            // 18. Any AddOn method for an event whose Name is xxx shall have the signature: void add_xxx (<DelegateType> handler) (§I.10.4) [CLS]
             // 19. Any RemoveOn method for an event whose Name is xxx shall have the signature: void remove_xxx(<DelegateType> handler) (§I.10.4) [CLS]
             // Notice, even though it's correct to check the SpecialName flag, we don't do that deliberately.
             // The reason is that some compilers (e.g. F#) might not emit this attribute and our library
@@ -53,15 +53,11 @@ namespace NSubstitute.Routing.Handlers
             }
         }
 
-        private static Predicate<EventInfo> IsEventSubscription(ICall call)
-        {
-            return x => call.GetMethodInfo() == x.GetAddMethod();
-        }
+        private static Predicate<EventInfo> IsEventSubscription(ICall call) =>
+            x => call.GetMethodInfo() == x.GetAddMethod();
 
-        private static Predicate<EventInfo> IsEventUnsubscription(ICall call)
-        {
-            return x => call.GetMethodInfo() == x.GetRemoveMethod();
-        }
+        private static Predicate<EventInfo> IsEventUnsubscription(ICall call) =>
+            x => call.GetMethodInfo() == x.GetRemoveMethod();
 
         private static IEnumerable<EventInfo> GetEvents(ICall call, Func<ICall, Predicate<EventInfo>> createPredicate)
         {

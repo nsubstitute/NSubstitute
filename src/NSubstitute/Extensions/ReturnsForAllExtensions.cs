@@ -23,7 +23,7 @@ namespace NSubstitute.Extensions
             var callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
             callRouter.SetReturnForType(typeof(T), new ReturnValue(returnThis));
         }
-        
+
         /// <summary>
         /// Configure default return value for all methods that return the specified type, calculated by a function
         /// </summary>
@@ -35,8 +35,8 @@ namespace NSubstitute.Extensions
         {
             if (substitute == null) throw new NullSubstituteReferenceException();
 
-            var _callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
-            _callRouter.SetReturnForType(typeof(T), new ReturnValueFromFunc<T>(returnThis));
+            var callRouter = SubstitutionContext.Current.GetCallRouterFor(substitute);
+            callRouter.SetReturnForType(typeof(T), new ReturnValueFromFunc<T>(returnThis));
         }
     }
 }

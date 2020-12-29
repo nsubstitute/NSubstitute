@@ -22,6 +22,7 @@ namespace NSubstitute.Routing.Handlers
         {
             var callSpec = _callSpecificationFactory.CreateFrom(call, _matchArgs);
             _callActions.Add(callSpec, _action);
+
             return RouteAction.Continue();
         }
     }

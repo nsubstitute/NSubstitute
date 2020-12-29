@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
@@ -17,8 +16,8 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
 
         public CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue)
         {
-            _callFactory = callFactory ?? throw new ArgumentNullException(nameof(callFactory));
-            _argSpecificationDequeue = argSpecificationDequeue ?? throw new ArgumentNullException(nameof(argSpecificationDequeue));
+            _callFactory = callFactory;
+            _argSpecificationDequeue = argSpecificationDequeue;
             _proxyGenerator = new ProxyGenerator();
             _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
         }
@@ -164,11 +163,8 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                     "To substitute for multiple types only one type can be a concrete class; other types can only be interfaces.");
             }
         }
- 
-        private static bool HasItems<T>(T[]? array)
-        {
-            return array != null && array.Length > 0;
-        }
+
+        private static bool HasItems<T>(T[]? array) => array?.Length != 0;
 
         private class AllMethodsExceptCallRouterCallsHook : AllMethodsHook
         {
@@ -183,15 +179,11 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                     && base.ShouldInterceptMethod(type, methodInfo);
             }
 
-            private static bool IsNotCallRouterProviderMethod(MethodInfo methodInfo)
-            {
-                return methodInfo.DeclaringType != typeof(ICallRouterProvider);
-            }
+            private static bool IsNotCallRouterProviderMethod(MethodInfo methodInfo) =>
+                methodInfo.DeclaringType != typeof(ICallRouterProvider);
 
-            private static bool IsNotBaseObjectMethod(MethodInfo methodInfo)
-            {
-                return methodInfo.GetBaseDefinition().DeclaringType != typeof(object);
-            }
+            private static bool IsNotBaseObjectMethod(MethodInfo methodInfo) =>
+                methodInfo.GetBaseDefinition().DeclaringType != typeof(object);
         }
 
         private class StaticCallRouterProvider : ICallRouterProvider

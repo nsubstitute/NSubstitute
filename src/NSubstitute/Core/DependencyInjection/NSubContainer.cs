@@ -21,7 +21,7 @@ namespace NSubstitute.Core.DependencyInjection
     {
         private readonly NSubContainer? _parentContainer;
         private readonly object _syncRoot;
-        private readonly Dictionary<Type, Registration> _registrations = new Dictionary<Type, Registration>();
+        private readonly Dictionary<Type, Registration> _registrations = new();
 
         public NSubContainer()
         {
@@ -161,7 +161,7 @@ namespace NSubstitute.Core.DependencyInjection
                         return _factory.Invoke(scope);
 
                     case NSubLifetime.Singleton:
-                        return _singletonValue ?? (_singletonValue = _factory.Invoke(scope));
+                        return _singletonValue ??= _factory.Invoke(scope);
 
                     case NSubLifetime.PerScope:
                         if (scope.TryGetCached(this, out var result))
@@ -174,7 +174,7 @@ namespace NSubstitute.Core.DependencyInjection
                         return result;
 
                     default:
-                        throw new InvalidOperationException("Unknown lifetime.");
+                        throw new InvalidOperationException("Unknown lifetime");
                 }
             }
         }

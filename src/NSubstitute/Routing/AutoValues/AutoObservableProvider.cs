@@ -15,14 +15,12 @@ namespace NSubstitute.Routing.AutoValues
             _autoValueProviders = autoValueProviders;
         }
 
-        public bool CanProvideValueFor(Type type)
-        {
-            return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IObservable<>);
-        }
+        public bool CanProvideValueFor(Type type) =>
+            type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IObservable<>);
 
         public object? GetValue(Type type)
         {
-            if (!CanProvideValueFor(type)) 
+            if (!CanProvideValueFor(type))
                 throw new InvalidOperationException();
 
             Type innerType = type.GetGenericArguments()[0];

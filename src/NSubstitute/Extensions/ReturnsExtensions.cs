@@ -11,42 +11,32 @@ namespace NSubstitute.ReturnsExtensions
         /// <summary>
         /// Set null as returned value for this call.
         /// </summary>
-        public static ConfiguredCall ReturnsNull<T>(this T value) where T : class
-        {
-            return value.Returns(default(T));
-        }
+        public static ConfiguredCall ReturnsNull<T>(this T value) where T : class =>
+            value.Returns(default(T));
 
         /// <summary>
         /// Set null as returned value for this call made with any arguments.
         /// </summary>
-        public static ConfiguredCall ReturnsNullForAnyArgs<T>(this T value) where T : class
-        {
-            return value.ReturnsForAnyArgs(default(T));
-        }
+        public static ConfiguredCall ReturnsNullForAnyArgs<T>(this T value) where T : class =>
+            value.ReturnsForAnyArgs(default(T));
 
         /// <summary>
         /// Set null as returned value for this call.
         /// </summary>
-        public static ConfiguredCall ReturnsNull<T>(this Task<T> value) where T : class
-        {
-            return value.Returns(default(T));
-        }
+        public static ConfiguredCall ReturnsNull<T>(this Task<T> value) where T : class =>
+            value.Returns(default(T));
 
         /// <summary>
         /// Set null as returned value for this call.
         /// </summary>
-        public static ConfiguredCall ReturnsNull<T>(this ValueTask<T> value) where T : class
-        {
-            return value.Returns(default(T));
-        }
+        public static ConfiguredCall ReturnsNull<T>(this ValueTask<T> value) where T : class =>
+            value.Returns(default(T));
 
         /// <summary>
         /// Set null as returned value for this call made with any arguments.
         /// </summary>
-        public static ConfiguredCall ReturnsNullForAnyArgs<T>(this Task<T> value) where T : class
-        {
-            return value.ReturnsForAnyArgs(default(T));
-        }
+        public static ConfiguredCall ReturnsNullForAnyArgs<T>(this Task<T> value) where T : class =>
+            value.ReturnsForAnyArgs(default(T));
 
         /// <summary>
         /// Set null as returned value for this call made with any arguments.
@@ -54,9 +44,7 @@ namespace NSubstitute.ReturnsExtensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static ConfiguredCall ReturnsNullForAnyArgs<T>(this ValueTask<T> value) where T : class
-        {
-            return value.ReturnsForAnyArgs(default(T));
-        }
+        public static ConfiguredCall ReturnsNullForAnyArgs<T>(this ValueTask<T> value) where T : class =>
+            value.ReturnsForAnyArgs(default(T));
     }
 }
