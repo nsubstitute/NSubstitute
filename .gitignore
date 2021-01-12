@@ -304,3 +304,6 @@ docs/_site/*
 
 # Ignore VIM tmp files
 *.swp
+
+# Ignore Ionide files (https://ionide.io/)
+.ionide
