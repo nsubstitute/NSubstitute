@@ -129,7 +129,7 @@ calculator.Mode = "TEST";
 //Check received call to property getter
 //We need to assign the result to a variable to keep
 //the compiler happy or use discards (since C# 7.0).
-var _ = calculator.Received().Mode;
+_ = calculator.Received().Mode;
 
 //Check received call to property setter with arg of "TEST"
 calculator.Received().Mode = "TEST";
