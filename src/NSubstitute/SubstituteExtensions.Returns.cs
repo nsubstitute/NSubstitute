@@ -24,7 +24,7 @@ namespace NSubstitute
         /// <param name="value"></param>
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
-        public static ConfiguredCall Returns<T>(this T value, Func<CallInfo<T>, T> returnThis, params Func<CallInfo<T>, T>[] returnThese) =>
+        public static ConfiguredCall Returns<T>(this T value, Func<ICallInfo<T>, T> returnThis, params Func<ICallInfo<T>, T>[] returnThese) =>
             ConfigureFuncReturn(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace NSubstitute
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
         /// <returns></returns>
-        public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<CallInfo<T>, T> returnThis, params Func<CallInfo<T>, T>[] returnThese) =>
+        public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<ICallInfo<T>, T> returnThis, params Func<ICallInfo<T>, T>[] returnThese) =>
             ConfigureFuncReturn(MatchArgs.Any, returnThis, returnThese);
 
 #nullable restore
@@ -64,7 +64,7 @@ namespace NSubstitute
                 .LastCallShouldReturn(returnValue, matchArgs);
         }
 
-        private static ConfiguredCall ConfigureFuncReturn<T>(MatchArgs matchArgs, Func<CallInfo<T>, T?> returnThis, Func<CallInfo<T>, T?>[]? returnThese)
+        private static ConfiguredCall ConfigureFuncReturn<T>(MatchArgs matchArgs, Func<ICallInfo<T>, T?> returnThis, Func<ICallInfo<T>, T?>[]? returnThese)
         {
             IReturn returnValue;
             if (returnThese == null || returnThese.Length == 0)

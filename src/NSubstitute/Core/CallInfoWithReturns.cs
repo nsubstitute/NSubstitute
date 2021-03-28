@@ -4,7 +4,7 @@
     /// Information for a call that returns a value of type <c>T</c>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class CallInfo<T> : CallInfo
+    public class CallInfo<T> : CallInfo, ICallInfo<T>
     {
         internal CallInfo(CallInfo info) : base(info) {
         }

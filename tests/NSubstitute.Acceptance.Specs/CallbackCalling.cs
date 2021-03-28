@@ -100,7 +100,7 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Throw_exception_when_Throw_with_exception_generator()
         {
-            Func<CallInfo, Exception> createException = ci => new ArgumentException("Argument: " + ci.Args()[0]);
+            Func<ICallInfo, Exception> createException = ci => new ArgumentException("Argument: " + ci.Args()[0]);
             int called = 0;
             _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.Always(x => called++));
             _something.When(x => x.Echo(Arg.Any<int>())).Do(Callback.AlwaysThrow(createException));

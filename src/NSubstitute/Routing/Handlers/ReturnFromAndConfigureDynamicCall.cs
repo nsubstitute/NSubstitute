@@ -55,7 +55,7 @@ namespace NSubstitute.Routing.Handlers
                 return default(T).Returns(returnThis, returnThese);
             }
 
-            public ConfiguredCall Returns<T>(Func<CallInfo, T?> returnThis, params Func<CallInfo, T?>[] returnThese)
+            public ConfiguredCall Returns<T>(Func<ICallInfo, T?> returnThis, params Func<ICallInfo, T?>[] returnThese)
             {
                 return default(T).Returns(returnThis, returnThese);
             }
@@ -65,7 +65,7 @@ namespace NSubstitute.Routing.Handlers
                 return default(T).ReturnsForAnyArgs(returnThis, returnThese);
             }
 
-            public ConfiguredCall ReturnsForAnyArgs<T>(Func<CallInfo, T?> returnThis, params Func<CallInfo, T?>[] returnThese)
+            public ConfiguredCall ReturnsForAnyArgs<T>(Func<ICallInfo, T?> returnThis, params Func<ICallInfo, T?>[] returnThese)
             {
                 return default(T).ReturnsForAnyArgs(returnThis, returnThese);
             }

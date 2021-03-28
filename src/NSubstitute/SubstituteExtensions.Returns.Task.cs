@@ -33,7 +33,7 @@ namespace NSubstitute
         /// <param name="value"></param>
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
-        public static ConfiguredCall Returns<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+        public static ConfiguredCall Returns<T>(this Task<T> value, Func<ICallInfo, T> returnThis, params Func<ICallInfo, T>[] returnThese)
         {
             ReThrowOnNSubstituteFault(value);
 
@@ -65,7 +65,7 @@ namespace NSubstitute
         /// <param name="value"></param>
         /// <param name="returnThis">Function to calculate the return value</param>
         /// <param name="returnThese">Optionally use these functions next</param>
-        public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+        public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, Func<ICallInfo, T> returnThis, params Func<ICallInfo, T>[] returnThese)
         {
             ReThrowOnNSubstituteFault(value);
 
@@ -86,7 +86,7 @@ namespace NSubstitute
 
         private static Task<T?> CompletedTask<T>(T? result) => Task.FromResult(result);
 
-        private static Func<CallInfo, Task<T?>> WrapFuncInTask<T>(Func<CallInfo, T> returnThis) =>
+        private static Func<ICallInfo, Task<T?>> WrapFuncInTask<T>(Func<ICallInfo, T> returnThis) =>
             x => CompletedTask(returnThis(x));
     }
 }

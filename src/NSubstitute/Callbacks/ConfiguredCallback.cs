@@ -13,7 +13,7 @@ namespace NSubstitute.Callbacks
         /// <summary>
         /// Perform this action once in chain of called callbacks.
         /// </summary>
-        public ConfiguredCallback Then(Action<CallInfo> doThis)
+        public ConfiguredCallback Then(Action<ICallInfo> doThis)
         {
             AddCallback(doThis);
             return this;
@@ -22,7 +22,7 @@ namespace NSubstitute.Callbacks
         /// <summary>
         /// Keep doing this action after the other callbacks have run.
         /// </summary>
-        public EndCallbackChain ThenKeepDoing(Action<CallInfo> doThis)
+        public EndCallbackChain ThenKeepDoing(Action<ICallInfo> doThis)
         {
             SetKeepDoing(doThis);
             return this;
@@ -31,7 +31,7 @@ namespace NSubstitute.Callbacks
         /// <summary>
         /// Keep throwing this exception after the other callbacks have run.
         /// </summary>
-        public EndCallbackChain ThenKeepThrowing<TException>(Func<CallInfo, TException> throwThis) where TException : Exception =>
+        public EndCallbackChain ThenKeepThrowing<TException>(Func<ICallInfo, TException> throwThis) where TException : Exception =>
             ThenKeepDoing(ToCallback(throwThis));
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace NSubstitute.Callbacks
         /// </summary>
         /// <typeparam name="TException">The type of the exception</typeparam>
         /// <param name="throwThis">Produce the exception to throw for a CallInfo</param>
-        public ConfiguredCallback ThenThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+        public ConfiguredCallback ThenThrow<TException>(Func<ICallInfo, TException> throwThis) where TException : Exception
         {
             AddCallback(ToCallback(throwThis));
             return this;
@@ -68,7 +68,7 @@ namespace NSubstitute.Callbacks
         /// Perform the given action for every call.
         /// </summary>
         /// <param name="doThis">The action to perform for every call</param>
-        public Callback AndAlways(Action<CallInfo> doThis)
+        public Callback AndAlways(Action<ICallInfo> doThis)
         {
             SetAlwaysDo(doThis);
             return this;

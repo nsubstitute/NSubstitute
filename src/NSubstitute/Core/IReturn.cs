@@ -9,13 +9,13 @@ namespace NSubstitute.Core
 {
     public interface IReturn
     {
-        object? ReturnFor(CallInfo info);
+        object? ReturnFor(ICallInfo info);
         Type? TypeOrNull();
         bool CanBeAssignedTo(Type t);
     }
 
     /// <summary>
-    /// Performance optimization. Allows to not construct <see cref="CallInfo"/> if configured result doesn't depend on it.
+    /// Performance optimization. Allows to not construct <see cref="ICallInfo"/> if configured result doesn't depend on it.
     /// </summary>
     internal interface ICallIndependentReturn
     {
@@ -32,25 +32,25 @@ namespace NSubstitute.Core
         }
 
         public object? GetReturnValue() => _value;
-        public object? ReturnFor(CallInfo info) => GetReturnValue();
+        public object? ReturnFor(ICallInfo info) => GetReturnValue();
         public Type? TypeOrNull() => _value?.GetType();
         public bool CanBeAssignedTo(Type t) => _value.IsCompatibleWith(t);
     }
 
     public class ReturnValueFromFunc<T> : IReturn
     {
-        private readonly Func<CallInfo<T>, T?> _funcToReturnValue;
+        private readonly Func<ICallInfo<T>, T?> _funcToReturnValue;
 
-        public ReturnValueFromFunc(Func<CallInfo<T>, T?>? funcToReturnValue)
+        public ReturnValueFromFunc(Func<ICallInfo<T>, T?>? funcToReturnValue)
         {
             _funcToReturnValue = funcToReturnValue ?? ReturnNull();
         }
 
-        public object? ReturnFor(CallInfo info) => _funcToReturnValue(new CallInfo<T>(info));
+        public object? ReturnFor(ICallInfo info) => _funcToReturnValue(info.ForCallReturning<T>());
         public Type TypeOrNull() => typeof(T);
         public bool CanBeAssignedTo(Type t) => typeof(T).IsAssignableFrom(t);
 
-        private static Func<CallInfo, T?> ReturnNull()
+        private static Func<ICallInfo, T?> ReturnNull()
         {
             if (typeof(T).GetTypeInfo().IsValueType) throw new CannotReturnNullForValueType(typeof(T));
             return x => default;
@@ -69,7 +69,7 @@ namespace NSubstitute.Core
         }
 
         public object? GetReturnValue() => GetNext();
-        public object? ReturnFor(CallInfo info) => GetReturnValue();
+        public object? ReturnFor(ICallInfo info) => GetReturnValue();
         public Type TypeOrNull() => typeof(T);
         public bool CanBeAssignedTo(Type t) => typeof(T).IsAssignableFrom(t);
 
@@ -78,20 +78,22 @@ namespace NSubstitute.Core
 
     public class ReturnMultipleFuncsValues<T> : IReturn
     {
-        private readonly ConcurrentQueue<Func<CallInfo<T>, T?>> _funcsToReturn;
-        private readonly Func<CallInfo<T>, T?> _lastFunc;
+        private readonly ConcurrentQueue<Func<ICallInfo<T>, T?>> _funcsToReturn;
+        private readonly Func<ICallInfo<T>, T?> _lastFunc;
 
-        public ReturnMultipleFuncsValues(Func<CallInfo<T>, T?>[] funcs)
+        public ReturnMultipleFuncsValues(Func<ICallInfo<T>, T?>[] funcs)
         {
-            _funcsToReturn = new ConcurrentQueue<Func<CallInfo<T>, T?>>(funcs);
+            _funcsToReturn = new ConcurrentQueue<Func<ICallInfo<T>, T?>>(funcs);
             _lastFunc = funcs.Last();
         }
 
-        public object? ReturnFor(CallInfo info) => GetNext(info);
+        public object? ReturnFor(ICallInfo info) => GetNext(info);
         public Type TypeOrNull() => typeof(T);
         public bool CanBeAssignedTo(Type t) => typeof(T).IsAssignableFrom(t);
 
-        private T? GetNext(CallInfo info) =>
-            _funcsToReturn.TryDequeue(out var nextFunc) ? nextFunc(new CallInfo<T>(info)) : _lastFunc(new CallInfo<T>(info));
+        private T? GetNext(ICallInfo info) =>
+            _funcsToReturn.TryDequeue(out var nextFunc)
+            ? nextFunc(info.ForCallReturning<T>())
+            : _lastFunc(info.ForCallReturning<T>());
     }
 }
