@@ -31,7 +31,7 @@ namespace NSubstitute.Extensions
         /// <param name="substitute"></param>
         /// <param name="returnThis"></param>
         /// <returns></returns>
-        public static void ReturnsForAll<T>(this object substitute, Func<CallInfo, T> returnThis)
+        public static void ReturnsForAll<T>(this object substitute, Func<ICallInfo, T> returnThis)
         {
             if (substitute == null) throw new NullSubstituteReferenceException();
 

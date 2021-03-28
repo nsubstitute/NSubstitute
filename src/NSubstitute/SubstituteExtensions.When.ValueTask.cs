@@ -11,7 +11,7 @@ namespace NSubstitute
     {
         /// <summary>
         /// Perform an action when this member is called.
-        /// Must be followed by <see cref="WhenCalled{TSubstitute}.Do(Action{CallInfo})"/> to provide the callback.
+        /// Must be followed by <see cref="WhenCalled{TSubstitute}.Do(Action{ICallInfo})"/> to provide the callback.
         /// </summary>
         public static WhenCalled<TSubstitute> When<TSubstitute, TResult>(this TSubstitute substitute,
             Func<TSubstitute, ValueTask<TResult>> substituteCall) where TSubstitute : class
@@ -21,7 +21,7 @@ namespace NSubstitute
 
         /// <summary>
         /// Perform an action when this member is called with any arguments.
-        /// Must be followed by <see cref="WhenCalled{TSubstitute}.Do(Action{CallInfo})"/> to provide the callback.
+        /// Must be followed by <see cref="WhenCalled{TSubstitute}.Do(Action{ICallInfo})"/> to provide the callback.
         /// </summary>
         public static WhenCalled<TSubstitute> WhenForAnyArgs<TSubstitute, TResult>(this TSubstitute substitute,
             Func<TSubstitute, ValueTask<TResult>> substituteCall) where TSubstitute : class
