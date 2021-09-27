@@ -17,6 +17,18 @@ namespace NSubstitute.Acceptance.Specs
             Assert.Throws<ReceivedCallsException>(() => engine.Received().Started += someOtherHandler);
         }
 
+        [Test]
+        public void Check_if_nullHandlers_are_ignored()
+        {
+            var raised = false;
+            var source = Substitute.For<IEngine>();
+            source.Started += null;
+            source.Started += () => raised = true;
+            source.Started += Raise.Event<Action>();
+
+            Assert.IsTrue(raised);
+        }
+
         public interface IEngine
         {
             event Action Started;
