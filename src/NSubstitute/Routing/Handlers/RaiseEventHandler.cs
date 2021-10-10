@@ -30,6 +30,11 @@ namespace NSubstitute.Routing.Handlers
             var handlers = _eventHandlerRegistry.GetHandlers(eventInfo.Name);
             foreach (Delegate handler in handlers)
             {
+                if (handler == null)
+                {
+                    continue;
+                }
+
                 try
                 {
                     handler.DynamicInvoke(eventArguments);
