@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
@@ -50,6 +51,63 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.Say("e"), Is.EqualTo("?"));
             Assert.That(_something.Say("eh"), Is.EqualTo(string.Empty));
             Assert.That(_something.Say(null), Is.EqualTo(string.Empty));
+        }
+
+        [Test]
+        public void Should_match_value_types_by_content()
+        {
+            const int intToMatch = 123;
+            const int identicalInt = 123;
+            _something.Echo(Arg.Is(intToMatch)).Returns("matching int");
+
+            Assert.That(_something.Echo(intToMatch), Is.EqualTo("matching int"));
+            Assert.That(_something.Echo(identicalInt), Is.EqualTo("matching int"));
+
+            var dateToMatch = new DateTime(2021, 10, 22);
+            var identicalDate = new DateTime(2021, 10, 22);
+            _something.Anything(dateToMatch).Returns(20211022);
+
+            Assert.That(_something.Anything(dateToMatch), Is.EqualTo(20211022));
+            Assert.That(_something.Anything(identicalDate), Is.EqualTo(20211022));
+        }
+
+        [Test]
+        public void Should_match_strings_by_content()
+        {
+            const string stringToMatch = "hello";
+            _something.Say(Arg.Is(stringToMatch)).Returns("hi");
+
+            Assert.That(_something.Say(stringToMatch), Is.EqualTo("hi"));
+            Assert.That(_something.Say("hello"), Is.EqualTo("hi"));
+        }
+
+        [Test]
+        public void Should_match_nullable_ref_types_by_content()
+        {
+            #nullable enable
+            SomeClass? nullClassToMatch = null;
+            List<int>? nullList = null;
+            _something.Anything(Arg.Is(nullClassToMatch)).Returns(456);
+
+            Assert.That(_something.Anything(nullClassToMatch), Is.EqualTo(456));
+            Assert.That(_something.Anything(nullList), Is.EqualTo(456));
+            #nullable disable
+        }
+
+        [Test]
+        public void Should_match_non_string_non_record_ref_types_by_reference()
+        {
+            var listToMatch = new List<int>{1, 2};
+            _something.Anything(Arg.Is(listToMatch)).Returns(123);
+
+            Assert.That(_something.Anything(listToMatch), Is.EqualTo(123));
+            Assert.That(_something.Anything(new List<int>{1, 2}), Is.EqualTo(0));
+
+            var classToMatch = new SomeClass();
+            _something.Anything(Arg.Is(classToMatch)).Returns(456);
+
+            Assert.That(_something.Anything(classToMatch), Is.EqualTo(456));
+            Assert.That(_something.Anything(new SomeClass()), Is.EqualTo(0));
         }
 
         [Test]
@@ -233,10 +291,10 @@ namespace NSubstitute.Acceptance.Specs
             // Arrange
             var otherSubs = Substitute.For<ISomething>();
             otherSubs.SomeProperty.Returns(42);
-            
+
             // Act
             _something.Echo(42);
-            
+
             // Assert
             _something.Received().Echo(otherSubs.SomeProperty);
         }
