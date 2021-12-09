@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net46;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net46;net5.0;net6.0</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -42,18 +42,8 @@
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.1-*" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*"
-                      Condition="'$(TargetIsNet5OrNewer)' != 'true'" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4-*" Condition="'$(TargetIsNet5OrNewer)' != 'true'" />
   </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="System.Linq.Queryable" Version="4.3.0-*" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0-*" />
-  </ItemGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
-    <DefineConstants>$(DefineConstants);SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY</DefineConstants>
-  </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetIsNet5OrNewer)' == 'true'">
     <DefineConstants>$(DefineConstants);SYSTEM_DIAGNOSTICS_CODEANALYSIS_NULLABILITY</DefineConstants>

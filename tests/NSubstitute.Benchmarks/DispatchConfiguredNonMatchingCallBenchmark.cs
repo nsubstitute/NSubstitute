@@ -1,7 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Attributes.Jobs;
 using NSubstitute.Benchmarks.TestTypes;
-using NSubstitute.Core;
 
 namespace NSubstitute.Benchmarks
 {

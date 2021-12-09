@@ -39,12 +39,10 @@ namespace NSubstitute.Routing.Handlers
             }
 
             bool isDynamic;
-#if SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY
-            isDynamic = returnParameter.GetCustomAttributes(DynamicAttributeType, inherit: false).Length != 0;
-#else
+
             var customAttributes = returnParameter.GetCustomAttributes(DynamicAttributeType, inherit: false);
             isDynamic = customAttributes != null && customAttributes.Any();
-#endif
+
             return isDynamic;
         }
 
