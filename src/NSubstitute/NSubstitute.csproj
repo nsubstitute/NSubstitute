@@ -16,8 +16,18 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;net46;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net46;net5.0;net6.0</TargetFrameworks>
   </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <PackageReference Include="System.Linq.Queryable" Version="4.3.0-*" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0-*" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
+    <DefineConstants>$(DefineConstants);SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY</DefineConstants>
+  </PropertyGroup>
+
 
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
