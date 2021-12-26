@@ -21,7 +21,7 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0-*" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0-*" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0-*" />
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
@@ -52,7 +52,7 @@
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.1-*" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4-*" Condition="'$(TargetIsNet5OrNewer)' != 'true'" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*" Condition="'$(TargetIsNet5OrNewer)' != 'true'" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(TargetIsNet5OrNewer)' == 'true'">
