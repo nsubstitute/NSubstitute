@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>NSubstitute is a friendly substitute for .NET mocking libraries. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
@@ -16,8 +16,18 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net46;net5.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net46;net5.0;net6.0</TargetFrameworks>
   </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <PackageReference Include="System.Linq.Queryable" Version="4.3.0-*" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0-*" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
+    <DefineConstants>$(DefineConstants);SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY</DefineConstants>
+  </PropertyGroup>
+
 
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -34,28 +44,18 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Nullable Condition="'$(TargetIsNet5)' == 'true'">enable</Nullable>
+    <Nullable Condition="'$(TargetIsNet5OrNewer)' == 'true'">enable</Nullable>
     <!-- Nullability does not work nicely for older versions of .NET, so just disable nullability for those versions. -->
     <!-- CS8632 - The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. -->
-    <NoWarn Condition="'$(TargetIsNet5)' != 'true'">$(NoWarn);CS8632</NoWarn>
+    <NoWarn Condition="'$(TargetIsNet5OrNewer)' != 'true'">$(NoWarn);CS8632</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.1-*" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*"
-                      Condition="'$(TargetIsNet5)' != 'true'" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*" Condition="'$(TargetIsNet5OrNewer)' != 'true'" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="System.Linq.Queryable" Version="4.3.0-*" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0-*" />
-  </ItemGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
-    <DefineConstants>$(DefineConstants);SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetIsNet5)' == 'true'">
+  <PropertyGroup Condition="'$(TargetIsNet5OrNewer)' == 'true'">
     <DefineConstants>$(DefineConstants);SYSTEM_DIAGNOSTICS_CODEANALYSIS_NULLABILITY</DefineConstants>
   </PropertyGroup>
 

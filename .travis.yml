@@ -1,8 +1,8 @@
 language: csharp
 dist: xenial
-dotnet: 5.0.100
+dotnet: 6.0.100
 mono: none
-env: CONFIGURATION=Release FRAMEWORK=net5.0
+env: CONFIGURATION=Release FRAMEWORK=net6.0
 
 before_script:
   - dotnet --info
