@@ -1,5 +1,6 @@
-### unreleased
-* [NEW] Add .NET 5 support
+### 4.3.0 (Jan 2021)
+
+* [NEW] Add .NET 5 (#636) and .NET 6 (#674) support. Thanks to @zvirja and @Havunen!
 
 ### 4.2.2 (Jun 2020)
 
