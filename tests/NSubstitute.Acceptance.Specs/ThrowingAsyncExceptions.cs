@@ -210,7 +210,7 @@ namespace NSubstitute.Acceptance.Specs
             }
         }
 
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+#if NET5_0_OR_GREATER
         public class ForValueTask
         {
 

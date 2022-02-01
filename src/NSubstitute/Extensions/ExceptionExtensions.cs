@@ -167,7 +167,7 @@ namespace NSubstitute.ExceptionExtensions
         public static ConfiguredCall ThrowsAsyncForAnyArgs<T>(this Task<T> value, Func<CallInfo, Exception> createException) =>
             value.ReturnsForAnyArgs(ci => TaskFromException<T>(createException(ci)));
 
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+#if NET5_0_OR_GREATER
         /// <summary>
         /// Throw an exception for this call.
         /// </summary>
@@ -248,16 +248,18 @@ namespace NSubstitute.ExceptionExtensions
         private static Task TaskFromException(Exception ex)  {
 #if NET45
             return new Task(() => throw ex);
-#endif
+#else
             return Task.FromException(ex);
+#endif
         }
 
         private static Task<T> TaskFromException<T>(Exception ex)
         {
 #if NET45
             return new Task<T>(() => throw ex);
-#endif
+#else
             return Task<T>.FromException<T>(ex);
+#endif
         }
 
     }
