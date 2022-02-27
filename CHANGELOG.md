@@ -1,3 +1,6 @@
+### unreleased
+* [NEW] Add `.ThrowsAsync()` that will correctly mock exception on async methods. (#609)
+
 ### 4.3.0 (Jan 2021)
 
 * [NEW] Add .NET 5 (#636) and .NET 6 (#674) support. Thanks to @zvirja and @Havunen!
@@ -55,7 +58,7 @@ See [BreakingChanges.md](BreakingChanges.md) if you are still using pre-C#7. (#4
 * [NEW] `Configure()` extension in `NSubstitute.Extensions.ConfigurationExtensions` to
 ensure NSubstitute handles the next call as a configuration/specification. (#350, @zvirja)
 * [UPDATE] Performance improvements. (@zvirja)
-    - `CallResults` performance optimisation 
+    - `CallResults` performance optimisation
     - Delegate proxy generation improvements (#362)
     - Minimise allocations and LINQ use on hot code paths (#390)
     - Optimise array allocation (#395)
@@ -67,7 +70,7 @@ This helps fix some problems with overlapping configurations. See #345 and
 
 #### New and improved debugging, errors and error messages
 
-* [NEW] Raise `CouldNotConfigureBaseMethodException` when trying to configure a call to 
+* [NEW] Raise `CouldNotConfigureBaseMethodException` when trying to configure a call to
 call a base method that does not exist. (#429, @zvirja)
 * [NEW] Raise `RedundantArgumentMatcherException` if extra arg matchers are detected. This is
 a huge help for immediately identifying misconfigured tests. (@zvirja)
@@ -85,7 +88,7 @@ Including (but not limited to):
 * [FIX] Improved handling of virtual calls in constructors. (#423, @zvirja)
 * [NEW] Added a set of `When()` overloads to configure async methods without compilation warnings. (#468, @zvirja)
 * [FIX] Fixed potential for `ArgumentNullException` on finalizer thread. (#382, @zvirja)
-* [UPDATE] Now using Castle.Core 4.3.1+. We :heart: you Castle.Core! (Thanks for the 
+* [UPDATE] Now using Castle.Core 4.3.1+. We :heart: you Castle.Core! (Thanks for the
 PR Alexandr Nikitin!)
 * [NEW] Expose `.Received(Quantity)` in `NSubstitute.ReceivedExtensions` namespace. Thanks to
 @firelizzard18 for this suggestion.
@@ -131,7 +134,7 @@ Ian Johnson (@ipjohnson) for this change. (#303)
 * [UPDATE] .NET Core build is now signed, which removes a warning when
 referencing .NET standard library. Thanks to Connie Yau (@conniey) for
 this change. (#302)
-* [FIX] Removed redundant .NET standard dependencies when referencing 
+* [FIX] Removed redundant .NET standard dependencies when referencing
 NSubstitute as a .NET Framework library. Thanks to Alex Povar (@zvirja). (#295)
 
 ### 2.0.2 (February 2017)
