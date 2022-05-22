@@ -24,6 +24,14 @@
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0-*" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3' or '$(TargetIsNetFx)' == 'true'">
+    <PackageReference Include="Castle.Core" Version="4.4.1-*" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetIsNet5OrNewer)' == 'true'">
+    <PackageReference Include="Castle.Core" Version="5.0.0-*" />
+  </ItemGroup>
+
   <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard1.3' ">
     <DefineConstants>$(DefineConstants);SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY</DefineConstants>
   </PropertyGroup>
@@ -51,7 +59,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="4.4.1-*" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*" Condition="'$(TargetIsNet5OrNewer)' != 'true'" />
   </ItemGroup>
 
