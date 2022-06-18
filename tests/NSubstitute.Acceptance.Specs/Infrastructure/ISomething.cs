@@ -16,6 +16,8 @@
         int MethodWithRefParameter(int arg1, ref int arg2);
         int MethodWithMultipleRefParameters(int arg1, ref int arg2, ref int arg3);
         int MethodWithOutParameter(int arg1, out int arg2);
+        int? NullableCount();
+        int? NullableWithParams(int i, string s);
 
         object this[string key] { get; set; }
         System.Threading.Tasks.Task Async();
@@ -26,6 +28,8 @@
         System.Threading.Tasks.Task<string> SayAsync(string s);
         System.Threading.Tasks.Task<SomeClass> SomeActionAsync();
         System.Threading.Tasks.Task<SomeClass> SomeActionWithParamsAsync(int i, string s);
+        System.Threading.Tasks.Task<int?> NullableCountAsync();
+        System.Threading.Tasks.Task<int?> NullableWithParamsAsync(int i, string s);
 
         System.Threading.Tasks.ValueTask<int> CountValueTaskAsync();
         System.Threading.Tasks.ValueTask<string> EchoValueTaskAsync(int i);
@@ -33,5 +37,7 @@
         System.Threading.Tasks.ValueTask<string> SayValueTaskAsync(string s);
         System.Threading.Tasks.ValueTask<SomeClass> SomeActionValueTaskAsync();
         System.Threading.Tasks.ValueTask<SomeClass> SomeActionWithParamsValueTaskAsync(int i, string s);
+        System.Threading.Tasks.ValueTask<int?> NullableCountValueTaskAsync();
+        System.Threading.Tasks.ValueTask<int?> NullableCountValueTaskWithParamsAsync(int i, string s);
     }
 }
