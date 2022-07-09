@@ -164,7 +164,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
             }
         }
 
-        private static bool HasItems<T>(T[]? array) => array?.Length != 0;
+        private static bool HasItems<T>(T[]? array) => array?.Length > 0;
 
         private class AllMethodsExceptCallRouterCallsHook : AllMethodsHook
         {
