@@ -330,6 +330,59 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(_something.CountValueTaskAsync().Result, Is.EqualTo(3), "Fourth return");
         }
 
+        [Test]
+        public void Returns_null_for_nullable_value_type()
+        {
+            _something.NullableCount().ReturnsNull();
+
+            Assert.That(_something.NullableCount(), Is.Null);
+        }
+
+        [Test]
+        public void Returns_null_for_any_args_when_nullable_value_type()
+        {
+            _something.NullableWithParams(2, "test").ReturnsNullForAnyArgs();
+
+            Assert.That(_something.NullableWithParams(123, "something else"), Is.Null);
+        }
+
+        [Test]
+        public void Returns_null_for_task_of_null_value_type()
+        {
+            _something.NullableCountAsync().ReturnsNull();
+
+            Assert.That(_something.NullableCountAsync(), Is.TypeOf<Task<int?>>());
+            Assert.That(_something.NullableCountAsync().Result, Is.Null);
+        }
+
+        [Test]
+        public void Returns_null_for_any_args_when_task_of_null_value_type()
+        {
+            _something.NullableWithParamsAsync(2, "test").ReturnsNullForAnyArgs();
+
+            Assert.That(_something.NullableWithParamsAsync(123, "something else"), Is.TypeOf<Task<int?>>());
+            Assert.That(_something.NullableWithParamsAsync(123, "something else").Result, Is.Null);
+        }
+
+        [Test]
+        public void Returns_null_for_TaskValue_for_null_value_type()
+        {
+            _something.NullableCountValueTaskAsync().ReturnsNull();
+
+            Assert.That(_something.NullableCountValueTaskAsync(), Is.TypeOf<ValueTask<int?>>());
+            Assert.That(_something.NullableCountValueTaskAsync().Result, Is.Null);
+        }
+
+        [Test]
+        public void Returns_null_for_any_args_when_TaskValue_is_of_null_value_type()
+        {
+            _something.NullableCountValueTaskWithParamsAsync(2, "test").ReturnsNullForAnyArgs();
+
+            Assert.That(_something.NullableCountValueTaskWithParamsAsync(123, "something else"),
+                Is.TypeOf<ValueTask<int?>>());
+            Assert.That(_something.NullableCountValueTaskWithParamsAsync(123, "something else").Result, Is.Null);
+        }
+
         [SetUp]
         public void SetUp()
         {
