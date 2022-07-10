@@ -1,5 +1,8 @@
-### unreleased
-* [NEW] Add `.ThrowsAsync()` that will correctly mock exception on async methods. (#609)
+### 4.4.0 (Jul 2022)
+* [FIX] Fix issue checking for constructor args on null object. Thanks to @phongphanq, and @appel1! Thanks also to 
+@Mandroide for code review. (#683, #685)
+* [UPDATE] Update to Castle Core v5. Thanks @Havunen! (#690, #673)
+* [NEW] Add `.ThrowsAsync()` that will correctly mock exception on async methods. Thanks @Socolin! (#609, #663)
 
 ### 4.3.0 (Jan 2021)
 
