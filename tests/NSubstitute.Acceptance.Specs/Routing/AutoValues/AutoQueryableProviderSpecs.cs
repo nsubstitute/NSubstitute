@@ -1,14 +1,15 @@
 ﻿#if NET45 || NETSTANDARD1_3
 using NSubstitute.Routing.AutoValues;
-using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 using System.Linq;
 using System.Collections.Generic;
 
 namespace NSubstitute.Specs.Routing.AutoValues
 {
-    public class AutoQueryableProviderSpecs : ConcernFor<AutoQueryableProvider>
+    public class AutoQueryableProviderSpecs
     {
+
+        AutoQueryableProvider sut = new AutoQueryableProvider();
 
         [Test]
         public void Can_provide_value_for_queryables()
@@ -74,11 +75,6 @@ namespace NSubstitute.Specs.Routing.AutoValues
             Assert.That(queryable, Is.Not.Null);
             Assert.That(queryable, Is.Empty);
             Assert.DoesNotThrow(() => queryable.Any());
-        }
-
-        public override AutoQueryableProvider CreateSubjectUnderTest()
-        {
-            return new AutoQueryableProvider();
         }
 
         public interface IFoo2
