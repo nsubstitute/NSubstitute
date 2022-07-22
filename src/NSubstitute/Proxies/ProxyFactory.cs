@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+
 using NSubstitute.Core;
 
 namespace NSubstitute.Proxies
@@ -16,12 +17,12 @@ namespace NSubstitute.Proxies
             _dynamicProxyFactory = dynamicProxyFactory;
         }
 
-        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, object?[]? constructorArguments)
+        public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, bool isPartial, object?[]? constructorArguments)
         {
             var isDelegate = typeToProxy.IsDelegate();
-            return isDelegate 
-                ? _delegateFactory.GenerateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments)
-                : _dynamicProxyFactory.GenerateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments);
+            return isDelegate
+                ? _delegateFactory.GenerateProxy(callRouter, typeToProxy, additionalInterfaces, isPartial, constructorArguments)
+                : _dynamicProxyFactory.GenerateProxy(callRouter, typeToProxy, additionalInterfaces, isPartial, constructorArguments);
         }
     }
 }

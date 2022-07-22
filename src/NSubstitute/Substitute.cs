@@ -90,5 +90,12 @@ namespace NSubstitute
             var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
             return (T) substituteFactory.CreatePartial(new[] {typeof (T)}, constructorArguments);
         }
+
+        public static T ForPartsOf<T,TClass>(params object[] constructorArguments)
+            where T : class
+        {
+            var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
+            return (T)substituteFactory.CreatePartial(new[] { typeof(T), typeof(TClass) }, constructorArguments);
+        }
     }
 }

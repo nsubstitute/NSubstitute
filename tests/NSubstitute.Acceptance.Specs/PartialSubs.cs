@@ -1,7 +1,9 @@
 ﻿using System;
+
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Extensions;
+
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -85,6 +87,63 @@ namespace NSubstitute.Acceptance.Specs
             var testAbstractClass = Substitute.ForPartsOf<TestAbstractClass>();
             Assert.That(testAbstractClass.MethodReturnsSameInt(1), Is.EqualTo(1));
             Assert.That(testAbstractClass.CalledTimes, Is.EqualTo(1));
+        }
+
+
+        [Test]
+        public void UseImplementedNonVirtualMethod()
+        {
+            var testAbstractClass = Substitute.ForPartsOf<ITestInterface, TestNonVirtualClass>();
+            Assert.That(testAbstractClass.MethodReturnsSameInt(1), Is.EqualTo(1));
+            Assert.That(testAbstractClass.CalledTimes, Is.EqualTo(1));
+            testAbstractClass.Received().MethodReturnsSameInt(1);
+            Assert.That(testAbstractClass.CalledTimes, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void UseSubstitutedNonVirtualMethod()
+        {
+            var testInterface = Substitute.ForPartsOf<ITestInterface, TestNonVirtualClass>();
+            testInterface.Configure().MethodReturnsSameInt(1).Returns(2);
+            Assert.That(testInterface.MethodReturnsSameInt(1), Is.EqualTo(2));
+            Assert.That(testInterface.MethodReturnsSameInt(3), Is.EqualTo(3));
+            testInterface.ReceivedWithAnyArgs(2).MethodReturnsSameInt(default);
+            Assert.That(testInterface.CalledTimes, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void UseSubstitutedNonVirtualMethodHonorsDoNotCallBase()
+        {
+            var testInterface = Substitute.ForPartsOf<ITestInterface, TestNonVirtualClass>();
+            testInterface.Configure().MethodReturnsSameInt(1).Returns(2);
+            testInterface.WhenForAnyArgs(x => x.MethodReturnsSameInt(default)).DoNotCallBase();
+            Assert.That(testInterface.MethodReturnsSameInt(1), Is.EqualTo(2));
+            Assert.That(testInterface.MethodReturnsSameInt(3), Is.EqualTo(0));
+            testInterface.ReceivedWithAnyArgs(2).MethodReturnsSameInt(default);
+            Assert.That(testInterface.CalledTimes, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void PartialSubstituteCallsConstructorWithParameters()
+        {
+            var testInterface = Substitute.ForPartsOf<ITestInterface, TestNonVirtualClass>(50);
+            Assert.That(testInterface.MethodReturnsSameInt(1), Is.EqualTo(1));
+            Assert.That(testInterface.CalledTimes, Is.EqualTo(51));
+        }
+
+        [Test]
+        public void PartialSubstituteFailsIfClassDoesntImplementInterface()
+        {
+            Assert.Throws<SubstituteException>(
+                () => Substitute.ForPartsOf<ITestInterface, TestAbstractClass>());
+        }
+
+
+        [Test]
+        public void PartialSubstituteFailsIfClassIsAbstract()
+        {
+            Assert.Throws<SubstituteException>(
+                () => Substitute.ForPartsOf<ITestInterface, TestAbstractClassWithInterface>(), "The provided class is abstract.");
         }
 
         [Test]
@@ -307,8 +366,39 @@ namespace NSubstitute.Acceptance.Specs
 
         public interface ITestInterface
         {
+            public int CalledTimes { get; set; }
+
             void VoidTestMethod();
             int TestMethodReturnsInt();
+            int MethodReturnsSameInt(int i);
+        }
+
+        public class TestNonVirtualClass : ITestInterface
+        {
+            public TestNonVirtualClass() { }
+            public TestNonVirtualClass(int initialCounter) => CalledTimes = initialCounter;
+
+            public int CalledTimes { get; set; }
+
+            public int TestMethodReturnsInt() => throw new NotImplementedException();
+
+            public void VoidTestMethod() => throw new NotImplementedException();
+            public int MethodReturnsSameInt(int i)
+            {
+                CalledTimes++;
+                return i;
+            }
+        }
+
+        public abstract class TestAbstractClassWithInterface : ITestInterface
+        {
+            public int CalledTimes { get; set; }
+
+            public abstract int MethodReturnsSameInt(int i);
+
+            public abstract int TestMethodReturnsInt();
+
+            public abstract void VoidTestMethod();
         }
 
         public abstract class TestAbstractClass
