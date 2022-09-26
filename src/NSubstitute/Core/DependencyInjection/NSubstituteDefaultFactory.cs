@@ -11,11 +11,11 @@ namespace NSubstitute.Core.DependencyInjection
         /// The default NSubstitute registrations. Feel free to configure the existing container to customize
         /// and override NSubstitute parts.
         /// </summary>
-        public static INSubContainer DefaultContainer { get; } = CreateDefaultContainer();
+        public static IConfigurableNSubContainer DefaultContainer { get; } = CreateDefaultContainer();
 
         public static ISubstitutionContext CreateSubstitutionContext() => DefaultContainer.Resolve<ISubstitutionContext>();
 
-        private static INSubContainer CreateDefaultContainer()
+        private static IConfigurableNSubContainer CreateDefaultContainer()
         {
             return new NSubContainer()
                 .RegisterSingleton<SequenceNumberGenerator, SequenceNumberGenerator>()
