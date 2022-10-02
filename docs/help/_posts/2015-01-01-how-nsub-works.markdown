@@ -62,7 +62,7 @@ Add the following code to an arbitrary `.cs`-file of the project that contains t
 ```
 
 #### Option 2. Use a tag in the project file (works with .NET 5 and above)
-Add an `ItemGroup` that contains the `InternalsVisibleTo`-element benath the `Project`-element in your `.csproj`-file.
+Add an `ItemGroup` that contains the `InternalsVisibleTo`-element beneath the `Project`-element in your `.csproj`-file.
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   ...
