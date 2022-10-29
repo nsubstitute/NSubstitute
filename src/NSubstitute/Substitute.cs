@@ -91,10 +91,18 @@ public static class Substitute
         return (T)substituteFactory.CreatePartial(new[] { typeof(T) }, constructorArguments);
     }
 
-        public static T ForPartsOf<T,TClass>(params object[] constructorArguments)
+        public static T ForTypeForwardingTo<T,TClass>(params object[] constructorArguments)
             where T : class
         {
             var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
             return (T)substituteFactory.CreatePartial(new[] { typeof(T), typeof(TClass) }, constructorArguments);
         }
+
+        //public static T ForTypeForwardingTo<T, T2, T3>(params object[] constructorArguments)
+        //    where T : class
+        //{
+        //    var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
+        //    return (T)substituteFactory.CreatePartial(new[] { typeof(T), typeof(TClass) }, constructorArguments);
+        //}
+
 }

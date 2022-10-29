@@ -168,7 +168,7 @@ public class CastleDynamicProxyFactory : IProxyFactory
         {
             if (!additionalInterfaces.All(x => x.GetTypeInfo().IsAssignableFrom(classType.GetTypeInfo())))
             {
-                throw new SubstituteException("The provided class doesn't implement all requested interfaces.");
+                throw new CanNotForwardCallsToClassNotImplementingInterfaceException(classType);
             }
         }
 
@@ -176,7 +176,7 @@ public class CastleDynamicProxyFactory : IProxyFactory
         {
             if (classType.GetTypeInfo().IsAbstract)
             {
-                throw new SubstituteException("The provided class is abstract.");
+                throw new CanNotForwardCallsToAbstractClassException(classType);
             }
     }
 
