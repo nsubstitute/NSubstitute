@@ -169,7 +169,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         {
             if (!additionalInterfaces.All(x => x.GetTypeInfo().IsAssignableFrom(classType.GetTypeInfo())))
             {
-                throw new SubstituteException("The provided class doesn't implement all requested interfaces.");
+                throw new CanNotForwardCallsToClassNotImplementingInterfaceException(classType);
             }
         }
 
@@ -177,7 +177,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
         {
             if (classType.GetTypeInfo().IsAbstract)
             {
-                throw new SubstituteException("The provided class is abstract.");
+                throw new CanNotForwardCallsToAbstractClassException(classType);
             }
         }
 
