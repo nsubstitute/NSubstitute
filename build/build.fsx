@@ -166,19 +166,16 @@ target "TestCodeFromDocs" <| fun _ ->
     let csproj = """
         <Project Sdk="Microsoft.NET.Sdk">
           <PropertyGroup>
-            <TargetFrameworks>netcoreapp2.1;net46</TargetFrameworks>
+            <TargetFrameworks>net6.0;net462</TargetFrameworks>
             <LangVersion>latest</LangVersion>
           </PropertyGroup>
           <ItemGroup>
-            <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
-            <PackageReference Include="NUnit" Version="3.8.1" />
-            <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
+            <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+            <PackageReference Include="NUnit" Version="3.13.3" />
+            <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
           </ItemGroup>
           <ItemGroup>
             <ProjectReference Include="..\..\..\src\NSubstitute\NSubstitute.csproj" />
-          </ItemGroup>
-          <ItemGroup>
-            <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
           </ItemGroup>
     </Project>
     """
