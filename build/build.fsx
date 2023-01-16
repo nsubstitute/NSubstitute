@@ -166,7 +166,7 @@ target "TestCodeFromDocs" <| fun _ ->
     let csproj = """
         <Project Sdk="Microsoft.NET.Sdk">
           <PropertyGroup>
-            <TargetFrameworks>netcoreapp2.1;net46</TargetFrameworks>
+            <TargetFrameworks>net6.0;net462</TargetFrameworks>
             <LangVersion>latest</LangVersion>
           </PropertyGroup>
           <ItemGroup>
@@ -176,9 +176,6 @@ target "TestCodeFromDocs" <| fun _ ->
           </ItemGroup>
           <ItemGroup>
             <ProjectReference Include="..\..\..\src\NSubstitute\NSubstitute.csproj" />
-          </ItemGroup>
-          <ItemGroup>
-            <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
           </ItemGroup>
     </Project>
     """
