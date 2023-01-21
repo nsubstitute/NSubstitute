@@ -1,9 +1,17 @@
 #r "paket:
+frameworks: net6.0
+source https://api.nuget.org/v3/index.json
+nuget Microsoft.Build 17.3.2
+nuget Microsoft.Build.Framework 17.3.2
+nuget Microsoft.Build.Tasks.Core 17.3.2
+nuget Microsoft.Build.Utilities.Core 17.3.2
+nuget FSharp.Core ~> 6.0
 nuget Fake.IO.FileSystem
 nuget Fake.DotNet
 nuget Fake.DotNet.Cli
 nuget Fake.Tools.Git
 nuget Fake.Core.Target //"
+
 #load ".fake/build.fsx/intellisense.fsx"
 #load @"ExtractDocs.fsx"
 // Workaround to make Intellisense work, see https://github.com/fsharp/FAKE/issues/1938
@@ -40,7 +48,7 @@ module FileReaderWriter =
 module ExamplesToCode =
     open FileReaderWriter
 
-    let ConvertFile file targetDir =
+    let ConvertFile (file: string) targetDir =
         let fileName = Path.GetFileNameWithoutExtension(file)
         let target = targetDir @@ fileName + ".cs"
         Trace.log <| sprintf "Converting %s to %s" file target
