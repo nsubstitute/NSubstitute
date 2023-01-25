@@ -1,3 +1,6 @@
+### 5.0.0 (Pending)
+* [UPDATE][BREAKING] Drop unsupported platfroms. Now suported platfroms are .NET 6+, .NET Framework 4.6.2+, .NET Standard 2.0
+
 ### 4.4.0 (Jul 2022)
 * [FIX] Fix issue checking for constructor args on null object. Thanks to @phongphanq, and @appel1! Thanks also to 
 @Mandroide for code review. (#683, #685)

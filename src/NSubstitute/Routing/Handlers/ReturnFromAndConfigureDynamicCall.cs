@@ -1,8 +1,6 @@
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using NSubstitute.Core;
+using System;
+using System.Runtime.CompilerServices;
 
 namespace NSubstitute.Routing.Handlers
 {
@@ -39,12 +37,7 @@ namespace NSubstitute.Routing.Handlers
             }
 
             bool isDynamic;
-#if SYSTEM_REFLECTION_CUSTOMATTRIBUTES_IS_ARRAY
             isDynamic = returnParameter.GetCustomAttributes(DynamicAttributeType, inherit: false).Length != 0;
-#else
-            var customAttributes = returnParameter.GetCustomAttributes(DynamicAttributeType, inherit: false);
-            isDynamic = customAttributes != null && customAttributes.Any();
-#endif
             return isDynamic;
         }
 
