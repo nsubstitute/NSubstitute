@@ -1,5 +1,7 @@
 5.0.0 Release
-Now suported platfroms are .NET 6+, .NET Framework 4.6.2+, .NET Standard 2.0
+================
+
+Drop unsupported platforms. Now supported platforms are .NET 6+, .NET Framework 4.6.2+, .NET Standard 2.0.
 
 4.0.0 Release
 ================
