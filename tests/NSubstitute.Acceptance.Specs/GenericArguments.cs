@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -34,5 +35,16 @@ public class GenericArguments
         Assert.That(whenDoCalled, Is.True);
         Assert.That(argDoResult, Is.EqualTo("3409"));
         Assert.That(whenDoResult, Is.EqualTo(3409));
+    }
+
+    [Test]
+    public void Throw_with_Do_AnyType()
+    {
+        string argDoResult = null;
+
+        ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
+
+        Assert.Throws<ArgumentException>(() =>
+            something.Log(Arg.Any<int>(), Arg.Do<Arg.AnyType>(a => argDoResult = a.ToString())));
     }
 }

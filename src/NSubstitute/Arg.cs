@@ -94,6 +94,7 @@ namespace NSubstitute
         /// </summary>
         public static ref T Do<T>(Action<T> useArgument)
         {
+            if (typeof(T) == typeof(AnyType)) throw new ArgumentException("Use DoForAny() instead of Do<AnyType>()");
             return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T) x!));
         }
 
@@ -187,6 +188,14 @@ namespace NSubstitute
             /// if possible use <see cref="Arg.Do{T}" /> instead.
             /// </summary>
             public static T Do<T>(Action<T> useArgument) => Arg.Do(useArgument);
+
+            /// <summary>
+            /// Capture any argument and use it to call the <paramref name="useArgument"/> function
+            /// whenever a matching call is made to the substitute.
+            /// This is provided for compatibility with older compilers --
+            /// if possible use <see cref="Arg.DoForAny" /> instead.
+            /// </summary>
+            public static AnyType DoForAny(Action<object> useArgument) => Arg.DoForAny(useArgument);
         }
 
         private static Action<object> InvokeDelegateAction(params object[] arguments)
