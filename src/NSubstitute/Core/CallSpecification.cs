@@ -37,7 +37,7 @@ namespace NSubstitute.Core
             {
                 return false;
             }
- 
+
             return true;
         }
 
@@ -47,12 +47,12 @@ namespace NSubstitute.Core
             {
                 return true;
             }
-            
+
             if (a.IsGenericMethod && b.IsGenericMethod)
             {
                 return CanCompareGenericMethods(a, b);
             }
-            
+
 	        return false;
 		}
 
@@ -77,7 +77,8 @@ namespace NSubstitute.Core
 	            var first = aArgs[i];
 	            var second = bArgs[i];
 
-	            var areEquivalent = first.IsAssignableFrom(second) || second.IsAssignableFrom(first);
+                var areEquivalent = first.IsAssignableFrom(second) || second.IsAssignableFrom(first) ||
+                                    first == typeof(Arg.AnyType) || second == typeof(Arg.AnyType);
 	            if (!areEquivalent) return false;
 	        }
 	        return true;
