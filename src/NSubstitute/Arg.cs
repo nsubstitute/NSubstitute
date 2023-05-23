@@ -1,6 +1,8 @@
 using System;
 using System.Linq.Expressions;
+using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
+using NSubstitute.Exceptions;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
@@ -94,7 +96,12 @@ namespace NSubstitute
         /// </summary>
         public static ref T Do<T>(Action<T> useArgument)
         {
-            if (typeof(T) == typeof(AnyType)) throw new ArgumentException("Use DoForAny() instead of Do<AnyType>()");
+            if (typeof(T) == typeof(AnyType))
+            {
+                SubstitutionContext.Current.ThreadContext.DequeueAllArgumentSpecifications();
+                throw new DoAnyTypeException();
+            }
+
             return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T) x!));
         }
 

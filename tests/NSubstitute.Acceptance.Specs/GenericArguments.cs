@@ -1,4 +1,4 @@
-﻿using System;
+﻿using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs;
@@ -40,11 +40,9 @@ public class GenericArguments
     [Test]
     public void Throw_with_Do_AnyType()
     {
-        string argDoResult = null;
-
         ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
 
-        Assert.Throws<ArgumentException>(() =>
-            something.Log(Arg.Any<int>(), Arg.Do<Arg.AnyType>(a => argDoResult = a.ToString())));
+        Assert.Throws<DoAnyTypeException>(() =>
+            something.Log(Arg.Any<int>(), Arg.Do<Arg.AnyType>(a => _ = a.ToString())));
     }
 }
