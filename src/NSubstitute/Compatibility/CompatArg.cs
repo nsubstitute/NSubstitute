@@ -3,6 +3,8 @@ using System.Linq.Expressions;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
+#pragma warning disable CS1574
+#pragma warning disable CS0419
 
 namespace NSubstitute.Compatibility
 {
@@ -100,11 +102,9 @@ namespace NSubstitute.Compatibility
         public T Do<T>(Action<T> useArgument) => Arg.Do(useArgument);
 
         /// <summary>
-        /// Capture any argument and use it to call the <paramref name="useArgument"/> function
+        /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
         /// whenever a matching call is made to the substitute.
-        /// This is provided for compatibility with older compilers --
-        /// if possible use <see cref="Arg.DoForAny" /> instead.
         /// </summary>
-        public static Arg.AnyType DoForAny(Action<object> useArgument) => Arg.DoForAny(useArgument);
+        public static Arg.AnyType Do<T>(Action<object> useArgument) where T : Arg.AnyType => Arg.Do<T>(useArgument);
     }
 }

@@ -1,11 +1,11 @@
 using System;
 using System.Linq.Expressions;
-using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
-using NSubstitute.Exceptions;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
+#pragma warning disable CS1574
+#pragma warning disable CS0419
 
 namespace NSubstitute
 {
@@ -14,7 +14,9 @@ namespace NSubstitute
     /// </summary>
     public static class Arg
     {
-        public class AnyType { }
+        public class AnyType
+        {
+        }
 
         /// <summary>
         /// Match any argument value compatible with type <typeparamref name="T"/>.
@@ -96,20 +98,14 @@ namespace NSubstitute
         /// </summary>
         public static ref T Do<T>(Action<T> useArgument)
         {
-            if (typeof(T) == typeof(AnyType))
-            {
-                SubstitutionContext.Current.ThreadContext.DequeueAllArgumentSpecifications();
-                throw new DoAnyTypeException();
-            }
-
             return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T) x!));
         }
 
         /// <summary>
-        /// Capture any argument and use it to call the <paramref name="useArgument"/> function
+        /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
         /// whenever a matching call is made to the substitute.
         /// </summary>
-        public static ref AnyType DoForAny(Action<object> useArgument)
+        public static ref AnyType Do<T>(Action<object> useArgument) where T : AnyType
         {
             return ref ArgumentMatcher.Enqueue<AnyType>(new AnyArgumentMatcher(typeof(AnyType)), x => useArgument(x!));
         }
@@ -194,15 +190,13 @@ namespace NSubstitute
             /// This is provided for compatibility with older compilers --
             /// if possible use <see cref="Arg.Do{T}" /> instead.
             /// </summary>
-            public static T Do<T>(Action<T> useArgument) => Arg.Do(useArgument);
+            public static T Do<T>(Action<T> useArgument) => Arg.Do<T>(useArgument);
 
             /// <summary>
-            /// Capture any argument and use it to call the <paramref name="useArgument"/> function
+            /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
             /// whenever a matching call is made to the substitute.
-            /// This is provided for compatibility with older compilers --
-            /// if possible use <see cref="Arg.DoForAny" /> instead.
             /// </summary>
-            public static AnyType DoForAny(Action<object> useArgument) => Arg.DoForAny(useArgument);
+            public static AnyType Do<T>(Action<object> useArgument) where T : AnyType => Arg.Do<T>(useArgument);
         }
 
         private static Action<object> InvokeDelegateAction(params object[] arguments)
