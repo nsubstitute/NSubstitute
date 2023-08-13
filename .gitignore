@@ -26,6 +26,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+buildOutput
 
 # VS Code directory
 .vscode/
