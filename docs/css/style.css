@@ -223,3 +223,25 @@ code {
 .highlight .s1 { color: #a31515 } /* Literal.String.Single */
 .highlight .ss { color: #a31515 } /* Literal.String.Symbol */
 /* End pygments vs style */
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+  
+.tooltip .tooltiptext {
+    visibility: hidden;
+    color: #365f91;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+    white-space: nowrap;
+    font-size: 0.8em;
+    transition: 0.3s ease;
+}
+
+.tooltip .tooltiptext-hidden {
+    visibility: hidden;
+}

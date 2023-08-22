@@ -3,7 +3,7 @@ title: Getting started
 layout: post
 ---
 
-## Adding NSubstitute to your test project 
+## [Adding NSubstitute to your test project](#adding-nsubstitute-to-your-test-project)
 
 First add the [NSubstitute NuGet package](https://nuget.org/List/Packages/NSubstitute) to your test project using [NuGet](https://docs.microsoft.com/en-us/nuget/quickstart/use-a-package) (either the command line executable, or via the package manager in your IDE).
 
@@ -15,7 +15,7 @@ It is optional but recommended to also install [NSubstitute.Analyzers.CSharp](ht
     // or
     > Install-Package NSubstitute.Analyzers.VisualBasic
 
-## Using NSubstitute in a test fixture
+## [Using NSubstitute in a test fixture](#using-nsubstitute-in-a-test-fixture)
 
 So now you are staring at a blank test fixture (created with your favourite unit testing framework; for these examples we're using [NUnit](https://nunit.org/)), and are wondering where to start. 
 
