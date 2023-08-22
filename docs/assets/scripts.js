@@ -1,13 +1,10 @@
 window.onload = () => {
-    const headers = document.querySelectorAll("h2");
+    const headers = document.querySelectorAll('h2');
     headers.forEach(header => {
         header.classList.add('tooltip');
-        const tooltip = document.createElement("span");
-        tooltip.classList.add('tooltiptext-hidden')
-        tooltip.classList.add('tooltiptext')
-        tooltip.innerHTML = 'copied';
-        header.appendChild(tooltip);
-        header.addEventListener("click", () => copyUrl(header, tooltip), true);
+        const tooltipText = createTooltipTextElement();
+        header.appendChild(tooltipText);
+        header.addEventListener('click', () => copyUrl(header, tooltipText), true);
     });
 }
 
@@ -17,4 +14,12 @@ const copyUrl = (header, tooltip) => {
     setTimeout(() => {
       tooltip.classList.add('tooltiptext-hidden');
       }, 500);
+}
+
+const createTooltipTextElement = () => {
+  const tooltip = document.createElement('span');
+  tooltip.classList.add('tooltiptext-hidden')
+  tooltip.classList.add('tooltiptext')
+  tooltip.innerHTML = 'copied to clipboard';
+  return tooltip;
 }
