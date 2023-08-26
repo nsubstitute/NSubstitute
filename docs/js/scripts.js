@@ -1,7 +1,6 @@
 window.onload = () => {
     const headers = document.querySelectorAll('h2');
     headers.forEach(header => {
-        header.classList.add('tooltip');
         const tooltipText = createTooltipTextElement();
         header.appendChild(tooltipText);
         header.addEventListener('click', () => {
@@ -31,5 +30,5 @@ const displayTooltipText = (tooltip) => {
   tooltip.classList.remove('tooltiptext-hidden');
   setTimeout(() => {
     tooltip.classList.add('tooltiptext-hidden');
-    }, 800);
+    }, 1000);
 }
