@@ -25,7 +25,7 @@ Assert.AreEqual("BIN", calculator.Mode);
 
 This can also be achieved by [returning from a function](/help/return-from-function), but passing multiple values to `Returns()` is simpler and reads better.
 
-## Multiple returns using callbacks
+## [Multiple returns using callbacks](#multiple-returns-using-callbacks)
 
 `Returns()` also supports passing multiple [functions to return from](/help/return-from-function), which allows one call in a sequence to throw an exception or perform some other action. 
 
@@ -36,7 +36,7 @@ Assert.AreEqual("HEX", calculator.Mode);
 Assert.Throws<Exception>(() => { var result = calculator.Mode; });
 ```
 
-## Configuring other calls without using up multiple returns
+## [Configuring other calls without using up multiple returns](#configuring-other-calls-without-using-up-multiple-returns)
 
 If a call has been configured with multiple returns values, you can configure a more specific call without using up any of these callbacks using [`.Configure()`](/help/configure/).
 

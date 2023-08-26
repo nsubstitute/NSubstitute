@@ -11,7 +11,7 @@ var substitute = Substitute.For<ISomeInterface>();
 
 This is how you'll normally create substitutes for types. Generally this type will be an interface, but you can also substitute classes in cases of emergency.
 
-## Substituting (infrequently and carefully) for classes
+## [Substituting (infrequently and carefully) for classes](#substituting-infrequently-and-carefully-for-classes)
 
 ⚠️ **Warning:** Substituting for classes can have some nasty side-effects!
 
@@ -29,7 +29,7 @@ var someClass = Substitute.For<SomeClassWithCtorArgs>(5, "hello world");
 
 For classes that have default constructors the syntax is the same as substituting for interfaces.
 
-## Substituting for multiple interfaces
+## [Substituting for multiple interfaces](#substituting-for-multiple-interfaces)
 
 There are times when you want to substitute for multiple types. The best example of this is when you have code that works with a type, then checks whether it implements <code>IDisposable</code> and disposes of it if it doesn't.
 
@@ -85,7 +85,7 @@ public class CommandRunner
 ```
 -->
 
-## Substituting for delegates
+## [Substituting for delegates](#substituting-for-delegates)
 
 NSubstitute can also substitute for delegate types by using `Substiute.For<T>()`. When substituting for delegate types you will not be able to get the substitute to implement additional interfaces or classes.
 
@@ -96,7 +96,7 @@ func().Returns("hello");
 Assert.AreEqual("hello", func());
 ```
 
-## Partial substitutes and test spies
+## [Partial substitutes and test spies](#partial-substitutes-and-test-spies)
 
 When required we can also create substitutes that run real code by default, letting us replace [specific parts of a class with substitute behaviour](/help/partial-subs/).
 

@@ -1,5 +1,5 @@
 window.onload = () => {
-    const headers = document.querySelectorAll('h2');
+    const headers = document.querySelectorAll('h1, h2, h3, h4');
     headers.forEach(header => {
         const tooltip = createTooltip();
         header.appendChild(tooltip);

@@ -12,10 +12,10 @@ The NSubstitute NuGet package will work fine without any additional packages, bu
 * [NSubstitute.Analyzers.CSharp](https://www.nuget.org/packages/NSubstitute.Analyzers.CSharp/) for C# projects
 * [NSubstitute.Analyzers.VisualBasic](https://www.nuget.org/packages/NSubstitute.Analyzers.VisualBasic/) for VB projects
 
-## Diagnostics
+## [Diagnostics](#diagnostics)
 
 See [NSubstitute.Analyzers documentation](https://github.com/nsubstitute/NSubstitute.Analyzers/tree/dev/documentation) for a list of the potential issues NSubstitute.Analyzers can help detect.
 
-## Spelling
+## [Spelling](#spelling)
 
 The Australian members of our team would like to point out they would have preferred to use the English spelling `NSubstitute.Analysers` for this project, but have begrudgingly agreed to use the American (mis)spelling instead. :)

@@ -19,7 +19,7 @@ ICalculator calculator;
 ```
 -->
 
-## For methods
+## [For methods](#for-methods)
 To set a return value for a method call on a substitute, call the method as normal, then follow it with a call to NSubstitute's `Returns()` extension method.
 
 ```csharp
@@ -39,7 +39,7 @@ Assert.AreEqual(calculator.Add(1, 2), 3);
 Assert.AreNotEqual(calculator.Add(3, 6), 3);
 ```
 
-## For properties
+## [For properties](#for-properties)
 The return value for a property can be set in the same way as for a method, using `Returns()`. You can also just use plain old property setters for read/write properties; they'll behave just the way you expect them to.
 
 ```csharp
@@ -51,6 +51,7 @@ Assert.AreEqual(calculator.Mode, "HEX");
 ```
 
 
-## More ways of setting return values
+## [More ways of setting return values](#more-ways-of-setting-return-values)
+
 This covers the very basics of setting a return value, but NSubstitute can do much more. Read on for other approachs, including [matching specific arguments](/help/return-for-args), [ignoring arguments](/help/return-for-any-args), using [functions to calculate return values](/help/return-from-function) and returning [multiple results](/help/multiple-returns).
 

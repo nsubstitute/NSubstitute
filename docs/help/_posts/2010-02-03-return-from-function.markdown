@@ -28,7 +28,7 @@ Assert.That(calculator.Add(-73, 9348), Is.EqualTo(9275));
 
 In this example [argument matchers](/help/argument-matchers) are used to match all calls to `Add()`, and a lambda function is used to return the sum of the first and second arguments passed to the call.
 
-### Call information
+### [Call information](#call-information)
 The function we provide to `Returns()` and `ReturnsForAnyArgs()` is of type `Func<CallInfo,T>`, where `T` is the type the call is returning, and `CallInfo` is a type which provides access to the arguments used for the call. In the previous example we accessed these arguments using an indexer (`x[1]` for the second argument). `CallInfo` also has a couple of convenience methods to pick arguments in a strongly typed way:
 
 * `T Arg<T>()`: Gets the argument of type `T` passed to this call.
@@ -48,7 +48,7 @@ Assert.That(foo.Bar(1, "World"), Is.EqualTo("Hello World"));
 
 Here `x.Arg<string>()` will return the `string` argument passed to the call, rather than having to use `(string) x[1]`. If there are two `string` arguments to a call, NSubstitute will throw an exception and let you know that it can't work out which argument you mean.
 
-### Callbacks
+### [Callbacks](#callbacks)
 
 This technique can also be used to get a callback whenever a call is made:
 

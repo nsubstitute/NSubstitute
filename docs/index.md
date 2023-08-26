@@ -5,7 +5,7 @@ title: A friendly substitute for .NET mocking libraries
 
 <div id="features">
 <div class="feature" markdown="1">
-<h2>Simple, succinct, pleasant to use</h2>
+<h2 id="simple-succinct-pleasant-to-use"><a href="#simple-succinct-pleasant-to-use">Simple, succinct, pleasant to use</a></h2>
 
 ```csharp
 //Create:
@@ -36,7 +36,7 @@ calculator.PoweringUp += Raise.Event();
 </div>
 
 <div class="feature">
-<h2>Helpful exceptions</h2>
+<h2 id="helpful-exceptions"><a href="#helpful-exceptions">Helpful exceptions</a></h2>
 <div class="highlight">
 <pre>
 ReceivedCallsException : Expected to receive a call matching:
@@ -49,7 +49,7 @@ Received 2 non-matching calls (non-matching arguments indicated with '*' charact
 </div>
 
 <div class="feature">
-<h2>Don't sweat the small stuff</h2>
+<h2 id="dont-seat-the-small-stuff"><a href="#dont-seat-the-small-stuff">Don't sweat the small stuff</a></h2>
 <p>Mock, stub, fake, spy, test double? Strict or loose? Nah, just substitute for the type you need!</p>
 <p>NSubstitute is designed for Arrange-Act-Assert (AAA) testing, so you just need to arrange how it should work, then assert it received the calls you expected once you're done. Because you've got more important code to write than whether you need a mock or a stub.</p>
 </div>

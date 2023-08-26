@@ -53,7 +53,7 @@ engine.Idling += Raise.Event();
 Assert.True(wasCalled);
 ```
 
-## Raising events when arguments do not have a default constructor
+## [Raising events when arguments do not have a default constructor](#raising-events-when-arguments-do-not-have-a-default-constructor)
 
 NSubstitute will not always be able to create the event arguments for you. If your event args do not have a default constructor you will have to provide them yourself using `Raise.EventWith<TEventArgs>(...)`, as is the case for the `LowFuelWarning` event. NSubstitute will still create the sender for you if you don't provide it though.
 
@@ -68,7 +68,7 @@ engine.LowFuelWarning += Raise.EventWith(new object(), new LowFuelWarningEventAr
 Assert.AreEqual(2, numberOfEvents);
 ```
 
-## Raising `Delegate` events
+## [Raising `Delegate` events](#raising-delegate-events)
 
 Sometimes events are declared with a _delegate_ that does not inherit from `EventHandler<T>` or `EventHandler`. These events can be raised using `Raise.Event<TypeOfEventHandlerDelegate>(arguments)`. NSubsitute will try and guess the arguments required for the delegate, but if it can't it will tell you what arguments you need to supply.
 
@@ -85,7 +85,7 @@ Assert.That(wasCalled);
 ```
 
 
-## Raising `Action` events
+## [Raising `Action` events](#raising-action-events)
 In the `IEngine` example the `RevvedAt` event is declared as an `Action<int>`. This is another example of a delegate event, and we can use `Raise.Event<Action<int>>()` to raise our event.
 
 ```csharp

@@ -43,7 +43,7 @@ string TestWidget = "test widget";
 ```
 -->
 
-## Ignoring arguments
+## [Ignoring arguments](#ignoring-arguments)
 An argument of type `T` can be ignored using `Arg.Any<T>()`.
 
 ```csharp
@@ -67,7 +67,7 @@ formatter.Received().Format(Arg.Any<string>());
 formatter.DidNotReceive().Format(Arg.Any<int>());
 ```
 
-## Conditionally matching an argument
+## [Conditionally matching an argument](#conditionally-matching-an-argument)
 An argument of type `T` can be conditionally matched using `Arg.Is<T>(Predicate<T> condition)`.
 
 ```csharp
@@ -95,7 +95,8 @@ Assert.AreNotEqual("matched", formatter.Format("not matched, too long"));
 Assert.AreNotEqual("matched", formatter.Format(null));
 ```
 
-## Matching a specific argument
+## [Matching a specific argument](#matching-a-specific-argument)
+
 An argument of type `T` can be matched using `Arg.Is<T>(T value)`.
 
 ```csharp
@@ -109,7 +110,8 @@ calculator.Received().Add(Arg.Is(0), Arg.Any<int>());
 
 This matcher normally isn't required; most of the time we can just use `0` instead of `Arg.Is(0)`. In some cases though, NSubstitute can't work out which matcher applies to which argument (arg matchers are actually fuzzily matched; not passed directly to the function call). In these cases it will throw an `AmbiguousArgumentsException` and ask you to specify one or more additional argument matchers. In some cases you may have to explicitly use argument matchers for every argument.
 
-## Matching `out` and `ref` args
+## [Matching `out` and `ref` args](#matching-out-and-ref-args)
+
 
 Argument matchers can also be used with `out` and `ref` (NSubstitute 4.0 and later with C# 7.0 and later).
 
@@ -128,11 +130,11 @@ Assert.AreEqual(42, memoryValue);
 
 See [Setting out and ref args](/help/setting-out-and-ref-arguments/) for more information on working with `out` and `ref`.
 
-## How NOT to use argument matchers
+## [How NOT to use argument matchers](#how-not-to-use-argument-matchers)
 
 Occasionally argument matchers get used in ways that cause unexpected results for people. Here are the most common ones.
 
-### Using matchers outside of stubbing or checking received calls
+### [Using matchers outside of stubbing or checking received calls](#using-matchers-outside-of-stubbing-or-checking-received-calls)
 
 Argument matchers should only be used when specifying calls for the purposes of setting return values, checking received calls, or configuring callbacks (for example: with `Returns`, `Received` or `When`). Using `Arg.Is` or `Arg.Any` in other situations can cause your tests to behave in unexpected ways.
 
@@ -209,7 +211,7 @@ Assert.AreEqual(new[] { "Test Widget" }, testLog);
 Assert.AreEqual(new[] { "Test Widget" }, testLog2);
 ```
 
-### Modifying values being matched
+### [Modifying values being matched](#modifying-values-being-matched)
 
 When NSubstitute records calls, it keeps a reference to the arguments passed, not a deep clone of each argument at the time of the call. This means that if the properties of an argument change after the call assertions may not behave as expected.
 
