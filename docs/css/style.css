@@ -188,7 +188,7 @@ h2 {
     margin-bottom: 0.3em;
 }
   
-.tooltiptext {
+.tooltip {
     visibility: visible;
     color: #365f91;
     background-color: #ECF0F5;
@@ -201,7 +201,7 @@ h2 {
     border-radius: 30px;
 }
 
-.tooltiptext-hidden {
+.tooltip-hidden {
     visibility: hidden;
 }
 

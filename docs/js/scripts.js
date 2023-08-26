@@ -1,25 +1,25 @@
 window.onload = () => {
     const headers = document.querySelectorAll('h2');
     headers.forEach(header => {
-        const tooltipText = createTooltipTextElement();
-        header.appendChild(tooltipText);
+        const tooltip = createTooltip();
+        header.appendChild(tooltip);
         header.addEventListener('click', () => {
-          handleClickEvent(header, tooltipText);
+          handleClickEvent(header, tooltip);
         }, true);
     });
 }
 
-const createTooltipTextElement = () => {
+const createTooltip = () => {
   const tooltip = document.createElement('span');
-  tooltip.classList.add('tooltiptext-hidden')
-  tooltip.classList.add('tooltiptext')
+  tooltip.classList.add('tooltip-hidden')
+  tooltip.classList.add('tooltip')
   tooltip.innerHTML = 'copied to clipboard';
   return tooltip;
 }
 
-const handleClickEvent = (header, tooltipText) => {
+const handleClickEvent = (header, tooltip) => {
   copyUrl(header);
-  displayTooltipText(tooltipText);
+  displayTooltipText(tooltip);
 }
 
 const copyUrl = (header) => {
@@ -27,8 +27,8 @@ const copyUrl = (header) => {
 }
 
 const displayTooltipText = (tooltip) => {
-  tooltip.classList.remove('tooltiptext-hidden');
+  tooltip.classList.remove('tooltip-hidden');
   setTimeout(() => {
-    tooltip.classList.add('tooltiptext-hidden');
+    tooltip.classList.add('tooltip-hidden');
     }, 1000);
 }
