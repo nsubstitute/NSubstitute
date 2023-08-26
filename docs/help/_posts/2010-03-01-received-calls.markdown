@@ -79,7 +79,6 @@ We can also use `Received(1)` to check a call was received once and only once. T
 
 ## [Received (or not) with specific arguments](#received-or-not-with-specific-arguments)
 
-
 <!--
 ```requiredcode
 public interface ICalculator {

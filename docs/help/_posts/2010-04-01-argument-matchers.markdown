@@ -96,7 +96,6 @@ Assert.AreNotEqual("matched", formatter.Format(null));
 ```
 
 ## [Matching a specific argument](#matching-a-specific-argument)
-
 An argument of type `T` can be matched using `Arg.Is<T>(T value)`.
 
 ```csharp
@@ -111,7 +110,6 @@ calculator.Received().Add(Arg.Is(0), Arg.Any<int>());
 This matcher normally isn't required; most of the time we can just use `0` instead of `Arg.Is(0)`. In some cases though, NSubstitute can't work out which matcher applies to which argument (arg matchers are actually fuzzily matched; not passed directly to the function call). In these cases it will throw an `AmbiguousArgumentsException` and ask you to specify one or more additional argument matchers. In some cases you may have to explicitly use argument matchers for every argument.
 
 ## [Matching `out` and `ref` args](#matching-out-and-ref-args)
-
 
 Argument matchers can also be used with `out` and `ref` (NSubstitute 4.0 and later with C# 7.0 and later).
 

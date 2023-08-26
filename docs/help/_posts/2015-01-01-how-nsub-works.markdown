@@ -55,7 +55,6 @@ The first possibility is to change the visibility of the member or type that sha
 The second possibility is to make the `internal` members and types visible to your test-assembly and to the library that NSubstitute uses under the hood. For this you need to _allow_ specific assemblies to accesss the `internal`s. You can do this by either adding an attribute to the assembly that contains the `internal`s or add an annotation to your project file.
 
 #### [Option 1. Use an assembly attribute](#option-1-use-an-assembly-attribute)
-
 Add the following code to an arbitrary `.cs`-file of the project that contains the `internal` types.
 ```
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DynamicProxyGenAssembly2")]

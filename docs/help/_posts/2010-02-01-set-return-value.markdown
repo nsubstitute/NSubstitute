@@ -52,6 +52,5 @@ Assert.AreEqual(calculator.Mode, "HEX");
 
 
 ## [More ways of setting return values](#more-ways-of-setting-return-values)
-
 This covers the very basics of setting a return value, but NSubstitute can do much more. Read on for other approachs, including [matching specific arguments](/help/return-for-args), [ignoring arguments](/help/return-for-any-args), using [functions to calculate return values](/help/return-from-function) and returning [multiple results](/help/multiple-returns).
 
