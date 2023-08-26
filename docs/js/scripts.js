@@ -23,7 +23,7 @@ const handleClickEvent = (header, tooltip) => {
 }
 
 const copyUrl = (header) => {
-    navigator.clipboard.writeText(header.firstChild.href);
+  navigator.clipboard.writeText(header.firstChild.href);
 }
 
 const displayTooltipText = (tooltip) => {
