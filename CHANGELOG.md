@@ -1,3 +1,7 @@
+### 5.1.0 (unreleased)
+
+* [NEW] Add `Arg.AnyType` for matching calls with generic parameters. Thanks @icalvo! (#634, #715)
+
 ### 5.0.0 (Feb 2023)
 
 * [UPDATE][BREAKING] Drop unsupported platforms. Now supported platforms are .NET 6+, .NET Framework 4.6.2+, .NET Standard 2.0.
