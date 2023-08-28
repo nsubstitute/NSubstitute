@@ -31,11 +31,11 @@ Assert.AreEqual(counter, 3);
 
 The [Return from a function](/help/return-from-function) topic has more information on the arguments passed to the callback.
 
-## [Callbacks for `void` calls](#callbacks-for-void-calls)
+## Callbacks for `void` calls
 
 `Returns()` can be used to get callbacks for members that return a value, but for `void` members we need a different technique, because we can't call a method on a `void` return. For these cases we can use the `When..Do` syntax.
 
-## [When called, do this](#when-called-do-this)
+## When called, do this
 
 `When..Do` uses two calls to configure our callback. First, `When()` is called on the substitute and passed a function. The argument to the function is the substitute itself, and we can call the member we are interested in here, even if it returns `void`. We then call `Do()` and pass in our callback that will be executed when the substitute's member is called.
 
@@ -72,14 +72,14 @@ Assert.AreEqual(3, result);
 Assert.AreEqual(1, counter);
 ```
 
-## [Per argument callbacks](#per-argument-callbacks)
+## Per argument callbacks
 
 In cases where we only need callbacks for a particular argument we may be able to use [per argument callbacks like `Arg.Do()` and `Arg.Invoke()`](/help/actions-with-arguments) instead of `When..Do`. 
 
 Argument callbacks give us slightly more concise code in a style that is more in keeping with the rest of the NSubstitute API. See [Actions with arguments](/help/actions-with-arguments) for more information and examples.
 
 
-## [Callback builder for more complex callbacks](#callback-builder-for-more-complex-callbacks)
+## Callback builder for more complex callbacks
 
 The `Callback` builder lets us create more complex `Do()` scenarios.  We can use `Callback.First()` followed by `Then()`, `ThenThrow()` and `ThenKeepDoing()` to build chains of callbacks. We can also use `Always()` and `AlwaysThrow()` to specify callbacks called every time. Note that a callback set by an `Always()` method will be called even if other callbacks will throw an exception.
 
@@ -112,4 +112,3 @@ for (int i = 0; i < 5; i++)
 Assert.That(String.Concat(calls), Is.EqualTo("123++"));
 Assert.That(counter, Is.EqualTo(5));
 ```
-

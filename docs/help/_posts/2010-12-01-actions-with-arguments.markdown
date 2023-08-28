@@ -7,7 +7,7 @@ In addition to [specifying calls](/help/argument-matchers), matchers can also be
 
 _Warning:_ Once we start adding non-trivial behaviour to our substitutes we run the risk of over-specifying or tightly coupling our tests and code. It may be better to pick a different abstraction that better encapsulates this behaviour, or even use a real collaborator and switch to coarser grained tests for the class being tested.
 
-## [Invoking callbacks](#invoking-callbacks)
+## Invoking callbacks
 
 Say our class under test needs to call a method on a dependency, and provide a callback so it can be notified when the dependent object has finished. We can use `Arg.Invoke()` to immediately invoke the callback argument as soon as the substitute is called.
 
@@ -67,7 +67,7 @@ Here we setup the `processor` to invoke the callback whenever processing an orde
 
 There are several overloads to `Arg.Invoke` that let us invoke callbacks with varying numbers and types of arguments. We can also invoke custom delegate types (those that are not just simple `Action` delegates) using `Arg.InvokeDelegate`.
 
-## [Performing actions with arguments](#performing-actions-with-arguments)
+## Performing actions with arguments
 
 Sometimes we may not want to invoke a callback immediately. Or maybe we want to store all instances of a particular argument passed to a method. Or even just capture a single argument for inspection later. We can use `Arg.Do` for these purposes. `Arg.Do` calls the action we give it with the argument used for each matching call.
 
@@ -103,7 +103,7 @@ Assert.AreEqual(firstArgsBeingMultiplied, new[] { 2, 5 });
 
 Here our `Arg.Do` takes whatever `int` is passed as the first argument to `Multiply` and adds it to a list whenever the second argument is 10.
 
-## [Argument actions and call specification](#argument-actions-and-call-specification)
+## Argument actions and call specification
 
 Argument actions act just like the [`Arg.Any<T>()` argument matcher](/help/argument-matchers) in that they specify a call where that argument is any type compatible with `T` (and so can be used for [setting return values](/help/return-for-args) and [checking received calls](/help/received-calls)). They just have the added element of interacting with a specific argument of any call that matches that specification.
 
@@ -128,4 +128,3 @@ var results = new[] {
 Assert.AreEqual(3, numberOfCallsWhereFirstArgIsLessThan0); //3 of 4 calls have first arg < 0
 Assert.AreEqual(results, new[] {123, 123, 123, 0}); //Last call returns 0, not 123
 ```
-

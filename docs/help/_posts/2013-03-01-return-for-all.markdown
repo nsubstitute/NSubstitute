@@ -11,7 +11,7 @@ The type must match exactly: `.ReturnsForAll<Cat>(cat)` will not set a return va
 
 There is also an overload that takes a `Func<CallInfo,T>` so the value to return will be calculated each time.
 
-## [Fluent interface example](#fluent-interface-example)
+## Fluent interface example
 
 One example of where this can be useful is a builder-style interface where each call returns a reference to itself.
 
@@ -59,7 +59,7 @@ public void ShouldReturnWidgetsFromBuilder() {
 
 In this test `builder` will return a reference to itself whenever a call returns a value of type `IWidgetBuilder`, so the chained calls will all work on the same `builder` instance.
 
-## [Returns vs. ReturnsForAll](#returns-vs-returnsforall)
+## Returns vs. ReturnsForAll
 
 Calls will only use `.ReturnsForAll` values when NSubstitute can't find an explicitly stubbed value for the call. So if we set `sub.GetWidget().Returns(widget)`, that will take precendence over any values stubbed by `sub.ReturnsForAll<Widget>(otherWidget)`.
 

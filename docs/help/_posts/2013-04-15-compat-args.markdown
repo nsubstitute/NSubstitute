@@ -23,7 +23,7 @@ ICalculator calculator;
 ```
 -->
 
-## [Using `Arg.Compat`](#using-argcompat)
+## Using `Arg.Compat`
 
 The simplest work-around if you are stuck on pre-C#7 is to use `Arg.Compat.` wherever you would normally use `Arg.`. To migrate existing code, replace all instances of `Arg.` with `Arg.Compat.`.
 
@@ -43,7 +43,7 @@ calculator.Add(Arg.Compat.Any<int>(), Arg.Compat.Is(42)).Returns(123);
 calculator.DidNotReceive().Add(Arg.Compat.Is<int>(x => x > 10), -10);
 ```
 
-## [Using `NSubstitute.Compatibility.CompatArg`](#using-nsubstitutecompatibilitycompatarg)
+## Using `NSubstitute.Compatibility.CompatArg`
 
 If you have a project with lots of existing arg matchers then migrating to `Arg.Compat` can require a lot of code changes. A smaller change is to instead use an instance of the `CompatArg` class in the `NSubstitute.Compatibility` namespace. This approach may also make it easier to upgrade to the newer `Arg` matchers in future.
 
@@ -81,7 +81,7 @@ public class BaseTestFixture {
 
 If you are later able to update the C# compiler your project is using, you can remove the `CompatArg` field and all `Arg` references will go through standard arg matchers (and you'll now be able to use them with `out` and `ref` parameters!).
 
-## [Argument matchers in expression trees](#argument-matchers-in-expression-trees)
+## Argument matchers in expression trees
 
 As of NSubstitute 4.0 argument matchers can no longer be used in expression trees. Doing so will cause a compilation error:
 
@@ -116,5 +116,3 @@ public void Sample() {
     sub.Received().DoStuff(Arg.Any<int>());
 }
 ```
-
-

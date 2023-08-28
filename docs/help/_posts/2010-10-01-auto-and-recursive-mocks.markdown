@@ -7,7 +7,7 @@ Once a substitute has been created some properties and methods will automaticall
 
 _* Note:_ A pure virtual class is defined as one with all its public methods and properties defined as _virtual_ or _abstract_ and with a default, parameterless constructor defined as _public_ or _protected_.
 
-## [Recursive mocks](#recursive-mocks)
+## Recursive mocks
 
 Say we have the following types:
 
@@ -64,7 +64,7 @@ Assert.AreNotSame(firstCall, thirdCallWithDiffArg);
 
 _Note:_ Recursive substitutes will not be created for  non-purely virtual classes, as creating and using classes can have potentially unwanted side-effects. You'll therefore need to create and return these explicitly.
 
-### [Substitute chains](#substitute-chains)
+### Substitute chains
 
 It is not really an ideal practice, but when required we can also use recursive mocks to make it easier to set up chains of substitutes. For example:
 
@@ -96,7 +96,7 @@ Here `CurrentRequest` is automatically going to return a substitute for `IReques
 
 _Note:_ Setting up long chains of substitutes this way is a code smell: we are breaking the [Law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter), which says objects should only talk to their immediate neighbours, not reach into their neighbours' neighbours. If you write your tests without recursive mocks this becomes quite obvious as the set up becomes quite complicated, so if you are going to use recursive mocking you'll need to be extra vigilant to avoid this type of coupling.
 
-## [Auto values](#auto-values)
+## Auto values
 Properties and methods returning types of `String` or `Array` will automatically get empty, non-null defaults. This can help avoid null reference exceptions in cases where you just need a reference returned but don't care about its specific properties.
 
 ```csharp
@@ -104,8 +104,3 @@ var identity = Substitute.For<IIdentity>();
 Assert.AreEqual(String.Empty, identity.Name);
 Assert.AreEqual(0, identity.Roles().Length);
 ```
-
-
-
-
-

@@ -7,7 +7,7 @@ Partial substitutes allow us to create an object that acts like a real instance 
 
 **WARNING:** Partial substitutes will be calling your class' **real code by default**, so if you are not careful it is possible for this code to run **even while you are configuring specific methods to be substituted**! For this reason partial substitutes are not generally recommended, so avoid them where possible (especially if your code deletes files, contacts payment gateways, or initiates underground lair self-destruct routines). In some cases they can be quite handy though; just be sure to handle with care.
 
-## [Replacing a single method](#replacing-a-single-method)
+## Replacing a single method
 
 In this example we want to test the `Read()` method logic without running `ReadFile()`.
 
@@ -41,7 +41,7 @@ Note the **CAUTION** comment. If we had not used [`Configure()`](/help/configure
 
 *The `Configure()` method is only available in NSubstitute 4.0 and above. For verisons prior to 4.0 we need to use `When .. DoNotCallBase` described below.*
 
-## [Void methods and `DoNotCallBase`](#void-methods-and-donotcallbase)
+## Void methods and `DoNotCallBase`
 
 We can't use `.Returns()` with void methods, but we can stop a void method on a partial substitute from calling the real method using `When .. DoNotCallBase`. (This also works for non-void methods, although generally we use `Configure()` and `Returns()` to override the base behaviour in these cases.)
 
@@ -75,8 +75,6 @@ public void ShouldSendMultipleEmails() {
 }
 ```
 
-## [Test spies](#test-spies)
+## Test spies
 
 Even without substituting for specific parts of a class, the instance returned by `Substitute.ForPartsOf<T>` records all calls made to virtual members, so we can [check `Received()` calls](/help/received-calls/) made to any partial substitute.
-
-

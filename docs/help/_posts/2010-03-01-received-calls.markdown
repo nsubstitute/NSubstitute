@@ -34,7 +34,7 @@ public void Should_execute_command() {
 
 In this case `command` did receive a call to `Execute()`, and so will complete successfully. If `Execute()` has not been received NSubstitute will throw a `ReceivedCallsException` and let you know what call was expected and with which arguments, as well as listing actual calls to that method and which the arguments differed.
 
-## [Check a call was not received](#check-a-call-was-not-received)
+## Check a call was not received
 NSubstitute can also make sure a call was not received using the `DidNotReceive()` extension method.
 
 ```csharp
@@ -46,7 +46,7 @@ something.DontDoAnything();
 command.DidNotReceive().Execute();
 ```
 
-## [Check a call was received a specific number of times](#check-a-call-was-received-a-specific-number-of-times)
+## Check a call was received a specific number of times
 
 The `Received()` extension method will assert that at least one call was made to a member, and `DidNotReceive()` asserts that zero calls were made. NSubstitute also gives you the option of asserting a specific number of calls were received by passing an integer to `Received()`. This will throw if the substitute does not receive *exactly* that many matching calls. Too few, or too many, and the assertion will fail.
 
@@ -77,7 +77,7 @@ public void Should_execute_command_the_number_of_times_specified() {
 
 We can also use `Received(1)` to check a call was received once and only once. This differs from the standard `Received()` call, which checks a call was received *at least* once. `Received(0)` behaves the same as `DidNotReceive()`.
 
-## [Received (or not) with specific arguments](#received-or-not-with-specific-arguments)
+## Received (or not) with specific arguments
 
 <!--
 ```requiredcode
@@ -107,7 +107,7 @@ calculator
     .Add(Arg.Any<int>(), Arg.Is<int>(x => x >= 500));
 ```
 
-## [Ignoring arguments](#ignoring-arguments)
+## Ignoring arguments
 
 NSubstitute can also check calls were received or not received but ignore the arguments used, just like we can for [setting returns for any arguments](/help/return-for-any-args). In this case we need `ReceivedWithAnyArgs()` and `DidNotReceiveWithAnyArgs()`.
 
@@ -118,7 +118,7 @@ calculator.ReceivedWithAnyArgs().Add(default, default);
 calculator.DidNotReceiveWithAnyArgs().Subtract(default, default);
 ```
 
-## [Checking calls to properties](#checking-calls-to-properties)
+## Checking calls to properties
 
 The same syntax can be used to check calls on properties. Normally we'd want to avoid this, as we're really more interested in testing the required behaviour rather than the precise implementation details (i.e. we would set the property to return a value and check that was used properly, rather than assert that the property getter was called). Still, there are probably times when checking getters and setters were called can come in handy, so here's how you do it:
 
@@ -135,7 +135,7 @@ _ = calculator.Received().Mode;
 calculator.Received().Mode = "TEST";
 ```
 
-## [Checking calls to indexers](#checking-calls-to-indexers)
+## Checking calls to indexers
 An indexer is really just another property, so we can use the same syntax to check calls to indexers.
 
 ```csharp 
@@ -146,7 +146,7 @@ dictionary.Received()["test"] = 1;
 dictionary.Received()["test"] = Arg.Is<int>(x => x < 5);
 ```
 
-## [Checking event subscriptions](#checking-event-subscriptions)
+## Checking event subscriptions
 
 As with properties, we'd normally favour testing the required behaviour over checking subscriptions to particular event handlers. We can do that by [raising an event on the substitute](/help/raising-events/) and asserting our class performs the correct behaviour in response:
 
@@ -187,7 +187,7 @@ public void MakeSureWatcherSubscribesToCommandExecuted() {
 }
 ```
 
-## [Checking event invocation](#checking-event-invocation)
+## Checking event invocation
 
 We can also use substitutes for event handlers to confirm that a particular event was raised correctly. Often a simple lambda function will suffice, but if we want to use argument matchers we can use a substitute and `Received`. Both options are shown below:
 
@@ -238,4 +238,3 @@ public void ShouldRaiseLowFuel(){
 	    .Invoke(fuelManagement, Arg.Is<LowFuelWarningEventArgs>(x => x.PercentLeft < 20));
 }
 ``` 
-

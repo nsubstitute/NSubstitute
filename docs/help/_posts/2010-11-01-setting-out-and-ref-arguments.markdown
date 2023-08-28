@@ -31,7 +31,7 @@ Assert.True(result);
 Assert.AreEqual(value, "world!");
 ```
 
-## [Matching after assignments](#matching-after-assignments)
+## Matching after assignments
 
 Be careful when using an argument matcher with a reference we also assign to. The assignment can cause previously matching arguments to stop matching.
 
@@ -57,4 +57,3 @@ lookup.TryLookup("hello", out value);
 // Call does NOT match anymore, counter is still 1:
 Assert.AreEqual(1, counter);
 ```
-
