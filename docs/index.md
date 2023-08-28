@@ -5,7 +5,7 @@ title: A friendly substitute for .NET mocking libraries
 
 <div id="features">
 <div class="feature" markdown="1">
-<h2 id="simple-succinct-pleasant-to-use"><a href="#simple-succinct-pleasant-to-use">Simple, succinct, pleasant to use</a></h2>
+<h2 id="simple-succinct-pleasant-to-use">Simple, succinct, pleasant to use</h2>
 
 ```csharp
 //Create:
