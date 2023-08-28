@@ -1,12 +1,22 @@
 window.onload = () => {
     const headers = document.querySelectorAll('h1, h2, h3, h4');
     headers.forEach(header => {
+        const anchor = createHeadingAnchor(header);
         const tooltip = createTooltip();
+        header.innerText = null;
+        header.appendChild(anchor);
         header.appendChild(tooltip);
         header.addEventListener('click', () => {
           handleClickEvent(header, tooltip);
         }, true);
     });
+}
+
+const createHeadingAnchor = (header) => {
+  const anchor = document.createElement('a');
+  anchor.href = '#' + header.id;
+  anchor.innerText = header.innerText;
+  return anchor;
 }
 
 const createTooltip = () => {

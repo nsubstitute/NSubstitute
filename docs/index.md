@@ -36,7 +36,7 @@ calculator.PoweringUp += Raise.Event();
 </div>
 
 <div class="feature">
-<h2 id="helpful-exceptions"><a href="#helpful-exceptions">Helpful exceptions</a></h2>
+<h2 id="helpful-exceptions">Helpful exceptions</h2>
 <div class="highlight">
 <pre>
 ReceivedCallsException : Expected to receive a call matching:
@@ -49,7 +49,7 @@ Received 2 non-matching calls (non-matching arguments indicated with '*' charact
 </div>
 
 <div class="feature">
-<h2 id="dont-seat-the-small-stuff"><a href="#dont-seat-the-small-stuff">Don't sweat the small stuff</a></h2>
+<h2 id="dont-seat-the-small-stuff">Don't sweat the small stuff</h2>
 <p>Mock, stub, fake, spy, test double? Strict or loose? Nah, just substitute for the type you need!</p>
 <p>NSubstitute is designed for Arrange-Act-Assert (AAA) testing, so you just need to arrange how it should work, then assert it received the calls you expected once you're done. Because you've got more important code to write than whether you need a mock or a stub.</p>
 </div>
@@ -75,7 +75,7 @@ Received 2 non-matching calls (non-matching arguments indicated with '*' charact
 
 <div class="sidebar">
 <div id="why-use-it">
-<h3>Another library?</h3>
+<h3 id="another-library">Another library?</h3>
 
 <p>There are already some great mocking libraries around for .NET, so why create another? We found that for all their great features, none of the existing libraries had the succinct syntax we were craving &mdash; the code required to configure test doubles quickly obscured the intention behind our tests.</p>
 
