@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <OutputPath>buildOutput</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="ExtractDocs.fs" />
+    <Compile Include="build.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build" Version="17.3.2" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.3.2" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.3.2" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.3.2" />
+    <PackageReference Include="MSBuild.StructuredLogger" Version="2.1.844" />
+    <PackageReference Include="Fake.DotNet.Cli" Version="6.0.0" />
+    <PackageReference Include="Fake.Tools.Git" Version="6.0.0" />
+    <PackageReference Include="Fake.Core.Target" Version="6.0.0" />
+  </ItemGroup>
+</Project>

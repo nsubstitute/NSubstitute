@@ -3,13 +3,15 @@ using System.Linq.Expressions;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
+#pragma warning disable CS1574
+#pragma warning disable CS0419
 
 namespace NSubstitute.Compatibility
 {
     /// <summary>
     /// Alternate version of <see cref="Arg"/> matchers for compatibility with pre-C#7 compilers
     /// which do not support <c>ref</c> return types. Do not use unless you are unable to use <see cref="Arg"/>.
-    /// 
+    ///
     /// <see cref="CompatArg"/> provides a non-static version of <see cref="Arg.Compat"/>, which can make it easier
     /// to use from an abstract base class. You can get a reference to this instance using the static
     /// <see cref="Instance" /> field.
@@ -41,7 +43,7 @@ namespace NSubstitute.Compatibility
         public T Is<T>(T value) => Arg.Is(value);
 
         /// <summary>
-        /// Match argument that satisfies <paramref name="predicate"/>. 
+        /// Match argument that satisfies <paramref name="predicate"/>.
         /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
         /// This is provided for compatibility with older compilers --
         /// if possible use <see cref="Arg.Is{T}(Expression{Predicate{T}})" /> instead.
@@ -92,11 +94,17 @@ namespace NSubstitute.Compatibility
         public TDelegate InvokeDelegate<TDelegate>(params object[] arguments) => Arg.InvokeDelegate<TDelegate>(arguments);
 
         /// <summary>
-        /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function 
+        /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
         /// whenever a matching call is made to the substitute.
         /// This is provided for compatibility with older compilers --
         /// if possible use <see cref="Arg.Do{T}" /> instead.
         /// </summary>
         public T Do<T>(Action<T> useArgument) => Arg.Do(useArgument);
+
+        /// <summary>
+        /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
+        /// whenever a matching call is made to the substitute.
+        /// </summary>
+        public static Arg.AnyType Do<T>(Action<object> useArgument) where T : Arg.AnyType => Arg.Do<T>(useArgument);
     }
 }

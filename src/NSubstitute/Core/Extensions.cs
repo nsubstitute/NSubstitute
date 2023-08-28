@@ -14,6 +14,11 @@ namespace NSubstitute.Core
         /// </summary>
         public static bool IsCompatibleWith(this object? instance, Type type)
         {
+            if (type == typeof(Arg.AnyType))
+            {
+                return true;
+            }
+
             var requiredType = type.IsByRef ? type.GetElementType()! : type;
             return instance == null ? TypeCanBeNull(requiredType) : requiredType.IsInstanceOfType(instance);
         }

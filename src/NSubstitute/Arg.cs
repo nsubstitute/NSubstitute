@@ -4,6 +4,8 @@ using NSubstitute.Core.Arguments;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
+#pragma warning disable CS1574
+#pragma warning disable CS0419
 
 namespace NSubstitute
 {
@@ -12,6 +14,10 @@ namespace NSubstitute
     /// </summary>
     public static class Arg
     {
+        public class AnyType
+        {
+        }
+
         /// <summary>
         /// Match any argument value compatible with type <typeparamref name="T"/>.
         /// </summary>
@@ -29,7 +35,7 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Match argument that satisfies <paramref name="predicate"/>. 
+        /// Match argument that satisfies <paramref name="predicate"/>.
         /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
         /// </summary>
         public static ref T Is<T>(Expression<Predicate<T>> predicate)
@@ -87,12 +93,21 @@ namespace NSubstitute
         }
 
         /// <summary>
-        /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function 
+        /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
         /// whenever a matching call is made to the substitute.
         /// </summary>
         public static ref T Do<T>(Action<T> useArgument)
         {
             return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T) x!));
+        }
+
+        /// <summary>
+        /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
+        /// whenever a matching call is made to the substitute.
+        /// </summary>
+        public static ref AnyType Do<T>(Action<object> useArgument) where T : AnyType
+        {
+            return ref ArgumentMatcher.Enqueue<AnyType>(new AnyArgumentMatcher(typeof(AnyType)), x => useArgument(x!));
         }
 
         /// <summary>
@@ -119,7 +134,7 @@ namespace NSubstitute
             public static T Is<T>(T value) => Arg.Is(value);
 
             /// <summary>
-            /// Match argument that satisfies <paramref name="predicate"/>. 
+            /// Match argument that satisfies <paramref name="predicate"/>.
             /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
             /// This is provided for compatibility with older compilers --
             /// if possible use <see cref="Arg.Is{T}(Expression{Predicate{T}})" /> instead.
@@ -170,12 +185,18 @@ namespace NSubstitute
             public static TDelegate InvokeDelegate<TDelegate>(params object[] arguments) => Arg.InvokeDelegate<TDelegate>(arguments);
 
             /// <summary>
-            /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function 
+            /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
             /// whenever a matching call is made to the substitute.
             /// This is provided for compatibility with older compilers --
             /// if possible use <see cref="Arg.Do{T}" /> instead.
             /// </summary>
-            public static T Do<T>(Action<T> useArgument) => Arg.Do(useArgument);
+            public static T Do<T>(Action<T> useArgument) => Arg.Do<T>(useArgument);
+
+            /// <summary>
+            /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
+            /// whenever a matching call is made to the substitute.
+            /// </summary>
+            public static AnyType Do<T>(Action<object> useArgument) where T : AnyType => Arg.Do<T>(useArgument);
         }
 
         private static Action<object> InvokeDelegateAction(params object[] arguments)
