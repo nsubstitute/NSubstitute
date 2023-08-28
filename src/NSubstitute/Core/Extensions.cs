@@ -14,7 +14,7 @@ namespace NSubstitute.Core
         /// </summary>
         public static bool IsCompatibleWith(this object? instance, Type type)
         {
-            if (type == typeof(Arg.AnyType))
+            if (typeof(Arg.AnyType).IsAssignableFrom(type))
             {
                 return true;
             }

@@ -14,7 +14,7 @@ namespace NSubstitute
     /// </summary>
     public static class Arg
     {
-        public class AnyType
+        public interface AnyType
         {
         }
 
@@ -47,9 +47,9 @@ namespace NSubstitute
         /// Match argument that satisfies <paramref name="predicate"/>.
         /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
         /// </summary>
-        public static ref AnyType Is<T>(Expression<Predicate<object>> predicate) where T : AnyType
+        public static ref T Is<T>(Expression<Predicate<object>> predicate) where T : AnyType
         {
-            return ref ArgumentMatcher.Enqueue<AnyType>(new ExpressionArgumentMatcher<object>(predicate));
+            return ref ArgumentMatcher.Enqueue<T>(new ExpressionArgumentMatcher<object>(predicate));
         }
 
         /// <summary>
@@ -114,9 +114,9 @@ namespace NSubstitute
         /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
         /// whenever a matching call is made to the substitute.
         /// </summary>
-        public static ref AnyType Do<T>(Action<object> useArgument) where T : AnyType
+        public static ref T Do<T>(Action<object> useArgument) where T : AnyType
         {
-            return ref ArgumentMatcher.Enqueue<AnyType>(new AnyArgumentMatcher(typeof(AnyType)), x => useArgument(x!));
+            return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(AnyType)), x => useArgument(x!));
         }
 
         /// <summary>

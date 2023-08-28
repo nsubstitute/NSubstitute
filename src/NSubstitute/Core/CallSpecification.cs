@@ -78,7 +78,7 @@ namespace NSubstitute.Core
 	            var second = bArgs[i];
 
                 var areEquivalent = first.IsAssignableFrom(second) || second.IsAssignableFrom(first) ||
-                                    first == typeof(Arg.AnyType) || second == typeof(Arg.AnyType);
+                                    typeof(Arg.AnyType).IsAssignableFrom(first) || typeof(Arg.AnyType).IsAssignableFrom(second);
 	            if (!areEquivalent) return false;
 	        }
 	        return true;
