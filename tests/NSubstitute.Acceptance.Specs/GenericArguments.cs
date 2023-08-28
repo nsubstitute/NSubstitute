@@ -10,6 +10,7 @@ public class GenericArguments
     public interface ISomethingWithGenerics
     {
         void SomeAction<TState>(int level, TState state);
+        string SomeFunction<TState>(int level, TState state);
     }
 
     [Test]
@@ -53,5 +54,17 @@ public class GenericArguments
         something.SomeAction(7, 3409);
 
         Assert.That(argDoResult, Is.EqualTo(">>340,900.00 %"));
+    }
+
+    [Test]
+    public void Is_matcher_works_with_AnyType()
+    {
+        ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
+
+        something.SomeFunction(Arg.Any<int>(), Arg.Is<Arg.AnyType>(a => (int)a == 3409)).Returns("matched");
+
+        var result = something.SomeFunction(7, 3409);
+
+        Assert.That(result, Is.EqualTo("matched"));
     }
 }
