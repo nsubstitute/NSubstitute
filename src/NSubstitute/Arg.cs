@@ -44,6 +44,15 @@ namespace NSubstitute
         }
 
         /// <summary>
+        /// Match argument that satisfies <paramref name="predicate"/>.
+        /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
+        /// </summary>
+        public static ref AnyType Is<T>(Expression<Predicate<object>> predicate) where T : AnyType
+        {
+            return ref ArgumentMatcher.Enqueue<AnyType>(new ExpressionArgumentMatcher<object>(predicate));
+        }
+
+        /// <summary>
         /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
         /// </summary>
         public static ref Action Invoke()
@@ -140,6 +149,14 @@ namespace NSubstitute
             /// if possible use <see cref="Arg.Is{T}(Expression{Predicate{T}})" /> instead.
             /// </summary>
             public static T Is<T>(Expression<Predicate<T>> predicate) => Arg.Is(predicate);
+
+            /// <summary>
+            /// Match argument that satisfies <paramref name="predicate"/>.
+            /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
+            /// This is provided for compatibility with older compilers --
+            /// if possible use <see cref="Arg.Is{T}(Expression{Predicate{T}})" /> instead.
+            /// </summary>
+            public static AnyType Is<T>(Expression<Predicate<object>> predicate) where T : AnyType => Arg.Is<T>(predicate);
 
             /// <summary>
             /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
