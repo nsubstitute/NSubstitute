@@ -14,6 +14,13 @@ namespace NSubstitute
     /// </summary>
     public static class Arg
     {
+        /// <summary>
+        /// This type can be used with any matcher to match a generic type parameter.
+        /// </summary>
+        /// <remarks>
+        /// If the generic type parameter has constraints, you will have to create a derived class/struct that
+        /// implements those constraints.
+        /// </remarks>
         public interface AnyType
         {
         }
