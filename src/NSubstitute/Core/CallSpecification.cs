@@ -77,8 +77,8 @@ namespace NSubstitute.Core
 	            var first = aArgs[i];
 	            var second = bArgs[i];
 
-                if( first.IsGenericType && second.IsGenericType
-                    && first.GetGenericTypeDefinition() == second.GetGenericTypeDefinition() )
+                if (first.IsGenericType && second.IsGenericType
+                    && first.GetGenericTypeDefinition() == second.GetGenericTypeDefinition())
                 {
                     // both are the same generic type. If their GenericTypeArguments match then they are equivalent 
                     if (!TypesAreAllEquivalent(first.GenericTypeArguments, second.GenericTypeArguments))
