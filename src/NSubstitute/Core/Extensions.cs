@@ -21,7 +21,7 @@ namespace NSubstitute.Core
 
             var requiredType = type.IsByRef ? type.GetElementType()! : type;
 
-            if(instance == null)
+            if (instance == null)
             {
                 return TypeCanBeNull(requiredType);
             }
