@@ -14,7 +14,14 @@ namespace NSubstitute
     /// </summary>
     public static class Arg
     {
-        public class AnyType
+        /// <summary>
+        /// This type can be used with any matcher to match a generic type parameter.
+        /// </summary>
+        /// <remarks>
+        /// If the generic type parameter has constraints, you will have to create a derived class/struct that
+        /// implements those constraints.
+        /// </remarks>
+        public interface AnyType
         {
         }
 
@@ -41,6 +48,15 @@ namespace NSubstitute
         public static ref T Is<T>(Expression<Predicate<T>> predicate)
         {
             return ref ArgumentMatcher.Enqueue<T>(new ExpressionArgumentMatcher<T>(predicate));
+        }
+
+        /// <summary>
+        /// Match argument that satisfies <paramref name="predicate"/>.
+        /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
+        /// </summary>
+        public static ref T Is<T>(Expression<Predicate<object>> predicate) where T : AnyType
+        {
+            return ref ArgumentMatcher.Enqueue<T>(new ExpressionArgumentMatcher<object>(predicate));
         }
 
         /// <summary>
@@ -105,9 +121,9 @@ namespace NSubstitute
         /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
         /// whenever a matching call is made to the substitute.
         /// </summary>
-        public static ref AnyType Do<T>(Action<object> useArgument) where T : AnyType
+        public static ref T Do<T>(Action<object> useArgument) where T : AnyType
         {
-            return ref ArgumentMatcher.Enqueue<AnyType>(new AnyArgumentMatcher(typeof(AnyType)), x => useArgument(x!));
+            return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(AnyType)), x => useArgument(x!));
         }
 
         /// <summary>
@@ -140,6 +156,14 @@ namespace NSubstitute
             /// if possible use <see cref="Arg.Is{T}(Expression{Predicate{T}})" /> instead.
             /// </summary>
             public static T Is<T>(Expression<Predicate<T>> predicate) => Arg.Is(predicate);
+
+            /// <summary>
+            /// Match argument that satisfies <paramref name="predicate"/>.
+            /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
+            /// This is provided for compatibility with older compilers --
+            /// if possible use <see cref="Arg.Is{T}(Expression{Predicate{T}})" /> instead.
+            /// </summary>
+            public static AnyType Is<T>(Expression<Predicate<object>> predicate) where T : AnyType => Arg.Is<T>(predicate);
 
             /// <summary>
             /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
