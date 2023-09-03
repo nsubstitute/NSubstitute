@@ -20,7 +20,22 @@ namespace NSubstitute.Core
             }
 
             var requiredType = type.IsByRef ? type.GetElementType()! : type;
-            return instance == null ? TypeCanBeNull(requiredType) : requiredType.IsInstanceOfType(instance);
+
+            if (instance == null)
+            {
+                return TypeCanBeNull(requiredType);
+            }
+
+            var instanceType = instance.GetType();
+
+            if (instanceType.IsGenericType && type.IsGenericType
+                    && instanceType.GetGenericTypeDefinition() == type.GetGenericTypeDefinition())
+            {
+                // both are the same generic type. If their GenericTypeArguments match then they are equivalent 
+                return CallSpecification.TypesAreAllEquivalent(instanceType.GenericTypeArguments, type.GenericTypeArguments);
+            }
+
+            return requiredType.IsInstanceOfType(instance);
         }
 
         /// <summary>
