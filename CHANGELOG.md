@@ -1,6 +1,9 @@
-### 5.1.0 (unreleased)
+### 5.1.0 (Sep 2023)
 
-* [NEW] Add `Arg.AnyType` for matching calls with generic parameters. Thanks @icalvo! (#634, #715)
+* [UPDATE] Update `System.Threading.Tasks.Extensions` to latest (`4.5.4-*`) as per @Romfos' suggestion. (#731)
+* [UPDATE] Update `Castle.Core` to `5.1.1-*` to support C# 9 covariants. Thanks @siblount to tracking this down. (#730)
+* [UPDATE] Improved support for testing `ILogger`. Thanks to @zlanger for this contribution, and also thanks to @Saibamen for reviewing this PR. (#732)
+* [NEW] Add `Arg.AnyType` for matching calls with generic parameters. Thanks @icalvo for implementing and documenting this! (#634, #715, #733)
 
 ### 5.0.0 (Feb 2023)
 
