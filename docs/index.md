@@ -49,7 +49,7 @@ Received 2 non-matching calls (non-matching arguments indicated with '*' charact
 </div>
 
 <div class="feature">
-<h2 id="dont-seat-the-small-stuff">Don't sweat the small stuff</h2>
+<h2 id="dont-sweat-the-small-stuff">Don't sweat the small stuff</h2>
 <p>Mock, stub, fake, spy, test double? Strict or loose? Nah, just substitute for the type you need!</p>
 <p>NSubstitute is designed for Arrange-Act-Assert (AAA) testing, so you just need to arrange how it should work, then assert it received the calls you expected once you're done. Because you've got more important code to write than whether you need a mock or a stub.</p>
 </div>
