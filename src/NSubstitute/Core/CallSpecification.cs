@@ -69,7 +69,7 @@ namespace NSubstitute.Core
 			return info.GetParameters().Select(p=>p.ParameterType).ToArray();
 		}
 
-	    private static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
+	    internal static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
 	    {
 	        if (aArgs.Length != bArgs.Length) return false;
 	        for (var i = 0; i < aArgs.Length; i++)
@@ -77,8 +77,19 @@ namespace NSubstitute.Core
 	            var first = aArgs[i];
 	            var second = bArgs[i];
 
+                if (first.IsGenericType && second.IsGenericType
+                    && first.GetGenericTypeDefinition() == second.GetGenericTypeDefinition())
+                {
+                    // both are the same generic type. If their GenericTypeArguments match then they are equivalent 
+                    if (!TypesAreAllEquivalent(first.GenericTypeArguments, second.GenericTypeArguments))
+                    {
+                        return false;
+                    }
+                    continue;
+                }
+
                 var areEquivalent = first.IsAssignableFrom(second) || second.IsAssignableFrom(first) ||
-                                    first == typeof(Arg.AnyType) || second == typeof(Arg.AnyType);
+                                    typeof(Arg.AnyType).IsAssignableFrom(first) || typeof(Arg.AnyType).IsAssignableFrom(second);
 	            if (!areEquivalent) return false;
 	        }
 	        return true;

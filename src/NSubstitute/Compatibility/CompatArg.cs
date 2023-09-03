@@ -51,6 +51,14 @@ namespace NSubstitute.Compatibility
         public T Is<T>(Expression<Predicate<T>> predicate) => Arg.Is(predicate);
 
         /// <summary>
+        /// Match argument that satisfies <paramref name="predicate"/>.
+        /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
+        /// This is provided for compatibility with older compilers --
+        /// if possible use <see cref="Arg.Is{T}(Expression{Predicate{object}})" /> instead.
+        /// </summary>
+        public Arg.AnyType Is<T>(Expression<Predicate<object>> predicate) where T : Arg.AnyType => Arg.Is<T>(predicate);
+
+        /// <summary>
         /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
         /// This is provided for compatibility with older compilers --
         /// if possible use <see cref="Arg.Invoke" /> instead.

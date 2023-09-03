@@ -14,13 +14,28 @@ namespace NSubstitute.Core
         /// </summary>
         public static bool IsCompatibleWith(this object? instance, Type type)
         {
-            if (type == typeof(Arg.AnyType))
+            if (typeof(Arg.AnyType).IsAssignableFrom(type))
             {
                 return true;
             }
 
             var requiredType = type.IsByRef ? type.GetElementType()! : type;
-            return instance == null ? TypeCanBeNull(requiredType) : requiredType.IsInstanceOfType(instance);
+
+            if (instance == null)
+            {
+                return TypeCanBeNull(requiredType);
+            }
+
+            var instanceType = instance.GetType();
+
+            if (instanceType.IsGenericType && type.IsGenericType
+                    && instanceType.GetGenericTypeDefinition() == type.GetGenericTypeDefinition())
+            {
+                // both are the same generic type. If their GenericTypeArguments match then they are equivalent 
+                return CallSpecification.TypesAreAllEquivalent(instanceType.GenericTypeArguments, type.GenericTypeArguments);
+            }
+
+            return requiredType.IsInstanceOfType(instance);
         }
 
         /// <summary>
