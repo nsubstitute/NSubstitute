@@ -57,4 +57,3 @@ lookup.TryLookup("hello", out value);
 // Call does NOT match anymore, counter is still 1:
 Assert.AreEqual(1, counter);
 ```
-

@@ -26,4 +26,3 @@ calculator
 Assert.Throws<Exception>(() => calculator.Add(-1, -1));
 Assert.Throws<Exception>(() => calculator.Add(-2, -2));
 ```
-

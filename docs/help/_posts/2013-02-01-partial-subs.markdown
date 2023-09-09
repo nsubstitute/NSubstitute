@@ -78,5 +78,3 @@ public void ShouldSendMultipleEmails() {
 ## Test spies
 
 Even without substituting for specific parts of a class, the instance returned by `Substitute.ForPartsOf<T>` records all calls made to virtual members, so we can [check `Received()` calls](/help/received-calls/) made to any partial substitute.
-
-

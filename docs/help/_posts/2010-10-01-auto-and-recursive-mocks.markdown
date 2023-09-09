@@ -104,8 +104,3 @@ var identity = Substitute.For<IIdentity>();
 Assert.AreEqual(String.Empty, identity.Name);
 Assert.AreEqual(0, identity.Roles().Length);
 ```
-
-
-
-
-

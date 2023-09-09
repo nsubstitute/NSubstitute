@@ -87,5 +87,3 @@ The final thing to notice here is that there is the potential for real logic fro
 * Where possible use interfaces instead.
 * Remember NSubstitute works by inheriting from (or implementing) your original type. If you can't override a member by manually writing a sub-class, then NSubstitute won't be able to either!
 * Install [NSubstitute.Analyzers](/help/nsubstitute-analysers) where ever you install NSubstitute. This will help you avoid these (and other) pitfalls.
-
-

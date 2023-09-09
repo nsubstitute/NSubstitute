@@ -112,4 +112,3 @@ for (int i = 0; i < 5; i++)
 Assert.That(String.Concat(calls), Is.EqualTo("123++"));
 Assert.That(counter, Is.EqualTo(5));
 ```
-

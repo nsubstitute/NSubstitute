@@ -44,5 +44,3 @@ command.DidNotReceive().Execute();
 ```
 
 `ClearReceivedCalls()` will not clear any results set up for the substitute using `Returns()`. If we need to this, we can [replace previously specified results](/help/replacing-return-values) by calling `Returns()` again.
-
-

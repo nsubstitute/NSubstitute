@@ -116,5 +116,3 @@ public void Sample() {
     sub.Received().DoStuff(Arg.Any<int>());
 }
 ```
-
-

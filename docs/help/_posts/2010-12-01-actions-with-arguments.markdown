@@ -128,4 +128,3 @@ var results = new[] {
 Assert.AreEqual(3, numberOfCallsWhereFirstArgIsLessThan0); //3 of 4 calls have first arg < 0
 Assert.AreEqual(results, new[] {123, 123, 123, 0}); //Last call returns 0, not 123
 ```
-

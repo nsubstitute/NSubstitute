@@ -238,4 +238,3 @@ public void ShouldRaiseLowFuel(){
 	    .Invoke(fuelManagement, Arg.Is<LowFuelWarningEventArgs>(x => x.PercentLeft < 20));
 }
 ``` 
-
