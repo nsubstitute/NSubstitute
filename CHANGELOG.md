@@ -1,5 +1,6 @@
 ### 5.1.0 (Sep 2023)
 
+* [DOC] Add clickable headings. Thanks @jheinath! (#729)
 * [UPDATE] Update `System.Threading.Tasks.Extensions` to latest (`4.5.4-*`) as per @Romfos' suggestion. (#731)
 * [UPDATE] Update `Castle.Core` to `5.1.1-*` to support C# 9 covariants. Thanks @siblount to tracking this down. (#730)
 * [UPDATE] Improved support for testing `ILogger`. Thanks to @zlangner for this contribution, and also thanks to @Saibamen for reviewing this PR. (#732)
