@@ -1,3 +1,10 @@
+### 5.1.0 (Sep 2023)
+
+* [DOC] Add clickable headings. Thanks @jheinath! (#729)
+* [UPDATE] Update `Castle.Core` to `5.1.1-*` to support C# 9 covariants. Thanks @siblount to tracking this down. (#730)
+* [UPDATE] Improved support for testing `ILogger`. Thanks to @zlangner for this contribution, and also thanks to @Saibamen for reviewing this PR. (#732)
+* [NEW] Add `Arg.AnyType` for matching calls with generic parameters. Thanks @icalvo for implementing and documenting this! (#634, #715, #733)
+
 ### 5.0.0 (Feb 2023)
 
 * [UPDATE][BREAKING] Drop unsupported platforms. Now supported platforms are .NET 6+, .NET Framework 4.6.2+, .NET Standard 2.0.
