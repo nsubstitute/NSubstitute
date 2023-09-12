@@ -53,4 +53,12 @@
     <DefineConstants>$(DefineConstants);SYSTEM_DIAGNOSTICS_CODEANALYSIS_NULLABILITY</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(CI)' == 'True'">
+    <!--Deterministic Build -->
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+  <ItemGroup>
+     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+  </ItemGroup>
 </Project>
