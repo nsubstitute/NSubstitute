@@ -2,11 +2,11 @@ const copyToClipboardText = 'copy to clipboard';
 const successCopyText = 'copied successfully';
 const tooltipHiddenClassName = 'tooltip-hidden';
 const tooltipClassName = 'tooltip';
-const copyDisabledId = 'copy-disabled';
+const copyDisabledClassName = 'copy-disabled';
 
 window.onload = () => {
     const headers = document.querySelectorAll('h1, h2, h3, h4');
-    headersfiltered = [...headers].filter((x) => x.id != copyDisabledId);
+    headersfiltered = [...headers].filter((x) => !x.classList.contains(copyDisabledClassName));
     headersfiltered.forEach(header => {
         const anchor = createHeadingAnchor(header);
         const tooltip = createTooltip(header);
