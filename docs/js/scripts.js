@@ -1,14 +1,19 @@
+const copyToClipboardText = 'copy to clipboard';
+const successCopyText = 'copied successfully';
+const tooltipHiddenClassName = 'tooltip-hidden';
+const tooltipClassName = 'tooltip';
+const copyDisabledClassName = 'copy-disabled';
+
 window.onload = () => {
     const headers = document.querySelectorAll('h1, h2, h3, h4');
-    headers.forEach(header => {
+    headersfiltered = [...headers].filter((x) => !x.classList.contains(copyDisabledClassName));
+    headersfiltered.forEach(header => {
         const anchor = createHeadingAnchor(header);
-        const tooltip = createTooltip();
+        const tooltip = createTooltip(header);
         header.innerText = null;
         header.appendChild(anchor);
         header.appendChild(tooltip);
-        header.addEventListener('click', () => {
-          handleClickEvent(header, tooltip);
-        }, true);
+        addHoverEventHandlers(header, tooltip);
     });
 }
 
@@ -19,26 +24,48 @@ const createHeadingAnchor = (header) => {
   return anchor;
 }
 
-const createTooltip = () => {
-  const tooltip = document.createElement('span');
-  tooltip.classList.add('tooltip-hidden')
-  tooltip.classList.add('tooltip')
-  tooltip.innerHTML = 'copied to clipboard';
+const createTooltip = (header) => {
+  const tooltip = document.createElement('a');
+  tooltip.classList.add(tooltipHiddenClassName)
+  tooltip.classList.add(tooltipClassName)
+  tooltip.innerHTML = copyToClipboardText;
+  tooltip.addEventListener('click', () => {
+    copyUrl(header, tooltip);
+  });
   return tooltip;
 }
 
-const handleClickEvent = (header, tooltip) => {
-  copyUrl(header);
-  displayTooltipText(tooltip);
+const copyUrl = (header, tooltip) => {
+  navigator.clipboard.writeText(header.firstChild.href);
+  showCopyText(tooltip)
 }
 
-const copyUrl = (header) => {
-  navigator.clipboard.writeText(header.firstChild.href);
+const addHoverEventHandlers = (element, tooltip) => {
+  element.addEventListener('mouseover', () => {
+    displayTooltipText(tooltip);
+  });
+
+  element.addEventListener('mouseleave', () => {
+    hideTooltipText(tooltip);
+    resetTooltipText(tooltip);
+  });
 }
 
 const displayTooltipText = (tooltip) => {
-  tooltip.classList.remove('tooltip-hidden');
+  tooltip.classList.remove(tooltipHiddenClassName);
+}
+
+const hideTooltipText = (tooltip) => {
+  tooltip.classList.add(tooltipHiddenClassName);
+}
+
+const showCopyText = (tooltip) => {
+  tooltip.innerHTML = successCopyText;
   setTimeout(() => {
-    tooltip.classList.add('tooltip-hidden');
+    resetTooltipText(tooltip);
     }, 1000);
 }
+
+const resetTooltipText = (tooltip) => {
+  tooltip.innerHTML = copyToClipboardText;
+} 
