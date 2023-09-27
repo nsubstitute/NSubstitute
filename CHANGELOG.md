@@ -1,3 +1,7 @@
+### vNext
+
+* [NEW] Support for Sourcelink and Deterministic Build (#737)
+
 ### 5.1.0 (Sep 2023)
 
 * [DOC] Add clickable headings. Thanks @jheinath! (#729)
