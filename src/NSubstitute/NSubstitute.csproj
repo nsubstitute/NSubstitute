@@ -10,6 +10,8 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://nsubstitute.github.io/</PackageProjectUrl>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+	  <RepositoryUrl>https://github.com/nsubstitute/NSubstitute</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
