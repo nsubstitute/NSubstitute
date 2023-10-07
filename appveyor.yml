@@ -18,5 +18,8 @@ artifacts:
 - path: bin\Release\NSubstitute\*.nupkg
   name: NuGet
 
+- path: bin\Release\NSubstitute\*.snupkg
+  name: NuGet
+
 - path: bin\Release\nsubstitute.github.com
   name: website
