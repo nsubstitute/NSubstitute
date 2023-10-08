@@ -2,20 +2,29 @@ name: Build and Test
 
 on: [push, pull_request]
 jobs:
-  build:
+  test:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [windows-latest, ubuntu-latest, macOS-latest]
+        tfm: [net6.0, net7.0]
+        include:
+          - os: windows-latest
+            tfm: net462
+            
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+    
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
-      - name: Restore dependencies
-        run: dotnet restore
+          dotnet-version: |
+            6.0.x
+            7.0.x
+      
       - name: Build
-        run: dotnet build -c Release --no-restore
+        run: dotnet build
+        
       - name: Test
-        run: dotnet test -c Release -f net6.0 --no-build --verbosity normal
+        run: dotnet test -f ${{ matrix.tfm }} --no-build --no-restore
