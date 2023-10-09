@@ -6,10 +6,10 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macOS-latest]
-        tfm: [net6.0, net7.0]
+        framework: [net6.0, net7.0]
         include:
           - os: windows-latest
-            tfm: net462
+            framework: net462
             
     runs-on: ${{ matrix.os }}
     steps:
@@ -27,4 +27,4 @@ jobs:
         run: dotnet build
         
       - name: Test
-        run: dotnet test -f ${{ matrix.tfm }} --no-build --no-restore
+        run: dotnet test -f ${{ matrix.framework }} --no-build --no-restore
