@@ -123,7 +123,6 @@ calculator.DidNotReceiveWithAnyArgs().Subtract(default, default);
 The same syntax can be used to check calls on properties. Normally we'd want to avoid this, as we're really more interested in testing the required behaviour rather than the precise implementation details (i.e. we would set the property to return a value and check that was used properly, rather than assert that the property getter was called). Still, there are probably times when checking getters and setters were called can come in handy, so here's how you do it:
 
 ```csharp
-var mode = calculator.Mode;
 calculator.Mode = "TEST";
 
 //Check received call to property getter
