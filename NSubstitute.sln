@@ -21,8 +21,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA2DD4AA-8DCD-42FB-8081-243281AD2956}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		.travis.yml = .travis.yml
-		appveyor.yml = appveyor.yml
 		BreakingChanges.md = BreakingChanges.md
 		CHANGELOG.md = CHANGELOG.md
 		Directory.Build.props = Directory.Build.props
