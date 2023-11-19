@@ -28,3 +28,28 @@ jobs:
         
       - name: Test
         run: dotnet test -f ${{ matrix.framework }} --no-build --no-restore
+  
+  test-documentation:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            6.0.x
+            7.0.x
+      
+      # used for documentation
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.5'
+          bundler-cache: true
+
+      - name: Build all targets
+        run: build\build.cmd --target All
