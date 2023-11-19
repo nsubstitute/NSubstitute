@@ -161,9 +161,9 @@ let initTargets() =
                 <LangVersion>latest</LangVersion>
             </PropertyGroup>
             <ItemGroup>
-                <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
-                <PackageReference Include="NUnit" Version="3.13.3" />
-                <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
+                <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+                <PackageReference Include="NUnit" Version="3.14.0" />
+                <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
             </ItemGroup>
             <ItemGroup>
                 <ProjectReference Include="..\..\..\src\NSubstitute\NSubstitute.csproj" />
