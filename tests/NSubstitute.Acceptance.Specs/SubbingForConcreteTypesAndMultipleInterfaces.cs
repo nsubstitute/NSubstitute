@@ -1,4 +1,5 @@
 using System;
+
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
@@ -33,6 +34,30 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
+        public void Can_sub_for_abstract_type_and_implement_other_two_interfaces()
+        {
+            // test from docs
+            var substitute = Substitute.For(new[] { typeof(IFirst), typeof(ISecond), typeof(ClassWithCtorArgs) },
+                new object[] { "hello world", 5 });
+
+            Assert.IsInstanceOf<IFirst>(substitute);
+            Assert.IsInstanceOf<ISecond>(substitute);
+            Assert.IsInstanceOf<ClassWithCtorArgs>(substitute);
+        }
+
+        [Test]
+        public void Can_sub_for_concrete_type_and_implement_other_two_interfaces()
+        {
+            // test from docs
+            var substitute = Substitute.For(new[] { typeof(IFirst), typeof(ISecond), typeof(ConcreteClassWithCtorArgs) },
+                new object[] { "hello world", 5 });
+
+            Assert.IsInstanceOf<IFirst>(substitute);
+            Assert.IsInstanceOf<ISecond>(substitute);
+            Assert.IsInstanceOf<ConcreteClassWithCtorArgs>(substitute);
+        }
+
+        [Test]
         public void Partial_sub()
         {
             var sub = Substitute.For<Partial>();
@@ -55,8 +80,8 @@ namespace NSubstitute.Acceptance.Specs
             var expectedString = "from ctor";
             var expectedInt = 5;
             var sub = Substitute.For<ClassWithCtorArgs>(expectedString, expectedInt);
-            Assert.That(sub.StringFromCtorArg, Is.EqualTo(expectedString)); 
-            Assert.That(sub.IntFromCtorArg, Is.EqualTo(expectedInt)); 
+            Assert.That(sub.StringFromCtorArg, Is.EqualTo(expectedString));
+            Assert.That(sub.IntFromCtorArg, Is.EqualTo(expectedInt));
         }
 
         [Test]
@@ -96,6 +121,12 @@ namespace NSubstitute.Acceptance.Specs
             public ClassWithCtorArgs(string s, int a) { StringFromCtorArg = s; IntFromCtorArg = a; }
             public string StringFromCtorArg { get; set; }
             public int IntFromCtorArg { get; set; }
+        }
+        public class ConcreteClassWithCtorArgs : ClassWithCtorArgs
+        {
+            public ConcreteClassWithCtorArgs(string s, int a) : base(s, a)
+            {
+            }
         }
     }
 }
