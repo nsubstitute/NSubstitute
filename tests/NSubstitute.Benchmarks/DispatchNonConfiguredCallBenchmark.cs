@@ -3,7 +3,7 @@ using NSubstitute.Benchmarks.TestTypes;
 
 namespace NSubstitute.Benchmarks
 {
-    [ClrJob, CoreJob]
+    [SimpleJob]
     [MemoryDiagnoser]
     public class DispatchNonConfiguredCallBenchmark
     {
@@ -24,7 +24,7 @@ namespace NSubstitute.Benchmarks
 
         [Benchmark]
         public int DispatchInterfaceProxyCall_Int() => _interfaceProxy.IntMethod(null);
-        
+
         [Benchmark]
         public int DispatchAbstractClassProxyCall_Int() => _abstractClassProxy.IntMethod(null);
 
@@ -36,7 +36,7 @@ namespace NSubstitute.Benchmarks
 
         [Benchmark]
         public void DispatchInterfaceProxyCall_Void() => _interfaceProxy.VoidMethod(null);
-        
+
         [Benchmark]
         public void DispatchAbstractClassProxyCall_Void() => _abstractClassProxy.VoidMethod(null);
 

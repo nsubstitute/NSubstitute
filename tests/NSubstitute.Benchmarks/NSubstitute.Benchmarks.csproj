@@ -1,18 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFrameworks>net6.0</TargetFrameworks>
-    <StartupObject>NSubstitute.Benchmarks.Program</StartupObject>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="BenchmarkDotNet.Artifacts\**" />
-    <EmbeddedResource Remove="BenchmarkDotNet.Artifacts\**" />
-    <None Remove="BenchmarkDotNet.Artifacts\**" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.10" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.4" />
     <ProjectReference Include="..\..\src\NSubstitute\NSubstitute.csproj" />
   </ItemGroup>
+  
 </Project>

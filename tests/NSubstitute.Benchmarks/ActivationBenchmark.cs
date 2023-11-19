@@ -3,7 +3,7 @@ using NSubstitute.Benchmarks.TestTypes;
 
 namespace NSubstitute.Benchmarks
 {
-    [ClrJob, CoreJob]
+    [SimpleJob]
     [MemoryDiagnoser]
     public class ActivationBenchmark
     {
