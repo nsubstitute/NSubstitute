@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <OutputPath>buildOutput</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="build.cmd" />
+    <None Include="build.sh" />
     <Compile Include="ExtractDocs.fs" />
     <Compile Include="build.fs" />
   </ItemGroup>
@@ -21,4 +23,5 @@
     <PackageReference Include="Fake.Tools.Git" Version="6.0.0" />
     <PackageReference Include="Fake.Core.Target" Version="6.0.0" />
   </ItemGroup>
+
 </Project>
