@@ -38,7 +38,7 @@ namespace NSubstitute.ExceptionExtensions
         /// <param name="value"></param>
         /// <param name="createException">Func creating exception object</param>
         /// <returns></returns>
-        public static ConfiguredCall Throws(this object value, Func<CallInfo, Exception> createException) =>
+        public static ConfiguredCall Throws(this object value, Func<ICallInfo, Exception> createException) =>
             value.Returns(ci => throw createException(ci));
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace NSubstitute.ExceptionExtensions
         /// <param name="value"></param>
         /// <param name="createException">Func creating exception object</param>
         /// <returns></returns>
-        public static ConfiguredCall ThrowsForAnyArgs(this object value, Func<CallInfo, Exception> createException) =>
+        public static ConfiguredCall ThrowsForAnyArgs(this object value, Func<ICallInfo, Exception> createException) =>
             value.ReturnsForAnyArgs(ci => throw createException(ci));
 
         /// <summary>

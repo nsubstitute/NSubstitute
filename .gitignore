@@ -308,3 +308,6 @@ docs/_site/*
 
 # Ignore Ionide files (https://ionide.io/)
 .ionide
+
+# kdiff/merge files
+*.orig

@@ -18,7 +18,7 @@ namespace NSubstitute
         /// </summary>
         /// <param name="doThis"></param>
         /// <returns></returns>
-        public static ConfiguredCallback First(Action<CallInfo> doThis)
+        public static ConfiguredCallback First(Action<ICallInfo> doThis)
         {
             return new ConfiguredCallback().Then(doThis);
         }
@@ -28,7 +28,7 @@ namespace NSubstitute
         /// </summary>
         /// <param name="doThis"></param>
         /// <returns></returns>
-        public static Callback Always(Action<CallInfo> doThis)
+        public static Callback Always(Action<ICallInfo> doThis)
         {
             return new ConfiguredCallback().AndAlways(doThis);
         }
@@ -38,7 +38,7 @@ namespace NSubstitute
         /// </summary>
         /// <param name="throwThis"></param>
         /// <returns></returns>
-        public static ConfiguredCallback FirstThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+        public static ConfiguredCallback FirstThrow<TException>(Func<ICallInfo, TException> throwThis) where TException : Exception
         {
             return new ConfiguredCallback().ThenThrow(throwThis);
         }
@@ -59,7 +59,7 @@ namespace NSubstitute
         /// <typeparam name="TException">The type of the exception.</typeparam>
         /// <param name="throwThis">The throw this.</param>
         /// <returns></returns>
-        public static Callback AlwaysThrow<TException>(Func<CallInfo, TException> throwThis) where TException : Exception
+        public static Callback AlwaysThrow<TException>(Func<ICallInfo, TException> throwThis) where TException : Exception
         {
             return new ConfiguredCallback().AndAlways(ToCallback(throwThis));
         }
@@ -75,33 +75,33 @@ namespace NSubstitute
             return AlwaysThrow(_ => exception);
         }
 
-        protected static Action<CallInfo> ToCallback<TException>(Func<CallInfo, TException> throwThis)
+        protected static Action<ICallInfo> ToCallback<TException>(Func<ICallInfo, TException> throwThis)
             where TException : notnull, Exception
         {
             return ci => { if (throwThis != null) throw throwThis(ci); };
         }
 
         internal Callback() { }
-        private readonly ConcurrentQueue<Action<CallInfo>> callbackQueue = new ConcurrentQueue<Action<CallInfo>>();
-        private Action<CallInfo> alwaysDo = x => { };
-        private Action<CallInfo> keepDoing = x => { };
+        private readonly ConcurrentQueue<Action<ICallInfo>> callbackQueue = new ConcurrentQueue<Action<ICallInfo>>();
+        private Action<ICallInfo> alwaysDo = x => { };
+        private Action<ICallInfo> keepDoing = x => { };
 
-        protected void AddCallback(Action<CallInfo> doThis)
+        protected void AddCallback(Action<ICallInfo> doThis)
         {
             callbackQueue.Enqueue(doThis);
         }
 
-        protected void SetAlwaysDo(Action<CallInfo> always)
+        protected void SetAlwaysDo(Action<ICallInfo> always)
         {
             alwaysDo = always ?? (_ => { });
         }
 
-        protected void SetKeepDoing(Action<CallInfo> keep)
+        protected void SetKeepDoing(Action<ICallInfo> keep)
         {
             keepDoing = keep ?? (_ => { });
         }
 
-        public void Call(CallInfo callInfo)
+        public void Call(ICallInfo callInfo)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace NSubstitute
             }
         }
 
-        private void CallFromStack(CallInfo callInfo)
+        private void CallFromStack(ICallInfo callInfo)
         {
             if (callbackQueue.TryDequeue(out var callback))
             {
