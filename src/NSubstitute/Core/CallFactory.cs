@@ -10,7 +10,7 @@ namespace NSubstitute.Core
     {
         public ICall Create(MethodInfo methodInfo, object?[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications, Func<object>? baseMethod)
         {
-            return new Call(methodInfo, arguments, target, argumentSpecifications , baseMethod);
+            return new Call(methodInfo, arguments, target, argumentSpecifications, baseMethod);
         }
 
         public ICall Create(MethodInfo methodInfo, object?[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications)

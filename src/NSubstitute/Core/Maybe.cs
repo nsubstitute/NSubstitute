@@ -45,7 +45,7 @@ namespace NSubstitute.Core
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable<T>) this).GetEnumerator();
+            return ((IEnumerable<T>)this).GetEnumerator();
         }
     }
 

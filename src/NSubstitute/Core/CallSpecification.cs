@@ -42,7 +42,7 @@ namespace NSubstitute.Core
         }
 
         private static bool AreComparable(MethodInfo a, MethodInfo b)
-	    {
+        {
             if (a == b)
             {
                 return true;
@@ -53,29 +53,29 @@ namespace NSubstitute.Core
                 return CanCompareGenericMethods(a, b);
             }
 
-	        return false;
-		}
+            return false;
+        }
 
         private static bool CanCompareGenericMethods(MethodInfo a, MethodInfo b)
         {
-			return
-				   AreEquivalentDefinitions(a, b)
-				&& TypesAreAllEquivalent(ParameterTypes(a), ParameterTypes(b))
-				&& TypesAreAllEquivalent(a.GetGenericArguments(), b.GetGenericArguments());
+            return
+                   AreEquivalentDefinitions(a, b)
+                && TypesAreAllEquivalent(ParameterTypes(a), ParameterTypes(b))
+                && TypesAreAllEquivalent(a.GetGenericArguments(), b.GetGenericArguments());
         }
 
         private static Type[] ParameterTypes(MethodInfo info)
-		{
-			return info.GetParameters().Select(p=>p.ParameterType).ToArray();
-		}
+        {
+            return info.GetParameters().Select(p => p.ParameterType).ToArray();
+        }
 
-	    internal static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
-	    {
-	        if (aArgs.Length != bArgs.Length) return false;
-	        for (var i = 0; i < aArgs.Length; i++)
-	        {
-	            var first = aArgs[i];
-	            var second = bArgs[i];
+        internal static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
+        {
+            if (aArgs.Length != bArgs.Length) return false;
+            for (var i = 0; i < aArgs.Length; i++)
+            {
+                var first = aArgs[i];
+                var second = bArgs[i];
 
                 if (first.IsGenericType && second.IsGenericType
                     && first.GetGenericTypeDefinition() == second.GetGenericTypeDefinition())
@@ -90,17 +90,17 @@ namespace NSubstitute.Core
 
                 var areEquivalent = first.IsAssignableFrom(second) || second.IsAssignableFrom(first) ||
                                     typeof(Arg.AnyType).IsAssignableFrom(first) || typeof(Arg.AnyType).IsAssignableFrom(second);
-	            if (!areEquivalent) return false;
-	        }
-	        return true;
-	    }
+                if (!areEquivalent) return false;
+            }
+            return true;
+        }
 
-	    private static bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
-	    {
-		    return a.IsGenericMethod == b.IsGenericMethod
+        private static bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
+        {
+            return a.IsGenericMethod == b.IsGenericMethod
                    && a.ReturnType == b.ReturnType
                    && a.Name.Equals(b.Name, StringComparison.Ordinal);
-	    }
+        }
 
         private bool IsMatchingArgumentSpecifications(ICall call)
         {

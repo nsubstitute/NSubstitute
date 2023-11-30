@@ -116,7 +116,7 @@ namespace NSubstitute.Core.SequenceChecking
                 var argsWithParamsExpanded =
                     arguments
                         .SelectMany(a => a.ParamInfo.IsParams()
-                                          ? ((IEnumerable) a.Argument!).Cast<object>()
+                                          ? ((IEnumerable)a.Argument!).Cast<object>()
                                           : ToEnumerable(a.Argument))
                         .Select(x => ArgumentFormatter.Default.Format(x, false))
                         .ToArray();

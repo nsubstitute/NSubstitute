@@ -114,7 +114,7 @@ namespace NSubstitute
         /// </summary>
         public static ref T Do<T>(Action<T> useArgument)
         {
-            return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T) x!));
+            return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(T)), x => useArgument((T)x!));
         }
 
         /// <summary>
@@ -225,7 +225,7 @@ namespace NSubstitute
 
         private static Action<object> InvokeDelegateAction(params object[] arguments)
         {
-            return x => ((Delegate) x).DynamicInvoke(arguments);
+            return x => ((Delegate)x).DynamicInvoke(arguments);
         }
     }
 }

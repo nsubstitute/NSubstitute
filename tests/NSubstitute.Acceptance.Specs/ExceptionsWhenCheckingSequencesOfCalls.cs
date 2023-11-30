@@ -21,7 +21,7 @@ namespace NSubstitute.Acceptance.Specs
     {
         int Huh();
     }
- 
+
     [TestFixture]
     public class ExceptionsWhenCheckingSequencesOfCalls
     {

@@ -112,14 +112,15 @@ namespace NSubstitute.ReceivedExtensions
             {
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != typeof (ExactQuantity)) return false;
-                return Equals((ExactQuantity) obj);
+                if (obj.GetType() != typeof(ExactQuantity)) return false;
+                return Equals((ExactQuantity)obj);
             }
 
             public override int GetHashCode() { return _number; }
         }
 
-        private class AnyNonZeroQuantity : Quantity {
+        private class AnyNonZeroQuantity : Quantity
+        {
             public override bool Matches<T>(IEnumerable<T> items) { return items.Any(); }
             public override bool RequiresMoreThan<T>(IEnumerable<T> items) { return !items.Any(); }
 
@@ -137,8 +138,8 @@ namespace NSubstitute.ReceivedExtensions
             {
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != typeof (AnyNonZeroQuantity)) return false;
-                return Equals((AnyNonZeroQuantity) obj);
+                if (obj.GetType() != typeof(AnyNonZeroQuantity)) return false;
+                return Equals((AnyNonZeroQuantity)obj);
             }
 
             public override int GetHashCode()
@@ -165,8 +166,8 @@ namespace NSubstitute.ReceivedExtensions
             {
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != typeof (NoneQuantity)) return false;
-                return Equals((NoneQuantity) obj);
+                if (obj.GetType() != typeof(NoneQuantity)) return false;
+                return Equals((NoneQuantity)obj);
             }
 
             public override int GetHashCode() { return 0; }
@@ -176,12 +177,15 @@ namespace NSubstitute.ReceivedExtensions
         {
             private readonly int minInclusive;
             private readonly int maxInclusive;
-            public RangeQuantity(int minInclusive, int maxInclusive) {
-                if (minInclusive < 0) {
+            public RangeQuantity(int minInclusive, int maxInclusive)
+            {
+                if (minInclusive < 0)
+                {
                     throw new ArgumentOutOfRangeException(nameof(minInclusive),
                         $"{nameof(minInclusive)} must be >= 0, but was {minInclusive}.");
                 }
-                if (maxInclusive <= minInclusive) {
+                if (maxInclusive <= minInclusive)
+                {
                     throw new ArgumentOutOfRangeException(nameof(maxInclusive),
                         $"{nameof(maxInclusive)} must be greater than {nameof(minInclusive)} (was {maxInclusive}, required > {minInclusive}).");
                 }
@@ -191,7 +195,8 @@ namespace NSubstitute.ReceivedExtensions
             public override string Describe(string singularNoun, string pluralNoun) =>
                 $"between {minInclusive} and {maxInclusive} (inclusive) {((maxInclusive == 1) ? singularNoun : pluralNoun)}";
 
-            public override bool Matches<T>(IEnumerable<T> items) {
+            public override bool Matches<T>(IEnumerable<T> items)
+            {
                 var count = items.Count();
                 return count >= minInclusive && count <= maxInclusive;
             }

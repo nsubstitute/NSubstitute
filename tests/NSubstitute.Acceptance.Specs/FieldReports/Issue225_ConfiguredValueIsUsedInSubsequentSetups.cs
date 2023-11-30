@@ -10,7 +10,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         {
             // Arrange
             var target = Substitute.For<ISomething>();
-            
+
             // Act
             target.Echo(Arg.Is(0)).Returns("00", "01", "02");
             target.Echo(Arg.Is(1)).Returns("10", "11", "12");
@@ -22,6 +22,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             Assert.AreEqual("11", target.Echo(1));
             Assert.AreEqual("02", target.Echo(0));
             Assert.AreEqual("12", target.Echo(1));
-        } 
+        }
     }
 }

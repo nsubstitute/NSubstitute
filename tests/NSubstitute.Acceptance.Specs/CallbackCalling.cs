@@ -271,7 +271,7 @@ namespace NSubstitute.Acceptance.Specs
             {
                 _something.Count();
             }
-            Assert.That(calls, Is.EqualTo(new[] {"1", "2", "3"}));
+            Assert.That(calls, Is.EqualTo(new[] { "1", "2", "3" }));
         }
 
         [Test]
@@ -291,7 +291,7 @@ namespace NSubstitute.Acceptance.Specs
             {
                 _something.Count();
             }
-            Assert.That(calls, Is.EqualTo(new[] {"1", "2", "3", "+", "+"}));
+            Assert.That(calls, Is.EqualTo(new[] { "1", "2", "3", "+", "+" }));
         }
 
         [Test]
@@ -311,7 +311,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.Throws<Exception>(() => _something.Count());
             Assert.Throws<Exception>(() => _something.Count());
             Assert.Throws<Exception>(() => _something.Count());
-            Assert.That(calls, Is.EqualTo(new[] {"1", "2"}));
+            Assert.That(calls, Is.EqualTo(new[] { "1", "2" }));
         }
 
         [Test]
@@ -331,7 +331,7 @@ namespace NSubstitute.Acceptance.Specs
             {
                 _something.Count();
             }
-            Assert.That(calls, Is.EqualTo(new[] {"1", "+", "+", "+", "+"}));
+            Assert.That(calls, Is.EqualTo(new[] { "1", "+", "+", "+", "+" }));
             Assert.That(count, Is.EqualTo(5));
         }
 

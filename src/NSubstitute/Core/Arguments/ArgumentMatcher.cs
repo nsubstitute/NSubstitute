@@ -17,7 +17,7 @@ namespace NSubstitute.Core.Arguments
             IArgumentMatcher nonGenericMatcher = argumentMatcher switch
             {
                 IDescribeNonMatches => new GenericToNonGenericMatcherProxyWithDescribe<T>(argumentMatcher),
-                _                   => new GenericToNonGenericMatcherProxy<T>(argumentMatcher)
+                _ => new GenericToNonGenericMatcherProxy<T>(argumentMatcher)
             };
 
             return ref EnqueueArgSpecification<T>(new ArgumentSpecification(typeof(T), nonGenericMatcher));
@@ -44,7 +44,7 @@ namespace NSubstitute.Core.Arguments
                 _matcher = matcher;
             }
 
-            public bool IsSatisfiedBy(object? argument) => _matcher.IsSatisfiedBy((T?) argument!);
+            public bool IsSatisfiedBy(object? argument) => _matcher.IsSatisfiedBy((T?)argument!);
         }
 
         private class GenericToNonGenericMatcherProxyWithDescribe<T> : GenericToNonGenericMatcherProxy<T>, IDescribeNonMatches
@@ -54,7 +54,7 @@ namespace NSubstitute.Core.Arguments
                 if (matcher is not IDescribeNonMatches) throw new SubstituteInternalException("Should implement IDescribeNonMatches type.");
             }
 
-            public string DescribeFor(object? argument) => ((IDescribeNonMatches) _matcher).DescribeFor(argument);
+            public string DescribeFor(object? argument) => ((IDescribeNonMatches)_matcher).DescribeFor(argument);
         }
 
         private class DefaultValueContainer<T>

@@ -17,10 +17,10 @@ namespace NSubstitute.Core.Arguments
         {
             return arg switch
             {
-                null                                 => "<null>",
-                string str                           => $"\"{str}\"",
+                null => "<null>",
+                string str => $"\"{str}\"",
                 { } obj when HasDefaultToString(obj) => arg.GetType().GetNonMangledTypeName(),
-                _                                    => arg.ToString() ?? string.Empty
+                _ => arg.ToString() ?? string.Empty
             };
 
             static bool HasDefaultToString(object obj)

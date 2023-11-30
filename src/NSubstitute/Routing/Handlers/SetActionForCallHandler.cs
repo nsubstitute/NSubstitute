@@ -3,7 +3,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
 {
-    public class SetActionForCallHandler :ICallHandler
+    public class SetActionForCallHandler : ICallHandler
     {
         private readonly ICallSpecificationFactory _callSpecificationFactory;
         private readonly ICallActions _callActions;

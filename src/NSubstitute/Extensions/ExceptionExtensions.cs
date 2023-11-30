@@ -239,13 +239,14 @@ namespace NSubstitute.ExceptionExtensions
             {
                 var fromExceptionMethodInfo = typeof(Task).GetMethods(BindingFlags.Static | BindingFlags.Public).Single(m => m.Name == "FromException" && m.ContainsGenericParameters);
                 var specificFromExceptionMethod = fromExceptionMethodInfo.MakeGenericMethod(valueType.GenericTypeArguments);
-                return specificFromExceptionMethod.Invoke(null, new object[] {exception});
+                return specificFromExceptionMethod.Invoke(null, new object[] { exception });
             }
 
             return TaskFromException(exception);
         }
 
-        private static Task TaskFromException(Exception ex)  {
+        private static Task TaskFromException(Exception ex)
+        {
 #if NET45
             return new Task(() => throw ex);
 #else

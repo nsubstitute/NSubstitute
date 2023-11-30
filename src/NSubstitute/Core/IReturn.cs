@@ -47,8 +47,8 @@ namespace NSubstitute.Core
         }
 
         public object? ReturnFor(CallInfo info) => _funcToReturnValue(info);
-        public Type TypeOrNull() => typeof (T);
-        public bool CanBeAssignedTo(Type t) => typeof (T).IsAssignableFrom(t);
+        public Type TypeOrNull() => typeof(T);
+        public bool CanBeAssignedTo(Type t) => typeof(T).IsAssignableFrom(t);
 
         private static Func<CallInfo, T?> ReturnNull()
         {
@@ -70,8 +70,8 @@ namespace NSubstitute.Core
 
         public object? GetReturnValue() => GetNext();
         public object? ReturnFor(CallInfo info) => GetReturnValue();
-        public Type TypeOrNull() => typeof (T);
-        public bool CanBeAssignedTo(Type t) => typeof (T).IsAssignableFrom(t);
+        public Type TypeOrNull() => typeof(T);
+        public bool CanBeAssignedTo(Type t) => typeof(T).IsAssignableFrom(t);
 
         private T? GetNext() => _valuesToReturn.TryDequeue(out var nextResult) ? nextResult : _lastValue;
     }
@@ -88,8 +88,8 @@ namespace NSubstitute.Core
         }
 
         public object? ReturnFor(CallInfo info) => GetNext(info);
-        public Type TypeOrNull() => typeof (T);
-        public bool CanBeAssignedTo(Type t) => typeof (T).IsAssignableFrom(t);
+        public Type TypeOrNull() => typeof(T);
+        public bool CanBeAssignedTo(Type t) => typeof(T).IsAssignableFrom(t);
 
         private T? GetNext(CallInfo info) => _funcsToReturn.TryDequeue(out var nextFunc) ? nextFunc(info) : _lastFunc(info);
     }

@@ -5,7 +5,8 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
     public class ArgMatchingWithNestedSubCalls
     {
         public interface IHaveAMethod { void Method(int a, string b); }
-        public interface IStealArgMatchers { 
+        public interface IStealArgMatchers
+        {
             string StealMatcherBeforeUsedElsewhere { get; }
             string this[int i] { get; }
         }
@@ -19,7 +20,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             sub.Method(2, stealer.StealMatcherBeforeUsedElsewhere);
 
             sub.Received().Method(Arg.Any<int>(), stealer.StealMatcherBeforeUsedElsewhere);
-        } 
+        }
 
         [Test]
         [Pending, Explicit]
@@ -34,6 +35,6 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             //This example still blows up because the call to stealer[0] takes the Arg.Any<int>() matcher
             //away. The call router thinks the Arg.Any belongs to that call, not the sub.Method() call.
             sub.Received().Method(Arg.Any<int>(), stealer[0]);
-        } 
+        }
     }
 }

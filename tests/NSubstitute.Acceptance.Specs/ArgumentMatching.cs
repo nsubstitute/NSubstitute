@@ -84,24 +84,24 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Should_match_nullable_ref_types_by_content()
         {
-            #nullable enable
+#nullable enable
             SomeClass? nullClassToMatch = null;
             List<int>? nullList = null;
             _something.Anything(Arg.Is(nullClassToMatch)).Returns(456);
 
             Assert.That(_something.Anything(nullClassToMatch), Is.EqualTo(456));
             Assert.That(_something.Anything(nullList), Is.EqualTo(456));
-            #nullable disable
+#nullable disable
         }
 
         [Test]
         public void Should_match_non_string_non_record_ref_types_by_reference()
         {
-            var listToMatch = new List<int>{1, 2};
+            var listToMatch = new List<int> { 1, 2 };
             _something.Anything(Arg.Is(listToMatch)).Returns(123);
 
             Assert.That(_something.Anything(listToMatch), Is.EqualTo(123));
-            Assert.That(_something.Anything(new List<int>{1, 2}), Is.EqualTo(0));
+            Assert.That(_something.Anything(new List<int> { 1, 2 }), Is.EqualTo(0));
 
             var classToMatch = new SomeClass();
             _something.Anything(Arg.Is(classToMatch)).Returns(456);

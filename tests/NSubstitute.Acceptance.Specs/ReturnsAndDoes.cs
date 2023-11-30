@@ -5,7 +5,7 @@ namespace NSubstitute.Acceptance.Specs
 {
     public class ReturnsAndDoes
     {
-        public interface IFoo { IBar GetBar(int i); } 
+        public interface IFoo { IBar GetBar(int i); }
         public interface IBar { }
 
         private IFoo sub;
@@ -44,7 +44,7 @@ namespace NSubstitute.Acceptance.Specs
             var result1 = sub.GetBar(42);
             var result2 = sub.GetBar(9999);
             Assert.That(wasCalled, Is.True);
-            Assert.That(argsUsed, Is.EquivalentTo(new[] {42, 9999}));
+            Assert.That(argsUsed, Is.EquivalentTo(new[] { 42, 9999 }));
             Assert.AreSame(result1, bar);
             Assert.AreSame(result2, bar);
         }

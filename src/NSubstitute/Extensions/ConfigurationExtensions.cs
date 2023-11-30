@@ -27,7 +27,7 @@ namespace NSubstitute.Extensions
         public static T Configure<T>(this T substitute) where T : class
         {
             if (substitute == null) throw new NullSubstituteReferenceException();
- 
+
             var context = SubstitutionContext.Current;
             var callRouter = context.GetCallRouterFor(substitute!);
             context.ThreadContext.SetNextRoute(callRouter, context.RouteFactory.RecordCallSpecification);

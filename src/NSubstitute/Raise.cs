@@ -83,7 +83,7 @@ namespace NSubstitute
 
             if (singleParameterType.IsInstanceOfType(arguments))
             {
-                return new object[] {arguments};
+                return new object[] { arguments };
             }
 
             return arguments;

@@ -6,7 +6,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
 {
-    public class EventSubscriptionHandler: ICallHandler
+    public class EventSubscriptionHandler : ICallHandler
     {
         private readonly IEventHandlerRegistry _eventHandlerRegistry;
 

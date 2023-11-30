@@ -147,7 +147,8 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Should_auto_return_a_value_from_a_task() {
+        public void Should_auto_return_a_value_from_a_task()
+        {
             var sub = Substitute.For<IFooWithTasks>();
             var task = sub.GetIntAsync();
             Assert.That(task.IsCompleted, Is.True);
@@ -155,7 +156,8 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Should_auto_return_an_autosub_from_a_task() {
+        public void Should_auto_return_an_autosub_from_a_task()
+        {
             var sub = Substitute.For<IFooWithTasks>();
 
             var task = sub.GetSample();
@@ -168,13 +170,14 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Should_auto_return_a_completed_non_generic_task() {
+        public void Should_auto_return_a_completed_non_generic_task()
+        {
             var sub = Substitute.For<IFooWithTasks>();
             var task = sub.GetNonGenericTask();
             Assert.That(task.IsCompleted, Is.True);
         }
 
-        public interface IFooWithTasks 
+        public interface IFooWithTasks
         {
             System.Threading.Tasks.Task<ISample> GetSample();
             System.Threading.Tasks.Task<int> GetIntAsync();
@@ -182,7 +185,8 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Should_auto_return_an_observable() {
+        public void Should_auto_return_an_observable()
+        {
             var sub = Substitute.For<IFooWithObservable>();
             int sample = -42;
             sub.GetInts().Subscribe(new AnonymousObserver<int>(x => sample = x));
@@ -190,7 +194,8 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Should_auto_return_an_autosub_from_an_observable() {
+        public void Should_auto_return_an_autosub_from_an_observable()
+        {
             var sub = Substitute.For<IFooWithObservable>();
             ISample sample = null;
             sub.GetSamples().Subscribe(new AnonymousObserver<ISample>(x => sample = x));
@@ -214,7 +219,7 @@ namespace NSubstitute.Acceptance.Specs
             Assert.That(sample1, Is.SameAs(sample2));
         }
 
-        public interface IFooWithObservable 
+        public interface IFooWithObservable
         {
             IObservable<int> GetInts();
             IObservable<ISample> GetSamples();
@@ -231,7 +236,7 @@ namespace NSubstitute.Acceptance.Specs
             {
                 _onNext = onNext ?? (_ => { });
                 _onError = onError ?? (_ => { });
-                _onCompleted = onCompleted ?? (() => {});
+                _onCompleted = onCompleted ?? (() => { });
             }
 
             public void OnNext(T value) { _onNext(value); }

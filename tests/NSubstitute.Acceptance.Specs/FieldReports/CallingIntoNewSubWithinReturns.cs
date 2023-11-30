@@ -15,7 +15,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         {
             var sub = Substitute.For<IBar>();
 
-            var ex = 
+            var ex =
                 Assert.Throws<CouldNotSetReturnDueToTypeMismatchException>(() =>
                     // GetFoo() called, then IPityTheFoo(), then Returns(..) is called.
                     // This means Returns(..) tries to update the last called sub, 
@@ -38,7 +38,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         {
             var sub = Substitute.For<IBar>();
 
-            Assert.Throws<CouldNotSetReturnDueToNoLastCallException>(() => 
+            Assert.Throws<CouldNotSetReturnDueToNoLastCallException>(() =>
                 sub.GetFoo().Returns(CreateFooAndCallReturns())
             );
         }
@@ -55,8 +55,8 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         {
             var sub = Substitute.For<IBar>();
 
-            var ex = 
-                Assert.Throws<CouldNotSetReturnDueToTypeMismatchException>(() => 
+            var ex =
+                Assert.Throws<CouldNotSetReturnDueToTypeMismatchException>(() =>
                     sub.GetFoo().Returns(DoEvilAndReturnNullRef())
                 );
 

@@ -85,7 +85,7 @@ namespace NSubstitute.Acceptance.Specs
                     if (!(ex.InnerException is ReceivedCallsException)) throw;
 
                     var receivedCallsEx = (ReceivedCallsException)ex.InnerException;
-                    Assert.That(receivedCallsEx.Message, Does.Not.Contain("Actually received " + expected + " matching calls"), 
+                    Assert.That(receivedCallsEx.Message, Does.Not.Contain("Actually received " + expected + " matching calls"),
                         "Should not throw received calls exception if it actually received the same number of calls as expected. " +
                         "If we get that it means there was a race between checking the expected calls and accessing the calls to put in the exception message.");
                 }
@@ -99,7 +99,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Create_Delegate_Substitute_From_Many_Threads()
         {
             var tasks =
-                Enumerable.Range(0, 20).Select( _ => 
+                Enumerable.Range(0, 20).Select(_ =>
                     new BackgroundTask(() =>
                         {
                             for (var i = 0; i < 1000; ++i)

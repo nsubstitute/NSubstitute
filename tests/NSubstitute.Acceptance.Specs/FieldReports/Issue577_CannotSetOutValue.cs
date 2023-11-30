@@ -18,7 +18,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
                 out Arg.Any<IKeyValue>()
             ).Returns(info =>
             {
-                var id = (string) info[0];
+                var id = (string)info[0];
                 if (id != null && id == "a")
                 {
                     info[1] = a;

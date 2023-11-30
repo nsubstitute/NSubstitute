@@ -8,7 +8,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
     {
         public class Button
         {
-            public virtual event EventHandler Clicked = (s,e) => { };
+            public virtual event EventHandler Clicked = (s, e) => { };
         }
 
         public interface IController { void Load(); }

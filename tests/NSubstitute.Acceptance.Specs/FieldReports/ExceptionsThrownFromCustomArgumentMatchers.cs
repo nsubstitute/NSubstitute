@@ -4,7 +4,8 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
 {
     public class ExceptionsThrownFromCustomArgumentMatchers
     {
-        public interface IRequest { 
+        public interface IRequest
+        {
             string Get(string url);
             string[] GetMultiple(string[] url);
         }
@@ -81,9 +82,9 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             var emptyArray = new string[0];
             var request = Substitute.For<IRequest>();
             request.GetMultiple(Arg.Is<string[]>(x => x[0] == "greeting")).Returns(new[] { "hello", "bye" });
-            request.GetMultiple(emptyArray).Returns(new [] {"?"});
+            request.GetMultiple(emptyArray).Returns(new[] { "?" });
 
-            Assert.That(request.GetMultiple(new [] {"greeting"}), Is.EqualTo(new[] {"hello", "bye"}));
+            Assert.That(request.GetMultiple(new[] { "greeting" }), Is.EqualTo(new[] { "hello", "bye" }));
             Assert.That(request.GetMultiple(emptyArray), Is.EqualTo(new[] { "?" }));
         }
     }

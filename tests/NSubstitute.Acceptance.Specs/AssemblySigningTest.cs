@@ -11,7 +11,7 @@ namespace NSubstitute.Acceptance.Specs
         {
             var assemblyName = typeof(Substitute).GetTypeInfo().Assembly.GetName();
             var publicKeyToken = string.Join("", assemblyName.GetPublicKeyToken().Select(x => x.ToString("x")));
-            
+
             Assert.That(publicKeyToken, Is.EqualTo("92dd2e9066daa5ca"));
         }
     }

@@ -17,7 +17,7 @@ namespace NSubstitute.Core.Arguments
         {
             if (argument != null)
             {
-                var argumentArray = ((IEnumerable) argument).Cast<object>().ToArray();
+                var argumentArray = ((IEnumerable)argument).Cast<object>().ToArray();
                 if (argumentArray.Length == _argumentSpecifications.Length)
                 {
                     return _argumentSpecifications
@@ -41,9 +41,10 @@ namespace NSubstitute.Core.Arguments
         {
             if (specs.Any() && !args.Any())
             {
-                return new [] { "**" };
+                return new[] { "**" };
             }
-            return args.Select((arg, index) => {
+            return args.Select((arg, index) =>
+            {
                 var hasSpecForThisArg = index < specs.Length;
                 return hasSpecForThisArg ? specs[index].FormatArgument(arg) : ArgumentFormatter.Default.Format(arg, true);
             });

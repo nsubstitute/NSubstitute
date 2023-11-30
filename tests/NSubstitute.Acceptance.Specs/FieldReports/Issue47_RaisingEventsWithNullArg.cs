@@ -24,7 +24,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public void Pass_null_when_raising_eventhandlerish_event()
         {
             var sub = Substitute.For<IFoo>();
-            sub.OnEventishThing += Raise.Event<EventLikeHandler>(new object[] {null});
+            sub.OnEventishThing += Raise.Event<EventLikeHandler>(new object[] { null });
         }
     }
 }

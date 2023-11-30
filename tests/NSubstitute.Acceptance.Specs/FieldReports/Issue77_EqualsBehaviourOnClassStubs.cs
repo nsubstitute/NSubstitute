@@ -51,7 +51,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         {
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
             substitute.Id = 2;
-            var classes = new [] {new AClassThatOverwritesBaseObjectMethods { Id = 1 }, substitute, new AClassThatOverwritesBaseObjectMethods { Id = 3 }};
+            var classes = new[] { new AClassThatOverwritesBaseObjectMethods { Id = 1 }, substitute, new AClassThatOverwritesBaseObjectMethods { Id = 3 } };
 
             Assert.That(classes.Contains(substitute), Is.True);
         }
@@ -137,7 +137,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             var service = Substitute.For<IService>();
             var substitute = Substitute.For<AClassThatOverwritesBaseObjectMethods>();
             substitute.Id = 1;
-            
+
             service.ReturnClassOverridingBaseObjectMethods(1).Returns(substitute);
 
             Assert.That(service.ReturnClassOverridingBaseObjectMethods(1), Is.EqualTo(substitute));
@@ -214,7 +214,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             public override int GetHashCode() { return 0; }
         }
 
-        public class AClassThatDoesntOverrideEquals {}
+        public class AClassThatDoesntOverrideEquals { }
 
         public class AClassThatOverwritesBaseObjectMethods
         {

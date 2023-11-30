@@ -15,7 +15,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             var eventSamples = Substitute.For<IEventSamples>();
             eventSamples.ActionWithRefArrayType += x => arg = x;
 
-            eventSamples.ActionWithRefArrayType += Raise.Event<Action<Widget[]>>(new[] {w1, w2});
+            eventSamples.ActionWithRefArrayType += Raise.Event<Action<Widget[]>>(new[] { w1, w2 });
             Assert.That(arg, Is.Not.Null);
             Assert.That(arg.Length, Is.EqualTo(2));
             Assert.That(arg[0], Is.EqualTo(w1));
@@ -26,7 +26,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public void Should_raise_event_for_object_array_arg()
         {
             object[] capturedArg = null;
-            var arg1 = new[] {new object(), new object()};
+            var arg1 = new[] { new object(), new object() };
 
             var eventSamples = Substitute.For<IEventSamples>();
             eventSamples.ActionWithParamOfObjectArray += x => capturedArg = x;
@@ -39,7 +39,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public void Should_raise_event_for_object_array_arg_with_covariance()
         {
             object[] capturedArg = null;
-            var arg1 = new[] {"hello", "world"};
+            var arg1 = new[] { "hello", "world" };
 
             var eventSamples = Substitute.For<IEventSamples>();
             eventSamples.ActionWithParamOfObjectArray += x => capturedArg = x;
@@ -52,12 +52,12 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public void Should_raise_event_for_object_array_arg_provided_without_using_params_syntax()
         {
             object[] capturedArg = null;
-            var arg1 = new[] {new object(), new object()};
+            var arg1 = new[] { new object(), new object() };
 
             var eventSamples = Substitute.For<IEventSamples>();
             eventSamples.ActionWithParamOfObjectArray += x => capturedArg = x;
 
-            eventSamples.ActionWithParamOfObjectArray += Raise.Event<Action<object[]>>(new object[] {arg1});
+            eventSamples.ActionWithParamOfObjectArray += Raise.Event<Action<object[]>>(new object[] { arg1 });
             Assert.That(capturedArg, Is.EqualTo(arg1));
         }
 
@@ -65,12 +65,12 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public void Should_raise_event_for_object_array_arg_provided_without_using_params_syntax_with_covariance()
         {
             object[] capturedArg = null;
-            var arg1 = new[] {"hello", "world"};
+            var arg1 = new[] { "hello", "world" };
 
             var eventSamples = Substitute.For<IEventSamples>();
             eventSamples.ActionWithParamOfObjectArray += x => capturedArg = x;
 
-            eventSamples.ActionWithParamOfObjectArray += Raise.Event<Action<object[]>>(new object[] {arg1});
+            eventSamples.ActionWithParamOfObjectArray += Raise.Event<Action<object[]>>(new object[] { arg1 });
             Assert.That(capturedArg, Is.EqualTo(arg1));
         }
 
@@ -78,8 +78,8 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         public void Should_raise_event_for_multiple_object_array_args()
         {
             Tuple<object[], object[]> capturedArgs = null;
-            var arg1 = new[] {new object(), new object()};
-            var arg2 = new[] {new object(), new object()};
+            var arg1 = new[] { new object(), new object() };
+            var arg2 = new[] { new object(), new object() };
 
             var eventSamples = Substitute.For<IEventSamples>();
             eventSamples.ActionWithParamsOfObjectArray += (a1, a2) => capturedArgs = Tuple.Create(a1, a2);
