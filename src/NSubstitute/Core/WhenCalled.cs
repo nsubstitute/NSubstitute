@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using NSubstitute.Routing;
 
 // Disable nullability for entry-point API
@@ -35,6 +36,15 @@ public class WhenCalled<T>
     }
 
     /// <summary>
+        /// Perform this action when called.
+        /// </summary>
+        /// <param name="callbackWithArguments"></param>
+        public void Do(Func<CallInfo, Task> callbackWithArguments)
+        {
+            Do(callInfo => callbackWithArguments(callInfo).GetAwaiter().GetResult());
+        }
+
+        /// <summary>
     /// Perform this configured callback when called.
     /// </summary>
     /// <param name="callback"></param>
