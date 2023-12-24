@@ -258,7 +258,7 @@ namespace NSubstitute.Acceptance.Specs
             var result = sutFork.Resolve<ITestInterface>();
 
             Assert.That(result, Is.TypeOf<TestImplDecorator>());
-            Assert.That(((TestImplDecorator) result).Inner, Is.TypeOf<TestImplSingleCtor>());
+            Assert.That(((TestImplDecorator)result).Inner, Is.TypeOf<TestImplSingleCtor>());
         }
 
         [Test]
@@ -313,7 +313,7 @@ namespace NSubstitute.Acceptance.Specs
             var result = sutFork.Resolve<ITestInterface>();
 
             Assert.That(result, Is.TypeOf<TestImplDecorator>());
-            Assert.That(((TestImplDecorator) result).Inner, Is.TypeOf<TestImplSingleCtor>());
+            Assert.That(((TestImplDecorator)result).Inner, Is.TypeOf<TestImplSingleCtor>());
         }
 
         [Test]
@@ -328,7 +328,7 @@ namespace NSubstitute.Acceptance.Specs
             var result2 = scope.Resolve<ITestInterface>();
 
             Assert.That(result1, Is.Not.SameAs(result2));
-            Assert.That(((TestImplDecorator) result1).Inner, Is.Not.SameAs(((TestImplDecorator) result2).Inner));
+            Assert.That(((TestImplDecorator)result1).Inner, Is.Not.SameAs(((TestImplDecorator)result2).Inner));
         }
 
         [Test]
@@ -343,7 +343,7 @@ namespace NSubstitute.Acceptance.Specs
             var result2 = scope.Resolve<ITestInterface>();
 
             Assert.That(result1, Is.SameAs(result2));
-            Assert.That(((TestImplDecorator) result1).Inner, Is.SameAs(((TestImplDecorator) result2).Inner));
+            Assert.That(((TestImplDecorator)result1).Inner, Is.SameAs(((TestImplDecorator)result2).Inner));
         }
 
         [Test]
@@ -357,7 +357,7 @@ namespace NSubstitute.Acceptance.Specs
             var result2 = sut.Resolve<ITestInterface>();
 
             Assert.That(result1, Is.SameAs(result2));
-            Assert.That(((TestImplDecorator) result1).Inner, Is.SameAs(((TestImplDecorator) result2).Inner));
+            Assert.That(((TestImplDecorator)result1).Inner, Is.SameAs(((TestImplDecorator)result2).Inner));
         }
 
         public interface ITestInterface

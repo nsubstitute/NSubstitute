@@ -23,7 +23,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             // Arrange
             var response = new Response();
             var deliver = Substitute.For<IDeliver>();
-            
+
             // Act
             deliver.Send(Arg.Any<Message1>()).Throws<InvalidOperationException>();
             deliver.Send(Arg.Any<Message2>()).Returns(response);
@@ -38,11 +38,11 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         {
             // Arrange
             var something = Substitute.For<ISomething>();
-            
+
             // Act
             something.Echo(Arg.Any<int>()).Throws<InvalidOperationException>();
             something.Echo(Arg.Is(42)).Returns("42");
-            
+
             // Assert
             Assert.Throws<InvalidOperationException>(() => something.Echo(100));
             Assert.AreEqual("42", something.Echo(42));

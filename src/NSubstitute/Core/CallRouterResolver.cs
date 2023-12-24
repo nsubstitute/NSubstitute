@@ -9,10 +9,10 @@ namespace NSubstitute.Core
         {
             return substitute switch
             {
-                null                                              => throw new NullSubstituteReferenceException(),
-                ICallRouterProvider provider                      => provider.GetCallRouter(),
+                null => throw new NullSubstituteReferenceException(),
+                ICallRouterProvider provider => provider.GetCallRouter(),
                 Delegate { Target: ICallRouterProvider provider } => provider.GetCallRouter(),
-                _                                                 => throw new NotASubstituteException()
+                _ => throw new NotASubstituteException()
             };
         }
     }

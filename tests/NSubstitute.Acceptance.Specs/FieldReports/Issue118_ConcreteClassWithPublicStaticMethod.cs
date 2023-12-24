@@ -64,7 +64,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
     public class ConcreteWithPublicStaticMethod
     {
         public virtual string AProperty { get; set; }
-        public static void AStaticMethod() {}
+        public static void AStaticMethod() { }
     }
 
     public class ConcreteWithoutPublicStaticMethod

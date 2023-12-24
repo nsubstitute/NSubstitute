@@ -19,10 +19,10 @@ namespace NSubstitute
         /// <typeparam name="T">The type of interface or class to substitute.</typeparam>
         /// <param name="constructorArguments">Arguments required to construct a class being substituted. Not required for interfaces or classes with default constructors.</param>
         /// <returns>A substitute for the interface or class.</returns>
-        public static T For<T>(params object[] constructorArguments) 
+        public static T For<T>(params object[] constructorArguments)
             where T : class
         {
-            return (T) For(new[] {typeof(T)}, constructorArguments);
+            return (T)For(new[] { typeof(T) }, constructorArguments);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace NSubstitute
             where T1 : class
             where T2 : class
         {
-            return (T1) For(new[] { typeof(T1), typeof(T2) }, constructorArguments);
+            return (T1)For(new[] { typeof(T1), typeof(T2) }, constructorArguments);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace NSubstitute
             where T2 : class
             where T3 : class
         {
-            return (T1) For(new[] { typeof(T1), typeof(T2), typeof(T3) }, constructorArguments);
+            return (T1)For(new[] { typeof(T1), typeof(T2), typeof(T3) }, constructorArguments);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace NSubstitute
         /// <param name="typesToProxy">The types of interfaces or a type of class and multiple interfaces the substitute should implement.</param>
         /// <param name="constructorArguments">Arguments required to construct a class being substituted. Not required for interfaces or classes with default constructors.</param>
         /// <returns>A substitute implementing the specified types.</returns>
-        public static object For(Type[] typesToProxy, object[] constructorArguments) 
+        public static object For(Type[] typesToProxy, object[] constructorArguments)
         {
             var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
             return substituteFactory.Create(typesToProxy, constructorArguments);
@@ -84,11 +84,11 @@ namespace NSubstitute
         /// <param name="constructorArguments"></param>
         /// <returns>An instance of the class that will execute real methods when called, but allows parts to be selectively 
         /// overridden via `Returns` and `When..DoNotCallBase`.</returns>
-        public static T ForPartsOf<T>(params object[] constructorArguments) 
+        public static T ForPartsOf<T>(params object[] constructorArguments)
             where T : class
         {
             var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
-            return (T) substituteFactory.CreatePartial(new[] {typeof (T)}, constructorArguments);
+            return (T)substituteFactory.CreatePartial(new[] { typeof(T) }, constructorArguments);
         }
     }
 }

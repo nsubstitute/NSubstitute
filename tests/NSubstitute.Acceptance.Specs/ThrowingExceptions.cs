@@ -13,7 +13,7 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void ThrowException()
         {
-            _something.Count().Throws(new Exception());            
+            _something.Count().Throws(new Exception());
 
             Assert.Catch<Exception>(() => _something.Count());
         }
@@ -52,7 +52,7 @@ namespace NSubstitute.Acceptance.Specs
             _something.Count().Throws(new Exception("Exception message", innerException));
 
             Exception exceptionThrown = Assert.Catch<Exception>(() => _something.Count());
-            
+
             Assert.IsNotNull(exceptionThrown.InnerException);
             Assert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
         }

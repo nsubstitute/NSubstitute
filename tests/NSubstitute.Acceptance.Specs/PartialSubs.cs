@@ -201,7 +201,7 @@ namespace NSubstitute.Acceptance.Specs
             substitute.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).CallBase();
 
             substitute.MethodReturnsSameInt(42);
-            
+
             Assert.That(substitute.CalledTimes, Is.EqualTo(1));
         }
 
@@ -213,7 +213,7 @@ namespace NSubstitute.Acceptance.Specs
             substitute.When(x => x.MethodReturnsSameInt(Arg.Any<int>())).CallBase();
 
             substitute.MethodReturnsSameInt(42);
-            
+
             Assert.That(substitute.CalledTimes, Is.EqualTo(1));
         }
 
@@ -242,7 +242,7 @@ namespace NSubstitute.Acceptance.Specs
 
             Assert.That(substitute.CalledTimes, Is.EqualTo(1));
         }
- 
+
         [Test]
         public void ShouldThrowExceptionIfTryToNotCallBaseForAbstractMethod()
         {
@@ -262,7 +262,7 @@ namespace NSubstitute.Acceptance.Specs
                 () => substitute.When(x => x.TestMethodReturnsInt()).DoNotCallBase());
             Assert.That(ex.Message, Contains.Substring("base method implementation is missing"));
         }
- 
+
         [Test]
         public void ShouldThrowExceptionIfTryToCallBaseForAbstractMethod()
         {

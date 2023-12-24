@@ -4,12 +4,15 @@ using System.Linq;
 using NSubstitute.Compatibility;
 using NUnit.Framework;
 
-namespace NSubstitute.Acceptance.Specs {
+namespace NSubstitute.Acceptance.Specs
+{
 
-    public class CompatArgsTests {
+    public class CompatArgsTests
+    {
 
         [Test]
-        public void CompatAndCompatArgInstanceShouldBeInSync() {
+        public void CompatAndCompatArgInstanceShouldBeInSync()
+        {
             var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
             var compatMembers =
                 typeof(Arg.Compat).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
@@ -23,7 +26,8 @@ namespace NSubstitute.Acceptance.Specs {
         }
 
         [Test]
-        public void CompatAndArgShouldBeInSync() {
+        public void CompatAndArgShouldBeInSync()
+        {
             var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
             var argMembers =
                 typeof(Arg).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
@@ -36,15 +40,18 @@ namespace NSubstitute.Acceptance.Specs {
                 );
         }
 
-        private static string DescribeMethod(MethodInfo m) {
+        private static string DescribeMethod(MethodInfo m)
+        {
             return $"{m.Name}<{DescribeTypeList(m.GetGenericArguments())}>({DescribeParameters(m.GetParameters())})";
         }
 
-        private static string DescribeTypeList(Type[] args) {
+        private static string DescribeTypeList(Type[] args)
+        {
             return string.Join(", ", args.Select(x => x.Name));
         }
 
-        private static string DescribeParameters(ParameterInfo[] parameters) {
+        private static string DescribeParameters(ParameterInfo[] parameters)
+        {
             return string.Join(", ", parameters.Select(x => $"{x.ParameterType.Name} {x.Name}"));
         }
 

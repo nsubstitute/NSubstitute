@@ -81,7 +81,7 @@ public class GenericArguments
     public void Any_matcher_works_with_AnyType_and_constraints()
     {
         ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
-        var state = new[] {3409};
+        var state = new[] { 3409 };
         something.SomeActionWithGenericConstraints(7, state);
 
         something.Received().SomeActionWithGenericConstraints(Arg.Any<int>(), Arg.Any<MyAnyType>());
@@ -102,7 +102,7 @@ public class GenericArguments
                 whenDoCalled = true;
             });
 
-        var expected = new[] {3409};
+        var expected = new[] { 3409 };
         something.SomeActionWithGenericConstraints(7, expected);
 
         Assert.That(whenDoCalled, Is.True);
@@ -116,7 +116,7 @@ public class GenericArguments
         ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
         something.SomeActionWithGenericConstraints(Arg.Any<int>(), Arg.Do<MyAnyType>(a => argDoResult = ">>" + ((int[])a)[0].ToString("P", CultureInfo.InvariantCulture)));
 
-        something.SomeActionWithGenericConstraints(7, new[] {3409});
+        something.SomeActionWithGenericConstraints(7, new[] { 3409 });
 
         Assert.That(argDoResult, Is.EqualTo(">>340,900.00 %"));
     }
@@ -128,7 +128,7 @@ public class GenericArguments
 
         something.SomeFunctionWithGenericConstraints(Arg.Any<int>(), Arg.Is<MyAnyType>(a => ((int[])a)[0] == 3409)).Returns("matched");
 
-        var result = something.SomeFunctionWithGenericConstraints(7, new[] {3409});
+        var result = something.SomeFunctionWithGenericConstraints(7, new[] { 3409 });
 
         Assert.That(result, Is.EqualTo("matched"));
     }

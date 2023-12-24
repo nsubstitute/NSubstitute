@@ -3,7 +3,8 @@ using NSubstitute;
 using NSubstitute.Compatibility;
 using NUnit.Framework;
 
-namespace NSubstitute.Acceptance.Specs.FieldReports {
+namespace NSubstitute.Acceptance.Specs.FieldReports
+{
 
     /// <summary>
     /// Can migrate from the old <see cref="Arg"/> matchers to <see cref="Arg.Compat"/> by putting a
@@ -12,19 +13,24 @@ namespace NSubstitute.Acceptance.Specs.FieldReports {
     /// 
     /// To migrate back(once project switches to C#7+), just delete the CompatArgInstance field.
     /// </summary>
-    public class MigratingToCompatArgs {
+    public class MigratingToCompatArgs
+    {
 
-        public class TestBaseClass {
+        public class TestBaseClass
+        {
             protected static readonly CompatArg Arg = CompatArg.Instance;
         }
 
-        public interface IMessageServer {
+        public interface IMessageServer
+        {
             void SendMessage(int code, string description);
         }
 
-        public class SampleTestFixture : TestBaseClass {
+        public class SampleTestFixture : TestBaseClass
+        {
             [Test]
-            public void ArgMatcherUsingBaseClass() {
+            public void ArgMatcherUsingBaseClass()
+            {
                 var sub = Substitute.For<IMessageServer>();
 
                 sub.SendMessage(42, "meaning of life?");

@@ -40,7 +40,7 @@ namespace NSubstitute.Core
 
             public bool IsSatisfiedBy(ICall call)
                 => call.GetReturnType() == _expectedReturnType;
-            
+
             // ******* Rest methods are not required *******
 
             public string Format(ICall call)

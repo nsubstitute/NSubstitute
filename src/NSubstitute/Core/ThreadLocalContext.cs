@@ -41,8 +41,8 @@ namespace NSubstitute.Core
             if (lastCallRouter == null)
                 throw new CouldNotSetReturnDueToNoLastCallException();
 
-            if(!PendingSpecification.HasPendingCallSpecInfo())
-               throw new CouldNotSetReturnDueToMissingInfoAboutLastCallException();
+            if (!PendingSpecification.HasPendingCallSpecInfo())
+                throw new CouldNotSetReturnDueToMissingInfoAboutLastCallException();
 
             if (_argumentSpecifications.Value.Count > 0)
             {

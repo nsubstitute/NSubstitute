@@ -11,8 +11,8 @@ namespace NSubstitute.Acceptance.Specs
     {
         private ICar _car;
         const int Rpm = 7000;
-        private static readonly object[] Luggage = new [] { new object(), new object() };
-        private static readonly DateTime[] ServiceDates = new[] {new DateTime(2001, 01, 01), new DateTime(2002, 02, 02)};
+        private static readonly object[] Luggage = new[] { new object(), new object() };
+        private static readonly DateTime[] ServiceDates = new[] { new DateTime(2001, 01, 01), new DateTime(2002, 02, 02) };
 
         [SetUp]
         public void SetUp()
@@ -255,22 +255,28 @@ namespace NSubstitute.Acceptance.Specs
         [TestCase(4, true)]
         [TestCase(5, true)]
         [TestCase(6, false)]
-        public void Check_call_was_received_within_a_range_of_times(int numberOfCalls, bool shouldPass) {
-            for (var i = 0; i < numberOfCalls; i++) {
+        public void Check_call_was_received_within_a_range_of_times(int numberOfCalls, bool shouldPass)
+        {
+            for (var i = 0; i < numberOfCalls; i++)
+            {
                 _car.Idle();
             }
 
-            if (shouldPass) {
+            if (shouldPass)
+            {
                 _car.Received(Quantity.Within(2, 5)).Idle();
-            } else {
-                Assert.Throws<ReceivedCallsException>(() => 
+            }
+            else
+            {
+                Assert.Throws<ReceivedCallsException>(() =>
                     _car.Received(Quantity.Within(2, 5)).Idle()
                 );
             }
         }
 
         [Test]
-        public void Throw_when_call_was_not_received_within_a_range_of_times() {
+        public void Throw_when_call_was_not_received_within_a_range_of_times()
+        {
             _car.Idle();
             var ex = Assert.Throws<ReceivedCallsException>(() =>
                 _car.Received(Quantity.Within(2, 5)).Idle()
@@ -279,7 +285,8 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throw_when_call_was_received_too_many_times_within_a_range() {
+        public void Throw_when_call_was_received_too_many_times_within_a_range()
+        {
             _car.Idle();
             _car.Idle();
             var ex = Assert.Throws<ReceivedCallsException>(() =>
@@ -289,7 +296,8 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throw_when_invalid_range_given() {
+        public void Throw_when_invalid_range_given()
+        {
             _car.Idle();
             _car.Idle();
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>
@@ -299,7 +307,8 @@ namespace NSubstitute.Acceptance.Specs
         }
 
         [Test]
-        public void Throw_when_negative_min_range_given() {
+        public void Throw_when_negative_min_range_given()
+        {
             _car.Idle();
             _car.Idle();
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>

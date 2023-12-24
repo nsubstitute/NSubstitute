@@ -114,7 +114,7 @@ namespace NSubstitute.Core
 
             try
             {
-                return (T) _callArguments[position].Value!;
+                return (T)_callArguments[position].Value!;
             }
             catch (InvalidCastException)
             {

@@ -19,7 +19,7 @@ namespace NSubstitute.Proxies
         public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, object?[]? constructorArguments)
         {
             var isDelegate = typeToProxy.IsDelegate();
-            return isDelegate 
+            return isDelegate
                 ? _delegateFactory.GenerateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments)
                 : _dynamicProxyFactory.GenerateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments);
         }

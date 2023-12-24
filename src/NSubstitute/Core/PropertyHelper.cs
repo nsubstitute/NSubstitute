@@ -18,7 +18,7 @@ namespace NSubstitute.Core
             _callFactory = callFactory;
             _argSpecCompatTester = argSpecCompatTester;
         }
-        
+
         public bool IsCallToSetAReadWriteProperty(ICall call)
         {
             var propertySetter = GetPropertyFromSetterCall(call);
@@ -45,7 +45,7 @@ namespace NSubstitute.Core
 
             var getter = propertyInfo.GetGetMethod(nonPublic: true);
             if (getter is null) throw new SubstituteInternalException("A property with a getter expected.");
- 
+
             var getterArgs = SkipLast(callToSetter.GetOriginalArguments());
             var getterArgumentSpecifications = GetGetterCallSpecificationsFromSetterCall(callToSetter);
 

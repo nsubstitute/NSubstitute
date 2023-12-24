@@ -67,7 +67,7 @@ namespace NSubstitute.Core.DependencyInjection
         }
 
         public IConfigurableNSubContainer Register<TKey>(Func<INSubResolver, TKey> factory, NSubLifetime lifetime)
-            where TKey: notnull
+            where TKey : notnull
         {
             object Factory(Scope scope)
             {
@@ -85,14 +85,14 @@ namespace NSubstitute.Core.DependencyInjection
             Registration? existingRegistration = TryFindRegistration(typeof(TKey));
             if (existingRegistration == null)
             {
-                throw new ArgumentException("Cannot decorate type " + typeof(TKey).FullName +" as implementation is not registered.");
+                throw new ArgumentException("Cannot decorate type " + typeof(TKey).FullName + " as implementation is not registered.");
             }
 
             object Factory(Scope scope)
             {
                 // Freeze original registration discovered during decoration.
                 // This way we avoid recursion and support nested decorators.
-                var originalInstance = (TKey) scope.Resolve(existingRegistration);
+                var originalInstance = (TKey)scope.Resolve(existingRegistration);
                 return factory.Invoke(originalInstance, scope);
             }
 
@@ -189,7 +189,7 @@ namespace NSubstitute.Core.DependencyInjection
                 _mostNestedContainer = mostNestedContainer;
             }
 
-            public T Resolve<T>() where T : notnull => (T) Resolve(typeof(T));
+            public T Resolve<T>() where T : notnull => (T)Resolve(typeof(T));
 
             public bool TryGetCached(Registration registration, [MaybeNullWhen(false)] out object result)
             {

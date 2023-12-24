@@ -42,7 +42,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 typeToProxy,
                 additionalInterfaces,
                 constructorArguments,
-                new IInterceptor[] {proxyIdInterceptor, forwardingInterceptor},
+                new IInterceptor[] { proxyIdInterceptor, forwardingInterceptor },
                 proxyGenerationOptions);
 
             forwardingInterceptor.SwitchToFullDispatchMode();
@@ -65,7 +65,7 @@ namespace NSubstitute.Proxies.CastleDynamicProxy
                 typeToProxy: typeof(object),
                 additionalInterfaces: null,
                 constructorArguments: null,
-                interceptors: new IInterceptor[] {proxyIdInterceptor, forwardingInterceptor},
+                interceptors: new IInterceptor[] { proxyIdInterceptor, forwardingInterceptor },
                 proxyGenerationOptions);
 
             forwardingInterceptor.SwitchToFullDispatchMode();

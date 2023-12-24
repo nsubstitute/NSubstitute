@@ -8,7 +8,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
         [Test]
         public void DisposeSubstituteAndPerformGC()
         {
-            using (var s = Substitute.For<DisposableClass>()) { } 
+            using (var s = Substitute.For<DisposableClass>()) { }
             GC.Collect();
             GC.WaitForPendingFinalizers();
 

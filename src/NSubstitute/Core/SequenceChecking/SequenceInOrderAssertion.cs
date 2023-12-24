@@ -25,11 +25,11 @@ namespace NSubstitute.Core.SequenceChecking
             var callsAndSpecs = matchingCallsInOrder
                 .Zip(querySpec, (call, specAndTarget) =>
                                 new
-                                    {
-                                        Call = call,
-                                        Spec = specAndTarget.CallSpecification,
-                                        IsMatch = Matches(call, specAndTarget)
-                                    }
+                                {
+                                    Call = call,
+                                    Spec = specAndTarget.CallSpecification,
+                                    IsMatch = Matches(call, specAndTarget)
+                                }
                 );
 
             if (callsAndSpecs.Any(x => !x.IsMatch))

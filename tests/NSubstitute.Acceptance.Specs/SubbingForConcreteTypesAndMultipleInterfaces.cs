@@ -55,8 +55,8 @@ namespace NSubstitute.Acceptance.Specs
             var expectedString = "from ctor";
             var expectedInt = 5;
             var sub = Substitute.For<ClassWithCtorArgs>(expectedString, expectedInt);
-            Assert.That(sub.StringFromCtorArg, Is.EqualTo(expectedString)); 
-            Assert.That(sub.IntFromCtorArg, Is.EqualTo(expectedInt)); 
+            Assert.That(sub.StringFromCtorArg, Is.EqualTo(expectedString));
+            Assert.That(sub.IntFromCtorArg, Is.EqualTo(expectedInt));
         }
 
         [Test]

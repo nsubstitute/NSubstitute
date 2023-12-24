@@ -198,7 +198,7 @@ namespace NSubstitute.Acceptance.Specs
         public void Returns_Null_for_method_returning_class()
         {
             _something.SomeAction().ReturnsNull();
-            
+
             Assert.That(_something.SomeAction(), Is.Null);
         }
 

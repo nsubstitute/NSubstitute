@@ -18,7 +18,7 @@ namespace NSubstitute.Core.Events
             _eventArgs = eventArgs;
         }
 
-// Disable nullability for client API, so it does not affect clients.
+        // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
         public static implicit operator EventHandler(EventHandlerWrapper<TEventArgs> wrapper)
         {

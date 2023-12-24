@@ -267,7 +267,7 @@ namespace NSubstitute.Acceptance.Specs
             protected override void ConfigureContext()
             {
                 Sample.ParamsMethod(2, "hello", "everybody");
-                Sample.ParamsMethod(1, new[] {"hello", "everybody"});
+                Sample.ParamsMethod(1, new[] { "hello", "everybody" });
                 Sample.ParamsMethod(1, "hello");
                 Sample.ParamsMethod(3, "1", "2", "3");
                 Sample.ParamsMethod(1);
@@ -300,7 +300,7 @@ namespace NSubstitute.Acceptance.Specs
             protected override void ConfigureContext()
             {
                 Sample.IntParamsMethod(1, 2, 3);
-                Sample.IntParamsMethod(new[] {4, 5});
+                Sample.IntParamsMethod(new[] { 4, 5 });
                 Sample.IntParamsMethod();
             }
 
@@ -333,7 +333,7 @@ namespace NSubstitute.Acceptance.Specs
 
             protected override void ExpectedCall()
             {
-                Sample.Received().ParamsMethod(1, Arg.Is(new[] {"hello", "world"}));
+                Sample.Received().ParamsMethod(1, Arg.Is(new[] { "hello", "world" }));
             }
 
             [Test]

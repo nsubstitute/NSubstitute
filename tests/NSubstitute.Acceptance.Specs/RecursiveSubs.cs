@@ -18,7 +18,7 @@ namespace NSubstitute.Acceptance.Specs
         public interface IIdentity { string Name { get; set; } }
 
         [Test]
-        public void Set_a_return_value_on_a_substitute_of_a_substitute_of_a_substitute ()
+        public void Set_a_return_value_on_a_substitute_of_a_substitute_of_a_substitute()
         {
             const string name = "My pet fish Eric";
 

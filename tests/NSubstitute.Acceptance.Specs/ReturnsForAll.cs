@@ -29,7 +29,7 @@ namespace NSubstitute.Acceptance.Specs
         [Test]
         public void Return_self_for_chained_calls()
         {
-           Assert.That(_fluentSomething.Chain().Me().Together(), Is.SameAs(_fluentSomething));
+            Assert.That(_fluentSomething.Chain().Me().Together(), Is.SameAs(_fluentSomething));
         }
 
         [Test]

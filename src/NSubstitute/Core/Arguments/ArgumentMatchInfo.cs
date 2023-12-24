@@ -34,8 +34,8 @@
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (ArgumentMatchInfo)) return false;
-            return Equals((ArgumentMatchInfo) obj);
+            if (obj.GetType() != typeof(ArgumentMatchInfo)) return false;
+            return Equals((ArgumentMatchInfo)obj);
         }
 
         public override int GetHashCode()
@@ -43,8 +43,8 @@
             unchecked
             {
                 int result = Index;
-                result = (result*397) ^ (_argument != null ? _argument.GetHashCode() : 0);
-                result = (result*397) ^ _specification.GetHashCode();
+                result = (result * 397) ^ (_argument != null ? _argument.GetHashCode() : 0);
+                result = (result * 397) ^ _specification.GetHashCode();
                 return result;
             }
         }

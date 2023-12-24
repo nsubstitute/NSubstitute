@@ -22,7 +22,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             });
 
             string outString;
-            var result =substitute.DoStuff("a", out outString);
+            var result = substitute.DoStuff("a", out outString);
 
             Assert.That(result);
             Assert.That(outString, Is.EqualTo("test"));
@@ -65,7 +65,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
             });
 
             string outString;
-            var result =substitute.DoStuff("a", out outString);
+            var result = substitute.DoStuff("a", out outString);
 
             Assert.That(result);
             Assert.That(outString, Is.EqualTo("test"));

@@ -49,7 +49,7 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
 
             public abstract int ProtectedSetterProp { get; protected set; }
             public void SetProtectedSetterProp(int value) => ProtectedSetterProp = value;
-            
+
             public abstract int ProtectedGetterProp { protected get; set; }
             public int GetProtectedGetterProp() => ProtectedGetterProp;
         }

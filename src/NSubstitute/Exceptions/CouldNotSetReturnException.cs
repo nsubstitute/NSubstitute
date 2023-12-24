@@ -5,7 +5,7 @@ namespace NSubstitute.Exceptions
 {
     public abstract class CouldNotSetReturnException : SubstituteException
     {
-        protected const string WhatProbablyWentWrong = 
+        protected const string WhatProbablyWentWrong =
                 "Make sure you called Returns() after calling your substitute (for example: mySub.SomeMethod().Returns(value)),\n" +
                 "and that you are not configuring other substitutes within Returns() (for example, avoid this: mySub.SomeMethod().Returns(ConfigOtherSub())).\n" +
                 "\n" +
@@ -44,8 +44,8 @@ namespace NSubstitute.Exceptions
 
         private static string DescribeProblem(Type? typeOfReturnValue, MethodInfo member)
         {
-            return typeOfReturnValue == null 
-                ? string.Format("Can not return null for {0}.{1} (expected type {2}).", member.DeclaringType!.Name, member.Name, member.ReturnType.Name) 
+            return typeOfReturnValue == null
+                ? string.Format("Can not return null for {0}.{1} (expected type {2}).", member.DeclaringType!.Name, member.Name, member.ReturnType.Name)
                 : string.Format("Can not return value of type {0} for {1}.{2} (expected type {3}).", typeOfReturnValue.Name, member.DeclaringType!.Name, member.Name, member.ReturnType.Name);
         }
     }
