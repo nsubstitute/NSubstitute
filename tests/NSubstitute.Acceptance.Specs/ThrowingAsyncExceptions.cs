@@ -1,10 +1,9 @@
-﻿#if !NET45
+﻿using NSubstitute.Acceptance.Specs.Infrastructure;
+using NSubstitute.ExceptionExtensions;
+using NUnit.Framework;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using NSubstitute.Acceptance.Specs.Infrastructure;
-using NSubstitute.ExceptionExtensions;
-using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs
 {
@@ -339,4 +338,3 @@ namespace NSubstitute.Acceptance.Specs
         }
     }
 }
-#endif

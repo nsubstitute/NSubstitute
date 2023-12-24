@@ -1,8 +1,8 @@
-﻿using System;
+﻿using NSubstitute.Core;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using NSubstitute.Core;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
@@ -247,21 +247,12 @@ namespace NSubstitute.ExceptionExtensions
 
         private static Task TaskFromException(Exception ex)
         {
-#if NET45
-            return new Task(() => throw ex);
-#else
             return Task.FromException(ex);
-#endif
         }
 
         private static Task<T> TaskFromException<T>(Exception ex)
         {
-#if NET45
-            return new Task<T>(() => throw ex);
-#else
-            return Task<T>.FromException<T>(ex);
-#endif
+            return Task.FromException<T>(ex);
         }
-
     }
 }

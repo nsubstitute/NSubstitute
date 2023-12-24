@@ -1,8 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFrameworks>net6.0;netstandard2.0;net462</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <AssemblyOriginatorKeyFile>nsubstitute.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <DocumentationFile>..\..\bin\$(Configuration)\NSubstitute\$(TargetFramework)\NSubstitute.xml</DocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <Description>NSubstitute is a friendly substitute for .NET mocking libraries. It has a simple, succinct syntax to help developers write clearer tests. NSubstitute is designed for Arrange-Act-Assert (AAA) testing and with Test Driven Development (TDD) in mind.</Description>
-    <Version>3.0.0</Version>
+    <Version>5.0.0</Version>
     <Authors>Anthony Egerton;David Tchepak;Alexandr Nikitin;Oleksandr Povar</Authors>
     <AssemblyName>NSubstitute</AssemblyName>
     <PackageId>NSubstitute</PackageId>
@@ -14,44 +25,15 @@
 		<RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\docs\images\nsubstitute-100x100.png" Pack="true" PackagePath="icon.png" Visible="false" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;netstandard2.0;net462</TargetFrameworks>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="5.1.1-*" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetIsNet5OrNewer)' != 'true'">
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <SignAssembly>true</SignAssembly>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <AssemblyOriginatorKeyFile>nsubstitute.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <DocumentationFile>..\..\bin\$(Configuration)\NSubstitute\$(TargetFramework)\NSubstitute.xml</DocumentationFile>
-    <NoWarn>$(NoWarn);1701;1702;1705;1591</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <Nullable Condition="'$(TargetIsNet5OrNewer)' == 'true'">enable</Nullable>
-    <!-- Nullability does not work nicely for older versions of .NET, so just disable nullability for those versions. -->
-    <!-- CS8632 - The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. -->
-    <NoWarn Condition="'$(TargetIsNet5OrNewer)' != 'true'">$(NoWarn);CS8632</NoWarn>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(TargetIsNet5OrNewer)' == 'true'">
     <DefineConstants>$(DefineConstants);SYSTEM_DIAGNOSTICS_CODEANALYSIS_NULLABILITY</DefineConstants>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetIsNet5OrNewer)' != 'true'">
+    <!-- Nullability does not work nicely for older versions of .NET, so just disable nullability for those versions. -->
+    <!-- CS8632 - The annotation for nullable reference types should only be used in code within a '#nullable' annotations context. -->
+    <NoWarn>$(NoWarn);CS8632</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(CI)' == 'True'">
@@ -61,7 +43,18 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
   <ItemGroup>
-     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <None Include="..\..\docs\images\nsubstitute-100x100.png" Pack="true" PackagePath="icon.png" Visible="false" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="5.1.1-*" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetIsNet5OrNewer)' != 'true'">
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*" />
+  </ItemGroup>
+  
 </Project>
