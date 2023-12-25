@@ -8,6 +8,7 @@
     <TargetIsNetFx Condition="$(TargetFramework.StartsWith('net4'))">true</TargetIsNetFx>
     <TargetIsNet5OrNewer Condition="'$(TargetFramework)' == 'net6.0'">true</TargetIsNet5OrNewer>
     <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup>

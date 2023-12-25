@@ -1,5 +1,4 @@
-﻿using System;
-using NSubstitute.Core;
+﻿using NSubstitute.Core;
 using NSubstitute.ReceivedExtensions;
 
 namespace NSubstitute.Routing

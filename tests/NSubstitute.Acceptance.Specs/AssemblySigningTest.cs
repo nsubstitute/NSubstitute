@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs

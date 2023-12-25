@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 

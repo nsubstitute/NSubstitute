@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 

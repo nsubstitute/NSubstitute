@@ -1,6 +1,4 @@
-using System;
 using NSubstitute.Core;
-using System.Threading.Tasks;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations

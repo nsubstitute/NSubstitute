@@ -1,5 +1,3 @@
-using System;
-
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports

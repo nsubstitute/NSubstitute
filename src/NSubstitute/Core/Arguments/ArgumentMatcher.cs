@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.Arguments

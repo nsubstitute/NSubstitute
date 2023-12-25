@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NSubstitute.Core;
+﻿using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
 // Disable nullability for client API, so it does not affect clients.

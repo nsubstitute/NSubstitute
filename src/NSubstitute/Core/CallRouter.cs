@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using NSubstitute.Exceptions;
 using NSubstitute.Routing;
 

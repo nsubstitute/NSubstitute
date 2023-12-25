@@ -1,5 +1,4 @@
-﻿using System;
-using NSubstitute.Exceptions;
+﻿using NSubstitute.Exceptions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports

@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using NSubstitute.Exceptions;
 
 // Disable nullability for entry-point API

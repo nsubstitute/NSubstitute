@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using NSubstitute.Core;
 
 // Disable nullability for client API, so it does not affect clients.

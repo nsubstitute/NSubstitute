@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NSubstitute.Core.Arguments
+﻿namespace NSubstitute.Core.Arguments
 {
     public interface IDefaultChecker
     {

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using NSubstitute.Core;
+﻿using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues
 {

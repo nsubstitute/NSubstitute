@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-
-namespace NSubstitute.Core.Arguments
+﻿namespace NSubstitute.Core.Arguments
 {
     public class ArgumentSpecificationCompatibilityTester : IArgumentSpecificationCompatibilityTester
     {

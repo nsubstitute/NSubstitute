@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;

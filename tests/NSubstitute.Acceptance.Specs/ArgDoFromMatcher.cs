@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using NSubstitute.ClearExtensions;
+﻿using NSubstitute.ClearExtensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs

@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.Routing;
 
 // Disable nullability for entry-point API

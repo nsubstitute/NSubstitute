@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 

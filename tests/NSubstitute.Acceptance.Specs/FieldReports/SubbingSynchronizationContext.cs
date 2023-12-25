@@ -1,4 +1,3 @@
-using System.Threading;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports

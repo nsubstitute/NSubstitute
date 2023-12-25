@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NSubstitute
+﻿namespace NSubstitute
 {
     [Flags]
     public enum ClearOptions

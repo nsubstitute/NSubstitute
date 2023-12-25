@@ -1,5 +1,3 @@
-using System;
-
 namespace NSubstitute.Core
 {
     public interface IDefaultForType

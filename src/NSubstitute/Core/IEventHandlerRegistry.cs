@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace NSubstitute.Core
 {
     public interface IEventHandlerRegistry

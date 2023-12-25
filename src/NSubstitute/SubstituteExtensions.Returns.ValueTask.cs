@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 

@@ -1,5 +1,3 @@
-using System;
-
 namespace NSubstitute.Core.DependencyInjection
 {
     public interface INSubResolver

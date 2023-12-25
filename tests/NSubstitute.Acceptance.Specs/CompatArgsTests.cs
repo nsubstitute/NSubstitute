@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Linq;
+﻿using System.Reflection;
 using NSubstitute.Compatibility;
 using NUnit.Framework;
 
