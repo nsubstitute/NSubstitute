@@ -1,4 +1,3 @@
-using System.Linq;
 using NSubstitute.Core;
 using NSubstitute.ReceivedExtensions;
 

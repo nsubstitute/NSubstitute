@@ -1,5 +1,3 @@
-using System;
-
 namespace NSubstitute.Routing.AutoValues
 {
     public class AutoArrayProvider : IAutoValueProvider

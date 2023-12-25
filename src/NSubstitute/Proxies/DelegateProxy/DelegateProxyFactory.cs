@@ -1,13 +1,4 @@
-using System;
-using System.Collections.Concurrent;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using NSubstitute.Core;
-using NSubstitute.Exceptions;
 using NSubstitute.Proxies.CastleDynamicProxy;
 
 namespace NSubstitute.Proxies.DelegateProxy

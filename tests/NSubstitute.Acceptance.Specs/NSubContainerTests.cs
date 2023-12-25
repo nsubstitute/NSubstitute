@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.Core.DependencyInjection;
 using NUnit.Framework;
 

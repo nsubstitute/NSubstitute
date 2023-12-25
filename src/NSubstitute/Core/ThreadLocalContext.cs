@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NSubstitute.Core.Arguments;
+﻿using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.Routing;
 

@@ -1,5 +1,4 @@
-﻿using System;
-using NSubstitute.Core;
+﻿using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers
 {

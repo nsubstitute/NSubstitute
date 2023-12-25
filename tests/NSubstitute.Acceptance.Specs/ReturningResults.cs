@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using NSubstitute.Acceptance.Specs.Infrastructure;
+﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;

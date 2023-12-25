@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-
 namespace NSubstitute.Acceptance.Specs.Infrastructure
 {
     public class BackgroundTask

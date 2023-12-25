@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NSubstitute.Core
+﻿namespace NSubstitute.Core
 {
     internal class ReturnObservable<T> : IObservable<T?>
     {

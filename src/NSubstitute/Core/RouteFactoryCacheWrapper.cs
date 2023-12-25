@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.ReceivedExtensions;
 using NSubstitute.Routing;
 

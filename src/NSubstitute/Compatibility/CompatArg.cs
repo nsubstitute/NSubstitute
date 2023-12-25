@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations

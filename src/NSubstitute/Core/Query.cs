@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace NSubstitute.Core
+﻿namespace NSubstitute.Core
 {
     public class Query : IQuery, IQueryResults
     {

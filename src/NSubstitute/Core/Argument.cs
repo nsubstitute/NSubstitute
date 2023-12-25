@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-
-namespace NSubstitute.Core
+﻿namespace NSubstitute.Core
 {
     public class Argument
     {

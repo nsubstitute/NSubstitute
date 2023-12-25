@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NSubstitute.Exceptions
+﻿namespace NSubstitute.Exceptions
 {
     public class CannotReturnNullForValueType : SubstituteException
     {

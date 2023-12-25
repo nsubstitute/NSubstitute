@@ -1,5 +1,3 @@
-using System;
-
 namespace NSubstitute.Exceptions
 {
     public class ArgumentIsNotOutOrRefException : SubstituteException

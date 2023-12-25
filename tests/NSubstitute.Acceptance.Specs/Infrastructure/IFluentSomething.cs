@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NSubstitute.Acceptance.Specs.Infrastructure
+﻿namespace NSubstitute.Acceptance.Specs.Infrastructure
 {
     public interface IFluentSomething
     {

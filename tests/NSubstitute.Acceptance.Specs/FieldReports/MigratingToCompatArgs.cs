@@ -1,6 +1,4 @@
-﻿using System;
-using NSubstitute;
-using NSubstitute.Compatibility;
+﻿using NSubstitute.Compatibility;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports

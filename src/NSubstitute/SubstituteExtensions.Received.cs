@@ -1,6 +1,5 @@
 // Disable nullability for client API, so it does not affect clients.
 
-using System.Collections.Generic;
 using NSubstitute.ClearExtensions;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;

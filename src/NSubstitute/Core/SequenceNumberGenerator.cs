@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace NSubstitute.Core
+﻿namespace NSubstitute.Core
 {
     public class SequenceNumberGenerator
     {

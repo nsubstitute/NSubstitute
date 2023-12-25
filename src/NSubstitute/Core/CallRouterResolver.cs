@@ -1,5 +1,4 @@
-﻿using System;
-using NSubstitute.Exceptions;
+﻿using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core
 {

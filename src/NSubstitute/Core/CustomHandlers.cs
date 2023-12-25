@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace NSubstitute.Core
+﻿namespace NSubstitute.Core
 {
     public class CustomHandlers : ICustomHandlers
     {

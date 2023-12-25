@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Routing;
 

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using NSubstitute.Acceptance.Specs.Infrastructure;
+﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
-using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs

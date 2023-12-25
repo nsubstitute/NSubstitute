@@ -1,5 +1,3 @@
-using System;
-
 namespace NSubstitute.Core.Events
 {
     public class EventHandlerWrapper<TEventArgs> : RaiseEventWrapper where TEventArgs : EventArgs

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NSubstitute.Core
+﻿namespace NSubstitute.Core
 {
     public interface IResultsForType
     {

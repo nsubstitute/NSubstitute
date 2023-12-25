@@ -1,4 +1,3 @@
-using System;
 using NSubstitute.Routing;
 
 namespace NSubstitute.Core

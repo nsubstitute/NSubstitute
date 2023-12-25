@@ -1,5 +1,4 @@
-﻿using System;
-using NSubstitute.Core.DependencyInjection;
+﻿using NSubstitute.Core.DependencyInjection;
 
 namespace NSubstitute.Core
 {

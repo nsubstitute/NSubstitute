@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NSubstitute.Core.Arguments;
+﻿using System.Text;
 using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
 

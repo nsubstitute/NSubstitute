@@ -1,4 +1,3 @@
-using System;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
 

@@ -1,5 +1,4 @@
-﻿using System;
-using NSubstitute.Acceptance.Specs.Infrastructure;
+﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 

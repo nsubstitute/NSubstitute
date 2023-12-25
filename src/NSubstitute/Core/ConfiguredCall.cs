@@ -1,6 +1,4 @@
-﻿using System;
-
-// Disable nullability for entry-point API
+﻿// Disable nullability for entry-point API
 #nullable disable annotations
 
 namespace NSubstitute.Core

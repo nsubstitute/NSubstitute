@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NSubstitute.Core.Arguments;
+﻿using NSubstitute.Core.Arguments;
 using static System.Environment;
 
 namespace NSubstitute.Exceptions

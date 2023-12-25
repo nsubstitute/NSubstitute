@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
 using NUnit.Framework;

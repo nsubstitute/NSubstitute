@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace NSubstitute.Core.Arguments
+﻿namespace NSubstitute.Core.Arguments
 {
     public class SuppliedArgumentSpecifications : ISuppliedArgumentSpecifications
     {
