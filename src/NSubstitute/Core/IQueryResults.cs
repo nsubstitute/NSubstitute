@@ -1,8 +1,7 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface IQueryResults
 {
-    public interface IQueryResults
-    {
-        IEnumerable<ICall> MatchingCallsInOrder();
-        IEnumerable<CallSpecAndTarget> QuerySpecification();
-    }
+    IEnumerable<ICall> MatchingCallsInOrder();
+    IEnumerable<CallSpecAndTarget> QuerySpecification();
 }

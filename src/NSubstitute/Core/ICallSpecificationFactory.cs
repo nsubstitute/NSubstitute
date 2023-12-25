@@ -1,7 +1,6 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface ICallSpecificationFactory
 {
-    public interface ICallSpecificationFactory
-    {
-        ICallSpecification CreateFrom(ICall call, MatchArgs matchArgs);
-    }
+    ICallSpecification CreateFrom(ICall call, MatchArgs matchArgs);
 }

@@ -1,9 +1,8 @@
-﻿namespace NSubstitute.Benchmarks.TestTypes
+﻿namespace NSubstitute.Benchmarks.TestTypes;
+
+public interface IInterfaceWithMultipleMethods
 {
-    public interface IInterfaceWithMultipleMethods
-    {
-        int MethodWithArg(int arg);
-        int MethodWithRefArg(ref int arg);
-        int MethodWithOutArg(out int arg);
-    }
+    int MethodWithArg(int arg);
+    int MethodWithRefArg(ref int arg);
+    int MethodWithOutArg(out int arg);
 }

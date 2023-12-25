@@ -1,10 +1,9 @@
-﻿namespace NSubstitute.Core
+﻿namespace NSubstitute.Core;
+
+public interface IParameterInfo
 {
-    public interface IParameterInfo
-    {
-        Type ParameterType { get; }
-        bool IsParams { get; }
-        bool IsOptional { get; }
-        bool IsOut { get; }
-    }
+    Type ParameterType { get; }
+    bool IsParams { get; }
+    bool IsOptional { get; }
+    bool IsOut { get; }
 }

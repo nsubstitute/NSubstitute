@@ -1,17 +1,16 @@
-﻿namespace NSubstitute.Core.Arguments
+﻿namespace NSubstitute.Core.Arguments;
+
+public class DefaultChecker : IDefaultChecker
 {
-    public class DefaultChecker : IDefaultChecker
+    private readonly IDefaultForType _defaultForType;
+
+    public DefaultChecker(IDefaultForType defaultForType)
     {
-        private readonly IDefaultForType _defaultForType;
+        _defaultForType = defaultForType;
+    }
 
-        public DefaultChecker(IDefaultForType defaultForType)
-        {
-            _defaultForType = defaultForType;
-        }
-
-        public bool IsDefault(object? value, Type forType)
-        {
-            return EqualityComparer<object>.Default.Equals(value, _defaultForType.GetDefaultFor(forType));
-        }
+    public bool IsDefault(object? value, Type forType)
+    {
+        return EqualityComparer<object>.Default.Equals(value, _defaultForType.GetDefaultFor(forType));
     }
 }

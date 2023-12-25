@@ -1,26 +1,25 @@
 using NUnit.Framework;
 
-namespace NSubstitute.Acceptance.Specs.FieldReports
+namespace NSubstitute.Acceptance.Specs.FieldReports;
+
+public class Issue45_CallInfoArgAccessFailsForNull
 {
-    public class Issue45_CallInfoArgAccessFailsForNull
+    public interface IAmAnInterface
     {
-        public interface IAmAnInterface
-        {
-            bool ThatHasAMethodWithArgs(string s, object o);
-        }
+        bool ThatHasAMethodWithArgs(string s, object o);
+    }
 
-        [Test]
-        public void Should_be_able_to_find_a_null_arg_by_type()
-        {
-            string stringArgumentUsed = "";
+    [Test]
+    public void Should_be_able_to_find_a_null_arg_by_type()
+    {
+        string stringArgumentUsed = "";
 
-            var sub = Substitute.For<IAmAnInterface>();
-            sub.ThatHasAMethodWithArgs(null, null)
-                .ReturnsForAnyArgs(x => { stringArgumentUsed = x.Arg<string>(); return true; });
+        var sub = Substitute.For<IAmAnInterface>();
+        sub.ThatHasAMethodWithArgs(null, null)
+            .ReturnsForAnyArgs(x => { stringArgumentUsed = x.Arg<string>(); return true; });
 
-            sub.ThatHasAMethodWithArgs(null, 42);
+        sub.ThatHasAMethodWithArgs(null, 42);
 
-            Assert.That(stringArgumentUsed, Is.Null);
-        }
+        Assert.That(stringArgumentUsed, Is.Null);
     }
 }

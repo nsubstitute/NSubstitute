@@ -1,7 +1,6 @@
-﻿namespace NSubstitute.Core
+﻿namespace NSubstitute.Core;
+
+public interface ISubstituteStateFactory
 {
-    public interface ISubstituteStateFactory
-    {
-        ISubstituteState Create(ISubstituteFactory substituteFactory);
-    }
+    ISubstituteState Create(ISubstituteFactory substituteFactory);
 }

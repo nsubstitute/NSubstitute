@@ -1,71 +1,70 @@
 ﻿using NUnit.Framework;
 
-namespace NSubstitute.Acceptance.Specs
+namespace NSubstitute.Acceptance.Specs;
+
+public class ReturnsAndDoes
 {
-    public class ReturnsAndDoes
+    public interface IFoo { IBar GetBar(int i); }
+    public interface IBar { }
+
+    private IFoo sub;
+
+    [SetUp]
+    public void SetUp()
     {
-        public interface IFoo { IBar GetBar(int i); }
-        public interface IBar { }
+        sub = Substitute.For<IFoo>();
+    }
 
-        private IFoo sub;
+    [Test]
+    public void Set_callback_via_extension_method()
+    {
+        var bar = Substitute.For<IBar>();
+        var wasCalled = false;
+        sub.GetBar(2).Returns(bar).AndDoes(x => wasCalled = true);
+        sub.GetBar(1);
 
-        [SetUp]
-        public void SetUp()
-        {
-            sub = Substitute.For<IFoo>();
-        }
+        Assert.That(wasCalled, Is.False);
+        var result = sub.GetBar(2);
+        Assert.That(result, Is.EqualTo(bar));
+        Assert.That(wasCalled, Is.True);
+    }
 
-        [Test]
-        public void Set_callback_via_extension_method()
-        {
-            var bar = Substitute.For<IBar>();
-            var wasCalled = false;
-            sub.GetBar(2).Returns(bar).AndDoes(x => wasCalled = true);
-            sub.GetBar(1);
+    [Test]
+    public void Add_multiple_callbacks_and_ignore_args()
+    {
+        var bar = Substitute.For<IBar>();
+        var wasCalled = false;
+        var argsUsed = new List<int>();
+        sub.GetBar(2)
+           .ReturnsForAnyArgs(bar)
+           .AndDoes(x => wasCalled = true)
+           .AndDoes(x => argsUsed.Add(x.Arg<int>()));
 
-            Assert.That(wasCalled, Is.False);
-            var result = sub.GetBar(2);
-            Assert.That(result, Is.EqualTo(bar));
-            Assert.That(wasCalled, Is.True);
-        }
+        var result1 = sub.GetBar(42);
+        var result2 = sub.GetBar(9999);
+        Assert.That(wasCalled, Is.True);
+        Assert.That(argsUsed, Is.EquivalentTo(new[] { 42, 9999 }));
+        Assert.AreSame(result1, bar);
+        Assert.AreSame(result2, bar);
+    }
 
-        [Test]
-        public void Add_multiple_callbacks_and_ignore_args()
-        {
-            var bar = Substitute.For<IBar>();
-            var wasCalled = false;
-            var argsUsed = new List<int>();
-            sub.GetBar(2)
-               .ReturnsForAnyArgs(bar)
-               .AndDoes(x => wasCalled = true)
-               .AndDoes(x => argsUsed.Add(x.Arg<int>()));
+    [Test]
+    public void Interaction_with_other_callback_methods()
+    {
+        var calledViaWhenDo = false;
+        var calledViaArgDo = false;
+        var calledViaAndDoes = false;
 
-            var result1 = sub.GetBar(42);
-            var result2 = sub.GetBar(9999);
-            Assert.That(wasCalled, Is.True);
-            Assert.That(argsUsed, Is.EquivalentTo(new[] { 42, 9999 }));
-            Assert.AreSame(result1, bar);
-            Assert.AreSame(result2, bar);
-        }
+        sub.GetBar(2).Returns(Substitute.For<IBar>()).AndDoes(x => calledViaAndDoes = true);
+        sub.When(x => x.GetBar(2)).Do(x => calledViaWhenDo = true);
+        sub.GetBar(Arg.Do<int>(x => calledViaArgDo = true));
 
-        [Test]
-        public void Interaction_with_other_callback_methods()
-        {
-            var calledViaWhenDo = false;
-            var calledViaArgDo = false;
-            var calledViaAndDoes = false;
+        Assert.False(calledViaAndDoes && calledViaArgDo && calledViaWhenDo);
 
-            sub.GetBar(2).Returns(Substitute.For<IBar>()).AndDoes(x => calledViaAndDoes = true);
-            sub.When(x => x.GetBar(2)).Do(x => calledViaWhenDo = true);
-            sub.GetBar(Arg.Do<int>(x => calledViaArgDo = true));
+        sub.GetBar(2);
 
-            Assert.False(calledViaAndDoes && calledViaArgDo && calledViaWhenDo);
-
-            sub.GetBar(2);
-
-            Assert.That(calledViaAndDoes);
-            Assert.That(calledViaArgDo);
-            Assert.That(calledViaWhenDo);
-        }
+        Assert.That(calledViaAndDoes);
+        Assert.That(calledViaArgDo);
+        Assert.That(calledViaWhenDo);
     }
 }

@@ -1,9 +1,8 @@
 using System.Reflection;
 
-namespace NSubstitute.Core.Arguments
+namespace NSubstitute.Core.Arguments;
+
+public interface IArgumentSpecificationsFactory
 {
-    public interface IArgumentSpecificationsFactory
-    {
-        IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object?[] arguments, IParameterInfo[] parameterInfos, MethodInfo methodInfo, MatchArgs matchArgs);
-    }
+    IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object?[] arguments, IParameterInfo[] parameterInfos, MethodInfo methodInfo, MatchArgs matchArgs);
 }

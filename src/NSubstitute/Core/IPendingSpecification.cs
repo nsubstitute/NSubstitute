@@ -1,11 +1,10 @@
-﻿namespace NSubstitute.Core
+﻿namespace NSubstitute.Core;
+
+public interface IPendingSpecification
 {
-    public interface IPendingSpecification
-    {
-        bool HasPendingCallSpecInfo();
-        PendingSpecificationInfo? UseCallSpecInfo();
-        void SetCallSpecification(ICallSpecification callSpecification);
-        void SetLastCall(ICall lastCall);
-        void Clear();
-    }
+    bool HasPendingCallSpecInfo();
+    PendingSpecificationInfo? UseCallSpecInfo();
+    void SetCallSpecification(ICallSpecification callSpecification);
+    void SetLastCall(ICall lastCall);
+    void Clear();
 }

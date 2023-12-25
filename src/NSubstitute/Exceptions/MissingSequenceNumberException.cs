@@ -1,7 +1,6 @@
-namespace NSubstitute.Exceptions
+namespace NSubstitute.Exceptions;
+
+public class MissingSequenceNumberException : SubstituteException
 {
-    public class MissingSequenceNumberException : SubstituteException
-    {
-        public MissingSequenceNumberException() { }
-    }
+    public MissingSequenceNumberException() { }
 }

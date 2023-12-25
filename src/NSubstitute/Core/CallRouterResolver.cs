@@ -1,18 +1,17 @@
 ﻿using NSubstitute.Exceptions;
 
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public class CallRouterResolver : ICallRouterResolver
 {
-    public class CallRouterResolver : ICallRouterResolver
+    public ICallRouter ResolveFor(object substitute)
     {
-        public ICallRouter ResolveFor(object substitute)
+        return substitute switch
         {
-            return substitute switch
-            {
-                null => throw new NullSubstituteReferenceException(),
-                ICallRouterProvider provider => provider.GetCallRouter(),
-                Delegate { Target: ICallRouterProvider provider } => provider.GetCallRouter(),
-                _ => throw new NotASubstituteException()
-            };
-        }
+            null => throw new NullSubstituteReferenceException(),
+            ICallRouterProvider provider => provider.GetCallRouter(),
+            Delegate { Target: ICallRouterProvider provider } => provider.GetCallRouter(),
+            _ => throw new NotASubstituteException()
+        };
     }
 }

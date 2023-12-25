@@ -1,7 +1,6 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface ICallRouterFactory
 {
-    public interface ICallRouterFactory
-    {
-        ICallRouter Create(ISubstituteState substituteState, bool canConfigureBaseCalls);
-    }
+    ICallRouter Create(ISubstituteState substituteState, bool canConfigureBaseCalls);
 }

@@ -1,8 +1,7 @@
-namespace NSubstitute.Routing.AutoValues
+namespace NSubstitute.Routing.AutoValues;
+
+public interface IAutoValueProvider
 {
-    public interface IAutoValueProvider
-    {
-        bool CanProvideValueFor(Type type);
-        object? GetValue(Type type);
-    }
+    bool CanProvideValueFor(Type type);
+    object? GetValue(Type type);
 }

@@ -1,7 +1,6 @@
-﻿namespace NSubstitute.Benchmarks.TestTypes
+﻿namespace NSubstitute.Benchmarks.TestTypes;
+
+public class ClassWithToStringImplementation
 {
-    public class ClassWithToStringImplementation
-    {
-        public override string ToString() => "Value";
-    }
+    public override string ToString() => "Value";
 }

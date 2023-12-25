@@ -1,30 +1,29 @@
 using System.Runtime.CompilerServices;
 
-namespace NSubstitute.Core.SequenceChecking
+namespace NSubstitute.Core.SequenceChecking;
+
+public class InstanceTracker
 {
-    public class InstanceTracker
+    private readonly Dictionary<object, int> _instances = new(new ReferenceEqualityComparer());
+    private int _counter = 0;
+
+    public int InstanceNumber(object o)
     {
-        private readonly Dictionary<object, int> _instances = new(new ReferenceEqualityComparer());
-        private int _counter = 0;
-
-        public int InstanceNumber(object o)
+        if (_instances.TryGetValue(o, out var i))
         {
-            if (_instances.TryGetValue(o, out var i))
-            {
-                return i;
-            }
-
-            var next = ++_counter;
-            _instances.Add(o, next);
-            return next;
+            return i;
         }
 
-        public int NumberOfInstances() => _counter;
+        var next = ++_counter;
+        _instances.Add(o, next);
+        return next;
+    }
 
-        private class ReferenceEqualityComparer : IEqualityComparer<object>
-        {
-            public new bool Equals(object? x, object? y) => ReferenceEquals(x, y);
-            public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
-        }
+    public int NumberOfInstances() => _counter;
+
+    private class ReferenceEqualityComparer : IEqualityComparer<object>
+    {
+        public new bool Equals(object? x, object? y) => ReferenceEquals(x, y);
+        public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
     }
 }

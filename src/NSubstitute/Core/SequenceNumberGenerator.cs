@@ -1,12 +1,11 @@
-﻿namespace NSubstitute.Core
-{
-    public class SequenceNumberGenerator
-    {
-        private long _current = long.MinValue;
+﻿namespace NSubstitute.Core;
 
-        public virtual long Next()
-        {
-            return Interlocked.Increment(ref _current);
-        }
+public class SequenceNumberGenerator
+{
+    private long _current = long.MinValue;
+
+    public virtual long Next()
+    {
+        return Interlocked.Increment(ref _current);
     }
 }

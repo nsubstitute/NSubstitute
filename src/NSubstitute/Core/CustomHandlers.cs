@@ -1,20 +1,19 @@
-﻿namespace NSubstitute.Core
+﻿namespace NSubstitute.Core;
+
+public class CustomHandlers : ICustomHandlers
 {
-    public class CustomHandlers : ICustomHandlers
+    private readonly List<ICallHandler> _handlers = new();
+    private readonly ISubstituteState _substituteState;
+
+    public IReadOnlyCollection<ICallHandler> Handlers => _handlers;
+
+    public CustomHandlers(ISubstituteState substituteState)
     {
-        private readonly List<ICallHandler> _handlers = new();
-        private readonly ISubstituteState _substituteState;
+        _substituteState = substituteState;
+    }
 
-        public IReadOnlyCollection<ICallHandler> Handlers => _handlers;
-
-        public CustomHandlers(ISubstituteState substituteState)
-        {
-            _substituteState = substituteState;
-        }
-
-        public void AddCustomHandlerFactory(CallHandlerFactory factory)
-        {
-            _handlers.Add(factory.Invoke(_substituteState));
-        }
+    public void AddCustomHandlerFactory(CallHandlerFactory factory)
+    {
+        _handlers.Add(factory.Invoke(_substituteState));
     }
 }

@@ -1,10 +1,9 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface ICallCollection
 {
-    public interface ICallCollection
-    {
-        void Add(ICall call);
-        void Delete(ICall call);
-        IEnumerable<ICall> AllCalls();
-        void Clear();
-    }
+    void Add(ICall call);
+    void Delete(ICall call);
+    IEnumerable<ICall> AllCalls();
+    void Clear();
 }

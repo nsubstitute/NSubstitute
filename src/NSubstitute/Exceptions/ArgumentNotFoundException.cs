@@ -1,7 +1,6 @@
-namespace NSubstitute.Exceptions
+namespace NSubstitute.Exceptions;
+
+public class ArgumentNotFoundException : SubstituteException
 {
-    public class ArgumentNotFoundException : SubstituteException
-    {
-        public ArgumentNotFoundException(string message) : base(message) { }
-    }
+    public ArgumentNotFoundException(string message) : base(message) { }
 }
