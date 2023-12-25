@@ -1,15 +1,14 @@
 ﻿using System.Reflection;
 using BenchmarkDotNet.Running;
 
-namespace NSubstitute.Benchmarks
+namespace NSubstitute.Benchmarks;
+
+internal class Program
 {
-    internal class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            BenchmarkSwitcher
-                .FromAssembly(typeof(Program).GetTypeInfo().Assembly)
-                .Run(args);
-        }
+        BenchmarkSwitcher
+            .FromAssembly(typeof(Program).GetTypeInfo().Assembly)
+            .Run(args);
     }
 }

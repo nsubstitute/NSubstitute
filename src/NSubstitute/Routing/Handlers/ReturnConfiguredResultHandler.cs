@@ -1,24 +1,23 @@
 using NSubstitute.Core;
 
-namespace NSubstitute.Routing.Handlers
+namespace NSubstitute.Routing.Handlers;
+
+public class ReturnConfiguredResultHandler : ICallHandler
 {
-    public class ReturnConfiguredResultHandler : ICallHandler
+    private readonly ICallResults _callResults;
+
+    public ReturnConfiguredResultHandler(ICallResults callResults)
     {
-        private readonly ICallResults _callResults;
+        _callResults = callResults;
+    }
 
-        public ReturnConfiguredResultHandler(ICallResults callResults)
+    public RouteAction Handle(ICall call)
+    {
+        if (_callResults.TryGetResult(call, out var configuredResult))
         {
-            _callResults = callResults;
+            return RouteAction.Return(configuredResult);
         }
 
-        public RouteAction Handle(ICall call)
-        {
-            if (_callResults.TryGetResult(call, out var configuredResult))
-            {
-                return RouteAction.Return(configuredResult);
-            }
-
-            return RouteAction.Continue();
-        }
+        return RouteAction.Continue();
     }
 }

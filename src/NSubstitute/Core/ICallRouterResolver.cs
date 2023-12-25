@@ -1,7 +1,6 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface ICallRouterResolver
 {
-    public interface ICallRouterResolver
-    {
-        ICallRouter ResolveFor(object substitute);
-    }
+    ICallRouter ResolveFor(object substitute);
 }

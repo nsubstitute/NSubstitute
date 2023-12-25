@@ -1,8 +1,7 @@
-﻿namespace NSubstitute.Benchmarks.TestTypes
+﻿namespace NSubstitute.Benchmarks.TestTypes;
+
+public interface IInterfaceWithSingleMethod
 {
-    public interface IInterfaceWithSingleMethod
-    {
-        int IntMethod(string arg);
-        void VoidMethod(string arg);
-    }
+    int IntMethod(string arg);
+    void VoidMethod(string arg);
 }

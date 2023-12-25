@@ -1,97 +1,96 @@
 ﻿using NUnit.Framework;
 
-namespace NSubstitute.Acceptance.Specs.FieldReports
+namespace NSubstitute.Acceptance.Specs.FieldReports;
+
+/// <summary>
+/// Issue from https://github.com/nsubstitute/NSubstitute/issues/378.
+/// </summary>
+public class Issue378_InValueTypes
 {
-    /// <summary>
-    /// Issue from https://github.com/nsubstitute/NSubstitute/issues/378.
-    /// </summary>
-    public class Issue378_InValueTypes
+    public readonly struct Struct
     {
-        public readonly struct Struct
+        public Struct(int value)
         {
-            public Struct(int value)
-            {
-                Value = value;
-            }
-
-            public int Value { get; }
+            Value = value;
         }
 
-        public interface IStructByReadOnlyRefConsumer { void Consume(in Struct value); }
+        public int Value { get; }
+    }
 
-        public interface IStructByValueConsumer { void Consume(Struct value); }
+    public interface IStructByReadOnlyRefConsumer { void Consume(in Struct value); }
 
-        public delegate void DelegateStructByReadOnlyRefConsumer(in Struct value);
+    public interface IStructByValueConsumer { void Consume(Struct value); }
 
-        public delegate void DelegateStructByReadOnlyRefConsumerMultipleArgs(in Struct value1, in Struct value2);
+    public delegate void DelegateStructByReadOnlyRefConsumer(in Struct value);
 
-        [Test]
-        public void IStructByReadOnlyRefConsumer_Test()
-        {
-            var value = new Struct(42);
+    public delegate void DelegateStructByReadOnlyRefConsumerMultipleArgs(in Struct value1, in Struct value2);
 
-            var subs = Substitute.For<IStructByReadOnlyRefConsumer>();
-            subs.Consume(in value);
-        }
+    [Test]
+    public void IStructByReadOnlyRefConsumer_Test()
+    {
+        var value = new Struct(42);
 
-        [Test]
-        public void IStructByValueConsumer_Test()
-        {
-            var value = new Struct(42);
+        var subs = Substitute.For<IStructByReadOnlyRefConsumer>();
+        subs.Consume(in value);
+    }
 
-            var subs = Substitute.For<IStructByValueConsumer>();
-            subs.Consume(value);
-        }
+    [Test]
+    public void IStructByValueConsumer_Test()
+    {
+        var value = new Struct(42);
 
-        [Test]
-        public void DelegateByReadOnlyRefConsumer_Test()
-        {
-            var value = new Struct(42);
+        var subs = Substitute.For<IStructByValueConsumer>();
+        subs.Consume(value);
+    }
 
-            var subs = Substitute.For<DelegateStructByReadOnlyRefConsumer>();
-            subs.Invoke(in value);
-        }
+    [Test]
+    public void DelegateByReadOnlyRefConsumer_Test()
+    {
+        var value = new Struct(42);
 
-        [Test]
-        public void InterfaceReadOnlyRefCannotBeModified()
-        {
-            var readOnlyValue = new Struct(42);
+        var subs = Substitute.For<DelegateStructByReadOnlyRefConsumer>();
+        subs.Invoke(in value);
+    }
 
-            var subs = Substitute.For<IStructByReadOnlyRefConsumer>();
-            subs.When(x => x.Consume(Arg.Any<Struct>())).Do(c => { c[0] = new Struct(24); });
+    [Test]
+    public void InterfaceReadOnlyRefCannotBeModified()
+    {
+        var readOnlyValue = new Struct(42);
 
-            subs.Consume(in readOnlyValue);
+        var subs = Substitute.For<IStructByReadOnlyRefConsumer>();
+        subs.When(x => x.Consume(Arg.Any<Struct>())).Do(c => { c[0] = new Struct(24); });
 
-            Assert.That(readOnlyValue.Value, Is.EqualTo(42));
-        }
+        subs.Consume(in readOnlyValue);
 
-        [Test]
-        public void DelegateReadOnlyRefCannotBeModified()
-        {
-            var readOnlyValue = new Struct(42);
+        Assert.That(readOnlyValue.Value, Is.EqualTo(42));
+    }
 
-            var subs = Substitute.For<DelegateStructByReadOnlyRefConsumer>();
-            subs.When(x => x.Invoke(Arg.Any<Struct>())).Do(c => { c[0] = new Struct(24); });
+    [Test]
+    public void DelegateReadOnlyRefCannotBeModified()
+    {
+        var readOnlyValue = new Struct(42);
 
-            subs.Invoke(in readOnlyValue);
+        var subs = Substitute.For<DelegateStructByReadOnlyRefConsumer>();
+        subs.When(x => x.Invoke(Arg.Any<Struct>())).Do(c => { c[0] = new Struct(24); });
 
-            Assert.That(readOnlyValue.Value, Is.EqualTo(42));
-        }
+        subs.Invoke(in readOnlyValue);
 
-        [Test]
-        public void DelegateMultipleReadOnlyRefCannotBeModified()
-        {
-            var readOnlyValue1 = new Struct(42);
-            var readOnlyValue2 = new Struct(42);
+        Assert.That(readOnlyValue.Value, Is.EqualTo(42));
+    }
 
-            var subs = Substitute.For<DelegateStructByReadOnlyRefConsumerMultipleArgs>();
-            subs.When(x => x.Invoke(Arg.Any<Struct>(), Arg.Any<Struct>()))
-                .Do(c => { c[0] = new Struct(24); c[1] = new Struct(24); });
+    [Test]
+    public void DelegateMultipleReadOnlyRefCannotBeModified()
+    {
+        var readOnlyValue1 = new Struct(42);
+        var readOnlyValue2 = new Struct(42);
 
-            subs.Invoke(in readOnlyValue1, in readOnlyValue2);
+        var subs = Substitute.For<DelegateStructByReadOnlyRefConsumerMultipleArgs>();
+        subs.When(x => x.Invoke(Arg.Any<Struct>(), Arg.Any<Struct>()))
+            .Do(c => { c[0] = new Struct(24); c[1] = new Struct(24); });
 
-            Assert.That(readOnlyValue1.Value, Is.EqualTo(42));
-            Assert.That(readOnlyValue2.Value, Is.EqualTo(42));
-        }
+        subs.Invoke(in readOnlyValue1, in readOnlyValue2);
+
+        Assert.That(readOnlyValue1.Value, Is.EqualTo(42));
+        Assert.That(readOnlyValue2.Value, Is.EqualTo(42));
     }
 }

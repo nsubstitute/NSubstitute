@@ -1,7 +1,6 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface ICallRouterProvider
 {
-    public interface ICallRouterProvider
-    {
-        ICallRouter GetCallRouter();
-    }
+    ICallRouter GetCallRouter();
 }

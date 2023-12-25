@@ -1,14 +1,13 @@
-﻿namespace NSubstitute.Core
+﻿namespace NSubstitute.Core;
+
+/// <summary>
+///     Factory method which creates <see cref="ICallHandler" /> from the <see cref="ISubstituteState" />.
+/// </summary>
+public delegate ICallHandler CallHandlerFactory(ISubstituteState substituteState);
+
+public interface ICustomHandlers
 {
-    /// <summary>
-    ///     Factory method which creates <see cref="ICallHandler" /> from the <see cref="ISubstituteState" />.
-    /// </summary>
-    public delegate ICallHandler CallHandlerFactory(ISubstituteState substituteState);
+    IReadOnlyCollection<ICallHandler> Handlers { get; }
 
-    public interface ICustomHandlers
-    {
-        IReadOnlyCollection<ICallHandler> Handlers { get; }
-
-        void AddCustomHandlerFactory(CallHandlerFactory factory);
-    }
+    void AddCustomHandlerFactory(CallHandlerFactory factory);
 }

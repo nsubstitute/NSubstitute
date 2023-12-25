@@ -1,27 +1,26 @@
-﻿namespace NSubstitute.Core.Arguments
+﻿namespace NSubstitute.Core.Arguments;
+
+public class ArgumentFormatter : IArgumentFormatter
 {
-    public class ArgumentFormatter : IArgumentFormatter
+    internal static IArgumentFormatter Default { get; } = new ArgumentFormatter();
+
+    public string Format(object? argument, bool highlight)
     {
-        internal static IArgumentFormatter Default { get; } = new ArgumentFormatter();
+        var formatted = Format(argument);
+        return highlight ? "*" + formatted + "*" : formatted;
+    }
 
-        public string Format(object? argument, bool highlight)
+    private string Format(object? arg)
+    {
+        return arg switch
         {
-            var formatted = Format(argument);
-            return highlight ? "*" + formatted + "*" : formatted;
-        }
+            null => "<null>",
+            string str => $"\"{str}\"",
+            { } obj when HasDefaultToString(obj) => arg.GetType().GetNonMangledTypeName(),
+            _ => arg.ToString() ?? string.Empty
+        };
 
-        private string Format(object? arg)
-        {
-            return arg switch
-            {
-                null => "<null>",
-                string str => $"\"{str}\"",
-                { } obj when HasDefaultToString(obj) => arg.GetType().GetNonMangledTypeName(),
-                _ => arg.ToString() ?? string.Empty
-            };
-
-            static bool HasDefaultToString(object obj)
-                => obj.GetType().GetMethod(nameof(ToString), Type.EmptyTypes)!.DeclaringType == typeof(object);
-        }
+        static bool HasDefaultToString(object obj)
+            => obj.GetType().GetMethod(nameof(ToString), Type.EmptyTypes)!.DeclaringType == typeof(object);
     }
 }

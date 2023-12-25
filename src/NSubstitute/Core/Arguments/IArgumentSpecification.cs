@@ -1,13 +1,12 @@
-namespace NSubstitute.Core.Arguments
+namespace NSubstitute.Core.Arguments;
+
+public interface IArgumentSpecification
 {
-    public interface IArgumentSpecification
-    {
-        bool IsSatisfiedBy(object? argument);
-        Type ForType { get; }
-        IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType);
-        bool HasAction { get; }
-        void RunAction(object? argument);
-        string DescribeNonMatch(object? argument);
-        string FormatArgument(object? argument);
-    }
+    bool IsSatisfiedBy(object? argument);
+    Type ForType { get; }
+    IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType);
+    bool HasAction { get; }
+    void RunAction(object? argument);
+    string DescribeNonMatch(object? argument);
+    string FormatArgument(object? argument);
 }

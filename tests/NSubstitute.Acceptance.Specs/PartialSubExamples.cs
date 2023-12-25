@@ -1,120 +1,119 @@
 ﻿using NUnit.Framework;
 
-namespace NSubstitute.Acceptance.Specs
+namespace NSubstitute.Acceptance.Specs;
+
+public class PartialSubExamples
 {
-    public class PartialSubExamples
+    public class TemplateMethod
     {
-        public class TemplateMethod
+        public class FormResult
         {
-            public class FormResult
-            {
-                public bool IsValid { get; set; }
-                public bool IsComplete { get; set; }
-            }
+            public bool IsValid { get; set; }
+            public bool IsComplete { get; set; }
+        }
 
-            public abstract class Form
+        public abstract class Form
+        {
+            public virtual FormResult Submit()
             {
-                public virtual FormResult Submit()
+                var result = Validate();
+                if (result.IsValid)
                 {
-                    var result = Validate();
-                    if (result.IsValid)
-                    {
-                        Save();
-                        result.IsComplete = true;
-                    }
-                    return result;
+                    Save();
+                    result.IsComplete = true;
                 }
-
-                public abstract FormResult Validate();
-                public abstract void Save();
+                return result;
             }
 
-            [Test]
-            public void ValidFormSubmission()
+            public abstract FormResult Validate();
+            public abstract void Save();
+        }
+
+        [Test]
+        public void ValidFormSubmission()
+        {
+            var form = Substitute.ForPartsOf<Form>();
+            form.Validate().Returns(new FormResult() { IsValid = true });
+
+            var result = form.Submit();
+
+            Assert.That(result.IsComplete);
+            form.Received().Save();
+        }
+
+        [Test]
+        public void InvalidFormSubmission()
+        {
+            var form = Substitute.ForPartsOf<Form>();
+            form.Validate().Returns(new FormResult() { IsValid = false });
+
+            var result = form.Submit();
+
+            Assert.That(result.IsComplete, Is.False);
+            form.DidNotReceive().Save();
+        }
+    }
+
+    public class TemplateMethod2Example
+    {
+        public class SummingReader
+        {
+            public virtual int Read()
             {
-                var form = Substitute.ForPartsOf<Form>();
-                form.Validate().Returns(new FormResult() { IsValid = true });
-
-                var result = form.Submit();
-
-                Assert.That(result.IsComplete);
-                form.Received().Save();
+                var s = ReadFile();
+                return s.Split(',').Select(int.Parse).Sum();
             }
+            public virtual string ReadFile() { return "the result of reading the file here"; }
+        }
 
-            [Test]
-            public void InvalidFormSubmission()
+        [Test]
+        public void ShouldSumAllNumbersInFile()
+        {
+            var reader = Substitute.ForPartsOf<SummingReader>();
+            reader.ReadFile().Returns("1,2,3,4,5");
+
+            var result = reader.Read();
+
+            Assert.That(result, Is.EqualTo(15));
+        }
+    }
+
+    public class UnderlyingListExample
+    {
+        public class TaskList
+        {
+            readonly List<string> list = new List<string>();
+            public virtual void Add(string s) { list.Add(s); }
+            public virtual string[] ToArray() { return list.ToArray(); }
+        }
+
+        public class TaskView
+        {
+            private readonly TaskList _tasks;
+            public string TaskEntryField { get; set; }
+            public string[] DisplayedTasks { get; set; }
+
+            public TaskView(TaskList tasks) { _tasks = tasks; }
+
+            public void ClickButton()
             {
-                var form = Substitute.ForPartsOf<Form>();
-                form.Validate().Returns(new FormResult() { IsValid = false });
-
-                var result = form.Submit();
-
-                Assert.That(result.IsComplete, Is.False);
-                form.DidNotReceive().Save();
+                _tasks.Add(TaskEntryField);
+                DisplayedTasks = _tasks.ToArray();
             }
         }
 
-        public class TemplateMethod2Example
+        [Test]
+        public void AddTask()
         {
-            public class SummingReader
-            {
-                public virtual int Read()
-                {
-                    var s = ReadFile();
-                    return s.Split(',').Select(int.Parse).Sum();
-                }
-                public virtual string ReadFile() { return "the result of reading the file here"; }
-            }
+            var list = Substitute.ForPartsOf<TaskList>();
+            var view = new TaskView(list);
+            view.TaskEntryField = "write example";
 
-            [Test]
-            public void ShouldSumAllNumbersInFile()
-            {
-                var reader = Substitute.ForPartsOf<SummingReader>();
-                reader.ReadFile().Returns("1,2,3,4,5");
+            view.ClickButton();
 
-                var result = reader.Read();
-
-                Assert.That(result, Is.EqualTo(15));
-            }
-        }
-
-        public class UnderlyingListExample
-        {
-            public class TaskList
-            {
-                readonly List<string> list = new List<string>();
-                public virtual void Add(string s) { list.Add(s); }
-                public virtual string[] ToArray() { return list.ToArray(); }
-            }
-
-            public class TaskView
-            {
-                private readonly TaskList _tasks;
-                public string TaskEntryField { get; set; }
-                public string[] DisplayedTasks { get; set; }
-
-                public TaskView(TaskList tasks) { _tasks = tasks; }
-
-                public void ClickButton()
-                {
-                    _tasks.Add(TaskEntryField);
-                    DisplayedTasks = _tasks.ToArray();
-                }
-            }
-
-            [Test]
-            public void AddTask()
-            {
-                var list = Substitute.ForPartsOf<TaskList>();
-                var view = new TaskView(list);
-                view.TaskEntryField = "write example";
-
-                view.ClickButton();
-
-                // list substitute functions as test spy
-                list.Received().Add("write example");
-                Assert.That(view.DisplayedTasks, Is.EqualTo(new[] { "write example" }));
-            }
+            // list substitute functions as test spy
+            list.Received().Add("write example");
+            Assert.That(view.DisplayedTasks, Is.EqualTo(new[] { "write example" }));
         }
     }
 }

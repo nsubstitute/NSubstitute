@@ -1,7 +1,6 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface IDefaultForType
 {
-    public interface IDefaultForType
-    {
-        object? GetDefaultFor(Type type);
-    }
+    object? GetDefaultFor(Type type);
 }

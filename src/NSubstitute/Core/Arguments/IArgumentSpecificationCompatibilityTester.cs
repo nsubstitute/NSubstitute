@@ -1,7 +1,6 @@
-﻿namespace NSubstitute.Core.Arguments
+﻿namespace NSubstitute.Core.Arguments;
+
+public interface IArgumentSpecificationCompatibilityTester
 {
-    public interface IArgumentSpecificationCompatibilityTester
-    {
-        bool IsSpecificationCompatible(IArgumentSpecification specification, object? argumentValue, Type argumentType);
-    }
+    bool IsSpecificationCompatible(IArgumentSpecification specification, object? argumentValue, Type argumentType);
 }

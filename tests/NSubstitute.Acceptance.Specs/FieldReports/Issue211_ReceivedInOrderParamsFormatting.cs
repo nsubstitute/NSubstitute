@@ -2,50 +2,50 @@
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
-namespace NSubstitute.Acceptance.Specs.FieldReports
+namespace NSubstitute.Acceptance.Specs.FieldReports;
+
+public class Issue211_ReceivedInOrderParamsFormatting
 {
-    public class Issue211_ReceivedInOrderParamsFormatting
+    public interface IAmAnInterface
     {
-        public interface IAmAnInterface
-        {
-            void ParamsCall(params int[] i);
-            void ParamsCall(params string[] i);
-        }
+        void ParamsCall(params int[] i);
+        void ParamsCall(params string[] i);
+    }
 
-        [Test]
-        public void TestFormattingForStandardReceived()
-        {
-            var sub = Substitute.For<IAmAnInterface>();
+    [Test]
+    public void TestFormattingForStandardReceived()
+    {
+        var sub = Substitute.For<IAmAnInterface>();
 
-            sub.ParamsCall(1, 42);
+        sub.ParamsCall(1, 42);
 
-            var ex = Assert.Throws<ReceivedCallsException>(() =>
-                sub.Received().ParamsCall(1, 1)
-            );
+        var ex = Assert.Throws<ReceivedCallsException>(() =>
+            sub.Received().ParamsCall(1, 1)
+        );
 
-            //Show expected call:
-            Assert.That(ex.Message, Does.Contain("ParamsCall(1, 1)"));
-            //Show actual call:
-            Assert.That(ex.Message, Does.Contain("ParamsCall(1, *42*)"));
-        }
+        //Show expected call:
+        Assert.That(ex.Message, Does.Contain("ParamsCall(1, 1)"));
+        //Show actual call:
+        Assert.That(ex.Message, Does.Contain("ParamsCall(1, *42*)"));
+    }
 
-        [Test]
-        public void TestFormattingReceivedInOrder()
-        {
-            var sub = Substitute.For<IAmAnInterface>();
+    [Test]
+    public void TestFormattingReceivedInOrder()
+    {
+        var sub = Substitute.For<IAmAnInterface>();
 
-            sub.ParamsCall(1, 1);
-            sub.ParamsCall(1, 2);
+        sub.ParamsCall(1, 1);
+        sub.ParamsCall(1, 2);
 
-            Action assertion = () =>
-                Received.InOrder(() =>
-                {
-                    sub.ParamsCall(1, 2);
-                    sub.ParamsCall(1, 1);
-                });
+        Action assertion = () =>
+            Received.InOrder(() =>
+            {
+                sub.ParamsCall(1, 2);
+                sub.ParamsCall(1, 1);
+            });
 
-            var ex = Assert.Throws<CallSequenceNotFoundException>(() => assertion());
-            var expectedMessage = @"
+        var ex = Assert.Throws<CallSequenceNotFoundException>(() => assertion());
+        var expectedMessage = @"
                     Expected to receive these calls in order:
 
                         ParamsCall(1, 2)
@@ -57,16 +57,15 @@ namespace NSubstitute.Acceptance.Specs.FieldReports
                         ParamsCall(1, 2)
                     ";
 
-            ContainsExcludingWhitespace(ex.Message, expectedMessage);
-        }
+        ContainsExcludingWhitespace(ex.Message, expectedMessage);
+    }
 
-        static void ContainsExcludingWhitespace(string haystack, string needle)
-        {
-            var ws = new Regex(@"\s+");
-            var spacifiedHaystack = ws.Replace(haystack, " ");
-            var spacifiedNeedle = ws.Replace(needle, " ");
+    static void ContainsExcludingWhitespace(string haystack, string needle)
+    {
+        var ws = new Regex(@"\s+");
+        var spacifiedHaystack = ws.Replace(haystack, " ");
+        var spacifiedNeedle = ws.Replace(needle, " ");
 
-            Assert.That(spacifiedHaystack, Does.Contain(spacifiedNeedle));
-        }
+        Assert.That(spacifiedHaystack, Does.Contain(spacifiedNeedle));
     }
 }

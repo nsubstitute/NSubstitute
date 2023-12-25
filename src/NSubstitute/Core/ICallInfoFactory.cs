@@ -1,7 +1,6 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface ICallInfoFactory
 {
-    public interface ICallInfoFactory
-    {
-        CallInfo Create(ICall call);
-    }
+    CallInfo Create(ICall call);
 }

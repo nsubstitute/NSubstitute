@@ -1,9 +1,8 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface IEventHandlerRegistry
 {
-    public interface IEventHandlerRegistry
-    {
-        void Add(string eventName, object handler);
-        void Remove(string eventName, object handler);
-        IEnumerable<object> GetHandlers(string eventName);
-    }
+    void Add(string eventName, object handler);
+    void Remove(string eventName, object handler);
+    IEnumerable<object> GetHandlers(string eventName);
 }

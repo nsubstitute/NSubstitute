@@ -1,9 +1,8 @@
 ﻿using NSubstitute.Core;
 
-namespace NSubstitute.Routing
+namespace NSubstitute.Routing;
+
+public interface IRoute
 {
-    public interface IRoute
-    {
-        object? Handle(ICall call);
-    }
+    object? Handle(ICall call);
 }

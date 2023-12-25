@@ -1,30 +1,29 @@
-﻿namespace NSubstitute.Acceptance.Specs.Infrastructure
+﻿namespace NSubstitute.Acceptance.Specs.Infrastructure;
+
+public class FluentSomething : IFluentSomething
 {
-    public class FluentSomething : IFluentSomething
+    public IFluentSomething Chain()
     {
-        public IFluentSomething Chain()
-        {
-            return this;
-        }
+        return this;
+    }
 
-        public IFluentSomething Me()
-        {
-            return this;
-        }
+    public IFluentSomething Me()
+    {
+        return this;
+    }
 
-        public IFluentSomething Together()
-        {
-            return this;
-        }
+    public IFluentSomething Together()
+    {
+        return this;
+    }
 
-        public ISomething SorryNoChainingHere()
-        {
-            return null;
-        }
+    public ISomething SorryNoChainingHere()
+    {
+        return null;
+    }
 
-        public ISomething SorryNoChainingHereEither()
-        {
-            return null;
-        }
+    public ISomething SorryNoChainingHereEither()
+    {
+        return null;
     }
 }

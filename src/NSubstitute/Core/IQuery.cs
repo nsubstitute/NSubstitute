@@ -1,7 +1,6 @@
-﻿namespace NSubstitute.Core
+﻿namespace NSubstitute.Core;
+
+public interface IQuery
 {
-    public interface IQuery
-    {
-        void RegisterCall(ICall call);
-    }
+    void RegisterCall(ICall call);
 }

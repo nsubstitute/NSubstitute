@@ -1,9 +1,8 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface ICallResults
 {
-    public interface ICallResults
-    {
-        void SetResult(ICallSpecification callSpecification, IReturn result);
-        bool TryGetResult(ICall call, out object? result);
-        void Clear();
-    }
+    void SetResult(ICallSpecification callSpecification, IReturn result);
+    bool TryGetResult(ICall call, out object? result);
+    void Clear();
 }

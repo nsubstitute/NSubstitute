@@ -1,8 +1,7 @@
-namespace NSubstitute.Core
+namespace NSubstitute.Core;
+
+public interface IPropertyHelper
 {
-    public interface IPropertyHelper
-    {
-        bool IsCallToSetAReadWriteProperty(ICall call);
-        ICall CreateCallToPropertyGetterFromSetterCall(ICall callToSetter);
-    }
+    bool IsCallToSetAReadWriteProperty(ICall call);
+    ICall CreateCallToPropertyGetterFromSetterCall(ICall callToSetter);
 }
