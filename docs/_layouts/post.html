@@ -14,6 +14,10 @@ layout: default
     <div id="post-content">
       <h1>{{ page.title }}</h1>
       {{ content }}
+      <a class="edit-link" href="{{ site.repo }}/tree/main/docs/{{ page.path }}">
+        <div class="pencil"></div>
+        <span class="edit-text">Edit this page</span>
+      </a>
       <div id="page-navigation">
         <div class="previous">
         {% if page.previous.url %}

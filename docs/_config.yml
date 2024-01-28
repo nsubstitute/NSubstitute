@@ -2,6 +2,7 @@ highlighter: rouge
 permalink: /:categories/:title/
 lsi: false
 markdown: KramdownPlus
+repo: https://github.com/nsubstitute/NSubstitute
 
 kramdown:
     input: GFM
