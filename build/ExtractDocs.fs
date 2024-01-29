@@ -18,7 +18,7 @@ let tags s : LiquidTag seq =
     |> Seq.map (fun m -> LiquidTag (m.Groups.[1].Value, m.Groups.[2].Value))
 
 let toCodeBlock (LiquidTag (name, c)) =
-    let isTypeOrTestDecl s = Regex.IsMatch(s, TypeOrTestDeclRegex)
+    let isTypeOrTestDecl (s: string) = Regex.IsMatch(s, TypeOrTestDeclRegex)
     match name with
     | "csharp"       -> if isTypeOrTestDecl c then Some (Declaration c) else Some (Snippet c)
     | "requiredcode" -> Some (Declaration c)
