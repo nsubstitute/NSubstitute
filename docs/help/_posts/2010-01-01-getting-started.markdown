@@ -68,13 +68,14 @@ calculator.DidNotReceive().Add(5, 7);
 
 If our `Received()` assertion fails, NSubstitute tries to give us some help as to what the problem might be:
 
-
-    NSubstitute.Exceptions.ReceivedCallsException : Expected to receive a call matching:
-        Add(1, 2)
-    Actually received no matching calls.
-    Received 2 non-matching calls (non-matching arguments indicated with '*' characters):
-        Add(*4*, *7*)
-        Add(1, *5*)
+```csharp
+NSubstitute.Exceptions.ReceivedCallsException : Expected to receive a call matching:
+    Add(1, 2)
+Actually received no matching calls.
+Received 2 non-matching calls (non-matching arguments indicated with '*' characters):
+    Add(*4*, *7*)
+    Add(1, *5*)
+```
 
 We can also work with properties using the `Returns` syntax we use for methods, or just stick with plain old property setters (for read/write properties):
 
