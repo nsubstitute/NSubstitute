@@ -8,8 +8,8 @@ Sometimes it is useful to execute some arbitrary code whenever a particular call
 <!--
 ```requiredcode
 public interface ICalculator {
-	int Add(int a, int b);
-	string Mode { get; set; }
+    int Add(int a, int b);
+    string Mode { get; set; }
 }
 ICalculator calculator;
 [SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
@@ -99,10 +99,10 @@ sub
   .When(x => x.Something())
   .Do(
     Callback.First(x => calls.Add("1"))
-	    .Then(x => calls.Add("2"))
-	    .Then(x => calls.Add("3"))
-	    .ThenKeepDoing(x => calls.Add("+"))
-	    .AndAlways(x => counter++)
+        .Then(x => calls.Add("2"))
+        .Then(x => calls.Add("3"))
+        .ThenKeepDoing(x => calls.Add("+"))
+        .AndAlways(x => counter++)
   );
 
 for (int i = 0; i < 5; i++)
