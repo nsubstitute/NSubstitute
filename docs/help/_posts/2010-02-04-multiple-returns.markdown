@@ -6,8 +6,8 @@ layout: post
 <!--
 ```requiredcode
 public interface ICalculator {
-	int Add(int a, int b);
-	string Mode { get; set; }
+    int Add(int a, int b);
+    string Mode { get; set; }
 }
 ICalculator calculator;
 [SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }

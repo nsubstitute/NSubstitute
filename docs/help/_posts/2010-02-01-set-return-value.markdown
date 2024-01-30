@@ -7,8 +7,8 @@ The following examples relate to substituting for the following interface:
 
 ```csharp
 public interface ICalculator {
-	int Add(int a, int b);
-	string Mode { get; set; }
+    int Add(int a, int b);
+    string Mode { get; set; }
 }
 ```
 

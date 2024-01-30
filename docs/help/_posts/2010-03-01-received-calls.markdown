@@ -154,7 +154,7 @@ As with properties, we'd normally favour testing the required behaviour over che
 public class CommandWatcher {
     ICommand command;
     public CommandWatcher(ICommand command) { 
-    	command.Executed += OnExecuted;
+        command.Executed += OnExecuted;
     }
     public bool DidStuff { get; private set; }
     public void OnExecuted(object o, EventArgs e) { DidStuff = true; }
@@ -176,14 +176,14 @@ If required though, `Received` will let us assert that the subscription was rece
 ```csharp
 [Test]
 public void MakeSureWatcherSubscribesToCommandExecuted() {
-  var command = Substitute.For<ICommand>();
-  var watcher = new CommandWatcher(command);
+    var command = Substitute.For<ICommand>();
+    var watcher = new CommandWatcher(command);
 
-  // Not recommended. Favour testing behaviour over implementation specifics.
-  // Can check subscription:
-  command.Received().Executed += watcher.OnExecuted;
-  // Or, if the handler is not accessible:
-  command.Received().Executed += Arg.Any<EventHandler>();
+    // Not recommended. Favour testing behaviour over implementation specifics.
+    // Can check subscription:
+    command.Received().Executed += watcher.OnExecuted;
+    // Or, if the handler is not accessible:
+    command.Received().Executed += Arg.Any<EventHandler>();
 }
 ```
 
@@ -193,29 +193,29 @@ We can also use substitutes for event handlers to confirm that a particular even
 
 ```csharp 
 public class LowFuelWarningEventArgs : EventArgs {
-	public int PercentLeft { get; }
-	public LowFuelWarningEventArgs(int percentLeft){
-		PercentLeft = percentLeft;
-	}
+    public int PercentLeft { get; }
+    public LowFuelWarningEventArgs(int percentLeft){
+        PercentLeft = percentLeft;
+    }
 }
 
 public class FuelManagement{
-	public event EventHandler<LowFuelWarningEventArgs> LowFuelDetected;
-	public void DoSomething(){
-		LowFuelDetected?.Invoke(this, new LowFuelWarningEventArgs(15));
-	}
+    public event EventHandler<LowFuelWarningEventArgs> LowFuelDetected;
+    public void DoSomething(){
+        LowFuelDetected?.Invoke(this, new LowFuelWarningEventArgs(15));
+    }
 }
 
 // Often it is easiest to use a lambda for this, as shown in the following test:
 [Test]
 public void ShouldRaiseLowFuel_WithoutNSub(){
-	var fuelManagement = new FuelManagement();
-	var eventWasRaised = false;
-	fuelManagement.LowFuelDetected += (o,e) => eventWasRaised = true;
+    var fuelManagement = new FuelManagement();
+    var eventWasRaised = false;
+    fuelManagement.LowFuelDetected += (o,e) => eventWasRaised = true;
 
-	fuelManagement.DoSomething();
+    fuelManagement.DoSomething();
 
-	Assert.That(eventWasRaised);
+    Assert.That(eventWasRaised);
 }
 
 // We can also use NSubstitute for this if we want more involved argument matching logic.
@@ -227,14 +227,14 @@ public void ShouldRaiseLowFuel_WithoutNSub(){
 // in some of these cases.
 [Test]
 public void ShouldRaiseLowFuel(){
-	var fuelManagement = new FuelManagement();
-	var handler = Substitute.For<EventHandler<LowFuelWarningEventArgs>>();
-	fuelManagement.LowFuelDetected += handler;
+    var fuelManagement = new FuelManagement();
+    var handler = Substitute.For<EventHandler<LowFuelWarningEventArgs>>();
+    fuelManagement.LowFuelDetected += handler;
 
-	fuelManagement.DoSomething();
+    fuelManagement.DoSomething();
 
-	handler
-	    .Received()
-	    .Invoke(fuelManagement, Arg.Is<LowFuelWarningEventArgs>(x => x.PercentLeft < 20));
+    handler
+        .Received()
+        .Invoke(fuelManagement, Arg.Is<LowFuelWarningEventArgs>(x => x.PercentLeft < 20));
 }
-``` 
+```
