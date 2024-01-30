@@ -68,7 +68,7 @@ calculator.DidNotReceive().Add(5, 7);
 
 If our `Received()` assertion fails, NSubstitute tries to give us some help as to what the problem might be:
 
-```csharp
+```
 NSubstitute.Exceptions.ReceivedCallsException : Expected to receive a call matching:
     Add(1, 2)
 Actually received no matching calls.
