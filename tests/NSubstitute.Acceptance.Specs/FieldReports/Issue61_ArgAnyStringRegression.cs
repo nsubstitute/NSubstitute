@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
@@ -12,6 +13,6 @@ public class ArgAnyStringRegression
         var foo = Substitute.For<IFoo>();
         foo.Bar(Arg.Any<string>(), Arg.Any<double>()).ReturnsForAnyArgs("hello");
 
-        Assert.AreEqual("hello", foo.Bar(null, 0));
+        ClassicAssert.AreEqual("hello", foo.Bar(null, 0));
     }
 }

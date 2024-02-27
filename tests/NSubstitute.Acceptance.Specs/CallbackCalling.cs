@@ -1,6 +1,7 @@
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -119,7 +120,7 @@ public class CallbackCalling
         Assert.That(callCount, Is.EqualTo(0), "Should not have been called yet");
         _something.Count();
         _something.Count();
-        Assert.AreEqual(new List<int> { 1 }, calls);
+        ClassicAssert.AreEqual(new List<int> { 1 }, calls);
     }
 
     [Test]
@@ -132,7 +133,7 @@ public class CallbackCalling
         Assert.That(callCount, Is.EqualTo(0), "Should not have been called yet");
         _something.Count();
         _something.Count();
-        Assert.AreEqual(new List<int> { 1, 2 }, calls);
+        ClassicAssert.AreEqual(new List<int> { 1, 2 }, calls);
     }
 
     [Test]
@@ -149,7 +150,7 @@ public class CallbackCalling
         Assert.That(callCount, Is.EqualTo(0), "Should not have been called yet");
         _something.Count();
         _something.Count();
-        Assert.AreEqual(new List<int> { 1, 2 }, calls);
+        ClassicAssert.AreEqual(new List<int> { 1, 2 }, calls);
     }
 
     [Test]
@@ -166,11 +167,11 @@ public class CallbackCalling
         );
 
         _something.Count();
-        Assert.IsTrue(first);
+        ClassicAssert.IsTrue(first);
         _something.Count();
-        Assert.IsTrue(then);
+        ClassicAssert.IsTrue(then);
         _something.Count();
-        Assert.IsTrue(secondThen);
+        ClassicAssert.IsTrue(secondThen);
     }
 
     [Test]
@@ -187,11 +188,11 @@ public class CallbackCalling
         );
 
         _something.Count();
-        Assert.IsTrue(first);
+        ClassicAssert.IsTrue(first);
         _something.Count();
-        Assert.IsTrue(then);
+        ClassicAssert.IsTrue(then);
         _something.Count();
-        Assert.AreEqual(3, callCount);
+        ClassicAssert.AreEqual(3, callCount);
     }
 
     [Test]
@@ -208,10 +209,10 @@ public class CallbackCalling
 
         Assert.That(callCount, Is.EqualTo(0), "Should not have been called yet");
         var ex = Assert.Throws<Exception>(() => _something.Count());
-        Assert.AreSame(exception, ex);
+        ClassicAssert.AreSame(exception, ex);
 
         _something.Count();
-        Assert.AreEqual(new List<int> { 1 }, calls);
+        ClassicAssert.AreEqual(new List<int> { 1 }, calls);
     }
 
     [Test]
@@ -230,10 +231,10 @@ public class CallbackCalling
         Assert.That(callCount, Is.EqualTo(0), "Should not have been called yet");
         _something.Count();
         var ex = Assert.Throws<Exception>(() => _something.Count());
-        Assert.AreSame(exception, ex);
+        ClassicAssert.AreSame(exception, ex);
 
         _something.Count();
-        Assert.AreEqual(new List<int> { 1, 2 }, calls);
+        ClassicAssert.AreEqual(new List<int> { 1, 2 }, calls);
     }
 
     [Test]
@@ -250,7 +251,7 @@ public class CallbackCalling
 
         Assert.Throws<Exception>(() => _something.Count());
         Assert.Throws<Exception>(() => _something.Count());
-        Assert.AreEqual(2, callCount);
+        ClassicAssert.AreEqual(2, callCount);
     }
 
     [Test]

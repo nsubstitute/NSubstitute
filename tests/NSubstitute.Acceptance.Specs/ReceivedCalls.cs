@@ -1,6 +1,7 @@
 using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
