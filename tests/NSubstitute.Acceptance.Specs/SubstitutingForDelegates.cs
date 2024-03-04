@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -36,7 +37,7 @@ public class SubstitutingForDelegates
     {
         var func = Substitute.For<Func<int>>();
         func().Returns(10);
-        Assert.AreEqual(10, func());
+        ClassicAssert.AreEqual(10, func());
     }
 
     [Test]

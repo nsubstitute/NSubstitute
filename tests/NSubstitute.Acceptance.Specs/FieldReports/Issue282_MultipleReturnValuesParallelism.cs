@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
@@ -24,7 +25,7 @@ public class Issue282_MultipleReturnValuesParallelism
 
         var results = Task.WhenAll(runningTask1, runningTask2).Result;
 
-        Assert.Contains(ret1, results);
-        Assert.Contains(ret2, results);
+        ClassicAssert.Contains(ret1, results);
+        ClassicAssert.Contains(ret2, results);
     }
 }

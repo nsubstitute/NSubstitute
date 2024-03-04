@@ -1,6 +1,7 @@
-﻿using System.Reflection;
-using NSubstitute.Compatibility;
+﻿using NSubstitute.Compatibility;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
+using System.Reflection;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -17,7 +18,7 @@ public class CompatArgsTests
         var compatInstanceMembers =
             typeof(CompatArg).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
 
-        Assert.AreEqual(
+        ClassicAssert.AreEqual(
             compatMembers.ToList(), compatInstanceMembers.ToList(),
             "Arg.Compat and CompatArg should have static/instance versions of the same methods"
             );
@@ -32,7 +33,7 @@ public class CompatArgsTests
         var compatMembers =
             typeof(Arg.Compat).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
 
-        Assert.AreEqual(
+        ClassicAssert.AreEqual(
             argMembers.ToList(), compatMembers.ToList(),
             "Arg and Arg.Compat should have the same methods (just vary by out/ref)"
             );

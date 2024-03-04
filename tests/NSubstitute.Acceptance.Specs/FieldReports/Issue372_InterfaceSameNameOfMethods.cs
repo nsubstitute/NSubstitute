@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
@@ -22,6 +23,6 @@ public class Issue372_InterfaceSameNameOfMethods
     public void Should_create_substitute()
     {
         var sut = Substitute.For<X>();
-        Assert.NotNull(sut);
+        ClassicAssert.NotNull(sut);
     }
 }
