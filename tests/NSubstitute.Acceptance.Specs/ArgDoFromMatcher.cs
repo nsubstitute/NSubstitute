@@ -70,6 +70,20 @@ public class ArgDoFromMatcher
     }
 
     [Test]
+    public void Should_call_action_with_each_call_matching_predicate_assert()
+    {
+        var stringArgs = new List<string>();
+
+        _sub.Bar("hello", 1, _someObject);
+        _sub.Bar("hello2", 2, _someObject);
+        _sub.Bar("don't use this because call doesn't match", -123, _someObject);
+
+        _sub.Received(2).Bar(Arg.Do<string>(x => x.StartsWith("h"), x => stringArgs.Add(x)), Arg.Any<int>(), _someObject);
+
+        Assert.That(stringArgs, Is.EqualTo(new[] { "hello", "hello2" }));
+    }
+
+    [Test]
     public void Arg_do_with_when_for_any_args()
     {
         string stringArg = null;
