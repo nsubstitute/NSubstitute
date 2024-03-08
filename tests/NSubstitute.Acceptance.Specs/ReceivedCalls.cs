@@ -316,7 +316,7 @@ public class ReceivedCalls
     }
 
     [Test]
-    public void Should_call_action_with_each_call_matching_predicate_assert()
+    public void Should_call_action_for_each_call_matching_predicate()
     {
         var suitCaseLuggage = new List<object[]>();
 
