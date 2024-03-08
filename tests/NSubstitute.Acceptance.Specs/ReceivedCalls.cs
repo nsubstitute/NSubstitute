@@ -315,6 +315,23 @@ public class ReceivedCalls
         StringAssert.Contains("minInclusive must be >= 0, but was -1.", ex.Message);
     }
 
+    [Test]
+    public void Should_call_action_for_each_call_matching_predicate()
+    {
+        var suitCaseLuggage = new List<object[]>();
+
+        _car.StoreLuggage(new SuitCase());
+        _car.StoreLuggage(new SuitCase());
+        _car.StoreLuggage(new object());
+
+        _car.Received(2).StoreLuggage(
+            Arg.Is<object[]>(
+                x => x.All(l => l is SuitCase),
+                suitCaseLuggage.Add));
+
+        Assert.That(suitCaseLuggage, Has.Count.EqualTo(2));
+    }
+
     public interface ICar
     {
         void Start();
@@ -328,4 +345,6 @@ public class ReceivedCalls
         float GetCapacityInLitres();
         event Action Started;
     }
+
+    public class SuitCase;
 }

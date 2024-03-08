@@ -34,6 +34,18 @@ public class CheckReceivedCallsHandler : ICallHandler
             _exceptionThrower.Throw(callSpecification, matchingCalls, relatedCalls, _requiredQuantity);
         }
 
+        InvokePerArgumentActionsForMatchingCalls(callSpecification, matchingCalls);
+
         return RouteAction.Continue();
+    }
+
+    private static void InvokePerArgumentActionsForMatchingCalls(ICallSpecification callSpecification, List<ICall> matchingCalls)
+    {
+        var callInfoFactory = new CallInfoFactory();
+
+        foreach (var matchingCall in matchingCalls)
+        {
+            callSpecification.InvokePerArgumentActions(callInfoFactory.Create(matchingCall));
+        }
     }
 }
