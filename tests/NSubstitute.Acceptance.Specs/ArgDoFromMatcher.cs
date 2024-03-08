@@ -69,7 +69,6 @@ public class ArgDoFromMatcher
         Assert.That(stringArgs, Is.EqualTo(new[] { "hello", "hello2" }));
     }
 
-
     [Test]
     public void Arg_do_with_when_for_any_args()
     {
