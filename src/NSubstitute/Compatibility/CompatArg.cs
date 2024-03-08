@@ -50,6 +50,13 @@ public class CompatArg
     public T Is<T>(Expression<Predicate<T>> predicate) => Arg.Is(predicate);
 
     /// <summary>
+    /// Match argument that satisfies <paramref name="predicate"/> and use it to call the <paramref name="useArgument"/> function
+    /// whenever a matching call is or was made to the substitute.
+    /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
+    /// </summary>
+    public static T Is<T>(Expression<Predicate<T>> predicate, Action<T> useArgument) => Arg.Is<T>(predicate, useArgument);
+
+    /// <summary>
     /// Match argument that satisfies <paramref name="predicate"/>.
     /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
     /// This is provided for compatibility with older compilers --
@@ -113,11 +120,4 @@ public class CompatArg
     /// whenever a matching call is made to the substitute.
     /// </summary>
     public static Arg.AnyType Do<T>(Action<object> useArgument) where T : Arg.AnyType => Arg.Do<T>(useArgument);
-
-    /// <summary>
-    /// Match argument that satisfies <paramref name="predicate"/> and use it to call the <paramref name="useArgument"/> function
-    /// whenever a matching call is made to the substitute.
-    /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
-    /// </summary>
-    public static T Do<T>(Expression<Predicate<T>> predicate, Action<T> useArgument) => Arg.Do<T>(predicate, useArgument);
 }

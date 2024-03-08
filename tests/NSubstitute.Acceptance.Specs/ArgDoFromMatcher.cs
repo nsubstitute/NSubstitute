@@ -60,7 +60,7 @@ public class ArgDoFromMatcher
     public void Should_call_action_with_each_call_matching_predicate()
     {
         var stringArgs = new List<string>();
-        _sub.Bar(Arg.Do<string>(x => x.StartsWith("h"), x => stringArgs.Add(x)), Arg.Any<int>(), _someObject);
+        _sub.Bar(Arg.Is<string>(x => x.StartsWith("h"), x => stringArgs.Add(x)), Arg.Any<int>(), _someObject);
 
         _sub.Bar("hello", 1, _someObject);
         _sub.Bar("hello2", 2, _someObject);

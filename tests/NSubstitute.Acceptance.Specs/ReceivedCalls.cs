@@ -326,7 +326,7 @@ public class ReceivedCalls
         _car.StoreLuggage(new object());
 
         _car.Received(2).StoreLuggage(
-            Arg.Do<object[]>(
+            Arg.Is<object[]>(
                 x => x.All(l => l is SuitCase),
                 suitCaseLuggage.Add));
 
