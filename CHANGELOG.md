@@ -1,6 +1,13 @@
-### vNext
+### 5.2.0 (Apr 2024)
 
-* [NEW] Support for Sourcelink and Deterministic Build (#737)
+* [UPDATE] Upgrade website build to jekyll 3.9.0 and add link to edit website pages (#767, #769; thanks to @brad)
+* [UPDATE] Build improvements:
+    - migrate to GitHub Actions and update doc dependencies (#754, #774; thanks to @alexandrnikitin)
+    - improve test platform coverage; add .NET 8 to test platforms (#742, #756; thanks to @Romfos)
+    - source code format improvements; check format on CI (#758, ##761, #762, #763; thanks again to @Romfos)
+* [NEW] Support for Sourcelink and Deterministic Build. Thanks @304NotModified! (#737)
+
+Many thanks to @alexandrnikitin, @Romfos, @brad, and @304NotModified for their contributions!
 
 ### 5.1.0 (Sep 2023)
 
