@@ -1,0 +1,44 @@
+name: Release build
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  CONFIGURATION: Release
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            6.0.x
+            7.0.x
+            8.0.x
+
+      - name: Setup Ruby for documentation build
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Build package and docs
+        run: dotnet run --project 'build/build.fsproj' -- -t All
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: |
+            bin/Release/NSubstitute/*.nupkg
+            bin/Release/NSubstitute/*.snupkg
+            bin/Release/nsubstitute.github.com/
+
