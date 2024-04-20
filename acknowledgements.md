@@ -36,6 +36,9 @@ Mono is available under four open source licenses for different parts of the pro
 ## BenchmarkDotNet [https://github.com/dotnet/BenchmarkDotNet]
 Really useful tool for benchmarking .NET code! Available for use under MIT License [https://github.com/dotnet/BenchmarkDotNet/blob/master/LICENSE.md].
 
+## Microsoft SourceLink [https://github.com/dotnet/sourcelink]
+Provides deterministic builds and source debugging for library users. Available under MIT License [https://github.com/dotnet/sourcelink/blob/main/License.txt].
+
 # Previously used for building NSubstitute
 
 Even though they are no longer directly used for NSubstitute, the following projects were really helpful in building previous NSubstitute versions.
