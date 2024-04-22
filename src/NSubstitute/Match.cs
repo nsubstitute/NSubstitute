@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 namespace NSubstitute;
 
 /// <summary>
-/// Argument matcher allowing a match predicate and optional action to be called for each match to be specified serparately.
+/// Argument matcher allowing a match predicate and optional action to be called for each match to be specified separately.
 /// </summary>
 public class Match<T>
 {
