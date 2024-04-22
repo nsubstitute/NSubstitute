@@ -316,6 +316,23 @@ public class ReceivedCalls
     }
 
     [Test]
+    public void Should_call_action_for_each_call_matching_predicate_using_isanddo()
+    {
+        var suitCaseLuggage = new List<object[]>();
+
+        _car.StoreLuggage(new SuitCase());
+        _car.StoreLuggage(new SuitCase());
+        _car.StoreLuggage(new object());
+
+        _car.Received(2).StoreLuggage(
+            Arg.IsAndDo<object[]>(
+                x => x.All(l => l is SuitCase),
+                suitCaseLuggage.Add));
+
+        Assert.That(suitCaseLuggage, Has.Count.EqualTo(2));
+    }
+
+    [Test]
     public void Should_call_action_for_each_call_matching_predicate()
     {
         var suitCaseLuggage = new List<object[]>();
@@ -325,9 +342,9 @@ public class ReceivedCalls
         _car.StoreLuggage(new object());
 
         _car.Received(2).StoreLuggage(
-            Arg.Is<object[]>(
-                x => x.All(l => l is SuitCase),
-                suitCaseLuggage.Add));
+            Match.When<object[]>(
+                x => x.All(l => l is SuitCase))
+            .AndDo(suitCaseLuggage.Add));
 
         Assert.That(suitCaseLuggage, Has.Count.EqualTo(2));
     }

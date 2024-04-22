@@ -54,7 +54,7 @@ public class CompatArg
     /// whenever a matching call is or was made to the substitute.
     /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
     /// </summary>
-    public static T Is<T>(Expression<Predicate<T>> predicate, Action<T> useArgument) => Arg.Is<T>(predicate, useArgument);
+    public static T IsAndDo<T>(Expression<Predicate<T>> predicate, Action<T> useArgument) => Arg.IsAndDo<T>(predicate, useArgument);
 
     /// <summary>
     /// Match argument that satisfies <paramref name="predicate"/>.

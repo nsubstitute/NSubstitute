@@ -57,10 +57,23 @@ public class ArgDoFromMatcher
     }
 
     [Test]
+    public void Should_call_action_with_each_call_matching_predicate_using_isanddo()
+    {
+        var stringArgs = new List<string>();
+        _sub.Bar(Arg.IsAndDo<string>(x => x.StartsWith("h"), x => stringArgs.Add(x)), Arg.Any<int>(), _someObject);
+
+        _sub.Bar("hello", 1, _someObject);
+        _sub.Bar("hello2", 2, _someObject);
+        _sub.Bar("don't use this because call doesn't match", -123, _someObject);
+
+        Assert.That(stringArgs, Is.EqualTo(new[] { "hello", "hello2" }));
+    }
+
+    [Test]
     public void Should_call_action_with_each_call_matching_predicate()
     {
         var stringArgs = new List<string>();
-        _sub.Bar(Arg.Is<string>(x => x.StartsWith("h"), x => stringArgs.Add(x)), Arg.Any<int>(), _someObject);
+        _sub.Bar(Match.When<string>(x => x.StartsWith("h")).AndDo(stringArgs.Add), Arg.Any<int>(), _someObject);
 
         _sub.Bar("hello", 1, _someObject);
         _sub.Bar("hello2", 2, _someObject);
