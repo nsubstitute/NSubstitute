@@ -3,7 +3,34 @@ title: Throwing exceptions
 layout: post
 ---
 
-[Callbacks](/help/callbacks) can be used to throw exceptions when a member is called.
+The `Throws` and `ThrowsAsync` helpers in the namespace NSubstitute.ExceptionExtensions could be use d
+
+<!--
+```requiredcode
+public interface ICalculator { int Add(int a, int b); }
+ICalculator calculator;
+[SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
+```
+-->
+
+
+```csharp
+//For non-voids:
+calculator.Add(-1, -1).Throws(new Exception()); // Or .Throws<Exception>();
+
+//For voids and non-voids:
+calculator
+    .When(x => x.Add(-2, -2))
+    .Throw(x => new Exception()); // Or .Throws<Exception>();
+
+//Both calls will now throw.
+Assert.Throws<Exception>(() => calculator.Add(-1, -1));
+Assert.Throws<Exception>(() => calculator.Add(-2, -2));
+```
+
+
+### Returns
+Another way is to use the underlyning method, .Returns. See also [Callbacks](/help/callbacks) 
 
 <!--
 ```requiredcode
