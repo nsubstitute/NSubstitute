@@ -45,12 +45,13 @@ public class CallSpecification : ICallSpecification
             return true;
         }
 
-        if (a.IsGenericMethod && b.IsGenericMethod)
+        if (!a.GetType().IsAssignableFrom(b.GetType()) && !b.GetType().IsAssignableFrom(a.GetType()))
         {
-            return CanCompareGenericMethods(a, b);
+            // types are not derived
+            return false;
         }
 
-        return false;
+        return CanCompareGenericMethods(a, b);
     }
 
     private static bool CanCompareGenericMethods(MethodInfo a, MethodInfo b)

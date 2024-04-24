@@ -381,6 +381,19 @@ public class ReturningResults
         Assert.That(_something.NullableCountValueTaskWithParamsAsync(123, "something else").Result, Is.Null);
     }
 
+    [Test]
+    public void DerivedInterfaces()
+    {
+        var derived = Substitute.For<Infrastructure.DerivedInterfaces.B>();
+        var parent = derived as Infrastructure.DerivedInterfaces.A;
+
+        derived.X.Returns("configuredvalue");
+        Assert.That(parent.X, Is.EqualTo("configuredvalue"));
+
+        parent.X.Returns("newvalue");
+        Assert.That(derived.X, Is.EqualTo("newvalue"));
+    }
+
     [SetUp]
     public void SetUp()
     {
