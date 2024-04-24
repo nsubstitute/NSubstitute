@@ -5,7 +5,6 @@ layout: post
 
 <!--
 ```requiredcode
-using NSubstitute.ExceptionExtensions;
 public interface ICalculator { int Add(int a, int b); }
 ICalculator calculator;
 [SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
