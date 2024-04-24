@@ -3,8 +3,6 @@ title: Throwing exceptions
 layout: post
 ---
 
-The `Throws` and `ThrowsAsync` helpers in the namespace NSubstitute.ExceptionExtensions could be use d
-
 <!--
 ```requiredcode
 public interface ICalculator { int Add(int a, int b); }
@@ -13,6 +11,7 @@ ICalculator calculator;
 ```
 -->
 
+The `Throws` and `ThrowsAsync` helpers in the namespace NSubstitute.ExceptionExtensions could be use d
 
 ```csharp
 //For non-voids:
@@ -30,14 +29,6 @@ Assert.Throws<Exception>(() => calculator.Add(-2, -2));
 
 ### Returns
 Another way is to use the underlying method, `.Returns`. See also [Callbacks](/help/callbacks) 
-
-<!--
-```requiredcode
-public interface ICalculator { int Add(int a, int b); }
-ICalculator calculator;
-[SetUp] public void SetUp() { calculator = Substitute.For<ICalculator>(); }
-```
--->
 
 ```csharp
 //For non-voids:
