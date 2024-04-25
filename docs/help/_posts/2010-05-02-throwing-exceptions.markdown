@@ -15,12 +15,12 @@ The `Throws` and `ThrowsAsync` helpers in the namespace NSubstitute.ExceptionExt
 
 ```csharp
 //For non-voids:
-calculator.Add(-1, -1).Throws(new Exception()); // Or .Throws<Exception>();
+calculator.Add(-1, -1).Throws(new Exception()); // Or .Throw<Exception>() - don't use Throw*s*
 
 //For voids and non-voids:
 calculator
     .When(x => x.Add(-2, -2))
-    .Throw(x => new Exception()); // Or .Throws<Exception>();
+    .Throw(x => new Exception()); // Or .Throw<Exception>(); 
 
 //Both calls will now throw.
 Assert.Throws<Exception>(() => calculator.Add(-1, -1));
