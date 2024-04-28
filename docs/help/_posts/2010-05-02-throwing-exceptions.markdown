@@ -28,7 +28,7 @@ Assert.Throws<Exception>(() => calculator.Add(-2, -2));
 ```
 
 ### Returns
-Another way is to use the underlying method, `.Returns`. See also [Callbacks](/help/callbacks) 
+Another way is to use the underlying method, `.Returns`. See also [Callbacks](/help/callbacks).
 
 ```csharp
 //For non-voids:
