@@ -11,7 +11,7 @@ ICalculator calculator;
 ```
 -->
 
-The `Throws` and `ThrowsAsync` helpers in the namespace NSubstitute.ExceptionExtensions could be use d
+The `Throws` and `ThrowsAsync` helpers in the `NSubstitute.ExceptionExtensions` namespace can be used to throw exceptions when a member is called.
 
 ```csharp
 //For non-voids:
