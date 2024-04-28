@@ -15,7 +15,7 @@ The `Throws` and `ThrowsAsync` helpers in the `NSubstitute.ExceptionExtensions` 
 
 ```csharp
 //For non-voids:
-calculator.Add(-1, -1).Throws(new Exception()); // Or .Throw<Exception>()
+calculator.Add(-1, -1).Throws(new Exception()); // Or .Throws<Exception>()
 
 //For voids and non-voids:
 calculator
