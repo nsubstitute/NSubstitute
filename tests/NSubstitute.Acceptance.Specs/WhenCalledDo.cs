@@ -1,6 +1,7 @@
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NUnit.Framework;
+using NSubstitute.ExceptionExtensions;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -87,6 +88,21 @@ public class WhenCalledDo
         int called = 0;
         _something.When(x => x.Echo(Arg.Any<int>())).Do(x => called++);
         _something.When(x => x.Echo(Arg.Any<int>())).Throw(exception);
+
+        Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
+        IndexOutOfRangeException thrownException = Assert.Throws<IndexOutOfRangeException>(() => _something.Echo(1234));
+        Assert.That(thrownException, Is.EqualTo(exception));
+        Assert.That(called, Is.EqualTo(1));
+    }
+
+    
+    [Test]
+    public void Throw_exception_when_Throws_with_specific_exception()
+    {
+        var exception = new IndexOutOfRangeException("Test");
+        int called = 0;
+        _something.When(x => x.Echo(Arg.Any<int>())).Do(x => called++);
+        _something.When(x => x.Echo(Arg.Any<int>())).Throws(exception);
 
         Assert.That(called, Is.EqualTo(0), "Should not have been called yet");
         IndexOutOfRangeException thrownException = Assert.Throws<IndexOutOfRangeException>(() => _something.Echo(1234));
