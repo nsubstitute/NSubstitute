@@ -45,7 +45,10 @@ public class CallSpecification : ICallSpecification
             return true;
         }
 
-        if (!a.GetType().IsAssignableFrom(b.GetType()) && !b.GetType().IsAssignableFrom(a.GetType()))
+        var typeDeclaringA = a.DeclaringType;
+        var typeDeclaringB = b.DeclaringType;
+
+        if (!typeDeclaringA!.IsAssignableFrom(typeDeclaringB) && !typeDeclaringB!.IsAssignableFrom(typeDeclaringA))
         {
             // types are not derived
             return false;
