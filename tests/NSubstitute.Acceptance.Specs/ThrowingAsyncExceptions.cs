@@ -1,6 +1,7 @@
 ﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -36,7 +37,7 @@ public class ThrowingAsyncExceptions
             _something.Async().ThrowsAsync(new Exception(exceptionMessage));
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.Async());
-            Assert.AreEqual(exceptionMessage, exceptionThrown.Message);
+            ClassicAssert.AreEqual(exceptionMessage, exceptionThrown.Message);
         }
 
         [Test]
@@ -47,8 +48,8 @@ public class ThrowingAsyncExceptions
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.Async());
 
-            Assert.IsNotNull(exceptionThrown.InnerException);
-            Assert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
+            ClassicAssert.IsNotNull(exceptionThrown.InnerException);
+            ClassicAssert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
         }
 
         [Test]
@@ -136,7 +137,7 @@ public class ThrowingAsyncExceptions
             _something.CountAsync().ThrowsAsync(new Exception(exceptionMessage));
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.CountAsync());
-            Assert.AreEqual(exceptionMessage, exceptionThrown.Message);
+            ClassicAssert.AreEqual(exceptionMessage, exceptionThrown.Message);
         }
 
         [Test]
@@ -147,8 +148,8 @@ public class ThrowingAsyncExceptions
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.CountAsync());
 
-            Assert.IsNotNull(exceptionThrown.InnerException);
-            Assert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
+            ClassicAssert.IsNotNull(exceptionThrown.InnerException);
+            ClassicAssert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
         }
 
         [Test]
@@ -237,7 +238,7 @@ public class ThrowingAsyncExceptions
             _something.CountValueTaskAsync().ThrowsAsync(new Exception(exceptionMessage));
 
             Exception exceptionThrown = AssertFaultedTaskException<int, Exception>(() => _something.CountValueTaskAsync());
-            Assert.AreEqual(exceptionMessage, exceptionThrown.Message);
+            ClassicAssert.AreEqual(exceptionMessage, exceptionThrown.Message);
         }
 
         [Test]
@@ -248,8 +249,8 @@ public class ThrowingAsyncExceptions
 
             Exception exceptionThrown = AssertFaultedTaskException<int, Exception>(() => _something.CountValueTaskAsync());
 
-            Assert.IsNotNull(exceptionThrown.InnerException);
-            Assert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
+            ClassicAssert.IsNotNull(exceptionThrown.InnerException);
+            ClassicAssert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
         }
 
         [Test]

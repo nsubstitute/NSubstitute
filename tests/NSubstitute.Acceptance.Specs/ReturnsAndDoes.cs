@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -44,8 +45,8 @@ public class ReturnsAndDoes
         var result2 = sub.GetBar(9999);
         Assert.That(wasCalled, Is.True);
         Assert.That(argsUsed, Is.EquivalentTo(new[] { 42, 9999 }));
-        Assert.AreSame(result1, bar);
-        Assert.AreSame(result2, bar);
+        ClassicAssert.AreSame(result1, bar);
+        ClassicAssert.AreSame(result2, bar);
     }
 
     [Test]
@@ -59,7 +60,7 @@ public class ReturnsAndDoes
         sub.When(x => x.GetBar(2)).Do(x => calledViaWhenDo = true);
         sub.GetBar(Arg.Do<int>(x => calledViaArgDo = true));
 
-        Assert.False(calledViaAndDoes && calledViaArgDo && calledViaWhenDo);
+        ClassicAssert.False(calledViaAndDoes && calledViaArgDo && calledViaWhenDo);
 
         sub.GetBar(2);
 
