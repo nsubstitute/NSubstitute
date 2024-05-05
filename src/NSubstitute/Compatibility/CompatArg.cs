@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using NSubstitute.Core.Arguments;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
@@ -56,6 +57,16 @@ public class CompatArg
     /// if possible use <see cref="Arg.Is{T}(Expression{Predicate{object}})" /> instead.
     /// </summary>
     public Arg.AnyType Is<T>(Expression<Predicate<object>> predicate) where T : Arg.AnyType => Arg.Is<T>(predicate);
+
+    /// <summary>
+    /// Match argument that satisfies <paramref name="matcher"/>.
+    /// </summary>
+    public static T Is<T>(IArgumentMatcher matcher) => ArgumentMatcher.Enqueue<T>(matcher);
+
+    /// <summary>
+    /// Match argument that satisfies <paramref name="matcher"/>.
+    /// </summary>
+    public static T Is<T>(IArgumentMatcher<T> matcher) => ArgumentMatcher.Enqueue(matcher);
 
     /// <summary>
     /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.

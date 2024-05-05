@@ -308,3 +308,7 @@ docs/_site/*
 
 # Ignore Ionide files (https://ionide.io/)
 .ionide
+
+# Ignore mergetool temp files
+*.orig
+

@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using NSubstitute.Core.Arguments;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
@@ -49,6 +50,16 @@ public static partial class Arg
         public static AnyType Is<T>(Expression<Predicate<object>> predicate) where T : AnyType => Arg.Is<T>(predicate);
 
         /// <summary>
+        /// Match argument that satisfies <paramref name="matcher"/>.
+        /// </summary>
+        public static T Is<T>(IArgumentMatcher matcher) => ArgumentMatcher.Enqueue<T>(matcher);
+
+        /// <summary>
+        /// Match argument that satisfies <paramref name="matcher"/>.
+        /// </summary>
+        public static T Is<T>(IArgumentMatcher<T> matcher) => ArgumentMatcher.Enqueue(matcher);
+
+        /// <summary>
         /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
         /// This is provided for compatibility with older compilers --
         /// if possible use <see cref="Arg.Invoke" /> instead.
@@ -95,7 +106,7 @@ public static partial class Arg
         /// Capture any argument compatible with type <typeparamref name="T"/> and use it to call the <paramref name="useArgument"/> function
         /// whenever a matching call is made to the substitute.
         /// This is provided for compatibility with older compilers --
-        /// if possible use <see cref="Arg.Do{T}" /> instead.
+        /// if possible use <see cref="Arg.Do{T}(System.Action{T})" /> instead.
         /// </summary>
         public static T Do<T>(Action<T> useArgument) => Arg.Do<T>(useArgument);
 

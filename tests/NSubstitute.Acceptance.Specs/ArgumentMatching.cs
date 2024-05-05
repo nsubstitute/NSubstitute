@@ -4,6 +4,8 @@ using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.Extensions;
 using NUnit.Framework;
+using static NSubstitute.Acceptance.Specs.Extensions;
+using static NSubstitute.ArgMatchers;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -11,6 +13,12 @@ namespace NSubstitute.Acceptance.Specs;
 public class ArgumentMatching
 {
     private ISomething _something;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _something = Substitute.For<ISomething>();
+    }
 
     [Test]
     public void Return_result_for_any_argument()
@@ -887,12 +895,6 @@ public class ArgumentMatching
         void MethodWithStruct(StructWithDefaultConstructor arg);
     }
 
-    [SetUp]
-    public void SetUp()
-    {
-        _something = Substitute.For<ISomething>();
-    }
-
     public interface IMyService
     {
         void MyMethod<T>(IMyArgument<T> argument);
@@ -940,6 +942,21 @@ public class ArgumentMatching
         Assert.That(ex.Message, Contains.Substring("Add(23, )"));
     }
 
+    [Test]
+    public void Custom_arg_matcher_support()
+    {
+        _something.Add(1, 2);
+
+        _something.Received().Add(1, Arg.Is(GreaterThan(0)));
+
+        var exception = Assert.Throws<ReceivedCallsException>(() =>
+            _something.Received().Add(1, Arg.Is(GreaterThan(3))));
+
+        Assert.That(exception.Message, Contains.Substring("Add(1, >3)"));
+        Assert.That(exception.Message, Contains.Substring("Add(1, *2*)"));
+        Assert.That(exception.Message, Contains.Substring("arg[1]: 2 \u226f 3"));
+    }
+
     class CustomMatcher : IArgumentMatcher, IDescribeNonMatches, IArgumentMatcher<int>
     {
         public string DescribeFor(object argument) => "failed";
@@ -976,5 +993,40 @@ public class ArgumentMatching
             arg2 = 3;
             return 2;
         }
+    }
+
+#if NET6_0_OR_GREATER
+    /// <summary>
+    /// See https://github.com/nsubstitute/NSubstitute/issues/822.
+    /// </summary>
+    [Test]
+    public void Predicate_match()
+    {
+        _something.Say("hello");
+
+        _something.Received().Say(Arg.Is(Matching<string>(x => x?.Length > 0)));
+
+        var exception = Assert.Throws<ReceivedCallsException>(() =>
+            _something.Received().Say(Arg.Is(Matching<string>(x => x?.Length > 10))));
+        Assert.That(exception.Message, Contains.Substring("Say(x => x?.Length > 10)"));
+        Assert.That(exception.Message, Contains.Substring("Say(*\"hello\"*)"));
+    }
+#endif
+}
+
+static class Extensions
+{
+    public static IArgumentMatcher<T> GreaterThan<T>(T value) where T : IComparable<T> =>
+        new GreaterThanMatcher<T>(value);
+
+    private class GreaterThanMatcher<T>(T value) :
+        IDescribeNonMatches, IDescribeSpecification, IArgumentMatcher<T>
+        where T : IComparable<T>
+    {
+        public string DescribeFor(object argument) => $"{argument} ≯ {value}";
+
+        public string DescribeSpecification() => $">{value}";
+
+        public bool IsSatisfiedBy(T argument) => argument.CompareTo(value) > 0;
     }
 }
