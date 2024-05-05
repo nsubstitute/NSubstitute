@@ -1,8 +1,10 @@
 namespace NSubstitute.Core.Arguments;
 
 /// <summary>
-/// Provides a specification for arguments for use with <see ctype="Arg.Matches (IArgumentMatcher)" />.
-/// Can additionally implement <see cref="IDescribeNonMatches" /> to give descriptions when arguments do not match.
+/// Provides a specification for arguments.
+/// Can implement <see cref="IDescribeNonMatches" /> to give descriptions when arguments do not match.
+/// Can implement <see cref="IDescribeSpecification"/> to give descriptions of expected arguments (otherwise
+/// `ToString()` will be used for descriptions).
 /// </summary>
 public interface IArgumentMatcher
 {
@@ -14,8 +16,10 @@ public interface IArgumentMatcher
 }
 
 /// <summary>
-/// Provides a specification for arguments for use with <see ctype="Arg.Matches &lt; T &gt;(IArgumentMatcher)" />.
-/// Can additionally implement <see ctype="IDescribeNonMatches" /> to give descriptions when arguments do not match.
+/// Provides a specification for arguments.
+/// Can implement <see cref="IDescribeNonMatches" /> to give descriptions when arguments do not match.
+/// Can implement <see cref="IDescribeSpecification"/> to give descriptions of expected arguments (otherwise
+/// `ToString()` will be used for descriptions).
 /// </summary>
 /// <typeparam name="T">Matches arguments of type <typeparamref name="T"/> or compatible type.</typeparam>
 public interface IArgumentMatcher<T>
