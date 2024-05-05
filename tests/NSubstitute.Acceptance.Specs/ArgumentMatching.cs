@@ -838,6 +838,7 @@ public class ArgumentMatching
     {
         void MyMethod<T>(IMyArgument<T> argument);
     }
+
     public interface IMyArgument<T> { }
     public class SampleClass { }
     public class MyStringArgument : IMyArgument<string> { }
@@ -845,4 +846,37 @@ public class ArgumentMatching
     public class MySampleClassArgument : IMyArgument<SampleClass> { }
     public class MyOtherSampleClassArgument : IMyArgument<SampleClass> { }
     public class MySampleDerivedClassArgument : MySampleClassArgument { }
+
+    [Test]
+    public void Should_use_ToString_to_describe_custom_arg_matcher_without_DescribesSpec()
+    {
+        var ex = Assert.Throws<ReceivedCallsException>(() =>
+        {
+            _something.Received().Add(23, ArgumentMatcher.Enqueue(new CustomMatcher()));
+        });
+        Assert.That(ex.Message, Contains.Substring("Add(23, Custom match)"));
+    }
+
+    [Test]
+    public void Should_describe_spec_for_custom_arg_matcher_when_implemented()
+    {
+        var ex = Assert.Throws<ReceivedCallsException>(() =>
+        {
+            _something.Received().Add(23, ArgumentMatcher.Enqueue(new CustomDescribeSpecMatcher()));
+        });
+        Assert.That(ex.Message, Contains.Substring("Add(23, DescribeSpec)"));
+    }
+
+    class CustomMatcher : IArgumentMatcher, IDescribeNonMatches, IArgumentMatcher<int>
+    {
+        public string DescribeFor(object argument) => "failed";
+        public bool IsSatisfiedBy(object argument) => false;
+        public bool IsSatisfiedBy(int argument) => false;
+        public override string ToString() => "Custom match";
+    }
+
+    class CustomDescribeSpecMatcher : CustomMatcher, IDescribeSpecification
+    {
+        public string DescribeSpecification() => "DescribeSpec";
+    }
 }
