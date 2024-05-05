@@ -123,9 +123,11 @@ public class CallSpecification : ICallSpecification
 
     public override string ToString()
     {
-        var argSpecsAsStrings = _argumentSpecifications.Select(x =>
-            (x as IDescribeSpecification)?.DescribeSpecification() ?? x.ToString() ?? string.Empty
-        ).ToArray();
+        var argSpecsAsStrings = Array.ConvertAll(_argumentSpecifications, x =>
+            x is IDescribeSpecification describe
+                ? describe.DescribeSpecification() ?? string.Empty
+                : x.ToString() ?? string.Empty
+        );
         return CallFormatter.Default.Format(GetMethodInfo(), argSpecsAsStrings);
     }
 

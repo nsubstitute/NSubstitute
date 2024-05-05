@@ -46,7 +46,9 @@ public static class ArgumentMatcher
         public bool IsSatisfiedBy(object? argument) => _matcher.IsSatisfiedBy((T?)argument!);
 
         public override string ToString() =>
-            (_matcher as IDescribeSpecification)?.DescribeSpecification() ?? _matcher.ToString() ?? "";
+            _matcher is IDescribeSpecification describe
+                ? describe.DescribeSpecification() ?? string.Empty
+                : _matcher.ToString() ?? string.Empty;
     }
 
     private class GenericToNonGenericMatcherProxyWithDescribe<T> : GenericToNonGenericMatcherProxy<T>, IDescribeNonMatches
@@ -57,9 +59,6 @@ public static class ArgumentMatcher
         }
 
         public string DescribeFor(object? argument) => ((IDescribeNonMatches)_matcher).DescribeFor(argument);
-
-        public override string ToString() =>
-            (_matcher as IDescribeSpecification)?.DescribeSpecification() ?? _matcher.ToString() ?? "";
     }
 
     private class DefaultValueContainer<T>

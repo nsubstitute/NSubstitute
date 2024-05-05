@@ -7,10 +7,10 @@ namespace NSubstitute.Core;
 /// </summary>
 public interface IDescribeSpecification
 {
-
     /// <summary>
-    /// A concise description of the conditions required to match this specification.
+    /// A concise description of the conditions required to match this specification, or <see cref="string.Empty"/>
+    /// if a detailed description can not be provided.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Description of the specification, or <see cref="string.Empty" /> if no description can be provided.</returns>
     string DescribeSpecification();
 }
