@@ -862,9 +862,19 @@ public class ArgumentMatching
     {
         var ex = Assert.Throws<ReceivedCallsException>(() =>
         {
-            _something.Received().Add(23, ArgumentMatcher.Enqueue(new CustomDescribeSpecMatcher()));
+            _something.Received().Add(23, ArgumentMatcher.Enqueue(new CustomDescribeSpecMatcher("DescribeSpec")));
         });
         Assert.That(ex.Message, Contains.Substring("Add(23, DescribeSpec)"));
+    }
+
+    [Test]
+    public void Should_use_empty_string_for_null_describe_spec_for_custom_arg_matcher_when_implemented()
+    {
+        var ex = Assert.Throws<ReceivedCallsException>(() =>
+        {
+            _something.Received().Add(23, ArgumentMatcher.Enqueue(new CustomDescribeSpecMatcher(null)));
+        });
+        Assert.That(ex.Message, Contains.Substring("Add(23, )"));
     }
 
     class CustomMatcher : IArgumentMatcher, IDescribeNonMatches, IArgumentMatcher<int>
@@ -875,8 +885,8 @@ public class ArgumentMatching
         public override string ToString() => "Custom match";
     }
 
-    class CustomDescribeSpecMatcher : CustomMatcher, IDescribeSpecification
+    class CustomDescribeSpecMatcher(string description) : CustomMatcher, IDescribeSpecification
     {
-        public string DescribeSpecification() => "DescribeSpec";
+        public string DescribeSpecification() => description;
     }
 }
