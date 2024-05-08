@@ -58,6 +58,16 @@ public static class Arg
     }
 
     /// <summary>
+    /// Match argument that satisfies <paramref name="predicate"/> and use it to call the <paramref name="useArgument"/> function
+    /// whenever a matching call is or was made to the substitute.
+    /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
+    /// </summary>
+    public static ref T IsAndDo<T>(Expression<Predicate<T>> predicate, Action<T> useArgument)
+    {
+        return ref ArgumentMatcher.Enqueue<T>(new ExpressionArgumentMatcher<T>(predicate), x => useArgument((T)x!));
+    }
+
+    /// <summary>
     /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
     /// </summary>
     public static ref Action Invoke()
@@ -162,6 +172,13 @@ public static class Arg
         /// if possible use <see cref="Arg.Is{T}(Expression{Predicate{T}})" /> instead.
         /// </summary>
         public static AnyType Is<T>(Expression<Predicate<object>> predicate) where T : AnyType => Arg.Is<T>(predicate);
+
+        /// <summary>
+        /// Match argument that satisfies <paramref name="predicate"/> and use it to call the <paramref name="useArgument"/> function
+        /// whenever a matching call is made to the substitute.
+        /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
+        /// </summary>
+        public static T IsAndDo<T>(Expression<Predicate<T>> predicate, Action<T> useArgument) => Arg.IsAndDo<T>(predicate, useArgument);
 
         /// <summary>
         /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
