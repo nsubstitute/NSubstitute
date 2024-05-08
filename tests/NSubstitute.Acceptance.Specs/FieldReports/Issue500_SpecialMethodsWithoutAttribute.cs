@@ -1,6 +1,6 @@
+using NUnit.Framework;
 using System.Reflection;
 using System.Reflection.Emit;
-using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
@@ -52,6 +52,7 @@ public class Issue500_SpecialMethodsWithoutAttribute
         var typeBuilder = module.DefineType("TypeWithMissingSpecialAttributes",
             TypeAttributes.Public | TypeAttributes.Abstract);
 
+        typeBuilder.DefineDefaultConstructor(MethodAttributes.Public);
         var evBuilder = typeBuilder.DefineEvent(EventName, EventAttributes.None, typeof(EventHandler));
         var evAdder = typeBuilder.DefineMethod(
             $"add_{EventName}",
