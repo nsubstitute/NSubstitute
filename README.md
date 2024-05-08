@@ -126,7 +126,7 @@ Assert.That(eventWasRaised);
 
 ### Building
 
-NSubstitute and its tests can be compiled and run using Visual Studio and Visual Studio for Mac. Note that some tests are marked `[Pending]` and are not meant to pass at present, so it is a good idea to exclude tests in the Pending category from test runs.
+NSubstitute and its tests can be compiled and run using Visual Studio, Visual Studio Code or any other editor with .NET support. Note that some tests are marked `[Pending]` and are not meant to pass at present, so it is a good idea to exclude tests in the Pending category from test runs.
 
 There are also build scripts in the `./build` directory for command line builds, and CI configurations in the project root.
 

@@ -3,7 +3,6 @@ using NSubstitute.Core.Arguments;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
-#pragma warning disable CS1574
 #pragma warning disable CS0419
 
 namespace NSubstitute;
