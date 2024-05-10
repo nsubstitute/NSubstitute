@@ -265,7 +265,7 @@ public class FormattingCallsWhenThrowingReceivedCallsExceptions
         protected override void ConfigureContext()
         {
             Sample.ParamsMethod(2, "hello", "everybody");
-            Sample.ParamsMethod(1, new[] { "hello", "everybody" });
+            Sample.ParamsMethod(1, ["hello", "everybody"]);
             Sample.ParamsMethod(1, "hello");
             Sample.ParamsMethod(3, "1", "2", "3");
             Sample.ParamsMethod(1);
@@ -298,7 +298,7 @@ public class FormattingCallsWhenThrowingReceivedCallsExceptions
         protected override void ConfigureContext()
         {
             Sample.IntParamsMethod(1, 2, 3);
-            Sample.IntParamsMethod(new[] { 4, 5 });
+            Sample.IntParamsMethod([4, 5]);
             Sample.IntParamsMethod();
         }
 

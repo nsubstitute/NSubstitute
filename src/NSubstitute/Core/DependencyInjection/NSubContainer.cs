@@ -17,7 +17,7 @@ public class NSubContainer : IConfigurableNSubContainer
 {
     private readonly NSubContainer? _parentContainer;
     private readonly object _syncRoot;
-    private readonly Dictionary<Type, Registration> _registrations = new();
+    private readonly Dictionary<Type, Registration> _registrations = [];
 
     public NSubContainer()
     {
@@ -177,7 +177,7 @@ public class NSubContainer : IConfigurableNSubContainer
 
     private class Scope : INSubResolver
     {
-        private readonly Dictionary<Registration, object> _cache = new Dictionary<Registration, object>();
+        private readonly Dictionary<Registration, object> _cache = [];
         private readonly NSubContainer _mostNestedContainer;
 
         public Scope(NSubContainer mostNestedContainer)

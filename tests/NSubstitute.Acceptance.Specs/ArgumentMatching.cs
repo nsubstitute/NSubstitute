@@ -200,7 +200,7 @@ public class ArgumentMatching
         _something.Received().WithParams(1, first, second);
         _something.Received().WithParams(1, Arg.Any<string>(), second);
         _something.Received().WithParams(1, first, Arg.Any<string>());
-        _something.Received().WithParams(1, new[] { first, second });
+        _something.Received().WithParams(1, [first, second]);
         _something.Received().WithParams(1, Arg.Any<string[]>());
         _something.Received().WithParams(1, Arg.Is<string[]>(x => x.Length == 2));
         _something.DidNotReceive().WithParams(2, first, second);

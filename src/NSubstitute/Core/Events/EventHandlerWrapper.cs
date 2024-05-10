@@ -35,6 +35,6 @@ public class EventHandlerWrapper<TEventArgs> : RaiseEventWrapper where TEventArg
     {
         var sender = _sender ?? call.Target();
         var eventArgs = _eventArgs ?? GetDefaultForEventArgType(typeof(TEventArgs));
-        return new[] { sender, eventArgs };
+        return [sender, eventArgs];
     }
 }

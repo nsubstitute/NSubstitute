@@ -10,8 +10,8 @@ public class ReceivedCalls
 {
     private ICar _car;
     const int Rpm = 7000;
-    private static readonly object[] Luggage = new[] { new object(), new object() };
-    private static readonly DateTime[] ServiceDates = new[] { new DateTime(2001, 01, 01), new DateTime(2002, 02, 02) };
+    private static readonly object[] Luggage = [new object(), new object()];
+    private static readonly DateTime[] ServiceDates = [new DateTime(2001, 01, 01), new DateTime(2002, 02, 02)];
 
     [SetUp]
     public void SetUp()

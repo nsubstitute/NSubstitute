@@ -21,7 +21,7 @@ public class AutoSubstituteProvider : IAutoValueProvider
 
     public object GetValue(Type type)
     {
-        return _substituteFactory.Create(new[] { type }, new object[0]);
+        return _substituteFactory.Create([type], []);
     }
 
     private bool IsPureVirtualClassWithParameterlessConstructor(Type type)

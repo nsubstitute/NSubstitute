@@ -82,9 +82,9 @@ public class PartialSubExamples
     {
         public class TaskList
         {
-            readonly List<string> list = new List<string>();
+            readonly List<string> list = [];
             public virtual void Add(string s) { list.Add(s); }
-            public virtual string[] ToArray() { return list.ToArray(); }
+            public virtual string[] ToArray() { return [.. list]; }
         }
 
         public class TaskView

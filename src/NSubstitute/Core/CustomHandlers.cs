@@ -2,7 +2,7 @@
 
 public class CustomHandlers : ICustomHandlers
 {
-    private readonly List<ICallHandler> _handlers = new();
+    private readonly List<ICallHandler> _handlers = [];
     private readonly ISubstituteState _substituteState;
 
     public IReadOnlyCollection<ICallHandler> Handlers => _handlers;

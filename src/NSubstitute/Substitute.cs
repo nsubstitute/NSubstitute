@@ -21,7 +21,7 @@ public static class Substitute
     public static T For<T>(params object[] constructorArguments)
         where T : class
     {
-        return (T)For(new[] { typeof(T) }, constructorArguments);
+        return (T)For([typeof(T)], constructorArguments);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public static class Substitute
         where T1 : class
         where T2 : class
     {
-        return (T1)For(new[] { typeof(T1), typeof(T2) }, constructorArguments);
+        return (T1)For([typeof(T1), typeof(T2)], constructorArguments);
     }
 
     /// <summary>
@@ -56,7 +56,7 @@ public static class Substitute
         where T2 : class
         where T3 : class
     {
-        return (T1)For(new[] { typeof(T1), typeof(T2), typeof(T3) }, constructorArguments);
+        return (T1)For([typeof(T1), typeof(T2), typeof(T3)], constructorArguments);
     }
 
     /// <summary>
@@ -87,6 +87,6 @@ public static class Substitute
         where T : class
     {
         var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
-        return (T)substituteFactory.CreatePartial(new[] { typeof(T) }, constructorArguments);
+        return (T)substituteFactory.CreatePartial([typeof(T)], constructorArguments);
     }
 }

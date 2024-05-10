@@ -6,7 +6,7 @@ namespace NSubstitute.Core;
 
 public class ThreadLocalContext : IThreadLocalContext
 {
-    private static readonly IArgumentSpecification[] EmptySpecifications = new IArgumentSpecification[0];
+    private static readonly IArgumentSpecification[] EmptySpecifications = [];
 
     private readonly RobustThreadLocal<ICallRouter?> _lastCallRouter;
     private readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications;

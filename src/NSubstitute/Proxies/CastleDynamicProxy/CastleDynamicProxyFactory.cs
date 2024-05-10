@@ -40,7 +40,7 @@ public class CastleDynamicProxyFactory : IProxyFactory
             typeToProxy,
             additionalInterfaces,
             constructorArguments,
-            new IInterceptor[] { proxyIdInterceptor, forwardingInterceptor },
+            [proxyIdInterceptor, forwardingInterceptor],
             proxyGenerationOptions);
 
         forwardingInterceptor.SwitchToFullDispatchMode();
@@ -63,7 +63,7 @@ public class CastleDynamicProxyFactory : IProxyFactory
             typeToProxy: typeof(object),
             additionalInterfaces: null,
             constructorArguments: null,
-            interceptors: new IInterceptor[] { proxyIdInterceptor, forwardingInterceptor },
+            interceptors: [proxyIdInterceptor, forwardingInterceptor],
             proxyGenerationOptions);
 
         forwardingInterceptor.SwitchToFullDispatchMode();
