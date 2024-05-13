@@ -1,4 +1,7 @@
+
+
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -29,6 +32,30 @@ public class SubbingForConcreteTypesAndMultipleInterfaces
 
         sub.Received().Number();
         subAsIFirst.Received().First();
+    }
+
+    [Test]
+    public void Can_sub_for_abstract_type_and_implement_other_two_interfaces()
+    {
+        // test from docs
+        var substitute = Substitute.For(new[] { typeof(IFirst), typeof(ISecond), typeof(ClassWithCtorArgs) },
+            new object[] { "hello world", 5 });
+
+        ClassicAssert.IsInstanceOf<IFirst>(substitute);
+        ClassicAssert.IsInstanceOf<ISecond>(substitute);
+        ClassicAssert.IsInstanceOf<ClassWithCtorArgs>(substitute);
+    }
+
+    [Test]
+    public void Can_sub_for_concrete_type_and_implement_other_two_interfaces()
+    {
+        // test from docs
+        var substitute = Substitute.For(new[] { typeof(IFirst), typeof(ISecond), typeof(ConcreteClassWithCtorArgs) },
+            new object[] { "hello world", 5 });
+
+        ClassicAssert.IsInstanceOf<IFirst>(substitute);
+        ClassicAssert.IsInstanceOf<ISecond>(substitute);
+        ClassicAssert.IsInstanceOf<ConcreteClassWithCtorArgs>(substitute);
     }
 
     [Test]
@@ -95,5 +122,11 @@ public class SubbingForConcreteTypesAndMultipleInterfaces
         public ClassWithCtorArgs(string s, int a) { StringFromCtorArg = s; IntFromCtorArg = a; }
         public string StringFromCtorArg { get; set; }
         public int IntFromCtorArg { get; set; }
+    }
+    public class ConcreteClassWithCtorArgs : ClassWithCtorArgs
+    {
+        public ConcreteClassWithCtorArgs(string s, int a) : base(s, a)
+        {
+        }
     }
 }

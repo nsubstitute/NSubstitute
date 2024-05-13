@@ -1,3 +1,4 @@
+
 using NSubstitute.Core;
 
 // Disable nullability for client API, so it does not affect clients.
@@ -89,4 +90,11 @@ public static class Substitute
         var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
         return (T)substituteFactory.CreatePartial(new[] { typeof(T) }, constructorArguments);
     }
+
+        public static T ForPartsOf<T,TClass>(params object[] constructorArguments)
+            where T : class
+        {
+            var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
+            return (T)substituteFactory.CreatePartial(new[] { typeof(T), typeof(TClass) }, constructorArguments);
+        }
 }

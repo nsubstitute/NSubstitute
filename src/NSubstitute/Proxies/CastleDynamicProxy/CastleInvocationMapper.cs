@@ -1,3 +1,4 @@
+
 using Castle.DynamicProxy;
 using NSubstitute.Core;
 
@@ -19,8 +20,7 @@ public class CastleInvocationMapper
         Func<object>? baseMethod = null;
         if (castleInvocation.InvocationTarget != null &&
             castleInvocation.MethodInvocationTarget.IsVirtual &&
-            !castleInvocation.MethodInvocationTarget.IsAbstract &&
-            !castleInvocation.MethodInvocationTarget.IsFinal)
+            !castleInvocation.MethodInvocationTarget.IsAbstract)
         {
             baseMethod = CreateBaseResultInvocation(castleInvocation);
         }
