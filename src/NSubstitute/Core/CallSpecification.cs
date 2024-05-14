@@ -77,7 +77,7 @@ public class CallSpecification : ICallSpecification
             if (first.IsGenericType && second.IsGenericType
                 && first.GetGenericTypeDefinition() == second.GetGenericTypeDefinition())
             {
-                // both are the same generic type. If their GenericTypeArguments match then they are equivalent 
+                // both are the same generic type. If their GenericTypeArguments match then they are equivalent
                 if (!TypesAreAllEquivalent(first.GenericTypeArguments, second.GenericTypeArguments))
                 {
                     return false;
@@ -85,8 +85,13 @@ public class CallSpecification : ICallSpecification
                 continue;
             }
 
-            var areEquivalent = first.IsAssignableFrom(second) || second.IsAssignableFrom(first) ||
-                                typeof(Arg.AnyType).IsAssignableFrom(first) || typeof(Arg.AnyType).IsAssignableFrom(second);
+            var areAssignable = first.IsAssignableFrom(second) || second.IsAssignableFrom(first);
+            var areAnyTypeAssignable = typeof(Arg.AnyType).IsAssignableFrom(first) ||
+                                       typeof(Arg.AnyType).IsAssignableFrom(second);
+            var areByRefAnyTypeAssignable = first.IsByRef && second.IsByRef &&
+                                            (typeof(Arg.AnyType).IsAssignableFrom(first.GetElementType()) ||
+                                             typeof(Arg.AnyType).IsAssignableFrom(second.GetElementType()));
+            var areEquivalent = areAssignable || areAnyTypeAssignable || areByRefAnyTypeAssignable;
             if (!areEquivalent) return false;
         }
         return true;

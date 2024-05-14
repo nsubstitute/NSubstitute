@@ -316,6 +316,16 @@ public class ReceivedCalls
         StringAssert.Contains("minInclusive must be >= 0, but was -1.", ex.Message);
     }
 
+    [Test]
+    public void Works_with_byref_generic_parameters()
+    {
+        IMyService service = Substitute.For<IMyService>();
+        MyArgument arg = new();
+        service.MyMethod(ref arg);
+
+        service.Received().MyMethod(ref Arg.Any<Arg.AnyType>());
+    }
+
     public interface ICar
     {
         void Start();
@@ -329,4 +339,11 @@ public class ReceivedCalls
         float GetCapacityInLitres();
         event Action Started;
     }
+
+    public interface IMyService
+    {
+        void MyMethod<T>(ref T argument);
+    }
+
+    public class MyArgument { }
 }
