@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.Arguments;
@@ -43,6 +44,11 @@ public static class ArgumentMatcher
         }
 
         public bool IsSatisfiedBy(object? argument) => _matcher.IsSatisfiedBy((T?)argument!);
+
+        public override string ToString() =>
+            _matcher is IDescribeSpecification describe
+                ? describe.DescribeSpecification() ?? string.Empty
+                : _matcher.ToString() ?? string.Empty;
     }
 
     private class GenericToNonGenericMatcherProxyWithDescribe<T> : GenericToNonGenericMatcherProxy<T>, IDescribeNonMatches

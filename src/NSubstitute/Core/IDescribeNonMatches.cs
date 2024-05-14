@@ -1,5 +1,10 @@
 namespace NSubstitute.Core;
 
+/// <summary>
+/// A type that can describe how an argument does not match a required condition.
+/// Use in conjunction with <see cref="NSubstitute.Core.Arguments.IArgumentMatcher"/> to provide information about
+/// non-matches.
+/// </summary>
 public interface IDescribeNonMatches
 {
     /// <summary>

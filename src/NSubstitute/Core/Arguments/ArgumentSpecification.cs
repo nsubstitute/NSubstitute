@@ -56,7 +56,10 @@ public class ArgumentSpecification : IArgumentSpecification
             : ArgumentFormatter.Default.Format(argument, highlight: !isSatisfiedByArg);
     }
 
-    public override string ToString() => _matcher.ToString() ?? string.Empty;
+    public override string ToString() =>
+        _matcher is IDescribeSpecification describe
+            ? describe.DescribeSpecification()
+            : _matcher.ToString() ?? string.Empty;
 
     public IArgumentSpecification CreateCopyMatchingAnyArgOfType(Type requiredType)
     {
