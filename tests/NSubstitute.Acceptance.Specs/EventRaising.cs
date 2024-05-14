@@ -298,6 +298,20 @@ public class EventRaising
         Assert.That(eventRecorder.Sender, Is.SameAs(sender));
     }
 
+    [Test]
+    public void MyEvent_With_CustomEventArgsWithInternalDefaultConstructor_IsRaised()
+    {
+        // Arrange
+        IExample mockExample = Substitute.For<IExample>();
+        var consumer = new Consumer(mockExample);
+
+        // Act
+        mockExample.MyEvent += Raise.EventWith<CustomEventArgsWithInternalDefaultConstructor>(this, null!);
+
+        // Assert
+        Assert.That(consumer.SomethingWasDone);
+    }
+
     class RaisedEventRecorder<T>
     {
         public object Sender;
@@ -339,5 +353,30 @@ public class EventRaising
     public class CustomEventArgsWithNoDefaultCtor : EventArgs
     {
         public CustomEventArgsWithNoDefaultCtor(string arg) { }
+    }
+
+    public class CustomEventArgsWithInternalDefaultConstructor : EventArgs
+    {
+        internal CustomEventArgsWithInternalDefaultConstructor() { }
+    }
+    public interface IExample
+    {
+        public event EventHandler<CustomEventArgsWithInternalDefaultConstructor> MyEvent;
+    }
+    public class Consumer
+    {
+        public Consumer(IExample example)
+        {
+            example.MyEvent += OnMyEvent;
+        }
+        public bool SomethingWasDone { get; private set; }
+        private void OnMyEvent(object sender, CustomEventArgsWithInternalDefaultConstructor args)
+        {
+            DoSomething();
+        }
+        private void DoSomething()
+        {
+            SomethingWasDone = true;
+        }
     }
 }
