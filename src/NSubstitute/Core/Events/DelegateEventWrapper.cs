@@ -64,7 +64,7 @@ public class DelegateEventWrapper<T> : RaiseEventWrapper
             sender = _providedArguments[0];
             eventArgs = GetDefaultForEventArgType(eventArgsType);
         }
-        return new[] { sender, eventArgs };
+        return [sender, eventArgs];
     }
 
     private static bool RequiredArgsHaveBeenProvided(object?[] providedArgs, ParameterInfo[] requiredArgs)

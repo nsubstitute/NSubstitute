@@ -81,10 +81,10 @@ public class ExceptionsThrownFromCustomArgumentMatchers
     {
         var emptyArray = new string[0];
         var request = Substitute.For<IRequest>();
-        request.GetMultiple(Arg.Is<string[]>(x => x[0] == "greeting")).Returns(new[] { "hello", "bye" });
-        request.GetMultiple(emptyArray).Returns(new[] { "?" });
+        request.GetMultiple(Arg.Is<string[]>(x => x[0] == "greeting")).Returns(["hello", "bye"]);
+        request.GetMultiple(emptyArray).Returns(["?"]);
 
-        Assert.That(request.GetMultiple(new[] { "greeting" }), Is.EqualTo(new[] { "hello", "bye" }));
+        Assert.That(request.GetMultiple(["greeting"]), Is.EqualTo(new[] { "hello", "bye" }));
         Assert.That(request.GetMultiple(emptyArray), Is.EqualTo(new[] { "?" }));
     }
 }

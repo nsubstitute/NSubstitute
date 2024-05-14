@@ -54,7 +54,7 @@ public static partial class SubstituteExtensions
         }
         else
         {
-            returnValue = new ReturnMultipleValues<T>(new[] { returnThis }.Concat(returnThese).ToArray());
+            returnValue = new ReturnMultipleValues<T>([returnThis, .. returnThese]);
         }
         return SubstitutionContext
             .Current
@@ -71,7 +71,7 @@ public static partial class SubstituteExtensions
         }
         else
         {
-            returnValue = new ReturnMultipleFuncsValues<T>(new[] { returnThis }.Concat(returnThese).ToArray());
+            returnValue = new ReturnMultipleFuncsValues<T>([returnThis, .. returnThese]);
         }
 
         return SubstitutionContext

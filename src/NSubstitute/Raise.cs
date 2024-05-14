@@ -81,7 +81,7 @@ public static class Raise
 
         if (singleParameterType.IsInstanceOfType(arguments))
         {
-            return new object[] { arguments };
+            return [arguments];
         }
 
         return arguments;

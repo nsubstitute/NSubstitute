@@ -21,7 +21,7 @@ public abstract class RaiseEventWrapper
                 , type.Name, RaiseMethodName);
             throw new CannotCreateEventArgsException(message);
         }
-        return (EventArgs)defaultConstructor.Invoke(new object[0]);
+        return (EventArgs)defaultConstructor.Invoke([]);
     }
 
     private static ConstructorInfo? GetDefaultConstructor(Type type) => type.GetConstructor(Type.EmptyTypes);

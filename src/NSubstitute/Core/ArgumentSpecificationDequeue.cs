@@ -5,7 +5,7 @@ namespace NSubstitute.Core;
 
 public class ArgumentSpecificationDequeue : IArgumentSpecificationDequeue
 {
-    private static readonly IArgumentSpecification[] EmptySpecifications = new IArgumentSpecification[0];
+    private static readonly IArgumentSpecification[] EmptySpecifications = [];
 
     private readonly Func<IList<IArgumentSpecification>> _dequeueAllQueuedArgSpecs;
 

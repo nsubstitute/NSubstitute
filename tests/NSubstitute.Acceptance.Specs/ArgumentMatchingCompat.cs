@@ -141,7 +141,7 @@ public class ArgumentMatchingCompat
         _something.Received().WithParams(1, first, second);
         _something.Received().WithParams(1, Arg.Compat.Any<string>(), second);
         _something.Received().WithParams(1, first, Arg.Compat.Any<string>());
-        _something.Received().WithParams(1, new[] { first, second });
+        _something.Received().WithParams(1, [first, second]);
         _something.Received().WithParams(1, Arg.Compat.Any<string[]>());
         _something.Received().WithParams(1, Arg.Compat.Is<string[]>(x => x.Length == 2));
         _something.DidNotReceive().WithParams(2, first, second);

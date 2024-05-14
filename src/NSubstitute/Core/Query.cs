@@ -2,7 +2,7 @@
 
 public class Query : IQuery, IQueryResults
 {
-    private readonly List<CallSpecAndTarget> _querySpec = new();
+    private readonly List<CallSpecAndTarget> _querySpec = [];
     private readonly HashSet<ICall> _matchingCalls = new(new CallSequenceNumberComparer());
     private readonly ICallSpecificationFactory _callSpecificationFactory;
 

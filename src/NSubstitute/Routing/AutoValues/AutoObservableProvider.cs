@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using NSubstitute.Core;
+﻿using NSubstitute.Core;
+using System.Reflection;
 
 namespace NSubstitute.Routing.AutoValues;
 
@@ -23,9 +23,7 @@ public class AutoObservableProvider : IAutoValueProvider
         Type innerType = type.GetGenericArguments()[0];
         var valueProvider = _autoValueProviders.Value.FirstOrDefault(vp => vp.CanProvideValueFor(innerType));
         var value = valueProvider == null ? GetDefault(type) : valueProvider.GetValue(innerType);
-        return Activator.CreateInstance(
-                typeof(ReturnObservable<>).MakeGenericType(innerType)
-                , new object?[] { value });
+        return Activator.CreateInstance(typeof(ReturnObservable<>).MakeGenericType(innerType), [value]);
     }
 
     private static object? GetDefault(Type type)

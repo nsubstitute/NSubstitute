@@ -18,7 +18,7 @@ public class Issue500_SpecialMethodsWithoutAttribute
     [Test]
     public void ShouldCorrectlyConfigureProperty()
     {
-        var substitute = Substitute.For(new[] { TypeWithMissingSpecialNameMethodAttributes }, new object[0]);
+        var substitute = Substitute.For([TypeWithMissingSpecialNameMethodAttributes], []);
         var fixture = new GeneratedTypeFixture(substitute);
 
         fixture.MyProperty = "42";
@@ -30,7 +30,7 @@ public class Issue500_SpecialMethodsWithoutAttribute
     [Test]
     public void ShouldCorrectlyConfigureEvent()
     {
-        object substitute = Substitute.For(new[] { TypeWithMissingSpecialNameMethodAttributes }, new object[0]);
+        object substitute = Substitute.For([TypeWithMissingSpecialNameMethodAttributes], []);
         var fixture = new GeneratedTypeFixture(substitute);
 
         bool wasCalled = false;
@@ -58,13 +58,13 @@ public class Issue500_SpecialMethodsWithoutAttribute
             MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.Abstract |
             MethodAttributes.HideBySig | MethodAttributes.NewSlot /* | MethodAttributes.SpecialName */,
             typeof(void),
-            new[] { typeof(EventHandler) });
+            [typeof(EventHandler)]);
         var evRemover = typeBuilder.DefineMethod(
             $"remove_{EventName}",
             MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.Abstract |
             MethodAttributes.HideBySig | MethodAttributes.NewSlot /* | MethodAttributes.SpecialName */,
             typeof(void),
-            new[] { typeof(EventHandler) });
+            [typeof(EventHandler)]);
         evBuilder.SetAddOnMethod(evAdder);
         evBuilder.SetRemoveOnMethod(evRemover);
 
@@ -81,7 +81,7 @@ public class Issue500_SpecialMethodsWithoutAttribute
             MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.Abstract |
             MethodAttributes.HideBySig | MethodAttributes.NewSlot /* | MethodAttributes.SpecialName */,
             typeof(void),
-            new[] { typeof(object) });
+            [typeof(object)]);
         propBuilder.SetGetMethod(propGetter);
         propBuilder.SetSetMethod(propSetter);
 
