@@ -5,17 +5,8 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core;
 
-public class PropertyHelper : IPropertyHelper
+public class PropertyHelper(ICallFactory callFactory, IArgumentSpecificationCompatibilityTester argSpecCompatTester) : IPropertyHelper
 {
-    private readonly ICallFactory _callFactory;
-    private readonly IArgumentSpecificationCompatibilityTester _argSpecCompatTester;
-
-    public PropertyHelper(ICallFactory callFactory, IArgumentSpecificationCompatibilityTester argSpecCompatTester)
-    {
-        _callFactory = callFactory;
-        _argSpecCompatTester = argSpecCompatTester;
-    }
-
     public bool IsCallToSetAReadWriteProperty(ICall call)
     {
         var propertySetter = GetPropertyFromSetterCall(call);
@@ -46,7 +37,7 @@ public class PropertyHelper : IPropertyHelper
         var getterArgs = SkipLast(callToSetter.GetOriginalArguments());
         var getterArgumentSpecifications = GetGetterCallSpecificationsFromSetterCall(callToSetter);
 
-        return _callFactory.Create(getter, getterArgs, callToSetter.Target(), getterArgumentSpecifications);
+        return callFactory.Create(getter, getterArgs, callToSetter.Target(), getterArgumentSpecifications);
     }
 
     private IList<IArgumentSpecification> GetGetterCallSpecificationsFromSetterCall(ICall callToSetter)
@@ -62,7 +53,7 @@ public class PropertyHelper : IPropertyHelper
         // Therefore, we need to remove the last argument specification if it's for the trimmed arg.
         // Otherwise, NSubstitute might find that the redundant argument specification is present and the
         // validation logic might trigger an exception.
-        if (_argSpecCompatTester.IsSpecificationCompatible(argumentSpecifications.Last(), lastSetterArg, lastSetterArgType))
+        if (argSpecCompatTester.IsSpecificationCompatible(argumentSpecifications.Last(), lastSetterArg, lastSetterArgType))
         {
             argumentSpecifications = SkipLast(argumentSpecifications);
         }

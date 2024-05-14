@@ -137,27 +137,20 @@ public class NSubContainer : IConfigurableNSubContainer
         }
     }
 
-    private class Registration
+    private class Registration(Func<NSubContainer.Scope, object> factory, NSubLifetime lifetime)
     {
-        private readonly Func<Scope, object> _factory;
         private object? _singletonValue;
-        public NSubLifetime Lifetime { get; }
-
-        public Registration(Func<Scope, object> factory, NSubLifetime lifetime)
-        {
-            _factory = factory;
-            Lifetime = lifetime;
-        }
+        public NSubLifetime Lifetime { get; } = lifetime;
 
         public object Resolve(Scope scope)
         {
             switch (Lifetime)
             {
                 case NSubLifetime.Transient:
-                    return _factory.Invoke(scope);
+                    return factory.Invoke(scope);
 
                 case NSubLifetime.Singleton:
-                    return _singletonValue ??= _factory.Invoke(scope);
+                    return _singletonValue ??= factory.Invoke(scope);
 
                 case NSubLifetime.PerScope:
                     if (scope.TryGetCached(this, out var result))
@@ -165,7 +158,7 @@ public class NSubContainer : IConfigurableNSubContainer
                         return result;
                     }
 
-                    result = _factory.Invoke(scope);
+                    result = factory.Invoke(scope);
                     scope.Set(this, result);
                     return result;
 
@@ -175,15 +168,9 @@ public class NSubContainer : IConfigurableNSubContainer
         }
     }
 
-    private class Scope : INSubResolver
+    private class Scope(NSubContainer mostNestedContainer) : INSubResolver
     {
         private readonly Dictionary<Registration, object> _cache = [];
-        private readonly NSubContainer _mostNestedContainer;
-
-        public Scope(NSubContainer mostNestedContainer)
-        {
-            _mostNestedContainer = mostNestedContainer;
-        }
 
         public T Resolve<T>() where T : notnull => (T)Resolve(typeof(T));
 
@@ -201,9 +188,9 @@ public class NSubContainer : IConfigurableNSubContainer
         {
             // The same lock object is shared among all the nested containers,
             // so we synchronize across the whole containers graph.
-            lock (_mostNestedContainer._syncRoot)
+            lock (mostNestedContainer._syncRoot)
             {
-                Registration? registration = _mostNestedContainer.TryFindRegistration(type);
+                Registration? registration = mostNestedContainer.TryFindRegistration(type);
                 if (registration == null)
                     throw new InvalidOperationException($"Type is not registered: {type.FullName}");
 
@@ -215,7 +202,7 @@ public class NSubContainer : IConfigurableNSubContainer
         {
             // The same lock object is shared among all the nested containers,
             // so we synchronize across the whole containers graph.
-            lock (_mostNestedContainer._syncRoot)
+            lock (mostNestedContainer._syncRoot)
             {
                 return registration.Resolve(this);
             }

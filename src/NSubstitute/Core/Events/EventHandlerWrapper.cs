@@ -1,20 +1,14 @@
 namespace NSubstitute.Core.Events;
 
-public class EventHandlerWrapper<TEventArgs> : RaiseEventWrapper where TEventArgs : EventArgs
+public class EventHandlerWrapper<TEventArgs>(object? sender, EventArgs? eventArgs) : RaiseEventWrapper where TEventArgs : EventArgs
 {
-    private readonly object? _sender;
-    private readonly EventArgs? _eventArgs;
+    private readonly object? _sender = sender;
+    private readonly EventArgs? _eventArgs = eventArgs;
     protected override string RaiseMethodName => "Raise.EventWith";
 
     public EventHandlerWrapper() : this(null, null) { }
 
     public EventHandlerWrapper(EventArgs? eventArgs) : this(null, eventArgs) { }
-
-    public EventHandlerWrapper(object? sender, EventArgs? eventArgs)
-    {
-        _sender = sender;
-        _eventArgs = eventArgs;
-    }
 
     // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations

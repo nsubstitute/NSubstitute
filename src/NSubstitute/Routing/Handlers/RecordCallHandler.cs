@@ -2,21 +2,12 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class RecordCallHandler : ICallHandler
+public class RecordCallHandler(ICallCollection callCollection, SequenceNumberGenerator generator) : ICallHandler
 {
-    private readonly ICallCollection _callCollection;
-    private readonly SequenceNumberGenerator _generator;
-
-    public RecordCallHandler(ICallCollection callCollection, SequenceNumberGenerator generator)
-    {
-        _callCollection = callCollection;
-        _generator = generator;
-    }
-
     public RouteAction Handle(ICall call)
     {
-        call.AssignSequenceNumber(_generator.Next());
-        _callCollection.Add(call);
+        call.AssignSequenceNumber(generator.Next());
+        callCollection.Add(call);
 
         return RouteAction.Continue();
     }
