@@ -740,6 +740,25 @@ public class ArgumentMatching
         Assert.That(ex.Message, Contains.Substring("24 is not forty two"));
     }
 
+    public interface IMyService
+    {
+        void MyMethod<T>(IMyArgument<T> argument);
+    }
+    public interface IMyArgument<T> { }
+    // Suppose I don't have access to this type at compile time, so I could not have written Arg.Any<MyStringArgument>()
+    public class MyStringArgument : IMyArgument<string> { }
+
+    [Test]
+    public void Supports_matching_covariant_argument()
+    {
+        IMyService service = Substitute.For<IMyService>();
+        var argument = new MyStringArgument();
+
+        service.MyMethod(argument);
+        
+        service.Received().MyMethod(Arg.Any<IMyArgument<Arg.AnyType>>());
+    }
+
     [SetUp]
     public void SetUp()
     {

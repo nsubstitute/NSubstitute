@@ -24,15 +24,42 @@ internal static class Extensions
         }
 
         var instanceType = instance.GetType();
+        var compatibleInstanceTypes = GetCompatibleTypes(instanceType);
 
-        if (instanceType.IsGenericType && type.IsGenericType
-                && instanceType.GetGenericTypeDefinition() == type.GetGenericTypeDefinition())
+        foreach (var aCompatibleInstanceType in compatibleInstanceTypes)
         {
-            // both are the same generic type. If their GenericTypeArguments match then they are equivalent 
-            return CallSpecification.TypesAreAllEquivalent(instanceType.GenericTypeArguments, type.GenericTypeArguments);
+            if (aCompatibleInstanceType.IsGenericType &&
+                type.IsGenericType &&
+                aCompatibleInstanceType.GetGenericTypeDefinition() == type.GetGenericTypeDefinition())
+            {
+                // both are the same generic type. If their GenericTypeArguments match then they are equivalent
+                return CallSpecification.TypesAreAllEquivalent(
+                    aCompatibleInstanceType.GenericTypeArguments, type.GenericTypeArguments);
+            }
         }
 
         return requiredType.IsInstanceOfType(instance);
+    }
+
+    private static IReadOnlyList<Type> GetCompatibleTypes(Type type)
+    {
+        var baseType = type.BaseType;
+        var interfacesOfType = type.GetInterfaces();
+
+        List<Type> compatibleTypes = [type, ..interfacesOfType];
+
+        if (baseType is not null)
+        {
+            compatibleTypes.AddRange(GetCompatibleTypes(baseType));
+        }
+
+        foreach (var anInterfaceOfType in interfacesOfType)
+        {
+            compatibleTypes.AddRange(GetCompatibleTypes(anInterfaceOfType));
+        }
+
+        var distinctCompatibleTypes = compatibleTypes.Distinct().ToList();
+        return distinctCompatibleTypes;
     }
 
     /// <summary>
