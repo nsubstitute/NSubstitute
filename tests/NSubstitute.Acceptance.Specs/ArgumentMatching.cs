@@ -755,7 +755,7 @@ public class ArgumentMatching
         var argument = new MyStringArgument();
 
         service.MyMethod(argument);
-        
+
         service.Received().MyMethod(Arg.Any<IMyArgument<Arg.AnyType>>());
     }
 

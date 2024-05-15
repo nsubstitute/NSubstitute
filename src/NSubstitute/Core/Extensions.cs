@@ -46,7 +46,7 @@ internal static class Extensions
         var baseType = type.BaseType;
         var interfacesOfType = type.GetInterfaces();
 
-        List<Type> compatibleTypes = [type, ..interfacesOfType];
+        List<Type> compatibleTypes = [type, .. interfacesOfType];
 
         if (baseType is not null)
         {
