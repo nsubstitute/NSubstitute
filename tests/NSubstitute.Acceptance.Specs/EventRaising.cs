@@ -299,7 +299,7 @@ public class EventRaising
     }
 
     [Test]
-    public void MyEvent_With_CustomEventArgsWithInternalDefaultConstructor_IsRaised()
+    public void MyEvent_With_CustomEventArgsWithNonPublicDefaultConstructor_IsRaised()
     {
         // Arrange
         IExample mockExample = Substitute.For<IExample>();

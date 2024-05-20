@@ -29,7 +29,8 @@ public abstract class RaiseEventWrapper
     private static ConstructorInfo? GetNonPublicDefaultConstructor(Type type)
         => GetDefaultConstructor(type, BindingFlags.NonPublic);
     private static ConstructorInfo? GetDefaultConstructor(Type type, BindingFlags bindingFlags)
-        => type.GetConstructor(BindingFlags.Instance | bindingFlags, null, Type.EmptyTypes, null);
+        => type.GetConstructor(
+            BindingFlags.Instance | BindingFlags.ExactBinding | bindingFlags, null, Type.EmptyTypes, null);
 
     protected static void RaiseEvent(RaiseEventWrapper wrapper)
     {
