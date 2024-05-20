@@ -15,8 +15,8 @@ public class ReturnsForAll
     {
         _fluentSomething = Substitute.For<IFluentSomething>();
         _something = Substitute.For<ISomething>();
-        _fluentSomething.ReturnsForAll<IFluentSomething>(_fluentSomething);
-        _fluentSomething.ReturnsForAll<ISomething>(_something);
+        _fluentSomething.ReturnsForAll(_fluentSomething);
+        _fluentSomething.ReturnsForAll(_something);
     }
 
     [Test]

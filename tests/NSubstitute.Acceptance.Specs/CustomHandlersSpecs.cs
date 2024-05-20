@@ -219,15 +219,8 @@ public class CustomHandlersSpecs
         string MethodWithArgs(string arg1, string arg2);
     }
 
-    private class ActionHandler : ICallHandler
+    private class ActionHandler(Func<ICall, RouteAction> handler) : ICallHandler
     {
-        private readonly Func<ICall, RouteAction> _handler;
-
-        public ActionHandler(Func<ICall, RouteAction> handler)
-        {
-            _handler = handler;
-        }
-
-        public RouteAction Handle(ICall call) => _handler.Invoke(call);
+        public RouteAction Handle(ICall call) => handler.Invoke(call);
     }
 }

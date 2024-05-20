@@ -1,20 +1,14 @@
 ﻿namespace NSubstitute.Core;
 
-public class Query : IQuery, IQueryResults
+public class Query(ICallSpecificationFactory callSpecificationFactory) : IQuery, IQueryResults
 {
-    private readonly List<CallSpecAndTarget> _querySpec = new();
+    private readonly List<CallSpecAndTarget> _querySpec = [];
     private readonly HashSet<ICall> _matchingCalls = new(new CallSequenceNumberComparer());
-    private readonly ICallSpecificationFactory _callSpecificationFactory;
-
-    public Query(ICallSpecificationFactory callSpecificationFactory)
-    {
-        _callSpecificationFactory = callSpecificationFactory;
-    }
 
     public void RegisterCall(ICall call)
     {
         var target = call.Target();
-        var callSpecification = _callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
+        var callSpecification = callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
 
         _querySpec.Add(new CallSpecAndTarget(callSpecification, target));
 

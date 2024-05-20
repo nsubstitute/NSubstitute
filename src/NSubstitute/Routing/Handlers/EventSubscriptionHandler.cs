@@ -3,21 +3,14 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class EventSubscriptionHandler : ICallHandler
+public class EventSubscriptionHandler(IEventHandlerRegistry eventHandlerRegistry) : ICallHandler
 {
-    private readonly IEventHandlerRegistry _eventHandlerRegistry;
-
-    public EventSubscriptionHandler(IEventHandlerRegistry eventHandlerRegistry)
-    {
-        _eventHandlerRegistry = eventHandlerRegistry;
-    }
-
     public RouteAction Handle(ICall call)
     {
         if (CanBeSubscribeUnsubscribeCall(call))
         {
-            If(call, IsEventSubscription, _eventHandlerRegistry.Add);
-            If(call, IsEventUnsubscription, _eventHandlerRegistry.Remove);
+            If(call, IsEventSubscription, eventHandlerRegistry.Add);
+            If(call, IsEventUnsubscription, eventHandlerRegistry.Remove);
         }
 
         return RouteAction.Continue();

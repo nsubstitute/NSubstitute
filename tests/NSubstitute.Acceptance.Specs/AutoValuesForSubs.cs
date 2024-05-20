@@ -177,9 +177,9 @@ public class AutoValuesForSubs
 
     public interface IFooWithTasks
     {
-        System.Threading.Tasks.Task<ISample> GetSample();
-        System.Threading.Tasks.Task<int> GetIntAsync();
-        System.Threading.Tasks.Task GetNonGenericTask();
+        Task<ISample> GetSample();
+        Task<int> GetIntAsync();
+        Task GetNonGenericTask();
     }
 
     [Test]
@@ -224,18 +224,11 @@ public class AutoValuesForSubs
     }
 
     //Copied from NSubstitute.Specs.AnonymousObserver (PR #137)
-    private class AnonymousObserver<T> : IObserver<T>
+    private class AnonymousObserver<T>(Action<T> onNext, Action<Exception> onError = null, Action onCompleted = null) : IObserver<T>
     {
-        Action<T> _onNext;
-        Action<Exception> _onError;
-        Action _onCompleted;
-
-        public AnonymousObserver(Action<T> onNext, Action<Exception> onError = null, Action onCompleted = null)
-        {
-            _onNext = onNext ?? (_ => { });
-            _onError = onError ?? (_ => { });
-            _onCompleted = onCompleted ?? (() => { });
-        }
+        Action<T> _onNext = onNext ?? (_ => { });
+        Action<Exception> _onError = onError ?? (_ => { });
+        Action _onCompleted = onCompleted ?? (() => { });
 
         public void OnNext(T value) { _onNext(value); }
         public void OnError(Exception error) { _onError(error); }

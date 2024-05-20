@@ -127,15 +127,9 @@ public class SequenceFormatter
         }
     }
 
-    private class ArgAndParamInfo
+    private class ArgAndParamInfo(ParameterInfo paramInfo, object? argument)
     {
-        public ParameterInfo ParamInfo { get; }
-        public object? Argument { get; }
-
-        public ArgAndParamInfo(ParameterInfo paramInfo, object? argument)
-        {
-            ParamInfo = paramInfo;
-            Argument = argument;
-        }
+        public ParameterInfo ParamInfo { get; } = paramInfo;
+        public object? Argument { get; } = argument;
     }
 }

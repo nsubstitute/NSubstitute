@@ -81,7 +81,7 @@ public class Call : ICall, /* Performance optimization */ CallCollection.IReceiv
         object?[] originalArray = _originalArguments;
         if (originalArray == _arguments && originalArray.Length > 0)
         {
-            object?[] copy = originalArray.ToArray();
+            object?[] copy = [.. originalArray];
             // If it happens that _originalArguments doesn't point to the `_arguments` anymore -
             // it might happen that other thread already created a copy and mutated the original `_arguments` array.
             // In this case it's unsafe to replace it with a copy.

@@ -3,14 +3,9 @@ using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core;
 
-public class ResultsForType : IResultsForType
+public class ResultsForType(ICallInfoFactory callInfoFactory) : IResultsForType
 {
-    private readonly CallResults _results;
-
-    public ResultsForType(ICallInfoFactory callInfoFactory)
-    {
-        _results = new CallResults(callInfoFactory);
-    }
+    private readonly CallResults _results = new CallResults(callInfoFactory);
 
     public void SetResult(Type type, IReturn resultToReturn)
     {
@@ -27,17 +22,10 @@ public class ResultsForType : IResultsForType
         _results.Clear();
     }
 
-    private class MatchingReturnTypeSpecification : ICallSpecification
+    private class MatchingReturnTypeSpecification(Type expectedReturnType) : ICallSpecification
     {
-        private readonly Type _expectedReturnType;
-
-        public MatchingReturnTypeSpecification(Type expectedReturnType)
-        {
-            _expectedReturnType = expectedReturnType;
-        }
-
         public bool IsSatisfiedBy(ICall call)
-            => call.GetReturnType() == _expectedReturnType;
+            => call.GetReturnType() == expectedReturnType;
 
         // ******* Rest methods are not required *******
 

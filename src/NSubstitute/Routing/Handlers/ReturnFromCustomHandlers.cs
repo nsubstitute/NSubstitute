@@ -2,24 +2,17 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnFromCustomHandlers : ICallHandler
+public class ReturnFromCustomHandlers(ICustomHandlers customHandlers) : ICallHandler
 {
-    private readonly ICustomHandlers _customHandlers;
-
-    public ReturnFromCustomHandlers(ICustomHandlers customHandlers)
-    {
-        _customHandlers = customHandlers;
-    }
-
     public RouteAction Handle(ICall call)
     {
         // Performance optimization, as enumerator retrieval allocates.
-        if (_customHandlers.Handlers.Count == 0)
+        if (customHandlers.Handlers.Count == 0)
         {
             return RouteAction.Continue();
         }
 
-        foreach (var handler in _customHandlers.Handlers)
+        foreach (var handler in customHandlers.Handlers)
         {
             var result = handler.Handle(call);
             if (result.HasReturnValue)

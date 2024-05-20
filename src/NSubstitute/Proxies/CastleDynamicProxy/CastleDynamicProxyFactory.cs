@@ -9,20 +9,10 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy;
 
-public class CastleDynamicProxyFactory : IProxyFactory
+public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue) : IProxyFactory
 {
-    private readonly ICallFactory _callFactory;
-    private readonly IArgumentSpecificationDequeue _argSpecificationDequeue;
-    private readonly ProxyGenerator _proxyGenerator;
-    private readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook;
-
-    public CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue)
-    {
-        _callFactory = callFactory;
-        _argSpecificationDequeue = argSpecificationDequeue;
-        _proxyGenerator = new ProxyGenerator();
-        _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
-    }
+    private readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
+    private readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
 
     public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, bool isPartial, object?[]? constructorArguments)
     {
@@ -44,7 +34,7 @@ public class CastleDynamicProxyFactory : IProxyFactory
             typeToProxy,
             additionalInterfaces,
             constructorArguments,
-            new IInterceptor[] { proxyIdInterceptor, forwardingInterceptor },
+            [proxyIdInterceptor, forwardingInterceptor],
             proxyGenerationOptions,
             isPartial);
 
@@ -68,7 +58,7 @@ public class CastleDynamicProxyFactory : IProxyFactory
             typeToProxy: typeof(object),
             additionalInterfaces: null,
             constructorArguments: null,
-            interceptors: new IInterceptor[] { proxyIdInterceptor, forwardingInterceptor },
+            interceptors: [proxyIdInterceptor, forwardingInterceptor],
             proxyGenerationOptions,
             isPartial: false);
 
@@ -83,8 +73,8 @@ public class CastleDynamicProxyFactory : IProxyFactory
     {
         return new CastleForwardingInterceptor(
             new CastleInvocationMapper(
-                _callFactory,
-                _argSpecificationDequeue),
+                callFactory,
+                argSpecificationDequeue),
             callRouter);
     }
 
@@ -238,15 +228,8 @@ public class CastleDynamicProxyFactory : IProxyFactory
             methodInfo.GetBaseDefinition().DeclaringType != typeof(object);
     }
 
-    private class StaticCallRouterProvider : ICallRouterProvider
+    private class StaticCallRouterProvider(ICallRouter callRouter) : ICallRouterProvider
     {
-        private readonly ICallRouter _callRouter;
-
-        public StaticCallRouterProvider(ICallRouter callRouter)
-        {
-            _callRouter = callRouter;
-        }
-
-        public ICallRouter GetCallRouter() => _callRouter;
+        public ICallRouter GetCallRouter() => callRouter;
     }
 }

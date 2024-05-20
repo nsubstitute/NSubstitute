@@ -5,18 +5,8 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core;
 
-public class SubstituteFactory : ISubstituteFactory
+public class SubstituteFactory(ISubstituteStateFactory substituteStateFactory, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory) : ISubstituteFactory
 {
-    private readonly ISubstituteStateFactory _substituteStateFactory;
-    private readonly ICallRouterFactory _callRouterFactory;
-    private readonly IProxyFactory _proxyFactory;
-
-    public SubstituteFactory(ISubstituteStateFactory substituteStateFactory, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory)
-    {
-        _substituteStateFactory = substituteStateFactory;
-        _callRouterFactory = callRouterFactory;
-        _proxyFactory = proxyFactory;
-    }
 
     /// <summary>
     /// Create a substitute for the given types.
@@ -50,15 +40,15 @@ public class SubstituteFactory : ISubstituteFactory
 
     private object Create(Type[] typesToProxy, object?[] constructorArguments, bool callBaseByDefault, bool isPartial)
     {
-        var substituteState = _substituteStateFactory.Create(this);
+        var substituteState = substituteStateFactory.Create(this);
         substituteState.CallBaseConfiguration.CallBaseByDefault = callBaseByDefault;
 
         var primaryProxyType = GetPrimaryProxyType(typesToProxy);
         var canConfigureBaseCalls = callBaseByDefault || CanCallBaseImplementation(primaryProxyType);
 
-        var callRouter = _callRouterFactory.Create(substituteState, canConfigureBaseCalls);
+        var callRouter = callRouterFactory.Create(substituteState, canConfigureBaseCalls);
         var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
-        var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, isPartial, constructorArguments);
+        var proxy = proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);
         return proxy;
     }
 

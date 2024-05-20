@@ -1,6 +1,6 @@
 namespace NSubstitute.Exceptions;
 
-public class UnexpectedArgumentMatcherException : SubstituteException
+public class UnexpectedArgumentMatcherException(string message) : SubstituteException(message)
 {
     public static readonly string WhatProbablyWentWrong =
         "Argument matchers (Arg.Is, Arg.Any) should only be used in place of member arguments. " +
@@ -10,5 +10,4 @@ public class UnexpectedArgumentMatcherException : SubstituteException
         "Incorrect use:" + Environment.NewLine +
         "  sub.MyMethod(\"hi\").Returns(Arg.Any<string>())";
     public UnexpectedArgumentMatcherException() : this(WhatProbablyWentWrong) { }
-    public UnexpectedArgumentMatcherException(string message) : base(message) { }
 }

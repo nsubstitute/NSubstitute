@@ -3,14 +3,8 @@
 
 namespace NSubstitute.Core;
 
-public class ConfiguredCall
+public class ConfiguredCall(Action<Action<CallInfo>> addAction)
 {
-    private readonly Action<Action<CallInfo>> _addAction;
-
-    public ConfiguredCall(Action<Action<CallInfo>> addAction)
-    {
-        _addAction = addAction;
-    }
 
     /// <summary>
     /// Adds a callback to execute for matching calls.
@@ -19,7 +13,7 @@ public class ConfiguredCall
     /// <returns></returns>
     public ConfiguredCall AndDoes(Action<CallInfo> action)
     {
-        _addAction(action);
+        addAction(action);
         return this;
     }
 }

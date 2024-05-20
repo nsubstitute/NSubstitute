@@ -2,15 +2,8 @@ using System.Reflection;
 
 namespace NSubstitute.Routing.AutoValues;
 
-public class AutoTaskProvider : IAutoValueProvider
+public class AutoTaskProvider(Lazy<IReadOnlyCollection<IAutoValueProvider>> autoValueProviders) : IAutoValueProvider
 {
-    private readonly Lazy<IReadOnlyCollection<IAutoValueProvider>> _autoValueProviders;
-
-    public AutoTaskProvider(Lazy<IReadOnlyCollection<IAutoValueProvider>> autoValueProviders)
-    {
-        _autoValueProviders = autoValueProviders;
-    }
-
     public bool CanProvideValueFor(Type type) => typeof(Task).IsAssignableFrom(type);
 
     public object GetValue(Type type)
@@ -21,12 +14,12 @@ public class AutoTaskProvider : IAutoValueProvider
         if (type.GetTypeInfo().IsGenericType)
         {
             var taskType = type.GetGenericArguments()[0];
-            var valueProvider = _autoValueProviders.Value.FirstOrDefault(vp => vp.CanProvideValueFor(taskType));
+            var valueProvider = autoValueProviders.Value.FirstOrDefault(vp => vp.CanProvideValueFor(taskType));
 
             var value = valueProvider == null ? GetDefault(type) : valueProvider.GetValue(taskType);
             var taskCompletionSourceType = typeof(TaskCompletionSource<>).MakeGenericType(taskType);
             var taskCompletionSource = Activator.CreateInstance(taskCompletionSourceType);
-            taskCompletionSourceType.GetMethod(nameof(TaskCompletionSource<object>.SetResult))!.Invoke(taskCompletionSource, new[] { value });
+            taskCompletionSourceType.GetMethod(nameof(TaskCompletionSource<object>.SetResult))!.Invoke(taskCompletionSource, [value]);
             return taskCompletionSourceType.GetProperty(nameof(TaskCompletionSource<object>.Task))!.GetValue(taskCompletionSource, null)!;
         }
         else

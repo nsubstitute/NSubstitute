@@ -3,15 +3,11 @@ using static System.Environment;
 
 namespace NSubstitute.Exceptions;
 
-public class RedundantArgumentMatcherException : SubstituteException
+public class RedundantArgumentMatcherException(string message) : SubstituteException(message)
 {
     public RedundantArgumentMatcherException(IEnumerable<IArgumentSpecification> remainingSpecifications,
         IEnumerable<IArgumentSpecification> allSpecifications)
         : this(FormatErrorMessage(remainingSpecifications, allSpecifications))
-    {
-    }
-
-    public RedundantArgumentMatcherException(string message) : base(message)
     {
     }
 

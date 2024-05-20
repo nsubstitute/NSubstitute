@@ -2,18 +2,11 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnFromBaseIfRequired : ICallHandler
+public class ReturnFromBaseIfRequired(ICallBaseConfiguration config) : ICallHandler
 {
-    private readonly ICallBaseConfiguration _config;
-
-    public ReturnFromBaseIfRequired(ICallBaseConfiguration config)
-    {
-        _config = config;
-    }
-
     public RouteAction Handle(ICall call)
     {
-        if (_config.ShouldCallBase(call))
+        if (config.ShouldCallBase(call))
         {
             return call
                 .TryCallBase()

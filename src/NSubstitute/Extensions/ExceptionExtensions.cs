@@ -236,7 +236,7 @@ public static class ExceptionExtensions
         {
             var fromExceptionMethodInfo = typeof(Task).GetMethods(BindingFlags.Static | BindingFlags.Public).Single(m => m.Name == "FromException" && m.ContainsGenericParameters);
             var specificFromExceptionMethod = fromExceptionMethodInfo.MakeGenericMethod(valueType.GenericTypeArguments);
-            return specificFromExceptionMethod.Invoke(null, new object[] { exception });
+            return specificFromExceptionMethod.Invoke(null, [exception]);
         }
 
         return Task.FromException(exception);

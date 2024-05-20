@@ -2,18 +2,11 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnResultForTypeHandler : ICallHandler
+public class ReturnResultForTypeHandler(IResultsForType resultsForType) : ICallHandler
 {
-    private readonly IResultsForType _resultsForType;
-
-    public ReturnResultForTypeHandler(IResultsForType resultsForType)
-    {
-        _resultsForType = resultsForType;
-    }
-
     public RouteAction Handle(ICall call)
     {
-        if (_resultsForType.TryGetResult(call, out var result))
+        if (resultsForType.TryGetResult(call, out var result))
         {
             return RouteAction.Return(result);
         }

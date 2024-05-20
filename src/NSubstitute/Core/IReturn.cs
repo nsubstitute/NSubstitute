@@ -19,29 +19,17 @@ internal interface ICallIndependentReturn
     object? GetReturnValue();
 }
 
-public class ReturnValue : IReturn, ICallIndependentReturn
+public class ReturnValue(object? value) : IReturn, ICallIndependentReturn
 {
-    private readonly object? _value;
-
-    public ReturnValue(object? value)
-    {
-        _value = value;
-    }
-
-    public object? GetReturnValue() => _value;
+    public object? GetReturnValue() => value;
     public object? ReturnFor(CallInfo info) => GetReturnValue();
-    public Type? TypeOrNull() => _value?.GetType();
-    public bool CanBeAssignedTo(Type t) => _value.IsCompatibleWith(t);
+    public Type? TypeOrNull() => value?.GetType();
+    public bool CanBeAssignedTo(Type t) => value.IsCompatibleWith(t);
 }
 
-public class ReturnValueFromFunc<T> : IReturn
+public class ReturnValueFromFunc<T>(Func<CallInfo, T?>? funcToReturnValue) : IReturn
 {
-    private readonly Func<CallInfo, T?> _funcToReturnValue;
-
-    public ReturnValueFromFunc(Func<CallInfo, T?>? funcToReturnValue)
-    {
-        _funcToReturnValue = funcToReturnValue ?? ReturnNull();
-    }
+    private readonly Func<CallInfo, T?> _funcToReturnValue = funcToReturnValue ?? ReturnNull();
 
     public object? ReturnFor(CallInfo info) => _funcToReturnValue(info);
     public Type TypeOrNull() => typeof(T);
@@ -54,16 +42,10 @@ public class ReturnValueFromFunc<T> : IReturn
     }
 }
 
-public class ReturnMultipleValues<T> : IReturn, ICallIndependentReturn
+public class ReturnMultipleValues<T>(T?[] values) : IReturn, ICallIndependentReturn
 {
-    private readonly ConcurrentQueue<T?> _valuesToReturn;
-    private readonly T? _lastValue;
-
-    public ReturnMultipleValues(T?[] values)
-    {
-        _valuesToReturn = new ConcurrentQueue<T?>(values);
-        _lastValue = values.Last();
-    }
+    private readonly ConcurrentQueue<T?> _valuesToReturn = new ConcurrentQueue<T?>(values);
+    private readonly T? _lastValue = values.Last();
 
     public object? GetReturnValue() => GetNext();
     public object? ReturnFor(CallInfo info) => GetReturnValue();
@@ -73,16 +55,10 @@ public class ReturnMultipleValues<T> : IReturn, ICallIndependentReturn
     private T? GetNext() => _valuesToReturn.TryDequeue(out var nextResult) ? nextResult : _lastValue;
 }
 
-public class ReturnMultipleFuncsValues<T> : IReturn
+public class ReturnMultipleFuncsValues<T>(Func<CallInfo, T?>[] funcs) : IReturn
 {
-    private readonly ConcurrentQueue<Func<CallInfo, T?>> _funcsToReturn;
-    private readonly Func<CallInfo, T?> _lastFunc;
-
-    public ReturnMultipleFuncsValues(Func<CallInfo, T?>[] funcs)
-    {
-        _funcsToReturn = new ConcurrentQueue<Func<CallInfo, T?>>(funcs);
-        _lastFunc = funcs.Last();
-    }
+    private readonly ConcurrentQueue<Func<CallInfo, T?>> _funcsToReturn = new ConcurrentQueue<Func<CallInfo, T?>>(funcs);
+    private readonly Func<CallInfo, T?> _lastFunc = funcs.Last();
 
     public object? ReturnFor(CallInfo info) => GetNext(info);
     public Type TypeOrNull() => typeof(T);

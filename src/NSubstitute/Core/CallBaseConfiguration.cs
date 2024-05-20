@@ -54,17 +54,10 @@ public class CallBaseConfiguration : ICallBaseConfiguration
         return false;
     }
 
-    private readonly struct CallBaseRule
+    private readonly struct CallBaseRule(ICallSpecification callSpecification, bool callBase)
     {
-        private ICallSpecification CallSpecification { get; }
-        public bool CallBase { get; }
+        public bool CallBase { get; } = callBase;
 
-        public CallBaseRule(ICallSpecification callSpecification, bool callBase)
-        {
-            CallSpecification = callSpecification;
-            CallBase = callBase;
-        }
-
-        public bool IsSatisfiedBy(ICall call) => CallSpecification.IsSatisfiedBy(call);
+        public bool IsSatisfiedBy(ICall call) => callSpecification.IsSatisfiedBy(call);
     }
 }

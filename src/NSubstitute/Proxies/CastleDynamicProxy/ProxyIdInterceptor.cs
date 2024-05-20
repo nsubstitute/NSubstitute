@@ -5,15 +5,9 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy;
 
-public class ProxyIdInterceptor : IInterceptor
+public class ProxyIdInterceptor(Type primaryProxyType) : IInterceptor
 {
-    private readonly Type _primaryProxyType;
     private string? _cachedProxyId;
-
-    public ProxyIdInterceptor(Type primaryProxyType)
-    {
-        _primaryProxyType = primaryProxyType;
-    }
 
     public void Intercept(IInvocation invocation)
     {
@@ -30,7 +24,7 @@ public class ProxyIdInterceptor : IInterceptor
     {
         var proxy = invocation.InvocationTarget;
 
-        var shortTypeName = _primaryProxyType.GetNonMangledTypeName();
+        var shortTypeName = primaryProxyType.GetNonMangledTypeName();
         var proxyHashCode = proxy.GetHashCode();
 
         return string.Format(CultureInfo.InvariantCulture, "Substitute.{0}|{1:x8}", shortTypeName, proxyHashCode);

@@ -1,15 +1,8 @@
 namespace NSubstitute.Core.Arguments;
 
-public class EqualsArgumentMatcher : IArgumentMatcher
+public class EqualsArgumentMatcher(object? value) : IArgumentMatcher
 {
-    private readonly object? _value;
+    public override string ToString() => ArgumentFormatter.Default.Format(value, false);
 
-    public EqualsArgumentMatcher(object? value)
-    {
-        _value = value;
-    }
-
-    public override string ToString() => ArgumentFormatter.Default.Format(_value, false);
-
-    public bool IsSatisfiedBy(object? argument) => EqualityComparer<object>.Default.Equals(_value, argument);
+    public bool IsSatisfiedBy(object? argument) => EqualityComparer<object>.Default.Equals(value, argument);
 }

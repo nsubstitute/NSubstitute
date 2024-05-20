@@ -41,8 +41,6 @@ public static class ReflectionExtensions
 
     private static PropertyInfo[] GetAllProperties(Type? type)
     {
-        return type != null
-            ? type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-            : new PropertyInfo[0];
+        return type?.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic) ?? [];
     }
 }
