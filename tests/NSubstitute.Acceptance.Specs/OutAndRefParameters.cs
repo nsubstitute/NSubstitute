@@ -249,14 +249,12 @@ public class OutAndRefParameters
         StringAssert.Contains("12345", exception.Message);
     }
 
-    private class Something
+    private class Something(ILookupStrings lookup)
     {
-        private readonly ILookupStrings _lookup;
-        public Something(ILookupStrings lookup) { _lookup = lookup; }
         public string GetValue(string key)
         {
             string value;
-            return _lookup.TryGet(key, out value) ? value : "none";
+            return lookup.TryGet(key, out value) ? value : "none";
         }
     }
 }

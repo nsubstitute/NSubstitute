@@ -96,13 +96,8 @@ public class Issue560_RaiseEventWithArrayArg
         event Action<object[], object[]> ActionWithParamsOfObjectArray;
     }
 
-    public class Widget
+    public class Widget(string name)
     {
-        public string Name { get; }
-
-        public Widget(string name)
-        {
-            Name = name;
-        }
+        public string Name { get; } = name;
     }
 }

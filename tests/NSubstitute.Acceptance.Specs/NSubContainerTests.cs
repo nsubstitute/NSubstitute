@@ -63,7 +63,7 @@ public class NSubContainerTests
         var sut = new NSubContainer();
         sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.Transient);
 
-        sut.Register<ClassWithDependency>(r => new ClassWithDependency(r.Resolve<ITestInterface>()), NSubLifetime.Transient);
+        sut.Register(r => new ClassWithDependency(r.Resolve<ITestInterface>()), NSubLifetime.Transient);
 
         var result = sut.Resolve<ClassWithDependency>();
         Assert.That(result, Is.Not.Null);
@@ -151,7 +151,7 @@ public class NSubContainerTests
         sut.Register<ClassWithDependency, ClassWithDependency>(NSubLifetime.Transient);
 
         sut.Register<ITestInterface, TestImplSingleCtor>(NSubLifetime.PerScope);
-        sut.Register<ClassWithMultipleDependencies>(
+        sut.Register(
             r => new ClassWithMultipleDependencies(r.Resolve<ITestInterface>(), r.Resolve<ClassWithDependency>()),
             NSubLifetime.Transient);
 
@@ -392,35 +392,19 @@ public class NSubContainerTests
         }
     }
 
-    public class ClassWithDependency
+    public class ClassWithDependency(ITestInterface dep)
     {
-        public ITestInterface Dep { get; }
-
-        public ClassWithDependency(ITestInterface dep)
-        {
-            Dep = dep;
-        }
+        public ITestInterface Dep { get; } = dep;
     }
 
-    public class ClassWithMultipleDependencies
+    public class ClassWithMultipleDependencies(ITestInterface testInterfaceDep, ClassWithDependency classWithDependencyDep)
     {
-        public ITestInterface TestInterfaceDep { get; }
-        public ClassWithDependency ClassWithDependencyDep { get; }
-
-        public ClassWithMultipleDependencies(ITestInterface testInterfaceDep, ClassWithDependency classWithDependencyDep)
-        {
-            TestInterfaceDep = testInterfaceDep;
-            ClassWithDependencyDep = classWithDependencyDep;
-        }
+        public ITestInterface TestInterfaceDep { get; } = testInterfaceDep;
+        public ClassWithDependency ClassWithDependencyDep { get; } = classWithDependencyDep;
     }
 
-    public class TestImplDecorator : ITestInterface
+    public class TestImplDecorator(ITestInterface inner) : ITestInterface
     {
-        public ITestInterface Inner { get; }
-
-        public TestImplDecorator(ITestInterface inner)
-        {
-            Inner = inner;
-        }
+        public ITestInterface Inner { get; } = inner;
     }
 }

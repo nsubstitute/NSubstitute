@@ -88,25 +88,18 @@ public class Issue500_SpecialMethodsWithoutAttribute
         return typeBuilder.CreateTypeInfo().AsType();
     }
 
-    private class GeneratedTypeFixture
+    private class GeneratedTypeFixture(object substitute)
     {
-        private readonly object _substitute;
-
-        public GeneratedTypeFixture(object substitute)
-        {
-            _substitute = substitute;
-        }
-
         public object MyProperty
         {
-            get => _substitute.GetType().GetProperty(PropertyName).GetValue(_substitute);
-            set => _substitute.GetType().GetProperty(PropertyName).SetValue(_substitute, value);
+            get => substitute.GetType().GetProperty(PropertyName).GetValue(substitute);
+            set => substitute.GetType().GetProperty(PropertyName).SetValue(substitute, value);
         }
 
         public event EventHandler MyEvent
         {
-            add => _substitute.GetType().GetEvent(EventName).AddEventHandler(_substitute, value);
-            remove => _substitute.GetType().GetEvent(EventName).RemoveEventHandler(_substitute, value);
+            add => substitute.GetType().GetEvent(EventName).AddEventHandler(substitute, value);
+            remove => substitute.GetType().GetEvent(EventName).RemoveEventHandler(substitute, value);
         }
     }
 }

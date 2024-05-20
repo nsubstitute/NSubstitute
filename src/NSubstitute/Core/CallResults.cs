@@ -2,19 +2,12 @@ using System.Collections.Concurrent;
 
 namespace NSubstitute.Core;
 
-public class CallResults : ICallResults
+public class CallResults(ICallInfoFactory callInfoFactory) : ICallResults
 {
-    private readonly ICallInfoFactory _callInfoFactory;
     // There was made a decision to use ConcurrentStack instead of ConcurrentQueue here.
     // The pros is that reverse enumeration is cheap. The cons is that stack allocates on each push.
     // We presume that read operations will dominate, so stack suits better.
-    private readonly ConcurrentStack<ResultForCallSpec> _results;
-
-    public CallResults(ICallInfoFactory callInfoFactory)
-    {
-        _results = new ConcurrentStack<ResultForCallSpec>();
-        _callInfoFactory = callInfoFactory;
-    }
+    private readonly ConcurrentStack<ResultForCallSpec> _results = new ConcurrentStack<ResultForCallSpec>();
 
     public void SetResult(ICallSpecification callSpecification, IReturn result)
     {
@@ -34,7 +27,7 @@ public class CallResults : ICallResults
             return false;
         }
 
-        result = configuredResult.GetResult(call, _callInfoFactory);
+        result = configuredResult.GetResult(call, callInfoFactory);
         return true;
     }
 
@@ -70,27 +63,18 @@ public class CallResults : ICallResults
         return call.GetReturnType() == typeof(void);
     }
 
-    private readonly struct ResultForCallSpec
+    private readonly struct ResultForCallSpec(ICallSpecification callSpecification, IReturn resultToReturn)
     {
-        private readonly ICallSpecification _callSpecification;
-        private readonly IReturn _resultToReturn;
-
-        public ResultForCallSpec(ICallSpecification callSpecification, IReturn resultToReturn)
-        {
-            _callSpecification = callSpecification;
-            _resultToReturn = resultToReturn;
-        }
-
-        public bool IsResultFor(ICall call) => _callSpecification.IsSatisfiedBy(call);
+        public bool IsResultFor(ICall call) => callSpecification.IsSatisfiedBy(call);
         public object? GetResult(ICall call, ICallInfoFactory callInfoFactory)
         {
-            if (_resultToReturn is ICallIndependentReturn callIndependentReturn)
+            if (resultToReturn is ICallIndependentReturn callIndependentReturn)
             {
                 return callIndependentReturn.GetReturnValue();
             }
 
             var callInfo = callInfoFactory.Create(call);
-            return _resultToReturn.ReturnFor(callInfo);
+            return resultToReturn.ReturnFor(callInfo);
         }
     }
 }

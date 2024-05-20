@@ -2,18 +2,11 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class AddCallToQueryResultHandler : ICallHandler
+public class AddCallToQueryResultHandler(IThreadLocalContext threadContext) : ICallHandler
 {
-    private readonly IThreadLocalContext _threadContext;
-
-    public AddCallToQueryResultHandler(IThreadLocalContext threadContext)
-    {
-        _threadContext = threadContext;
-    }
-
     public RouteAction Handle(ICall call)
     {
-        _threadContext.RegisterInContextQuery(call);
+        threadContext.RegisterInContextQuery(call);
 
         return RouteAction.Continue();
     }

@@ -1,17 +1,10 @@
 ﻿namespace NSubstitute.Core.Arguments;
 
-public class ArgumentMatchInfo
+public class ArgumentMatchInfo(int index, object? argument, IArgumentSpecification specification)
 {
-    public ArgumentMatchInfo(int index, object? argument, IArgumentSpecification specification)
-    {
-        Index = index;
-        _argument = argument;
-        _specification = specification;
-    }
-
-    private readonly object? _argument;
-    private readonly IArgumentSpecification _specification;
-    public int Index { get; }
+    private readonly object? _argument = argument;
+    private readonly IArgumentSpecification _specification = specification;
+    public int Index { get; } = index;
 
     public bool IsMatch => _specification.IsSatisfiedBy(_argument);
 

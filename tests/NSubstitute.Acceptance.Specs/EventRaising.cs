@@ -336,8 +336,7 @@ public class EventRaising
     public delegate int FuncDelegateWithArgs(int intArg, string stringArg);
     public delegate void CustomEventThatDoesNotInheritFromEventHandler(object sender, CustomEventArgs args);
     public class CustomEventArgs : EventArgs { }
-    public class CustomEventArgsWithNoDefaultCtor : EventArgs
+    public class CustomEventArgsWithNoDefaultCtor(string arg) : EventArgs
     {
-        public CustomEventArgsWithNoDefaultCtor(string arg) { }
     }
 }

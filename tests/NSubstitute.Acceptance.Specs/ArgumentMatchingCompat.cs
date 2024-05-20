@@ -106,7 +106,7 @@ public class ArgumentMatchingCompat
         TestReceivedAsync().Wait();
     }
 
-    private async System.Threading.Tasks.Task TestReceivedAsync()
+    private async Task TestReceivedAsync()
     {
         await _something.Async();
         await _something.Received().Async();
@@ -118,7 +118,7 @@ public class ArgumentMatchingCompat
         TestDidNotReceiveAsync().Wait();
     }
 
-    private async System.Threading.Tasks.Task TestDidNotReceiveAsync()
+    private async Task TestDidNotReceiveAsync()
     {
         await _something.DidNotReceive().Async();
     }
