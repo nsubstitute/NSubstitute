@@ -48,7 +48,7 @@ public class SubstituteFactory(ISubstituteStateFactory substituteStateFactory, I
 
         var callRouter = callRouterFactory.Create(substituteState, canConfigureBaseCalls);
         var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
-        var proxy = proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);
+        var proxy = proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, isPartial, constructorArguments);
         return proxy;
     }
 
