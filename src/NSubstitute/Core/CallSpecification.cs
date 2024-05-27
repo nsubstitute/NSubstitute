@@ -3,20 +3,13 @@ using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core;
 
-public class CallSpecification : ICallSpecification
+public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications) : ICallSpecification
 {
-    private readonly MethodInfo _methodInfo;
-    private readonly IArgumentSpecification[] _argumentSpecifications;
+    private readonly IArgumentSpecification[] _argumentSpecifications = argumentSpecifications.ToArray();
 
-    public CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications)
-    {
-        _methodInfo = methodInfo;
-        _argumentSpecifications = argumentSpecifications.ToArray();
-    }
+    public MethodInfo GetMethodInfo() => methodInfo;
 
-    public MethodInfo GetMethodInfo() => _methodInfo;
-
-    public Type ReturnType() => _methodInfo.ReturnType;
+    public Type ReturnType() => methodInfo.ReturnType;
 
     public bool IsSatisfiedBy(ICall call)
     {

@@ -7,14 +7,9 @@ namespace NSubstitute.Acceptance.Specs.FieldReports;
 /// </summary>
 public class Issue378_InValueTypes
 {
-    public readonly struct Struct
+    public readonly struct Struct(int value)
     {
-        public Struct(int value)
-        {
-            Value = value;
-        }
-
-        public int Value { get; }
+        public int Value { get; } = value;
     }
 
     public interface IStructByReadOnlyRefConsumer { void Consume(in Struct value); }

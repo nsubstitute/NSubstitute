@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Exceptions;
 
-public abstract class CouldNotSetReturnException : SubstituteException
+public abstract class CouldNotSetReturnException(string s) : SubstituteException(s + "\n\n" + WhatProbablyWentWrong)
 {
     protected const string WhatProbablyWentWrong =
             "Make sure you called Returns() after calling your substitute (for example: mySub.SomeMethod().Returns(value)),\n" +
@@ -20,8 +20,6 @@ public abstract class CouldNotSetReturnException : SubstituteException
             "\tvar returnValue = ConfigOtherSub();\n" +
             "\tmySub.SomeMethod().Returns(returnValue);\n" +
             "";
-
-    protected CouldNotSetReturnException(string s) : base(s + "\n\n" + WhatProbablyWentWrong) { }
 }
 
 public class CouldNotSetReturnDueToNoLastCallException : CouldNotSetReturnException
@@ -37,10 +35,8 @@ public class CouldNotSetReturnDueToMissingInfoAboutLastCallException : CouldNotS
 
 }
 
-public class CouldNotSetReturnDueToTypeMismatchException : CouldNotSetReturnException
+public class CouldNotSetReturnDueToTypeMismatchException(Type? returnType, MethodInfo member) : CouldNotSetReturnException(DescribeProblem(returnType, member))
 {
-    public CouldNotSetReturnDueToTypeMismatchException(Type? returnType, MethodInfo member) : base(DescribeProblem(returnType, member)) { }
-
     private static string DescribeProblem(Type? typeOfReturnValue, MethodInfo member)
     {
         return typeOfReturnValue == null

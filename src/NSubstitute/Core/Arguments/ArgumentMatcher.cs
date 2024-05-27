@@ -33,14 +33,9 @@ public static class ArgumentMatcher
         return ref new DefaultValueContainer<T>().Value;
     }
 
-    private class GenericToNonGenericMatcherProxy<T> : IArgumentMatcher
+    private class GenericToNonGenericMatcherProxy<T>(IArgumentMatcher<T> matcher) : IArgumentMatcher
     {
-        protected readonly IArgumentMatcher<T> _matcher;
-
-        public GenericToNonGenericMatcherProxy(IArgumentMatcher<T> matcher)
-        {
-            _matcher = matcher;
-        }
+        protected readonly IArgumentMatcher<T> _matcher = matcher;
 
         public bool IsSatisfiedBy(object? argument) => _matcher.IsSatisfiedBy((T?)argument!);
     }

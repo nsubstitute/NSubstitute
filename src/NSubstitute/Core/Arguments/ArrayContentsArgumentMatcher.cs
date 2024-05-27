@@ -2,14 +2,9 @@
 
 namespace NSubstitute.Core.Arguments;
 
-public class ArrayContentsArgumentMatcher : IArgumentMatcher, IArgumentFormatter
+public class ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications) : IArgumentMatcher, IArgumentFormatter
 {
-    private readonly IArgumentSpecification[] _argumentSpecifications;
-
-    public ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications)
-    {
-        _argumentSpecifications = argumentSpecifications.ToArray();
-    }
+    private readonly IArgumentSpecification[] _argumentSpecifications = argumentSpecifications.ToArray();
 
     public bool IsSatisfiedBy(object? argument)
     {

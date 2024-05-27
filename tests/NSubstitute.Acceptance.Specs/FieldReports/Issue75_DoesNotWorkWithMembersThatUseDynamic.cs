@@ -7,22 +7,13 @@ public class Issue75_DoesNotWorkWithMembersThatUseDynamic
     public interface ILog { void Error(Exception e); }
     public interface IClient { dynamic Post(string a, string b); }
 
-    public class ClassUnderTest
+    public class ClassUnderTest(IClient client, ILog log)
     {
-        private readonly IClient _client;
-        private readonly ILog _log;
-
-        public ClassUnderTest(IClient client, ILog log)
-        {
-            _client = client;
-            _log = log;
-        }
-
         public void Handle(string a)
         {
-            dynamic response = _client.Post("asdf", "fdsa");
+            dynamic response = client.Post("asdf", "fdsa");
             var error = response.error;
-            _log.Error(new Exception(error));
+            log.Error(new Exception(error));
         }
     }
 

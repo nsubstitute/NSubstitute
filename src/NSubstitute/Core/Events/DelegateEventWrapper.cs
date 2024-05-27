@@ -2,15 +2,9 @@ using System.Reflection;
 
 namespace NSubstitute.Core.Events;
 
-public class DelegateEventWrapper<T> : RaiseEventWrapper
+public class DelegateEventWrapper<T>(params object?[] arguments) : RaiseEventWrapper
 {
-    private readonly object?[] _providedArguments;
     protected override string RaiseMethodName => "Raise.Event";
-
-    public DelegateEventWrapper(params object?[] arguments)
-    {
-        _providedArguments = arguments;
-    }
 
     // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
@@ -25,17 +19,17 @@ public class DelegateEventWrapper<T> : RaiseEventWrapper
     {
         var requiredArgs = typeof(T).GetInvokeMethod().GetParameters();
 
-        if (_providedArguments.Length < 2 && LooksLikeAnEventStyleCall(requiredArgs))
+        if (arguments.Length < 2 && LooksLikeAnEventStyleCall(requiredArgs))
         {
             return WorkOutSenderAndEventArgs(requiredArgs[1].ParameterType, call);
         }
 
-        if (!RequiredArgsHaveBeenProvided(_providedArguments, requiredArgs))
+        if (!RequiredArgsHaveBeenProvided(arguments, requiredArgs))
         {
             ThrowBecauseRequiredArgsNotProvided(requiredArgs);
         }
 
-        return _providedArguments;
+        return arguments;
     }
 
     private bool LooksLikeAnEventStyleCall(ParameterInfo[] parameters)
@@ -49,19 +43,19 @@ public class DelegateEventWrapper<T> : RaiseEventWrapper
     {
         object? sender;
         object? eventArgs;
-        if (_providedArguments.Length == 0)
+        if (arguments.Length == 0)
         {
             sender = call.Target();
             eventArgs = GetDefaultForEventArgType(eventArgsType);
         }
-        else if (_providedArguments[0].IsCompatibleWith(eventArgsType))
+        else if (arguments[0].IsCompatibleWith(eventArgsType))
         {
             sender = call.Target();
-            eventArgs = _providedArguments[0];
+            eventArgs = arguments[0];
         }
         else
         {
-            sender = _providedArguments[0];
+            sender = arguments[0];
             eventArgs = GetDefaultForEventArgType(eventArgsType);
         }
         return [sender, eventArgs];

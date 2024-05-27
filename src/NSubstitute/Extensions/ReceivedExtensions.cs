@@ -87,10 +87,10 @@ public abstract class Quantity
     /// <returns>A string describing the required quantity of items identified by the provided noun forms.</returns>
     public abstract string Describe(string singularNoun, string pluralNoun);
 
-    private class ExactQuantity : Quantity
+    private class ExactQuantity(int number) : Quantity
     {
-        private readonly int _number;
-        public ExactQuantity(int number) { _number = number; }
+        private readonly int _number = number;
+
         public override bool Matches<T>(IEnumerable<T> items) { return _number == items.Count(); }
         public override bool RequiresMoreThan<T>(IEnumerable<T> items) { return _number > items.Count(); }
         public override string Describe(string singularNoun, string pluralNoun)

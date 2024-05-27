@@ -5,24 +5,11 @@ using NSubstitute.Routing;
 
 namespace NSubstitute.Core;
 
-public class WhenCalled<T>
+public class WhenCalled<T>(ISubstitutionContext context, T substitute, Action<T> call, MatchArgs matchArgs)
 {
-    private readonly T _substitute;
-    private readonly Action<T> _call;
-    private readonly MatchArgs _matchArgs;
-    private readonly ICallRouter _callRouter;
-    private readonly IThreadLocalContext _threadContext;
-    private readonly IRouteFactory _routeFactory;
-
-    public WhenCalled(ISubstitutionContext context, T substitute, Action<T> call, MatchArgs matchArgs)
-    {
-        _substitute = substitute;
-        _call = call;
-        _matchArgs = matchArgs;
-        _callRouter = context.GetCallRouterFor(substitute!);
-        _routeFactory = context.RouteFactory;
-        _threadContext = context.ThreadContext;
-    }
+    private readonly ICallRouter _callRouter = context.GetCallRouterFor(substitute!);
+    private readonly IThreadLocalContext _threadContext = context.ThreadContext;
+    private readonly IRouteFactory _routeFactory = context.RouteFactory;
 
     /// <summary>
     /// Perform this action when called.
@@ -30,8 +17,8 @@ public class WhenCalled<T>
     /// <param name="callbackWithArguments"></param>
     public void Do(Action<CallInfo> callbackWithArguments)
     {
-        _threadContext.SetNextRoute(_callRouter, x => _routeFactory.DoWhenCalled(x, callbackWithArguments, _matchArgs));
-        _call(_substitute);
+        _threadContext.SetNextRoute(_callRouter, x => _routeFactory.DoWhenCalled(x, callbackWithArguments, matchArgs));
+        call(substitute);
     }
 
     /// <summary>
@@ -40,8 +27,8 @@ public class WhenCalled<T>
     /// <param name="callback"></param>
     public void Do(Callback callback)
     {
-        _threadContext.SetNextRoute(_callRouter, x => _routeFactory.DoWhenCalled(x, callback.Call, _matchArgs));
-        _call(_substitute);
+        _threadContext.SetNextRoute(_callRouter, x => _routeFactory.DoWhenCalled(x, callback.Call, matchArgs));
+        call(substitute);
     }
 
     /// <summary>
@@ -49,8 +36,8 @@ public class WhenCalled<T>
     /// </summary>
     public void DoNotCallBase()
     {
-        _threadContext.SetNextRoute(_callRouter, x => _routeFactory.DoNotCallBase(x, _matchArgs));
-        _call(_substitute);
+        _threadContext.SetNextRoute(_callRouter, x => _routeFactory.DoNotCallBase(x, matchArgs));
+        call(substitute);
     }
 
     /// <summary>
@@ -58,8 +45,8 @@ public class WhenCalled<T>
     /// </summary>
     public void CallBase()
     {
-        _threadContext.SetNextRoute(_callRouter, x => _routeFactory.CallBase(x, _matchArgs));
-        _call(_substitute);
+        _threadContext.SetNextRoute(_callRouter, x => _routeFactory.CallBase(x, matchArgs));
+        call(substitute);
     }
 
     /// <summary>

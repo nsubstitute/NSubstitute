@@ -3,22 +3,16 @@ using System.Runtime.CompilerServices;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnFromAndConfigureDynamicCall : ICallHandler
+public class ReturnFromAndConfigureDynamicCall(IConfigureCall configureCall) : ICallHandler
 {
     private static readonly Type DynamicAttributeType = typeof(DynamicAttribute);
-    private readonly IConfigureCall _configureCall;
-
-    public ReturnFromAndConfigureDynamicCall(IConfigureCall configureCall)
-    {
-        _configureCall = configureCall;
-    }
 
     public RouteAction Handle(ICall call)
     {
         if (ReturnsDynamic(call))
         {
             var stubToReturn = new DynamicStub();
-            _configureCall.SetResultForCall(call, new ReturnValue(stubToReturn), MatchArgs.AsSpecifiedInCall);
+            configureCall.SetResultForCall(call, new ReturnValue(stubToReturn), MatchArgs.AsSpecifiedInCall);
             return RouteAction.Return(new DynamicStub());
         }
         else
