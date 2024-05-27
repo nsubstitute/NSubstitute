@@ -90,10 +90,8 @@ public class SubbingForConcreteTypesAndMultipleInterfaces
         public virtual int Number() { return -1; }
         public int GetNumberPlusOne() { return Number() + 1; }
     }
-    public abstract class ClassWithCtorArgs
+    public abstract class ClassWithCtorArgs(string s, int a)
     {
-        public ClassWithCtorArgs(string s, int a) { StringFromCtorArg = s; IntFromCtorArg = a; }
-        public string StringFromCtorArg { get; set; }
-        public int IntFromCtorArg { get; set; }
+        public string StringFromCtorArg { get; set; } = s; public int IntFromCtorArg { get; set; } = a;
     }
 }

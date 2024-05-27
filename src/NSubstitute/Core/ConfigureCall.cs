@@ -2,32 +2,21 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core;
 
-public class ConfigureCall : IConfigureCall
+public class ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec) : IConfigureCall
 {
-    private readonly ICallResults _configuredResults;
-    private readonly ICallActions _callActions;
-    private readonly IGetCallSpec _getCallSpec;
-
-    public ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec)
-    {
-        _configuredResults = configuredResults;
-        _callActions = callActions;
-        _getCallSpec = getCallSpec;
-    }
-
     public ConfiguredCall SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs, PendingSpecificationInfo pendingSpecInfo)
     {
-        var spec = _getCallSpec.FromPendingSpecification(matchArgs, pendingSpecInfo);
+        var spec = getCallSpec.FromPendingSpecification(matchArgs, pendingSpecInfo);
         CheckResultIsCompatibleWithCall(valueToReturn, spec);
-        _configuredResults.SetResult(spec, valueToReturn);
-        return new ConfiguredCall(action => _callActions.Add(spec, action));
+        configuredResults.SetResult(spec, valueToReturn);
+        return new ConfiguredCall(action => callActions.Add(spec, action));
     }
 
     public void SetResultForCall(ICall call, IReturn valueToReturn, MatchArgs matchArgs)
     {
-        var spec = _getCallSpec.FromCall(call, matchArgs);
+        var spec = getCallSpec.FromCall(call, matchArgs);
         CheckResultIsCompatibleWithCall(valueToReturn, spec);
-        _configuredResults.SetResult(spec, valueToReturn);
+        configuredResults.SetResult(spec, valueToReturn);
     }
 
     private static void CheckResultIsCompatibleWithCall(IReturn valueToReturn, ICallSpecification spec)

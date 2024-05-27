@@ -80,14 +80,9 @@ public class ArgumentSpecificationFactory : IArgumentSpecificationFactory
         return result;
     }
 
-    private class ParameterInfoFromType : IParameterInfo
+    private class ParameterInfoFromType(Type parameterType) : IParameterInfo
     {
-        public ParameterInfoFromType(Type parameterType)
-        {
-            ParameterType = parameterType;
-        }
-
-        public Type ParameterType { get; }
+        public Type ParameterType { get; } = parameterType;
 
         public bool IsParams => false;
 

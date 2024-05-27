@@ -66,9 +66,9 @@ public class CallCollection : ICallCollection
     /// That is needed because concurrent collections don't have a Delete method.
     /// Notice, in most cases the original <see cref="Call"/> instance will be used as a wrapper itself.
     /// </summary>
-    private class ReceivedCallEntry : IReceivedCallEntry
+    private class ReceivedCallEntry(ICall call) : IReceivedCallEntry
     {
-        public ICall? Call { get; private set; }
+        public ICall? Call { get; private set; } = call;
 
         [MemberNotNullWhen(false, nameof(Call))]
         public bool IsSkipped => Call == null;
@@ -77,10 +77,5 @@ public class CallCollection : ICallCollection
 
         public bool TryTakeEntryOwnership() =>
             throw new SubstituteInternalException("Ownership is never expected to be obtained for this entry.");
-
-        public ReceivedCallEntry(ICall call)
-        {
-            Call = call;
-        }
     }
 }

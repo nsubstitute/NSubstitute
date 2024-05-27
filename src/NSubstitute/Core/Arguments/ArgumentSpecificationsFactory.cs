@@ -1,22 +1,15 @@
-﻿using System.Reflection;
-using NSubstitute.Exceptions;
+﻿using NSubstitute.Exceptions;
+using System.Reflection;
 
 namespace NSubstitute.Core.Arguments;
 
-public class ArgumentSpecificationsFactory : IArgumentSpecificationsFactory
+public class ArgumentSpecificationsFactory(
+    IArgumentSpecificationFactory argumentSpecificationFactory,
+    ISuppliedArgumentSpecificationsFactory suppliedArgumentSpecificationsFactory) : IArgumentSpecificationsFactory
 {
-    private readonly IArgumentSpecificationFactory _argumentSpecificationFactory;
-    private readonly ISuppliedArgumentSpecificationsFactory _suppliedArgumentSpecificationsFactory;
-
-    public ArgumentSpecificationsFactory(IArgumentSpecificationFactory argumentSpecificationFactory, ISuppliedArgumentSpecificationsFactory suppliedArgumentSpecificationsFactory)
-    {
-        _argumentSpecificationFactory = argumentSpecificationFactory;
-        _suppliedArgumentSpecificationsFactory = suppliedArgumentSpecificationsFactory;
-    }
-
     public IEnumerable<IArgumentSpecification> Create(IList<IArgumentSpecification> argumentSpecs, object?[] arguments, IParameterInfo[] parameterInfos, MethodInfo methodInfo, MatchArgs matchArgs)
     {
-        var suppliedArgumentSpecifications = _suppliedArgumentSpecificationsFactory.Create(argumentSpecs);
+        var suppliedArgumentSpecifications = suppliedArgumentSpecificationsFactory.Create(argumentSpecs);
 
         var result = new List<IArgumentSpecification>();
         for (var i = 0; i < arguments.Length; i++)
@@ -26,7 +19,7 @@ public class ArgumentSpecificationsFactory : IArgumentSpecificationsFactory
 
             try
             {
-                result.Add(_argumentSpecificationFactory.Create(arg, paramInfo, suppliedArgumentSpecifications));
+                result.Add(argumentSpecificationFactory.Create(arg, paramInfo, suppliedArgumentSpecifications));
             }
             catch (AmbiguousArgumentsException ex) when (ex.ContainsDefaultMessage)
             {

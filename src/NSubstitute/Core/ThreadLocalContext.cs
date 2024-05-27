@@ -148,40 +148,33 @@ public class ThreadLocalContext : IThreadLocalContext
         query.RegisterCall(call);
     }
 
-    private class PendingSpecificationWrapper : IPendingSpecification
+    private class PendingSpecificationWrapper(RobustThreadLocal<ThreadLocalContext.PendingSpecInfoData> valueHolder) : IPendingSpecification
     {
-        private readonly RobustThreadLocal<PendingSpecInfoData> _valueHolder;
-
-        public PendingSpecificationWrapper(RobustThreadLocal<PendingSpecInfoData> valueHolder)
-        {
-            _valueHolder = valueHolder;
-        }
-
         public bool HasPendingCallSpecInfo()
         {
-            return _valueHolder.Value.HasValue;
+            return valueHolder.Value.HasValue;
         }
 
         public PendingSpecificationInfo? UseCallSpecInfo()
         {
-            var info = _valueHolder.Value;
+            var info = valueHolder.Value;
             Clear();
             return info.ToPendingSpecificationInfo();
         }
 
         public void SetCallSpecification(ICallSpecification callSpecification)
         {
-            _valueHolder.Value = PendingSpecInfoData.FromCallSpecification(callSpecification);
+            valueHolder.Value = PendingSpecInfoData.FromCallSpecification(callSpecification);
         }
 
         public void SetLastCall(ICall lastCall)
         {
-            _valueHolder.Value = PendingSpecInfoData.FromLastCall(lastCall);
+            valueHolder.Value = PendingSpecInfoData.FromLastCall(lastCall);
         }
 
         public void Clear()
         {
-            _valueHolder.Value = default;
+            valueHolder.Value = default;
         }
     }
 

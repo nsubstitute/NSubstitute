@@ -3,16 +3,9 @@ using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core;
 
-public class ArgumentSpecificationDequeue : IArgumentSpecificationDequeue
+public class ArgumentSpecificationDequeue(Func<IList<IArgumentSpecification>> dequeueAllQueuedArgSpecs) : IArgumentSpecificationDequeue
 {
     private static readonly IArgumentSpecification[] EmptySpecifications = [];
-
-    private readonly Func<IList<IArgumentSpecification>> _dequeueAllQueuedArgSpecs;
-
-    public ArgumentSpecificationDequeue(Func<IList<IArgumentSpecification>> dequeueAllQueuedArgSpecs)
-    {
-        _dequeueAllQueuedArgSpecs = dequeueAllQueuedArgSpecs;
-    }
 
     public IList<IArgumentSpecification> DequeueAllArgumentSpecificationsForMethod(int parametersCount)
     {
@@ -24,7 +17,7 @@ public class ArgumentSpecificationDequeue : IArgumentSpecificationDequeue
             return EmptySpecifications;
         }
 
-        var queuedArgSpecifications = _dequeueAllQueuedArgSpecs.Invoke();
+        var queuedArgSpecifications = dequeueAllQueuedArgSpecs.Invoke();
         return queuedArgSpecifications;
     }
 

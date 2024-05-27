@@ -87,18 +87,15 @@ public class PartialSubExamples
             public virtual string[] ToArray() { return [.. list]; }
         }
 
-        public class TaskView
+        public class TaskView(TaskList tasks)
         {
-            private readonly TaskList _tasks;
             public string TaskEntryField { get; set; }
             public string[] DisplayedTasks { get; set; }
 
-            public TaskView(TaskList tasks) { _tasks = tasks; }
-
             public void ClickButton()
             {
-                _tasks.Add(TaskEntryField);
-                DisplayedTasks = _tasks.ToArray();
+                tasks.Add(TaskEntryField);
+                DisplayedTasks = tasks.ToArray();
             }
         }
 

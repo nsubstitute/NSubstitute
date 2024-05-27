@@ -6,14 +6,8 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core;
 
-public class CallInfo
+public class CallInfo(Argument[] callArguments)
 {
-    private readonly Argument[] _callArguments;
-
-    public CallInfo(Argument[] callArguments)
-    {
-        _callArguments = callArguments;
-    }
 
     /// <summary>
     /// Gets the nth argument to this call.
@@ -22,10 +16,10 @@ public class CallInfo
     /// <returns>The value of the argument at the given index</returns>
     public object this[int index]
     {
-        get => _callArguments[index].Value;
+        get => callArguments[index].Value;
         set
         {
-            var argument = _callArguments[index];
+            var argument = callArguments[index];
             EnsureArgIsSettable(argument, index, value);
             argument.Value = value;
         }
@@ -48,13 +42,13 @@ public class CallInfo
     /// Get the arguments passed to this call.
     /// </summary>
     /// <returns>Array of all arguments passed to this call</returns>
-    public object[] Args() => _callArguments.Select(x => x.Value).ToArray();
+    public object[] Args() => callArguments.Select(x => x.Value).ToArray();
 
     /// <summary>
     /// Gets the types of all the arguments passed to this call.
     /// </summary>
     /// <returns>Array of types of all arguments passed to this call</returns>
-    public Type[] ArgTypes() => _callArguments.Select(x => x.DeclaredType).ToArray();
+    public Type[] ArgTypes() => callArguments.Select(x => x.DeclaredType).ToArray();
 
     /// <summary>
     /// Gets the argument of type `T` passed to this call. This will throw if there are no arguments
@@ -74,7 +68,7 @@ public class CallInfo
     {
         value = default;
 
-        var matchingArgs = _callArguments.Where(condition);
+        var matchingArgs = callArguments.Where(condition);
         if (!matchingArgs.Any()) return false;
         ThrowIfMoreThanOne<T>(matchingArgs);
 
@@ -89,7 +83,7 @@ public class CallInfo
             throw new AmbiguousArgumentsException(
                 "There is more than one argument of type " + typeof(T).FullName + " to this call.\n" +
                 "The call signature is (" + DisplayTypes(ArgTypes()) + ")\n" +
-                "  and was called with (" + DisplayTypes(_callArguments.Select(x => x.ActualType)) + ")"
+                "  and was called with (" + DisplayTypes(callArguments.Select(x => x.ActualType)) + ")"
                 );
         }
     }
@@ -104,14 +98,14 @@ public class CallInfo
     /// <returns>The argument passed to the call, or throws if there is not exactly one argument of this type</returns>
     public T ArgAt<T>(int position)
     {
-        if (position >= _callArguments.Length)
+        if (position >= callArguments.Length)
         {
             throw new ArgumentOutOfRangeException(nameof(position), $"There is no argument at position {position}");
         }
 
         try
         {
-            return (T)_callArguments[position].Value!;
+            return (T)callArguments[position].Value!;
         }
         catch (InvalidCastException)
         {

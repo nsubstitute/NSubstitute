@@ -20,23 +20,23 @@ public interface ISomething
     int? NullableWithParams(int i, string s);
 
     object this[string key] { get; set; }
-    System.Threading.Tasks.Task Async();
-    System.Threading.Tasks.Task DoAsync(object stuff);
-    System.Threading.Tasks.Task<int> CountAsync();
-    System.Threading.Tasks.Task<int> AnythingAsync(object stuff);
-    System.Threading.Tasks.Task<string> EchoAsync(int i);
-    System.Threading.Tasks.Task<string> SayAsync(string s);
-    System.Threading.Tasks.Task<SomeClass> SomeActionAsync();
-    System.Threading.Tasks.Task<SomeClass> SomeActionWithParamsAsync(int i, string s);
-    System.Threading.Tasks.Task<int?> NullableCountAsync();
-    System.Threading.Tasks.Task<int?> NullableWithParamsAsync(int i, string s);
+    Task Async();
+    Task DoAsync(object stuff);
+    Task<int> CountAsync();
+    Task<int> AnythingAsync(object stuff);
+    Task<string> EchoAsync(int i);
+    Task<string> SayAsync(string s);
+    Task<SomeClass> SomeActionAsync();
+    Task<SomeClass> SomeActionWithParamsAsync(int i, string s);
+    Task<int?> NullableCountAsync();
+    Task<int?> NullableWithParamsAsync(int i, string s);
 
-    System.Threading.Tasks.ValueTask<int> CountValueTaskAsync();
-    System.Threading.Tasks.ValueTask<string> EchoValueTaskAsync(int i);
-    System.Threading.Tasks.ValueTask<int> AnythingValueTaskAsync(object stuff);
-    System.Threading.Tasks.ValueTask<string> SayValueTaskAsync(string s);
-    System.Threading.Tasks.ValueTask<SomeClass> SomeActionValueTaskAsync();
-    System.Threading.Tasks.ValueTask<SomeClass> SomeActionWithParamsValueTaskAsync(int i, string s);
-    System.Threading.Tasks.ValueTask<int?> NullableCountValueTaskAsync();
-    System.Threading.Tasks.ValueTask<int?> NullableCountValueTaskWithParamsAsync(int i, string s);
+    ValueTask<int> CountValueTaskAsync();
+    ValueTask<string> EchoValueTaskAsync(int i);
+    ValueTask<int> AnythingValueTaskAsync(object stuff);
+    ValueTask<string> SayValueTaskAsync(string s);
+    ValueTask<SomeClass> SomeActionValueTaskAsync();
+    ValueTask<SomeClass> SomeActionWithParamsValueTaskAsync(int i, string s);
+    ValueTask<int?> NullableCountValueTaskAsync();
+    ValueTask<int?> NullableCountValueTaskWithParamsAsync(int i, string s);
 }

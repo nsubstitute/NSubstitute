@@ -3,15 +3,8 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.AutoValues;
 
-public class AutoSubstituteProvider : IAutoValueProvider
+public class AutoSubstituteProvider(ISubstituteFactory substituteFactory) : IAutoValueProvider
 {
-    private readonly ISubstituteFactory _substituteFactory;
-
-    public AutoSubstituteProvider(ISubstituteFactory substituteFactory)
-    {
-        _substituteFactory = substituteFactory;
-    }
-
     public bool CanProvideValueFor(Type type)
     {
         return type.GetTypeInfo().IsInterface
@@ -21,7 +14,7 @@ public class AutoSubstituteProvider : IAutoValueProvider
 
     public object GetValue(Type type)
     {
-        return _substituteFactory.Create([type], []);
+        return substituteFactory.Create([type], []);
     }
 
     private bool IsPureVirtualClassWithParameterlessConstructor(Type type)
