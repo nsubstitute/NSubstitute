@@ -23,44 +23,29 @@ internal static class Extensions
             return TypeCanBeNull(requiredType);
         }
 
-        var instanceType = instance.GetType();
-        var compatibleInstanceTypes = GetCompatibleTypes(instanceType);
+        var genericTypeDefinition = type.IsGenericType ? type.GetGenericTypeDefinition() : null;
 
-        foreach (var aCompatibleInstanceType in compatibleInstanceTypes)
+        if (genericTypeDefinition is not null)
         {
-            if (aCompatibleInstanceType.IsGenericType &&
-                type.IsGenericType &&
-                aCompatibleInstanceType.GetGenericTypeDefinition() == type.GetGenericTypeDefinition())
+            var instanceType = instance.GetType();
+            var compatibleInstanceTypes = GetCompatibleTypes(instanceType);
+
+            foreach (var aCompatibleInstanceType in compatibleInstanceTypes)
             {
-                // both are the same generic type. If their GenericTypeArguments match then they are equivalent
-                return CallSpecification.TypesAreAllEquivalent(
-                    aCompatibleInstanceType.GenericTypeArguments, type.GenericTypeArguments);
+                if (aCompatibleInstanceType.IsGenericType &&
+                    aCompatibleInstanceType.GetGenericTypeDefinition() == genericTypeDefinition)
+                {
+                    // both are the same generic type. If their GenericTypeArguments match then they are equivalent
+                    return CallSpecification.TypesAreAllEquivalent(
+                        aCompatibleInstanceType.GenericTypeArguments, type.GenericTypeArguments);
+                }
             }
         }
 
         return requiredType.IsInstanceOfType(instance);
     }
 
-    private static IReadOnlyList<Type> GetCompatibleTypes(Type type)
-    {
-        var baseType = type.BaseType;
-        var interfacesOfType = type.GetInterfaces();
-
-        List<Type> compatibleTypes = [type, .. interfacesOfType];
-
-        if (baseType is not null)
-        {
-            compatibleTypes.AddRange(GetCompatibleTypes(baseType));
-        }
-
-        foreach (var anInterfaceOfType in interfacesOfType)
-        {
-            compatibleTypes.AddRange(GetCompatibleTypes(anInterfaceOfType));
-        }
-
-        var distinctCompatibleTypes = compatibleTypes.Distinct().ToList();
-        return distinctCompatibleTypes;
-    }
+    private static IReadOnlyList<Type> GetCompatibleTypes(Type type) => [type, .. type.GetInterfaces()];
 
     /// <summary>
     /// Join the <paramref name="strings"/> using <paramref name="separator"/>.
