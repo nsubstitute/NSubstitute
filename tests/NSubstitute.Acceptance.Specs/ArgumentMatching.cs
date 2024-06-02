@@ -806,6 +806,28 @@ public class ArgumentMatching
         service.Received().MyMethod(Arg.Any<IMyArgument<Arg.AnyType>>());
     }
 
+    [Test]
+    public void Does_not_support_matching_ArgAny_of_type_derived_from_base_type_with_string_type_param_to_other_type_derived_from_base_type()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyOtherStringArgument();
+
+        service.MyMethod(argument);
+
+        service.DidNotReceive().MyMethod(Arg.Any<MyStringArgument>());
+    }
+
+    [Test]
+    public void Does_not_support_matching_ArgAny_of_type_derived_from_base_type_with_custom_type_param_to_other_type_derived_from_base_type()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyOtherSampleClassArgument();
+
+        service.MyMethod(argument);
+
+        service.DidNotReceive().MyMethod(Arg.Any<MySampleClassArgument>());
+    }
+
     [SetUp]
     public void SetUp()
     {
@@ -819,6 +841,8 @@ public class ArgumentMatching
     public interface IMyArgument<T> { }
     public class SampleClass { }
     public class MyStringArgument : IMyArgument<string> { }
+    public class MyOtherStringArgument : IMyArgument<string> { }
     public class MySampleClassArgument : IMyArgument<SampleClass> { }
+    public class MyOtherSampleClassArgument : IMyArgument<SampleClass> { }
     public class MySampleDerivedClassArgument : MySampleClassArgument { }
 }
