@@ -298,6 +298,31 @@ public class EventRaising
         Assert.That(eventRecorder.Sender, Is.SameAs(sender));
     }
 
+    [Test]
+    public void MyEvent_with_CustomEventArgsWithInternalDefaultConstructor_is_raised()
+    {
+        // Arrange
+        var exampleInternalMock = Substitute.For<IExampleInternal>();
+        var consumerInternal = new ConsumerInternal(exampleInternalMock);
+
+        // Act
+        exampleInternalMock.MyEvent += Raise.EventWith<CustomEventArgsWithInternalDefaultConstructor>(this, null!);
+
+        // Assert
+        Assert.That(consumerInternal.SomethingWasDone);
+    }
+
+    [Test]
+    public void MyEvent_with_CustomEventArgsWithPrivateDefaultConstructor_throws_CannotCreateEventArgsException()
+    {
+        // Arrange
+        var examplePrivateMock = Substitute.For<IExamplePrivate>();
+
+        // Act and Assert
+        Assert.Throws<CannotCreateEventArgsException>(() =>
+            examplePrivateMock.MyEvent += Raise.EventWith<CustomEventArgsWithPrivateDefaultConstructor>(this, null!));
+    }
+
     class RaisedEventRecorder<T>
     {
         public object Sender;
@@ -338,5 +363,39 @@ public class EventRaising
     public class CustomEventArgs : EventArgs { }
     public class CustomEventArgsWithNoDefaultCtor(string arg) : EventArgs
     {
+    }
+
+    public class CustomEventArgsWithInternalDefaultConstructor : EventArgs
+    {
+        internal CustomEventArgsWithInternalDefaultConstructor() { }
+    }
+    public interface IExampleInternal
+    {
+        public event EventHandler<CustomEventArgsWithInternalDefaultConstructor> MyEvent;
+    }
+    public class ConsumerInternal
+    {
+        public ConsumerInternal(IExampleInternal example)
+        {
+            example.MyEvent += OnMyEvent;
+        }
+        public bool SomethingWasDone { get; private set; }
+        private void OnMyEvent(object sender, CustomEventArgsWithInternalDefaultConstructor args)
+        {
+            DoSomething();
+        }
+        private void DoSomething()
+        {
+            SomethingWasDone = true;
+        }
+    }
+
+    public class CustomEventArgsWithPrivateDefaultConstructor : EventArgs
+    {
+        private CustomEventArgsWithPrivateDefaultConstructor() { }
+    }
+    public interface IExamplePrivate
+    {
+        public event EventHandler<CustomEventArgsWithPrivateDefaultConstructor> MyEvent;
     }
 }
