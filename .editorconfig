@@ -20,6 +20,7 @@ dotnet_style_qualification_for_event = false:suggestion
 csharp_style_namespace_declarations = file_scoped:warning
 dotnet_style_prefer_collection_expression = true:warning
 dotnet_style_collection_initializer = true:warning
+csharp_style_prefer_primary_constructors = true:warning
 
 # ReSharper properties
 resharper_int_align_switch_expressions = true
