@@ -23,17 +23,29 @@ internal static class Extensions
             return TypeCanBeNull(requiredType);
         }
 
-        var instanceType = instance.GetType();
+        var genericTypeDefinition = type.IsGenericType ? type.GetGenericTypeDefinition() : null;
 
-        if (instanceType.IsGenericType && type.IsGenericType
-                && instanceType.GetGenericTypeDefinition() == type.GetGenericTypeDefinition())
+        if (genericTypeDefinition is not null)
         {
-            // both are the same generic type. If their GenericTypeArguments match then they are equivalent 
-            return CallSpecification.TypesAreAllEquivalent(instanceType.GenericTypeArguments, type.GenericTypeArguments);
+            var instanceType = instance.GetType();
+            var compatibleInstanceTypes = GetCompatibleTypes(instanceType);
+
+            foreach (var aCompatibleInstanceType in compatibleInstanceTypes)
+            {
+                if (aCompatibleInstanceType.IsGenericType &&
+                    aCompatibleInstanceType.GetGenericTypeDefinition() == genericTypeDefinition)
+                {
+                    // both are the same generic type. If their GenericTypeArguments match then they are equivalent
+                    return CallSpecification.TypesAreAllEquivalent(
+                        aCompatibleInstanceType.GenericTypeArguments, type.GenericTypeArguments);
+                }
+            }
         }
 
         return requiredType.IsInstanceOfType(instance);
     }
+
+    private static IReadOnlyList<Type> GetCompatibleTypes(Type type) => [type, .. type.GetInterfaces()];
 
     /// <summary>
     /// Join the <paramref name="strings"/> using <paramref name="separator"/>.

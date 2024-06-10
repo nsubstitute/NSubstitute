@@ -300,11 +300,11 @@ public class ArgumentMatching
     public void Throw_with_ambiguous_arguments_when_given_an_arg_matcher_and_a_default_arg_value_v1()
     {
         Assert.Throws<AmbiguousArgumentsException>(() =>
-           {
-               _something.Add(0, Arg.Any<int>()).Returns(1);
-               Assert.Fail("Should not make it here, as it can't work out which arg the matcher refers to." +
-                           "If it does this will throw an AssertionException rather than AmbiguousArgumentsException.");
-           });
+        {
+            _something.Add(0, Arg.Any<int>()).Returns(1);
+            Assert.Fail("Should not make it here, as it can't work out which arg the matcher refers to." +
+                        "If it does this will throw an AssertionException rather than AmbiguousArgumentsException.");
+        });
     }
 
     [Test]
@@ -740,9 +740,109 @@ public class ArgumentMatching
         Assert.That(ex.Message, Contains.Substring("24 is not forty two"));
     }
 
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_string_with_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyStringArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<string>>());
+    }
+
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_custom_class_with_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MySampleClassArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<SampleClass>>());
+    }
+
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_custom_class_with_derived_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MySampleDerivedClassArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<SampleClass>>());
+    }
+
+    [Test]
+    public void Supports_matching_custom_class_with_derived_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MySampleDerivedClassArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<MySampleClassArgument>());
+    }
+
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_ArgAnyType_with_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyStringArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<Arg.AnyType>>());
+    }
+
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_ArgAnyType_with_derived_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MySampleDerivedClassArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<Arg.AnyType>>());
+    }
+
+    [Test]
+    public void Does_not_support_matching_ArgAny_of_type_derived_from_base_type_with_string_type_param_to_other_type_derived_from_base_type()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyOtherStringArgument();
+
+        service.MyMethod(argument);
+
+        service.DidNotReceive().MyMethod(Arg.Any<MyStringArgument>());
+    }
+
+    [Test]
+    public void Does_not_support_matching_ArgAny_of_type_derived_from_base_type_with_custom_type_param_to_other_type_derived_from_base_type()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyOtherSampleClassArgument();
+
+        service.MyMethod(argument);
+
+        service.DidNotReceive().MyMethod(Arg.Any<MySampleClassArgument>());
+    }
+
     [SetUp]
     public void SetUp()
     {
         _something = Substitute.For<ISomething>();
     }
+
+    public interface IMyService
+    {
+        void MyMethod<T>(IMyArgument<T> argument);
+    }
+    public interface IMyArgument<T> { }
+    public class SampleClass { }
+    public class MyStringArgument : IMyArgument<string> { }
+    public class MyOtherStringArgument : IMyArgument<string> { }
+    public class MySampleClassArgument : IMyArgument<SampleClass> { }
+    public class MyOtherSampleClassArgument : IMyArgument<SampleClass> { }
+    public class MySampleDerivedClassArgument : MySampleClassArgument { }
 }
