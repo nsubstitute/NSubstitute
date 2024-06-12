@@ -1,5 +1,9 @@
+
+using System.Collections.Generic;
 using System.Reflection;
+
 using Castle.DynamicProxy;
+
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
@@ -10,14 +14,14 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
     private readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
     private readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
 
-    public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, object?[]? constructorArguments)
+    public object GenerateProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, bool isPartial, object?[]? constructorArguments)
     {
         return typeToProxy.IsDelegate()
             ? GenerateDelegateProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments)
-            : GenerateTypeProxy(callRouter, typeToProxy, additionalInterfaces, constructorArguments);
+            : GenerateTypeProxy(callRouter, typeToProxy, additionalInterfaces, isPartial, constructorArguments);
     }
 
-    private object GenerateTypeProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, object?[]? constructorArguments)
+    private object GenerateTypeProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, bool isPartial, object?[]? constructorArguments)
     {
         VerifyClassHasNotBeenPassedAsAnAdditionalInterface(additionalInterfaces);
 
@@ -31,7 +35,8 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
             additionalInterfaces,
             constructorArguments,
             [proxyIdInterceptor, forwardingInterceptor],
-            proxyGenerationOptions);
+            proxyGenerationOptions,
+            isPartial);
 
         forwardingInterceptor.SwitchToFullDispatchMode();
         return proxy;
@@ -54,7 +59,8 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
             additionalInterfaces: null,
             constructorArguments: null,
             interceptors: [proxyIdInterceptor, forwardingInterceptor],
-            proxyGenerationOptions);
+            proxyGenerationOptions,
+            isPartial: false);
 
         forwardingInterceptor.SwitchToFullDispatchMode();
 
@@ -75,8 +81,13 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
     private object CreateProxyUsingCastleProxyGenerator(Type typeToProxy, Type[]? additionalInterfaces,
                                                         object?[]? constructorArguments,
                                                         IInterceptor[] interceptors,
-                                                        ProxyGenerationOptions proxyGenerationOptions)
+                                                        ProxyGenerationOptions proxyGenerationOptions,
+                                                        bool isPartial)
     {
+            if (isPartial)
+                return CreatePartialProxy(typeToProxy, additionalInterfaces, constructorArguments, interceptors, proxyGenerationOptions, isPartial);
+
+
         if (typeToProxy.GetTypeInfo().IsInterface)
         {
             VerifyNoConstructorArgumentsGivenForInterface(constructorArguments);
@@ -96,11 +107,38 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
             additionalInterfaces = interfaces;
         }
 
+
+            return _proxyGenerator.CreateClassProxy(typeToProxy,
+                additionalInterfaces,
+                proxyGenerationOptions,
+                constructorArguments,
+                interceptors);
+        }
+
+        private object CreatePartialProxy(Type typeToProxy, Type[]? additionalInterfaces, object?[]? constructorArguments, IInterceptor[] interceptors, ProxyGenerationOptions proxyGenerationOptions, bool isPartial)
+        {
+            if (typeToProxy.GetTypeInfo().IsClass &&
+                additionalInterfaces != null &&
+                additionalInterfaces.Any())
+            {
+                VerifyClassIsNotAbstract(typeToProxy);
+                VerifyClassImplementsAllInterfaces(typeToProxy, additionalInterfaces);
+
+                var targetObject = Activator.CreateInstance(typeToProxy, constructorArguments);
+                typeToProxy = additionalInterfaces.First();
+
+                return _proxyGenerator.CreateInterfaceProxyWithTarget(typeToProxy,
+                     additionalInterfaces,
+                     target: targetObject,
+                     options: proxyGenerationOptions,
+                     interceptors: interceptors);
+            }
+
         return _proxyGenerator.CreateClassProxy(typeToProxy,
-            additionalInterfaces,
-            proxyGenerationOptions,
-            constructorArguments,
-            interceptors);
+               additionalInterfaces,
+               proxyGenerationOptions,
+               constructorArguments,
+               interceptors);
     }
 
     private ProxyGenerationOptions GetOptionsToMixinCallRouterProvider(ICallRouter callRouter)
@@ -114,6 +152,22 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
         options.AddMixinInstance(new StaticCallRouterProvider(callRouter));
 
         return options;
+        }
+
+        private static void VerifyClassImplementsAllInterfaces(Type classType, IEnumerable<Type> additionalInterfaces)
+        {
+            if (!additionalInterfaces.All(x => x.GetTypeInfo().IsAssignableFrom(classType.GetTypeInfo())))
+            {
+                throw new CanNotForwardCallsToClassNotImplementingInterfaceException(classType);
+            }
+        }
+
+        private static void VerifyClassIsNotAbstract(Type classType)
+        {
+            if (classType.GetTypeInfo().IsAbstract)
+            {
+                throw new CanNotForwardCallsToAbstractClassException(classType);
+            }
     }
 
     private static void VerifyNoConstructorArgumentsGivenForInterface(object?[]? constructorArguments)

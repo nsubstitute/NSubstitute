@@ -1,4 +1,5 @@
-﻿using NSubstitute.Core;
+﻿
+using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.Extensions;
 using NUnit.Framework;
