@@ -14,7 +14,7 @@ public class SubstituteFactory(ISubstituteStateFactory substituteStateFactory, I
     /// <returns></returns>
     public object Create(Type[] typesToProxy, object?[] constructorArguments)
     {
-        return Create(typesToProxy, constructorArguments, callBaseByDefault: false);
+        return Create(typesToProxy, constructorArguments, callBaseByDefault: false, isPartial: false);
     }
 
     /// <summary>
@@ -33,10 +33,10 @@ public class SubstituteFactory(ISubstituteStateFactory substituteStateFactory, I
             throw new CanNotPartiallySubForInterfaceOrDelegateException(primaryProxyType);
         }
 
-        return Create(typesToProxy, constructorArguments, callBaseByDefault: true);
+        return Create(typesToProxy, constructorArguments, callBaseByDefault: true, isPartial: true);
     }
 
-    private object Create(Type[] typesToProxy, object?[] constructorArguments, bool callBaseByDefault)
+    private object Create(Type[] typesToProxy, object?[] constructorArguments, bool callBaseByDefault, bool isPartial)
     {
         var substituteState = substituteStateFactory.Create(this);
         substituteState.CallBaseConfiguration.CallBaseByDefault = callBaseByDefault;
@@ -46,7 +46,7 @@ public class SubstituteFactory(ISubstituteStateFactory substituteStateFactory, I
 
         var callRouter = callRouterFactory.Create(substituteState, canConfigureBaseCalls);
         var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
-        var proxy = proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);
+        var proxy = proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, isPartial, constructorArguments);
         return proxy;
     }
 
