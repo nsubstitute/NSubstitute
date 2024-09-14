@@ -5,8 +5,6 @@
   See more here https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2019 -->
 
   <PropertyGroup>
-    <TargetIsNetFx Condition="$(TargetFramework.StartsWith('net4'))">true</TargetIsNetFx>
-    <TargetIsNet5OrNewer Condition="'$(TargetFramework)' == 'net6.0'">true</TargetIsNet5OrNewer>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -14,9 +12,5 @@
   <PropertyGroup>
     <OutputPath>$(MSBuildThisFileDirectory)\bin\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(TargetIsNetFx)' == 'true'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
-  </ItemGroup>
 
 </Project>

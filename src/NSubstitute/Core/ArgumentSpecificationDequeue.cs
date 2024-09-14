@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using NSubstitute.Core.Arguments;
+﻿using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core;
 
@@ -19,10 +18,5 @@ public class ArgumentSpecificationDequeue(Func<IList<IArgumentSpecification>> de
 
         var queuedArgSpecifications = dequeueAllQueuedArgSpecs.Invoke();
         return queuedArgSpecifications;
-    }
-
-    public IList<IArgumentSpecification> DequeueAllArgumentSpecificationsForMethod(MethodInfo methodInfo)
-    {
-        return DequeueAllArgumentSpecificationsForMethod(methodInfo.GetParameters().Length);
     }
 }

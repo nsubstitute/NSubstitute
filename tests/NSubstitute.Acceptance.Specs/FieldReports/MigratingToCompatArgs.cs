@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 
 /// <summary>
 /// Can migrate from the old <see cref="Arg"/> matchers to <see cref="Arg.Compat"/> by putting a

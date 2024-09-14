@@ -361,7 +361,9 @@ public class EventRaising
     public delegate int FuncDelegateWithArgs(int intArg, string stringArg);
     public delegate void CustomEventThatDoesNotInheritFromEventHandler(object sender, CustomEventArgs args);
     public class CustomEventArgs : EventArgs { }
+#pragma warning disable CS9113 // Parameter is unread.
     public class CustomEventArgsWithNoDefaultCtor(string arg) : EventArgs
+#pragma warning restore CS9113 // Parameter is unread.
     {
     }
 

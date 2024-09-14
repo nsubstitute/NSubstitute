@@ -1,3 +1,11 @@
+### 6.0.0
+
+* [UPDATE] Update target frameworks: .NET8, .NET Standard 2.0
+* [UPDATE] Drop EOL .NET 6/7 platforms from testing matrix
+* [UPDATE] Update github actions steps versions
+* [UPDATE] Remove legacy obsolete API
+* [UPDATE] Mark as obsolete api CompatArg with pre c# 7.0 support
+
 ### 5.2.0 (Apr 2024)
 
 * [UPDATE] Upgrade website build to jekyll 3.9.0 and add link to edit website pages (#767, #769; thanks to @brad)
@@ -22,7 +30,7 @@ Many thanks to @alexandrnikitin, @Romfos, @brad, and @304NotModified for their c
 
 ### 4.4.0 (Jul 2022)
 
-* [FIX] Fix issue checking for constructor args on null object. Thanks to @phongphanq, and @appel1! Thanks also to 
+* [FIX] Fix issue checking for constructor args on null object. Thanks to @phongphanq, and @appel1! Thanks also to
 @Mandroide for code review. (#683, #685)
 * [UPDATE] Update to Castle Core v5. Thanks @Havunen! (#690, #673)
 * [NEW] Add `.ThrowsAsync()` that will correctly mock exception on async methods. Thanks @Socolin! (#609, #663)

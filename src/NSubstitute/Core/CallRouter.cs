@@ -42,9 +42,6 @@ public class CallRouter(
         return substituteState.ReceivedCalls.AllCalls();
     }
 
-    public void SetRoute(Func<ISubstituteState, IRoute> getRoute) =>
-        threadContext.SetNextRoute(this, getRoute);
-
     public object? Route(ICall call)
     {
         threadContext.SetLastCallRouter(this);
