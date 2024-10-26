@@ -1,4 +1,4 @@
-### 6.0.0
+### 6.x (work in progress)
 
 * [UPDATE] Update target frameworks: .NET8, .NET Standard 2.0
 * [UPDATE] Drop EOL .NET 6/7 platforms from testing matrix
