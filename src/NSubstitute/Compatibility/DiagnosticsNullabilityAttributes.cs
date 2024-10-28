@@ -1,4 +1,4 @@
-#if !SYSTEM_DIAGNOSTICS_CODEANALYSIS_NULLABILITY
+#if NETSTANDARD2_0
 
 // This was copied from https://github.com/dotnet/runtime/blob/39b9607807f29e48cae4652cd74735182b31182e/src/libraries/System.Private.CoreLib/src/System/Diagnostics/CodeAnalysis/NullableAttributes.cs
 // and updated to have the scope of the attributes be internal.

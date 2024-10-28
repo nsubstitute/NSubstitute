@@ -1,3 +1,12 @@
+### 6.x (work in progress)
+
+* [UPDATE] Update target frameworks: .NET8, .NET Standard 2.0
+* [UPDATE] Drop EOL .NET 6/7 platforms from testing matrix
+* [UPDATE] Update github actions steps versions
+* [UPDATE] Remove legacy obsolete API
+* [UPDATE] Mark as obsolete api CompatArg with pre c# 7.0 support
+
+
 ### 5.3.0 (October 2024)
 
 * [NEW] Introduced `Substitute.ForTypeForwardingTo` to create substitutes that forward interceptable calls to a concrete class. This provides an easy way of implementing a test spy over an existing type. Designed and implemented by @marcoregueira in https://github.com/nsubstitute/NSubstitute/pull/700 from a proposal by @wsaeed. Thanks to all who contributed to discussions of this feature.
@@ -40,7 +49,7 @@ Many thanks to @alexandrnikitin, @Romfos, @brad, and @304NotModified for their c
 
 ### 4.4.0 (Jul 2022)
 
-* [FIX] Fix issue checking for constructor args on null object. Thanks to @phongphanq, and @appel1! Thanks also to 
+* [FIX] Fix issue checking for constructor args on null object. Thanks to @phongphanq, and @appel1! Thanks also to
 @Mandroide for code review. (#683, #685)
 * [UPDATE] Update to Castle Core v5. Thanks @Havunen! (#690, #673)
 * [NEW] Add `.ThrowsAsync()` that will correctly mock exception on async methods. Thanks @Socolin! (#609, #663)
