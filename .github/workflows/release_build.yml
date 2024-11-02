@@ -14,15 +14,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
-            6.0.x
-            7.0.x
             8.0.x
 
       - name: Setup Ruby for documentation build
@@ -31,8 +27,11 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Build package and docs
-        run: dotnet run --project 'build/build.fsproj' -- -t All
+      - name: Build package
+        run: dotnet pack src/NSubstitute/NSubstitute.csproj -p:CI=true
+
+      - name: Build documentation
+        run: dotnet run --project 'build/build.fsproj' -- -t Documentation
 
       - name: Upload packages
         uses: actions/upload-artifact@v4

@@ -37,8 +37,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -53,8 +51,8 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Build all targets
-        run: build\build.cmd --target All
+      - name: Build documentation
+        run: build\build.cmd --target Documentation
 
   format-verify:
     runs-on: ubuntu-latest
