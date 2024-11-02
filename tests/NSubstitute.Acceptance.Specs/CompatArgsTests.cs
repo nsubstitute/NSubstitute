@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace NSubstitute.Acceptance.Specs;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 
 public class CompatArgsTests
 {
@@ -15,6 +16,7 @@ public class CompatArgsTests
         var flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
         var compatMembers =
             typeof(Arg.Compat).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
+
         var compatInstanceMembers =
             typeof(CompatArg).GetMethods(flags).Select(DescribeMethod).OrderBy(x => x);
 
