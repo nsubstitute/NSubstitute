@@ -7,7 +7,7 @@ We can return a specific value for all calls to a substitute using `sub.ReturnsF
 
 **Note: we need `using NSubstitute.Extensions` to import the `.ReturnsForAll<T>()` extension method.**
 
-The type must match exactly: `.ReturnsForAll<Cat>(cat)` will not set a return value for a call that returns `Animal`, even if `Cat` inherits from `Animal`. To return for the super-type, use `.ReturnsForAll<Animal>(cat)`. (If you'd like a change in this behaviour, please [let us know](https://groups.google.com/forum/#!forum/nsubstitute)).
+The type must match exactly: `.ReturnsForAll<Cat>(cat)` will not set a return value for a call that returns `Animal`, even if `Cat` inherits from `Animal`. To return for the super-type, use `.ReturnsForAll<Animal>(cat)`. (If you'd like a change in this behaviour, please [let us know](https://github.com/nsubstitute/NSubstitute/issues)).
 
 There is also an overload that takes a `Func<CallInfo,T>` so the value to return will be calculated each time.
 
