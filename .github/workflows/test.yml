@@ -1,4 +1,4 @@
-name: Build, Test, and Format
+name: Build, Test, and Format verification
 on:
   push:
     branches:

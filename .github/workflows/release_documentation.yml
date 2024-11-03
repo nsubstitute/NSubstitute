@@ -1,12 +1,6 @@
-name: Build release packages and documentation
+name: Release documentation
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*'
-
-env:
-  CONFIGURATION: Release
 
 jobs:
   build:
@@ -27,20 +21,8 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Build package
-        run: dotnet pack src/NSubstitute/NSubstitute.csproj -p:CI=true
-
       - name: Build documentation
         run: dotnet run --project 'build/build.fsproj' -- -t Documentation
-
-      - name: Upload packages
-        uses: actions/upload-artifact@v4
-        with:
-          name: packages
-          path: |
-            bin/Release/NSubstitute/*.nupkg
-            bin/Release/NSubstitute/*.snupkg
-          retention-days: 7
 
       - name: Upload documentation
         uses: actions/upload-artifact@v4
