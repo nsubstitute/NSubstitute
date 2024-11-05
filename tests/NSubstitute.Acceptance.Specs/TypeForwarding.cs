@@ -54,6 +54,17 @@ public class TypeForwarding
             () => Substitute.ForTypeForwardingTo<ITestInterface, TestRandomConcreteClass>());
     }
 
+
+    [Test]
+    public void SubstitutePartialForwarding()
+    {
+        List<int> wrappedInstance = [2];
+        var sub = Substitute.ForTypeForwardingTo<IReadOnlyList<int>>(wrappedInstance);
+        using var _ = Assert.EnterMultipleScope();
+        Assert.That(sub.Count, Is.EqualTo(1));
+        Assert.That(sub[0], Is.EqualTo(2));
+        Assert.That(sub.FirstOrDefault(), Is.EqualTo(2));
+    }
     [Test]
     public void PartialSubstituteFailsIfClassIsAbstract()
     {
