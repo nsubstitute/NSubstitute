@@ -22,7 +22,7 @@ Perfect for those new to testing, and for others who would just like to to get t
 
 ### Getting help
 
-If you have questions, feature requests or feedback on NSubstitute please [raise an issue](https://github.com/nsubstitute/NSubstitute/issues) on our project site. All questions are welcome via our project site, but for "how-to"-style questions you can also try [StackOverflow with the \[nsubstitute\] tag](https://stackoverflow.com/tags/nsubstitute), which often leads to very good answers from the larger programming community. StackOverflow is especially useful if your question also relates to other libraries that our team may not be as familiar with (e.g. NSubstitute with Entity Framework). You can also head on over to the [NSubstitute discussion group](https://groups.google.com/group/nsubstitute) if you prefer.
+If you have questions, feature requests or feedback on NSubstitute please [raise an issue](https://github.com/nsubstitute/NSubstitute/issues) on our project site. All questions are welcome via our project site, but for "how-to"-style questions you can also try [StackOverflow with the \[nsubstitute\] tag](https://stackoverflow.com/tags/nsubstitute), which often leads to very good answers from the larger programming community. StackOverflow is especially useful if your question also relates to other libraries that our team may not be as familiar with (e.g. NSubstitute with Entity Framework).
 
 ### Basic use
 
