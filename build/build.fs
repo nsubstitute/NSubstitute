@@ -157,13 +157,13 @@ let initTargets() =
         let csproj = """
             <Project Sdk="Microsoft.NET.Sdk">
             <PropertyGroup>
-                <TargetFrameworks>net6.0;net462</TargetFrameworks>
+                <TargetFrameworks>net8.0;net462</TargetFrameworks>
                 <LangVersion>latest</LangVersion>
             </PropertyGroup>
             <ItemGroup>
-                <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+                <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
                 <PackageReference Include="NUnit" Version="3.14.0" />
-                <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+                <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
             </ItemGroup>
             <ItemGroup>
                 <ProjectReference Include="..\..\..\src\NSubstitute\NSubstitute.csproj" />
