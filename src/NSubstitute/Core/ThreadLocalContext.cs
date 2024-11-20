@@ -108,6 +108,24 @@ public class ThreadLocalContext : IThreadLocalContext
         return queue;
     }
 
+    /// <inheritdoc/>
+    public IList<IArgumentSpecification> PeekAllArgumentSpecifications()
+    {
+        var queue = _argumentSpecifications.Value;
+        if (queue == null) { throw new SubstituteInternalException("Argument specification queue is null."); }
+
+        if (queue.Count > 0)
+        {
+            var items = new IArgumentSpecification[queue.Count];
+
+            queue.CopyTo(items, 0);
+
+            return items;
+        }
+
+        return EmptySpecifications;
+    }
+
     public void SetPendingRaisingEventArgumentsFactory(Func<ICall, object?[]> getArguments)
     {
         _getArgumentsForRaisingEvent.Value = getArguments;
