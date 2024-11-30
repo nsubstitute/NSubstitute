@@ -12,7 +12,9 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: |
+            9.0.x
+            8.0.x
 
       - name: Setup Ruby for documentation build
         uses: ruby/setup-ruby@v1
@@ -28,6 +30,6 @@ jobs:
         with:
           name: docs
           path: |
-            bin/Release/nsubstitute.github.com/
+            bin/Debug/nsubstitute.github.com/
           retention-days: 7
           compression-level: 9
