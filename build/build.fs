@@ -63,7 +63,7 @@ let initTargets() =
                 <LangVersion>latest</LangVersion>
             </PropertyGroup>
             <ItemGroup>
-                <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+                <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
                 <PackageReference Include="NUnit" Version="3.14.0" />
                 <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
             </ItemGroup>
