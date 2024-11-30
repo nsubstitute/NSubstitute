@@ -1,7 +1,6 @@
 open System
 open System.Diagnostics
 open System.IO
-open System.Text.RegularExpressions
 
 open Fake.Core
 open Fake.Core.TargetOperators
@@ -17,7 +16,7 @@ let description = Target.description
 
 module FileReaderWriter =
     let Read file = File.ReadAllText(file)
-    let Write file text = File.WriteAllText(file, text)
+    let Write file (text: string) = File.WriteAllText(file, text)
     let TransformFile file target (f : string -> string) =
         Read file
         |> f
