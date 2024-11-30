@@ -9,7 +9,6 @@ open Fake.DotNet
 open Fake.IO
 open Fake.IO.Globbing.Operators
 open Fake.IO.FileSystemOperators
-open Fake.Tools
 
 open ExtractDocs
 
@@ -42,111 +41,15 @@ module ExamplesToCode =
                 ConvertFile file targetDir
 
 type BuildVersion = { assembly: string; file: string; info: string; package: string }
-let getVersion () =
-    // The --first-parent flag is needed to make our walk linear from current commit and top.
-    // This way also merge commit is counted as "1".
-    let desc = Git.CommandHelper.runSimpleGitCommand "" "describe --tags --long --abbrev=40 --first-parent --match=v*"
-    let result = Regex.Match(desc,
-                             @"^v(?<maj>\d+)\.(?<min>\d+)\.(?<rev>\d+)(?<pre>-\w+\d*)?-(?<num>\d+)-g(?<sha>[a-z0-9]+)$",
-                             RegexOptions.IgnoreCase)
-                      .Groups
-    let getMatch (name:string) = result.[name].Value
 
-    let (major, minor, revision, preReleaseSuffix, commitsNum, commitSha) =
-        (getMatch "maj" |> int, getMatch "min" |> int, getMatch "rev" |> int, getMatch "pre", getMatch "num" |> int, getMatch "sha")
-
-    // Assembly version should contain major and minor only, as no breaking changes are expected in bug fix releases.
-    let assemblyVersion = sprintf "%d.%d.0.0" major minor
-    let fileVersion = sprintf "%d.%d.%d.%d" major minor revision commitsNum
- 
-    // If number of commits since last tag is greater than zero, we append another identifier with number of commits.
-    // The produced version is larger than the last tag version.
-    // If we are on a tag, we use version without modification.
-    // Examples of output: 3.50.2.1, 3.50.2.215, 3.50.1-rc1.3, 3.50.1-rc3.35
-    let packageVersion = match commitsNum with
-                         | 0 -> sprintf "%d.%d.%d%s" major minor revision preReleaseSuffix
-                         | _ -> sprintf "%d.%d.%d%s.%d" major minor revision preReleaseSuffix commitsNum
-
-    let infoVersion = match commitsNum with
-                      | 0 -> packageVersion
-                      | _ -> sprintf "%s-%s" packageVersion commitSha
-
-    { assembly = assemblyVersion; file = fileVersion; info = infoVersion; package = packageVersion }
- 
 let root = __SOURCE_DIRECTORY__ </> ".." |> Path.getFullName
 
 let configuration = Environment.environVarOrDefault "configuration" "Debug"
-let version = getVersion ()
-
-let additionalArgs = [
-    "AssemblyVersion", version.assembly
-    "FileVersion", version.file
-    "InformationalVersion", version.info
-    "PackageVersion", version.package
-]
 
 let output = root </> "bin" </> configuration
 let solution = (root </> "NSubstitute.sln")
 
 let initTargets() =
-    Target.create "Default" ignore
-    Target.create "All" ignore
-
-    Target.description("Clean compilation artifacts and remove output bin directory")
-    Target.create "Clean" (fun _ ->
-        DotNet.exec (fun p -> { p with WorkingDirectory = root }) "clean"
-            (sprintf "--configuration %s --verbosity minimal" configuration)
-            |> ignore
-        Shell.cleanDirs [ output ]
-    )
-
-    Target.description("Restore dependencies")
-    Target.create "Restore" (fun _ ->
-        DotNet.restore (fun p -> p) solution
-    )
-
-    Target.description("Compile all projects")
-    Target.create "Build" (fun _ ->
-        DotNet.build (fun p ->
-            { p with Configuration = DotNet.BuildConfiguration.fromString configuration
-                     MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }
-            }) solution
-    )
-
-    Target.description("Run tests")
-    Target.create "Test" (fun _ ->
-        DotNet.test (fun p ->
-            { p with Configuration = DotNet.BuildConfiguration.fromString configuration
-                     MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }
-            }) (root </> "tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj")
-    )
-
-    Target.description("Generate Nuget package")
-    Target.create "Package" (fun _ ->
-        DotNet.pack (fun p ->
-            { p with Configuration = DotNet.BuildConfiguration.fromString configuration
-                     MSBuildParams = { p.MSBuildParams with Properties = additionalArgs }
-            }) (root </> "src/NSubstitute/NSubstitute.csproj")
-    )
-
-    Target.description("Run all benchmarks. Must be run with configuration=Release.")
-    Target.create "Benchmarks" (fun _ ->
-        if configuration <> "Release" then
-            failwith "Benchmarks can only be run in Release mode. Please re-run the build in Release configuration."
-
-        let benchmarkCsproj = root </> "tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" |> Path.getFullName
-        let benchmarkToRun = Environment.environVarOrDefault "benchmark" "*" // Defaults to "*" (all)
-        [ "netcoreapp2.1" ]
-        |> List.iter (fun framework ->
-            Trace.traceImportant ("Benchmarking " + framework)
-            let work = output </> "benchmark-" + framework
-            Directory.ensure work
-            DotNet.exec (fun p -> { p with WorkingDirectory = work }) "run"
-                ("--framework " + framework + " --project " + benchmarkCsproj + " -- " + benchmarkToRun)
-                |> ignore
-        )
-    )
-
     Target.description("Extract, build and test code from documentation.")
     Target.create "TestCodeFromDocs" <| fun _ ->
         let outputCodePath = output </> "CodeFromDocs"
@@ -219,23 +122,7 @@ let initTargets() =
         printfn ""
         Target.listAvailable()
 
-    "Clean" ?=> "Build"             |> ignore
-    "Clean" ?=> "Test"              |> ignore
-    "Clean" ?=> "Restore"           |> ignore
-    "Clean" ?=> "Documentation"     |> ignore
-    "Clean" ?=> "TestCodeFromDocs"  |> ignore
-    "Clean" ?=> "Package"           |> ignore
-    "Clean" ?=> "Default"           |> ignore
-
-    "Build"         <== [ "Restore" ]
-    "Test"          <== [ "Build" ]
     "Documentation" <== [ "TestCodeFromDocs" ]
-    "Benchmarks"    <== [ "Build" ]
-    // For packaging, use a clean build and make sure all tests (inc. docs) pass.
-    "Package"       <== [ "Clean"; "Build"; "Test"; "TestCodeFromDocs" ]
-
-    "Default"       <== [ "Restore"; "Build"; "Test" ]
-    "All"           <== [ "Clean"; "Default"; "Documentation"; "Package" ]
 
 [<EntryPoint>]
 let main argv =
@@ -245,5 +132,5 @@ let main argv =
     |> Context.RuntimeContext.Fake
     |> Context.setExecutionContext
     initTargets()
-    Target.runOrDefaultWithArguments "Default"
+    Target.runOrDefaultWithArguments "TestCodeFromDocs"
     0 
