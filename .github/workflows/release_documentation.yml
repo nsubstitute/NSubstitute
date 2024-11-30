@@ -1,12 +1,6 @@
-name: Build release packages and documentation
+name: Release documentation
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*'
-
-env:
-  CONFIGURATION: Release
 
 jobs:
   build:
@@ -14,16 +8,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            6.0.x
-            7.0.x
-            8.0.x
+          dotnet-version: 9.0.x
 
       - name: Setup Ruby for documentation build
         uses: ruby/setup-ruby@v1
@@ -31,17 +20,8 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Build package and docs
-        run: dotnet run --project 'build/build.fsproj' -- -t All
-
-      - name: Upload packages
-        uses: actions/upload-artifact@v4
-        with:
-          name: packages
-          path: |
-            bin/Release/NSubstitute/*.nupkg
-            bin/Release/NSubstitute/*.snupkg
-          retention-days: 7
+      - name: Build documentation
+        run: dotnet run --project 'build/build.fsproj' -- -t Documentation
 
       - name: Upload documentation
         uses: actions/upload-artifact@v4

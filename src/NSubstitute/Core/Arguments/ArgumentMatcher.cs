@@ -38,6 +38,11 @@ public static class ArgumentMatcher
         protected readonly IArgumentMatcher<T> _matcher = matcher;
 
         public bool IsSatisfiedBy(object? argument) => _matcher.IsSatisfiedBy((T?)argument!);
+
+        public override string ToString() =>
+            _matcher is IDescribeSpecification describe
+                ? describe.DescribeSpecification() ?? string.Empty
+                : _matcher.ToString() ?? string.Empty;
     }
 
     private class GenericToNonGenericMatcherProxyWithDescribe<T> : GenericToNonGenericMatcherProxy<T>, IDescribeNonMatches
