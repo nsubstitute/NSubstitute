@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macOS-latest]
-        framework: [net8.0]
+        framework: [net9.0, net8.0]
         include:
           - os: windows-latest
             framework: net462
@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
+            9.0.x
             8.0.x
 
       - name: Build
@@ -42,6 +43,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
+            9.0.x
             8.0.x
 
       # used for documentation
@@ -63,7 +65,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.x
 
       - name: Format
         run: dotnet format --verify-no-changes
