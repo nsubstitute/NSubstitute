@@ -16,20 +16,18 @@ jobs:
             9.0.x
             8.0.x
 
-      - name: Setup Ruby for documentation build
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
+      - name: Setup docfx
+        run: dotnet tool install -g docfx
 
       - name: Build documentation
-        run: dotnet run --project 'build/build.fsproj' -- -t Documentation
+        run: docfx build
+        working-directory: ./docs
 
       - name: Upload documentation
         uses: actions/upload-artifact@v4
         with:
           name: docs
           path: |
-            bin/Debug/nsubstitute.github.com/
+            ./docs/_site
           retention-days: 7
           compression-level: 9
