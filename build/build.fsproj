@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="build.cmd" />
-    <None Include="build.sh" />
     <Compile Include="ExtractDocs.fs" />
     <Compile Include="build.fs" />
   </ItemGroup>
