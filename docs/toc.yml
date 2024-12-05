@@ -1,8 +1,8 @@
 - name: Documentation
   href: docs/
 
-- name: Docs and getting help
+- name: Getting help
   href: help.md
 
-- name: NSub on GitHub
+- name: NSubstitute on GitHub
   href: https://github.com/nsubstitute/NSubstitute
