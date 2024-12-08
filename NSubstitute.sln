@@ -10,9 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0E2B9095
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A8AF7D01-6CE4-47B2-9E23-689A53991C3D}"
 	ProjectSection(SolutionItems) = preProject
-		build\build.cmd = build\build.cmd
 		build\build.fs = build\build.fs
-		build\build.sh = build\build.sh
 		build\ExtractDocs.fs = build\ExtractDocs.fs
 	EndProjectSection
 EndProject
