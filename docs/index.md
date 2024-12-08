@@ -41,7 +41,6 @@ calculator.PoweringUp += Raise.Event();
 ## Helpful exceptions
 
 <div class="highlight">
-<pre>
 
 ```text
 ReceivedCallsException : Expected to receive a call matching:
@@ -52,7 +51,6 @@ Received 2 non-matching calls (non-matching arguments indicated with '*' charact
     Add(1, *5*)
 ```
 
-</pre>
 </div>
 </div>
 
