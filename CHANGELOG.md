@@ -7,6 +7,7 @@
 * [UPDATE] Mark as obsolete api CompatArg with pre c# 7.0 support
 * [NEW] Added .NET 9 to test matrix
 * [UPDATE] Migrate documentation to docfx platform. https://github.com/dotnet/docfx
+* [UPDATE] Nullability is enabled for public api for .NET Core TFMs
 
 ### 5.3.0 (October 2024)
 

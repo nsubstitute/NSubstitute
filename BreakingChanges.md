@@ -4,6 +4,7 @@
 * Update target frameworks: .NET 8, .NET Standard 2.0.
 * Obsolete api is removed
 * CompatArg is marked as obsolete
+* Nullability is enabled for public api for .NET Core TFMs
 
 5.0.0 Release
 ================
