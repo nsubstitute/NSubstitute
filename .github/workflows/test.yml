@@ -46,15 +46,8 @@ jobs:
             9.0.x
             8.0.x
 
-      # used for documentation
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
-
       - name: Build documentation
-        run: build\build.cmd --target Documentation
+        run: dotnet run --project 'build/build.fsproj'
 
   format-verify:
     runs-on: ubuntu-latest
