@@ -910,12 +910,12 @@ public class ArgumentMatching
     {
         public string DescribeSpecification() => description;
     }
-	
+
     public interface IHasMethodWithOutParameter
     {
         int MethodWithOutParameter(int arg1, out int arg2);
     }
-	
+
     public class HasMethodWithOutParameter : IHasMethodWithOutParameter
     {
         public virtual int MethodWithOutParameter(int arg1, out int arg2)
@@ -924,7 +924,7 @@ public class ArgumentMatching
             return 1;
         }
     }
-	
+
     public class MyHasMethodWithOutParameter : HasMethodWithOutParameter
     {
         // The presence of his override used to throw an exception in NSubstitute 5.0.0, caused by a bug in Caste.Core < 5.2.0
