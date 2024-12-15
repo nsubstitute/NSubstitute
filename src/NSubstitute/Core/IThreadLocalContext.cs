@@ -24,6 +24,12 @@ public interface IThreadLocalContext
     void EnqueueArgumentSpecification(IArgumentSpecification spec);
     IList<IArgumentSpecification> DequeueAllArgumentSpecifications();
 
+    /// <summary>
+    /// Peeks into the argument specifications
+    /// </summary>
+    /// <returns>Enqueued argument specifications</returns>
+    IList<IArgumentSpecification> PeekAllArgumentSpecifications();
+
     void SetPendingRaisingEventArgumentsFactory(Func<ICall, object?[]> getArguments);
     /// <summary>
     /// Returns the previously set arguments factory and resets the stored value.
