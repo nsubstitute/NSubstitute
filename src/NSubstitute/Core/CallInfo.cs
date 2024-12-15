@@ -1,12 +1,13 @@
-using System.Diagnostics.CodeAnalysis;
 using NSubstitute.Exceptions;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 // Disable nullability for entry-point API
 #nullable disable annotations
 
 namespace NSubstitute.Core;
 
-public class CallInfo(Argument[] callArguments)
+public class CallInfo(Argument[] callArguments, MethodInfo methodInfo)
 {
 
     /// <summary>
@@ -24,6 +25,8 @@ public class CallInfo(Argument[] callArguments)
             argument.Value = value;
         }
     }
+
+    public MethodInfo MethodInfo => methodInfo;
 
     private void EnsureArgIsSettable(Argument argument, int index, object value)
     {

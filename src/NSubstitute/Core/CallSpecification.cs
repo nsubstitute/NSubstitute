@@ -1,5 +1,5 @@
-using System.Reflection;
 using NSubstitute.Core.Arguments;
+using System.Reflection;
 
 namespace NSubstitute.Core;
 
@@ -93,7 +93,7 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
     private static bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
     {
         return a.IsGenericMethod == b.IsGenericMethod
-               && a.ReturnType == b.ReturnType
+               && TypesAreAllEquivalent([a.ReturnType], [b.ReturnType])
                && a.Name.Equals(b.Name, StringComparison.Ordinal);
     }
 
