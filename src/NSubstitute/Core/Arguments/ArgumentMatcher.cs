@@ -8,7 +8,7 @@ public static class ArgumentMatcher
     /// Enqueues a matcher for the method argument in current position and returns the value which should be
     /// passed back to the method you invoke.
     /// </summary>
-    public static ref T? Enqueue<T>(IArgumentMatcher<T> argumentMatcher)
+    public static ref T Enqueue<T>(IArgumentMatcher<T> argumentMatcher)
     {
         if (argumentMatcher == null) throw new ArgumentNullException(nameof(argumentMatcher));
 
@@ -21,16 +21,16 @@ public static class ArgumentMatcher
         return ref EnqueueArgSpecification<T>(new ArgumentSpecification(typeof(T), nonGenericMatcher));
     }
 
-    internal static ref T? Enqueue<T>(IArgumentMatcher argumentMatcher) =>
+    internal static ref T Enqueue<T>(IArgumentMatcher argumentMatcher) =>
         ref EnqueueArgSpecification<T>(new ArgumentSpecification(typeof(T), argumentMatcher));
 
-    internal static ref T? Enqueue<T>(IArgumentMatcher argumentMatcher, Action<object?> action) =>
+    internal static ref T Enqueue<T>(IArgumentMatcher argumentMatcher, Action<object?> action) =>
         ref EnqueueArgSpecification<T>(new ArgumentSpecification(typeof(T), argumentMatcher, action));
 
-    private static ref T? EnqueueArgSpecification<T>(IArgumentSpecification specification)
+    private static ref T EnqueueArgSpecification<T>(IArgumentSpecification specification)
     {
         SubstitutionContext.Current.ThreadContext.EnqueueArgumentSpecification(specification);
-        return ref new DefaultValueContainer<T>().Value;
+        return ref new DefaultValueContainer<T>().Value!;
     }
 
     private class GenericToNonGenericMatcherProxy<T>(IArgumentMatcher<T> matcher) : IArgumentMatcher
