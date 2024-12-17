@@ -1,11 +1,7 @@
-// Disable nullability for client API, so it does not affect clients.
-
 using NSubstitute.ClearExtensions;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
-
-#nullable disable annotations
 
 namespace NSubstitute;
 

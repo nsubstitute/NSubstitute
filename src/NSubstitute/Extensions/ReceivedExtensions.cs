@@ -1,9 +1,6 @@
 ﻿using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
-// Disable nullability for client API, so it does not affect clients.
-#nullable disable annotations
-
 namespace NSubstitute.ReceivedExtensions;
 
 public static class ReceivedExtensions
@@ -48,7 +45,7 @@ public static class ReceivedExtensions
 /// <summary>
 /// Represents a quantity. Primarily used for specifying a required amount of calls to a member.
 /// </summary>
-public abstract class Quantity
+public abstract record Quantity
 {
     public static Quantity Exactly(int number) { return number == 0 ? None() : new ExactQuantity(number); }
     public static Quantity AtLeastOne() { return new AnyNonZeroQuantity(); }
@@ -87,9 +84,14 @@ public abstract class Quantity
     /// <returns>A string describing the required quantity of items identified by the provided noun forms.</returns>
     public abstract string Describe(string singularNoun, string pluralNoun);
 
-    private class ExactQuantity(int number) : Quantity
+    private record ExactQuantity : Quantity
     {
-        private readonly int _number = number;
+        private readonly int _number;
+
+        public ExactQuantity(int number)
+        {
+            _number = number;
+        }
 
         public override bool Matches<T>(IEnumerable<T> items) { return _number == items.Count(); }
         public override bool RequiresMoreThan<T>(IEnumerable<T> items) { return _number > items.Count(); }
@@ -97,26 +99,9 @@ public abstract class Quantity
         {
             return string.Format("exactly {0} {1}", _number, _number == 1 ? singularNoun : pluralNoun);
         }
-
-        public bool Equals(ExactQuantity other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return other._number == _number;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof(ExactQuantity)) return false;
-            return Equals((ExactQuantity)obj);
-        }
-
-        public override int GetHashCode() { return _number; }
     }
 
-    private class AnyNonZeroQuantity : Quantity
+    private record AnyNonZeroQuantity : Quantity
     {
         public override bool Matches<T>(IEnumerable<T> items) { return items.Any(); }
         public override bool RequiresMoreThan<T>(IEnumerable<T> items) { return !items.Any(); }
@@ -125,27 +110,9 @@ public abstract class Quantity
         {
             return string.Format("a {0}", singularNoun);
         }
-
-        public bool Equals(AnyNonZeroQuantity other)
-        {
-            return !ReferenceEquals(null, other);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof(AnyNonZeroQuantity)) return false;
-            return Equals((AnyNonZeroQuantity)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return 0;
-        }
     }
 
-    private class NoneQuantity : Quantity
+    private record NoneQuantity : Quantity
     {
         public override bool Matches<T>(IEnumerable<T> items) { return !items.Any(); }
         public override bool RequiresMoreThan<T>(IEnumerable<T> items) { return false; }
@@ -153,27 +120,13 @@ public abstract class Quantity
         {
             return "no " + pluralNoun;
         }
-
-        public bool Equals(NoneQuantity other)
-        {
-            return !ReferenceEquals(null, other);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof(NoneQuantity)) return false;
-            return Equals((NoneQuantity)obj);
-        }
-
-        public override int GetHashCode() { return 0; }
     }
 
-    private class RangeQuantity : Quantity
+    private record RangeQuantity : Quantity
     {
         private readonly int minInclusive;
         private readonly int maxInclusive;
+
         public RangeQuantity(int minInclusive, int maxInclusive)
         {
             if (minInclusive < 0)
