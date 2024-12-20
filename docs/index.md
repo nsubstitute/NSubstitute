@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: landing
 title: A friendly substitute for .NET mocking libraries
 ---
 
@@ -41,13 +41,16 @@ calculator.PoweringUp += Raise.Event();
 ## Helpful exceptions
 
 <div class="highlight">
-<pre>
+
+```text
 ReceivedCallsException : Expected to receive a call matching:
     Add(1, 2)
 Actually received no matching calls.
 Received 2 non-matching calls (non-matching arguments indicated with '*' characters):
     Add(*4*, *7*)
-    Add(1, *5*)</pre>
+    Add(1, *5*)
+```
+
 </div>
 </div>
 

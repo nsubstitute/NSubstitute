@@ -1,7 +1,6 @@
 module ExtractDocs
 
 open System
-open System.IO
 open System.Text.RegularExpressions
 
 let LiquidTagRegex = @"```(?<tag>\w+)" +        // Tag start with argument. e.g. "```csharp"
