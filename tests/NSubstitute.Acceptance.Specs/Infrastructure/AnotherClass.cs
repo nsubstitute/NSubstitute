@@ -14,6 +14,11 @@ public abstract class AnotherClass
 
     protected abstract void ProtectedMethodWithNoReturn(string msg, int i, char j);
 
+    public abstract void PublicVirtualMethod();
+
+    protected void ProtectedNonVirtualMethod()
+    { }
+
     public string DoWork()
     {
         return ProtectedMethod();

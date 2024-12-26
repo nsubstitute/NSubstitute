@@ -112,9 +112,8 @@ public class ThreadLocalContext : IThreadLocalContext
     public IList<IArgumentSpecification> PeekAllArgumentSpecifications()
     {
         var queue = _argumentSpecifications.Value;
-        if (queue == null) { throw new SubstituteInternalException("Argument specification queue is null."); }
 
-        if (queue.Count > 0)
+        if (queue?.Count > 0)
         {
             var items = new IArgumentSpecification[queue.Count];
 
