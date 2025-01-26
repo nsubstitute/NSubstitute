@@ -787,6 +787,24 @@ public class ArgumentMatching
     }
 
     [Test]
+    public void Supports_matching_custom_with_multiple_generic_arguments_string()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyStringIntArgument();
+
+        service.MyMethodWithReturnValue<string>().Returns(argument);
+    }
+
+    [Test]
+    public void Supports_matching_custom_with_multiple_generic_arguments_int()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyStringIntArgument();
+
+        service.MyMethodWithReturnValue<int>().Returns(argument);
+    }
+
+    [Test]
     public void Supports_matching_generic_interface_bound_type_ArgAnyType_with_class_argument()
     {
         var service = Substitute.For<IMyService>();
@@ -858,6 +876,9 @@ public class ArgumentMatching
     public interface IMyService
     {
         void MyMethod<T>(IMyArgument<T> argument);
+
+        IMyArgument<T> MyMethodWithReturnValue<T>();
+
     }
 
     public interface IMyArgument<T> { }
@@ -866,6 +887,7 @@ public class ArgumentMatching
     public class MyOtherStringArgument : IMyArgument<string> { }
     public class MySampleClassArgument : IMyArgument<SampleClass> { }
     public class MyOtherSampleClassArgument : IMyArgument<SampleClass> { }
+    public class MyStringIntArgument : IMyArgument<string>, IMyArgument<int> { }
     public class MySampleDerivedClassArgument : MySampleClassArgument { }
 
     [Test]
