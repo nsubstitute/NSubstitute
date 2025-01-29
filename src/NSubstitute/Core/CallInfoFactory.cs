@@ -5,7 +5,7 @@ public class CallInfoFactory : ICallInfoFactory
     public CallInfo Create(ICall call)
     {
         var arguments = GetArgumentsFromCall(call);
-        return new CallInfo(arguments);
+        return new CallInfo(arguments, call.GetMethodInfo());
     }
 
     private static Argument[] GetArgumentsFromCall(ICall call)

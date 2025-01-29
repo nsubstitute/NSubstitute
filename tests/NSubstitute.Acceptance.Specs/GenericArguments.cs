@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Globalization;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs;
@@ -11,6 +12,7 @@ public class GenericArguments
     {
         void SomeAction<TState>(int level, TState state);
         string SomeFunction<TState>(int level, TState state);
+        ICollection<TState> SomeFunction<TState>(int level);
         void SomeActionWithGenericConstraints<TState>(int level, TState state) where TState : IEnumerable<int>;
         string SomeFunctionWithGenericConstraints<TState>(int level, TState state) where TState : IEnumerable<int>;
     }
@@ -130,5 +132,36 @@ public class GenericArguments
         var result = something.SomeFunctionWithGenericConstraints(7, new[] { 3409 });
 
         Assert.That(result, Is.EqualTo("matched"));
+    }
+
+    [Test]
+    public void Callback_allows_access_to_method_call()
+    {
+        static ICollection<T> CreateSubstitute<T>(int count)
+        {
+            ICollection<T> substitute = Substitute.For<ICollection<T>>();
+            substitute.Count.Returns(count);
+            return substitute;
+        }
+
+        MethodInfo methodInfo = typeof(GenericArguments)
+            .GetMethods(BindingFlags.Static | BindingFlags.NonPublic)
+            .Single(x
+                => x.Name.Contains(nameof(CreateSubstitute))
+                && x.Name.Contains(nameof(Callback_allows_access_to_method_call)));
+
+        ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
+        something
+            .SomeFunction<Arg.AnyType>(Arg.Any<int>())
+            .Returns(x =>
+            {
+                Type argumentType = x.MethodInfo.GetGenericArguments()[0];
+                MethodInfo method = methodInfo.MakeGenericMethod(argumentType);
+                return method.Invoke(null, [x.Arg<int>()]);
+            });
+
+        ICollection<int> result = something.SomeFunction<int>(7);
+
+        Assert.That(result.Count, Is.EqualTo(7));
     }
 }
