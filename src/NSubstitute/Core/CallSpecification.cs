@@ -67,6 +67,15 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
             var first = aArgs[i];
             var second = bArgs[i];
 
+            // Get the element types for ref and out parameters, important for matching calls when Arg.AnyType
+            // is used in combination with ref or out parameters.
+            if (first.HasElementType && !first.IsArray
+                && second.HasElementType && !second.IsArray)
+            {
+                first = first.GetElementType()!;
+                second = second.GetElementType()!;
+            }
+
             if (first.IsGenericType && second.IsGenericType
                 && first.GetGenericTypeDefinition() == second.GetGenericTypeDefinition())
             {
