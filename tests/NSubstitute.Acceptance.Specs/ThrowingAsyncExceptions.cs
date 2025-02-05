@@ -295,6 +295,88 @@ public class ThrowingAsyncExceptions
             AssertFaultedTaskException<int, ArgumentException>(() => _something.AnythingValueTaskAsync(new object()));
         }
 
+        [Test]
+        public void ThrowVoidAsyncException()
+        {
+            var exception = new Exception();
+            _something.VoidValueTaskAsync().ThrowsAsync(exception);
+
+            AssertFaultedTaskException<Exception>(() => _something.VoidValueTaskAsync());
+        }
+
+        [Test]
+        public void ThrowVoidAsyncExceptionWithDefaultConstructor()
+        {
+            _something.VoidValueTaskAsync().ThrowsAsync<ArgumentException>();
+
+            AssertFaultedTaskException<ArgumentException>(() => _something.VoidValueTaskAsync());
+        }
+
+        [Test]
+        public void ThrowVoidExceptionWithMessage()
+        {
+            const string exceptionMessage = "This is exception's message";
+
+            _something.VoidValueTaskAsync().ThrowsAsync(new Exception(exceptionMessage));
+
+            Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.VoidValueTaskAsync());
+            ClassicAssert.AreEqual(exceptionMessage, exceptionThrown.Message);
+        }
+
+        [Test]
+        public void ThrowVoidExceptionWithInnerException()
+        {
+            ArgumentException innerException = new ArgumentException();
+            _something.VoidValueTaskAsync().ThrowsAsync(new Exception("Exception message", innerException));
+
+            Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.VoidValueTaskAsync());
+
+            ClassicAssert.IsNotNull(exceptionThrown.InnerException);
+            ClassicAssert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
+        }
+
+        [Test]
+        public void ThrowVoidExceptionUsingFactoryFunc()
+        {
+            _something.AnythingVoidValueTaskAsync("abc").ThrowsAsync(ci => new ArgumentException("Args:" + ci.Args()[0]));
+
+            AssertFaultedTaskException<ArgumentException>(() => _something.AnythingVoidValueTaskAsync("abc"));
+        }
+
+        [Test]
+        public void DoesNotThrowVoidForNonMatchingArgs()
+        {
+            _something.AnythingVoidValueTaskAsync(12).ThrowsAsync(new Exception());
+
+            AssertFaultedTaskException<Exception>(() => _something.AnythingVoidValueTaskAsync(12));
+            AssertDoesNotThrow(() => _something.AnythingVoidValueTaskAsync(11));
+        }
+
+        [Test]
+        public void ThrowVoidExceptionForAnyArgs()
+        {
+            _something.AnythingVoidValueTaskAsync(12).ThrowsAsyncForAnyArgs(new Exception());
+
+            AssertFaultedTaskException<Exception>(() => _something.AnythingVoidValueTaskAsync(null));
+            AssertFaultedTaskException<Exception>(() => _something.AnythingVoidValueTaskAsync(12));
+        }
+
+        [Test]
+        public void ThrowVoidExceptionWithDefaultConstructorForAnyArgs()
+        {
+            _something.AnythingVoidValueTaskAsync(12).ThrowsAsyncForAnyArgs<InvalidOperationException>();
+
+            AssertFaultedTaskException<InvalidOperationException>(() => _something.AnythingVoidValueTaskAsync(null));
+        }
+
+        [Test]
+        public void ThrowVoidExceptionCreatedByFactoryFuncForAnyArgs()
+        {
+            _something.AnythingVoidValueTaskAsync(null).ThrowsAsyncForAnyArgs(ci => new ArgumentException("Args:" + ci.Args()[0]));
+
+            AssertFaultedTaskException<ArgumentException>(() => _something.AnythingVoidValueTaskAsync(new object()));
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -317,6 +399,22 @@ public class ThrowingAsyncExceptions
         }
 
         public static void AssertDoesNotThrow<T>(Func<ValueTask<T>> act)
+        {
+            var actual = act();
+
+            Assert.That(actual.IsFaulted, Is.False);
+        }
+
+        public static TException AssertFaultedTaskException<TException>(Func<ValueTask> act)
+            where TException : Exception
+        {
+            var actual = act();
+
+            Assert.That(actual.IsFaulted, Is.True);
+            return Assert.CatchAsync<TException>(async () => await actual);
+        }
+
+        public static void AssertDoesNotThrow(Func<ValueTask> act)
         {
             var actual = act();
 
