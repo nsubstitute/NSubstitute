@@ -2,9 +2,6 @@
 using NSubstitute.Core;
 using System.Collections.Concurrent;
 
-// Disable nullability for client API, so it does not affect clients.
-#nullable disable annotations
-
 namespace NSubstitute;
 
 /// <summary>

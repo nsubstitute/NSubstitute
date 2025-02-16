@@ -1,8 +1,5 @@
-using System.Diagnostics.Contracts;
 using NSubstitute.Core;
-
-// Disable nullability for client API, so it does not affect clients.
-#nullable disable annotations
+using System.Diagnostics.Contracts;
 
 namespace NSubstitute;
 

@@ -1,9 +1,6 @@
 ﻿using NSubstitute.Core;
 using System.Reflection;
 
-// Disable nullability for client API, so it does not affect clients.
-#nullable disable annotations
-
 namespace NSubstitute.ExceptionExtensions;
 
 public static class ExceptionExtensions
@@ -236,7 +233,7 @@ public static class ExceptionExtensions
         {
             var fromExceptionMethodInfo = typeof(Task).GetMethods(BindingFlags.Static | BindingFlags.Public).Single(m => m.Name == "FromException" && m.ContainsGenericParameters);
             var specificFromExceptionMethod = fromExceptionMethodInfo.MakeGenericMethod(valueType.GenericTypeArguments);
-            return specificFromExceptionMethod.Invoke(null, [exception]);
+            return specificFromExceptionMethod.Invoke(null, [exception])!;
         }
 
         return Task.FromException(exception);
