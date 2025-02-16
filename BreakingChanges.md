@@ -4,7 +4,7 @@
 * Update target frameworks: .NET 8, .NET Standard 2.0.
 * Obsolete api is removed
 * CompatArg is marked as obsolete
-* Nullability is enabled for public api for .NET Core TFMs
+* Nullability is enabled for public api for .NET 8+. Workaround: you can disable nullability `<Nullable>disable</Nullable>` on project if you don't want to use it. more info https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references
 
 5.0.0 Release
 ================
