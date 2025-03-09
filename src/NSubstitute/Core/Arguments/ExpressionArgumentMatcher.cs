@@ -7,7 +7,7 @@ public class ExpressionArgumentMatcher<T>(Expression<Predicate<T?>> predicate) :
     private readonly string _predicateDescription = predicate.ToString();
     private readonly Predicate<T?> _predicate = predicate.Compile();
 
-    public bool IsSatisfiedBy(object? argument) => _predicate((T?)argument!);
+    public bool IsSatisfiedBy(object? argument) => _predicate((T?)argument);
 
     public override string ToString() => _predicateDescription;
 }

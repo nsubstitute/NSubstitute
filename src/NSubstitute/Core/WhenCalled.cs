@@ -1,8 +1,5 @@
 using NSubstitute.Routing;
 
-// Disable nullability for entry-point API
-#nullable disable annotations
-
 namespace NSubstitute.Core;
 
 public class WhenCalled<T>(ISubstitutionContext context, T substitute, Action<T> call, MatchArgs matchArgs)

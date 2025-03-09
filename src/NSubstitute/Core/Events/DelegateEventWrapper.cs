@@ -6,14 +6,11 @@ public class DelegateEventWrapper<T>(params object?[] arguments) : RaiseEventWra
 {
     protected override string RaiseMethodName => "Raise.Event";
 
-    // Disable nullability for client API, so it does not affect clients.
-#nullable disable annotations
-    public static implicit operator T(DelegateEventWrapper<T> wrapper)
+    public static implicit operator T?(DelegateEventWrapper<T> wrapper)
     {
         RaiseEvent(wrapper);
         return default;
     }
-#nullable restore annotations
 
     protected override object?[] WorkOutRequiredArguments(ICall call)
     {

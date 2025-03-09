@@ -1,12 +1,13 @@
 ### 6.x (work in progress)
 
-* [UPDATE] Update target frameworks: .NET8, .NET Standard 2.0
+* [UPDATE][BREAKING] Update target frameworks: .NET8, .NET Standard 2.0
 * [UPDATE] Drop EOL .NET 6/7 platforms from testing matrix
 * [UPDATE] Update github actions steps versions
-* [UPDATE] Remove legacy obsolete API
-* [UPDATE] Mark as obsolete api CompatArg with pre c# 7.0 support
+* [UPDATE][BREAKING] Remove legacy obsolete API
+* [UPDATE][BREAKING] Mark as obsolete api CompatArg with pre c# 7.0 support
 * [NEW] Added .NET 9 to test matrix
 * [UPDATE] Migrate documentation to docfx platform. https://github.com/dotnet/docfx
+* [UPDATE][BREAKING] Nullability is enabled for public api for .NET Core TFMs
 
 ### 5.3.0 (October 2024)
 

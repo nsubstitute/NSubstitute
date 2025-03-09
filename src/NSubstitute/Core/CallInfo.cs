@@ -1,8 +1,5 @@
-using System.Diagnostics.CodeAnalysis;
 using NSubstitute.Exceptions;
-
-// Disable nullability for entry-point API
-#nullable disable annotations
+using System.Diagnostics.CodeAnalysis;
 
 namespace NSubstitute.Core;
 
@@ -14,7 +11,7 @@ public class CallInfo(Argument[] callArguments)
     /// </summary>
     /// <param name="index">Index of argument</param>
     /// <returns>The value of the argument at the given index</returns>
-    public object this[int index]
+    public object? this[int index]
     {
         get => callArguments[index].Value;
         set
@@ -25,7 +22,7 @@ public class CallInfo(Argument[] callArguments)
         }
     }
 
-    private void EnsureArgIsSettable(Argument argument, int index, object value)
+    private void EnsureArgIsSettable(Argument argument, int index, object? value)
     {
         if (!argument.IsByRef)
         {
@@ -42,7 +39,7 @@ public class CallInfo(Argument[] callArguments)
     /// Get the arguments passed to this call.
     /// </summary>
     /// <returns>Array of all arguments passed to this call</returns>
-    public object[] Args() => callArguments.Select(x => x.Value).ToArray();
+    public object?[] Args() => callArguments.Select(x => x.Value).ToArray();
 
     /// <summary>
     /// Gets the types of all the arguments passed to this call.
@@ -56,15 +53,15 @@ public class CallInfo(Argument[] callArguments)
     /// </summary>
     /// <typeparam name="T">The type of the argument to retrieve</typeparam>
     /// <returns>The argument passed to the call, or throws if there is not exactly one argument of this type</returns>
-    public T Arg<T>()
+    public T? Arg<T>()
     {
-        T arg;
+        T? arg;
         if (TryGetArg(x => x.IsDeclaredTypeEqualToOrByRefVersionOf(typeof(T)), out arg)) return arg;
         if (TryGetArg(x => x.IsValueAssignableTo(typeof(T)), out arg)) return arg;
         throw new ArgumentNotFoundException("Can not find an argument of type " + typeof(T).FullName + " to this call.");
     }
 
-    private bool TryGetArg<T>(Func<Argument, bool> condition, [MaybeNullWhen(false)] out T value)
+    private bool TryGetArg<T>(Func<Argument, bool> condition, [MaybeNullWhen(false)] out T? value)
     {
         value = default;
 
@@ -72,7 +69,7 @@ public class CallInfo(Argument[] callArguments)
         if (!matchingArgs.Any()) return false;
         ThrowIfMoreThanOne<T>(matchingArgs);
 
-        value = (T)matchingArgs.First().Value!;
+        value = (T?)matchingArgs.First().Value!;
         return true;
     }
 
