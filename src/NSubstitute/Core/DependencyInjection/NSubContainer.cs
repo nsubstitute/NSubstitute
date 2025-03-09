@@ -13,7 +13,7 @@ namespace NSubstitute.Core.DependencyInjection;
 ///         - <see cref="NSubLifetime.Singleton" />
 ///     - Immutability (via interfaces) and customization by creating a nested container
 /// </summary>
-public class NSubContainer : IConfigurableNSubContainer
+public sealed class NSubContainer : IConfigurableNSubContainer
 {
     private readonly NSubContainer? _parentContainer;
     private readonly object _syncRoot;
@@ -137,7 +137,7 @@ public class NSubContainer : IConfigurableNSubContainer
         }
     }
 
-    private class Registration(Func<NSubContainer.Scope, object> factory, NSubLifetime lifetime)
+    private sealed class Registration(Func<NSubContainer.Scope, object> factory, NSubLifetime lifetime)
     {
         private object? _singletonValue;
         public NSubLifetime Lifetime { get; } = lifetime;
@@ -168,7 +168,7 @@ public class NSubContainer : IConfigurableNSubContainer
         }
     }
 
-    private class Scope(NSubContainer mostNestedContainer) : INSubResolver
+    private sealed class Scope(NSubContainer mostNestedContainer) : INSubResolver
     {
         private readonly Dictionary<Registration, object> _cache = [];
 

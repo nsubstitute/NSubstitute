@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnFromCustomHandlers(ICustomHandlers customHandlers) : ICallHandler
+internal sealed class ReturnFromCustomHandlers(ICustomHandlers customHandlers) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

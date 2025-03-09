@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace NSubstitute.Core;
 
-public static class ReflectionExtensions
+internal static class ReflectionExtensions
 {
     public static PropertyInfo? GetPropertyFromSetterCallOrNull(this MethodInfo call)
     {

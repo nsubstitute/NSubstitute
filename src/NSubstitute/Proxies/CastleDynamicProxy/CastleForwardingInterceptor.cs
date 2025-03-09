@@ -3,7 +3,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy;
 
-public class CastleForwardingInterceptor(CastleInvocationMapper invocationMapper, ICallRouter callRouter) : IInterceptor
+internal sealed class CastleForwardingInterceptor(CastleInvocationMapper invocationMapper, ICallRouter callRouter) : IInterceptor
 {
     private bool _fullDispatchMode;
 

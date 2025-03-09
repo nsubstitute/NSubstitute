@@ -3,7 +3,7 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Routing.AutoValues;
 
-public class AutoValueProvidersFactory : IAutoValueProvidersFactory
+internal sealed class AutoValueProvidersFactory : IAutoValueProvidersFactory
 {
     public IReadOnlyCollection<IAutoValueProvider> CreateProviders(ISubstituteFactory substituteFactory)
     {

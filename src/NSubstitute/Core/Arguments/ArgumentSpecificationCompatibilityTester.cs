@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core.Arguments;
 
-public class ArgumentSpecificationCompatibilityTester(IDefaultChecker defaultChecker) : IArgumentSpecificationCompatibilityTester
+internal sealed class ArgumentSpecificationCompatibilityTester(IDefaultChecker defaultChecker) : IArgumentSpecificationCompatibilityTester
 {
     public bool IsSpecificationCompatible(IArgumentSpecification specification, object? argumentValue, Type argumentType)
     {

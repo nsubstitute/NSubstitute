@@ -1,9 +1,9 @@
-﻿using System.Reflection;
-using NSubstitute.Core.Arguments;
+﻿using NSubstitute.Core.Arguments;
+using System.Reflection;
 
 namespace NSubstitute.Core;
 
-public class ResultsForType(ICallInfoFactory callInfoFactory) : IResultsForType
+internal sealed class ResultsForType(ICallInfoFactory callInfoFactory) : IResultsForType
 {
     private readonly CallResults _results = new CallResults(callInfoFactory);
 
@@ -22,7 +22,7 @@ public class ResultsForType(ICallInfoFactory callInfoFactory) : IResultsForType
         _results.Clear();
     }
 
-    private class MatchingReturnTypeSpecification(Type expectedReturnType) : ICallSpecification
+    private sealed class MatchingReturnTypeSpecification(Type expectedReturnType) : ICallSpecification
     {
         public bool IsSatisfiedBy(ICall call)
             => call.GetReturnType() == expectedReturnType;

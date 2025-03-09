@@ -3,7 +3,7 @@ using NSubstitute.Routing;
 
 namespace NSubstitute.Core;
 
-public class CallRouter(
+internal sealed class CallRouter(
     ISubstituteState substituteState,
     IThreadLocalContext threadContext,
     IRouteFactory routeFactory,

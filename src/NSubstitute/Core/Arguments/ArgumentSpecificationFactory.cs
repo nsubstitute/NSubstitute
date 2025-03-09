@@ -2,7 +2,7 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core.Arguments;
 
-public class ArgumentSpecificationFactory : IArgumentSpecificationFactory
+internal sealed class ArgumentSpecificationFactory : IArgumentSpecificationFactory
 {
     public IArgumentSpecification Create(object? argument, IParameterInfo parameterInfo,
         ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
@@ -80,7 +80,7 @@ public class ArgumentSpecificationFactory : IArgumentSpecificationFactory
         return result;
     }
 
-    private class ParameterInfoFromType(Type parameterType) : IParameterInfo
+    private sealed class ParameterInfoFromType(Type parameterType) : IParameterInfo
     {
         public Type ParameterType { get; } = parameterType;
 

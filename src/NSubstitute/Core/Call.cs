@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace NSubstitute.Core;
 
-public class Call : ICall, /* Performance optimization */ CallCollection.IReceivedCallEntry
+internal sealed class Call : ICall, /* Performance optimization */ CallCollection.IReceivedCallEntry
 {
     private readonly MethodInfo _methodInfo;
     private readonly object?[] _arguments;

@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace NSubstitute.Routing.AutoValues;
 
-public class AutoTaskProvider(Lazy<IReadOnlyCollection<IAutoValueProvider>> autoValueProviders) : IAutoValueProvider
+internal sealed class AutoTaskProvider(Lazy<IReadOnlyCollection<IAutoValueProvider>> autoValueProviders) : IAutoValueProvider
 {
     public bool CanProvideValueFor(Type type) => typeof(Task).IsAssignableFrom(type);
 

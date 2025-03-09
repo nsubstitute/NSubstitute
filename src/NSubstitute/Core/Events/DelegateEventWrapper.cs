@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace NSubstitute.Core.Events;
 
-public class DelegateEventWrapper<T>(params object?[] arguments) : RaiseEventWrapper
+public sealed class DelegateEventWrapper<T>(params object?[] arguments) : RaiseEventWrapper
 {
     protected override string RaiseMethodName => "Raise.Event";
 

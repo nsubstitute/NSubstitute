@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class SubstituteState : ISubstituteState
+internal sealed class SubstituteState : ISubstituteState
 {
     public ICallBaseConfiguration CallBaseConfiguration { get; }
     public ICallCollection ReceivedCalls { get; }

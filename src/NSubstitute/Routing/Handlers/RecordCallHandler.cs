@@ -2,7 +2,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class RecordCallHandler(ICallCollection callCollection, SequenceNumberGenerator generator) : ICallHandler
+internal sealed class RecordCallHandler(ICallCollection callCollection, SequenceNumberGenerator generator) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

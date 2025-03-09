@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core;
 
-public class PendingSpecificationInfo
+public sealed class PendingSpecificationInfo
 {
     private readonly ICallSpecification? _callSpecification;
     private readonly ICall? _lastCall;

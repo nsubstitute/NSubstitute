@@ -1,13 +1,12 @@
+using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using System.Collections;
 using System.Reflection;
 using System.Text;
-using NSubstitute.Core;
-using NSubstitute.Core.Arguments;
-using static System.Environment;
 
 namespace NSubstitute.Exceptions;
 
-public class AmbiguousArgumentsException : SubstituteException
+public sealed class AmbiguousArgumentsException : SubstituteException
 {
     internal const string NonReportedResolvedSpecificationsKey = "NON_REPORTED_RESOLVED_SPECIFICATIONS";
     private const string DefaultErrorMessage =
@@ -140,6 +139,6 @@ public class AmbiguousArgumentsException : SubstituteException
 
     private static string FormatSpecifications(IEnumerable<IArgumentSpecification> specifications)
     {
-        return string.Join(NewLine, specifications.Select(spec => TabPadding + spec.ToString()));
+        return string.Join(Environment.NewLine, specifications.Select(spec => TabPadding + spec.ToString()));
     }
 }

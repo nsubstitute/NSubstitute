@@ -1,9 +1,9 @@
-using System.Reflection;
 using NSubstitute.Exceptions;
+using System.Reflection;
 
 namespace NSubstitute.Core.SequenceChecking;
 
-public class SequenceInOrderAssertion
+internal sealed class SequenceInOrderAssertion
 {
     public void Assert(IQueryResults queryResult)
     {

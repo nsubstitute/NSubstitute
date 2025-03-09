@@ -2,7 +2,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnConfiguredResultHandler(ICallResults callResults) : ICallHandler
+internal sealed class ReturnConfiguredResultHandler(ICallResults callResults) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

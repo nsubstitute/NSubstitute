@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class TrackLastCallHandler(IPendingSpecification pendingSpecification) : ICallHandler
+internal sealed class TrackLastCallHandler(IPendingSpecification pendingSpecification) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

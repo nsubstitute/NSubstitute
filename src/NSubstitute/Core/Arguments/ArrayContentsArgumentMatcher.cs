@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core.Arguments;
 
-public class ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications) : IArgumentMatcher, IArgumentFormatter
+internal sealed class ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications) : IArgumentMatcher, IArgumentFormatter
 {
     private readonly IArgumentSpecification[] _argumentSpecifications = argumentSpecifications.ToArray();
 

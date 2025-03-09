@@ -3,7 +3,7 @@ using static System.Environment;
 
 namespace NSubstitute.Exceptions;
 
-public class RedundantArgumentMatcherException(string message) : SubstituteException(message)
+public sealed class RedundantArgumentMatcherException(string message) : SubstituteException(message)
 {
     public RedundantArgumentMatcherException(IEnumerable<IArgumentSpecification> remainingSpecifications,
         IEnumerable<IArgumentSpecification> allSpecifications)

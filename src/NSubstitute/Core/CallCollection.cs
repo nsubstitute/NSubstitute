@@ -1,10 +1,10 @@
+using NSubstitute.Exceptions;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
-using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core;
 
-public class CallCollection : ICallCollection
+internal sealed class CallCollection : ICallCollection
 {
     private ConcurrentQueue<IReceivedCallEntry> _callEntries = new();
 
@@ -66,7 +66,7 @@ public class CallCollection : ICallCollection
     /// That is needed because concurrent collections don't have a Delete method.
     /// Notice, in most cases the original <see cref="Call"/> instance will be used as a wrapper itself.
     /// </summary>
-    private class ReceivedCallEntry(ICall call) : IReceivedCallEntry
+    private sealed class ReceivedCallEntry(ICall call) : IReceivedCallEntry
     {
         public ICall? Call { get; private set; } = call;
 

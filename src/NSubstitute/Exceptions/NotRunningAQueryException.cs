@@ -1,6 +1,5 @@
 namespace NSubstitute.Exceptions;
 
-public class NotRunningAQueryException : SubstituteException
+public sealed class NotRunningAQueryException : SubstituteException
 {
-    public NotRunningAQueryException() { }
 }

@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnFromAndConfigureDynamicCall(IConfigureCall configureCall) : ICallHandler
+internal sealed class ReturnFromAndConfigureDynamicCall(IConfigureCall configureCall) : ICallHandler
 {
     private static readonly Type DynamicAttributeType = typeof(DynamicAttribute);
 
@@ -11,9 +11,9 @@ public class ReturnFromAndConfigureDynamicCall(IConfigureCall configureCall) : I
     {
         if (ReturnsDynamic(call))
         {
-            var stubToReturn = new DynamicStub();
+            var stubToReturn = new DynamicCallObject();
             configureCall.SetResultForCall(call, new ReturnValue(stubToReturn), MatchArgs.AsSpecifiedInCall);
-            return RouteAction.Return(new DynamicStub());
+            return RouteAction.Return(new DynamicCallObject());
         }
         else
         {
@@ -33,27 +33,27 @@ public class ReturnFromAndConfigureDynamicCall(IConfigureCall configureCall) : I
         isDynamic = returnParameter.GetCustomAttributes(DynamicAttributeType, inherit: false).Length != 0;
         return isDynamic;
     }
+}
 
-    public class DynamicStub
+public sealed class DynamicCallObject
+{
+    public ConfiguredCall Returns<T>(T? returnThis, params T?[] returnThese)
     {
-        public ConfiguredCall Returns<T>(T? returnThis, params T?[] returnThese)
-        {
-            return default(T).Returns(returnThis, returnThese);
-        }
+        return default(T).Returns(returnThis, returnThese);
+    }
 
-        public ConfiguredCall Returns<T>(Func<CallInfo, T?> returnThis, params Func<CallInfo, T?>[] returnThese)
-        {
-            return default(T).Returns(returnThis, returnThese);
-        }
+    public ConfiguredCall Returns<T>(Func<CallInfo, T?> returnThis, params Func<CallInfo, T?>[] returnThese)
+    {
+        return default(T).Returns(returnThis, returnThese);
+    }
 
-        public ConfiguredCall ReturnsForAnyArgs<T>(T? returnThis, params T?[] returnThese)
-        {
-            return default(T).ReturnsForAnyArgs(returnThis, returnThese);
-        }
+    public ConfiguredCall ReturnsForAnyArgs<T>(T? returnThis, params T?[] returnThese)
+    {
+        return default(T).ReturnsForAnyArgs(returnThis, returnThese);
+    }
 
-        public ConfiguredCall ReturnsForAnyArgs<T>(Func<CallInfo, T?> returnThis, params Func<CallInfo, T?>[] returnThese)
-        {
-            return default(T).ReturnsForAnyArgs(returnThis, returnThese);
-        }
+    public ConfiguredCall ReturnsForAnyArgs<T>(Func<CallInfo, T?> returnThis, params Func<CallInfo, T?>[] returnThese)
+    {
+        return default(T).ReturnsForAnyArgs(returnThis, returnThese);
     }
 }

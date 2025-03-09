@@ -1,9 +1,9 @@
-using System.Reflection;
 using NSubstitute.Core;
+using System.Reflection;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class EventSubscriptionHandler(IEventHandlerRegistry eventHandlerRegistry) : ICallHandler
+internal sealed class EventSubscriptionHandler(IEventHandlerRegistry eventHandlerRegistry) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

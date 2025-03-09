@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core.Arguments;
 
-public class SuppliedArgumentSpecifications : ISuppliedArgumentSpecifications
+internal sealed class SuppliedArgumentSpecifications : ISuppliedArgumentSpecifications
 {
     private readonly IArgumentSpecificationCompatibilityTester _argSpecCompatibilityTester;
     private readonly Queue<IArgumentSpecification> _queue;

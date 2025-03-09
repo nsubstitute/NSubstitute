@@ -1,6 +1,6 @@
 namespace NSubstitute.Exceptions;
 
-public class NotASubstituteException : SubstituteException
+public sealed class NotASubstituteException : SubstituteException
 {
     private const string Explanation =
         "NSubstitute extension methods like .Received() can only be called " +

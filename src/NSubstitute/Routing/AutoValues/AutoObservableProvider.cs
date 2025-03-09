@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace NSubstitute.Routing.AutoValues;
 
-public class AutoObservableProvider(Lazy<IReadOnlyCollection<IAutoValueProvider>> autoValueProviders) : IAutoValueProvider
+internal sealed class AutoObservableProvider(Lazy<IReadOnlyCollection<IAutoValueProvider>> autoValueProviders) : IAutoValueProvider
 {
     public bool CanProvideValueFor(Type type) =>
         type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IObservable<>);

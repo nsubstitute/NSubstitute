@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core;
 
-public class GetCallSpec(
+internal sealed class GetCallSpec(
     ICallCollection receivedCalls,
     ICallSpecificationFactory callSpecificationFactory,
     ICallActions callActions) : IGetCallSpec

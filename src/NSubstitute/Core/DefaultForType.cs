@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class DefaultForType : IDefaultForType
+internal sealed class DefaultForType : IDefaultForType
 {
     private static readonly object BoxedBoolean = default(bool);
     private static readonly object BoxedInt = default(int);

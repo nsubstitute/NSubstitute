@@ -22,12 +22,12 @@ public abstract class CouldNotSetReturnException(string s) : SubstituteException
             "";
 }
 
-public class CouldNotSetReturnDueToNoLastCallException : CouldNotSetReturnException
+public sealed class CouldNotSetReturnDueToNoLastCallException : CouldNotSetReturnException
 {
     public CouldNotSetReturnDueToNoLastCallException() : base("Could not find a call to return from.") { }
 }
 
-public class CouldNotSetReturnDueToMissingInfoAboutLastCallException : CouldNotSetReturnException
+public sealed class CouldNotSetReturnDueToMissingInfoAboutLastCallException : CouldNotSetReturnException
 {
     public CouldNotSetReturnDueToMissingInfoAboutLastCallException() : base("Could not find information about the last call to return from.")
     {
@@ -35,7 +35,7 @@ public class CouldNotSetReturnDueToMissingInfoAboutLastCallException : CouldNotS
 
 }
 
-public class CouldNotSetReturnDueToTypeMismatchException(Type? returnType, MethodInfo member) : CouldNotSetReturnException(DescribeProblem(returnType, member))
+public sealed class CouldNotSetReturnDueToTypeMismatchException(Type? returnType, MethodInfo member) : CouldNotSetReturnException(DescribeProblem(returnType, member))
 {
     private static string DescribeProblem(Type? typeOfReturnValue, MethodInfo member)
     {

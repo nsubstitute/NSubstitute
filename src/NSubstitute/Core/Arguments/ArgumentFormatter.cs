@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core.Arguments;
 
-public class ArgumentFormatter : IArgumentFormatter
+internal sealed class ArgumentFormatter : IArgumentFormatter
 {
     internal static IArgumentFormatter Default { get; } = new ArgumentFormatter();
 

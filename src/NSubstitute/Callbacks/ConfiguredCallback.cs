@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Callbacks;
 
-public class ConfiguredCallback : EndCallbackChain
+public sealed class ConfiguredCallback : EndCallbackChain
 {
     internal ConfiguredCallback() { }
 

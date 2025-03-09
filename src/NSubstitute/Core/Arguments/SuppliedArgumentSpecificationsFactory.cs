@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core.Arguments;
 
-public class SuppliedArgumentSpecificationsFactory(IArgumentSpecificationCompatibilityTester argumentSpecificationCompatTester) : ISuppliedArgumentSpecificationsFactory
+internal sealed class SuppliedArgumentSpecificationsFactory(IArgumentSpecificationCompatibilityTester argumentSpecificationCompatTester) : ISuppliedArgumentSpecificationsFactory
 {
     public ISuppliedArgumentSpecifications Create(IEnumerable<IArgumentSpecification> argumentSpecifications)
     {

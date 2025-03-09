@@ -1,6 +1,6 @@
 namespace NSubstitute.Routing.AutoValues;
 
-public class AutoArrayProvider : IAutoValueProvider
+internal sealed class AutoArrayProvider : IAutoValueProvider
 {
     public bool CanProvideValueFor(Type type) =>
         type.IsArray;

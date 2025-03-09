@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class CallBaseConfiguration : ICallBaseConfiguration
+internal sealed class CallBaseConfiguration : ICallBaseConfiguration
 {
     // Even though ConcurrentStack allocates on each push, we expect that configuration happens rarely.
     // Stack allows us to perform reverse enumeration (which is the most common operation) cheaply.

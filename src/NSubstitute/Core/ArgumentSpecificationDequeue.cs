@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class ArgumentSpecificationDequeue(Func<IList<IArgumentSpecification>> dequeueAllQueuedArgSpecs) : IArgumentSpecificationDequeue
+internal sealed class ArgumentSpecificationDequeue(Func<IList<IArgumentSpecification>> dequeueAllQueuedArgSpecs) : IArgumentSpecificationDequeue
 {
     private static readonly IArgumentSpecification[] EmptySpecifications = [];
 

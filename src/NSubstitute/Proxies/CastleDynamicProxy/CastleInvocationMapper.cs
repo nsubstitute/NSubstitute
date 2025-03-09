@@ -3,9 +3,9 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy;
 
-public class CastleInvocationMapper(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue)
+internal sealed class CastleInvocationMapper(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue)
 {
-    public virtual ICall Map(IInvocation castleInvocation)
+    public ICall Map(IInvocation castleInvocation)
     {
         Func<object>? baseMethod = null;
         if (castleInvocation.InvocationTarget != null &&

@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core.Arguments;
 
-public class DefaultChecker(IDefaultForType defaultForType) : IDefaultChecker
+internal sealed class DefaultChecker(IDefaultForType defaultForType) : IDefaultChecker
 {
     public bool IsDefault(object? value, Type forType)
     {

@@ -1,11 +1,11 @@
-﻿using System.Globalization;
-using System.Reflection;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using NSubstitute.Core;
+using System.Globalization;
+using System.Reflection;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy;
 
-public class ProxyIdInterceptor(Type primaryProxyType) : IInterceptor
+internal sealed class ProxyIdInterceptor(Type primaryProxyType) : IInterceptor
 {
     private string? _cachedProxyId;
 

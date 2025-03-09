@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core.Arguments;
 
-public record ArgumentMatchInfo
+public sealed record ArgumentMatchInfo
 {
     private readonly object? _argument;
     private readonly IArgumentSpecification _specification;

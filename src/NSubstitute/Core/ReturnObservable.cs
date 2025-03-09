@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core;
 
-internal class ReturnObservable<T>(T? value) : IObservable<T?>
+internal sealed class ReturnObservable<T>(T? value) : IObservable<T?>
 {
     public ReturnObservable() : this(default) { }
 
@@ -13,7 +13,7 @@ internal class ReturnObservable<T>(T? value) : IObservable<T?>
     }
 }
 
-internal class EmptyDisposable : IDisposable
+internal sealed class EmptyDisposable : IDisposable
 {
     public static IDisposable Instance { get; } = new EmptyDisposable();
 

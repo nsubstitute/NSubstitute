@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace NSubstitute.Core.SequenceChecking;
 
-public class InstanceTracker
+internal sealed class InstanceTracker
 {
     private readonly Dictionary<object, int> _instances = new(new ReferenceEqualityComparer());
     private int _counter = 0;
@@ -21,7 +21,7 @@ public class InstanceTracker
 
     public int NumberOfInstances() => _counter;
 
-    private class ReferenceEqualityComparer : IEqualityComparer<object>
+    private sealed class ReferenceEqualityComparer : IEqualityComparer<object>
     {
         public new bool Equals(object? x, object? y) => ReferenceEquals(x, y);
         public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);

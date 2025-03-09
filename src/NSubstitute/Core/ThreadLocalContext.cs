@@ -4,7 +4,7 @@ using NSubstitute.Routing;
 
 namespace NSubstitute.Core;
 
-public class ThreadLocalContext : IThreadLocalContext
+internal sealed class ThreadLocalContext : IThreadLocalContext
 {
     private static readonly IArgumentSpecification[] EmptySpecifications = [];
 
@@ -165,7 +165,7 @@ public class ThreadLocalContext : IThreadLocalContext
         query.RegisterCall(call);
     }
 
-    private class PendingSpecificationWrapper(RobustThreadLocal<ThreadLocalContext.PendingSpecInfoData> valueHolder) : IPendingSpecification
+    private sealed class PendingSpecificationWrapper(RobustThreadLocal<ThreadLocalContext.PendingSpecInfoData> valueHolder) : IPendingSpecification
     {
         public bool HasPendingCallSpecInfo()
         {

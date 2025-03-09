@@ -1,8 +1,8 @@
 namespace NSubstitute.Exceptions;
 
-public class CouldNotRaiseEventException : SubstituteException
+public sealed class CouldNotRaiseEventException : SubstituteException
 {
-    protected const string WhatProbablyWentWrong =
+    private const string WhatProbablyWentWrong =
         "Make sure you are using Raise.Event() as part of an event subscription on a substitute.\n" +
         "For example:\n" +
         "\tmySub.Clicked += Raise.Event();\n" +

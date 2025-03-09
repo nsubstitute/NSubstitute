@@ -84,7 +84,7 @@ public abstract record Quantity
     /// <returns>A string describing the required quantity of items identified by the provided noun forms.</returns>
     public abstract string Describe(string singularNoun, string pluralNoun);
 
-    private record ExactQuantity : Quantity
+    private sealed record ExactQuantity : Quantity
     {
         private readonly int _number;
 
@@ -101,7 +101,7 @@ public abstract record Quantity
         }
     }
 
-    private record AnyNonZeroQuantity : Quantity
+    private sealed record AnyNonZeroQuantity : Quantity
     {
         public override bool Matches<T>(IEnumerable<T> items) { return items.Any(); }
         public override bool RequiresMoreThan<T>(IEnumerable<T> items) { return !items.Any(); }
@@ -112,7 +112,7 @@ public abstract record Quantity
         }
     }
 
-    private record NoneQuantity : Quantity
+    private sealed record NoneQuantity : Quantity
     {
         public override bool Matches<T>(IEnumerable<T> items) { return !items.Any(); }
         public override bool RequiresMoreThan<T>(IEnumerable<T> items) { return false; }
@@ -122,7 +122,7 @@ public abstract record Quantity
         }
     }
 
-    private record RangeQuantity : Quantity
+    private sealed record RangeQuantity : Quantity
     {
         private readonly int minInclusive;
         private readonly int maxInclusive;

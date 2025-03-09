@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-internal class ParameterInfoWrapper(ParameterInfo parameterInfo) : IParameterInfo
+internal sealed class ParameterInfoWrapper(ParameterInfo parameterInfo) : IParameterInfo
 {
     public Type ParameterType => parameterInfo.ParameterType;
 

@@ -1,6 +1,6 @@
+using NSubstitute.Exceptions;
 using System.Collections.Concurrent;
 using System.Reflection;
-using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core;
 
@@ -19,7 +19,7 @@ internal interface ICallIndependentReturn
     object? GetReturnValue();
 }
 
-public class ReturnValue(object? value) : IReturn, ICallIndependentReturn
+internal sealed class ReturnValue(object? value) : IReturn, ICallIndependentReturn
 {
     public object? GetReturnValue() => value;
     public object? ReturnFor(CallInfo info) => GetReturnValue();
@@ -27,7 +27,7 @@ public class ReturnValue(object? value) : IReturn, ICallIndependentReturn
     public bool CanBeAssignedTo(Type t) => value.IsCompatibleWith(t);
 }
 
-public class ReturnValueFromFunc<T>(Func<CallInfo, T?>? funcToReturnValue) : IReturn
+internal sealed class ReturnValueFromFunc<T>(Func<CallInfo, T?>? funcToReturnValue) : IReturn
 {
     private readonly Func<CallInfo, T?> _funcToReturnValue = funcToReturnValue ?? ReturnNull();
 
@@ -42,7 +42,7 @@ public class ReturnValueFromFunc<T>(Func<CallInfo, T?>? funcToReturnValue) : IRe
     }
 }
 
-public class ReturnMultipleValues<T>(T?[] values) : IReturn, ICallIndependentReturn
+internal sealed class ReturnMultipleValues<T>(T?[] values) : IReturn, ICallIndependentReturn
 {
     private readonly ConcurrentQueue<T?> _valuesToReturn = new ConcurrentQueue<T?>(values);
     private readonly T? _lastValue = values.Last();
@@ -55,7 +55,7 @@ public class ReturnMultipleValues<T>(T?[] values) : IReturn, ICallIndependentRet
     private T? GetNext() => _valuesToReturn.TryDequeue(out var nextResult) ? nextResult : _lastValue;
 }
 
-public class ReturnMultipleFuncsValues<T>(Func<CallInfo, T?>[] funcs) : IReturn
+internal sealed class ReturnMultipleFuncsValues<T>(Func<CallInfo, T?>[] funcs) : IReturn
 {
     private readonly ConcurrentQueue<Func<CallInfo, T?>> _funcsToReturn = new ConcurrentQueue<Func<CallInfo, T?>>(funcs);
     private readonly Func<CallInfo, T?> _lastFunc = funcs.Last();

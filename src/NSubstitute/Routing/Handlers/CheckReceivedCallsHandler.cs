@@ -3,7 +3,12 @@ using NSubstitute.ReceivedExtensions;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class CheckReceivedCallsHandler(ICallCollection receivedCalls, ICallSpecificationFactory callSpecificationFactory, IReceivedCallsExceptionThrower exceptionThrower, MatchArgs matchArgs, Quantity requiredQuantity) : ICallHandler
+internal sealed class CheckReceivedCallsHandler(
+    ICallCollection receivedCalls,
+    ICallSpecificationFactory callSpecificationFactory,
+    IReceivedCallsExceptionThrower exceptionThrower,
+    MatchArgs matchArgs,
+    Quantity requiredQuantity) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

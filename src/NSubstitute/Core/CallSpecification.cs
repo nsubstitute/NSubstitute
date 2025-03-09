@@ -1,9 +1,9 @@
-using System.Reflection;
 using NSubstitute.Core.Arguments;
+using System.Reflection;
 
 namespace NSubstitute.Core;
 
-public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications) : ICallSpecification
+internal sealed class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications) : ICallSpecification
 {
     private readonly IArgumentSpecification[] _argumentSpecifications = argumentSpecifications.ToArray();
 

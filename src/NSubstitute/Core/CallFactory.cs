@@ -1,9 +1,9 @@
-﻿using System.Reflection;
-using NSubstitute.Core.Arguments;
+﻿using NSubstitute.Core.Arguments;
+using System.Reflection;
 
 namespace NSubstitute.Core;
 
-public class CallFactory : ICallFactory
+internal sealed class CallFactory : ICallFactory
 {
     public ICall Create(MethodInfo methodInfo, object?[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications, Func<object>? baseMethod)
     {

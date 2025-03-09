@@ -1,6 +1,6 @@
 namespace NSubstitute.Core;
 
-public class RouteAction
+public sealed class RouteAction
 {
     private static readonly RouteAction _continue = new(hasReturnValue: false, null);
 

@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core;
 
-public class Argument(ICall call, int argIndex)
+public sealed class Argument(ICall call, int argIndex)
 {
     private readonly ICall? _call = call;
 

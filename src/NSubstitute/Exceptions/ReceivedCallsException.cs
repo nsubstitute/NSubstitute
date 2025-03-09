@@ -1,6 +1,6 @@
 namespace NSubstitute.Exceptions;
 
-public class ReceivedCallsException : SubstituteException
+public sealed class ReceivedCallsException : SubstituteException
 {
     public ReceivedCallsException() { }
     public ReceivedCallsException(string message) : base(message) { }

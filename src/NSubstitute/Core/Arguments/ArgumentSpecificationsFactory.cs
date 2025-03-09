@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace NSubstitute.Core.Arguments;
 
-public class ArgumentSpecificationsFactory(
+internal sealed class ArgumentSpecificationsFactory(
     IArgumentSpecificationFactory argumentSpecificationFactory,
     ISuppliedArgumentSpecificationsFactory suppliedArgumentSpecificationsFactory) : IArgumentSpecificationsFactory
 {

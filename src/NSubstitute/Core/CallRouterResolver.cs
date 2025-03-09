@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class CallRouterResolver : ICallRouterResolver
+internal sealed class CallRouterResolver : ICallRouterResolver
 {
     public ICallRouter ResolveFor(object substitute)
     {
