@@ -31,8 +31,10 @@ public interface ISomething
     Task<int?> NullableCountAsync();
     Task<int?> NullableWithParamsAsync(int i, string s);
 
+    ValueTask VoidValueTaskAsync();
     ValueTask<int> CountValueTaskAsync();
     ValueTask<string> EchoValueTaskAsync(int i);
+    ValueTask AnythingVoidValueTaskAsync(object stuff);
     ValueTask<int> AnythingValueTaskAsync(object stuff);
     ValueTask<string> SayValueTaskAsync(string s);
     ValueTask<SomeClass> SomeActionValueTaskAsync();
