@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class CallFormatter : IMethodInfoFormatter
+internal sealed class CallFormatter : IMethodInfoFormatter
 {
     internal static IMethodInfoFormatter Default { get; } = new CallFormatter();
 

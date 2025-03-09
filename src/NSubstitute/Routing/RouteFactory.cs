@@ -4,7 +4,7 @@ using NSubstitute.Routing.Handlers;
 
 namespace NSubstitute.Routing;
 
-public class RouteFactory(SequenceNumberGenerator sequenceNumberGenerator,
+internal sealed class RouteFactory(SequenceNumberGenerator sequenceNumberGenerator,
     IThreadLocalContext threadLocalContext,
     ICallSpecificationFactory callSpecificationFactory,
     IReceivedCallsExceptionThrower receivedCallsExceptionThrower,

@@ -3,7 +3,7 @@ using NSubstitute.Routing;
 
 namespace NSubstitute.Core;
 
-public class RouteFactoryCacheWrapper(IRouteFactory factory) : IRouteFactory
+internal sealed class RouteFactoryCacheWrapper(IRouteFactory factory) : IRouteFactory
 {
     private CachedRoute _recordReplayCache;
     private CachedRoute _recordCallSpecificationCache;

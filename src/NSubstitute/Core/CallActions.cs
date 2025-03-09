@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class CallActions(ICallInfoFactory callInfoFactory) : ICallActions
+internal sealed class CallActions(ICallInfoFactory callInfoFactory) : ICallActions
 {
     private static readonly Action<CallInfo> EmptyAction = x => { };
 
@@ -61,7 +61,7 @@ public class CallActions(ICallInfoFactory callInfoFactory) : ICallActions
         }
     }
 
-    private class CallAction(ICallSpecification callSpecification, Action<CallInfo> action)
+    private sealed class CallAction(ICallSpecification callSpecification, Action<CallInfo> action)
     {
         public bool IsSatisfiedBy(ICall call) => callSpecification.IsSatisfiedBy(call);
 

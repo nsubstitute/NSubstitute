@@ -184,7 +184,7 @@ public class ProtectedExtensionsTests
         Assert.Throws<ProtectedMethodNotVirtualException>(() => sub.When("ProtectedNonVirtualMethod"));
     }
 
-    private class Worker
+    private sealed class Worker
     {
         internal string DoWork(AnotherClass worker)
         {

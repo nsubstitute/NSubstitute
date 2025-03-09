@@ -1,10 +1,10 @@
-﻿using System.Reflection;
-using NSubstitute.Core;
+﻿using NSubstitute.Core;
 using NSubstitute.Exceptions;
+using System.Reflection;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class RaiseEventHandler(IEventHandlerRegistry eventHandlerRegistry, Func<ICall, object?[]> getEventArguments) : ICallHandler
+internal sealed class RaiseEventHandler(IEventHandlerRegistry eventHandlerRegistry, Func<ICall, object?[]> getEventArguments) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

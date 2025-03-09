@@ -3,7 +3,7 @@ using NSubstitute.Core.SequenceChecking;
 
 namespace NSubstitute;
 
-public class Received
+public sealed class Received
 {
     /// <summary>
     /// Asserts the calls to the substitutes contained in the given Action were

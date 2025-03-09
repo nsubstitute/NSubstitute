@@ -1,6 +1,6 @@
 namespace NSubstitute.Core.Events;
 
-public class EventHandlerWrapper<TEventArgs>(object? sender, EventArgs? eventArgs) : RaiseEventWrapper where TEventArgs : EventArgs
+public sealed class EventHandlerWrapper<TEventArgs>(object? sender, EventArgs? eventArgs) : RaiseEventWrapper where TEventArgs : EventArgs
 {
     private readonly object? _sender = sender;
     private readonly EventArgs? _eventArgs = eventArgs;

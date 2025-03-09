@@ -1,9 +1,9 @@
-﻿using System.Reflection;
-using NSubstitute.Exceptions;
+﻿using NSubstitute.Exceptions;
+using System.Reflection;
 
 namespace NSubstitute.Core;
 
-public class PropertyCallFormatter : IMethodInfoFormatter
+internal sealed class PropertyCallFormatter : IMethodInfoFormatter
 {
     public bool CanFormat(MethodInfo methodInfo) =>
         GetPropertyFromGetterOrSetterCall(methodInfo) != null;

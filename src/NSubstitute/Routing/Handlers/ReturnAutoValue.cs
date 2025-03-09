@@ -3,12 +3,17 @@ using NSubstitute.Routing.AutoValues;
 
 namespace NSubstitute.Routing.Handlers;
 
-public enum AutoValueBehaviour
+internal enum AutoValueBehaviour
 {
     UseValueForSubsequentCalls,
     ReturnAndForgetValue
 }
-public class ReturnAutoValue(AutoValueBehaviour autoValueBehaviour, IEnumerable<IAutoValueProvider> autoValueProviders, ICallResults callResults, ICallSpecificationFactory callSpecificationFactory) : ICallHandler
+
+internal sealed class ReturnAutoValue(
+    AutoValueBehaviour autoValueBehaviour,
+    IEnumerable<IAutoValueProvider> autoValueProviders,
+    ICallResults callResults,
+    ICallSpecificationFactory callSpecificationFactory) : ICallHandler
 {
     private readonly IAutoValueProvider[] _autoValueProviders = autoValueProviders.AsArray();
 

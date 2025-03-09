@@ -2,7 +2,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class PropertySetterHandler(IPropertyHelper propertyHelper, IConfigureCall configureCall) : ICallHandler
+internal sealed class PropertySetterHandler(IPropertyHelper propertyHelper, IConfigureCall configureCall) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

@@ -928,7 +928,7 @@ public class ArgumentMatching
         public override string ToString() => "Custom match";
     }
 
-    class CustomDescribeSpecMatcher(string description) : CustomMatcher, IDescribeSpecification
+    sealed class CustomDescribeSpecMatcher(string description) : CustomMatcher, IDescribeSpecification
     {
         public string DescribeSpecification() => description;
     }

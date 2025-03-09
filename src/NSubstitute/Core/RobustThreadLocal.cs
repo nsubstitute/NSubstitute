@@ -5,7 +5,7 @@
 /// These can occur if the Value property is accessed from the finalizer thread. Because we can't detect this, we'll
 /// just swallow the exception (the finalizer thread won't be using any of the values from thread local storage anyway).
 /// </summary>
-internal class RobustThreadLocal<T>
+internal sealed class RobustThreadLocal<T>
 {
     private readonly ThreadLocal<T> _threadLocal;
     private readonly Func<T>? _initialValueFactory;

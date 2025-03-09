@@ -3,7 +3,10 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class CallBaseForCallHandler(ICallSpecificationFactory callSpecificationFactory, ICallBaseConfiguration callBaseConfig, MatchArgs matchArgs) : ICallHandler
+internal sealed class CallBaseForCallHandler(
+    ICallSpecificationFactory callSpecificationFactory,
+    ICallBaseConfiguration callBaseConfig,
+    MatchArgs matchArgs) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

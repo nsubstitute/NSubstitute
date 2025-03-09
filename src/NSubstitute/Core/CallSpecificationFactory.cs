@@ -2,7 +2,7 @@ using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core;
 
-public class CallSpecificationFactory(IArgumentSpecificationsFactory argumentSpecificationsFactory) : ICallSpecificationFactory
+internal sealed class CallSpecificationFactory(IArgumentSpecificationsFactory argumentSpecificationsFactory) : ICallSpecificationFactory
 {
     public ICallSpecification CreateFrom(ICall call, MatchArgs matchArgs)
     {

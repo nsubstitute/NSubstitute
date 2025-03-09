@@ -1,6 +1,6 @@
 namespace NSubstitute.Routing.AutoValues;
 
-public class AutoStringProvider : IAutoValueProvider
+internal sealed class AutoStringProvider : IAutoValueProvider
 {
     public bool CanProvideValueFor(Type type) => type == typeof(string);
 

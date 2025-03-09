@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ClearUnusedCallSpecHandler(IPendingSpecification pendingSpecification) : ICallHandler
+internal sealed class ClearUnusedCallSpecHandler(IPendingSpecification pendingSpecification) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

@@ -1,6 +1,6 @@
 namespace NSubstitute.Exceptions;
 
-public class CouldNotConfigureCallBaseException(string message) : SubstituteException(message)
+public sealed class CouldNotConfigureCallBaseException(string message) : SubstituteException(message)
 {
     private const string CannotConfigureSingleCallMessage =
         "Cannot configure the base method call as base method implementation is missing. " +

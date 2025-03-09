@@ -2,7 +2,7 @@ using NSubstitute.Routing;
 
 namespace NSubstitute.Core;
 
-public class WhenCalled<T>(ISubstitutionContext context, T substitute, Action<T> call, MatchArgs matchArgs)
+public sealed class WhenCalled<T>(ISubstitutionContext context, T substitute, Action<T> call, MatchArgs matchArgs)
 {
     private readonly ICallRouter _callRouter = context.GetCallRouterFor(substitute!);
     private readonly IThreadLocalContext _threadContext = context.ThreadContext;

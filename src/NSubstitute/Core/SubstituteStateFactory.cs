@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class SubstituteStateFactory(ICallSpecificationFactory callSpecificationFactory,
+internal sealed class SubstituteStateFactory(ICallSpecificationFactory callSpecificationFactory,
     ICallInfoFactory callInfoFactory,
     IAutoValueProvidersFactory autoValueProvidersFactory) : ISubstituteStateFactory
 {

@@ -1,6 +1,6 @@
 namespace NSubstitute.Core.Arguments;
 
-public class ArgumentSpecification(Type forType, IArgumentMatcher matcher, Action<object?> action) : IArgumentSpecification
+internal sealed class ArgumentSpecification(Type forType, IArgumentMatcher matcher, Action<object?> action) : IArgumentSpecification
 {
     private static readonly Action<object?> NoOpAction = _ => { };
     public Type ForType { get; } = forType;

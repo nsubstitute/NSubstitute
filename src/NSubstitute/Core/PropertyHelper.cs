@@ -1,11 +1,11 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace NSubstitute.Core;
 
-public class PropertyHelper(ICallFactory callFactory, IArgumentSpecificationCompatibilityTester argSpecCompatTester) : IPropertyHelper
+internal sealed class PropertyHelper(ICallFactory callFactory, IArgumentSpecificationCompatibilityTester argSpecCompatTester) : IPropertyHelper
 {
     public bool IsCallToSetAReadWriteProperty(ICall call)
     {

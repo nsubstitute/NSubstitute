@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core;
 
-public class CallInfoFactory : ICallInfoFactory
+internal sealed class CallInfoFactory : ICallInfoFactory
 {
     public CallInfo Create(ICall call)
     {

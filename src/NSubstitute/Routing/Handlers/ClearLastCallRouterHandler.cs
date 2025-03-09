@@ -8,7 +8,7 @@ namespace NSubstitute.Routing.Handlers;
 /// <remarks>
 /// This is to help prevent static state bleeding over into future calls.
 /// </remarks>
-public class ClearLastCallRouterHandler(IThreadLocalContext threadContext) : ICallHandler
+internal sealed class ClearLastCallRouterHandler(IThreadLocalContext threadContext) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

@@ -1,6 +1,6 @@
 namespace NSubstitute.Core.Arguments;
 
-public class EqualsArgumentMatcher(object? value) : IArgumentMatcher
+internal sealed class EqualsArgumentMatcher(object? value) : IArgumentMatcher
 {
     public override string ToString() => ArgumentFormatter.Default.Format(value, false);
 

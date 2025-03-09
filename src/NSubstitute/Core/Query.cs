@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core;
 
-public class Query(ICallSpecificationFactory callSpecificationFactory) : IQuery, IQueryResults
+internal sealed class Query(ICallSpecificationFactory callSpecificationFactory) : IQuery, IQueryResults
 {
     private readonly List<CallSpecAndTarget> _querySpec = [];
     private readonly HashSet<ICall> _matchingCalls = new(new CallSequenceNumberComparer());
@@ -22,7 +22,7 @@ public class Query(ICallSpecificationFactory callSpecificationFactory) : IQuery,
 
     IEnumerable<CallSpecAndTarget> IQueryResults.QuerySpecification() => _querySpec.Select(x => x);
 
-    private class CallSequenceNumberComparer : IEqualityComparer<ICall>
+    private sealed class CallSequenceNumberComparer : IEqualityComparer<ICall>
     {
         public bool Equals(ICall? x, ICall? y) => x?.GetSequenceNumber() == y?.GetSequenceNumber();
 

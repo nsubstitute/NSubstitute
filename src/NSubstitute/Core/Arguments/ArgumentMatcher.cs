@@ -45,7 +45,7 @@ public static class ArgumentMatcher
                 : _matcher.ToString() ?? string.Empty;
     }
 
-    private class GenericToNonGenericMatcherProxyWithDescribe<T> : GenericToNonGenericMatcherProxy<T>, IDescribeNonMatches
+    private sealed class GenericToNonGenericMatcherProxyWithDescribe<T> : GenericToNonGenericMatcherProxy<T>, IDescribeNonMatches
     {
         public GenericToNonGenericMatcherProxyWithDescribe(IArgumentMatcher<T> matcher) : base(matcher)
         {
@@ -55,7 +55,7 @@ public static class ArgumentMatcher
         public string DescribeFor(object? argument) => ((IDescribeNonMatches)_matcher).DescribeFor(argument);
     }
 
-    private class DefaultValueContainer<T>
+    private sealed class DefaultValueContainer<T>
     {
         public T? Value;
     }

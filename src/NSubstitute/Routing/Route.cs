@@ -2,7 +2,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing;
 
-public class Route(ICallHandler[] handlers) : IRoute
+internal sealed class Route(ICallHandler[] handlers) : IRoute
 {
     public IEnumerable<ICallHandler> Handlers => handlers;
 

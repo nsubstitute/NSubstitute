@@ -1,10 +1,10 @@
+using NSubstitute.Core.Arguments;
 using System.Collections;
 using System.Reflection;
-using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core.SequenceChecking;
 
-public class SequenceFormatter
+internal sealed class SequenceFormatter
 {
     private readonly string _delimiter;
     private readonly CallData[] _query;
@@ -53,7 +53,7 @@ public class SequenceFormatter
         return false;
     }
 
-    private class CallData
+    private sealed class CallData
     {
         private readonly int _instanceNumber;
         private readonly ICall? _call;
@@ -127,7 +127,7 @@ public class SequenceFormatter
         }
     }
 
-    private class ArgAndParamInfo(ParameterInfo paramInfo, object? argument)
+    private sealed class ArgAndParamInfo(ParameterInfo paramInfo, object? argument)
     {
         public ParameterInfo ParamInfo { get; } = paramInfo;
         public object? Argument { get; } = argument;

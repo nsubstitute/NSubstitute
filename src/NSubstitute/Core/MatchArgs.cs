@@ -3,7 +3,7 @@ using System.Diagnostics;
 namespace NSubstitute.Core;
 
 [DebuggerDisplay("{" + nameof(_name) + "}")]
-public class MatchArgs
+public sealed class MatchArgs
 {
     private readonly string _name;
 

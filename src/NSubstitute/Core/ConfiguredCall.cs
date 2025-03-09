@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core;
 
-public class ConfiguredCall(Action<Action<CallInfo>> addAction)
+public sealed class ConfiguredCall(Action<Action<CallInfo>> addAction)
 {
 
     /// <summary>

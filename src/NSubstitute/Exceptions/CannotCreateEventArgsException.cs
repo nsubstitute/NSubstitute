@@ -1,6 +1,6 @@
 namespace NSubstitute.Exceptions;
 
-public class CannotCreateEventArgsException : SubstituteException
+public sealed class CannotCreateEventArgsException : SubstituteException
 {
     public CannotCreateEventArgsException() { }
     public CannotCreateEventArgsException(string message) : base(message) { }

@@ -22,6 +22,9 @@ dotnet_style_prefer_collection_expression = true:suggestion
 dotnet_style_collection_initializer = true:warning
 csharp_style_prefer_primary_constructors = true:warning
 
+
+dotnet_diagnostic.CA1852.severity = warning
+
 # ReSharper properties
 resharper_int_align_switch_expressions = true
 resharper_keep_existing_invocation_parens_arrangement = false

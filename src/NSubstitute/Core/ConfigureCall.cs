@@ -2,7 +2,7 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core;
 
-public class ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec) : IConfigureCall
+internal sealed class ConfigureCall(ICallResults configuredResults, ICallActions callActions, IGetCallSpec getCallSpec) : IConfigureCall
 {
     public ConfiguredCall SetResultForLastCall(IReturn valueToReturn, MatchArgs matchArgs, PendingSpecificationInfo pendingSpecInfo)
     {

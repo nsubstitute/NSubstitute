@@ -1,6 +1,6 @@
 namespace NSubstitute.Core.Arguments;
 
-public class AnyArgumentMatcher(Type typeArgMustBeCompatibleWith) : IArgumentMatcher
+internal sealed class AnyArgumentMatcher(Type typeArgMustBeCompatibleWith) : IArgumentMatcher
 {
     public override string ToString() => "any " + typeArgMustBeCompatibleWith.GetNonMangledTypeName();
 

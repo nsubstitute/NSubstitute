@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace NSubstitute.Core;
 
-public class CallInfo(Argument[] callArguments)
+public sealed class CallInfo(Argument[] callArguments)
 {
 
     /// <summary>

@@ -1,10 +1,10 @@
-﻿using System.Text;
-using NSubstitute.Exceptions;
+﻿using NSubstitute.Exceptions;
 using NSubstitute.ReceivedExtensions;
+using System.Text;
 
 namespace NSubstitute.Core;
 
-public class ReceivedCallsExceptionThrower : IReceivedCallsExceptionThrower
+internal sealed class ReceivedCallsExceptionThrower : IReceivedCallsExceptionThrower
 {
     public void Throw(ICallSpecification callSpecification, IEnumerable<ICall> matchingCalls, IEnumerable<ICall> nonMatchingCalls, Quantity requiredQuantity)
     {

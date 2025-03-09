@@ -1,6 +1,6 @@
 namespace NSubstitute.Core;
 
-public class EventHandlerRegistry : IEventHandlerRegistry
+internal sealed class EventHandlerRegistry : IEventHandlerRegistry
 {
     // Collection consideration - events are used very rarely, so it makes no sense to allocate concurrent collection.
     // Events are not expected to be configured/raised concurrently, so simple locking should be sufficient.

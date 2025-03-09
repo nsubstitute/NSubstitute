@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnFromBaseIfRequired(ICallBaseConfiguration config) : ICallHandler
+internal sealed class ReturnFromBaseIfRequired(ICallBaseConfiguration config) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

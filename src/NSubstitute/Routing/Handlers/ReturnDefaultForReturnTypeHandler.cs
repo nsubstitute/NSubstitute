@@ -2,7 +2,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnDefaultForReturnTypeHandler(IDefaultForType defaultForType) : ICallHandler
+internal sealed class ReturnDefaultForReturnTypeHandler(IDefaultForType defaultForType) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

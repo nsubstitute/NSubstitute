@@ -1,11 +1,11 @@
-using System.Reflection;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
+using System.Reflection;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy;
 
-public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue) : IProxyFactory
+internal sealed class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue) : IProxyFactory
 {
     private readonly ProxyGenerator _proxyGenerator = new ProxyGenerator();
     private readonly AllMethodsExceptCallRouterCallsHook _allMethodsExceptCallRouterCallsHook = new AllMethodsExceptCallRouterCallsHook();
@@ -204,7 +204,7 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
 
     private static bool HasItems<T>(T[]? array) => array?.Length > 0;
 
-    private class AllMethodsExceptCallRouterCallsHook : AllMethodsHook
+    private sealed class AllMethodsExceptCallRouterCallsHook : AllMethodsHook
     {
         public override bool ShouldInterceptMethod(Type type, MethodInfo methodInfo)
         {
@@ -224,7 +224,7 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
             methodInfo.GetBaseDefinition().DeclaringType != typeof(object);
     }
 
-    private class StaticCallRouterProvider(ICallRouter callRouter) : ICallRouterProvider
+    private sealed class StaticCallRouterProvider(ICallRouter callRouter) : ICallRouterProvider
     {
         public ICallRouter GetCallRouter() => callRouter;
     }

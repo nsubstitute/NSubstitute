@@ -1,9 +1,12 @@
-using System.Reflection;
 using NSubstitute.Exceptions;
+using System.Reflection;
 
 namespace NSubstitute.Core;
 
-public class SubstituteFactory(ISubstituteStateFactory substituteStateFactory, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory) : ISubstituteFactory
+internal sealed class SubstituteFactory(
+    ISubstituteStateFactory substituteStateFactory,
+    ICallRouterFactory callRouterFactory,
+    IProxyFactory proxyFactory) : ISubstituteFactory
 {
 
     /// <summary>

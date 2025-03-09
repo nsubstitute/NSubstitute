@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
-class Issue118_ConcreteClassWithPublicStaticMethod
+sealed class Issue118_ConcreteClassWithPublicStaticMethod
 {
     [Test]
     public void Interface_returning_concrete_without_static_member_should_return_substitute_by_default()

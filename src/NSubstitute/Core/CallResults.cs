@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 
 namespace NSubstitute.Core;
 
-public class CallResults(ICallInfoFactory callInfoFactory) : ICallResults
+internal sealed class CallResults(ICallInfoFactory callInfoFactory) : ICallResults
 {
     // There was made a decision to use ConcurrentStack instead of ConcurrentQueue here.
     // The pros is that reverse enumeration is cheap. The cons is that stack allocates on each push.

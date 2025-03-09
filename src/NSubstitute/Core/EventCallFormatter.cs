@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class EventCallFormatter(Func<MethodInfo, Predicate<EventInfo>> eventsToFormat) : IMethodInfoFormatter
+internal sealed class EventCallFormatter(Func<MethodInfo, Predicate<EventInfo>> eventsToFormat) : IMethodInfoFormatter
 {
     public static readonly Func<MethodInfo, Predicate<EventInfo>> IsSubscription =
         call => (eventInfo => eventInfo.GetAddMethod() == call);

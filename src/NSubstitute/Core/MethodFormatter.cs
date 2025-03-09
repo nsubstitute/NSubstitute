@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Core;
 
-public class MethodFormatter : IMethodInfoFormatter
+internal sealed class MethodFormatter : IMethodInfoFormatter
 {
     public bool CanFormat(MethodInfo methodInfo)
     {

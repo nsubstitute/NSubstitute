@@ -2,7 +2,7 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class SetActionForCallHandler(
+internal sealed class SetActionForCallHandler(
     ICallSpecificationFactory callSpecificationFactory,
     ICallActions callActions,
     Action<CallInfo> action,

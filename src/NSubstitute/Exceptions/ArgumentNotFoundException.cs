@@ -1,5 +1,5 @@
 namespace NSubstitute.Exceptions;
 
-public class ArgumentNotFoundException(string message) : SubstituteException(message)
+public sealed class ArgumentNotFoundException(string message) : SubstituteException(message)
 {
 }

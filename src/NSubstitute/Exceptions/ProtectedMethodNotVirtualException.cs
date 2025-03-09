@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Exceptions;
 
-public class ProtectedMethodNotVirtualException(string message, Exception? innerException) : SubstituteException(message, innerException)
+public sealed class ProtectedMethodNotVirtualException(string message, Exception? innerException) : SubstituteException(message, innerException)
 {
     public ProtectedMethodNotVirtualException() : this("", null)
     { }

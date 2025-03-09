@@ -1,6 +1,6 @@
 namespace NSubstitute.Exceptions;
 
-public class UnexpectedArgumentMatcherException(string message) : SubstituteException(message)
+public sealed class UnexpectedArgumentMatcherException(string message) : SubstituteException(message)
 {
     public static readonly string WhatProbablyWentWrong =
         "Argument matchers (Arg.Is, Arg.Any) should only be used in place of member arguments. " +

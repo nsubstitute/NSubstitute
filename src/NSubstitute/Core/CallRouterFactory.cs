@@ -2,7 +2,7 @@ using NSubstitute.Routing;
 
 namespace NSubstitute.Core;
 
-public class CallRouterFactory(IThreadLocalContext threadLocalContext, IRouteFactory routeFactory) : ICallRouterFactory
+internal sealed class CallRouterFactory(IThreadLocalContext threadLocalContext, IRouteFactory routeFactory) : ICallRouterFactory
 {
     public ICallRouter Create(ISubstituteState substituteState, bool canConfigureBaseCalls)
     {

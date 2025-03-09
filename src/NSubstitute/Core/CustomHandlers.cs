@@ -1,6 +1,6 @@
 ﻿namespace NSubstitute.Core;
 
-public class CustomHandlers(ISubstituteState substituteState) : ICustomHandlers
+internal sealed class CustomHandlers(ISubstituteState substituteState) : ICustomHandlers
 {
     private readonly List<ICallHandler> _handlers = [];
 

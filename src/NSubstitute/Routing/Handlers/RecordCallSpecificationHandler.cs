@@ -2,7 +2,10 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class RecordCallSpecificationHandler(IPendingSpecification pendingCallSpecification, ICallSpecificationFactory callSpecificationFactory, ICallActions callActions) : ICallHandler
+internal sealed class RecordCallSpecificationHandler
+    (IPendingSpecification pendingCallSpecification,
+    ICallSpecificationFactory callSpecificationFactory,
+    ICallActions callActions) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

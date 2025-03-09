@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Routing.Handlers;
 
-public class ReturnResultForTypeHandler(IResultsForType resultsForType) : ICallHandler
+internal sealed class ReturnResultForTypeHandler(IResultsForType resultsForType) : ICallHandler
 {
     public RouteAction Handle(ICall call)
     {

@@ -1,9 +1,9 @@
-﻿using System.Reflection;
-using NSubstitute.Core;
+﻿using NSubstitute.Core;
+using System.Reflection;
 
 namespace NSubstitute.Routing.AutoValues;
 
-public class AutoSubstituteProvider(ISubstituteFactory substituteFactory) : IAutoValueProvider
+internal sealed class AutoSubstituteProvider(ISubstituteFactory substituteFactory) : IAutoValueProvider
 {
     public bool CanProvideValueFor(Type type)
     {

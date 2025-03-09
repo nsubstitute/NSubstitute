@@ -18,7 +18,7 @@ namespace NSubstitute.Compatibility;
 /// Matchers</see> in the NSubstitute documentation.
 /// </summary>
 [Obsolete("This api is deprecated and will be removed in future versions of product.")]
-public class CompatArg
+public sealed class CompatArg
 {
     private CompatArg() { }
 

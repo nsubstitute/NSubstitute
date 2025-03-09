@@ -2,7 +2,7 @@
 
 namespace NSubstitute.Routing.AutoValues;
 
-public class AutoQueryableProvider : IAutoValueProvider
+internal sealed class AutoQueryableProvider : IAutoValueProvider
 {
     public bool CanProvideValueFor(Type type) =>
         type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IQueryable<>);

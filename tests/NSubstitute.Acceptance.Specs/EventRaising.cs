@@ -323,7 +323,7 @@ public class EventRaising
             examplePrivateMock.MyEvent += Raise.EventWith<CustomEventArgsWithPrivateDefaultConstructor>(this, null!));
     }
 
-    class RaisedEventRecorder<T>
+    sealed class RaisedEventRecorder<T>
     {
         public object Sender;
         public T EventArgs;
