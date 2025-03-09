@@ -219,7 +219,7 @@ public class CustomHandlersSpecs
         string MethodWithArgs(string arg1, string arg2);
     }
 
-    private class ActionHandler(Func<ICall, RouteAction> handler) : ICallHandler
+    private sealed class ActionHandler(Func<ICall, RouteAction> handler) : ICallHandler
     {
         public RouteAction Handle(ICall call) => handler.Invoke(call);
     }

@@ -249,7 +249,7 @@ public class OutAndRefParameters
         StringAssert.Contains("12345", exception.Message);
     }
 
-    private class Something(ILookupStrings lookup)
+    private sealed class Something(ILookupStrings lookup)
     {
         public string GetValue(string key)
         {

@@ -3,7 +3,7 @@ using BenchmarkDotNet.Running;
 
 namespace NSubstitute.Benchmarks;
 
-internal class Program
+internal sealed class Program
 {
     public static void Main(string[] args)
     {

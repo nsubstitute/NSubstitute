@@ -224,7 +224,7 @@ public class AutoValuesForSubs
     }
 
     //Copied from NSubstitute.Specs.AnonymousObserver (PR #137)
-    private class AnonymousObserver<T>(Action<T> onNext, Action<Exception> onError = null, Action onCompleted = null) : IObserver<T>
+    private sealed class AnonymousObserver<T>(Action<T> onNext, Action<Exception> onError = null, Action onCompleted = null) : IObserver<T>
     {
         Action<T> _onNext = onNext ?? (_ => { });
         Action<Exception> _onError = onError ?? (_ => { });

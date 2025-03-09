@@ -88,7 +88,7 @@ public class Issue500_SpecialMethodsWithoutAttribute
         return typeBuilder.CreateTypeInfo().AsType();
     }
 
-    private class GeneratedTypeFixture(object substitute)
+    private sealed class GeneratedTypeFixture(object substitute)
     {
         public object MyProperty
         {
