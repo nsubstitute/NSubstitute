@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Globalization;
 using NUnit.Framework;
 
@@ -11,6 +11,9 @@ public class GenericArguments
     {
         void SomeAction<TState>(int level, TState state);
         string SomeFunction<TState>(int level, TState state);
+        ICollection<TState> SomeFunction<TState>(TState state);
+        bool SomeFunctionWithOut<TState>(out IEnumerable<TState> state);
+        bool SomeFunctionWithRef<TState>(ref IEnumerable<TState> state);
         void SomeActionWithGenericConstraints<TState>(int level, TState state) where TState : IEnumerable<int>;
         string SomeFunctionWithGenericConstraints<TState>(int level, TState state) where TState : IEnumerable<int>;
     }
@@ -130,5 +133,48 @@ public class GenericArguments
         var result = something.SomeFunctionWithGenericConstraints(7, new[] { 3409 });
 
         Assert.That(result, Is.EqualTo("matched"));
+    }
+
+    [Test]
+    public void Returns_works_with_AnyType_for_result_with_AnyType_generic_argument()
+    {
+        ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
+        something
+            .SomeFunction(Arg.Any<Arg.AnyType>())
+            .Returns(x =>
+            {
+                return default!;
+            });
+
+        ICollection<int> result = something.SomeFunction(7);
+
+        Assert.That(result, Is.Null);
+    }
+
+    [Test]
+    public void Returns_works_with_AnyType_for_out_parameter_with_AnyType_generic_argument()
+    {
+        ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
+        something
+            .SomeFunctionWithOut(out Arg.Any<IEnumerable<Arg.AnyType>>())
+            .Returns(true);
+
+        bool result = something.SomeFunctionWithOut(out IEnumerable<int> value);
+
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void Returns_works_with_AnyType_for_ref_parameter_with_AnyType_generic_argument()
+    {
+        ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
+        something
+            .SomeFunctionWithRef(ref Arg.Any<IEnumerable<Arg.AnyType>>())
+            .Returns(true);
+
+        IEnumerable<int> refParameter = null;
+        bool result = something.SomeFunctionWithRef(ref refParameter);
+
+        Assert.That(result, Is.True);
     }
 }
