@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Threading.Tasks;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
@@ -26,7 +27,7 @@ public class RaiseEventHandler(IEventHandlerRegistry eventHandlerRegistry, Func<
 
             try
             {
-                handler.DynamicInvoke(eventArguments);
+                    (handler.DynamicInvoke(eventArguments) as Task)?.GetAwaiter().GetResult();
             }
             catch (TargetInvocationException e)
             {
