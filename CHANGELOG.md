@@ -1,4 +1,33 @@
-### 5.2.0 (Apr 2024)
+### 6.x (work in progress)
+
+* [UPDATE][BREAKING] Update target frameworks: .NET8, .NET Standard 2.0
+* [UPDATE] Drop EOL .NET 6/7 platforms from testing matrix
+* [UPDATE] Update github actions steps versions
+* [UPDATE][BREAKING] Remove legacy obsolete API
+* [UPDATE][BREAKING] Mark as obsolete api CompatArg with pre c# 7.0 support
+* [NEW] Added .NET 9 to test matrix
+* [UPDATE] Migrate documentation to docfx platform. https://github.com/dotnet/docfx
+* [UPDATE][BREAKING] Nullability is enabled for public api for .NET Core TFMs
+
+### 5.3.0 (October 2024)
+
+* [NEW] Introduced `Substitute.ForTypeForwardingTo` to create substitutes that forward interceptable calls to a concrete class. This provides an easy way of implementing a test spy over an existing type. Designed and implemented by @marcoregueira in https://github.com/nsubstitute/NSubstitute/pull/700 from a proposal by @wsaeed. Thanks to all who contributed to discussions of this feature.
+* [NEW] Support Raise.EventWith default constructor (#788) by @mihnea-radulescu in https://github.com/nsubstitute/NSubstitute/pull/813
+* [NEW] Implement When(...).Throws to avoid confusion with Throw method (#803) by @mihnea-radulescu in https://github.com/nsubstitute/NSubstitute/pull/818
+* [FIX] Arg.Any<Arg.AnyType>() does not match arguments passed by reference (#787) by @mihnea-radulescu in https://github.com/nsubstitute/NSubstitute/pull/811
+* [FIX] Support matching arguments whose type is generic, when their concrete type is not known (#786) by @mihnea-radulescu in https://github.com/nsubstitute/NSubstitute/pull/814
+* [FIX] Release build workflow (https://github.com/nsubstitute/NSubstitute/pull/797)
+* [DOC] Add Throws for exceptions to the docs by @304NotModified in https://github.com/nsubstitute/NSubstitute/pull/795
+* [DOC] Remove Visual Studio for Mac from readme by @Romfos in https://github.com/nsubstitute/NSubstitute/pull/807
+* [TECH] Migrate from NUnit 3 to NUnit 4 by @Romfos in https://github.com/nsubstitute/NSubstitute/pull/783
+* [TECH] Update build project to .net 8 by @Romfos in https://github.com/nsubstitute/NSubstitute/pull/776
+* [TECH] Code style: use C# 12 collection literals by @Romfos in https://github.com/nsubstitute/NSubstitute/pull/810
+* [TECH] Use c# 12 primary constructors by @Romfos in https://github.com/nsubstitute/NSubstitute/pull/812
+* [TECH] Added csharp_style_prefer_primary_constructors into editorconfig by @Romfos in https://github.com/nsubstitute/NSubstitute/pull/819
+
+Thanks to first-time contributors @mihnea-radulescu and @marcoregueira! Thanks also @304NotModified and @Romfos for their continued support and contributions to this release.
+
+### 5.2.0 (Apr 2024; tagged but not released to nuget)
 
 * [UPDATE] Upgrade website build to jekyll 3.9.0 and add link to edit website pages (#767, #769; thanks to @brad)
 * [UPDATE] Build improvements:
@@ -22,7 +51,7 @@ Many thanks to @alexandrnikitin, @Romfos, @brad, and @304NotModified for their c
 
 ### 4.4.0 (Jul 2022)
 
-* [FIX] Fix issue checking for constructor args on null object. Thanks to @phongphanq, and @appel1! Thanks also to 
+* [FIX] Fix issue checking for constructor args on null object. Thanks to @phongphanq, and @appel1! Thanks also to
 @Mandroide for code review. (#683, #685)
 * [UPDATE] Update to Castle Core v5. Thanks @Havunen! (#690, #673)
 * [NEW] Add `.ThrowsAsync()` that will correctly mock exception on async methods. Thanks @Socolin! (#609, #663)

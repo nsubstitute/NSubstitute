@@ -3,30 +3,20 @@ using NSubstitute.Core;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy;
 
-public class CastleInvocationMapper
+public class CastleInvocationMapper(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue)
 {
-    private readonly ICallFactory _callFactory;
-    private readonly IArgumentSpecificationDequeue _argSpecificationDequeue;
-
-    public CastleInvocationMapper(ICallFactory callFactory, IArgumentSpecificationDequeue argSpecificationDequeue)
-    {
-        _callFactory = callFactory;
-        _argSpecificationDequeue = argSpecificationDequeue;
-    }
-
     public virtual ICall Map(IInvocation castleInvocation)
     {
         Func<object>? baseMethod = null;
         if (castleInvocation.InvocationTarget != null &&
             castleInvocation.MethodInvocationTarget.IsVirtual &&
-            !castleInvocation.MethodInvocationTarget.IsAbstract &&
-            !castleInvocation.MethodInvocationTarget.IsFinal)
+            !castleInvocation.MethodInvocationTarget.IsAbstract)
         {
             baseMethod = CreateBaseResultInvocation(castleInvocation);
         }
 
-        var queuedArgSpecifications = _argSpecificationDequeue.DequeueAllArgumentSpecificationsForMethod(castleInvocation.Arguments.Length);
-        return _callFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy, queuedArgSpecifications, baseMethod);
+        var queuedArgSpecifications = argSpecificationDequeue.DequeueAllArgumentSpecificationsForMethod(castleInvocation.Arguments.Length);
+        return callFactory.Create(castleInvocation.Method, castleInvocation.Arguments, castleInvocation.Proxy, queuedArgSpecifications, baseMethod);
     }
 
     private static Func<object> CreateBaseResultInvocation(IInvocation invocation)

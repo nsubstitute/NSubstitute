@@ -1,6 +1,6 @@
 NSubstitute
 ========
-[![Build status](https://github.com/nsubstitute/NSubstitute/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/nsubstitute/NSubstitute/actions/workflows/build_and_test.yml)
+[![Build, Test, and Format verification](https://github.com/nsubstitute/NSubstitute/actions/workflows/test.yml/badge.svg)](https://github.com/nsubstitute/NSubstitute/actions/workflows/test.yml)
 [![Nuget](https://img.shields.io/nuget/v/NSubstitute.svg)](https://www.nuget.org/packages/NSubstitute)
 
 Visit the [NSubstitute website](https://nsubstitute.github.io) for more information.
@@ -22,7 +22,7 @@ Perfect for those new to testing, and for others who would just like to to get t
 
 ### Getting help
 
-If you have questions, feature requests or feedback on NSubstitute please [raise an issue](https://github.com/nsubstitute/NSubstitute/issues) on our project site. All questions are welcome via our project site, but for "how-to"-style questions you can also try [StackOverflow with the \[nsubstitute\] tag](https://stackoverflow.com/tags/nsubstitute), which often leads to very good answers from the larger programming community. StackOverflow is especially useful if your question also relates to other libraries that our team may not be as familiar with (e.g. NSubstitute with Entity Framework). You can also head on over to the [NSubstitute discussion group](https://groups.google.com/group/nsubstitute) if you prefer.
+If you have questions, feature requests or feedback on NSubstitute please [raise an issue](https://github.com/nsubstitute/NSubstitute/issues) on our project site. All questions are welcome via our project site, but for "how-to"-style questions you can also try [StackOverflow with the \[nsubstitute\] tag](https://stackoverflow.com/tags/nsubstitute), which often leads to very good answers from the larger programming community. StackOverflow is especially useful if your question also relates to other libraries that our team may not be as familiar with (e.g. NSubstitute with Entity Framework).
 
 ### Basic use
 
@@ -126,7 +126,7 @@ Assert.That(eventWasRaised);
 
 ### Building
 
-NSubstitute and its tests can be compiled and run using Visual Studio and Visual Studio for Mac. Note that some tests are marked `[Pending]` and are not meant to pass at present, so it is a good idea to exclude tests in the Pending category from test runs.
+NSubstitute and its tests can be compiled and run using Visual Studio, Visual Studio Code or any other editor with .NET support. Note that some tests are marked `[Pending]` and are not meant to pass at present, so it is a good idea to exclude tests in the Pending category from test runs.
 
 There are also build scripts in the `./build` directory for command line builds, and CI configurations in the project root.
 

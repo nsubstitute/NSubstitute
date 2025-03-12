@@ -5,17 +5,8 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Routing.Handlers;
 
-public class RaiseEventHandler : ICallHandler
+public class RaiseEventHandler(IEventHandlerRegistry eventHandlerRegistry, Func<ICall, object?[]> getEventArguments) : ICallHandler
 {
-    private readonly IEventHandlerRegistry _eventHandlerRegistry;
-    private readonly Func<ICall, object?[]> _getEventArguments;
-
-    public RaiseEventHandler(IEventHandlerRegistry eventHandlerRegistry, Func<ICall, object?[]> getEventArguments)
-    {
-        _eventHandlerRegistry = eventHandlerRegistry;
-        _getEventArguments = getEventArguments;
-    }
-
     public RouteAction Handle(ICall call)
     {
         var methodInfo = call.GetMethodInfo();
@@ -25,8 +16,8 @@ public class RaiseEventHandler : ICallHandler
             throw new CouldNotRaiseEventException();
         }
 
-        object?[] eventArguments = _getEventArguments(call);
-        var handlers = _eventHandlerRegistry.GetHandlers(eventInfo.Name);
+        object?[] eventArguments = getEventArguments(call);
+        var handlers = eventHandlerRegistry.GetHandlers(eventInfo.Name);
         foreach (Delegate handler in handlers)
         {
             if (handler == null)

@@ -3,18 +3,8 @@ using NSubstitute.Exceptions;
 
 namespace NSubstitute.Core;
 
-public class SubstituteFactory : ISubstituteFactory
+public class SubstituteFactory(ISubstituteStateFactory substituteStateFactory, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory) : ISubstituteFactory
 {
-    private readonly ISubstituteStateFactory _substituteStateFactory;
-    private readonly ICallRouterFactory _callRouterFactory;
-    private readonly IProxyFactory _proxyFactory;
-
-    public SubstituteFactory(ISubstituteStateFactory substituteStateFactory, ICallRouterFactory callRouterFactory, IProxyFactory proxyFactory)
-    {
-        _substituteStateFactory = substituteStateFactory;
-        _callRouterFactory = callRouterFactory;
-        _proxyFactory = proxyFactory;
-    }
 
     /// <summary>
     /// Create a substitute for the given types.
@@ -24,7 +14,7 @@ public class SubstituteFactory : ISubstituteFactory
     /// <returns></returns>
     public object Create(Type[] typesToProxy, object?[] constructorArguments)
     {
-        return Create(typesToProxy, constructorArguments, callBaseByDefault: false);
+        return Create(typesToProxy, constructorArguments, callBaseByDefault: false, isPartial: false);
     }
 
     /// <summary>
@@ -43,20 +33,20 @@ public class SubstituteFactory : ISubstituteFactory
             throw new CanNotPartiallySubForInterfaceOrDelegateException(primaryProxyType);
         }
 
-        return Create(typesToProxy, constructorArguments, callBaseByDefault: true);
+        return Create(typesToProxy, constructorArguments, callBaseByDefault: true, isPartial: true);
     }
 
-    private object Create(Type[] typesToProxy, object?[] constructorArguments, bool callBaseByDefault)
+    private object Create(Type[] typesToProxy, object?[] constructorArguments, bool callBaseByDefault, bool isPartial)
     {
-        var substituteState = _substituteStateFactory.Create(this);
+        var substituteState = substituteStateFactory.Create(this);
         substituteState.CallBaseConfiguration.CallBaseByDefault = callBaseByDefault;
 
         var primaryProxyType = GetPrimaryProxyType(typesToProxy);
         var canConfigureBaseCalls = callBaseByDefault || CanCallBaseImplementation(primaryProxyType);
 
-        var callRouter = _callRouterFactory.Create(substituteState, canConfigureBaseCalls);
+        var callRouter = callRouterFactory.Create(substituteState, canConfigureBaseCalls);
         var additionalTypes = typesToProxy.Where(x => x != primaryProxyType).ToArray();
-        var proxy = _proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, constructorArguments);
+        var proxy = proxyFactory.GenerateProxy(callRouter, primaryProxyType, additionalTypes, isPartial, constructorArguments);
         return proxy;
     }
 

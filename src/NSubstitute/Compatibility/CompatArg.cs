@@ -2,7 +2,6 @@
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations
-#pragma warning disable CS1574
 #pragma warning disable CS0419
 
 namespace NSubstitute.Compatibility;
@@ -18,6 +17,7 @@ namespace NSubstitute.Compatibility;
 /// For more information see <see href="https://nsubstitute.github.io/help/compat-args">Compatibility Argument
 /// Matchers</see> in the NSubstitute documentation.
 /// </summary>
+[Obsolete("This api is deprecated and will be removed in future versions of product.")]
 public class CompatArg
 {
     private CompatArg() { }

@@ -8,24 +8,13 @@ public enum AutoValueBehaviour
     UseValueForSubsequentCalls,
     ReturnAndForgetValue
 }
-public class ReturnAutoValue : ICallHandler
+public class ReturnAutoValue(AutoValueBehaviour autoValueBehaviour, IEnumerable<IAutoValueProvider> autoValueProviders, ICallResults callResults, ICallSpecificationFactory callSpecificationFactory) : ICallHandler
 {
-    private readonly IAutoValueProvider[] _autoValueProviders;
-    private readonly ICallResults _callResults;
-    private readonly ICallSpecificationFactory _callSpecificationFactory;
-    private readonly AutoValueBehaviour _autoValueBehaviour;
-
-    public ReturnAutoValue(AutoValueBehaviour autoValueBehaviour, IEnumerable<IAutoValueProvider> autoValueProviders, ICallResults callResults, ICallSpecificationFactory callSpecificationFactory)
-    {
-        _autoValueProviders = autoValueProviders.AsArray();
-        _callResults = callResults;
-        _callSpecificationFactory = callSpecificationFactory;
-        _autoValueBehaviour = autoValueBehaviour;
-    }
+    private readonly IAutoValueProvider[] _autoValueProviders = autoValueProviders.AsArray();
 
     public RouteAction Handle(ICall call)
     {
-        if (_callResults.TryGetResult(call, out var cachedResult))
+        if (callResults.TryGetResult(call, out var cachedResult))
         {
             return RouteAction.Return(cachedResult);
         }
@@ -48,10 +37,10 @@ public class ReturnAutoValue : ICallHandler
     private object? GetResultValueUsingProvider(ICall call, Type type, IAutoValueProvider provider)
     {
         var valueToReturn = provider.GetValue(type);
-        if (_autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
+        if (autoValueBehaviour == AutoValueBehaviour.UseValueForSubsequentCalls)
         {
-            var spec = _callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
-            _callResults.SetResult(spec, new ReturnValue(valueToReturn));
+            var spec = callSpecificationFactory.CreateFrom(call, MatchArgs.AsSpecifiedInCall);
+            callResults.SetResult(spec, new ReturnValue(valueToReturn));
         }
 
         return valueToReturn;

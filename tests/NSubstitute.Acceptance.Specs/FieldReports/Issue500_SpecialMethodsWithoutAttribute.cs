@@ -18,7 +18,7 @@ public class Issue500_SpecialMethodsWithoutAttribute
     [Test]
     public void ShouldCorrectlyConfigureProperty()
     {
-        var substitute = Substitute.For(new[] { TypeWithMissingSpecialNameMethodAttributes }, new object[0]);
+        var substitute = Substitute.For([TypeWithMissingSpecialNameMethodAttributes], []);
         var fixture = new GeneratedTypeFixture(substitute);
 
         fixture.MyProperty = "42";
@@ -30,7 +30,7 @@ public class Issue500_SpecialMethodsWithoutAttribute
     [Test]
     public void ShouldCorrectlyConfigureEvent()
     {
-        object substitute = Substitute.For(new[] { TypeWithMissingSpecialNameMethodAttributes }, new object[0]);
+        object substitute = Substitute.For([TypeWithMissingSpecialNameMethodAttributes], []);
         var fixture = new GeneratedTypeFixture(substitute);
 
         bool wasCalled = false;
@@ -58,13 +58,13 @@ public class Issue500_SpecialMethodsWithoutAttribute
             MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.Abstract |
             MethodAttributes.HideBySig | MethodAttributes.NewSlot /* | MethodAttributes.SpecialName */,
             typeof(void),
-            new[] { typeof(EventHandler) });
+            [typeof(EventHandler)]);
         var evRemover = typeBuilder.DefineMethod(
             $"remove_{EventName}",
             MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.Abstract |
             MethodAttributes.HideBySig | MethodAttributes.NewSlot /* | MethodAttributes.SpecialName */,
             typeof(void),
-            new[] { typeof(EventHandler) });
+            [typeof(EventHandler)]);
         evBuilder.SetAddOnMethod(evAdder);
         evBuilder.SetRemoveOnMethod(evRemover);
 
@@ -81,32 +81,25 @@ public class Issue500_SpecialMethodsWithoutAttribute
             MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.Abstract |
             MethodAttributes.HideBySig | MethodAttributes.NewSlot /* | MethodAttributes.SpecialName */,
             typeof(void),
-            new[] { typeof(object) });
+            [typeof(object)]);
         propBuilder.SetGetMethod(propGetter);
         propBuilder.SetSetMethod(propSetter);
 
         return typeBuilder.CreateTypeInfo().AsType();
     }
 
-    private class GeneratedTypeFixture
+    private class GeneratedTypeFixture(object substitute)
     {
-        private readonly object _substitute;
-
-        public GeneratedTypeFixture(object substitute)
-        {
-            _substitute = substitute;
-        }
-
         public object MyProperty
         {
-            get => _substitute.GetType().GetProperty(PropertyName).GetValue(_substitute);
-            set => _substitute.GetType().GetProperty(PropertyName).SetValue(_substitute, value);
+            get => substitute.GetType().GetProperty(PropertyName).GetValue(substitute);
+            set => substitute.GetType().GetProperty(PropertyName).SetValue(substitute, value);
         }
 
         public event EventHandler MyEvent
         {
-            add => _substitute.GetType().GetEvent(EventName).AddEventHandler(_substitute, value);
-            remove => _substitute.GetType().GetEvent(EventName).RemoveEventHandler(_substitute, value);
+            add => substitute.GetType().GetEvent(EventName).AddEventHandler(substitute, value);
+            remove => substitute.GetType().GetEvent(EventName).RemoveEventHandler(substitute, value);
         }
     }
 }

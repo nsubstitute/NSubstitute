@@ -2,14 +2,9 @@
 
 namespace NSubstitute.Core.Arguments;
 
-public class ArrayContentsArgumentMatcher : IArgumentMatcher, IArgumentFormatter
+public class ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications) : IArgumentMatcher, IArgumentFormatter
 {
-    private readonly IArgumentSpecification[] _argumentSpecifications;
-
-    public ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications)
-    {
-        _argumentSpecifications = argumentSpecifications.ToArray();
-    }
+    private readonly IArgumentSpecification[] _argumentSpecifications = argumentSpecifications.ToArray();
 
     public bool IsSatisfiedBy(object? argument)
     {
@@ -31,7 +26,7 @@ public class ArrayContentsArgumentMatcher : IArgumentMatcher, IArgumentFormatter
 
     public string Format(object? argument, bool highlight)
     {
-        var argArray = argument is IEnumerable enumerableArgs ? enumerableArgs.Cast<object>().ToArray() : new object[0];
+        var argArray = argument is IEnumerable enumerableArgs ? enumerableArgs.Cast<object>().ToArray() : [];
         return Format(argArray, _argumentSpecifications).Join(", ");
     }
 

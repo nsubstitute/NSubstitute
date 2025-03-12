@@ -2,6 +2,8 @@
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 namespace NSubstitute.Acceptance.Specs;
 
 [TestFixture]
@@ -106,7 +108,7 @@ public class ArgumentMatchingCompat
         TestReceivedAsync().Wait();
     }
 
-    private async System.Threading.Tasks.Task TestReceivedAsync()
+    private async Task TestReceivedAsync()
     {
         await _something.Async();
         await _something.Received().Async();
@@ -118,7 +120,7 @@ public class ArgumentMatchingCompat
         TestDidNotReceiveAsync().Wait();
     }
 
-    private async System.Threading.Tasks.Task TestDidNotReceiveAsync()
+    private async Task TestDidNotReceiveAsync()
     {
         await _something.DidNotReceive().Async();
     }
@@ -141,7 +143,7 @@ public class ArgumentMatchingCompat
         _something.Received().WithParams(1, first, second);
         _something.Received().WithParams(1, Arg.Compat.Any<string>(), second);
         _something.Received().WithParams(1, first, Arg.Compat.Any<string>());
-        _something.Received().WithParams(1, new[] { first, second });
+        _something.Received().WithParams(1, [first, second]);
         _something.Received().WithParams(1, Arg.Compat.Any<string[]>());
         _something.Received().WithParams(1, Arg.Compat.Is<string[]>(x => x.Length == 2));
         _something.DidNotReceive().WithParams(2, first, second);

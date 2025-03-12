@@ -1,14 +1,7 @@
 ﻿namespace NSubstitute.Core.Arguments;
 
-public class ArgumentSpecificationCompatibilityTester : IArgumentSpecificationCompatibilityTester
+public class ArgumentSpecificationCompatibilityTester(IDefaultChecker defaultChecker) : IArgumentSpecificationCompatibilityTester
 {
-    private readonly IDefaultChecker _defaultChecker;
-
-    public ArgumentSpecificationCompatibilityTester(IDefaultChecker defaultChecker)
-    {
-        _defaultChecker = defaultChecker;
-    }
-
     public bool IsSpecificationCompatible(IArgumentSpecification specification, object? argumentValue, Type argumentType)
     {
         var typeArgSpecIsFor = specification.ForType;
@@ -18,7 +11,7 @@ public class ArgumentSpecificationCompatibilityTester : IArgumentSpecificationCo
 
     private bool IsProvidedArgumentTheOneWeWouldGetUsingAnArgSpecForThisType(object? argument, Type typeArgSpecIsFor)
     {
-        return _defaultChecker.IsDefault(argument, typeArgSpecIsFor);
+        return defaultChecker.IsDefault(argument, typeArgSpecIsFor);
     }
 
     private bool AreTypesCompatible(Type argumentType, Type typeArgSpecIsFor)

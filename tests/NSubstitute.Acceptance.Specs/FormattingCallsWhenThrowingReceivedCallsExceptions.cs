@@ -21,8 +21,8 @@ public class FormattingCallsWhenThrowingReceivedCallsExceptions
     {
         protected override void ConfigureContext()
         {
-            Sample.AnotherMethod(new List<string>());
-            Sample.AnotherMethod(new List<string>());
+            Sample.AnotherMethod([]);
+            Sample.AnotherMethod([]);
         }
 
         protected override void ExpectedCall()
@@ -67,12 +67,12 @@ public class FormattingCallsWhenThrowingReceivedCallsExceptions
 
     public class When_calls_have_been_made_to_expected_member_but_with_some_different_args : Context
     {
-        readonly IList<string> _strings = new List<string> { "a", "b" };
+        readonly IList<string> _strings = ["a", "b"];
 
         protected override void ConfigureContext()
         {
-            Sample.SampleMethod("different", 1, new List<string>());
-            Sample.SampleMethod("string", 7, new List<string>());
+            Sample.SampleMethod("different", 1, []);
+            Sample.SampleMethod("string", 7, []);
         }
 
         protected override void ExpectedCall()
@@ -265,7 +265,7 @@ public class FormattingCallsWhenThrowingReceivedCallsExceptions
         protected override void ConfigureContext()
         {
             Sample.ParamsMethod(2, "hello", "everybody");
-            Sample.ParamsMethod(1, new[] { "hello", "everybody" });
+            Sample.ParamsMethod(1, ["hello", "everybody"]);
             Sample.ParamsMethod(1, "hello");
             Sample.ParamsMethod(3, "1", "2", "3");
             Sample.ParamsMethod(1);
@@ -298,7 +298,7 @@ public class FormattingCallsWhenThrowingReceivedCallsExceptions
         protected override void ConfigureContext()
         {
             Sample.IntParamsMethod(1, 2, 3);
-            Sample.IntParamsMethod(new[] { 4, 5 });
+            Sample.IntParamsMethod([4, 5]);
             Sample.IntParamsMethod();
         }
 

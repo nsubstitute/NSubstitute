@@ -1,7 +1,5 @@
 ﻿using NSubstitute.Core;
 
-// Disable nullability for client API, so it does not affect clients.
-#nullable disable annotations
 
 namespace NSubstitute.ReturnsExtensions;
 

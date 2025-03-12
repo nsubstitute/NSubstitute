@@ -1,9 +1,6 @@
-using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Core.Events;
-
-// Disable nullability for client API, so it does not affect clients.
-#nullable disable annotations
+using System.Reflection;
 
 namespace NSubstitute;
 
@@ -81,7 +78,7 @@ public static class Raise
 
         if (singleParameterType.IsInstanceOfType(arguments))
         {
-            return new object[] { arguments };
+            return [arguments];
         }
 
         return arguments;

@@ -3,20 +3,13 @@ using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core;
 
-public class CallSpecification : ICallSpecification
+public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications) : ICallSpecification
 {
-    private readonly MethodInfo _methodInfo;
-    private readonly IArgumentSpecification[] _argumentSpecifications;
+    private readonly IArgumentSpecification[] _argumentSpecifications = argumentSpecifications.ToArray();
 
-    public CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpecification> argumentSpecifications)
-    {
-        _methodInfo = methodInfo;
-        _argumentSpecifications = argumentSpecifications.ToArray();
-    }
+    public MethodInfo GetMethodInfo() => methodInfo;
 
-    public MethodInfo GetMethodInfo() => _methodInfo;
-
-    public Type ReturnType() => _methodInfo.ReturnType;
+    public Type ReturnType() => methodInfo.ReturnType;
 
     public bool IsSatisfiedBy(ICall call)
     {
@@ -77,7 +70,7 @@ public class CallSpecification : ICallSpecification
             if (first.IsGenericType && second.IsGenericType
                 && first.GetGenericTypeDefinition() == second.GetGenericTypeDefinition())
             {
-                // both are the same generic type. If their GenericTypeArguments match then they are equivalent 
+                // both are the same generic type. If their GenericTypeArguments match then they are equivalent
                 if (!TypesAreAllEquivalent(first.GenericTypeArguments, second.GenericTypeArguments))
                 {
                     return false;
@@ -85,8 +78,13 @@ public class CallSpecification : ICallSpecification
                 continue;
             }
 
-            var areEquivalent = first.IsAssignableFrom(second) || second.IsAssignableFrom(first) ||
-                                typeof(Arg.AnyType).IsAssignableFrom(first) || typeof(Arg.AnyType).IsAssignableFrom(second);
+            var areAssignable = first.IsAssignableFrom(second) || second.IsAssignableFrom(first);
+            var areAnyTypeAssignable = typeof(Arg.AnyType).IsAssignableFrom(first) ||
+                                       typeof(Arg.AnyType).IsAssignableFrom(second);
+            var areByRefAnyTypeAssignable = first.IsByRef && second.IsByRef &&
+                                            (typeof(Arg.AnyType).IsAssignableFrom(first.GetElementType()) ||
+                                             typeof(Arg.AnyType).IsAssignableFrom(second.GetElementType()));
+            var areEquivalent = areAssignable || areAnyTypeAssignable || areByRefAnyTypeAssignable;
             if (!areEquivalent) return false;
         }
         return true;
@@ -123,7 +121,11 @@ public class CallSpecification : ICallSpecification
 
     public override string ToString()
     {
-        var argSpecsAsStrings = _argumentSpecifications.Select(x => x.ToString() ?? string.Empty).ToArray();
+        var argSpecsAsStrings = Array.ConvertAll(_argumentSpecifications, x =>
+            x is IDescribeSpecification describe
+                ? describe.DescribeSpecification() ?? string.Empty
+                : x.ToString() ?? string.Empty
+        );
         return CallFormatter.Default.Format(GetMethodInfo(), argSpecsAsStrings);
     }
 

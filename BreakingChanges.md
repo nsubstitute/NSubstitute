@@ -1,3 +1,11 @@
+6.0.0 Release
+================
+
+* Update target frameworks: .NET 8, .NET Standard 2.0.
+* Obsolete api is removed
+* CompatArg is marked as obsolete
+* Nullability is enabled for public api for .NET 8+. Workaround: you can disable nullability `<Nullable>disable</Nullable>` on project if you don't want to use it. more info https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references
+
 5.0.0 Release
 ================
 
@@ -91,7 +99,7 @@ Workaround: Use `NSubstitute.Received.InOrder`.
 
 Signed v3.x package to fix libraries that work with a mix of NSubstitute verisons. See #324.
 
-3.0.0 Release 
+3.0.0 Release
 ================
 
 NOTE: unsigned. Fixed in 3.0.1.
@@ -108,7 +116,7 @@ Standard 1.3 compatible target such as .NET 4.6 or later. See compatibility matr
     https://github.com/dotnet/standard/blob/master/docs/versions.md
 
 
-1.10.0 Release 
+1.10.0 Release
 ================
 
 Substitutes will now automatically return an empty `IQueryable<T>` for
@@ -116,7 +124,7 @@ members that return that type. Tests previously relying on a
 substitute `IQueryable<T>` will no longer work properly.
 
 Reason:
-- Code that uses an `IQueryable<T>` can now run using the auto-subbed 
+- Code that uses an `IQueryable<T>` can now run using the auto-subbed
 value without causing null pointer exceptions (see issue #67).
 
 Fix:
@@ -128,10 +136,10 @@ to return a real `IQueryable<T>` instead. If a substitute is required, explicitl
     ```
 
 
-1.9.1 Release 
+1.9.1 Release
 ================
 
-Substitutes set up to throw exception for methods with return type Task<T> 
+Substitutes set up to throw exception for methods with return type Task<T>
 cause compilation to fail due to the call being ambiguous (CS0121).
 "The call is ambiguous between the following methods or properties:
 `.Returns<Task<T>>` and `.Returns<T>`"
@@ -146,7 +154,7 @@ Fix:
 
     New: `sub.Method().Returns<string>(x => { throw new Exception() });`
 
-1.8.0 Release 
+1.8.0 Release
 ================
 
 Incorrect use of argument matchers outside of a member call, particularly within a
@@ -214,7 +222,7 @@ Fix:
 
 ---------------
 
-In rare cases the new `Returns()` and `ReturnsForAnyArgs()` overloads can cause compilation to fail due to the call being ambiguous (CS0121). 
+In rare cases the new `Returns()` and `ReturnsForAnyArgs()` overloads can cause compilation to fail due to the call being ambiguous (CS0121).
 
 Reason:
 - The new overloads allow a sequence of callbacks to be used for return values. A common example is return several values, then throwing an exception.
@@ -229,7 +237,7 @@ Fix:
 Auto-substitute from substitutes of `Func` delegates (following the same rules as auto-subbing for methods and properties). So the delegate returned from `Substitute.For<Func<IFoo>>()` will return a substitute of `IFoo`. This means some substitutes for delegates that used to return null will now return a new substitute.
 
 Reason:
-- Reduced setup when substituting for `Func` delegates, and consistency with behaviour for properties and methods. 
+- Reduced setup when substituting for `Func` delegates, and consistency with behaviour for properties and methods.
 
 Fix:
 - Explicitly return null from substitute delegates when required for a test.

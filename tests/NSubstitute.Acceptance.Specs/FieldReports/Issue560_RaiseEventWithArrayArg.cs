@@ -56,7 +56,7 @@ public class Issue560_RaiseEventWithArrayArg
         var eventSamples = Substitute.For<IEventSamples>();
         eventSamples.ActionWithParamOfObjectArray += x => capturedArg = x;
 
-        eventSamples.ActionWithParamOfObjectArray += Raise.Event<Action<object[]>>(new object[] { arg1 });
+        eventSamples.ActionWithParamOfObjectArray += Raise.Event<Action<object[]>>([arg1]);
         Assert.That(capturedArg, Is.EqualTo(arg1));
     }
 
@@ -69,7 +69,7 @@ public class Issue560_RaiseEventWithArrayArg
         var eventSamples = Substitute.For<IEventSamples>();
         eventSamples.ActionWithParamOfObjectArray += x => capturedArg = x;
 
-        eventSamples.ActionWithParamOfObjectArray += Raise.Event<Action<object[]>>(new object[] { arg1 });
+        eventSamples.ActionWithParamOfObjectArray += Raise.Event<Action<object[]>>([arg1]);
         Assert.That(capturedArg, Is.EqualTo(arg1));
     }
 
@@ -96,13 +96,8 @@ public class Issue560_RaiseEventWithArrayArg
         event Action<object[], object[]> ActionWithParamsOfObjectArray;
     }
 
-    public class Widget
+    public class Widget(string name)
     {
-        public string Name { get; }
-
-        public Widget(string name)
-        {
-            Name = name;
-        }
+        public string Name { get; } = name;
     }
 }

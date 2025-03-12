@@ -118,7 +118,7 @@ public class MultipleThreads
         sut.Number().Returns(expected[0], expected.Skip(1).ToArray());
 
         var tasks = Enumerable.Range(0, parallelism)
-            .Select(_ => new System.Threading.Tasks.Task<int>(() => sut.Number()))
+            .Select(_ => new Task<int>(() => sut.Number()))
             .ToArray();
 
         foreach (var task in tasks) { task.Start(); }

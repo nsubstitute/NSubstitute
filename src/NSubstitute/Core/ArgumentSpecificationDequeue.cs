@@ -1,18 +1,10 @@
-﻿using System.Reflection;
-using NSubstitute.Core.Arguments;
+﻿using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core;
 
-public class ArgumentSpecificationDequeue : IArgumentSpecificationDequeue
+public class ArgumentSpecificationDequeue(Func<IList<IArgumentSpecification>> dequeueAllQueuedArgSpecs) : IArgumentSpecificationDequeue
 {
-    private static readonly IArgumentSpecification[] EmptySpecifications = new IArgumentSpecification[0];
-
-    private readonly Func<IList<IArgumentSpecification>> _dequeueAllQueuedArgSpecs;
-
-    public ArgumentSpecificationDequeue(Func<IList<IArgumentSpecification>> dequeueAllQueuedArgSpecs)
-    {
-        _dequeueAllQueuedArgSpecs = dequeueAllQueuedArgSpecs;
-    }
+    private static readonly IArgumentSpecification[] EmptySpecifications = [];
 
     public IList<IArgumentSpecification> DequeueAllArgumentSpecificationsForMethod(int parametersCount)
     {
@@ -24,12 +16,7 @@ public class ArgumentSpecificationDequeue : IArgumentSpecificationDequeue
             return EmptySpecifications;
         }
 
-        var queuedArgSpecifications = _dequeueAllQueuedArgSpecs.Invoke();
+        var queuedArgSpecifications = dequeueAllQueuedArgSpecs.Invoke();
         return queuedArgSpecifications;
-    }
-
-    public IList<IArgumentSpecification> DequeueAllArgumentSpecificationsForMethod(MethodInfo methodInfo)
-    {
-        return DequeueAllArgumentSpecificationsForMethod(methodInfo.GetParameters().Length);
     }
 }

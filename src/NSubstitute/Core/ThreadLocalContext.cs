@@ -6,7 +6,7 @@ namespace NSubstitute.Core;
 
 public class ThreadLocalContext : IThreadLocalContext
 {
-    private static readonly IArgumentSpecification[] EmptySpecifications = new IArgumentSpecification[0];
+    private static readonly IArgumentSpecification[] EmptySpecifications = [];
 
     private readonly RobustThreadLocal<ICallRouter?> _lastCallRouter;
     private readonly RobustThreadLocal<IList<IArgumentSpecification>> _argumentSpecifications;
@@ -19,7 +19,7 @@ public class ThreadLocalContext : IThreadLocalContext
     public ThreadLocalContext()
     {
         _lastCallRouter = new RobustThreadLocal<ICallRouter?>();
-        _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => new List<IArgumentSpecification>());
+        _argumentSpecifications = new RobustThreadLocal<IList<IArgumentSpecification>>(() => []);
         _getArgumentsForRaisingEvent = new RobustThreadLocal<Func<ICall, object?[]>?>();
         _currentQuery = new RobustThreadLocal<IQuery?>();
         _pendingSpecificationInfo = new RobustThreadLocal<PendingSpecInfoData>();
@@ -102,10 +102,27 @@ public class ThreadLocalContext : IThreadLocalContext
         }
         else
         {
-            _argumentSpecifications.Value = new List<IArgumentSpecification>();
+            _argumentSpecifications.Value = [];
         }
 
         return queue;
+    }
+
+    /// <inheritdoc/>
+    public IList<IArgumentSpecification> PeekAllArgumentSpecifications()
+    {
+        var queue = _argumentSpecifications.Value;
+
+        if (queue?.Count > 0)
+        {
+            var items = new IArgumentSpecification[queue.Count];
+
+            queue.CopyTo(items, 0);
+
+            return items;
+        }
+
+        return EmptySpecifications;
     }
 
     public void SetPendingRaisingEventArgumentsFactory(Func<ICall, object?[]> getArguments)
@@ -148,40 +165,33 @@ public class ThreadLocalContext : IThreadLocalContext
         query.RegisterCall(call);
     }
 
-    private class PendingSpecificationWrapper : IPendingSpecification
+    private class PendingSpecificationWrapper(RobustThreadLocal<ThreadLocalContext.PendingSpecInfoData> valueHolder) : IPendingSpecification
     {
-        private readonly RobustThreadLocal<PendingSpecInfoData> _valueHolder;
-
-        public PendingSpecificationWrapper(RobustThreadLocal<PendingSpecInfoData> valueHolder)
-        {
-            _valueHolder = valueHolder;
-        }
-
         public bool HasPendingCallSpecInfo()
         {
-            return _valueHolder.Value.HasValue;
+            return valueHolder.Value.HasValue;
         }
 
         public PendingSpecificationInfo? UseCallSpecInfo()
         {
-            var info = _valueHolder.Value;
+            var info = valueHolder.Value;
             Clear();
             return info.ToPendingSpecificationInfo();
         }
 
         public void SetCallSpecification(ICallSpecification callSpecification)
         {
-            _valueHolder.Value = PendingSpecInfoData.FromCallSpecification(callSpecification);
+            valueHolder.Value = PendingSpecInfoData.FromCallSpecification(callSpecification);
         }
 
         public void SetLastCall(ICall lastCall)
         {
-            _valueHolder.Value = PendingSpecInfoData.FromLastCall(lastCall);
+            valueHolder.Value = PendingSpecInfoData.FromLastCall(lastCall);
         }
 
         public void Clear()
         {
-            _valueHolder.Value = default;
+            valueHolder.Value = default;
         }
     }
 

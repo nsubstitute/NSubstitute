@@ -1,7 +1,9 @@
 ﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
+using NSubstitute.ExceptionExtensions;
 using NSubstitute.Exceptions;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs;
@@ -165,7 +167,7 @@ public class ArgumentMatching
         TestReceivedAsync().Wait();
     }
 
-    private async System.Threading.Tasks.Task TestReceivedAsync()
+    private async Task TestReceivedAsync()
     {
         await _something.Async();
         await _something.Received().Async();
@@ -177,7 +179,7 @@ public class ArgumentMatching
         TestDidNotReceiveAsync().Wait();
     }
 
-    private async System.Threading.Tasks.Task TestDidNotReceiveAsync()
+    private async Task TestDidNotReceiveAsync()
     {
         await _something.DidNotReceive().Async();
     }
@@ -200,7 +202,7 @@ public class ArgumentMatching
         _something.Received().WithParams(1, first, second);
         _something.Received().WithParams(1, Arg.Any<string>(), second);
         _something.Received().WithParams(1, first, Arg.Any<string>());
-        _something.Received().WithParams(1, new[] { first, second });
+        _something.Received().WithParams(1, [first, second]);
         _something.Received().WithParams(1, Arg.Any<string[]>());
         _something.Received().WithParams(1, Arg.Is<string[]>(x => x.Length == 2));
         _something.DidNotReceive().WithParams(2, first, second);
@@ -300,11 +302,11 @@ public class ArgumentMatching
     public void Throw_with_ambiguous_arguments_when_given_an_arg_matcher_and_a_default_arg_value_v1()
     {
         Assert.Throws<AmbiguousArgumentsException>(() =>
-           {
-               _something.Add(0, Arg.Any<int>()).Returns(1);
-               Assert.Fail("Should not make it here, as it can't work out which arg the matcher refers to." +
-                           "If it does this will throw an AssertionException rather than AmbiguousArgumentsException.");
-           });
+        {
+            _something.Add(0, Arg.Any<int>()).Returns(1);
+            Assert.Fail("Should not make it here, as it can't work out which arg the matcher refers to." +
+                        "If it does this will throw an AssertionException rather than AmbiguousArgumentsException.");
+        });
     }
 
     [Test]
@@ -740,9 +742,219 @@ public class ArgumentMatching
         Assert.That(ex.Message, Contains.Substring("24 is not forty two"));
     }
 
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_string_with_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyStringArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<string>>());
+    }
+
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_custom_class_with_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MySampleClassArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<SampleClass>>());
+    }
+
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_custom_class_with_derived_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MySampleDerivedClassArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<SampleClass>>());
+    }
+
+    [Test]
+    public void Supports_matching_custom_class_with_derived_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MySampleDerivedClassArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<MySampleClassArgument>());
+    }
+
+    [Test]
+    public void Supports_matching_custom_with_multiple_generic_arguments_string()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyStringIntArgument();
+
+        service.MyMethodWithReturnValue<string>().Returns(argument);
+    }
+
+    [Test]
+    public void Supports_matching_custom_with_multiple_generic_arguments_int()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyStringIntArgument();
+
+        service.MyMethodWithReturnValue<int>().Returns(argument);
+    }
+
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_ArgAnyType_with_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyStringArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<Arg.AnyType>>());
+    }
+
+    [Test]
+    public void Supports_matching_generic_interface_bound_type_ArgAnyType_with_derived_class_argument()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MySampleDerivedClassArgument();
+
+        service.MyMethod(argument);
+
+        service.Received().MyMethod(Arg.Any<IMyArgument<Arg.AnyType>>());
+    }
+
+    [Test]
+    public void Does_not_support_matching_ArgAny_of_type_derived_from_base_type_with_string_type_param_to_other_type_derived_from_base_type()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyOtherStringArgument();
+
+        service.MyMethod(argument);
+
+        service.DidNotReceive().MyMethod(Arg.Any<MyStringArgument>());
+    }
+
+    [Test]
+    public void Does_not_support_matching_ArgAny_of_type_derived_from_base_type_with_custom_type_param_to_other_type_derived_from_base_type()
+    {
+        var service = Substitute.For<IMyService>();
+        var argument = new MyOtherSampleClassArgument();
+
+        service.MyMethod(argument);
+
+        service.DidNotReceive().MyMethod(Arg.Any<MySampleClassArgument>());
+    }
+
+    [Test]
+    public void Does_support_out_method_with_base_override()
+    {
+        var controlFactory = Substitute.For<MyHasMethodWithOutParameter>();
+
+        Assert.That(() => controlFactory.Configure()
+            .MethodWithOutParameter(default, out var _)
+            .ReturnsForAnyArgs(ci =>
+            {
+                ci[1] = 4;
+                return 3;
+            }), Throws.Nothing);
+
+        var returned = controlFactory.MethodWithOutParameter(0, out var outArg);
+        using var _ = Assert.EnterMultipleScope();
+        Assert.That(returned, Is.EqualTo(3));
+        Assert.That(outArg, Is.EqualTo(4));
+    }
+
     [SetUp]
     public void SetUp()
     {
         _something = Substitute.For<ISomething>();
+    }
+
+    public interface IMyService
+    {
+        void MyMethod<T>(IMyArgument<T> argument);
+
+        IMyArgument<T> MyMethodWithReturnValue<T>();
+
+    }
+
+    public interface IMyArgument<T> { }
+    public class SampleClass { }
+    public class MyStringArgument : IMyArgument<string> { }
+    public class MyOtherStringArgument : IMyArgument<string> { }
+    public class MySampleClassArgument : IMyArgument<SampleClass> { }
+    public class MyOtherSampleClassArgument : IMyArgument<SampleClass> { }
+    public class MyStringIntArgument : IMyArgument<string>, IMyArgument<int> { }
+    public class MySampleDerivedClassArgument : MySampleClassArgument { }
+
+    [Test]
+    public void Should_use_ToString_to_describe_custom_arg_matcher_without_DescribesSpec()
+    {
+        var ex = Assert.Throws<ReceivedCallsException>(() =>
+        {
+            _something.Received().Add(23, ArgumentMatcher.Enqueue(new CustomMatcher()));
+        });
+        Assert.That(ex.Message, Contains.Substring("Add(23, Custom match)"));
+    }
+
+    [Test]
+    public void Should_describe_spec_for_custom_arg_matcher_when_implemented()
+    {
+        var ex = Assert.Throws<ReceivedCallsException>(() =>
+        {
+            _something.Received().Add(23, ArgumentMatcher.Enqueue(new CustomDescribeSpecMatcher("DescribeSpec")));
+        });
+        Assert.That(ex.Message, Contains.Substring("Add(23, DescribeSpec)"));
+    }
+
+    [Test]
+    public void Should_use_empty_string_for_null_describe_spec_for_custom_arg_matcher_when_implemented()
+    {
+        var ex = Assert.Throws<ReceivedCallsException>(() =>
+        {
+            _something.Received().Add(23, ArgumentMatcher.Enqueue(new CustomDescribeSpecMatcher(null)));
+        });
+        Assert.That(ex.Message, Contains.Substring("Add(23, )"));
+    }
+
+    class CustomMatcher : IArgumentMatcher, IDescribeNonMatches, IArgumentMatcher<int>
+    {
+        public string DescribeFor(object argument) => "failed";
+        public bool IsSatisfiedBy(object argument) => false;
+        public bool IsSatisfiedBy(int argument) => false;
+        public override string ToString() => "Custom match";
+    }
+
+    class CustomDescribeSpecMatcher(string description) : CustomMatcher, IDescribeSpecification
+    {
+        public string DescribeSpecification() => description;
+    }
+
+    public interface IHasMethodWithOutParameter
+    {
+        int MethodWithOutParameter(int arg1, out int arg2);
+    }
+
+    public class HasMethodWithOutParameter : IHasMethodWithOutParameter
+    {
+        public virtual int MethodWithOutParameter(int arg1, out int arg2)
+        {
+            arg2 = 2;
+            return 1;
+        }
+    }
+
+    public class MyHasMethodWithOutParameter : HasMethodWithOutParameter
+    {
+        // The presence of his override used to throw an exception in NSubstitute 5.0.0, caused by a bug in Caste.Core < 5.2.0
+        // https://github.com/nsubstitute/NSubstitute/issues/716
+        public override int MethodWithOutParameter(int arg1, out int arg2)
+        {
+            arg2 = 3;
+            return 2;
+        }
     }
 }

@@ -3,29 +3,20 @@ using NSubstitute.Routing;
 
 namespace NSubstitute.Core;
 
-public class CallRouter : ICallRouter
+public class CallRouter(
+    ISubstituteState substituteState,
+    IThreadLocalContext threadContext,
+    IRouteFactory routeFactory,
+    bool canConfigureBaseCalls) : ICallRouter
 {
-    private readonly ISubstituteState _substituteState;
-    private readonly IThreadLocalContext _threadContext;
-    private readonly IRouteFactory _routeFactory;
-    private readonly bool _canConfigureBaseCalls;
-
-    public CallRouter(ISubstituteState substituteState, IThreadLocalContext threadContext, IRouteFactory routeFactory, bool canConfigureBaseCalls)
-    {
-        _substituteState = substituteState;
-        _threadContext = threadContext;
-        _routeFactory = routeFactory;
-        _canConfigureBaseCalls = canConfigureBaseCalls;
-    }
-
     public bool CallBaseByDefault
     {
-        get => _substituteState.CallBaseConfiguration.CallBaseByDefault;
+        get => substituteState.CallBaseConfiguration.CallBaseByDefault;
         set
         {
-            if (!_canConfigureBaseCalls) throw CouldNotConfigureCallBaseException.ForAllCalls();
+            if (!canConfigureBaseCalls) throw CouldNotConfigureCallBaseException.ForAllCalls();
 
-            _substituteState.CallBaseConfiguration.CallBaseByDefault = value;
+            substituteState.CallBaseConfiguration.CallBaseByDefault = value;
         }
     }
 
@@ -33,34 +24,31 @@ public class CallRouter : ICallRouter
     {
         if ((options & ClearOptions.CallActions) == ClearOptions.CallActions)
         {
-            _substituteState.CallActions.Clear();
+            substituteState.CallActions.Clear();
         }
         if ((options & ClearOptions.ReturnValues) == ClearOptions.ReturnValues)
         {
-            _substituteState.CallResults.Clear();
-            _substituteState.ResultsForType.Clear();
+            substituteState.CallResults.Clear();
+            substituteState.ResultsForType.Clear();
         }
         if ((options & ClearOptions.ReceivedCalls) == ClearOptions.ReceivedCalls)
         {
-            _substituteState.ReceivedCalls.Clear();
+            substituteState.ReceivedCalls.Clear();
         }
     }
 
     public IEnumerable<ICall> ReceivedCalls()
     {
-        return _substituteState.ReceivedCalls.AllCalls();
+        return substituteState.ReceivedCalls.AllCalls();
     }
-
-    public void SetRoute(Func<ISubstituteState, IRoute> getRoute) =>
-        _threadContext.SetNextRoute(this, getRoute);
 
     public object? Route(ICall call)
     {
-        _threadContext.SetLastCallRouter(this);
+        threadContext.SetLastCallRouter(this);
 
-        var isQuerying = _threadContext.IsQuerying;
-        var pendingRaisingEventArgs = _threadContext.UsePendingRaisingEventArgumentsFactory();
-        var queuedNextRouteFactory = _threadContext.UseNextRoute(this);
+        var isQuerying = threadContext.IsQuerying;
+        var pendingRaisingEventArgs = threadContext.UsePendingRaisingEventArgumentsFactory();
+        var queuedNextRouteFactory = threadContext.UseNextRoute(this);
 
         IRoute routeToUse = ResolveCurrentRoute(call, isQuerying, pendingRaisingEventArgs, queuedNextRouteFactory);
 
@@ -71,25 +59,25 @@ public class CallRouter : ICallRouter
     {
         if (isQuerying)
         {
-            return _routeFactory.CallQuery(_substituteState);
+            return routeFactory.CallQuery(substituteState);
         }
 
         if (pendingRaisingEventArgs != null)
         {
-            return _routeFactory.RaiseEvent(_substituteState, pendingRaisingEventArgs);
+            return routeFactory.RaiseEvent(substituteState, pendingRaisingEventArgs);
         }
 
         if (queuedNextRouteFactory != null)
         {
-            return queuedNextRouteFactory.Invoke(_substituteState);
+            return queuedNextRouteFactory.Invoke(substituteState);
         }
 
         if (IsSpecifyingACall(call))
         {
-            return _routeFactory.RecordCallSpecification(_substituteState);
+            return routeFactory.RecordCallSpecification(substituteState);
         }
 
-        return _routeFactory.RecordReplay(_substituteState);
+        return routeFactory.RecordReplay(substituteState);
     }
 
     private static bool IsSpecifyingACall(ICall call)
@@ -99,18 +87,18 @@ public class CallRouter : ICallRouter
 
     public ConfiguredCall LastCallShouldReturn(IReturn returnValue, MatchArgs matchArgs, PendingSpecificationInfo pendingSpecInfo)
     {
-        return _substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs, pendingSpecInfo);
+        return substituteState.ConfigureCall.SetResultForLastCall(returnValue, matchArgs, pendingSpecInfo);
     }
 
     public void SetReturnForType(Type type, IReturn returnValue)
     {
-        _substituteState.ResultsForType.SetResult(type, returnValue);
+        substituteState.ResultsForType.SetResult(type, returnValue);
     }
 
     public void RegisterCustomCallHandlerFactory(CallHandlerFactory factory)
     {
         if (factory == null) throw new ArgumentNullException(nameof(factory));
 
-        _substituteState.CustomHandlers.AddCustomHandlerFactory(factory);
+        substituteState.CustomHandlers.AddCustomHandlerFactory(factory);
     }
 }

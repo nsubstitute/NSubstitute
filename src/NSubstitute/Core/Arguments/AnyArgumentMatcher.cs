@@ -1,15 +1,8 @@
 namespace NSubstitute.Core.Arguments;
 
-public class AnyArgumentMatcher : IArgumentMatcher
+public class AnyArgumentMatcher(Type typeArgMustBeCompatibleWith) : IArgumentMatcher
 {
-    private readonly Type _typeArgMustBeCompatibleWith;
+    public override string ToString() => "any " + typeArgMustBeCompatibleWith.GetNonMangledTypeName();
 
-    public AnyArgumentMatcher(Type typeArgMustBeCompatibleWith)
-    {
-        _typeArgMustBeCompatibleWith = typeArgMustBeCompatibleWith;
-    }
-
-    public override string ToString() => "any " + _typeArgMustBeCompatibleWith.GetNonMangledTypeName();
-
-    public bool IsSatisfiedBy(object? argument) => argument.IsCompatibleWith(_typeArgMustBeCompatibleWith);
+    public bool IsSatisfiedBy(object? argument) => argument.IsCompatibleWith(typeArgMustBeCompatibleWith);
 }

@@ -1,6 +1,6 @@
-using System.Reflection;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
+using System.Reflection;
 
 namespace NSubstitute.Core;
 
@@ -15,19 +15,8 @@ public class Call : ICall, /* Performance optimization */ CallCollection.IReceiv
     private long? _sequenceNumber;
     private readonly Func<object>? _baseMethod;
 
-    [Obsolete("This constructor is deprecated and will be removed in future version of product.")]
-    public Call(MethodInfo methodInfo,
-        object?[] arguments,
-        object target,
-        IList<IArgumentSpecification> argumentSpecifications,
-        IParameterInfo[] parameterInfos,
-        Func<object> baseMethod)
-        : this(methodInfo, arguments, target, argumentSpecifications, baseMethod)
-    {
-        _parameterInfosCached = parameterInfos ?? throw new ArgumentNullException(nameof(parameterInfos));
-    }
-
-    public Call(MethodInfo methodInfo,
+    public Call(
+        MethodInfo methodInfo,
         object?[] arguments,
         object target,
         IList<IArgumentSpecification> argumentSpecifications,
@@ -81,7 +70,7 @@ public class Call : ICall, /* Performance optimization */ CallCollection.IReceiv
         object?[] originalArray = _originalArguments;
         if (originalArray == _arguments && originalArray.Length > 0)
         {
-            object?[] copy = originalArray.ToArray();
+            object?[] copy = [.. originalArray];
             // If it happens that _originalArguments doesn't point to the `_arguments` anymore -
             // it might happen that other thread already created a copy and mutated the original `_arguments` array.
             // In this case it's unsafe to replace it with a copy.
