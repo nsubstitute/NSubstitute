@@ -27,8 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstitute.Acceptance.Spec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstitute.Benchmarks", "tests\NSubstitute.Benchmarks\NSubstitute.Benchmarks.csproj", "{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAsyncEventHandlersWithNSubstiute", "tests\Nsubstitute.TestAsyncEventHandlersWithNSubstiute\TestAsyncEventHandlersWithNSubstiute.csproj", "{F9393821-D811-433C-8642-584F94701F1D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9393821-D811-433C-8642-584F94701F1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9393821-D811-433C-8642-584F94701F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9393821-D811-433C-8642-584F94701F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9393821-D811-433C-8642-584F94701F1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,7 +53,6 @@ Global
 		{F59BF5FC-52D8-492E-BDE8-244C183B4C92} = {CFB6BF4B-381D-4884-A8E8-D1FA71315BDE}
 		{8C2300AA-F94C-4005-A359-257C5EAD338E} = {0E2B9095-7548-462F-9BCC-CD6765B3ED60}
 		{D2D162D4-EF1D-4B40-8736-9228C2FEA16C} = {0E2B9095-7548-462F-9BCC-CD6765B3ED60}
-		{F9393821-D811-433C-8642-584F94701F1D} = {0E2B9095-7548-462F-9BCC-CD6765B3ED60}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {230E97F1-5246-4D49-8ED9-065F2B154E93}
