@@ -1,3 +1,6 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NUnit.Framework;
@@ -9,11 +12,31 @@ public class WhenCalledDo
 {
     private ISomething _something;
 
+
+    [Test]
+    public void Execute_when_called_async()
+    {
+        var called = false;
+        _something.When(substitute => substitute.Echo(1)).Do(async info =>
+        {
+            await Task.Delay(100);
+            called = true;
+        });
+
+        Assert.That(called, Is.False, "Called");
+        _something.Echo(1);
+        Assert.That(called, Is.True, "Called");
+    }
+
     [Test]
     public void Execute_when_called()
     {
         var called = false;
-        _something.When(substitute => substitute.Echo(1)).Do(info => called = true);
+        _something.When(substitute => substitute.Echo(1)).Do(info =>
+        {
+            Thread.Sleep(100);
+            called = true;
+        });
 
         Assert.That(called, Is.False, "Called");
         _something.Echo(1);
