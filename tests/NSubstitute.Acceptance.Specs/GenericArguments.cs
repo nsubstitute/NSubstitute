@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Globalization;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs;
@@ -12,6 +13,7 @@ public class GenericArguments
         void SomeAction<TState>(int level, TState state);
         string SomeFunction<TState>(int level, TState state);
         ICollection<TState> SomeFunction<TState>(TState state);
+        ICollection<TState> SomeFunctionWithoutGenericMethodParameter<TState>(int level);
         bool SomeFunctionWithOut<TState>(out IEnumerable<TState> state);
         bool SomeFunctionWithRef<TState>(ref IEnumerable<TState> state);
         void SomeActionWithGenericConstraints<TState>(int level, TState state) where TState : IEnumerable<int>;
@@ -176,5 +178,36 @@ public class GenericArguments
         bool result = something.SomeFunctionWithRef(ref refParameter);
 
         Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void Callback_allows_access_to_method_call()
+    {
+        static ICollection<T> CreateSubstitute<T>(int count)
+        {
+            ICollection<T> substitute = Substitute.For<ICollection<T>>();
+            substitute.Count.Returns(count);
+            return substitute;
+        }
+
+        MethodInfo methodInfo = typeof(GenericArguments)
+            .GetMethods(BindingFlags.Static | BindingFlags.NonPublic)
+            .Single(x
+                => x.Name.Contains(nameof(CreateSubstitute))
+                && x.Name.Contains(nameof(Callback_allows_access_to_method_call)));
+
+        ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
+        something
+            .SomeFunctionWithoutGenericMethodParameter<Arg.AnyType>(Arg.Any<int>())
+            .Returns(x =>
+            {
+                Type argumentType = x.GenericArgs()[0];
+                MethodInfo method = methodInfo.MakeGenericMethod(argumentType);
+                return method.Invoke(null, [x.Arg<int>()]);
+            });
+
+        ICollection<int> result = something.SomeFunctionWithoutGenericMethodParameter<int>(7);
+
+        Assert.That(result.Count, Is.EqualTo(7));
     }
 }
