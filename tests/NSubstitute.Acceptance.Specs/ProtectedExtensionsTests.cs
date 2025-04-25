@@ -47,6 +47,19 @@ public class ProtectedExtensionsTests
     }
 
     [Test]
+    public void Should_mock_and_verify_protected_method_with_params_arg()
+    {
+        var expectedMsg = "unit test message";
+        var sub = Substitute.For<AnotherClass>();
+        var worker = new Worker();
+
+        sub.Protected("ProtectedMethod", Arg.Any<string>(), Arg.Any<int[]>()).Returns(expectedMsg);
+
+        Assert.That(worker.DoWorkWithParams(sub, 3, 5), Is.EqualTo(expectedMsg));
+        sub.Received(1).Protected("ProtectedMethod", Arg.Any<string>(), Arg.Any<int[]>());
+    }
+
+    [Test]
     public void Should_throw_on_mock_null_substitute()
     {
         Assert.Throws<NullSubstituteReferenceException>(() => (null as AnotherClass).Protected("ProtectedMethod"));
@@ -137,6 +150,20 @@ public class ProtectedExtensionsTests
     }
 
     [Test]
+    public void Should_mock_and_verify_void_method_with_params_arg()
+    {
+        var count = 0;
+        var sub = Substitute.For<AnotherClass>();
+        var worker = new Worker();
+
+        sub.When("ProtectedMethodWithNoReturn", Arg.Any<string>(), Arg.Any<int[]>()).Do(x => count++);
+
+        worker.DoVoidWork(sub, 6, 9);
+        Assert.That(count, Is.EqualTo(1));
+        sub.Received(1).Protected("ProtectedMethodWithNoReturn", Arg.Any<string>(), Arg.Any<int[]>());
+    }
+
+    [Test]
     public void Should_throw_on_void_method_null_substitute()
     {
         Assert.Throws<NullSubstituteReferenceException>(() => (null as AnotherClass).When("ProtectedMethod"));
@@ -201,6 +228,11 @@ public class ProtectedExtensionsTests
             return worker.DoWork("worker", i, j);
         }
 
+        internal string DoWorkWithParams(AnotherClass worker, params int[] numb)
+        {
+            return worker.DoWork("worker", numb);
+        }
+
         internal void DoVoidWork(AnotherClass worker)
         {
             worker.DoVoidWork();
@@ -214,6 +246,11 @@ public class ProtectedExtensionsTests
         internal void DoVoidWork(AnotherClass worker, int i, char j)
         {
             worker.DoVoidWork("void worker", i, j);
+        }
+
+        internal void DoVoidWork(AnotherClass worker, params int[] numb)
+        {
+            worker.DoVoidWork("void worker", numb);
         }
     }
 }

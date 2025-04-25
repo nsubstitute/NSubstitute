@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using NSubstitute.Routing;
 
 namespace NSubstitute.Core;
@@ -20,15 +19,15 @@ public class WhenCalled<T>(ISubstitutionContext context, T substitute, Action<T>
     }
 
     /// <summary>
-        /// Perform this action when called.
-        /// </summary>
-        /// <param name="callbackWithArguments"></param>
-        public void Do(Func<CallInfo, Task> callbackWithArguments)
-        {
-            Do(callInfo => callbackWithArguments(callInfo).GetAwaiter().GetResult());
-        }
+    /// Perform this action when called.
+    /// </summary>
+    /// <param name="callbackWithArguments"></param>
+    public void Do(Func<CallInfo, Task> callbackWithArguments)
+    {
+        Do(callInfo => callbackWithArguments(callInfo).GetAwaiter().GetResult());
+    }
 
-        /// <summary>
+    /// <summary>
     /// Perform this configured callback when called.
     /// </summary>
     /// <param name="callback"></param>
