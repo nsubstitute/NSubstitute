@@ -21,8 +21,8 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://nsubstitute.github.io/</PackageProjectUrl>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
-	  <RepositoryUrl>https://github.com/nsubstitute/NSubstitute</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/nsubstitute/NSubstitute</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
@@ -46,7 +46,7 @@
   <ItemGroup>
     <None Include="..\..\docs\images\nsubstitute-100x100.png" Pack="true" PackagePath="icon.png" Visible="false" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="5.1.1" />
   </ItemGroup>
@@ -54,5 +54,5 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0-*" />
   </ItemGroup>
-  
+
 </Project>
