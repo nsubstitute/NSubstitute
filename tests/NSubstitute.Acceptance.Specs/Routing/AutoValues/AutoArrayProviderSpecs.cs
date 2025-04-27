@@ -1,12 +1,13 @@
 using System;
 using NSubstitute.Routing.AutoValues;
-using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs.Routing.AutoValues
 {
-    public class AutoArrayProviderSpecs : ConcernFor<AutoArrayProvider>
+    public class AutoArrayProviderSpecs
     {
+        AutoArrayProvider sut = CreateSubjectUnderTest();
+
         [Test]
         public void Can_provide_value_for_arrays()
         {
@@ -28,7 +29,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
             Assert.That(array, Is.Empty);
         }
 
-        public override AutoArrayProvider CreateSubjectUnderTest()
+        private static AutoArrayProvider CreateSubjectUnderTest()
         {
             return new AutoArrayProvider();
         }
