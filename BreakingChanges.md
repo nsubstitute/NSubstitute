@@ -5,7 +5,7 @@
 * Obsolete api is removed
 * CompatArg is marked as obsolete
 * Nullability is enabled for public api for .NET 8+. Workaround: you can disable nullability `<Nullable>disable</Nullable>` on project if you don't want to use it. more info https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references
-* Move some core type into NSubstitute.Internal namespace
+* Move some core type into NSubstitute.Internal namespace. Types from internal namespace could be removed\changed without notification in next version. Try to avoid using them directly.
 
 5.0.0 Release
 ================

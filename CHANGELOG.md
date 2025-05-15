@@ -8,7 +8,7 @@
 * [NEW] Added .NET 9 to test matrix
 * [UPDATE] Migrate documentation to docfx platform. https://github.com/dotnet/docfx
 * [UPDATE][BREAKING] Nullability is enabled for public api for .NET Core TFMs
-* [UPDATE][BREAKING] Move some core type into NSubstitute.Internal namespace 
+* [UPDATE][BREAKING] Move some core type into NSubstitute.Internal namespace. Types from internal namespace could be removed\changed without notification in next version. Try to avoid using them directly.
 
 ### 5.3.0 (October 2024)
 
