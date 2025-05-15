@@ -1,7 +1,7 @@
-﻿using NSubstitute.Core;
-using NSubstitute.Exceptions;
+﻿using NSubstitute.Exceptions;
+using NSubstitute.Core;
 
-namespace NSubstitute.ClearExtensions;
+namespace NSubstitute.Extensions;
 
 public static class ClearExtensions
 {

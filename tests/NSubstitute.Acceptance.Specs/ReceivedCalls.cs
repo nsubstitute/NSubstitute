@@ -1,5 +1,5 @@
 using NSubstitute.Exceptions;
-using NSubstitute.ReceivedExtensions;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 

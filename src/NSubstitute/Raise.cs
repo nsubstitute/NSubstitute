@@ -1,5 +1,5 @@
-using NSubstitute.Core;
-using NSubstitute.Core.Events;
+using NSubstitute.Internal.Core;
+using NSubstitute.Internal.Core.Events;
 using System.Reflection;
 
 namespace NSubstitute;

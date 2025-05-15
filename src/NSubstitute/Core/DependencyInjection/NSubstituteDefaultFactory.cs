@@ -1,7 +1,9 @@
 using NSubstitute.Core.Arguments;
-using NSubstitute.Proxies.CastleDynamicProxy;
-using NSubstitute.Routing;
-using NSubstitute.Routing.AutoValues;
+using NSubstitute.Internal.Core;
+using NSubstitute.Internal.Core.Arguments;
+using NSubstitute.Internal.Proxies.CastleDynamicProxy;
+using NSubstitute.Internal.Routing;
+using NSubstitute.Internal.Routing.AutoValues;
 
 namespace NSubstitute.Core.DependencyInjection;
 

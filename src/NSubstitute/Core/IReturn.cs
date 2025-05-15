@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 using NSubstitute.Exceptions;
+using NSubstitute.Internal.Core;
 
 namespace NSubstitute.Core;
 
@@ -38,7 +39,7 @@ public class ReturnValueFromFunc<T>(Func<CallInfo, T?>? funcToReturnValue) : IRe
     private static Func<CallInfo, T?> ReturnNull()
     {
         if (typeof(T).GetTypeInfo().IsValueType) throw new CannotReturnNullForValueType(typeof(T));
-        return x => default(T);
+        return x => default;
     }
 }
 

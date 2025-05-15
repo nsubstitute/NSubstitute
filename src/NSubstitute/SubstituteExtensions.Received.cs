@@ -1,7 +1,6 @@
-using NSubstitute.ClearExtensions;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
-using NSubstitute.ReceivedExtensions;
+using NSubstitute.Extensions;
 
 namespace NSubstitute;
 
@@ -85,7 +84,7 @@ public static partial class SubstituteExtensions
     /// </summary>
     /// <remarks>
     /// Note that this will not clear any results set up for the substitute using Returns().
-    /// See <see cref="NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute{T}"/> for more options with resetting
+    /// See <see cref="ClearExtensions.ClearSubstitute{T}"/> for more options with resetting
     /// a substitute.
     /// </remarks>
     public static void ClearReceivedCalls<T>(this T substitute) where T : class

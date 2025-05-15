@@ -1,5 +1,6 @@
 ﻿using NSubstitute.Core;
-using NSubstitute.Core.SequenceChecking;
+using NSubstitute.Internal.Core;
+using NSubstitute.Internal.Core.SequenceChecking;
 
 namespace NSubstitute;
 

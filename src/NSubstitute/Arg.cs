@@ -1,4 +1,5 @@
 using NSubstitute.Core.Arguments;
+using NSubstitute.Internal.Core.Arguments;
 using System.Linq.Expressions;
 
 namespace NSubstitute;

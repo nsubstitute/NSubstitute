@@ -1,5 +1,5 @@
-using NSubstitute.ClearExtensions;
 using NSubstitute.Exceptions;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 

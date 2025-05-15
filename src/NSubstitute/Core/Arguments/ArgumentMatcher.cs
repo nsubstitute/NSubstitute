@@ -1,4 +1,5 @@
 using NSubstitute.Exceptions;
+using NSubstitute.Internal.Core.Arguments;
 
 namespace NSubstitute.Core.Arguments;
 

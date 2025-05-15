@@ -1,7 +1,8 @@
 ﻿using NSubstitute.Core;
 using NSubstitute.Exceptions;
+using NSubstitute.Internal.Core;
 
-namespace NSubstitute.ReceivedExtensions;
+namespace NSubstitute.Extensions;
 
 public static class ReceivedExtensions
 {
@@ -143,7 +144,7 @@ public abstract record Quantity
             this.maxInclusive = maxInclusive;
         }
         public override string Describe(string singularNoun, string pluralNoun) =>
-            $"between {minInclusive} and {maxInclusive} (inclusive) {((maxInclusive == 1) ? singularNoun : pluralNoun)}";
+            $"between {minInclusive} and {maxInclusive} (inclusive) {(maxInclusive == 1 ? singularNoun : pluralNoun)}";
 
         public override bool Matches<T>(IEnumerable<T> items)
         {
