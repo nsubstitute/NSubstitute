@@ -1,8 +1,8 @@
-﻿using NSubstitute.Core;
-using NSubstitute.Exceptions;
+﻿using NSubstitute.Exceptions;
 using NSubstitute.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using NSubstitute.Core;
 
 namespace NSubstitute.Acceptance.Specs;
 

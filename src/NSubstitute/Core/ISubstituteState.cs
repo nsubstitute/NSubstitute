@@ -1,4 +1,4 @@
-﻿using NSubstitute.Routing.AutoValues;
+﻿using NSubstitute.Internal.Routing.AutoValues;
 
 namespace NSubstitute.Core;
 

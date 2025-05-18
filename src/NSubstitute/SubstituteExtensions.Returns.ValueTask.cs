@@ -1,5 +1,6 @@
-using NSubstitute.Core;
+using NSubstitute.Internal.Core;
 using NSubstitute.Exceptions;
+using NSubstitute.Core;
 
 namespace NSubstitute;
 

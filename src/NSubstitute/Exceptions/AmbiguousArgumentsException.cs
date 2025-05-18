@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Reflection;
 using System.Text;
-using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
+using NSubstitute.Internal.Core;
+using NSubstitute.Internal.Core.Arguments;
 using static System.Environment;
 
 namespace NSubstitute.Exceptions;

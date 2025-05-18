@@ -1,5 +1,5 @@
-using System.Diagnostics.CodeAnalysis;
 using NSubstitute.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NSubstitute.Core;
 

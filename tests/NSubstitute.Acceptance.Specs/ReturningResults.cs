@@ -1,6 +1,6 @@
 ﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Exceptions;
-using NSubstitute.ReturnsExtensions;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs;

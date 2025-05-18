@@ -1,7 +1,8 @@
 ﻿using NSubstitute.Core;
+using NSubstitute.Internal.Core;
 using System.Reflection;
 
-namespace NSubstitute.ExceptionExtensions;
+namespace NSubstitute.Extensions;
 
 public static class ExceptionExtensions
 {

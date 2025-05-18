@@ -137,7 +137,7 @@ public class NSubContainer : IConfigurableNSubContainer
         }
     }
 
-    private class Registration(Func<NSubContainer.Scope, object> factory, NSubLifetime lifetime)
+    private class Registration(Func<Scope, object> factory, NSubLifetime lifetime)
     {
         private object? _singletonValue;
         public NSubLifetime Lifetime { get; } = lifetime;

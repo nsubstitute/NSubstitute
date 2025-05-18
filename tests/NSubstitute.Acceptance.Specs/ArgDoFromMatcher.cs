@@ -1,4 +1,4 @@
-﻿using NSubstitute.ClearExtensions;
+﻿using NSubstitute.Extensions;
 using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs;

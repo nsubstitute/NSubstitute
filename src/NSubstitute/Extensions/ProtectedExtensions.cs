@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
+using NSubstitute.Internal.Core;
+using NSubstitute.Exceptions;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
-using NSubstitute.Exceptions;
 
 // Disable nullability for client API, so it does not affect clients.
 #nullable disable annotations

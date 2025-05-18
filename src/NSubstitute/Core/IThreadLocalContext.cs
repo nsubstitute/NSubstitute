@@ -1,5 +1,6 @@
 using NSubstitute.Core.Arguments;
-using NSubstitute.Routing;
+using NSubstitute.Internal.Core;
+using NSubstitute.Internal.Routing;
 
 namespace NSubstitute.Core;
 

@@ -1,4 +1,4 @@
-using NSubstitute.ReceivedExtensions;
+using NSubstitute.Extensions;
 
 namespace NSubstitute.Core;
 

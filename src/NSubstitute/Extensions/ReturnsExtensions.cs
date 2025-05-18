@@ -1,7 +1,7 @@
-﻿using NSubstitute.Core;
+﻿using NSubstitute.Internal.Core;
 
 
-namespace NSubstitute.ReturnsExtensions;
+namespace NSubstitute.Extensions;
 
 public static class ReturnsExtensions
 {

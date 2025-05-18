@@ -1,5 +1,5 @@
 using NSubstitute.Core.DependencyInjection;
-using NSubstitute.Routing;
+using NSubstitute.Internal.Routing;
 
 namespace NSubstitute.Core;
 

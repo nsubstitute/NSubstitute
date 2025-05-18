@@ -1,4 +1,5 @@
 using NSubstitute.Core;
+using NSubstitute.Internal.Core;
 using System.Diagnostics.Contracts;
 
 namespace NSubstitute;

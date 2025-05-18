@@ -1,3 +1,4 @@
+using NSubstitute.Internal.Core;
 using System.Reflection;
 
 namespace NSubstitute.Core.Arguments;

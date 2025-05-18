@@ -36,7 +36,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using NSubstitute.Extensions;
 using NSubstitute.Compatibility;
-using NSubstitute.ExceptionExtensions;
 
 namespace NSubstitute.Samples {
     public class Tests_%s {
