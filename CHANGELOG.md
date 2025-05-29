@@ -8,6 +8,7 @@
 * [NEW] Added .NET 9 to test matrix
 * [UPDATE] Migrate documentation to docfx platform. https://github.com/dotnet/docfx
 * [UPDATE][BREAKING] Nullability is enabled for public api for .NET Core TFMs
+* [UPDATE] Migrate to slnx format for solution file
 
 ### 5.3.0 (October 2024)
 
