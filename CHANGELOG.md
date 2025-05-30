@@ -9,6 +9,7 @@
 * [UPDATE] Migrate documentation to docfx platform. https://github.com/dotnet/docfx
 * [UPDATE][BREAKING] Nullability is enabled for public api for .NET Core TFMs
 * [UPDATE] Migrate to slnx format for solution file
+* [UPDATE] Migrate documentation validation from build.fsproj to Roslyn code generator
 
 ### 5.3.0 (October 2024)
 
