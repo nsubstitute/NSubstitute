@@ -1,6 +1,6 @@
 NSubstitute
 ========
-[![Build, Test, and Format verification](https://github.com/nsubstitute/NSubstitute/actions/workflows/test.yml/badge.svg)](https://github.com/nsubstitute/NSubstitute/actions/workflows/test.yml)
+[![Build, Test, and Format verification](https://github.com/nsubstitute/NSubstitute/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/nsubstitute/NSubstitute/actions/workflows/test.yml)
 [![Nuget](https://img.shields.io/nuget/v/NSubstitute.svg)](https://www.nuget.org/packages/NSubstitute)
 
 Visit the [NSubstitute website](https://nsubstitute.github.io) for more information.

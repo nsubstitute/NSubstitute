@@ -7,7 +7,7 @@
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <AssemblyOriginatorKeyFile>nsubstitute.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <DocumentationFile>..\..\bin\$(Configuration)\NSubstitute\$(TargetFramework)\NSubstitute.xml</DocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
