@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\..\docs\docs\*.md" Visible="false" />
+    <AdditionalFiles Include="..\..\docs\docs\*.md" />
   </ItemGroup>
 
   <ItemGroup>
