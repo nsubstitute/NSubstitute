@@ -207,7 +207,6 @@ public class ThrowingAsyncExceptions
         }
     }
 
-#if NET5_0_OR_GREATER
     public class ForValueTask
     {
 
@@ -421,7 +420,6 @@ public class ThrowingAsyncExceptions
             Assert.That(actual.IsFaulted, Is.False);
         }
     }
-#endif
 
     public static TException AssertFaultedTaskException<TException>(Func<Task> act)
         where TException : Exception
