@@ -9,8 +9,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <OutputPath>$(MSBuildThisFileDirectory)\bin\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
-  </PropertyGroup>
-
 </Project>

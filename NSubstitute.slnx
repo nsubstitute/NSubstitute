@@ -1,8 +1,4 @@
 <Solution>
-  <Folder Name="/build/">
-    <File Path="build/build.fs" />
-    <File Path="build/ExtractDocs.fs" />
-  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path="BreakingChanges.md" />
@@ -16,5 +12,7 @@
   <Folder Name="/tests/">
     <Project Path="tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj" />
     <Project Path="tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" />
+    <Project Path="tests/NSubstitute.Documentation.Tests.Generator/NSubstitute.Documentation.Tests.Generator.csproj" Id="d031abb6-0702-4eee-89f6-dd3e9af0573b" />
+    <Project Path="tests/NSubstitute.Documentation.Tests/NSubstitute.Documentation.Tests.csproj" Id="ed043d85-3df4-4878-ab35-ce5e533f1a30" />
   </Folder>
 </Solution>
