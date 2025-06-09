@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/build/">
+    <File Path="build/build.fs" />
+    <File Path="build/ExtractDocs.fs" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="BreakingChanges.md" />
+    <File Path="CHANGELOG.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/NSubstitute/NSubstitute.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/NSubstitute.Acceptance.Specs/NSubstitute.Acceptance.Specs.csproj" />
+    <Project Path="tests/NSubstitute.Benchmarks/NSubstitute.Benchmarks.csproj" />
+  </Folder>
+</Solution>
