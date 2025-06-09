@@ -42,17 +42,13 @@ public sealed class DocumentationTestsGenerator : IIncrementalGenerator
 
     private static string GenerateTestClassContent(string testsClassName, AdditionalText markdownFile)
     {
-        var markdownContent = markdownFile.GetText().ToString();
-        ParseMarkdownCodeBlocks(markdownContent, out var declarations, out var snippets);
+        ParseMarkdownCodeBlocks(markdownFile, out var declarations, out var snippets);
 
         var testClassContent = new StringBuilder();
 
         testClassContent.AppendLine(
             $$"""
-            using System;
             using NUnit.Framework;
-            using System.Linq;
-            using System.Collections.Generic;
             using System.ComponentModel;
             using NSubstitute.Extensions;
             using NSubstitute.Compatibility;
@@ -86,8 +82,10 @@ public sealed class DocumentationTestsGenerator : IIncrementalGenerator
         return testClassContent.ToString();
     }
 
-    private static void ParseMarkdownCodeBlocks(string markdownContent, out List<string> declarations, out List<string> snippets)
+    private static void ParseMarkdownCodeBlocks(AdditionalText markdownFile, out List<string> declarations, out List<string> snippets)
     {
+        var markdownContent = markdownFile.GetText().ToString();
+
         declarations = [];
         snippets = [];
 
