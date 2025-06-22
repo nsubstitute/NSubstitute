@@ -37,7 +37,13 @@ public sealed class DocumentationTestsGenerator : IIncrementalGenerator
 
     private static string GenerateTestsClassName(AdditionalText markdownFile)
     {
-        return $"Tests_{Path.GetFileNameWithoutExtension(markdownFile.Path).Replace("-", "_")}";
+        var file = Path.GetFileNameWithoutExtension(markdownFile.Path);
+        var pathSegments = markdownFile.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        var dirName = pathSegments[pathSegments.Length - 2]; // second last path segment
+        var nameToUse = string.Equals(file, "index", StringComparison.InvariantCultureIgnoreCase)
+            ? dirName
+            : file;
+        return $"Tests_{nameToUse.Replace("-", "_")}";
     }
 
     private static string GenerateTestClassContent(string testsClassName, AdditionalText markdownFile)
@@ -55,7 +61,7 @@ public sealed class DocumentationTestsGenerator : IIncrementalGenerator
             using NSubstitute.ExceptionExtensions;
 
             namespace NSubstitute.Documentation.Tests.Generated;
-            
+
             public sealed class {{testsClassName}}
             {
             """);
