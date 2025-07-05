@@ -19,6 +19,7 @@
     <PackageId>NSubstitute</PackageId>
     <PackageTags>mocking;mocks;testing;unit-testing;TDD;AAA</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://nsubstitute.github.io/</PackageProjectUrl>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/nsubstitute/NSubstitute</RepositoryUrl>
@@ -45,6 +46,7 @@
 
   <ItemGroup>
     <None Include="..\..\docs\images\nsubstitute-100x100.png" Pack="true" PackagePath="icon.png" Visible="false" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
