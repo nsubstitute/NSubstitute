@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -110,8 +109,8 @@ public class AutoValuesForSubs
     public void Should_auto_return_for_iqueryable()
     {
         var sample = Substitute.For<ISample>();
-        ClassicAssert.IsEmpty(sample.Queryable().Select(x => x + 1).ToList());
-        ClassicAssert.NotNull(sample.Queryable().Expression);
+        Assert.That(sample.Queryable().Select(x => x + 1).ToList(), Is.Empty);
+        Assert.That(sample.Queryable().Expression, Is.Not.Null);
     }
 
     [Test]

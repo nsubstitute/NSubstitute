@@ -1,6 +1,5 @@
 using NSubstitute.Exceptions;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -245,8 +244,8 @@ public class OutAndRefParameters
         //Assert that message is like "Expected '98765', but received '12345'".
         key = "98765";
         var exception = Assert.Throws<ReceivedCallsException>(() => lookup.Received().GetWithRef(ref key));
-        StringAssert.Contains("98765", exception.Message);
-        StringAssert.Contains("12345", exception.Message);
+        Assert.That(exception.Message, Does.Contain("98765"));
+        Assert.That(exception.Message, Does.Contain("12345"));
     }
 
     private class Something(ILookupStrings lookup)

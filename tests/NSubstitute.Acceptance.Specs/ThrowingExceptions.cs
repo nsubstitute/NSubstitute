@@ -1,7 +1,6 @@
 ﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -42,7 +41,7 @@ public class ThrowingExceptions
         _something.Count().Throws(new Exception(exceptionMessage));
 
         Exception exceptionThrown = Assert.Catch<Exception>(() => _something.Count());
-        ClassicAssert.AreEqual(exceptionMessage, exceptionThrown.Message);
+        Assert.That(exceptionThrown.Message, Is.EqualTo(exceptionMessage));
     }
 
     [Test]
@@ -53,8 +52,8 @@ public class ThrowingExceptions
 
         Exception exceptionThrown = Assert.Catch<Exception>(() => _something.Count());
 
-        ClassicAssert.IsNotNull(exceptionThrown.InnerException);
-        ClassicAssert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
+        Assert.That(exceptionThrown.InnerException, Is.Not.Null);
+        Assert.That(exceptionThrown.InnerException, Is.InstanceOf<ArgumentException>());
     }
 
     [Test]

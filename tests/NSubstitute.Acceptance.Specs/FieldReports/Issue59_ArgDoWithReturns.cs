@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
@@ -22,9 +21,9 @@ public class Issue59_ArgDoWithReturns
         sub.Say("hello").Returns("world");
         var resultOfHowdy = sub.Say("howdy");
 
-        ClassicAssert.AreEqual("", resultOfHowdy);
-        ClassicAssert.AreEqual("howdy", lastArgUsedInCallToSayMethod);
-        ClassicAssert.AreEqual("world", sub.Say("hello"));
+        Assert.That(resultOfHowdy, Is.Empty);
+        Assert.That(lastArgUsedInCallToSayMethod, Is.EqualTo("howdy"));
+        Assert.That(sub.Say("hello"), Is.EqualTo("world"));
     }
 
     [Test]
@@ -37,8 +36,8 @@ public class Issue59_ArgDoWithReturns
         sub.Name = "Jane";
         sub.Name.Returns("Bob");
 
-        ClassicAssert.AreEqual("Jane", name);
-        ClassicAssert.AreEqual("Bob", sub.Name);
+        Assert.That(name, Is.EqualTo("Jane"));
+        Assert.That(sub.Name, Is.EqualTo("Bob"));
     }
 
     [Test]
@@ -52,7 +51,7 @@ public class Issue59_ArgDoWithReturns
 
         sub.Name.Returns("Bob");
 
-        ClassicAssert.AreEqual("Jane", name);
-        ClassicAssert.AreEqual("Bob", sub.Name);
+        Assert.That(name, Is.EqualTo("Jane"));
+        Assert.That(sub.Name, Is.EqualTo("Bob"));
     }
 }

@@ -1,6 +1,5 @@
 using NSubstitute.Exceptions;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -26,7 +25,7 @@ public class EventChecking
         source.Started += () => raised = true;
         source.Started += Raise.Event<Action>();
 
-        ClassicAssert.IsTrue(raised);
+        Assert.That(raised, Is.True);
     }
 
     [Test]
@@ -41,9 +40,9 @@ public class EventChecking
         source.Started += () => raised3 = true;
         source.Started += Raise.Event<Action>();
 
-        ClassicAssert.IsTrue(raised1, "The first handler was not called");
-        ClassicAssert.IsTrue(raised2, "The second handler was not called");
-        ClassicAssert.IsTrue(raised3, "The third handler was not called");
+        Assert.That(raised1, Is.True, "The first handler was not called");
+        Assert.That(raised2, Is.True, "The second handler was not called");
+        Assert.That(raised3, Is.True, "The third handler was not called");
     }
 
     public interface IEngine

@@ -2,7 +2,6 @@
 using NSubstitute.Exceptions;
 using NSubstitute.Extensions;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -32,7 +31,7 @@ public class PartialSubs
         var testAbstractClass = Substitute.ForPartsOf<TestAbstractClass>();
         testAbstractClass.VoidAbstractMethod();
         var result = testAbstractClass.AbstractMethodReturnsSameInt(123);
-        ClassicAssert.AreEqual(0, result);
+        Assert.That(result, Is.EqualTo(0));
     }
 
     [Test]
@@ -91,7 +90,7 @@ public class PartialSubs
     public void ReturnDefaultForUnimplementedAbstractMethod()
     {
         var testAbstractClass = Substitute.ForPartsOf<TestAbstractClass>();
-        ClassicAssert.AreEqual(default(int), testAbstractClass.AbstractMethodReturnsSameInt(1));
+        Assert.That(testAbstractClass.AbstractMethodReturnsSameInt(1), Is.EqualTo(default(int)));
     }
 
     [Test]

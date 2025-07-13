@@ -1,7 +1,6 @@
 using NSubstitute.ClearExtensions;
 using NSubstitute.Exceptions;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -41,7 +40,7 @@ public class ClearSubstitute
         var substitute = Substitute.For<ICalculator>();
         substitute.Add(1, 1).Returns(12);
         substitute.ClearSubstitute(ClearOptions.ReturnValues);
-        ClassicAssert.AreEqual(0, substitute.Add(1, 1));
+        Assert.That(substitute.Add(1, 1), Is.EqualTo(0));
     }
 
     [Test]
@@ -54,6 +53,6 @@ public class ClearSubstitute
         substitute.Add(1, 1);
         substitute.Add(1, 1);
         substitute.Add(1, 1);
-        ClassicAssert.AreEqual(0, count);
+        Assert.That(count, Is.EqualTo(0));
     }
 }

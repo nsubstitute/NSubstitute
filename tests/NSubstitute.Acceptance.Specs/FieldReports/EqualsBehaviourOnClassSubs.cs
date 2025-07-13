@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
@@ -11,8 +10,8 @@ public class EqualsBehaviourOnClassSubs
         var firstSub = Substitute.For<AClass>();
         var secondSub = Substitute.For<AClass>();
 
-        ClassicAssert.AreEqual(firstSub, firstSub);
-        ClassicAssert.AreNotEqual(firstSub, secondSub);
+        Assert.That(firstSub, Is.EqualTo(firstSub));
+        Assert.That(secondSub, Is.Not.EqualTo(firstSub));
     }
 
     public class AClass { }
