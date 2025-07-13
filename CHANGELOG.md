@@ -10,6 +10,7 @@
 * [UPDATE][BREAKING] Nullability is enabled for public api for .NET Core TFMs
 * [UPDATE] Migrate to slnx format for solution file
 * [UPDATE] Migrate documentation validation from build.fsproj to Roslyn code generator
+* [NEW] Added NuGet Package README file.
 * [UPDATE] Make public api and tests the same for all TFMs
 
 ### 5.3.0 (October 2024)
