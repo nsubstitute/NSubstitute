@@ -17,8 +17,8 @@ A call can be configured to return a value regardless of the arguments passed us
 
 ```csharp
 calculator.Add(1, 2).ReturnsForAnyArgs(100);
-Assert.AreEqual(100, calculator.Add(1, 2));
-Assert.AreEqual(100, calculator.Add(-7, 15));
+Assert.That(calculator.Add(1, 2), Is.EqualTo(100));
+Assert.That(calculator.Add(-7, 15), Is.EqualTo(100));
 ```
 
 **Tip!** You can also use the `default` C# keyword for better readability:

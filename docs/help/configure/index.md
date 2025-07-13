@@ -25,7 +25,7 @@ calculator.Add(Arg.Any<int>(), Arg.Any<int>()).Returns(x => { throw new Exceptio
 calculator.Configure().Add(1, 2).Returns(3);
 
 // Now both the exception callback and our other return have been configured:
-Assert.AreEqual(3, calculator.Add(1, 2));
+Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
 Assert.Throws<Exception>(() => calculator.Add(-2, -2));
 ```
 

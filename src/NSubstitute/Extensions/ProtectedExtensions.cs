@@ -1,10 +1,6 @@
-﻿using System.Reflection;
-using NSubstitute.Core;
-using NSubstitute.Core.Arguments;
+﻿using NSubstitute.Core;
 using NSubstitute.Exceptions;
-
-// Disable nullability for client API, so it does not affect clients.
-#nullable disable annotations
+using System.Reflection;
 
 namespace NSubstitute.Extensions;
 
@@ -21,27 +17,27 @@ public static class ProtectedExtensions
     /// <exception cref="NSubstitute.Exceptions.NullSubstituteReferenceException">Substitute - Cannot mock null object</exception>
     /// <exception cref="NSubstitute.Exceptions.ProtectedMethodNotFoundException">Error mocking method.  Method must be protected virtual and with correct matching arguments and type</exception>
     /// <exception cref="System.ArgumentException">Must provide valid protected method name to mock - methodName</exception>
-    public static object Protected<T>(this T obj, string methodName, params object[] args) where T : class
+    public static object? Protected<T>(this T obj, string methodName, params object[] args) where T : class
     {
         if (obj == null) { throw new NullSubstituteReferenceException(); }
         if (string.IsNullOrWhiteSpace(methodName)) { throw new ArgumentException("Must provide valid protected method name to mock", nameof(methodName)); }
 
-        IList<IArgumentSpecification> argTypes = SubstitutionContext.Current.ThreadContext.PeekAllArgumentSpecifications();
-        MethodInfo mthdInfo = obj.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance, Type.DefaultBinder, argTypes.Select(x => x.ForType).ToArray(), null);
+        var argTypes = SubstitutionContext.Current.ThreadContext.PeekAllArgumentSpecifications();
+        var methodInfo = obj.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance, Type.DefaultBinder, argTypes.Select(x => x.ForType).ToArray(), null);
 
-        if (mthdInfo == null)
+        if (methodInfo == null)
         {
             _ = SubstitutionContext.Current.ThreadContext.DequeueAllArgumentSpecifications();
             throw new ProtectedMethodNotFoundException($"No protected virtual method found with signature {methodName}({string.Join(", ", argTypes.Select(x => x.ForType))}) in {obj.GetType().BaseType!.Name}. " +
                                                     "Check that the method name and arguments are correct.  Public virtual methods must use standard NSubstitute mocking.  See the documentation for additional info.");
         }
-        if (!mthdInfo.IsVirtual)
+        if (!methodInfo.IsVirtual)
         {
             _ = SubstitutionContext.Current.ThreadContext.DequeueAllArgumentSpecifications();
-            throw new ProtectedMethodNotVirtualException($"{mthdInfo} is not virtual.  NSubstitute can only work with virtual members of the class that are overridable in the test assembly");
+            throw new ProtectedMethodNotVirtualException($"{methodInfo} is not virtual.  NSubstitute can only work with virtual members of the class that are overridable in the test assembly");
         }
 
-        return mthdInfo.Invoke(obj, args);
+        return methodInfo.Invoke(obj, args);
     }
 
     /// <summary>
@@ -60,21 +56,21 @@ public static class ProtectedExtensions
         if (obj == null) { throw new NullSubstituteReferenceException(); }
         if (string.IsNullOrWhiteSpace(methodName)) { throw new ArgumentException("Must provide valid protected method name to mock", nameof(methodName)); }
 
-        IList<IArgumentSpecification> argTypes = SubstitutionContext.Current.ThreadContext.PeekAllArgumentSpecifications();
-        MethodInfo mthdInfo = obj.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance, Type.DefaultBinder, argTypes.Select(y => y.ForType).ToArray(), null);
+        var argTypes = SubstitutionContext.Current.ThreadContext.PeekAllArgumentSpecifications();
+        var methodInfo = obj.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance, Type.DefaultBinder, argTypes.Select(y => y.ForType).ToArray(), null);
 
-        if (mthdInfo == null)
+        if (methodInfo == null)
         {
             _ = SubstitutionContext.Current.ThreadContext.DequeueAllArgumentSpecifications();
             throw new ProtectedMethodNotFoundException($"No protected virtual method found with signature {methodName}({string.Join(", ", argTypes.Select(x => x.ForType))}) in {obj.GetType().BaseType!.Name}. " +
                                                     "Check that the method name and arguments are correct.  Public virtual methods must use standard NSubstitute mocking.  See the documentation for additional info.");
         }
-        if (!mthdInfo.IsVirtual)
+        if (!methodInfo.IsVirtual)
         {
             _ = SubstitutionContext.Current.ThreadContext.DequeueAllArgumentSpecifications();
-            throw new ProtectedMethodNotVirtualException($"{mthdInfo} is not virtual.  NSubstitute can only work with virtual members of the class that are overridable in the test assembly");
+            throw new ProtectedMethodNotVirtualException($"{methodInfo} is not virtual.  NSubstitute can only work with virtual members of the class that are overridable in the test assembly");
         }
 
-        return new WhenCalled<T>(SubstitutionContext.Current, obj, x => mthdInfo.Invoke(x, args), MatchArgs.AsSpecifiedInCall);
+        return new WhenCalled<T>(SubstitutionContext.Current, obj, x => methodInfo.Invoke(x, args), MatchArgs.AsSpecifiedInCall);
     }
 }

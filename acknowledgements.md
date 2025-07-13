@@ -3,7 +3,7 @@ The aim of this file is to acknowledge the software projects that have been used
 # Software distributed with/compiled into NSubstitute
 
 ## Castle.Core
-NSubstitute is built on the Castle.Core library, particularly Castle.DynamicProxy which is used for generating proxies for types and intercepting calls made to them so that NSubstitute can record them. 
+NSubstitute is built on the Castle.Core library, particularly Castle.DynamicProxy which is used for generating proxies for types and intercepting calls made to them so that NSubstitute can record them.
 
 Castle.Core is maintained by the Castle Project [https://www.castleproject.org/] and is released under the Apache License, Version 2.0 [https://www.apache.org/licenses/LICENSE-2.0.html].
 
@@ -19,13 +19,13 @@ Used for mocking parts of the NSubstitute mocking library for testing. It is dis
 Moq is not directly used in NSubstitute, but was a great source of inspiration. Moq pioneered Arrange-Act-Assert (AAA) mocking syntax for .NET, as well as removing the distinction between mocks and stubs, both of which have become important parts of NSubstitute. Moq is available under the BSD license [https://www.opensource.org/licenses/bsd-license.php].
 
 ## Jekyll [https://jekyllrb.com/]
-Static website generator written in Ruby, used for NSubstitute's website and documentation. Distributed under the MIT license [https://www.opensource.org/licenses/bsd-license.php].
+Static website generator written in Ruby, used for NSubstitute's website and documentation. Distributed under the MIT license [https://www.opensource.org/licenses/bsd-license.php]. No longer used since migration to docfx.
 
 ## SyntaxHighlighter [https://alexgorbatchev.com/SyntaxHighlighter/]
 Open source, JavaScript, client-side code highlighter used for highlighting code samples on the NSubstitute website. Distributed under the MIT License [https://en.wikipedia.org/wiki/MIT_License] and the GPL [https://www.gnu.org/copyleft/lesser.html].
 
 ## FAKE [https://fsharp.github.io/FAKE/]
-FAKE (F# Make) is used for NSubstitute's build. It is inspired by `make` and `rake`. FAKE is distributed under a dual Apache 2 / MS-PL license [https://github.com/fsharp/FAKE/blob/master/License.txt].
+FAKE (F# Make) is used for NSubstitute's build. It is inspired by `make` and `rake`. FAKE is distributed under a dual Apache 2 / MS-PL license [https://github.com/fsharp/FAKE/blob/master/License.txt]. No longer used since migration to source generators.
 
 ## Microsoft .NET Framework [https://www.microsoft.com/net/]
 NSubstitute is coded in C# and compiled using Microsoft .NET. It can also run and compile under Mono [https://www.mono-project.com], an open source implementation of the open .NET standards for C# and the CLI.

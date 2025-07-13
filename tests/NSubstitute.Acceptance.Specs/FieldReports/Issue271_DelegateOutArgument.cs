@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
@@ -16,6 +15,6 @@ public class Issue271_DelegateOutArgument
 
         foo(out bar);
 
-        ClassicAssert.AreEqual(42, bar);
+        Assert.That(bar, Is.EqualTo(42));
     }
 }

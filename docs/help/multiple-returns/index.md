@@ -17,9 +17,9 @@ A call can also be configured to return a different value over multiple calls. T
 
 ```csharp
 calculator.Mode.Returns("DEC", "HEX", "BIN");
-Assert.AreEqual("DEC", calculator.Mode);
-Assert.AreEqual("HEX", calculator.Mode);
-Assert.AreEqual("BIN", calculator.Mode);
+Assert.That(calculator.Mode, Is.EqualTo("DEC"));
+Assert.That(calculator.Mode, Is.EqualTo("HEX"));
+Assert.That(calculator.Mode, Is.EqualTo("BIN"));
 ```
 
 This can also be achieved by [returning from a function](/help/return-from-function), but passing multiple values to `Returns()` is simpler and reads better.
@@ -30,8 +30,8 @@ This can also be achieved by [returning from a function](/help/return-from-funct
 
 ```csharp
 calculator.Mode.Returns(x => "DEC", x => "HEX", x => { throw new Exception(); });
-Assert.AreEqual("DEC", calculator.Mode);
-Assert.AreEqual("HEX", calculator.Mode);
+Assert.That(calculator.Mode, Is.EqualTo("DEC"));
+Assert.That(calculator.Mode, Is.EqualTo("HEX"));
 Assert.Throws<Exception>(() => { var result = calculator.Mode; });
 ```
 

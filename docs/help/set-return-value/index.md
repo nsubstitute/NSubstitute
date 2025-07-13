@@ -31,11 +31,11 @@ This value will be returned every time this call is made. `Returns()` will only 
 ```csharp
 //Make a call return 3:
 calculator.Add(1, 2).Returns(3);
-Assert.AreEqual(calculator.Add(1, 2), 3);
-Assert.AreEqual(calculator.Add(1, 2), 3);
+Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
+Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
 
 //Call with different arguments does not return 3
-Assert.AreNotEqual(calculator.Add(3, 6), 3);
+Assert.That(calculator.Add(3, 6), Is.Not.EqualTo(3));
 ```
 
 ## For properties
@@ -43,10 +43,10 @@ The return value for a property can be set in the same way as for a method, usin
 
 ```csharp
 calculator.Mode.Returns("DEC");
-Assert.AreEqual(calculator.Mode, "DEC");
+Assert.That("DEC", Is.EqualTo(calculator.Mode));
 
 calculator.Mode = "HEX";
-Assert.AreEqual(calculator.Mode, "HEX");
+Assert.That("HEX", Is.EqualTo(calculator.Mode));
 ```
 
 

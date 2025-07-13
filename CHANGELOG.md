@@ -12,6 +12,7 @@
 * [UPDATE] Migrate documentation validation from build.fsproj to Roslyn code generator
 * [NEW] Added NuGet Package README file.
 * [UPDATE] Make public api and tests the same for all TFMs
+* [UPDATE] Migrate documentation samples to NUnit4
 
 ### 5.3.0 (October 2024)
 

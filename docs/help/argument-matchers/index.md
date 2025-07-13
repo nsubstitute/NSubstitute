@@ -48,9 +48,9 @@ An argument of type `T` can be ignored using `Arg.Any<T>()`.
 ```csharp
 calculator.Add(Arg.Any<int>(), 5).Returns(7);
 
-Assert.AreEqual(7, calculator.Add(42, 5));
-Assert.AreEqual(7, calculator.Add(123, 5));
-Assert.AreNotEqual(7, calculator.Add(1, 7));
+Assert.That(calculator.Add(42, 5), Is.EqualTo(7));
+Assert.That(calculator.Add(123, 5), Is.EqualTo(7));
+Assert.That(calculator.Add(1, 7), Is.Not.EqualTo(7));
 ```
 
 In this example we return `7` when adding any number to `5`. We use `Arg.Any<int>()` to tell NSubstitute to ignore the first argument.
@@ -87,11 +87,11 @@ If the condition throws an exception for an argument, then it will be assumed th
 ```csharp
 formatter.Format(Arg.Is<string>(x => x.Length <= 10)).Returns("matched");
 
-Assert.AreEqual("matched", formatter.Format("short"));
-Assert.AreNotEqual("matched", formatter.Format("not matched, too long"));
+Assert.That(formatter.Format("short"), Is.EqualTo("matched"));
+Assert.That(formatter.Format("not matched, too long"), Is.Not.EqualTo("matched"));
 // Will not match because trying to access .Length on null will throw an exception when testing
 // our condition. NSubstitute will assume it does not match and swallow the exception.
-Assert.AreNotEqual("matched", formatter.Format(null));
+Assert.That(formatter.Format(null), Is.Not.EqualTo("matched"));
 ```
 
 ## Matching a specific argument
@@ -121,8 +121,8 @@ calculator
     });
 
 var hasEntry = calculator.LoadMemory(1, out var memoryValue);
-Assert.AreEqual(true, hasEntry);
-Assert.AreEqual(42, memoryValue);
+Assert.That(hasEntry, Is.EqualTo(true));
+Assert.That(memoryValue, Is.EqualTo(42));
 ```
 
 See [Setting out and ref args](/help/setting-out-and-ref-arguments/) for more information on working with `out` and `ref`.
@@ -204,8 +204,8 @@ widgetFactory.Make(Arg.Do<WidgetInfo>(info => testLog2.Add(info.Name)));
 subject.StartWithWidget(new WidgetInfo { Name = "Test Widget" });
 
 /* ASSERT */
-Assert.AreEqual(new[] { "Test Widget" }, testLog);
-Assert.AreEqual(new[] { "Test Widget" }, testLog2);
+Assert.That(testLog, Is.EqualTo(new[] { "Test Widget" }));
+Assert.That(testLog2, Is.EqualTo(new[] { "Test Widget" }));
 ```
 
 ### Modifying values being matched
@@ -288,7 +288,7 @@ public void ManualArgSnapshot() {
     lookup.Add(person);
     person.Name = "Vimes";
 
-    Assert.AreEqual("Carrot", namesAdded[0]);
+    Assert.That(namesAdded[0], Is.EqualTo("Carrot"));
 }
 ```
 

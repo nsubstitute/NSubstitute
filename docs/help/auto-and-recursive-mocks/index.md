@@ -27,9 +27,9 @@ var parser = Substitute.For<INumberParser>();
 factory.Create(',').Returns(parser);
 parser.Parse("an expression").Returns(new[] {1,2,3});
 
-Assert.AreEqual(
+Assert.That(
     factory.Create(',').Parse("an expression"),
-    new[] {1,2,3});
+    Is.EqualTo(new[] {1,2,3}));
 ```
 
 Or we could use the fact that a substitute for type `INumberParser` will automatically be returned for `INumberParserFactory.Create()`:
@@ -38,9 +38,9 @@ Or we could use the fact that a substitute for type `INumberParser` will automat
 var factory = Substitute.For<INumberParserFactory>();
 factory.Create(',').Parse("an expression").Returns(new[] {1,2,3});
 
-Assert.AreEqual(
+Assert.That(
     factory.Create(',').Parse("an expression"),
-    new[] {1,2,3});
+     Is.EqualTo(new[] {1,2,3}));
 ```
 
 Each time a recursively-subbed property or method is called with the same arguments it will return the same substitute. If a method is called with different arguments a new substitute will be returned.
@@ -57,8 +57,8 @@ var firstCall = factory.Create(',');
 var secondCall = factory.Create(',');
 var thirdCallWithDiffArg = factory.Create('x');
 
-Assert.AreSame(firstCall, secondCall);
-Assert.AreNotSame(firstCall, thirdCallWithDiffArg);
+Assert.That(firstCall, Is.SameAs(secondCall));
+Assert.That(firstCall, Is.Not.SameAs(thirdCallWithDiffArg));
 ```
 
 _Note:_ Recursive substitutes will not be created for  non-purely virtual classes, as creating and using classes can have potentially unwanted side-effects. You'll therefore need to create and return these explicitly.
@@ -86,9 +86,9 @@ To get the identity of the `CurrentRequest` to return a certain name, we could m
 ```csharp
 var context = Substitute.For<IContext>();
 context.CurrentRequest.Identity.Name.Returns("My pet fish Eric");
-Assert.AreEqual(
-    "My pet fish Eric",
-    context.CurrentRequest.Identity.Name);
+Assert.That(
+    context.CurrentRequest.Identity.Name,
+    Is.EqualTo("My pet fish Eric"));
 ```
 
 Here `CurrentRequest` is automatically going to return a substitute for `IRequest`, and the `IRequest` substitute will automatically return a substitute for `IIdentity`.
@@ -100,6 +100,7 @@ Properties and methods returning types of `String` or `Array` will automatically
 
 ```csharp
 var identity = Substitute.For<IIdentity>();
-Assert.AreEqual(String.Empty, identity.Name);
-Assert.AreEqual(0, identity.Roles().Length);
+
+Assert.That(identity.Name, Is.EqualTo(String.Empty));
+Assert.That(identity.Roles().Length, Is.EqualTo(0));
 ```

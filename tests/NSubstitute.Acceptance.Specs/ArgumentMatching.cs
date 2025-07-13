@@ -1,7 +1,6 @@
 ﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
-using NSubstitute.ExceptionExtensions;
 using NSubstitute.Exceptions;
 using NSubstitute.Extensions;
 using NUnit.Framework;

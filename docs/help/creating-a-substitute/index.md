@@ -49,9 +49,9 @@ var substitute = Substitute.For(
     new[] { typeof(ICommand), typeof(ISomeInterface), typeof(SomeClassWithCtorArgs) },
     new object[] { 5, "hello world" }
 );
-Assert.IsInstanceOf<ICommand>(substitute);
-Assert.IsInstanceOf<ISomeInterface>(substitute);
-Assert.IsInstanceOf<SomeClassWithCtorArgs>(substitute);
+Assert.That(substitute, Is.InstanceOf<ICommand>());
+Assert.That(substitute, Is.InstanceOf<ISomeInterface>());
+Assert.That(substitute, Is.InstanceOf<SomeClassWithCtorArgs>());
 ```
 
 <!--
@@ -92,7 +92,7 @@ NSubstitute can also substitute for delegate types by using `Substiute.For<T>()`
 var func = Substitute.For<Func<string>>();
 
 func().Returns("hello");
-Assert.AreEqual("hello", func());
+Assert.That(func(), Is.EqualTo("hello"));
 ```
 
 ## Partial substitutes and test spies

@@ -42,14 +42,14 @@ engine.Idling += (sender, args) => wasCalled = true;
 //Tell the substitute to raise the event with a sender and EventArgs:
 engine.Idling += Raise.EventWith(new object(), new EventArgs());
 
-Assert.True(wasCalled);
+Assert.That(wasCalled);
 ```
 
 In the example above we don't really mind what sender and `EventArgs` our event is raised with, just that it was called. In this case NSubstitute can make our life easier by creating the required arguments for our event handler:
 
 ```csharp
 engine.Idling += Raise.Event();
-Assert.True(wasCalled);
+Assert.That(wasCalled, Is.True);
 ```
 
 ## Raising events when arguments do not have a default constructor
@@ -64,7 +64,7 @@ engine.LowFuelWarning += Raise.EventWith(new LowFuelWarningEventArgs(10));
 //Raise event with specific args and sender:
 engine.LowFuelWarning += Raise.EventWith(new object(), new LowFuelWarningEventArgs(10));
 
-Assert.AreEqual(2, numberOfEvents);
+Assert.That(numberOfEvents, Is.EqualTo(2));
 ```
 
 ## Raising `Delegate` events
@@ -93,5 +93,5 @@ engine.RevvedAt += rpm => revvedAt = rpm;
 
 engine.RevvedAt += Raise.Event<Action<int>>(123);
 
-Assert.AreEqual(123, revvedAt);
+Assert.That(revvedAt, Is.EqualTo(123));
 ```

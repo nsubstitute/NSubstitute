@@ -63,7 +63,7 @@ calculator
 calculator.Add(7,3);
 calculator.Add(2,2);
 calculator.Add(11,-3);
-Assert.AreEqual(counter, 3);
+Assert.That(counter, Is.EqualTo(3));
 ```
 
 Alternatively the callback can be specified after the `Returns` using `AndDoes`:
@@ -77,5 +77,5 @@ calculator
 
 calculator.Add(7,3);
 calculator.Add(2,2);
-Assert.AreEqual(counter, 2);
+Assert.That(counter, Is.EqualTo(2));
 ```

@@ -56,7 +56,6 @@ public sealed class DocumentationTestsGenerator : IIncrementalGenerator
             using NUnit.Framework;
             using System.ComponentModel;
             using NSubstitute.Extensions;
-            using NSubstitute.Compatibility;
             using NSubstitute.ExceptionExtensions;
 
             namespace NSubstitute.Documentation.Tests.Generated;
