@@ -128,9 +128,7 @@ Assert.That(eventWasRaised);
 
 NSubstitute and its tests can be compiled and run using Visual Studio, Visual Studio Code or any other editor with .NET support. Note that some tests are marked `[Pending]` and are not meant to pass at present, so it is a good idea to exclude tests in the Pending category from test runs.
 
-There are also build scripts in the `./build` directory for command line builds, and CI configurations in the project root.
-
-To do [full builds](https://github.com/nsubstitute/NSubstitute/wiki/Release-procedure) you'll also need Ruby, as the jekyll gem is used to generate the website.
+Release-procedure https://github.com/nsubstitute/NSubstitute/wiki/Release-procedure
 
 ### Other libraries you may be interested in
 
