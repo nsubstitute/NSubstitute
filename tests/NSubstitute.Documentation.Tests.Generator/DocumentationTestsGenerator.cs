@@ -38,8 +38,7 @@ public sealed class DocumentationTestsGenerator : IIncrementalGenerator
     private static string GenerateTestsClassName(AdditionalText markdownFile)
     {
         var file = Path.GetFileNameWithoutExtension(markdownFile.Path);
-        var pathSegments = markdownFile.Path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        var dirName = pathSegments[pathSegments.Length - 2]; // second last path segment
+        var dirName = new FileInfo(markdownFile.Path).Directory.Name;
         var nameToUse = string.Equals(file, "index", StringComparison.InvariantCultureIgnoreCase)
             ? dirName
             : file;
