@@ -9,7 +9,7 @@ calculator.Mode.Returns("DEC,HEX,OCT");
 calculator.Mode.Returns(x => "???");
 calculator.Mode.Returns("HEX");
 calculator.Mode.Returns("BIN");
-Assert.AreEqual(calculator.Mode, "BIN");
+Assert.That(calculator.Mode, Is.EqualTo("BIN"));
 ```
 
 <!--

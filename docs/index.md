@@ -37,7 +37,7 @@ var calculator = Substitute.For<ICalculator>();
 
 //Set a return value:
 calculator.Add(1, 2).Returns(3);
-Assert.AreEqual(3, calculator.Add(1, 2));
+Assert.That(calculator.Add(1, 2), Is.EqualTo(3));
 
 //Check received calls:
 calculator.Received().Add(1, Arg.Any<int>());

@@ -26,8 +26,8 @@ lookup
 var result = lookup.TryLookup("hello", out var value);
 
 //Assert
-Assert.True(result);
-Assert.AreEqual(value, "world!");
+Assert.That(result, Is.True);
+Assert.That("world!", Is.EqualTo(value));
 ```
 
 ## Matching after assignments
@@ -49,10 +49,10 @@ lookup
 // value is "", this will match!
 lookup.TryLookup("hello", out value);
 // Call matches, counter is now 1:
-Assert.AreEqual(1, counter);
+Assert.That(counter, Is.EqualTo(1));
 
 // value is now "assigned" but arg matcher is still looking for "", will NOT match anymore!
 lookup.TryLookup("hello", out value);
 // Call does NOT match anymore, counter is still 1:
-Assert.AreEqual(1, counter);
+Assert.That(counter, Is.EqualTo(1));
 ```
