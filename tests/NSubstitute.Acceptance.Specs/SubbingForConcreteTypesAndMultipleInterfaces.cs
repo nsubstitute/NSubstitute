@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -39,9 +38,9 @@ public class SubbingForConcreteTypesAndMultipleInterfaces
         var substitute = Substitute.For([typeof(IFirst), typeof(ISecond), typeof(ClassWithCtorArgs)],
             ["hello world", 5]);
 
-        ClassicAssert.IsInstanceOf<IFirst>(substitute);
-        ClassicAssert.IsInstanceOf<ISecond>(substitute);
-        ClassicAssert.IsInstanceOf<ClassWithCtorArgs>(substitute);
+        Assert.That(substitute, Is.InstanceOf<IFirst>());
+        Assert.That(substitute, Is.InstanceOf<ISecond>());
+        Assert.That(substitute, Is.InstanceOf<ClassWithCtorArgs>());
     }
 
     [Test]
@@ -51,9 +50,9 @@ public class SubbingForConcreteTypesAndMultipleInterfaces
         var substitute = Substitute.For([typeof(IFirst), typeof(ISecond), typeof(ConcreteClassWithCtorArgs)],
             ["hello world", 5]);
 
-        ClassicAssert.IsInstanceOf<IFirst>(substitute);
-        ClassicAssert.IsInstanceOf<ISecond>(substitute);
-        ClassicAssert.IsInstanceOf<ConcreteClassWithCtorArgs>(substitute);
+        Assert.That(substitute, Is.InstanceOf<IFirst>());
+        Assert.That(substitute, Is.InstanceOf<ISecond>());
+        Assert.That(substitute, Is.InstanceOf<ConcreteClassWithCtorArgs>());
     }
 
     [Test]

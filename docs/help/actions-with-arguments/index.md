@@ -84,7 +84,7 @@ calculator.Multiply(Arg.Any<int>(), Arg.Do<int>(x => argumentUsed = x));
 
 calculator.Multiply(123, 42);
 
-Assert.AreEqual(42, argumentUsed);
+Assert.That(argumentUsed, Is.EqualTo(42));
 ```
 
 Here we specify that a call to `Multiply` with any first argument should pass the second argument and put it in the `argumentUsed` variable. This can be quite useful when we want to assert several properties on an argument (for types more complex than `int` that is).
@@ -97,7 +97,7 @@ calculator.Multiply(2, 10);
 calculator.Multiply(5, 10);
 calculator.Multiply(7, 4567); //Will not match our Arg.Do as second arg is not 10
 
-Assert.AreEqual(firstArgsBeingMultiplied, new[] { 2, 5 });
+Assert.That(firstArgsBeingMultiplied, Is.EqualTo(new[] { 2, 5 }));
 ```
 
 Here our `Arg.Do` takes whatever `int` is passed as the first argument to `Multiply` and adds it to a list whenever the second argument is 10.
@@ -124,6 +124,6 @@ var results = new[] {
     calculator.Multiply(123, 2) //First arg greater than 0, so spec won't be met.
 };
 
-Assert.AreEqual(3, numberOfCallsWhereFirstArgIsLessThan0); //3 of 4 calls have first arg < 0
-Assert.AreEqual(results, new[] {123, 123, 123, 0}); //Last call returns 0, not 123
+Assert.That(3, Is.EqualTo(numberOfCallsWhereFirstArgIsLessThan0)); //3 of 4 calls have first arg < 0
+Assert.That(results, Is.EqualTo(new[] {123, 123, 123, 0})); //Last call returns 0, not 123
 ```

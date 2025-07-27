@@ -1,7 +1,6 @@
 ﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -37,7 +36,7 @@ public class ThrowingAsyncExceptions
             _something.Async().ThrowsAsync(new Exception(exceptionMessage));
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.Async());
-            ClassicAssert.AreEqual(exceptionMessage, exceptionThrown.Message);
+            Assert.That(exceptionThrown.Message, Is.EqualTo(exceptionMessage));
         }
 
         [Test]
@@ -48,8 +47,8 @@ public class ThrowingAsyncExceptions
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.Async());
 
-            ClassicAssert.IsNotNull(exceptionThrown.InnerException);
-            ClassicAssert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
+            Assert.That(exceptionThrown.InnerException, Is.Not.Null);
+            Assert.That(exceptionThrown.InnerException, Is.InstanceOf<ArgumentException>());
         }
 
         [Test]
@@ -137,7 +136,7 @@ public class ThrowingAsyncExceptions
             _something.CountAsync().ThrowsAsync(new Exception(exceptionMessage));
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.CountAsync());
-            ClassicAssert.AreEqual(exceptionMessage, exceptionThrown.Message);
+            Assert.That(exceptionThrown.Message, Is.EqualTo(exceptionMessage));
         }
 
         [Test]
@@ -148,8 +147,8 @@ public class ThrowingAsyncExceptions
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.CountAsync());
 
-            ClassicAssert.IsNotNull(exceptionThrown.InnerException);
-            ClassicAssert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
+            Assert.That(exceptionThrown.InnerException, Is.Not.Null);
+            Assert.That(exceptionThrown.InnerException, Is.InstanceOf<ArgumentException>());
         }
 
         [Test]
@@ -237,7 +236,7 @@ public class ThrowingAsyncExceptions
             _something.CountValueTaskAsync().ThrowsAsync(new Exception(exceptionMessage));
 
             Exception exceptionThrown = AssertFaultedTaskException<int, Exception>(() => _something.CountValueTaskAsync());
-            ClassicAssert.AreEqual(exceptionMessage, exceptionThrown.Message);
+            Assert.That(exceptionThrown.Message, Is.EqualTo(exceptionMessage));
         }
 
         [Test]
@@ -248,8 +247,8 @@ public class ThrowingAsyncExceptions
 
             Exception exceptionThrown = AssertFaultedTaskException<int, Exception>(() => _something.CountValueTaskAsync());
 
-            ClassicAssert.IsNotNull(exceptionThrown.InnerException);
-            ClassicAssert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
+            Assert.That(exceptionThrown.InnerException, Is.Not.Null);
+            Assert.That(exceptionThrown.InnerException, Is.InstanceOf<ArgumentException>());
         }
 
         [Test]
@@ -319,7 +318,7 @@ public class ThrowingAsyncExceptions
             _something.VoidValueTaskAsync().ThrowsAsync(new Exception(exceptionMessage));
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.VoidValueTaskAsync());
-            ClassicAssert.AreEqual(exceptionMessage, exceptionThrown.Message);
+            Assert.That(exceptionThrown.Message, Is.EqualTo(exceptionMessage));
         }
 
         [Test]
@@ -330,8 +329,8 @@ public class ThrowingAsyncExceptions
 
             Exception exceptionThrown = AssertFaultedTaskException<Exception>(() => _something.VoidValueTaskAsync());
 
-            ClassicAssert.IsNotNull(exceptionThrown.InnerException);
-            ClassicAssert.IsInstanceOf<ArgumentException>(exceptionThrown.InnerException);
+            Assert.That(exceptionThrown.InnerException, Is.Not.Null);
+            Assert.That(exceptionThrown.InnerException, Is.InstanceOf<ArgumentException>());
         }
 
         [Test]

@@ -1,7 +1,6 @@
 ﻿using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace NSubstitute.Acceptance.Specs.FieldReports;
 
@@ -30,7 +29,7 @@ public class Issue291_CannotReconfigureThrowingConfiguration
 
         // Assert
         Assert.Throws<InvalidOperationException>(() => deliver.Send(new Message1()));
-        ClassicAssert.AreSame(response, deliver.Send(new Message2()));
+        Assert.That(deliver.Send(new Message2()), Is.SameAs(response));
     }
 
     [Test]
@@ -45,6 +44,6 @@ public class Issue291_CannotReconfigureThrowingConfiguration
 
         // Assert
         Assert.Throws<InvalidOperationException>(() => something.Echo(100));
-        ClassicAssert.AreEqual("42", something.Echo(42));
+        Assert.That(something.Echo(42), Is.EqualTo("42"));
     }
 }

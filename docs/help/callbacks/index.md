@@ -25,7 +25,7 @@ calculator
 calculator.Add(7, 3);
 calculator.Add(2, 2);
 calculator.Add(11, -3);
-Assert.AreEqual(counter, 3);
+Assert.That(counter, Is.EqualTo(3));
 ```
 
 The [Return from a function](/help/return-from-function) topic has more information on the arguments passed to the callback.
@@ -51,7 +51,7 @@ public void SayHello() {
 
     foo.SayHello("World");
     foo.SayHello("World");
-    Assert.AreEqual(2, counter);
+    Assert.That(counter, Is.EqualTo(2));
 }
 ```
 
@@ -67,8 +67,8 @@ calculator
     .Do(x => counter++);
 
 var result = calculator.Add(1, 2);
-Assert.AreEqual(3, result);
-Assert.AreEqual(1, counter);
+Assert.That(result, Is.EqualTo(3));
+Assert.That(counter, Is.EqualTo(1));
 ```
 
 ## Per argument callbacks
