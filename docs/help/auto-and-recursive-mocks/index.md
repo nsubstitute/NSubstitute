@@ -104,3 +104,115 @@ var identity = Substitute.For<IIdentity>();
 Assert.That(identity.Name, Is.EqualTo(String.Empty));
 Assert.That(identity.Roles().Length, Is.EqualTo(0));
 ```
+
+## Customizing auto values
+
+NSubstitute's auto value generation can be customized to suit specific needs. This is particularly useful when you want to override the default behavior for certain types or add support for types that aren't handled by default.
+
+The customization follows the open/closed principle: the system is open for extension but closed for modification. To customize auto values, you can:
+
+1. Create a derived container from `NSubstituteDefaultFactory.DefaultContainer.Customize()`
+2. Use the `.Decorate()` method to enhance existing implementations
+3. Replace `SubstitutionContext.Current` with your customized context, ideally using Module Initializers
+
+### Example: Custom Task auto values
+
+Here's a complete example showing how to customize auto value generation for `Task` types:
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using NSubstitute;
+using NSubstitute.Core;
+using NSubstitute.Core.DependencyInjection;
+using NSubstitute.Routing.AutoValues;
+
+namespace YourProject;
+
+internal static class ModuleInitializer
+{
+    [ModuleInitializer]
+    internal static void ConfigureNSubstitute()
+    {
+        var customizedContainer = NSubstituteDefaultFactory.DefaultContainer.Customize();
+        customizedContainer.Decorate<IAutoValueProvidersFactory>(
+            (factory, _resolver) => new CustomAutoValueProvidersFactory(factory));
+
+        SubstitutionContext.Current = customizedContainer.Resolve<ISubstitutionContext>();
+    }
+}
+
+internal class CustomAutoValueProvidersFactory : IAutoValueProvidersFactory
+{
+    private readonly IAutoValueProvidersFactory _original;
+
+    public CustomAutoValueProvidersFactory(IAutoValueProvidersFactory original)
+    {
+        _original = original;
+    }
+    
+    public IReadOnlyCollection<IAutoValueProvider> CreateProviders(ISubstituteFactory substituteFactory)
+    {
+        var originalProviders = _original.CreateProviders(substituteFactory);
+
+        var customTaskProvider = new CustomTaskProvider(originalProviders);
+
+        return new[] { customTaskProvider }.Concat(originalProviders).ToArray();
+    }
+
+    private class CustomTaskProvider : IAutoValueProvider
+    {
+        private readonly IReadOnlyCollection<IAutoValueProvider> _allProviders;
+
+        public CustomTaskProvider(IReadOnlyCollection<IAutoValueProvider> allProviders)
+        {
+            _allProviders = allProviders;
+        }
+        
+        public bool CanProvideValueFor(Type type) => type == typeof(Task);
+
+        public object GetValue(Type type)
+        {
+            // You can use _allProviders to recursively resolve inner values if needed
+            return Task.FromException(new InvalidOperationException("Custom failed task"));
+        }
+    }
+}
+```
+
+### Usage
+
+Once configured, your customization will automatically apply to all substitutes:
+
+```csharp
+public interface IService
+{
+    Task DoWorkAsync();
+}
+
+[Test]
+public async Task CustomTaskBehavior()
+{
+    // arrange
+    var service = Substitute.For<IService>();
+
+    // act
+    var task = service.DoWorkAsync(); // Returns custom failed task
+
+    // assert
+    var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await task);
+    Assert.That(ex.Message, Is.EqualTo("Custom failed task"));
+}
+```
+
+### Key concepts
+
+- **Module Initializers**: Use the `[ModuleInitializer]` attribute to configure NSubstitute before any substitutes are created. This ensures your customizations are applied globally.
+- **Container Customization**: Call `DefaultContainer.Customize()` to create a copy of the default container that you can modify.
+- **Decoration Pattern**: Use `.Decorate<T>()` to wrap existing implementations with your custom logic, maintaining the original behavior while adding new functionality.
+- **Immutability**: The container follows an immutable pattern - modifications create new instances rather than changing existing ones.
+
+This approach allows you to extend NSubstitute's behavior without modifying its core functionality, making it suitable for scenarios like Unity's `UniTask`, custom async patterns, or domain-specific value generation.
