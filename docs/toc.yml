@@ -1,6 +1,9 @@
 - name: Documentation
   href: help/
 
+- name: API Reference
+  href: api/
+
 - name: Getting help
   href: help.md
 

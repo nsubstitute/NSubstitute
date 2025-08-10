@@ -308,3 +308,7 @@ docs/_site/*
 
 # Ignore Ionide files (https://ionide.io/)
 .ionide
+
+# DocFX generated API files (can be regenerated)
+docs/api/.manifest
+docs/api/*.yml

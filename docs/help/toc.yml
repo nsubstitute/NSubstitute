@@ -23,4 +23,7 @@
 - href: compat-args/index.md
 - href: nsubstitute-analysers/index.md
 - href: how-nsub-works/index.md
+- href: advanced-usage/index.md
+- href: troubleshooting/index.md
+- href: migration-guide/index.md
 - href: search/index.md
