@@ -1,0 +1,261 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Core.Arguments
+  commentId: N:NSubstitute.Core.Arguments
+  id: NSubstitute.Core.Arguments
+  children:
+  - NSubstitute.Core.Arguments.AnyArgumentMatcher
+  - NSubstitute.Core.Arguments.ArgumentFormatter
+  - NSubstitute.Core.Arguments.ArgumentMatchInfo
+  - NSubstitute.Core.Arguments.ArgumentMatcher
+  - NSubstitute.Core.Arguments.ArgumentSpecification
+  - NSubstitute.Core.Arguments.ArgumentSpecificationCompatibilityTester
+  - NSubstitute.Core.Arguments.ArgumentSpecificationFactory
+  - NSubstitute.Core.Arguments.ArgumentSpecificationsFactory
+  - NSubstitute.Core.Arguments.ArrayContentsArgumentMatcher
+  - NSubstitute.Core.Arguments.DefaultChecker
+  - NSubstitute.Core.Arguments.EqualsArgumentMatcher
+  - NSubstitute.Core.Arguments.ExpressionArgumentMatcher`1
+  - NSubstitute.Core.Arguments.IArgumentFormatter
+  - NSubstitute.Core.Arguments.IArgumentMatcher
+  - NSubstitute.Core.Arguments.IArgumentMatcher`1
+  - NSubstitute.Core.Arguments.IArgumentSpecification
+  - NSubstitute.Core.Arguments.IArgumentSpecificationCompatibilityTester
+  - NSubstitute.Core.Arguments.IArgumentSpecificationFactory
+  - NSubstitute.Core.Arguments.IArgumentSpecificationsFactory
+  - NSubstitute.Core.Arguments.IDefaultChecker
+  - NSubstitute.Core.Arguments.ISuppliedArgumentSpecifications
+  - NSubstitute.Core.Arguments.ISuppliedArgumentSpecificationsFactory
+  - NSubstitute.Core.Arguments.SuppliedArgumentSpecifications
+  - NSubstitute.Core.Arguments.SuppliedArgumentSpecificationsFactory
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Core.Arguments
+  nameWithType: NSubstitute.Core.Arguments
+  fullName: NSubstitute.Core.Arguments
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Core.Arguments.AnyArgumentMatcher
+  commentId: T:NSubstitute.Core.Arguments.AnyArgumentMatcher
+  href: NSubstitute.Core.Arguments.AnyArgumentMatcher.html
+  name: AnyArgumentMatcher
+  nameWithType: AnyArgumentMatcher
+  fullName: NSubstitute.Core.Arguments.AnyArgumentMatcher
+- uid: NSubstitute.Core.Arguments.ArgumentFormatter
+  commentId: T:NSubstitute.Core.Arguments.ArgumentFormatter
+  href: NSubstitute.Core.Arguments.ArgumentFormatter.html
+  name: ArgumentFormatter
+  nameWithType: ArgumentFormatter
+  fullName: NSubstitute.Core.Arguments.ArgumentFormatter
+- uid: NSubstitute.Core.Arguments.ArgumentMatcher
+  commentId: T:NSubstitute.Core.Arguments.ArgumentMatcher
+  href: NSubstitute.Core.Arguments.ArgumentMatcher.html
+  name: ArgumentMatcher
+  nameWithType: ArgumentMatcher
+  fullName: NSubstitute.Core.Arguments.ArgumentMatcher
+- uid: NSubstitute.Core.Arguments.ArgumentMatchInfo
+  commentId: T:NSubstitute.Core.Arguments.ArgumentMatchInfo
+  href: NSubstitute.Core.Arguments.ArgumentMatchInfo.html
+  name: ArgumentMatchInfo
+  nameWithType: ArgumentMatchInfo
+  fullName: NSubstitute.Core.Arguments.ArgumentMatchInfo
+- uid: NSubstitute.Core.Arguments.ArgumentSpecification
+  commentId: T:NSubstitute.Core.Arguments.ArgumentSpecification
+  href: NSubstitute.Core.Arguments.ArgumentSpecification.html
+  name: ArgumentSpecification
+  nameWithType: ArgumentSpecification
+  fullName: NSubstitute.Core.Arguments.ArgumentSpecification
+- uid: NSubstitute.Core.Arguments.ArgumentSpecificationCompatibilityTester
+  commentId: T:NSubstitute.Core.Arguments.ArgumentSpecificationCompatibilityTester
+  href: NSubstitute.Core.Arguments.ArgumentSpecificationCompatibilityTester.html
+  name: ArgumentSpecificationCompatibilityTester
+  nameWithType: ArgumentSpecificationCompatibilityTester
+  fullName: NSubstitute.Core.Arguments.ArgumentSpecificationCompatibilityTester
+- uid: NSubstitute.Core.Arguments.ArgumentSpecificationFactory
+  commentId: T:NSubstitute.Core.Arguments.ArgumentSpecificationFactory
+  href: NSubstitute.Core.Arguments.ArgumentSpecificationFactory.html
+  name: ArgumentSpecificationFactory
+  nameWithType: ArgumentSpecificationFactory
+  fullName: NSubstitute.Core.Arguments.ArgumentSpecificationFactory
+- uid: NSubstitute.Core.Arguments.ArgumentSpecificationsFactory
+  commentId: T:NSubstitute.Core.Arguments.ArgumentSpecificationsFactory
+  href: NSubstitute.Core.Arguments.ArgumentSpecificationsFactory.html
+  name: ArgumentSpecificationsFactory
+  nameWithType: ArgumentSpecificationsFactory
+  fullName: NSubstitute.Core.Arguments.ArgumentSpecificationsFactory
+- uid: NSubstitute.Core.Arguments.ArrayContentsArgumentMatcher
+  commentId: T:NSubstitute.Core.Arguments.ArrayContentsArgumentMatcher
+  href: NSubstitute.Core.Arguments.ArrayContentsArgumentMatcher.html
+  name: ArrayContentsArgumentMatcher
+  nameWithType: ArrayContentsArgumentMatcher
+  fullName: NSubstitute.Core.Arguments.ArrayContentsArgumentMatcher
+- uid: NSubstitute.Core.Arguments.DefaultChecker
+  commentId: T:NSubstitute.Core.Arguments.DefaultChecker
+  href: NSubstitute.Core.Arguments.DefaultChecker.html
+  name: DefaultChecker
+  nameWithType: DefaultChecker
+  fullName: NSubstitute.Core.Arguments.DefaultChecker
+- uid: NSubstitute.Core.Arguments.EqualsArgumentMatcher
+  commentId: T:NSubstitute.Core.Arguments.EqualsArgumentMatcher
+  href: NSubstitute.Core.Arguments.EqualsArgumentMatcher.html
+  name: EqualsArgumentMatcher
+  nameWithType: EqualsArgumentMatcher
+  fullName: NSubstitute.Core.Arguments.EqualsArgumentMatcher
+- uid: NSubstitute.Core.Arguments.ExpressionArgumentMatcher`1
+  commentId: T:NSubstitute.Core.Arguments.ExpressionArgumentMatcher`1
+  href: NSubstitute.Core.Arguments.ExpressionArgumentMatcher-1.html
+  name: ExpressionArgumentMatcher<T>
+  nameWithType: ExpressionArgumentMatcher<T>
+  fullName: NSubstitute.Core.Arguments.ExpressionArgumentMatcher<T>
+  nameWithType.vb: ExpressionArgumentMatcher(Of T)
+  fullName.vb: NSubstitute.Core.Arguments.ExpressionArgumentMatcher(Of T)
+  name.vb: ExpressionArgumentMatcher(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.Arguments.ExpressionArgumentMatcher`1
+    name: ExpressionArgumentMatcher
+    href: NSubstitute.Core.Arguments.ExpressionArgumentMatcher-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Arguments.ExpressionArgumentMatcher`1
+    name: ExpressionArgumentMatcher
+    href: NSubstitute.Core.Arguments.ExpressionArgumentMatcher-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core.Arguments.IArgumentFormatter
+  commentId: T:NSubstitute.Core.Arguments.IArgumentFormatter
+  parent: NSubstitute.Core.Arguments
+  href: NSubstitute.Core.Arguments.IArgumentFormatter.html
+  name: IArgumentFormatter
+  nameWithType: IArgumentFormatter
+  fullName: NSubstitute.Core.Arguments.IArgumentFormatter
+- uid: NSubstitute.Core.Arguments.IArgumentMatcher
+  commentId: T:NSubstitute.Core.Arguments.IArgumentMatcher
+  parent: NSubstitute.Core.Arguments
+  href: NSubstitute.Core.Arguments.IArgumentMatcher.html
+  name: IArgumentMatcher
+  nameWithType: IArgumentMatcher
+  fullName: NSubstitute.Core.Arguments.IArgumentMatcher
+- uid: NSubstitute.Core.Arguments.IArgumentMatcher`1
+  commentId: T:NSubstitute.Core.Arguments.IArgumentMatcher`1
+  href: NSubstitute.Core.Arguments.IArgumentMatcher-1.html
+  name: IArgumentMatcher<T>
+  nameWithType: IArgumentMatcher<T>
+  fullName: NSubstitute.Core.Arguments.IArgumentMatcher<T>
+  nameWithType.vb: IArgumentMatcher(Of T)
+  fullName.vb: NSubstitute.Core.Arguments.IArgumentMatcher(Of T)
+  name.vb: IArgumentMatcher(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.Arguments.IArgumentMatcher`1
+    name: IArgumentMatcher
+    href: NSubstitute.Core.Arguments.IArgumentMatcher-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Arguments.IArgumentMatcher`1
+    name: IArgumentMatcher
+    href: NSubstitute.Core.Arguments.IArgumentMatcher-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core.Arguments.IArgumentSpecification
+  commentId: T:NSubstitute.Core.Arguments.IArgumentSpecification
+  parent: NSubstitute.Core.Arguments
+  href: NSubstitute.Core.Arguments.IArgumentSpecification.html
+  name: IArgumentSpecification
+  nameWithType: IArgumentSpecification
+  fullName: NSubstitute.Core.Arguments.IArgumentSpecification
+- uid: NSubstitute.Core.Arguments.IArgumentSpecificationCompatibilityTester
+  commentId: T:NSubstitute.Core.Arguments.IArgumentSpecificationCompatibilityTester
+  parent: NSubstitute.Core.Arguments
+  href: NSubstitute.Core.Arguments.IArgumentSpecificationCompatibilityTester.html
+  name: IArgumentSpecificationCompatibilityTester
+  nameWithType: IArgumentSpecificationCompatibilityTester
+  fullName: NSubstitute.Core.Arguments.IArgumentSpecificationCompatibilityTester
+- uid: NSubstitute.Core.Arguments.IArgumentSpecificationFactory
+  commentId: T:NSubstitute.Core.Arguments.IArgumentSpecificationFactory
+  parent: NSubstitute.Core.Arguments
+  href: NSubstitute.Core.Arguments.IArgumentSpecificationFactory.html
+  name: IArgumentSpecificationFactory
+  nameWithType: IArgumentSpecificationFactory
+  fullName: NSubstitute.Core.Arguments.IArgumentSpecificationFactory
+- uid: NSubstitute.Core.Arguments.IArgumentSpecificationsFactory
+  commentId: T:NSubstitute.Core.Arguments.IArgumentSpecificationsFactory
+  parent: NSubstitute.Core.Arguments
+  href: NSubstitute.Core.Arguments.IArgumentSpecificationsFactory.html
+  name: IArgumentSpecificationsFactory
+  nameWithType: IArgumentSpecificationsFactory
+  fullName: NSubstitute.Core.Arguments.IArgumentSpecificationsFactory
+- uid: NSubstitute.Core.Arguments.IDefaultChecker
+  commentId: T:NSubstitute.Core.Arguments.IDefaultChecker
+  parent: NSubstitute.Core.Arguments
+  href: NSubstitute.Core.Arguments.IDefaultChecker.html
+  name: IDefaultChecker
+  nameWithType: IDefaultChecker
+  fullName: NSubstitute.Core.Arguments.IDefaultChecker
+- uid: NSubstitute.Core.Arguments.ISuppliedArgumentSpecifications
+  commentId: T:NSubstitute.Core.Arguments.ISuppliedArgumentSpecifications
+  parent: NSubstitute.Core.Arguments
+  href: NSubstitute.Core.Arguments.ISuppliedArgumentSpecifications.html
+  name: ISuppliedArgumentSpecifications
+  nameWithType: ISuppliedArgumentSpecifications
+  fullName: NSubstitute.Core.Arguments.ISuppliedArgumentSpecifications
+- uid: NSubstitute.Core.Arguments.ISuppliedArgumentSpecificationsFactory
+  commentId: T:NSubstitute.Core.Arguments.ISuppliedArgumentSpecificationsFactory
+  parent: NSubstitute.Core.Arguments
+  href: NSubstitute.Core.Arguments.ISuppliedArgumentSpecificationsFactory.html
+  name: ISuppliedArgumentSpecificationsFactory
+  nameWithType: ISuppliedArgumentSpecificationsFactory
+  fullName: NSubstitute.Core.Arguments.ISuppliedArgumentSpecificationsFactory
+- uid: NSubstitute.Core.Arguments.SuppliedArgumentSpecifications
+  commentId: T:NSubstitute.Core.Arguments.SuppliedArgumentSpecifications
+  href: NSubstitute.Core.Arguments.SuppliedArgumentSpecifications.html
+  name: SuppliedArgumentSpecifications
+  nameWithType: SuppliedArgumentSpecifications
+  fullName: NSubstitute.Core.Arguments.SuppliedArgumentSpecifications
+- uid: NSubstitute.Core.Arguments.SuppliedArgumentSpecificationsFactory
+  commentId: T:NSubstitute.Core.Arguments.SuppliedArgumentSpecificationsFactory
+  href: NSubstitute.Core.Arguments.SuppliedArgumentSpecificationsFactory.html
+  name: SuppliedArgumentSpecificationsFactory
+  nameWithType: SuppliedArgumentSpecificationsFactory
+  fullName: NSubstitute.Core.Arguments.SuppliedArgumentSpecificationsFactory
+- uid: NSubstitute.Core.Arguments
+  commentId: N:NSubstitute.Core.Arguments
+  href: NSubstitute.html
+  name: NSubstitute.Core.Arguments
+  nameWithType: NSubstitute.Core.Arguments
+  fullName: NSubstitute.Core.Arguments
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.Arguments
+    name: Arguments
+    href: NSubstitute.Core.Arguments.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.Arguments
+    name: Arguments
+    href: NSubstitute.Core.Arguments.html

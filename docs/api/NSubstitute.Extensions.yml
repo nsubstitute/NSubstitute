@@ -1,0 +1,62 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Extensions
+  commentId: N:NSubstitute.Extensions
+  id: NSubstitute.Extensions
+  children:
+  - NSubstitute.Extensions.ConfigurationExtensions
+  - NSubstitute.Extensions.ProtectedExtensions
+  - NSubstitute.Extensions.ReturnsForAllExtensions
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Extensions
+  nameWithType: NSubstitute.Extensions
+  fullName: NSubstitute.Extensions
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Extensions.ConfigurationExtensions
+  commentId: T:NSubstitute.Extensions.ConfigurationExtensions
+  parent: NSubstitute.Extensions
+  href: NSubstitute.Extensions.ConfigurationExtensions.html
+  name: ConfigurationExtensions
+  nameWithType: ConfigurationExtensions
+  fullName: NSubstitute.Extensions.ConfigurationExtensions
+- uid: NSubstitute.Extensions.ProtectedExtensions
+  commentId: T:NSubstitute.Extensions.ProtectedExtensions
+  parent: NSubstitute.Extensions
+  href: NSubstitute.Extensions.ProtectedExtensions.html
+  name: ProtectedExtensions
+  nameWithType: ProtectedExtensions
+  fullName: NSubstitute.Extensions.ProtectedExtensions
+- uid: NSubstitute.Extensions.ReturnsForAllExtensions
+  commentId: T:NSubstitute.Extensions.ReturnsForAllExtensions
+  parent: NSubstitute.Extensions
+  href: NSubstitute.Extensions.ReturnsForAllExtensions.html
+  name: ReturnsForAllExtensions
+  nameWithType: ReturnsForAllExtensions
+  fullName: NSubstitute.Extensions.ReturnsForAllExtensions
+- uid: NSubstitute.Extensions
+  commentId: N:NSubstitute.Extensions
+  href: NSubstitute.html
+  name: NSubstitute.Extensions
+  nameWithType: NSubstitute.Extensions
+  fullName: NSubstitute.Extensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Extensions
+    name: Extensions
+    href: NSubstitute.Extensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Extensions
+    name: Extensions
+    href: NSubstitute.Extensions.html

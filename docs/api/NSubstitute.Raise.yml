@@ -1,0 +1,691 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Raise
+  commentId: T:NSubstitute.Raise
+  id: Raise
+  parent: NSubstitute
+  children:
+  - NSubstitute.Raise.Event
+  - NSubstitute.Raise.EventWith``1
+  - NSubstitute.Raise.EventWith``1(System.Object,``0)
+  - NSubstitute.Raise.EventWith``1(``0)
+  - NSubstitute.Raise.Event``1(System.Object[])
+  langs:
+  - csharp
+  - vb
+  name: Raise
+  nameWithType: Raise
+  fullName: NSubstitute.Raise
+  type: Class
+  source:
+    remote:
+      path: src/NSubstitute/Raise.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Raise
+    path: ../src/NSubstitute/Raise.cs
+    startLine: 6
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  syntax:
+    content: public static class Raise
+    content.vb: Public Module Raise
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: NSubstitute.Raise.EventWith``1(System.Object,``0)
+  commentId: M:NSubstitute.Raise.EventWith``1(System.Object,``0)
+  id: EventWith``1(System.Object,``0)
+  parent: NSubstitute.Raise
+  langs:
+  - csharp
+  - vb
+  name: EventWith<TEventArgs>(object, TEventArgs)
+  nameWithType: Raise.EventWith<TEventArgs>(object, TEventArgs)
+  fullName: NSubstitute.Raise.EventWith<TEventArgs>(object, TEventArgs)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Raise.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: EventWith
+    path: ../src/NSubstitute/Raise.cs
+    startLine: 11
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Raise an event for an <code>EventHandler&lt;TEventArgs&gt;</code> event with the provided <code class="paramref">sender</code> and <code class="paramref">eventArgs</code>.
+  example: []
+  syntax:
+    content: 'public static EventHandlerWrapper<TEventArgs> EventWith<TEventArgs>(object sender, TEventArgs eventArgs) where TEventArgs : EventArgs'
+    parameters:
+    - id: sender
+      type: System.Object
+    - id: eventArgs
+      type: '{TEventArgs}'
+    typeParameters:
+    - id: TEventArgs
+    return:
+      type: NSubstitute.Core.Events.EventHandlerWrapper{{TEventArgs}}
+    content.vb: Public Shared Function EventWith(Of TEventArgs As EventArgs)(sender As Object, eventArgs As TEventArgs) As EventHandlerWrapper(Of TEventArgs)
+  overload: NSubstitute.Raise.EventWith*
+  nameWithType.vb: Raise.EventWith(Of TEventArgs)(Object, TEventArgs)
+  fullName.vb: NSubstitute.Raise.EventWith(Of TEventArgs)(Object, TEventArgs)
+  name.vb: EventWith(Of TEventArgs)(Object, TEventArgs)
+- uid: NSubstitute.Raise.EventWith``1(``0)
+  commentId: M:NSubstitute.Raise.EventWith``1(``0)
+  id: EventWith``1(``0)
+  parent: NSubstitute.Raise
+  langs:
+  - csharp
+  - vb
+  name: EventWith<TEventArgs>(TEventArgs)
+  nameWithType: Raise.EventWith<TEventArgs>(TEventArgs)
+  fullName: NSubstitute.Raise.EventWith<TEventArgs>(TEventArgs)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Raise.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: EventWith
+    path: ../src/NSubstitute/Raise.cs
+    startLine: 19
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Raise an event for an <code>EventHandler&lt;TEventArgs&gt;</code> event with the substitute as the sender and the provided <code class="paramref">eventArgs</code>.
+  example: []
+  syntax:
+    content: 'public static EventHandlerWrapper<TEventArgs> EventWith<TEventArgs>(TEventArgs eventArgs) where TEventArgs : EventArgs'
+    parameters:
+    - id: eventArgs
+      type: '{TEventArgs}'
+    typeParameters:
+    - id: TEventArgs
+    return:
+      type: NSubstitute.Core.Events.EventHandlerWrapper{{TEventArgs}}
+    content.vb: Public Shared Function EventWith(Of TEventArgs As EventArgs)(eventArgs As TEventArgs) As EventHandlerWrapper(Of TEventArgs)
+  overload: NSubstitute.Raise.EventWith*
+  nameWithType.vb: Raise.EventWith(Of TEventArgs)(TEventArgs)
+  fullName.vb: NSubstitute.Raise.EventWith(Of TEventArgs)(TEventArgs)
+  name.vb: EventWith(Of TEventArgs)(TEventArgs)
+- uid: NSubstitute.Raise.EventWith``1
+  commentId: M:NSubstitute.Raise.EventWith``1
+  id: EventWith``1
+  parent: NSubstitute.Raise
+  langs:
+  - csharp
+  - vb
+  name: EventWith<TEventArgs>()
+  nameWithType: Raise.EventWith<TEventArgs>()
+  fullName: NSubstitute.Raise.EventWith<TEventArgs>()
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Raise.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: EventWith
+    path: ../src/NSubstitute/Raise.cs
+    startLine: 28
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: >-
+    Raise an event for an <code>EventHandler&lt;EventArgsT&gt;</code> event with the substitute as the sender
+
+    and with a default instance of <code class="typeparamref">TEventArgs</code>.
+  example: []
+  syntax:
+    content: 'public static EventHandlerWrapper<TEventArgs> EventWith<TEventArgs>() where TEventArgs : EventArgs'
+    typeParameters:
+    - id: TEventArgs
+    return:
+      type: NSubstitute.Core.Events.EventHandlerWrapper{{TEventArgs}}
+    content.vb: Public Shared Function EventWith(Of TEventArgs As EventArgs)() As EventHandlerWrapper(Of TEventArgs)
+  overload: NSubstitute.Raise.EventWith*
+  nameWithType.vb: Raise.EventWith(Of TEventArgs)()
+  fullName.vb: NSubstitute.Raise.EventWith(Of TEventArgs)()
+  name.vb: EventWith(Of TEventArgs)()
+- uid: NSubstitute.Raise.Event
+  commentId: M:NSubstitute.Raise.Event
+  id: Event
+  parent: NSubstitute.Raise
+  langs:
+  - csharp
+  - vb
+  name: Event()
+  nameWithType: Raise.Event()
+  fullName: NSubstitute.Raise.Event()
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Raise.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Event
+    path: ../src/NSubstitute/Raise.cs
+    startLine: 37
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: >-
+    Raise an event for an <code>EventHandler</code> or <code>EventHandler&lt;EventArgs&gt;</code> event with the substitute
+
+    as the sender and with empty <code>EventArgs</code>.
+  example: []
+  syntax:
+    content: public static EventHandlerWrapper<EventArgs> Event()
+    return:
+      type: NSubstitute.Core.Events.EventHandlerWrapper{System.EventArgs}
+    content.vb: Public Shared Function [Event]() As EventHandlerWrapper(Of EventArgs)
+  overload: NSubstitute.Raise.Event*
+- uid: NSubstitute.Raise.Event``1(System.Object[])
+  commentId: M:NSubstitute.Raise.Event``1(System.Object[])
+  id: Event``1(System.Object[])
+  parent: NSubstitute.Raise
+  langs:
+  - csharp
+  - vb
+  name: Event<THandler>(params object[])
+  nameWithType: Raise.Event<THandler>(params object[])
+  fullName: NSubstitute.Raise.Event<THandler>(params object[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Raise.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Event
+    path: ../src/NSubstitute/Raise.cs
+    startLine: 46
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: >-
+    Raise an event of type <code class="typeparamref">THandler</code> with the provided arguments. If no arguments are provided
+
+    NSubstitute will try to provide reasonable defaults.
+  example: []
+  syntax:
+    content: public static DelegateEventWrapper<THandler> Event<THandler>(params object[] arguments)
+    parameters:
+    - id: arguments
+      type: System.Object[]
+    typeParameters:
+    - id: THandler
+    return:
+      type: NSubstitute.Core.Events.DelegateEventWrapper{{THandler}}
+    content.vb: Public Shared Function [Event](Of THandler)(ParamArray arguments As Object()) As DelegateEventWrapper(Of THandler)
+  overload: NSubstitute.Raise.Event*
+  nameWithType.vb: Raise.Event(Of THandler)(ParamArray Object())
+  fullName.vb: NSubstitute.Raise.Event(Of THandler)(ParamArray Object())
+  name.vb: Event(Of THandler)(ParamArray Object())
+references:
+- uid: NSubstitute
+  commentId: N:NSubstitute
+  href: NSubstitute.html
+  name: NSubstitute
+  nameWithType: NSubstitute
+  fullName: NSubstitute
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: NSubstitute.Raise.EventWith*
+  commentId: Overload:NSubstitute.Raise.EventWith
+  href: NSubstitute.Raise.html#NSubstitute_Raise_EventWith__1_System_Object___0_
+  name: EventWith
+  nameWithType: Raise.EventWith
+  fullName: NSubstitute.Raise.EventWith
+- uid: '{TEventArgs}'
+  commentId: '!:TEventArgs'
+  definition: TEventArgs
+  name: TEventArgs
+  nameWithType: TEventArgs
+  fullName: TEventArgs
+- uid: NSubstitute.Core.Events.EventHandlerWrapper{{TEventArgs}}
+  commentId: T:NSubstitute.Core.Events.EventHandlerWrapper{``0}
+  parent: NSubstitute.Core.Events
+  definition: NSubstitute.Core.Events.EventHandlerWrapper`1
+  href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  name: EventHandlerWrapper<TEventArgs>
+  nameWithType: EventHandlerWrapper<TEventArgs>
+  fullName: NSubstitute.Core.Events.EventHandlerWrapper<TEventArgs>
+  nameWithType.vb: EventHandlerWrapper(Of TEventArgs)
+  fullName.vb: NSubstitute.Core.Events.EventHandlerWrapper(Of TEventArgs)
+  name.vb: EventHandlerWrapper(Of TEventArgs)
+  spec.csharp:
+  - uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+    name: EventHandlerWrapper
+    href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+    name: EventHandlerWrapper
+    href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+- uid: TEventArgs
+  name: TEventArgs
+  nameWithType: TEventArgs
+  fullName: TEventArgs
+- uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+  commentId: T:NSubstitute.Core.Events.EventHandlerWrapper`1
+  parent: NSubstitute.Core.Events
+  href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  name: EventHandlerWrapper<TEventArgs>
+  nameWithType: EventHandlerWrapper<TEventArgs>
+  fullName: NSubstitute.Core.Events.EventHandlerWrapper<TEventArgs>
+  nameWithType.vb: EventHandlerWrapper(Of TEventArgs)
+  fullName.vb: NSubstitute.Core.Events.EventHandlerWrapper(Of TEventArgs)
+  name.vb: EventHandlerWrapper(Of TEventArgs)
+  spec.csharp:
+  - uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+    name: EventHandlerWrapper
+    href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+    name: EventHandlerWrapper
+    href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+- uid: NSubstitute.Core.Events
+  commentId: N:NSubstitute.Core.Events
+  href: NSubstitute.html
+  name: NSubstitute.Core.Events
+  nameWithType: NSubstitute.Core.Events
+  fullName: NSubstitute.Core.Events
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.Events
+    name: Events
+    href: NSubstitute.Core.Events.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.Events
+    name: Events
+    href: NSubstitute.Core.Events.html
+- uid: NSubstitute.Raise.Event*
+  commentId: Overload:NSubstitute.Raise.Event
+  href: NSubstitute.Raise.html#NSubstitute_Raise_Event
+  name: Event
+  nameWithType: Raise.Event
+  fullName: NSubstitute.Raise.Event
+- uid: NSubstitute.Core.Events.EventHandlerWrapper{System.EventArgs}
+  commentId: T:NSubstitute.Core.Events.EventHandlerWrapper{System.EventArgs}
+  parent: NSubstitute.Core.Events
+  definition: NSubstitute.Core.Events.EventHandlerWrapper`1
+  href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  name: EventHandlerWrapper<EventArgs>
+  nameWithType: EventHandlerWrapper<EventArgs>
+  fullName: NSubstitute.Core.Events.EventHandlerWrapper<System.EventArgs>
+  nameWithType.vb: EventHandlerWrapper(Of EventArgs)
+  fullName.vb: NSubstitute.Core.Events.EventHandlerWrapper(Of System.EventArgs)
+  name.vb: EventHandlerWrapper(Of EventArgs)
+  spec.csharp:
+  - uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+    name: EventHandlerWrapper
+    href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  - name: <
+  - uid: System.EventArgs
+    name: EventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventargs
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+    name: EventHandlerWrapper
+    href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.EventArgs
+    name: EventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventargs
+  - name: )
+- uid: System.Object[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object[]
+  nameWithType: object[]
+  fullName: object[]
+  nameWithType.vb: Object()
+  fullName.vb: Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+- uid: NSubstitute.Core.Events.DelegateEventWrapper{{THandler}}
+  commentId: T:NSubstitute.Core.Events.DelegateEventWrapper{``0}
+  parent: NSubstitute.Core.Events
+  definition: NSubstitute.Core.Events.DelegateEventWrapper`1
+  href: NSubstitute.Core.Events.DelegateEventWrapper-1.html
+  name: DelegateEventWrapper<THandler>
+  nameWithType: DelegateEventWrapper<THandler>
+  fullName: NSubstitute.Core.Events.DelegateEventWrapper<THandler>
+  nameWithType.vb: DelegateEventWrapper(Of THandler)
+  fullName.vb: NSubstitute.Core.Events.DelegateEventWrapper(Of THandler)
+  name.vb: DelegateEventWrapper(Of THandler)
+  spec.csharp:
+  - uid: NSubstitute.Core.Events.DelegateEventWrapper`1
+    name: DelegateEventWrapper
+    href: NSubstitute.Core.Events.DelegateEventWrapper-1.html
+  - name: <
+  - name: THandler
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Events.DelegateEventWrapper`1
+    name: DelegateEventWrapper
+    href: NSubstitute.Core.Events.DelegateEventWrapper-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: THandler
+  - name: )
+- uid: NSubstitute.Core.Events.DelegateEventWrapper`1
+  commentId: T:NSubstitute.Core.Events.DelegateEventWrapper`1
+  parent: NSubstitute.Core.Events
+  href: NSubstitute.Core.Events.DelegateEventWrapper-1.html
+  name: DelegateEventWrapper<T>
+  nameWithType: DelegateEventWrapper<T>
+  fullName: NSubstitute.Core.Events.DelegateEventWrapper<T>
+  nameWithType.vb: DelegateEventWrapper(Of T)
+  fullName.vb: NSubstitute.Core.Events.DelegateEventWrapper(Of T)
+  name.vb: DelegateEventWrapper(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.Events.DelegateEventWrapper`1
+    name: DelegateEventWrapper
+    href: NSubstitute.Core.Events.DelegateEventWrapper-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Events.DelegateEventWrapper`1
+    name: DelegateEventWrapper
+    href: NSubstitute.Core.Events.DelegateEventWrapper-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )

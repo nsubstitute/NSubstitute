@@ -1,0 +1,121 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute
+  commentId: N:NSubstitute
+  id: NSubstitute
+  children:
+  - NSubstitute.Arg
+  - NSubstitute.Arg.AnyType
+  - NSubstitute.Arg.Compat
+  - NSubstitute.Callback
+  - NSubstitute.ClearOptions
+  - NSubstitute.Raise
+  - NSubstitute.Received
+  - NSubstitute.Substitute
+  - NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute
+  nameWithType: NSubstitute
+  fullName: NSubstitute
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Arg
+  commentId: T:NSubstitute.Arg
+  href: NSubstitute.Arg.html
+  name: Arg
+  nameWithType: Arg
+  fullName: NSubstitute.Arg
+- uid: NSubstitute.Arg.AnyType
+  commentId: T:NSubstitute.Arg.AnyType
+  parent: NSubstitute
+  href: NSubstitute.Arg.html
+  name: Arg.AnyType
+  nameWithType: Arg.AnyType
+  fullName: NSubstitute.Arg.AnyType
+  spec.csharp:
+  - uid: NSubstitute.Arg
+    name: Arg
+    href: NSubstitute.Arg.html
+  - name: .
+  - uid: NSubstitute.Arg.AnyType
+    name: AnyType
+    href: NSubstitute.Arg.AnyType.html
+  spec.vb:
+  - uid: NSubstitute.Arg
+    name: Arg
+    href: NSubstitute.Arg.html
+  - name: .
+  - uid: NSubstitute.Arg.AnyType
+    name: AnyType
+    href: NSubstitute.Arg.AnyType.html
+- uid: NSubstitute.Arg.Compat
+  commentId: T:NSubstitute.Arg.Compat
+  href: NSubstitute.Arg.html
+  name: Arg.Compat
+  nameWithType: Arg.Compat
+  fullName: NSubstitute.Arg.Compat
+  spec.csharp:
+  - uid: NSubstitute.Arg
+    name: Arg
+    href: NSubstitute.Arg.html
+  - name: .
+  - uid: NSubstitute.Arg.Compat
+    name: Compat
+    href: NSubstitute.Arg.Compat.html
+  spec.vb:
+  - uid: NSubstitute.Arg
+    name: Arg
+    href: NSubstitute.Arg.html
+  - name: .
+  - uid: NSubstitute.Arg.Compat
+    name: Compat
+    href: NSubstitute.Arg.Compat.html
+- uid: NSubstitute.Callback
+  commentId: T:NSubstitute.Callback
+  parent: NSubstitute
+  href: NSubstitute.Callback.html
+  name: Callback
+  nameWithType: Callback
+  fullName: NSubstitute.Callback
+- uid: NSubstitute.ClearOptions
+  commentId: T:NSubstitute.ClearOptions
+  parent: NSubstitute
+  href: NSubstitute.ClearOptions.html
+  name: ClearOptions
+  nameWithType: ClearOptions
+  fullName: NSubstitute.ClearOptions
+- uid: NSubstitute.Raise
+  commentId: T:NSubstitute.Raise
+  href: NSubstitute.Raise.html
+  name: Raise
+  nameWithType: Raise
+  fullName: NSubstitute.Raise
+- uid: NSubstitute.Received
+  commentId: T:NSubstitute.Received
+  href: NSubstitute.Received.html
+  name: Received
+  nameWithType: Received
+  fullName: NSubstitute.Received
+- uid: NSubstitute.Substitute
+  commentId: T:NSubstitute.Substitute
+  href: NSubstitute.Substitute.html
+  name: Substitute
+  nameWithType: Substitute
+  fullName: NSubstitute.Substitute
+- uid: NSubstitute.SubstituteExtensions
+  commentId: T:NSubstitute.SubstituteExtensions
+  parent: NSubstitute
+  href: NSubstitute.SubstituteExtensions.html
+  name: SubstituteExtensions
+  nameWithType: SubstituteExtensions
+  fullName: NSubstitute.SubstituteExtensions
+- uid: NSubstitute
+  commentId: N:NSubstitute
+  href: NSubstitute.html
+  name: NSubstitute
+  nameWithType: NSubstitute
+  fullName: NSubstitute

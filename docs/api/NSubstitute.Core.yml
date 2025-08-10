@@ -1,0 +1,777 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Core
+  commentId: N:NSubstitute.Core
+  id: NSubstitute.Core
+  children:
+  - NSubstitute.Core.Argument
+  - NSubstitute.Core.ArgumentSpecificationDequeue
+  - NSubstitute.Core.Call
+  - NSubstitute.Core.CallActions
+  - NSubstitute.Core.CallBaseConfiguration
+  - NSubstitute.Core.CallCollection
+  - NSubstitute.Core.CallFactory
+  - NSubstitute.Core.CallFormatter
+  - NSubstitute.Core.CallHandlerFactory
+  - NSubstitute.Core.CallInfo
+  - NSubstitute.Core.CallInfoFactory
+  - NSubstitute.Core.CallResults
+  - NSubstitute.Core.CallRouter
+  - NSubstitute.Core.CallRouterFactory
+  - NSubstitute.Core.CallRouterResolver
+  - NSubstitute.Core.CallSpecAndTarget
+  - NSubstitute.Core.CallSpecification
+  - NSubstitute.Core.CallSpecificationFactory
+  - NSubstitute.Core.ConfigureCall
+  - NSubstitute.Core.ConfiguredCall
+  - NSubstitute.Core.CustomHandlers
+  - NSubstitute.Core.DefaultForType
+  - NSubstitute.Core.EventCallFormatter
+  - NSubstitute.Core.EventHandlerRegistry
+  - NSubstitute.Core.GetCallSpec
+  - NSubstitute.Core.IArgumentSpecificationDequeue
+  - NSubstitute.Core.ICall
+  - NSubstitute.Core.ICallActions
+  - NSubstitute.Core.ICallBaseConfiguration
+  - NSubstitute.Core.ICallCollection
+  - NSubstitute.Core.ICallFactory
+  - NSubstitute.Core.ICallHandler
+  - NSubstitute.Core.ICallInfoFactory
+  - NSubstitute.Core.ICallResults
+  - NSubstitute.Core.ICallRouter
+  - NSubstitute.Core.ICallRouterFactory
+  - NSubstitute.Core.ICallRouterProvider
+  - NSubstitute.Core.ICallRouterResolver
+  - NSubstitute.Core.ICallSpecification
+  - NSubstitute.Core.ICallSpecificationFactory
+  - NSubstitute.Core.IConfigureCall
+  - NSubstitute.Core.ICustomHandlers
+  - NSubstitute.Core.IDefaultForType
+  - NSubstitute.Core.IDescribeNonMatches
+  - NSubstitute.Core.IDescribeSpecification
+  - NSubstitute.Core.IEventHandlerRegistry
+  - NSubstitute.Core.IGetCallSpec
+  - NSubstitute.Core.IMethodInfoFormatter
+  - NSubstitute.Core.IParameterInfo
+  - NSubstitute.Core.IPendingSpecification
+  - NSubstitute.Core.IPropertyHelper
+  - NSubstitute.Core.IProxyFactory
+  - NSubstitute.Core.IQuery
+  - NSubstitute.Core.IQueryResults
+  - NSubstitute.Core.IReceivedCallsExceptionThrower
+  - NSubstitute.Core.IResultsForType
+  - NSubstitute.Core.IReturn
+  - NSubstitute.Core.ISubstituteFactory
+  - NSubstitute.Core.ISubstituteState
+  - NSubstitute.Core.ISubstituteStateFactory
+  - NSubstitute.Core.ISubstitutionContext
+  - NSubstitute.Core.IThreadLocalContext
+  - NSubstitute.Core.MatchArgs
+  - NSubstitute.Core.Maybe
+  - NSubstitute.Core.Maybe`1
+  - NSubstitute.Core.MethodFormatter
+  - NSubstitute.Core.PendingSpecificationInfo
+  - NSubstitute.Core.PropertyCallFormatter
+  - NSubstitute.Core.PropertyHelper
+  - NSubstitute.Core.Query
+  - NSubstitute.Core.ReceivedCallsExceptionThrower
+  - NSubstitute.Core.ReflectionExtensions
+  - NSubstitute.Core.ResultsForType
+  - NSubstitute.Core.ReturnMultipleFuncsValues`1
+  - NSubstitute.Core.ReturnMultipleValues`1
+  - NSubstitute.Core.ReturnValue
+  - NSubstitute.Core.ReturnValueFromFunc`1
+  - NSubstitute.Core.RouteAction
+  - NSubstitute.Core.RouteFactoryCacheWrapper
+  - NSubstitute.Core.SequenceNumberGenerator
+  - NSubstitute.Core.SubstituteFactory
+  - NSubstitute.Core.SubstituteState
+  - NSubstitute.Core.SubstituteStateFactory
+  - NSubstitute.Core.SubstitutionContext
+  - NSubstitute.Core.ThreadLocalContext
+  - NSubstitute.Core.WhenCalled`1
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Core
+  nameWithType: NSubstitute.Core
+  fullName: NSubstitute.Core
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Core.Argument
+  commentId: T:NSubstitute.Core.Argument
+  href: NSubstitute.Core.Argument.html
+  name: Argument
+  nameWithType: Argument
+  fullName: NSubstitute.Core.Argument
+- uid: NSubstitute.Core.ArgumentSpecificationDequeue
+  commentId: T:NSubstitute.Core.ArgumentSpecificationDequeue
+  href: NSubstitute.Core.ArgumentSpecificationDequeue.html
+  name: ArgumentSpecificationDequeue
+  nameWithType: ArgumentSpecificationDequeue
+  fullName: NSubstitute.Core.ArgumentSpecificationDequeue
+- uid: NSubstitute.Core.Call
+  commentId: T:NSubstitute.Core.Call
+  href: NSubstitute.Core.Call.html
+  name: Call
+  nameWithType: Call
+  fullName: NSubstitute.Core.Call
+- uid: NSubstitute.Core.CallActions
+  commentId: T:NSubstitute.Core.CallActions
+  href: NSubstitute.Core.CallActions.html
+  name: CallActions
+  nameWithType: CallActions
+  fullName: NSubstitute.Core.CallActions
+- uid: NSubstitute.Core.CallBaseConfiguration
+  commentId: T:NSubstitute.Core.CallBaseConfiguration
+  href: NSubstitute.Core.CallBaseConfiguration.html
+  name: CallBaseConfiguration
+  nameWithType: CallBaseConfiguration
+  fullName: NSubstitute.Core.CallBaseConfiguration
+- uid: NSubstitute.Core.CallCollection
+  commentId: T:NSubstitute.Core.CallCollection
+  href: NSubstitute.Core.CallCollection.html
+  name: CallCollection
+  nameWithType: CallCollection
+  fullName: NSubstitute.Core.CallCollection
+- uid: NSubstitute.Core.CallFactory
+  commentId: T:NSubstitute.Core.CallFactory
+  href: NSubstitute.Core.CallFactory.html
+  name: CallFactory
+  nameWithType: CallFactory
+  fullName: NSubstitute.Core.CallFactory
+- uid: NSubstitute.Core.CallFormatter
+  commentId: T:NSubstitute.Core.CallFormatter
+  href: NSubstitute.Core.CallFormatter.html
+  name: CallFormatter
+  nameWithType: CallFormatter
+  fullName: NSubstitute.Core.CallFormatter
+- uid: NSubstitute.Core.CallInfo
+  commentId: T:NSubstitute.Core.CallInfo
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.CallInfo.html
+  name: CallInfo
+  nameWithType: CallInfo
+  fullName: NSubstitute.Core.CallInfo
+- uid: NSubstitute.Core.CallInfoFactory
+  commentId: T:NSubstitute.Core.CallInfoFactory
+  href: NSubstitute.Core.CallInfoFactory.html
+  name: CallInfoFactory
+  nameWithType: CallInfoFactory
+  fullName: NSubstitute.Core.CallInfoFactory
+- uid: NSubstitute.Core.CallResults
+  commentId: T:NSubstitute.Core.CallResults
+  href: NSubstitute.Core.CallResults.html
+  name: CallResults
+  nameWithType: CallResults
+  fullName: NSubstitute.Core.CallResults
+- uid: NSubstitute.Core.CallRouter
+  commentId: T:NSubstitute.Core.CallRouter
+  href: NSubstitute.Core.CallRouter.html
+  name: CallRouter
+  nameWithType: CallRouter
+  fullName: NSubstitute.Core.CallRouter
+- uid: NSubstitute.Core.CallRouterFactory
+  commentId: T:NSubstitute.Core.CallRouterFactory
+  href: NSubstitute.Core.CallRouterFactory.html
+  name: CallRouterFactory
+  nameWithType: CallRouterFactory
+  fullName: NSubstitute.Core.CallRouterFactory
+- uid: NSubstitute.Core.CallRouterResolver
+  commentId: T:NSubstitute.Core.CallRouterResolver
+  href: NSubstitute.Core.CallRouterResolver.html
+  name: CallRouterResolver
+  nameWithType: CallRouterResolver
+  fullName: NSubstitute.Core.CallRouterResolver
+- uid: NSubstitute.Core.CallSpecAndTarget
+  commentId: T:NSubstitute.Core.CallSpecAndTarget
+  href: NSubstitute.Core.CallSpecAndTarget.html
+  name: CallSpecAndTarget
+  nameWithType: CallSpecAndTarget
+  fullName: NSubstitute.Core.CallSpecAndTarget
+- uid: NSubstitute.Core.CallSpecification
+  commentId: T:NSubstitute.Core.CallSpecification
+  href: NSubstitute.Core.CallSpecification.html
+  name: CallSpecification
+  nameWithType: CallSpecification
+  fullName: NSubstitute.Core.CallSpecification
+- uid: NSubstitute.Core.CallSpecificationFactory
+  commentId: T:NSubstitute.Core.CallSpecificationFactory
+  href: NSubstitute.Core.CallSpecificationFactory.html
+  name: CallSpecificationFactory
+  nameWithType: CallSpecificationFactory
+  fullName: NSubstitute.Core.CallSpecificationFactory
+- uid: NSubstitute.Core.ConfigureCall
+  commentId: T:NSubstitute.Core.ConfigureCall
+  href: NSubstitute.Core.ConfigureCall.html
+  name: ConfigureCall
+  nameWithType: ConfigureCall
+  fullName: NSubstitute.Core.ConfigureCall
+- uid: NSubstitute.Core.ConfiguredCall
+  commentId: T:NSubstitute.Core.ConfiguredCall
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ConfiguredCall.html
+  name: ConfiguredCall
+  nameWithType: ConfiguredCall
+  fullName: NSubstitute.Core.ConfiguredCall
+- uid: NSubstitute.Core.CustomHandlers
+  commentId: T:NSubstitute.Core.CustomHandlers
+  href: NSubstitute.Core.CustomHandlers.html
+  name: CustomHandlers
+  nameWithType: CustomHandlers
+  fullName: NSubstitute.Core.CustomHandlers
+- uid: NSubstitute.Core.DefaultForType
+  commentId: T:NSubstitute.Core.DefaultForType
+  href: NSubstitute.Core.DefaultForType.html
+  name: DefaultForType
+  nameWithType: DefaultForType
+  fullName: NSubstitute.Core.DefaultForType
+- uid: NSubstitute.Core.EventCallFormatter
+  commentId: T:NSubstitute.Core.EventCallFormatter
+  href: NSubstitute.Core.EventCallFormatter.html
+  name: EventCallFormatter
+  nameWithType: EventCallFormatter
+  fullName: NSubstitute.Core.EventCallFormatter
+- uid: NSubstitute.Core.EventHandlerRegistry
+  commentId: T:NSubstitute.Core.EventHandlerRegistry
+  href: NSubstitute.Core.EventHandlerRegistry.html
+  name: EventHandlerRegistry
+  nameWithType: EventHandlerRegistry
+  fullName: NSubstitute.Core.EventHandlerRegistry
+- uid: NSubstitute.Core.GetCallSpec
+  commentId: T:NSubstitute.Core.GetCallSpec
+  href: NSubstitute.Core.GetCallSpec.html
+  name: GetCallSpec
+  nameWithType: GetCallSpec
+  fullName: NSubstitute.Core.GetCallSpec
+- uid: NSubstitute.Core.IArgumentSpecificationDequeue
+  commentId: T:NSubstitute.Core.IArgumentSpecificationDequeue
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IArgumentSpecificationDequeue.html
+  name: IArgumentSpecificationDequeue
+  nameWithType: IArgumentSpecificationDequeue
+  fullName: NSubstitute.Core.IArgumentSpecificationDequeue
+- uid: NSubstitute.Core.ICall
+  commentId: T:NSubstitute.Core.ICall
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICall.html
+  name: ICall
+  nameWithType: ICall
+  fullName: NSubstitute.Core.ICall
+- uid: NSubstitute.Core.ICallActions
+  commentId: T:NSubstitute.Core.ICallActions
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallActions.html
+  name: ICallActions
+  nameWithType: ICallActions
+  fullName: NSubstitute.Core.ICallActions
+- uid: NSubstitute.Core.ICallBaseConfiguration
+  commentId: T:NSubstitute.Core.ICallBaseConfiguration
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallBaseConfiguration.html
+  name: ICallBaseConfiguration
+  nameWithType: ICallBaseConfiguration
+  fullName: NSubstitute.Core.ICallBaseConfiguration
+- uid: NSubstitute.Core.ICallCollection
+  commentId: T:NSubstitute.Core.ICallCollection
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallCollection.html
+  name: ICallCollection
+  nameWithType: ICallCollection
+  fullName: NSubstitute.Core.ICallCollection
+- uid: NSubstitute.Core.ICallFactory
+  commentId: T:NSubstitute.Core.ICallFactory
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallFactory.html
+  name: ICallFactory
+  nameWithType: ICallFactory
+  fullName: NSubstitute.Core.ICallFactory
+- uid: NSubstitute.Core.ICallHandler
+  commentId: T:NSubstitute.Core.ICallHandler
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallHandler.html
+  name: ICallHandler
+  nameWithType: ICallHandler
+  fullName: NSubstitute.Core.ICallHandler
+- uid: NSubstitute.Core.ICallInfoFactory
+  commentId: T:NSubstitute.Core.ICallInfoFactory
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallInfoFactory.html
+  name: ICallInfoFactory
+  nameWithType: ICallInfoFactory
+  fullName: NSubstitute.Core.ICallInfoFactory
+- uid: NSubstitute.Core.ICallResults
+  commentId: T:NSubstitute.Core.ICallResults
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallResults.html
+  name: ICallResults
+  nameWithType: ICallResults
+  fullName: NSubstitute.Core.ICallResults
+- uid: NSubstitute.Core.ICallRouter
+  commentId: T:NSubstitute.Core.ICallRouter
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallRouter.html
+  name: ICallRouter
+  nameWithType: ICallRouter
+  fullName: NSubstitute.Core.ICallRouter
+- uid: NSubstitute.Core.ICallRouterFactory
+  commentId: T:NSubstitute.Core.ICallRouterFactory
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallRouterFactory.html
+  name: ICallRouterFactory
+  nameWithType: ICallRouterFactory
+  fullName: NSubstitute.Core.ICallRouterFactory
+- uid: NSubstitute.Core.ICallRouterProvider
+  commentId: T:NSubstitute.Core.ICallRouterProvider
+  href: NSubstitute.Core.ICallRouterProvider.html
+  name: ICallRouterProvider
+  nameWithType: ICallRouterProvider
+  fullName: NSubstitute.Core.ICallRouterProvider
+- uid: NSubstitute.Core.ICallRouterResolver
+  commentId: T:NSubstitute.Core.ICallRouterResolver
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallRouterResolver.html
+  name: ICallRouterResolver
+  nameWithType: ICallRouterResolver
+  fullName: NSubstitute.Core.ICallRouterResolver
+- uid: NSubstitute.Core.ICallSpecification
+  commentId: T:NSubstitute.Core.ICallSpecification
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallSpecification.html
+  name: ICallSpecification
+  nameWithType: ICallSpecification
+  fullName: NSubstitute.Core.ICallSpecification
+- uid: NSubstitute.Core.ICallSpecificationFactory
+  commentId: T:NSubstitute.Core.ICallSpecificationFactory
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICallSpecificationFactory.html
+  name: ICallSpecificationFactory
+  nameWithType: ICallSpecificationFactory
+  fullName: NSubstitute.Core.ICallSpecificationFactory
+- uid: NSubstitute.Core.IConfigureCall
+  commentId: T:NSubstitute.Core.IConfigureCall
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IConfigureCall.html
+  name: IConfigureCall
+  nameWithType: IConfigureCall
+  fullName: NSubstitute.Core.IConfigureCall
+- uid: NSubstitute.Core.CallHandlerFactory
+  commentId: T:NSubstitute.Core.CallHandlerFactory
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.CallHandlerFactory.html
+  name: CallHandlerFactory
+  nameWithType: CallHandlerFactory
+  fullName: NSubstitute.Core.CallHandlerFactory
+- uid: NSubstitute.Core.ICustomHandlers
+  commentId: T:NSubstitute.Core.ICustomHandlers
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICustomHandlers.html
+  name: ICustomHandlers
+  nameWithType: ICustomHandlers
+  fullName: NSubstitute.Core.ICustomHandlers
+- uid: NSubstitute.Core.IDefaultForType
+  commentId: T:NSubstitute.Core.IDefaultForType
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IDefaultForType.html
+  name: IDefaultForType
+  nameWithType: IDefaultForType
+  fullName: NSubstitute.Core.IDefaultForType
+- uid: NSubstitute.Core.IDescribeNonMatches
+  commentId: T:NSubstitute.Core.IDescribeNonMatches
+  href: NSubstitute.Core.IDescribeNonMatches.html
+  name: IDescribeNonMatches
+  nameWithType: IDescribeNonMatches
+  fullName: NSubstitute.Core.IDescribeNonMatches
+- uid: NSubstitute.Core.IDescribeSpecification
+  commentId: T:NSubstitute.Core.IDescribeSpecification
+  href: NSubstitute.Core.IDescribeSpecification.html
+  name: IDescribeSpecification
+  nameWithType: IDescribeSpecification
+  fullName: NSubstitute.Core.IDescribeSpecification
+- uid: NSubstitute.Core.IEventHandlerRegistry
+  commentId: T:NSubstitute.Core.IEventHandlerRegistry
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IEventHandlerRegistry.html
+  name: IEventHandlerRegistry
+  nameWithType: IEventHandlerRegistry
+  fullName: NSubstitute.Core.IEventHandlerRegistry
+- uid: NSubstitute.Core.IGetCallSpec
+  commentId: T:NSubstitute.Core.IGetCallSpec
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IGetCallSpec.html
+  name: IGetCallSpec
+  nameWithType: IGetCallSpec
+  fullName: NSubstitute.Core.IGetCallSpec
+- uid: NSubstitute.Core.IMethodInfoFormatter
+  commentId: T:NSubstitute.Core.IMethodInfoFormatter
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IMethodInfoFormatter.html
+  name: IMethodInfoFormatter
+  nameWithType: IMethodInfoFormatter
+  fullName: NSubstitute.Core.IMethodInfoFormatter
+- uid: NSubstitute.Core.IParameterInfo
+  commentId: T:NSubstitute.Core.IParameterInfo
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IParameterInfo.html
+  name: IParameterInfo
+  nameWithType: IParameterInfo
+  fullName: NSubstitute.Core.IParameterInfo
+- uid: NSubstitute.Core.IPendingSpecification
+  commentId: T:NSubstitute.Core.IPendingSpecification
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IPendingSpecification.html
+  name: IPendingSpecification
+  nameWithType: IPendingSpecification
+  fullName: NSubstitute.Core.IPendingSpecification
+- uid: NSubstitute.Core.IPropertyHelper
+  commentId: T:NSubstitute.Core.IPropertyHelper
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IPropertyHelper.html
+  name: IPropertyHelper
+  nameWithType: IPropertyHelper
+  fullName: NSubstitute.Core.IPropertyHelper
+- uid: NSubstitute.Core.IProxyFactory
+  commentId: T:NSubstitute.Core.IProxyFactory
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IProxyFactory.html
+  name: IProxyFactory
+  nameWithType: IProxyFactory
+  fullName: NSubstitute.Core.IProxyFactory
+- uid: NSubstitute.Core.IQuery
+  commentId: T:NSubstitute.Core.IQuery
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IQuery.html
+  name: IQuery
+  nameWithType: IQuery
+  fullName: NSubstitute.Core.IQuery
+- uid: NSubstitute.Core.IQueryResults
+  commentId: T:NSubstitute.Core.IQueryResults
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IQueryResults.html
+  name: IQueryResults
+  nameWithType: IQueryResults
+  fullName: NSubstitute.Core.IQueryResults
+- uid: NSubstitute.Core.IReceivedCallsExceptionThrower
+  commentId: T:NSubstitute.Core.IReceivedCallsExceptionThrower
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IReceivedCallsExceptionThrower.html
+  name: IReceivedCallsExceptionThrower
+  nameWithType: IReceivedCallsExceptionThrower
+  fullName: NSubstitute.Core.IReceivedCallsExceptionThrower
+- uid: NSubstitute.Core.IResultsForType
+  commentId: T:NSubstitute.Core.IResultsForType
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IResultsForType.html
+  name: IResultsForType
+  nameWithType: IResultsForType
+  fullName: NSubstitute.Core.IResultsForType
+- uid: NSubstitute.Core.IReturn
+  commentId: T:NSubstitute.Core.IReturn
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IReturn.html
+  name: IReturn
+  nameWithType: IReturn
+  fullName: NSubstitute.Core.IReturn
+- uid: NSubstitute.Core.ReturnValue
+  commentId: T:NSubstitute.Core.ReturnValue
+  href: NSubstitute.Core.ReturnValue.html
+  name: ReturnValue
+  nameWithType: ReturnValue
+  fullName: NSubstitute.Core.ReturnValue
+- uid: NSubstitute.Core.ReturnValueFromFunc`1
+  commentId: T:NSubstitute.Core.ReturnValueFromFunc`1
+  href: NSubstitute.Core.ReturnValueFromFunc-1.html
+  name: ReturnValueFromFunc<T>
+  nameWithType: ReturnValueFromFunc<T>
+  fullName: NSubstitute.Core.ReturnValueFromFunc<T>
+  nameWithType.vb: ReturnValueFromFunc(Of T)
+  fullName.vb: NSubstitute.Core.ReturnValueFromFunc(Of T)
+  name.vb: ReturnValueFromFunc(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.ReturnValueFromFunc`1
+    name: ReturnValueFromFunc
+    href: NSubstitute.Core.ReturnValueFromFunc-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.ReturnValueFromFunc`1
+    name: ReturnValueFromFunc
+    href: NSubstitute.Core.ReturnValueFromFunc-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core.ReturnMultipleValues`1
+  commentId: T:NSubstitute.Core.ReturnMultipleValues`1
+  href: NSubstitute.Core.ReturnMultipleValues-1.html
+  name: ReturnMultipleValues<T>
+  nameWithType: ReturnMultipleValues<T>
+  fullName: NSubstitute.Core.ReturnMultipleValues<T>
+  nameWithType.vb: ReturnMultipleValues(Of T)
+  fullName.vb: NSubstitute.Core.ReturnMultipleValues(Of T)
+  name.vb: ReturnMultipleValues(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.ReturnMultipleValues`1
+    name: ReturnMultipleValues
+    href: NSubstitute.Core.ReturnMultipleValues-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.ReturnMultipleValues`1
+    name: ReturnMultipleValues
+    href: NSubstitute.Core.ReturnMultipleValues-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core.ReturnMultipleFuncsValues`1
+  commentId: T:NSubstitute.Core.ReturnMultipleFuncsValues`1
+  href: NSubstitute.Core.ReturnMultipleFuncsValues-1.html
+  name: ReturnMultipleFuncsValues<T>
+  nameWithType: ReturnMultipleFuncsValues<T>
+  fullName: NSubstitute.Core.ReturnMultipleFuncsValues<T>
+  nameWithType.vb: ReturnMultipleFuncsValues(Of T)
+  fullName.vb: NSubstitute.Core.ReturnMultipleFuncsValues(Of T)
+  name.vb: ReturnMultipleFuncsValues(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.ReturnMultipleFuncsValues`1
+    name: ReturnMultipleFuncsValues
+    href: NSubstitute.Core.ReturnMultipleFuncsValues-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.ReturnMultipleFuncsValues`1
+    name: ReturnMultipleFuncsValues
+    href: NSubstitute.Core.ReturnMultipleFuncsValues-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core.ISubstituteFactory
+  commentId: T:NSubstitute.Core.ISubstituteFactory
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ISubstituteFactory.html
+  name: ISubstituteFactory
+  nameWithType: ISubstituteFactory
+  fullName: NSubstitute.Core.ISubstituteFactory
+- uid: NSubstitute.Core.ISubstituteState
+  commentId: T:NSubstitute.Core.ISubstituteState
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ISubstituteState.html
+  name: ISubstituteState
+  nameWithType: ISubstituteState
+  fullName: NSubstitute.Core.ISubstituteState
+- uid: NSubstitute.Core.ISubstituteStateFactory
+  commentId: T:NSubstitute.Core.ISubstituteStateFactory
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ISubstituteStateFactory.html
+  name: ISubstituteStateFactory
+  nameWithType: ISubstituteStateFactory
+  fullName: NSubstitute.Core.ISubstituteStateFactory
+- uid: NSubstitute.Core.ISubstitutionContext
+  commentId: T:NSubstitute.Core.ISubstitutionContext
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ISubstitutionContext.html
+  name: ISubstitutionContext
+  nameWithType: ISubstitutionContext
+  fullName: NSubstitute.Core.ISubstitutionContext
+- uid: NSubstitute.Core.IThreadLocalContext
+  commentId: T:NSubstitute.Core.IThreadLocalContext
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.IThreadLocalContext.html
+  name: IThreadLocalContext
+  nameWithType: IThreadLocalContext
+  fullName: NSubstitute.Core.IThreadLocalContext
+- uid: NSubstitute.Core.MatchArgs
+  commentId: T:NSubstitute.Core.MatchArgs
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.MatchArgs.html
+  name: MatchArgs
+  nameWithType: MatchArgs
+  fullName: NSubstitute.Core.MatchArgs
+- uid: NSubstitute.Core.Maybe`1
+  commentId: T:NSubstitute.Core.Maybe`1
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.Maybe-1.html
+  name: Maybe<T>
+  nameWithType: Maybe<T>
+  fullName: NSubstitute.Core.Maybe<T>
+  nameWithType.vb: Maybe(Of T)
+  fullName.vb: NSubstitute.Core.Maybe(Of T)
+  name.vb: Maybe(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.Maybe`1
+    name: Maybe
+    href: NSubstitute.Core.Maybe-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Maybe`1
+    name: Maybe
+    href: NSubstitute.Core.Maybe-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core.Maybe
+  commentId: T:NSubstitute.Core.Maybe
+  href: NSubstitute.Core.Maybe.html
+  name: Maybe
+  nameWithType: Maybe
+  fullName: NSubstitute.Core.Maybe
+- uid: NSubstitute.Core.MethodFormatter
+  commentId: T:NSubstitute.Core.MethodFormatter
+  href: NSubstitute.Core.MethodFormatter.html
+  name: MethodFormatter
+  nameWithType: MethodFormatter
+  fullName: NSubstitute.Core.MethodFormatter
+- uid: NSubstitute.Core.PendingSpecificationInfo
+  commentId: T:NSubstitute.Core.PendingSpecificationInfo
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.PendingSpecificationInfo.html
+  name: PendingSpecificationInfo
+  nameWithType: PendingSpecificationInfo
+  fullName: NSubstitute.Core.PendingSpecificationInfo
+- uid: NSubstitute.Core.PropertyCallFormatter
+  commentId: T:NSubstitute.Core.PropertyCallFormatter
+  href: NSubstitute.Core.PropertyCallFormatter.html
+  name: PropertyCallFormatter
+  nameWithType: PropertyCallFormatter
+  fullName: NSubstitute.Core.PropertyCallFormatter
+- uid: NSubstitute.Core.PropertyHelper
+  commentId: T:NSubstitute.Core.PropertyHelper
+  href: NSubstitute.Core.PropertyHelper.html
+  name: PropertyHelper
+  nameWithType: PropertyHelper
+  fullName: NSubstitute.Core.PropertyHelper
+- uid: NSubstitute.Core.Query
+  commentId: T:NSubstitute.Core.Query
+  href: NSubstitute.Core.Query.html
+  name: Query
+  nameWithType: Query
+  fullName: NSubstitute.Core.Query
+- uid: NSubstitute.Core.ReceivedCallsExceptionThrower
+  commentId: T:NSubstitute.Core.ReceivedCallsExceptionThrower
+  href: NSubstitute.Core.ReceivedCallsExceptionThrower.html
+  name: ReceivedCallsExceptionThrower
+  nameWithType: ReceivedCallsExceptionThrower
+  fullName: NSubstitute.Core.ReceivedCallsExceptionThrower
+- uid: NSubstitute.Core.ReflectionExtensions
+  commentId: T:NSubstitute.Core.ReflectionExtensions
+  href: NSubstitute.Core.ReflectionExtensions.html
+  name: ReflectionExtensions
+  nameWithType: ReflectionExtensions
+  fullName: NSubstitute.Core.ReflectionExtensions
+- uid: NSubstitute.Core.ResultsForType
+  commentId: T:NSubstitute.Core.ResultsForType
+  href: NSubstitute.Core.ResultsForType.html
+  name: ResultsForType
+  nameWithType: ResultsForType
+  fullName: NSubstitute.Core.ResultsForType
+- uid: NSubstitute.Core.RouteAction
+  commentId: T:NSubstitute.Core.RouteAction
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.RouteAction.html
+  name: RouteAction
+  nameWithType: RouteAction
+  fullName: NSubstitute.Core.RouteAction
+- uid: NSubstitute.Core.RouteFactoryCacheWrapper
+  commentId: T:NSubstitute.Core.RouteFactoryCacheWrapper
+  href: NSubstitute.Core.RouteFactoryCacheWrapper.html
+  name: RouteFactoryCacheWrapper
+  nameWithType: RouteFactoryCacheWrapper
+  fullName: NSubstitute.Core.RouteFactoryCacheWrapper
+- uid: NSubstitute.Core.SequenceNumberGenerator
+  commentId: T:NSubstitute.Core.SequenceNumberGenerator
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.SequenceNumberGenerator.html
+  name: SequenceNumberGenerator
+  nameWithType: SequenceNumberGenerator
+  fullName: NSubstitute.Core.SequenceNumberGenerator
+- uid: NSubstitute.Core.SubstituteFactory
+  commentId: T:NSubstitute.Core.SubstituteFactory
+  href: NSubstitute.Core.SubstituteFactory.html
+  name: SubstituteFactory
+  nameWithType: SubstituteFactory
+  fullName: NSubstitute.Core.SubstituteFactory
+- uid: NSubstitute.Core.SubstituteState
+  commentId: T:NSubstitute.Core.SubstituteState
+  href: NSubstitute.Core.SubstituteState.html
+  name: SubstituteState
+  nameWithType: SubstituteState
+  fullName: NSubstitute.Core.SubstituteState
+- uid: NSubstitute.Core.SubstituteStateFactory
+  commentId: T:NSubstitute.Core.SubstituteStateFactory
+  href: NSubstitute.Core.SubstituteStateFactory.html
+  name: SubstituteStateFactory
+  nameWithType: SubstituteStateFactory
+  fullName: NSubstitute.Core.SubstituteStateFactory
+- uid: NSubstitute.Core.SubstitutionContext
+  commentId: T:NSubstitute.Core.SubstitutionContext
+  href: NSubstitute.Core.SubstitutionContext.html
+  name: SubstitutionContext
+  nameWithType: SubstitutionContext
+  fullName: NSubstitute.Core.SubstitutionContext
+- uid: NSubstitute.Core.ThreadLocalContext
+  commentId: T:NSubstitute.Core.ThreadLocalContext
+  href: NSubstitute.Core.ThreadLocalContext.html
+  name: ThreadLocalContext
+  nameWithType: ThreadLocalContext
+  fullName: NSubstitute.Core.ThreadLocalContext
+- uid: NSubstitute.Core.WhenCalled`1
+  commentId: T:NSubstitute.Core.WhenCalled`1
+  href: NSubstitute.Core.WhenCalled-1.html
+  name: WhenCalled<T>
+  nameWithType: WhenCalled<T>
+  fullName: NSubstitute.Core.WhenCalled<T>
+  nameWithType.vb: WhenCalled(Of T)
+  fullName.vb: NSubstitute.Core.WhenCalled(Of T)
+  name.vb: WhenCalled(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.WhenCalled`1
+    name: WhenCalled
+    href: NSubstitute.Core.WhenCalled-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.WhenCalled`1
+    name: WhenCalled
+    href: NSubstitute.Core.WhenCalled-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core
+  commentId: N:NSubstitute.Core
+  href: NSubstitute.html
+  name: NSubstitute.Core
+  nameWithType: NSubstitute.Core
+  fullName: NSubstitute.Core
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html

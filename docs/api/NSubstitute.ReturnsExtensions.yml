@@ -1,0 +1,46 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.ReturnsExtensions
+  commentId: N:NSubstitute.ReturnsExtensions
+  id: NSubstitute.ReturnsExtensions
+  children:
+  - NSubstitute.ReturnsExtensions.ReturnsExtensions
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.ReturnsExtensions
+  nameWithType: NSubstitute.ReturnsExtensions
+  fullName: NSubstitute.ReturnsExtensions
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.ReturnsExtensions.ReturnsExtensions
+  commentId: T:NSubstitute.ReturnsExtensions.ReturnsExtensions
+  parent: NSubstitute.ReturnsExtensions
+  href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html
+  name: ReturnsExtensions
+  nameWithType: ReturnsExtensions
+  fullName: NSubstitute.ReturnsExtensions.ReturnsExtensions
+- uid: NSubstitute.ReturnsExtensions
+  commentId: N:NSubstitute.ReturnsExtensions
+  href: NSubstitute.html
+  name: NSubstitute.ReturnsExtensions
+  nameWithType: NSubstitute.ReturnsExtensions
+  fullName: NSubstitute.ReturnsExtensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ReturnsExtensions
+    name: ReturnsExtensions
+    href: NSubstitute.ReturnsExtensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ReturnsExtensions
+    name: ReturnsExtensions
+    href: NSubstitute.ReturnsExtensions.html

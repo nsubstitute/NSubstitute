@@ -1,0 +1,46 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Compatibility
+  commentId: N:NSubstitute.Compatibility
+  id: NSubstitute.Compatibility
+  children:
+  - NSubstitute.Compatibility.CompatArg
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Compatibility
+  nameWithType: NSubstitute.Compatibility
+  fullName: NSubstitute.Compatibility
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Compatibility.CompatArg
+  commentId: T:NSubstitute.Compatibility.CompatArg
+  parent: NSubstitute.Compatibility
+  href: NSubstitute.Compatibility.CompatArg.html
+  name: CompatArg
+  nameWithType: CompatArg
+  fullName: NSubstitute.Compatibility.CompatArg
+- uid: NSubstitute.Compatibility
+  commentId: N:NSubstitute.Compatibility
+  href: NSubstitute.html
+  name: NSubstitute.Compatibility
+  nameWithType: NSubstitute.Compatibility
+  fullName: NSubstitute.Compatibility
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Compatibility
+    name: Compatibility
+    href: NSubstitute.Compatibility.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Compatibility
+    name: Compatibility
+    href: NSubstitute.Compatibility.html

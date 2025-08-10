@@ -1,0 +1,46 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.ClearExtensions
+  commentId: N:NSubstitute.ClearExtensions
+  id: NSubstitute.ClearExtensions
+  children:
+  - NSubstitute.ClearExtensions.ClearExtensions
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.ClearExtensions
+  nameWithType: NSubstitute.ClearExtensions
+  fullName: NSubstitute.ClearExtensions
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.ClearExtensions.ClearExtensions
+  commentId: T:NSubstitute.ClearExtensions.ClearExtensions
+  parent: NSubstitute.ClearExtensions
+  href: NSubstitute.ClearExtensions.ClearExtensions.html
+  name: ClearExtensions
+  nameWithType: ClearExtensions
+  fullName: NSubstitute.ClearExtensions.ClearExtensions
+- uid: NSubstitute.ClearExtensions
+  commentId: N:NSubstitute.ClearExtensions
+  href: NSubstitute.html
+  name: NSubstitute.ClearExtensions
+  nameWithType: NSubstitute.ClearExtensions
+  fullName: NSubstitute.ClearExtensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ClearExtensions
+    name: ClearExtensions
+    href: NSubstitute.ClearExtensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ClearExtensions
+    name: ClearExtensions
+    href: NSubstitute.ClearExtensions.html

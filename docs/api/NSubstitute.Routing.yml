@@ -1,0 +1,68 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Routing
+  commentId: N:NSubstitute.Routing
+  id: NSubstitute.Routing
+  children:
+  - NSubstitute.Routing.IRoute
+  - NSubstitute.Routing.IRouteFactory
+  - NSubstitute.Routing.Route
+  - NSubstitute.Routing.RouteFactory
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Routing
+  nameWithType: NSubstitute.Routing
+  fullName: NSubstitute.Routing
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Routing.IRoute
+  commentId: T:NSubstitute.Routing.IRoute
+  parent: NSubstitute.Routing
+  href: NSubstitute.Routing.IRoute.html
+  name: IRoute
+  nameWithType: IRoute
+  fullName: NSubstitute.Routing.IRoute
+- uid: NSubstitute.Routing.IRouteFactory
+  commentId: T:NSubstitute.Routing.IRouteFactory
+  parent: NSubstitute.Routing
+  href: NSubstitute.Routing.IRouteFactory.html
+  name: IRouteFactory
+  nameWithType: IRouteFactory
+  fullName: NSubstitute.Routing.IRouteFactory
+- uid: NSubstitute.Routing.Route
+  commentId: T:NSubstitute.Routing.Route
+  href: NSubstitute.Routing.Route.html
+  name: Route
+  nameWithType: Route
+  fullName: NSubstitute.Routing.Route
+- uid: NSubstitute.Routing.RouteFactory
+  commentId: T:NSubstitute.Routing.RouteFactory
+  href: NSubstitute.Routing.RouteFactory.html
+  name: RouteFactory
+  nameWithType: RouteFactory
+  fullName: NSubstitute.Routing.RouteFactory
+- uid: NSubstitute.Routing
+  commentId: N:NSubstitute.Routing
+  href: NSubstitute.html
+  name: NSubstitute.Routing
+  nameWithType: NSubstitute.Routing
+  fullName: NSubstitute.Routing
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Routing
+    name: Routing
+    href: NSubstitute.Routing.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Routing
+    name: Routing
+    href: NSubstitute.Routing.html

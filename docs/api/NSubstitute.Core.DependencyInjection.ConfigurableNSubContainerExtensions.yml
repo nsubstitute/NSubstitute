@@ -1,0 +1,516 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+  commentId: T:NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+  id: ConfigurableNSubContainerExtensions
+  parent: NSubstitute.Core.DependencyInjection
+  children:
+  - NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope``1(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer,System.Func{NSubstitute.Core.DependencyInjection.INSubResolver,``0})
+  - NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope``2(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  - NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterSingleton``2(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  langs:
+  - csharp
+  - vb
+  name: ConfigurableNSubContainerExtensions
+  nameWithType: ConfigurableNSubContainerExtensions
+  fullName: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+  type: Class
+  source:
+    remote:
+      path: src/NSubstitute/Core/DependencyInjection/INSubContainer.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ConfigurableNSubContainerExtensions
+    path: ../src/NSubstitute/Core/DependencyInjection/INSubContainer.cs
+    startLine: 40
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core.DependencyInjection
+  syntax:
+    content: public static class ConfigurableNSubContainerExtensions
+    content.vb: Public Module ConfigurableNSubContainerExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope``2(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  commentId: M:NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope``2(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  id: RegisterPerScope``2(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  isExtensionMethod: true
+  parent: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+  langs:
+  - csharp
+  - vb
+  name: RegisterPerScope<TKey, TImpl>(IConfigurableNSubContainer)
+  nameWithType: ConfigurableNSubContainerExtensions.RegisterPerScope<TKey, TImpl>(IConfigurableNSubContainer)
+  fullName: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope<TKey, TImpl>(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Core/DependencyInjection/INSubContainer.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: RegisterPerScope
+    path: ../src/NSubstitute/Core/DependencyInjection/INSubContainer.cs
+    startLine: 42
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core.DependencyInjection
+  syntax:
+    content: 'public static IConfigurableNSubContainer RegisterPerScope<TKey, TImpl>(this IConfigurableNSubContainer container) where TKey : notnull where TImpl : TKey'
+    parameters:
+    - id: container
+      type: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+    typeParameters:
+    - id: TKey
+    - id: TImpl
+    return:
+      type: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+    content.vb: Public Shared Function RegisterPerScope(Of TKey, TImpl As TKey)(container As IConfigurableNSubContainer) As IConfigurableNSubContainer
+  overload: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope*
+  nameWithType.vb: ConfigurableNSubContainerExtensions.RegisterPerScope(Of TKey, TImpl)(IConfigurableNSubContainer)
+  fullName.vb: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope(Of TKey, TImpl)(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  name.vb: RegisterPerScope(Of TKey, TImpl)(IConfigurableNSubContainer)
+- uid: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope``1(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer,System.Func{NSubstitute.Core.DependencyInjection.INSubResolver,``0})
+  commentId: M:NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope``1(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer,System.Func{NSubstitute.Core.DependencyInjection.INSubResolver,``0})
+  id: RegisterPerScope``1(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer,System.Func{NSubstitute.Core.DependencyInjection.INSubResolver,``0})
+  isExtensionMethod: true
+  parent: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+  langs:
+  - csharp
+  - vb
+  name: RegisterPerScope<TKey>(IConfigurableNSubContainer, Func<INSubResolver, TKey>)
+  nameWithType: ConfigurableNSubContainerExtensions.RegisterPerScope<TKey>(IConfigurableNSubContainer, Func<INSubResolver, TKey>)
+  fullName: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope<TKey>(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer, System.Func<NSubstitute.Core.DependencyInjection.INSubResolver, TKey>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Core/DependencyInjection/INSubContainer.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: RegisterPerScope
+    path: ../src/NSubstitute/Core/DependencyInjection/INSubContainer.cs
+    startLine: 49
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core.DependencyInjection
+  syntax:
+    content: 'public static IConfigurableNSubContainer RegisterPerScope<TKey>(this IConfigurableNSubContainer container, Func<INSubResolver, TKey> factory) where TKey : notnull'
+    parameters:
+    - id: container
+      type: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+    - id: factory
+      type: System.Func{NSubstitute.Core.DependencyInjection.INSubResolver,{TKey}}
+    typeParameters:
+    - id: TKey
+    return:
+      type: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+    content.vb: Public Shared Function RegisterPerScope(Of TKey)(container As IConfigurableNSubContainer, factory As Func(Of INSubResolver, TKey)) As IConfigurableNSubContainer
+  overload: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope*
+  nameWithType.vb: ConfigurableNSubContainerExtensions.RegisterPerScope(Of TKey)(IConfigurableNSubContainer, Func(Of INSubResolver, TKey))
+  fullName.vb: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope(Of TKey)(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer, System.Func(Of NSubstitute.Core.DependencyInjection.INSubResolver, TKey))
+  name.vb: RegisterPerScope(Of TKey)(IConfigurableNSubContainer, Func(Of INSubResolver, TKey))
+- uid: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterSingleton``2(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  commentId: M:NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterSingleton``2(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  id: RegisterSingleton``2(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  isExtensionMethod: true
+  parent: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+  langs:
+  - csharp
+  - vb
+  name: RegisterSingleton<TKey, TImpl>(IConfigurableNSubContainer)
+  nameWithType: ConfigurableNSubContainerExtensions.RegisterSingleton<TKey, TImpl>(IConfigurableNSubContainer)
+  fullName: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterSingleton<TKey, TImpl>(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Core/DependencyInjection/INSubContainer.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: RegisterSingleton
+    path: ../src/NSubstitute/Core/DependencyInjection/INSubContainer.cs
+    startLine: 55
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core.DependencyInjection
+  syntax:
+    content: 'public static IConfigurableNSubContainer RegisterSingleton<TKey, TImpl>(this IConfigurableNSubContainer container) where TKey : notnull where TImpl : TKey'
+    parameters:
+    - id: container
+      type: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+    typeParameters:
+    - id: TKey
+    - id: TImpl
+    return:
+      type: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+    content.vb: Public Shared Function RegisterSingleton(Of TKey, TImpl As TKey)(container As IConfigurableNSubContainer) As IConfigurableNSubContainer
+  overload: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterSingleton*
+  nameWithType.vb: ConfigurableNSubContainerExtensions.RegisterSingleton(Of TKey, TImpl)(IConfigurableNSubContainer)
+  fullName.vb: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterSingleton(Of TKey, TImpl)(NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer)
+  name.vb: RegisterSingleton(Of TKey, TImpl)(IConfigurableNSubContainer)
+references:
+- uid: NSubstitute.Core.DependencyInjection
+  commentId: N:NSubstitute.Core.DependencyInjection
+  href: NSubstitute.html
+  name: NSubstitute.Core.DependencyInjection
+  nameWithType: NSubstitute.Core.DependencyInjection
+  fullName: NSubstitute.Core.DependencyInjection
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.DependencyInjection
+    name: DependencyInjection
+    href: NSubstitute.Core.DependencyInjection.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.DependencyInjection
+    name: DependencyInjection
+    href: NSubstitute.Core.DependencyInjection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope*
+  commentId: Overload:NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope
+  href: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.html#NSubstitute_Core_DependencyInjection_ConfigurableNSubContainerExtensions_RegisterPerScope__2_NSubstitute_Core_DependencyInjection_IConfigurableNSubContainer_
+  name: RegisterPerScope
+  nameWithType: ConfigurableNSubContainerExtensions.RegisterPerScope
+  fullName: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterPerScope
+- uid: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+  commentId: T:NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+  parent: NSubstitute.Core.DependencyInjection
+  href: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer.html
+  name: IConfigurableNSubContainer
+  nameWithType: IConfigurableNSubContainer
+  fullName: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+- uid: System.Func{NSubstitute.Core.DependencyInjection.INSubResolver,{TKey}}
+  commentId: T:System.Func{NSubstitute.Core.DependencyInjection.INSubResolver,``0}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<INSubResolver, TKey>
+  nameWithType: Func<INSubResolver, TKey>
+  fullName: System.Func<NSubstitute.Core.DependencyInjection.INSubResolver, TKey>
+  nameWithType.vb: Func(Of INSubResolver, TKey)
+  fullName.vb: System.Func(Of NSubstitute.Core.DependencyInjection.INSubResolver, TKey)
+  name.vb: Func(Of INSubResolver, TKey)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.DependencyInjection.INSubResolver
+    name: INSubResolver
+    href: NSubstitute.Core.DependencyInjection.INSubResolver.html
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.DependencyInjection.INSubResolver
+    name: INSubResolver
+    href: NSubstitute.Core.DependencyInjection.INSubResolver.html
+  - name: ','
+  - name: " "
+  - name: TKey
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterSingleton*
+  commentId: Overload:NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterSingleton
+  href: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.html#NSubstitute_Core_DependencyInjection_ConfigurableNSubContainerExtensions_RegisterSingleton__2_NSubstitute_Core_DependencyInjection_IConfigurableNSubContainer_
+  name: RegisterSingleton
+  nameWithType: ConfigurableNSubContainerExtensions.RegisterSingleton
+  fullName: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.RegisterSingleton

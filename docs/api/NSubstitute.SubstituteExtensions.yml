@@ -1,0 +1,2255 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.SubstituteExtensions
+  commentId: T:NSubstitute.SubstituteExtensions
+  id: SubstituteExtensions
+  parent: NSubstitute
+  children:
+  - NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(``0)
+  - NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(``0)
+  - NSubstitute.SubstituteExtensions.DidNotReceive``1(``0)
+  - NSubstitute.SubstituteExtensions.ReceivedCalls``1(``0)
+  - NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0)
+  - NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0,System.Int32)
+  - NSubstitute.SubstituteExtensions.Received``1(``0)
+  - NSubstitute.SubstituteExtensions.Received``1(``0,System.Int32)
+  - NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  - NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.Task{``0},``0,``0[])
+  - NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  - NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},``0,``0[])
+  - NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  - NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,``0,``0[])
+  - NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  - NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.Task{``0},``0,``0[])
+  - NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  - NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.ValueTask{``0},``0,``0[])
+  - NSubstitute.SubstituteExtensions.Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  - NSubstitute.SubstituteExtensions.Returns``1(``0,``0,``0[])
+  - NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Action{``0})
+  - NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  - NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  - NSubstitute.SubstituteExtensions.When``1(``0,System.Action{``0})
+  - NSubstitute.SubstituteExtensions.When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  - NSubstitute.SubstituteExtensions.When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  langs:
+  - csharp
+  - vb
+  name: SubstituteExtensions
+  nameWithType: SubstituteExtensions
+  fullName: NSubstitute.SubstituteExtensions
+  type: Class
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.When.ValueTask.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: SubstituteExtensions
+    path: ../src/NSubstitute/SubstituteExtensions.When.ValueTask.cs
+    startLine: 4
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  syntax:
+    content: public static class SubstituteExtensions
+    content.vb: Public Module SubstituteExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: NSubstitute.SubstituteExtensions.Received``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.Received``1(``0)
+  id: Received``1(``0)
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: Received<T>(T)
+  nameWithType: SubstituteExtensions.Received<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.Received<T>(T)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Received.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Received
+    path: ../src/NSubstitute/SubstituteExtensions.Received.cs
+    startLine: 12
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Checks this substitute has received the following call.
+  example: []
+  syntax:
+    content: 'public static T Received<T>(this T substitute) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function Received(Of T As Class)(substitute As T) As T
+  overload: NSubstitute.SubstituteExtensions.Received*
+  nameWithType.vb: SubstituteExtensions.Received(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.Received(Of T)(T)
+  name.vb: Received(Of T)(T)
+- uid: NSubstitute.SubstituteExtensions.Received``1(``0,System.Int32)
+  commentId: M:NSubstitute.SubstituteExtensions.Received``1(``0,System.Int32)
+  id: Received``1(``0,System.Int32)
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: Received<T>(T, int)
+  nameWithType: SubstituteExtensions.Received<T>(T, int)
+  fullName: NSubstitute.SubstituteExtensions.Received<T>(T, int)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Received.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Received
+    path: ../src/NSubstitute/SubstituteExtensions.Received.cs
+    startLine: 22
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Checks this substitute has received the following call the required number of times.
+  example: []
+  syntax:
+    content: 'public static T Received<T>(this T substitute, int requiredNumberOfCalls) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    - id: requiredNumberOfCalls
+      type: System.Int32
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function Received(Of T As Class)(substitute As T, requiredNumberOfCalls As Integer) As T
+  overload: NSubstitute.SubstituteExtensions.Received*
+  nameWithType.vb: SubstituteExtensions.Received(Of T)(T, Integer)
+  fullName.vb: NSubstitute.SubstituteExtensions.Received(Of T)(T, Integer)
+  name.vb: Received(Of T)(T, Integer)
+- uid: NSubstitute.SubstituteExtensions.DidNotReceive``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.DidNotReceive``1(``0)
+  id: DidNotReceive``1(``0)
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: DidNotReceive<T>(T)
+  nameWithType: SubstituteExtensions.DidNotReceive<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.DidNotReceive<T>(T)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Received.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: DidNotReceive
+    path: ../src/NSubstitute/SubstituteExtensions.Received.cs
+    startLine: 32
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Checks this substitute has not received the following call.
+  example: []
+  syntax:
+    content: 'public static T DidNotReceive<T>(this T substitute) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function DidNotReceive(Of T As Class)(substitute As T) As T
+  overload: NSubstitute.SubstituteExtensions.DidNotReceive*
+  nameWithType.vb: SubstituteExtensions.DidNotReceive(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.DidNotReceive(Of T)(T)
+  name.vb: DidNotReceive(Of T)(T)
+- uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0)
+  id: ReceivedWithAnyArgs``1(``0)
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReceivedWithAnyArgs<T>(T)
+  nameWithType: SubstituteExtensions.ReceivedWithAnyArgs<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs<T>(T)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Received.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReceivedWithAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.Received.cs
+    startLine: 42
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Checks this substitute has received the following call with any arguments.
+  example: []
+  syntax:
+    content: 'public static T ReceivedWithAnyArgs<T>(this T substitute) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function ReceivedWithAnyArgs(Of T As Class)(substitute As T) As T
+  overload: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs*
+  nameWithType.vb: SubstituteExtensions.ReceivedWithAnyArgs(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs(Of T)(T)
+  name.vb: ReceivedWithAnyArgs(Of T)(T)
+- uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0,System.Int32)
+  commentId: M:NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0,System.Int32)
+  id: ReceivedWithAnyArgs``1(``0,System.Int32)
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReceivedWithAnyArgs<T>(T, int)
+  nameWithType: SubstituteExtensions.ReceivedWithAnyArgs<T>(T, int)
+  fullName: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs<T>(T, int)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Received.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReceivedWithAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.Received.cs
+    startLine: 52
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Checks this substitute has received the following call with any arguments the required number of times.
+  example: []
+  syntax:
+    content: 'public static T ReceivedWithAnyArgs<T>(this T substitute, int requiredNumberOfCalls) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    - id: requiredNumberOfCalls
+      type: System.Int32
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function ReceivedWithAnyArgs(Of T As Class)(substitute As T, requiredNumberOfCalls As Integer) As T
+  overload: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs*
+  nameWithType.vb: SubstituteExtensions.ReceivedWithAnyArgs(Of T)(T, Integer)
+  fullName.vb: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs(Of T)(T, Integer)
+  name.vb: ReceivedWithAnyArgs(Of T)(T, Integer)
+- uid: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(``0)
+  id: DidNotReceiveWithAnyArgs``1(``0)
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: DidNotReceiveWithAnyArgs<T>(T)
+  nameWithType: SubstituteExtensions.DidNotReceiveWithAnyArgs<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs<T>(T)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Received.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: DidNotReceiveWithAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.Received.cs
+    startLine: 62
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Checks this substitute has not received the following call with any arguments.
+  example: []
+  syntax:
+    content: 'public static T DidNotReceiveWithAnyArgs<T>(this T substitute) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function DidNotReceiveWithAnyArgs(Of T As Class)(substitute As T) As T
+  overload: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs*
+  nameWithType.vb: SubstituteExtensions.DidNotReceiveWithAnyArgs(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs(Of T)(T)
+  name.vb: DidNotReceiveWithAnyArgs(Of T)(T)
+- uid: NSubstitute.SubstituteExtensions.ReceivedCalls``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.ReceivedCalls``1(``0)
+  id: ReceivedCalls``1(``0)
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReceivedCalls<T>(T)
+  nameWithType: SubstituteExtensions.ReceivedCalls<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.ReceivedCalls<T>(T)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Received.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReceivedCalls
+    path: ../src/NSubstitute/SubstituteExtensions.Received.cs
+    startLine: 72
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Returns the calls received by this substitute.
+  example: []
+  syntax:
+    content: 'public static IEnumerable<ICall> ReceivedCalls<T>(this T substitute) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    typeParameters:
+    - id: T
+    return:
+      type: System.Collections.Generic.IEnumerable{NSubstitute.Core.ICall}
+    content.vb: Public Shared Function ReceivedCalls(Of T As Class)(substitute As T) As IEnumerable(Of ICall)
+  overload: NSubstitute.SubstituteExtensions.ReceivedCalls*
+  nameWithType.vb: SubstituteExtensions.ReceivedCalls(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.ReceivedCalls(Of T)(T)
+  name.vb: ReceivedCalls(Of T)(T)
+- uid: NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(``0)
+  id: ClearReceivedCalls``1(``0)
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ClearReceivedCalls<T>(T)
+  nameWithType: SubstituteExtensions.ClearReceivedCalls<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.ClearReceivedCalls<T>(T)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Received.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ClearReceivedCalls
+    path: ../src/NSubstitute/SubstituteExtensions.Received.cs
+    startLine: 90
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Forget all the calls this substitute has received.
+  remarks: >-
+    Note that this will not clear any results set up for the substitute using Returns().
+
+    See <xref href="NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute%60%601(%60%600%2cNSubstitute.ClearOptions)" data-throw-if-not-resolved="false"></xref> for more options with resetting
+
+    a substitute.
+  example: []
+  syntax:
+    content: 'public static void ClearReceivedCalls<T>(this T substitute) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    typeParameters:
+    - id: T
+    content.vb: Public Shared Sub ClearReceivedCalls(Of T As Class)(substitute As T)
+  overload: NSubstitute.SubstituteExtensions.ClearReceivedCalls*
+  nameWithType.vb: SubstituteExtensions.ClearReceivedCalls(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.ClearReceivedCalls(Of T)(T)
+  name.vb: ClearReceivedCalls(Of T)(T)
+- uid: NSubstitute.SubstituteExtensions.Returns``1(``0,``0,``0[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(``0,``0,``0[])
+  id: Returns``1(``0,``0,``0[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: Returns<T>(T, T?, params T?[])
+  nameWithType: SubstituteExtensions.Returns<T>(T, T?, params T?[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<T>(T, T?, params T?[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Returns
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.cs
+    startLine: 12
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call.
+  example: []
+  syntax:
+    content: public static ConfiguredCall Returns<T>(this T value, T? returnThis, params T?[] returnThese)
+    parameters:
+    - id: value
+      type: '{T}'
+      description: ''
+    - id: returnThis
+      type: '{T}'
+      description: Value to return
+    - id: returnThese
+      type: '{T}[]'
+      description: Optionally return these values next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function Returns(Of T)(value As T, returnThis As T, ParamArray returnThese As T()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.Returns*
+  nameWithType.vb: SubstituteExtensions.Returns(Of T)(T, T, ParamArray T())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of T)(T, T, ParamArray T())
+  name.vb: Returns(Of T)(T, T, ParamArray T())
+- uid: NSubstitute.SubstituteExtensions.Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  id: Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: Returns<T>(T, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  nameWithType: SubstituteExtensions.Returns<T>(T, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<T>(T, System.Func<NSubstitute.Core.CallInfo, T>, params System.Func<NSubstitute.Core.CallInfo, T>[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Returns
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.cs
+    startLine: 21
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call, calculated by the provided function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall Returns<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+    parameters:
+    - id: value
+      type: '{T}'
+      description: ''
+    - id: returnThis
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}
+      description: Function to calculate the return value
+    - id: returnThese
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}[]
+      description: Optionally use these functions next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function Returns(Of T)(value As T, returnThis As Func(Of CallInfo, T), ParamArray returnThese As Func(Of CallInfo, T)()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.Returns*
+  nameWithType.vb: SubstituteExtensions.Returns(Of T)(T, Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of T)(T, System.Func(Of NSubstitute.Core.CallInfo, T), ParamArray System.Func(Of NSubstitute.Core.CallInfo, T)())
+  name.vb: Returns(Of T)(T, Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+- uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,``0,``0[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,``0,``0[])
+  id: ReturnsForAnyArgs``1(``0,``0,``0[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReturnsForAnyArgs<T>(T, T, params T?[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<T>(T, T, params T?[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<T>(T, T, params T?[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReturnsForAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.cs
+    startLine: 30
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call made with any arguments.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, T returnThis, params T?[] returnThese)
+    parameters:
+    - id: value
+      type: '{T}'
+      description: ''
+    - id: returnThis
+      type: '{T}'
+      description: Value to return
+    - id: returnThese
+      type: '{T}[]'
+      description: Optionally return these values next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function ReturnsForAnyArgs(Of T)(value As T, returnThis As T, ParamArray returnThese As T()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs*
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of T)(T, T, ParamArray T())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of T)(T, T, ParamArray T())
+  name.vb: ReturnsForAnyArgs(Of T)(T, T, ParamArray T())
+- uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  id: ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReturnsForAnyArgs<T>(T, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<T>(T, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<T>(T, System.Func<NSubstitute.Core.CallInfo, T>, params System.Func<NSubstitute.Core.CallInfo, T>[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReturnsForAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.cs
+    startLine: 40
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call made with any arguments, calculated by the provided function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+    parameters:
+    - id: value
+      type: '{T}'
+      description: ''
+    - id: returnThis
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}
+      description: Function to calculate the return value
+    - id: returnThese
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}[]
+      description: Optionally use these functions next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ReturnsForAnyArgs(Of T)(value As T, returnThis As Func(Of CallInfo, T), ParamArray returnThese As Func(Of CallInfo, T)()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs*
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of T)(T, Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of T)(T, System.Func(Of NSubstitute.Core.CallInfo, T), ParamArray System.Func(Of NSubstitute.Core.CallInfo, T)())
+  name.vb: ReturnsForAnyArgs(Of T)(T, Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+- uid: NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.Task{``0},``0,``0[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.Task{``0},``0,``0[])
+  id: Returns``1(System.Threading.Tasks.Task{``0},``0,``0[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: Returns<T>(Task<T>, T?, params T[])
+  nameWithType: SubstituteExtensions.Returns<T>(Task<T>, T?, params T[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<T>(System.Threading.Tasks.Task<T>, T?, params T[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.Task.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Returns
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.Task.cs
+    startLine: 13
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call. The value(s) to be returned will be wrapped in Tasks.
+  example: []
+  syntax:
+    content: public static ConfiguredCall Returns<T>(this Task<T> value, T? returnThis, params T[] returnThese)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    - id: returnThis
+      type: '{T}'
+      description: Value to return. Will be wrapped in a Task
+    - id: returnThese
+      type: '{T}[]'
+      description: Optionally use these values next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function Returns(Of T)(value As Task(Of T), returnThis As T, ParamArray returnThese As T()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.Returns*
+  nameWithType.vb: SubstituteExtensions.Returns(Of T)(Task(Of T), T, ParamArray T())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of T)(System.Threading.Tasks.Task(Of T), T, ParamArray T())
+  name.vb: Returns(Of T)(Task(Of T), T, ParamArray T())
+- uid: NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  id: Returns``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: Returns<T>(Task<T>, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  nameWithType: SubstituteExtensions.Returns<T>(Task<T>, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<T>(System.Threading.Tasks.Task<T>, System.Func<NSubstitute.Core.CallInfo, T>, params System.Func<NSubstitute.Core.CallInfo, T>[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.Task.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Returns
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.Task.cs
+    startLine: 29
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call, calculated by the provided function. The value(s) to be returned will be wrapped in Tasks.
+  example: []
+  syntax:
+    content: public static ConfiguredCall Returns<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    - id: returnThis
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}
+      description: Function to calculate the return value
+    - id: returnThese
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}[]
+      description: Optionally use these functions next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function Returns(Of T)(value As Task(Of T), returnThis As Func(Of CallInfo, T), ParamArray returnThese As Func(Of CallInfo, T)()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.Returns*
+  nameWithType.vb: SubstituteExtensions.Returns(Of T)(Task(Of T), Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of T)(System.Threading.Tasks.Task(Of T), System.Func(Of NSubstitute.Core.CallInfo, T), ParamArray System.Func(Of NSubstitute.Core.CallInfo, T)())
+  name.vb: Returns(Of T)(Task(Of T), Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+- uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.Task{``0},``0,``0[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.Task{``0},``0,``0[])
+  id: ReturnsForAnyArgs``1(System.Threading.Tasks.Task{``0},``0,``0[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReturnsForAnyArgs<T>(Task<T>, T?, params T[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<T>(Task<T>, T?, params T[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<T>(System.Threading.Tasks.Task<T>, T?, params T[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.Task.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReturnsForAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.Task.cs
+    startLine: 45
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call made with any arguments. The value(s) to be returned will be wrapped in Tasks.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, T? returnThis, params T[] returnThese)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    - id: returnThis
+      type: '{T}'
+      description: Value to return
+    - id: returnThese
+      type: '{T}[]'
+      description: Optionally return these values next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function ReturnsForAnyArgs(Of T)(value As Task(Of T), returnThis As T, ParamArray returnThese As T()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs*
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of T)(Task(Of T), T, ParamArray T())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of T)(System.Threading.Tasks.Task(Of T), T, ParamArray T())
+  name.vb: ReturnsForAnyArgs(Of T)(Task(Of T), T, ParamArray T())
+- uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  id: ReturnsForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReturnsForAnyArgs<T>(Task<T>, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<T>(Task<T>, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<T>(System.Threading.Tasks.Task<T>, System.Func<NSubstitute.Core.CallInfo, T>, params System.Func<NSubstitute.Core.CallInfo, T>[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.Task.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReturnsForAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.Task.cs
+    startLine: 61
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call made with any arguments, calculated by the provided function. The value(s) to be returned will be wrapped in Tasks.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    - id: returnThis
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}
+      description: Function to calculate the return value
+    - id: returnThese
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}[]
+      description: Optionally use these functions next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function ReturnsForAnyArgs(Of T)(value As Task(Of T), returnThis As Func(Of CallInfo, T), ParamArray returnThese As Func(Of CallInfo, T)()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs*
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of T)(Task(Of T), Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of T)(System.Threading.Tasks.Task(Of T), System.Func(Of NSubstitute.Core.CallInfo, T), ParamArray System.Func(Of NSubstitute.Core.CallInfo, T)())
+  name.vb: ReturnsForAnyArgs(Of T)(Task(Of T), Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+- uid: NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.ValueTask{``0},``0,``0[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.ValueTask{``0},``0,``0[])
+  id: Returns``1(System.Threading.Tasks.ValueTask{``0},``0,``0[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: Returns<T>(ValueTask<T>, T?, params T[])
+  nameWithType: SubstituteExtensions.Returns<T>(ValueTask<T>, T?, params T[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<T>(System.Threading.Tasks.ValueTask<T>, T?, params T[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.ValueTask.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Returns
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.ValueTask.cs
+    startLine: 13
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call. The value(s) to be returned will be wrapped in ValueTasks.
+  example: []
+  syntax:
+    content: public static ConfiguredCall Returns<T>(this ValueTask<T> value, T? returnThis, params T[] returnThese)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{T}}
+      description: ''
+    - id: returnThis
+      type: '{T}'
+      description: Value to return. Will be wrapped in a ValueTask
+    - id: returnThese
+      type: '{T}[]'
+      description: Optionally use these values next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function Returns(Of T)(value As ValueTask(Of T), returnThis As T, ParamArray returnThese As T()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.Returns*
+  nameWithType.vb: SubstituteExtensions.Returns(Of T)(ValueTask(Of T), T, ParamArray T())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of T)(System.Threading.Tasks.ValueTask(Of T), T, ParamArray T())
+  name.vb: Returns(Of T)(ValueTask(Of T), T, ParamArray T())
+- uid: NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  id: Returns``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: Returns<T>(ValueTask<T>, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  nameWithType: SubstituteExtensions.Returns<T>(ValueTask<T>, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<T>(System.Threading.Tasks.ValueTask<T>, System.Func<NSubstitute.Core.CallInfo, T>, params System.Func<NSubstitute.Core.CallInfo, T>[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.ValueTask.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Returns
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.ValueTask.cs
+    startLine: 29
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call, calculated by the provided function. The value(s) to be returned will be wrapped in ValueTasks.
+  example: []
+  syntax:
+    content: public static ConfiguredCall Returns<T>(this ValueTask<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{T}}
+      description: ''
+    - id: returnThis
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}
+      description: Function to calculate the return value
+    - id: returnThese
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}[]
+      description: Optionally use these functions next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function Returns(Of T)(value As ValueTask(Of T), returnThis As Func(Of CallInfo, T), ParamArray returnThese As Func(Of CallInfo, T)()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.Returns*
+  nameWithType.vb: SubstituteExtensions.Returns(Of T)(ValueTask(Of T), Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of T)(System.Threading.Tasks.ValueTask(Of T), System.Func(Of NSubstitute.Core.CallInfo, T), ParamArray System.Func(Of NSubstitute.Core.CallInfo, T)())
+  name.vb: Returns(Of T)(ValueTask(Of T), Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+- uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},``0,``0[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},``0,``0[])
+  id: ReturnsForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},``0,``0[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReturnsForAnyArgs<T>(ValueTask<T>, T?, params T[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<T>(ValueTask<T>, T?, params T[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<T>(System.Threading.Tasks.ValueTask<T>, T?, params T[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.ValueTask.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReturnsForAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.ValueTask.cs
+    startLine: 45
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call made with any arguments. The value(s) to be returned will be wrapped in ValueTasks.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ReturnsForAnyArgs<T>(this ValueTask<T> value, T? returnThis, params T[] returnThese)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{T}}
+      description: ''
+    - id: returnThis
+      type: '{T}'
+      description: Value to return
+    - id: returnThese
+      type: '{T}[]'
+      description: Optionally return these values next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function ReturnsForAnyArgs(Of T)(value As ValueTask(Of T), returnThis As T, ParamArray returnThese As T()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs*
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of T)(ValueTask(Of T), T, ParamArray T())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of T)(System.Threading.Tasks.ValueTask(Of T), T, ParamArray T())
+  name.vb: ReturnsForAnyArgs(Of T)(ValueTask(Of T), T, ParamArray T())
+- uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  id: ReturnsForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReturnsForAnyArgs<T>(ValueTask<T>, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<T>(ValueTask<T>, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<T>(System.Threading.Tasks.ValueTask<T>, System.Func<NSubstitute.Core.CallInfo, T>, params System.Func<NSubstitute.Core.CallInfo, T>[])
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.Returns.ValueTask.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReturnsForAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.Returns.ValueTask.cs
+    startLine: 61
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: Set a return value for this call made with any arguments, calculated by the provided function. The value(s) to be returned will be wrapped in ValueTasks.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ReturnsForAnyArgs<T>(this ValueTask<T> value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{T}}
+      description: ''
+    - id: returnThis
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}
+      description: Function to calculate the return value
+    - id: returnThese
+      type: System.Func{NSubstitute.Core.CallInfo,{T}}[]
+      description: Optionally use these functions next
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+    content.vb: Public Shared Function ReturnsForAnyArgs(Of T)(value As ValueTask(Of T), returnThis As Func(Of CallInfo, T), ParamArray returnThese As Func(Of CallInfo, T)()) As ConfiguredCall
+  overload: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs*
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of T)(ValueTask(Of T), Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of T)(System.Threading.Tasks.ValueTask(Of T), System.Func(Of NSubstitute.Core.CallInfo, T), ParamArray System.Func(Of NSubstitute.Core.CallInfo, T)())
+  name.vb: ReturnsForAnyArgs(Of T)(ValueTask(Of T), Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+- uid: NSubstitute.SubstituteExtensions.When``1(``0,System.Action{``0})
+  commentId: M:NSubstitute.SubstituteExtensions.When``1(``0,System.Action{``0})
+  id: When``1(``0,System.Action{``0})
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: When<T>(T, Action<T>)
+  nameWithType: SubstituteExtensions.When<T>(T, Action<T>)
+  fullName: NSubstitute.SubstituteExtensions.When<T>(T, System.Action<T>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.When.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: When
+    path: ../src/NSubstitute/SubstituteExtensions.When.cs
+    startLine: 10
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: >-
+    Perform an action when this member is called.
+
+    Must be followed by <xref href="NSubstitute.Core.WhenCalled%601.Do(System.Action%7bNSubstitute.Core.CallInfo%7d)" data-throw-if-not-resolved="false"></xref> to provide the callback.
+  example: []
+  syntax:
+    content: 'public static WhenCalled<T> When<T>(this T substitute, Action<T> substituteCall) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    - id: substituteCall
+      type: System.Action{{T}}
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.WhenCalled{{T}}
+    content.vb: Public Shared Function [When](Of T As Class)(substitute As T, substituteCall As Action(Of T)) As WhenCalled(Of T)
+  overload: NSubstitute.SubstituteExtensions.When*
+  nameWithType.vb: SubstituteExtensions.When(Of T)(T, Action(Of T))
+  fullName.vb: NSubstitute.SubstituteExtensions.When(Of T)(T, System.Action(Of T))
+  name.vb: When(Of T)(T, Action(Of T))
+- uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Action{``0})
+  commentId: M:NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Action{``0})
+  id: WhenForAnyArgs``1(``0,System.Action{``0})
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: WhenForAnyArgs<T>(T, Action<T>)
+  nameWithType: SubstituteExtensions.WhenForAnyArgs<T>(T, Action<T>)
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs<T>(T, System.Action<T>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.When.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: WhenForAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.When.cs
+    startLine: 19
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: >-
+    Perform an action when this member is called with any arguments.
+
+    Must be followed by <xref href="NSubstitute.Core.WhenCalled%601.Do(System.Action%7bNSubstitute.Core.CallInfo%7d)" data-throw-if-not-resolved="false"></xref> to provide the callback.
+  example: []
+  syntax:
+    content: 'public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Action<T> substituteCall) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    - id: substituteCall
+      type: System.Action{{T}}
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.WhenCalled{{T}}
+    content.vb: Public Shared Function WhenForAnyArgs(Of T As Class)(substitute As T, substituteCall As Action(Of T)) As WhenCalled(Of T)
+  overload: NSubstitute.SubstituteExtensions.WhenForAnyArgs*
+  nameWithType.vb: SubstituteExtensions.WhenForAnyArgs(Of T)(T, Action(Of T))
+  fullName.vb: NSubstitute.SubstituteExtensions.WhenForAnyArgs(Of T)(T, System.Action(Of T))
+  name.vb: WhenForAnyArgs(Of T)(T, Action(Of T))
+- uid: NSubstitute.SubstituteExtensions.When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  commentId: M:NSubstitute.SubstituteExtensions.When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  id: When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: When<T>(T, Func<T, Task>)
+  nameWithType: SubstituteExtensions.When<T>(T, Func<T, Task>)
+  fullName: NSubstitute.SubstituteExtensions.When<T>(T, System.Func<T, System.Threading.Tasks.Task>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.When.Task.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: When
+    path: ../src/NSubstitute/SubstituteExtensions.When.Task.cs
+    startLine: 10
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: >-
+    Perform an action when this member is called.
+
+    Must be followed by <xref href="NSubstitute.Core.WhenCalled%601.Do(System.Action%7bNSubstitute.Core.CallInfo%7d)" data-throw-if-not-resolved="false"></xref> to provide the callback.
+  example: []
+  syntax:
+    content: 'public static WhenCalled<T> When<T>(this T substitute, Func<T, Task> substituteCall) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    - id: substituteCall
+      type: System.Func{{T},System.Threading.Tasks.Task}
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.WhenCalled{{T}}
+    content.vb: Public Shared Function [When](Of T As Class)(substitute As T, substituteCall As Func(Of T, Task)) As WhenCalled(Of T)
+  overload: NSubstitute.SubstituteExtensions.When*
+  nameWithType.vb: SubstituteExtensions.When(Of T)(T, Func(Of T, Task))
+  fullName.vb: NSubstitute.SubstituteExtensions.When(Of T)(T, System.Func(Of T, System.Threading.Tasks.Task))
+  name.vb: When(Of T)(T, Func(Of T, Task))
+- uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  commentId: M:NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  id: WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: WhenForAnyArgs<T>(T, Func<T, Task>)
+  nameWithType: SubstituteExtensions.WhenForAnyArgs<T>(T, Func<T, Task>)
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs<T>(T, System.Func<T, System.Threading.Tasks.Task>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.When.Task.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: WhenForAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.When.Task.cs
+    startLine: 19
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: >-
+    Perform an action when this member is called with any arguments.
+
+    Must be followed by <xref href="NSubstitute.Core.WhenCalled%601.Do(System.Action%7bNSubstitute.Core.CallInfo%7d)" data-throw-if-not-resolved="false"></xref> to provide the callback.
+  example: []
+  syntax:
+    content: 'public static WhenCalled<T> WhenForAnyArgs<T>(this T substitute, Func<T, Task> substituteCall) where T : class'
+    parameters:
+    - id: substitute
+      type: '{T}'
+    - id: substituteCall
+      type: System.Func{{T},System.Threading.Tasks.Task}
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.WhenCalled{{T}}
+    content.vb: Public Shared Function WhenForAnyArgs(Of T As Class)(substitute As T, substituteCall As Func(Of T, Task)) As WhenCalled(Of T)
+  overload: NSubstitute.SubstituteExtensions.WhenForAnyArgs*
+  nameWithType.vb: SubstituteExtensions.WhenForAnyArgs(Of T)(T, Func(Of T, Task))
+  fullName.vb: NSubstitute.SubstituteExtensions.WhenForAnyArgs(Of T)(T, System.Func(Of T, System.Threading.Tasks.Task))
+  name.vb: WhenForAnyArgs(Of T)(T, Func(Of T, Task))
+- uid: NSubstitute.SubstituteExtensions.When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  commentId: M:NSubstitute.SubstituteExtensions.When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  id: When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: When<TSubstitute, TResult>(TSubstitute, Func<TSubstitute, ValueTask<TResult>>)
+  nameWithType: SubstituteExtensions.When<TSubstitute, TResult>(TSubstitute, Func<TSubstitute, ValueTask<TResult>>)
+  fullName: NSubstitute.SubstituteExtensions.When<TSubstitute, TResult>(TSubstitute, System.Func<TSubstitute, System.Threading.Tasks.ValueTask<TResult>>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.When.ValueTask.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: When
+    path: ../src/NSubstitute/SubstituteExtensions.When.ValueTask.cs
+    startLine: 10
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: >-
+    Perform an action when this member is called.
+
+    Must be followed by <xref href="NSubstitute.Core.WhenCalled%601.Do(System.Action%7bNSubstitute.Core.CallInfo%7d)" data-throw-if-not-resolved="false"></xref> to provide the callback.
+  example: []
+  syntax:
+    content: 'public static WhenCalled<TSubstitute> When<TSubstitute, TResult>(this TSubstitute substitute, Func<TSubstitute, ValueTask<TResult>> substituteCall) where TSubstitute : class'
+    parameters:
+    - id: substitute
+      type: '{TSubstitute}'
+    - id: substituteCall
+      type: System.Func{{TSubstitute},System.Threading.Tasks.ValueTask{{TResult}}}
+    typeParameters:
+    - id: TSubstitute
+    - id: TResult
+    return:
+      type: NSubstitute.Core.WhenCalled{{TSubstitute}}
+    content.vb: Public Shared Function [When](Of TSubstitute As Class, TResult)(substitute As TSubstitute, substituteCall As Func(Of TSubstitute, ValueTask(Of TResult))) As WhenCalled(Of TSubstitute)
+  overload: NSubstitute.SubstituteExtensions.When*
+  nameWithType.vb: SubstituteExtensions.When(Of TSubstitute, TResult)(TSubstitute, Func(Of TSubstitute, ValueTask(Of TResult)))
+  fullName.vb: NSubstitute.SubstituteExtensions.When(Of TSubstitute, TResult)(TSubstitute, System.Func(Of TSubstitute, System.Threading.Tasks.ValueTask(Of TResult)))
+  name.vb: When(Of TSubstitute, TResult)(TSubstitute, Func(Of TSubstitute, ValueTask(Of TResult)))
+- uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  commentId: M:NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  id: WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  isExtensionMethod: true
+  parent: NSubstitute.SubstituteExtensions
+  langs:
+  - csharp
+  - vb
+  name: WhenForAnyArgs<TSubstitute, TResult>(TSubstitute, Func<TSubstitute, ValueTask<TResult>>)
+  nameWithType: SubstituteExtensions.WhenForAnyArgs<TSubstitute, TResult>(TSubstitute, Func<TSubstitute, ValueTask<TResult>>)
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs<TSubstitute, TResult>(TSubstitute, System.Func<TSubstitute, System.Threading.Tasks.ValueTask<TResult>>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/SubstituteExtensions.When.ValueTask.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: WhenForAnyArgs
+    path: ../src/NSubstitute/SubstituteExtensions.When.ValueTask.cs
+    startLine: 20
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute
+  summary: >-
+    Perform an action when this member is called with any arguments.
+
+    Must be followed by <xref href="NSubstitute.Core.WhenCalled%601.Do(System.Action%7bNSubstitute.Core.CallInfo%7d)" data-throw-if-not-resolved="false"></xref> to provide the callback.
+  example: []
+  syntax:
+    content: 'public static WhenCalled<TSubstitute> WhenForAnyArgs<TSubstitute, TResult>(this TSubstitute substitute, Func<TSubstitute, ValueTask<TResult>> substituteCall) where TSubstitute : class'
+    parameters:
+    - id: substitute
+      type: '{TSubstitute}'
+    - id: substituteCall
+      type: System.Func{{TSubstitute},System.Threading.Tasks.ValueTask{{TResult}}}
+    typeParameters:
+    - id: TSubstitute
+    - id: TResult
+    return:
+      type: NSubstitute.Core.WhenCalled{{TSubstitute}}
+    content.vb: Public Shared Function WhenForAnyArgs(Of TSubstitute As Class, TResult)(substitute As TSubstitute, substituteCall As Func(Of TSubstitute, ValueTask(Of TResult))) As WhenCalled(Of TSubstitute)
+  overload: NSubstitute.SubstituteExtensions.WhenForAnyArgs*
+  nameWithType.vb: SubstituteExtensions.WhenForAnyArgs(Of TSubstitute, TResult)(TSubstitute, Func(Of TSubstitute, ValueTask(Of TResult)))
+  fullName.vb: NSubstitute.SubstituteExtensions.WhenForAnyArgs(Of TSubstitute, TResult)(TSubstitute, System.Func(Of TSubstitute, System.Threading.Tasks.ValueTask(Of TResult)))
+  name.vb: WhenForAnyArgs(Of TSubstitute, TResult)(TSubstitute, Func(Of TSubstitute, ValueTask(Of TResult)))
+references:
+- uid: NSubstitute
+  commentId: N:NSubstitute
+  href: NSubstitute.html
+  name: NSubstitute
+  nameWithType: NSubstitute
+  fullName: NSubstitute
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: NSubstitute.SubstituteExtensions.Received*
+  commentId: Overload:NSubstitute.SubstituteExtensions.Received
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_
+  name: Received
+  nameWithType: SubstituteExtensions.Received
+  fullName: NSubstitute.SubstituteExtensions.Received
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: NSubstitute.SubstituteExtensions.DidNotReceive*
+  commentId: Overload:NSubstitute.SubstituteExtensions.DidNotReceive
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceive__1___0_
+  name: DidNotReceive
+  nameWithType: SubstituteExtensions.DidNotReceive
+  fullName: NSubstitute.SubstituteExtensions.DidNotReceive
+- uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs*
+  commentId: Overload:NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_
+  name: ReceivedWithAnyArgs
+  nameWithType: SubstituteExtensions.ReceivedWithAnyArgs
+  fullName: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs
+- uid: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs*
+  commentId: Overload:NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceiveWithAnyArgs__1___0_
+  name: DidNotReceiveWithAnyArgs
+  nameWithType: SubstituteExtensions.DidNotReceiveWithAnyArgs
+  fullName: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs
+- uid: NSubstitute.SubstituteExtensions.ReceivedCalls*
+  commentId: Overload:NSubstitute.SubstituteExtensions.ReceivedCalls
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedCalls__1___0_
+  name: ReceivedCalls
+  nameWithType: SubstituteExtensions.ReceivedCalls
+  fullName: NSubstitute.SubstituteExtensions.ReceivedCalls
+- uid: System.Collections.Generic.IEnumerable{NSubstitute.Core.ICall}
+  commentId: T:System.Collections.Generic.IEnumerable{NSubstitute.Core.ICall}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<ICall>
+  nameWithType: IEnumerable<ICall>
+  fullName: System.Collections.Generic.IEnumerable<NSubstitute.Core.ICall>
+  nameWithType.vb: IEnumerable(Of ICall)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of NSubstitute.Core.ICall)
+  name.vb: IEnumerable(Of ICall)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: NSubstitute.Core.ICall
+    name: ICall
+    href: NSubstitute.Core.ICall.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICall
+    name: ICall
+    href: NSubstitute.Core.ICall.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+  commentId: M:NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+  href: NSubstitute.ClearExtensions.ClearExtensions.html#NSubstitute_ClearExtensions_ClearExtensions_ClearSubstitute__1___0_NSubstitute_ClearOptions_
+  name: ClearSubstitute<T>(T, ClearOptions)
+  nameWithType: ClearExtensions.ClearSubstitute<T>(T, ClearOptions)
+  fullName: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute<T>(T, NSubstitute.ClearOptions)
+  nameWithType.vb: ClearExtensions.ClearSubstitute(Of T)(T, ClearOptions)
+  fullName.vb: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute(Of T)(T, NSubstitute.ClearOptions)
+  name.vb: ClearSubstitute(Of T)(T, ClearOptions)
+  spec.csharp:
+  - uid: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+    name: ClearSubstitute
+    href: NSubstitute.ClearExtensions.ClearExtensions.html#NSubstitute_ClearExtensions_ClearExtensions_ClearSubstitute__1___0_NSubstitute_ClearOptions_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ClearOptions
+    name: ClearOptions
+    href: NSubstitute.ClearOptions.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+    name: ClearSubstitute
+    href: NSubstitute.ClearExtensions.ClearExtensions.html#NSubstitute_ClearExtensions_ClearExtensions_ClearSubstitute__1___0_NSubstitute_ClearOptions_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ClearOptions
+    name: ClearOptions
+    href: NSubstitute.ClearOptions.html
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.ClearReceivedCalls*
+  commentId: Overload:NSubstitute.SubstituteExtensions.ClearReceivedCalls
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ClearReceivedCalls__1___0_
+  name: ClearReceivedCalls
+  nameWithType: SubstituteExtensions.ClearReceivedCalls
+  fullName: NSubstitute.SubstituteExtensions.ClearReceivedCalls
+- uid: NSubstitute.SubstituteExtensions.Returns*
+  commentId: Overload:NSubstitute.SubstituteExtensions.Returns
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0___0___0___
+  name: Returns
+  nameWithType: SubstituteExtensions.Returns
+  fullName: NSubstitute.SubstituteExtensions.Returns
+- uid: '{T}[]'
+  isExternal: true
+  name: T[]
+  nameWithType: T[]
+  fullName: T[]
+  nameWithType.vb: T()
+  fullName.vb: T()
+  name.vb: T()
+  spec.csharp:
+  - name: T
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - name: T
+  - name: (
+  - name: )
+- uid: NSubstitute.Core.ConfiguredCall
+  commentId: T:NSubstitute.Core.ConfiguredCall
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ConfiguredCall.html
+  name: ConfiguredCall
+  nameWithType: ConfiguredCall
+  fullName: NSubstitute.Core.ConfiguredCall
+- uid: NSubstitute.Core
+  commentId: N:NSubstitute.Core
+  href: NSubstitute.html
+  name: NSubstitute.Core
+  nameWithType: NSubstitute.Core
+  fullName: NSubstitute.Core
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+- uid: System.Func{NSubstitute.Core.CallInfo,{T}}
+  commentId: T:System.Func{NSubstitute.Core.CallInfo,``0}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<CallInfo, T>
+  nameWithType: Func<CallInfo, T>
+  fullName: System.Func<NSubstitute.Core.CallInfo, T>
+  nameWithType.vb: Func(Of CallInfo, T)
+  fullName.vb: System.Func(Of NSubstitute.Core.CallInfo, T)
+  name.vb: Func(Of CallInfo, T)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Func{NSubstitute.Core.CallInfo,{T}}[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<CallInfo, T>[]
+  nameWithType: Func<CallInfo, T>[]
+  fullName: System.Func<NSubstitute.Core.CallInfo, T>[]
+  nameWithType.vb: Func(Of CallInfo, T)()
+  fullName.vb: System.Func(Of NSubstitute.Core.CallInfo, T)()
+  name.vb: Func(Of CallInfo, T)()
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs*
+  commentId: Overload:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0___0___0___
+  name: ReturnsForAnyArgs
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs
+- uid: System.Threading.Tasks.Task{{T}}
+  commentId: T:System.Threading.Tasks.Task{``0}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<T>
+  nameWithType: Task<T>
+  fullName: System.Threading.Tasks.Task<T>
+  nameWithType.vb: Task(Of T)
+  fullName.vb: System.Threading.Tasks.Task(Of T)
+  name.vb: Task(Of T)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: System.Threading.Tasks.ValueTask{{T}}
+  commentId: T:System.Threading.Tasks.ValueTask{``0}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.ValueTask`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  name: ValueTask<T>
+  nameWithType: ValueTask<T>
+  fullName: System.Threading.Tasks.ValueTask<T>
+  nameWithType.vb: ValueTask(Of T)
+  fullName.vb: System.Threading.Tasks.ValueTask(Of T)
+  name.vb: ValueTask(Of T)
+  spec.csharp:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Threading.Tasks.ValueTask`1
+  commentId: T:System.Threading.Tasks.ValueTask`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  name: ValueTask<TResult>
+  nameWithType: ValueTask<TResult>
+  fullName: System.Threading.Tasks.ValueTask<TResult>
+  nameWithType.vb: ValueTask(Of TResult)
+  fullName.vb: System.Threading.Tasks.ValueTask(Of TResult)
+  name.vb: ValueTask(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: NSubstitute.Core.WhenCalled`1.Do(System.Action{NSubstitute.Core.CallInfo})
+  commentId: M:NSubstitute.Core.WhenCalled`1.Do(System.Action{NSubstitute.Core.CallInfo})
+  isExternal: true
+  href: NSubstitute.Core.WhenCalled-1.html#NSubstitute_Core_WhenCalled_1_Do_System_Action_NSubstitute_Core_CallInfo__
+  name: Do(Action<CallInfo>)
+  nameWithType: WhenCalled<T>.Do(Action<CallInfo>)
+  fullName: NSubstitute.Core.WhenCalled<T>.Do(System.Action<NSubstitute.Core.CallInfo>)
+  nameWithType.vb: WhenCalled(Of T).Do(Action(Of CallInfo))
+  fullName.vb: NSubstitute.Core.WhenCalled(Of T).Do(System.Action(Of NSubstitute.Core.CallInfo))
+  name.vb: Do(Action(Of CallInfo))
+  spec.csharp:
+  - uid: NSubstitute.Core.WhenCalled`1.Do(System.Action{NSubstitute.Core.CallInfo})
+    name: Do
+    href: NSubstitute.Core.WhenCalled-1.html#NSubstitute_Core_WhenCalled_1_Do_System_Action_NSubstitute_Core_CallInfo__
+  - name: (
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Core.WhenCalled`1.Do(System.Action{NSubstitute.Core.CallInfo})
+    name: Do
+    href: NSubstitute.Core.WhenCalled-1.html#NSubstitute_Core_WhenCalled_1_Do_System_Action_NSubstitute_Core_CallInfo__
+  - name: (
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.When*
+  commentId: Overload:NSubstitute.SubstituteExtensions.When
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Action___0__
+  name: When
+  nameWithType: SubstituteExtensions.When
+  fullName: NSubstitute.SubstituteExtensions.When
+- uid: System.Action{{T}}
+  commentId: T:System.Action{``0}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core.WhenCalled{{T}}
+  commentId: T:NSubstitute.Core.WhenCalled{``0}
+  parent: NSubstitute.Core
+  definition: NSubstitute.Core.WhenCalled`1
+  href: NSubstitute.Core.WhenCalled-1.html
+  name: WhenCalled<T>
+  nameWithType: WhenCalled<T>
+  fullName: NSubstitute.Core.WhenCalled<T>
+  nameWithType.vb: WhenCalled(Of T)
+  fullName.vb: NSubstitute.Core.WhenCalled(Of T)
+  name.vb: WhenCalled(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.WhenCalled`1
+    name: WhenCalled
+    href: NSubstitute.Core.WhenCalled-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.WhenCalled`1
+    name: WhenCalled
+    href: NSubstitute.Core.WhenCalled-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core.WhenCalled`1
+  commentId: T:NSubstitute.Core.WhenCalled`1
+  href: NSubstitute.Core.WhenCalled-1.html
+  name: WhenCalled<T>
+  nameWithType: WhenCalled<T>
+  fullName: NSubstitute.Core.WhenCalled<T>
+  nameWithType.vb: WhenCalled(Of T)
+  fullName.vb: NSubstitute.Core.WhenCalled(Of T)
+  name.vb: WhenCalled(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.WhenCalled`1
+    name: WhenCalled
+    href: NSubstitute.Core.WhenCalled-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.WhenCalled`1
+    name: WhenCalled
+    href: NSubstitute.Core.WhenCalled-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs*
+  commentId: Overload:NSubstitute.SubstituteExtensions.WhenForAnyArgs
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Action___0__
+  name: WhenForAnyArgs
+  nameWithType: SubstituteExtensions.WhenForAnyArgs
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs
+- uid: System.Func{{T},System.Threading.Tasks.Task}
+  commentId: T:System.Func{``0,System.Threading.Tasks.Task}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, Task>
+  nameWithType: Func<T, Task>
+  fullName: System.Func<T, System.Threading.Tasks.Task>
+  nameWithType.vb: Func(Of T, Task)
+  fullName.vb: System.Func(Of T, System.Threading.Tasks.Task)
+  name.vb: Func(Of T, Task)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: )
+- uid: '{TSubstitute}'
+  commentId: '!:TSubstitute'
+  definition: TSubstitute
+  name: TSubstitute
+  nameWithType: TSubstitute
+  fullName: TSubstitute
+- uid: System.Func{{TSubstitute},System.Threading.Tasks.ValueTask{{TResult}}}
+  commentId: T:System.Func{``0,System.Threading.Tasks.ValueTask{``1}}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<TSubstitute, ValueTask<TResult>>
+  nameWithType: Func<TSubstitute, ValueTask<TResult>>
+  fullName: System.Func<TSubstitute, System.Threading.Tasks.ValueTask<TResult>>
+  nameWithType.vb: Func(Of TSubstitute, ValueTask(Of TResult))
+  fullName.vb: System.Func(Of TSubstitute, System.Threading.Tasks.ValueTask(Of TResult))
+  name.vb: Func(Of TSubstitute, ValueTask(Of TResult))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.WhenCalled{{TSubstitute}}
+  commentId: T:NSubstitute.Core.WhenCalled{``0}
+  parent: NSubstitute.Core
+  definition: NSubstitute.Core.WhenCalled`1
+  href: NSubstitute.Core.WhenCalled-1.html
+  name: WhenCalled<TSubstitute>
+  nameWithType: WhenCalled<TSubstitute>
+  fullName: NSubstitute.Core.WhenCalled<TSubstitute>
+  nameWithType.vb: WhenCalled(Of TSubstitute)
+  fullName.vb: NSubstitute.Core.WhenCalled(Of TSubstitute)
+  name.vb: WhenCalled(Of TSubstitute)
+  spec.csharp:
+  - uid: NSubstitute.Core.WhenCalled`1
+    name: WhenCalled
+    href: NSubstitute.Core.WhenCalled-1.html
+  - name: <
+  - name: TSubstitute
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.WhenCalled`1
+    name: WhenCalled
+    href: NSubstitute.Core.WhenCalled-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TSubstitute
+  - name: )
+- uid: TSubstitute
+  name: TSubstitute
+  nameWithType: TSubstitute
+  fullName: TSubstitute

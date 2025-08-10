@@ -1,0 +1,419 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.ReceivedExtensions.ReceivedExtensions
+  commentId: T:NSubstitute.ReceivedExtensions.ReceivedExtensions
+  id: ReceivedExtensions
+  parent: NSubstitute.ReceivedExtensions
+  children:
+  - NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  - NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  langs:
+  - csharp
+  - vb
+  name: ReceivedExtensions
+  nameWithType: ReceivedExtensions
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions
+  type: Class
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ReceivedExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReceivedExtensions
+    path: ../src/NSubstitute/Extensions/ReceivedExtensions.cs
+    startLine: 5
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ReceivedExtensions
+  syntax:
+    content: public static class ReceivedExtensions
+    content.vb: Public Module ReceivedExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  commentId: M:NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  id: Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  isExtensionMethod: true
+  parent: NSubstitute.ReceivedExtensions.ReceivedExtensions
+  langs:
+  - csharp
+  - vb
+  name: Received<T>(T, Quantity)
+  nameWithType: ReceivedExtensions.Received<T>(T, Quantity)
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received<T>(T, NSubstitute.ReceivedExtensions.Quantity)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ReceivedExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Received
+    path: ../src/NSubstitute/Extensions/ReceivedExtensions.cs
+    startLine: 14
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ReceivedExtensions
+  summary: Checks this substitute has received the following call the required number of times.
+  example: []
+  syntax:
+    content: public static T Received<T>(this T substitute, Quantity requiredQuantity)
+    parameters:
+    - id: substitute
+      type: '{T}'
+      description: ''
+    - id: requiredQuantity
+      type: NSubstitute.ReceivedExtensions.Quantity
+      description: ''
+    typeParameters:
+    - id: T
+      description: ''
+    return:
+      type: '{T}'
+      description: ''
+    content.vb: Public Shared Function Received(Of T)(substitute As T, requiredQuantity As Quantity) As T
+  overload: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received*
+  nameWithType.vb: ReceivedExtensions.Received(Of T)(T, Quantity)
+  fullName.vb: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received(Of T)(T, NSubstitute.ReceivedExtensions.Quantity)
+  name.vb: Received(Of T)(T, Quantity)
+- uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  commentId: M:NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  id: ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  isExtensionMethod: true
+  parent: NSubstitute.ReceivedExtensions.ReceivedExtensions
+  langs:
+  - csharp
+  - vb
+  name: ReceivedWithAnyArgs<T>(T, Quantity)
+  nameWithType: ReceivedExtensions.ReceivedWithAnyArgs<T>(T, Quantity)
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs<T>(T, NSubstitute.ReceivedExtensions.Quantity)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ReceivedExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReceivedWithAnyArgs
+    path: ../src/NSubstitute/Extensions/ReceivedExtensions.cs
+    startLine: 32
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ReceivedExtensions
+  summary: Checks this substitute has received the following call with any arguments the required number of times.
+  example: []
+  syntax:
+    content: public static T ReceivedWithAnyArgs<T>(this T substitute, Quantity requiredQuantity)
+    parameters:
+    - id: substitute
+      type: '{T}'
+      description: ''
+    - id: requiredQuantity
+      type: NSubstitute.ReceivedExtensions.Quantity
+      description: ''
+    typeParameters:
+    - id: T
+      description: ''
+    return:
+      type: '{T}'
+      description: ''
+    content.vb: Public Shared Function ReceivedWithAnyArgs(Of T)(substitute As T, requiredQuantity As Quantity) As T
+  overload: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs*
+  nameWithType.vb: ReceivedExtensions.ReceivedWithAnyArgs(Of T)(T, Quantity)
+  fullName.vb: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs(Of T)(T, NSubstitute.ReceivedExtensions.Quantity)
+  name.vb: ReceivedWithAnyArgs(Of T)(T, Quantity)
+references:
+- uid: NSubstitute.ReceivedExtensions
+  commentId: N:NSubstitute.ReceivedExtensions
+  href: NSubstitute.html
+  name: NSubstitute.ReceivedExtensions
+  nameWithType: NSubstitute.ReceivedExtensions
+  fullName: NSubstitute.ReceivedExtensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ReceivedExtensions
+    name: ReceivedExtensions
+    href: NSubstitute.ReceivedExtensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ReceivedExtensions
+    name: ReceivedExtensions
+    href: NSubstitute.ReceivedExtensions.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received*
+  commentId: Overload:NSubstitute.ReceivedExtensions.ReceivedExtensions.Received
+  href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_Received__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  name: Received
+  nameWithType: ReceivedExtensions.Received
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: NSubstitute.ReceivedExtensions.Quantity
+  commentId: T:NSubstitute.ReceivedExtensions.Quantity
+  parent: NSubstitute.ReceivedExtensions
+  href: NSubstitute.ReceivedExtensions.Quantity.html
+  name: Quantity
+  nameWithType: Quantity
+  fullName: NSubstitute.ReceivedExtensions.Quantity
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs*
+  commentId: Overload:NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs
+  href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_ReceivedWithAnyArgs__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  name: ReceivedWithAnyArgs
+  nameWithType: ReceivedExtensions.ReceivedWithAnyArgs
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs

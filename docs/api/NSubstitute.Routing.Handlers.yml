@@ -1,0 +1,224 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Routing.Handlers
+  commentId: N:NSubstitute.Routing.Handlers
+  id: NSubstitute.Routing.Handlers
+  children:
+  - NSubstitute.Routing.Handlers.AddCallToQueryResultHandler
+  - NSubstitute.Routing.Handlers.AutoValueBehaviour
+  - NSubstitute.Routing.Handlers.CallBaseForCallHandler
+  - NSubstitute.Routing.Handlers.CheckReceivedCallsHandler
+  - NSubstitute.Routing.Handlers.ClearLastCallRouterHandler
+  - NSubstitute.Routing.Handlers.ClearUnusedCallSpecHandler
+  - NSubstitute.Routing.Handlers.DoActionsCallHandler
+  - NSubstitute.Routing.Handlers.DoNotCallBaseForCallHandler
+  - NSubstitute.Routing.Handlers.EventSubscriptionHandler
+  - NSubstitute.Routing.Handlers.PropertySetterHandler
+  - NSubstitute.Routing.Handlers.RaiseEventHandler
+  - NSubstitute.Routing.Handlers.RecordCallHandler
+  - NSubstitute.Routing.Handlers.RecordCallSpecificationHandler
+  - NSubstitute.Routing.Handlers.ReturnAutoValue
+  - NSubstitute.Routing.Handlers.ReturnConfiguredResultHandler
+  - NSubstitute.Routing.Handlers.ReturnDefaultForReturnTypeHandler
+  - NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall
+  - NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.DynamicStub
+  - NSubstitute.Routing.Handlers.ReturnFromBaseIfRequired
+  - NSubstitute.Routing.Handlers.ReturnFromCustomHandlers
+  - NSubstitute.Routing.Handlers.ReturnResultForTypeHandler
+  - NSubstitute.Routing.Handlers.SetActionForCallHandler
+  - NSubstitute.Routing.Handlers.TrackLastCallHandler
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Routing.Handlers
+  nameWithType: NSubstitute.Routing.Handlers
+  fullName: NSubstitute.Routing.Handlers
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Routing.Handlers.AddCallToQueryResultHandler
+  commentId: T:NSubstitute.Routing.Handlers.AddCallToQueryResultHandler
+  href: NSubstitute.Routing.Handlers.AddCallToQueryResultHandler.html
+  name: AddCallToQueryResultHandler
+  nameWithType: AddCallToQueryResultHandler
+  fullName: NSubstitute.Routing.Handlers.AddCallToQueryResultHandler
+- uid: NSubstitute.Routing.Handlers.CallBaseForCallHandler
+  commentId: T:NSubstitute.Routing.Handlers.CallBaseForCallHandler
+  href: NSubstitute.Routing.Handlers.CallBaseForCallHandler.html
+  name: CallBaseForCallHandler
+  nameWithType: CallBaseForCallHandler
+  fullName: NSubstitute.Routing.Handlers.CallBaseForCallHandler
+- uid: NSubstitute.Routing.Handlers.CheckReceivedCallsHandler
+  commentId: T:NSubstitute.Routing.Handlers.CheckReceivedCallsHandler
+  href: NSubstitute.Routing.Handlers.CheckReceivedCallsHandler.html
+  name: CheckReceivedCallsHandler
+  nameWithType: CheckReceivedCallsHandler
+  fullName: NSubstitute.Routing.Handlers.CheckReceivedCallsHandler
+- uid: NSubstitute.Routing.Handlers.ClearLastCallRouterHandler
+  commentId: T:NSubstitute.Routing.Handlers.ClearLastCallRouterHandler
+  href: NSubstitute.Routing.Handlers.ClearLastCallRouterHandler.html
+  name: ClearLastCallRouterHandler
+  nameWithType: ClearLastCallRouterHandler
+  fullName: NSubstitute.Routing.Handlers.ClearLastCallRouterHandler
+- uid: NSubstitute.Routing.Handlers.ClearUnusedCallSpecHandler
+  commentId: T:NSubstitute.Routing.Handlers.ClearUnusedCallSpecHandler
+  href: NSubstitute.Routing.Handlers.ClearUnusedCallSpecHandler.html
+  name: ClearUnusedCallSpecHandler
+  nameWithType: ClearUnusedCallSpecHandler
+  fullName: NSubstitute.Routing.Handlers.ClearUnusedCallSpecHandler
+- uid: NSubstitute.Routing.Handlers.DoActionsCallHandler
+  commentId: T:NSubstitute.Routing.Handlers.DoActionsCallHandler
+  href: NSubstitute.Routing.Handlers.DoActionsCallHandler.html
+  name: DoActionsCallHandler
+  nameWithType: DoActionsCallHandler
+  fullName: NSubstitute.Routing.Handlers.DoActionsCallHandler
+- uid: NSubstitute.Routing.Handlers.DoNotCallBaseForCallHandler
+  commentId: T:NSubstitute.Routing.Handlers.DoNotCallBaseForCallHandler
+  href: NSubstitute.Routing.Handlers.DoNotCallBaseForCallHandler.html
+  name: DoNotCallBaseForCallHandler
+  nameWithType: DoNotCallBaseForCallHandler
+  fullName: NSubstitute.Routing.Handlers.DoNotCallBaseForCallHandler
+- uid: NSubstitute.Routing.Handlers.EventSubscriptionHandler
+  commentId: T:NSubstitute.Routing.Handlers.EventSubscriptionHandler
+  href: NSubstitute.Routing.Handlers.EventSubscriptionHandler.html
+  name: EventSubscriptionHandler
+  nameWithType: EventSubscriptionHandler
+  fullName: NSubstitute.Routing.Handlers.EventSubscriptionHandler
+- uid: NSubstitute.Routing.Handlers.PropertySetterHandler
+  commentId: T:NSubstitute.Routing.Handlers.PropertySetterHandler
+  href: NSubstitute.Routing.Handlers.PropertySetterHandler.html
+  name: PropertySetterHandler
+  nameWithType: PropertySetterHandler
+  fullName: NSubstitute.Routing.Handlers.PropertySetterHandler
+- uid: NSubstitute.Routing.Handlers.RaiseEventHandler
+  commentId: T:NSubstitute.Routing.Handlers.RaiseEventHandler
+  href: NSubstitute.Routing.Handlers.RaiseEventHandler.html
+  name: RaiseEventHandler
+  nameWithType: RaiseEventHandler
+  fullName: NSubstitute.Routing.Handlers.RaiseEventHandler
+- uid: NSubstitute.Routing.Handlers.RecordCallHandler
+  commentId: T:NSubstitute.Routing.Handlers.RecordCallHandler
+  href: NSubstitute.Routing.Handlers.RecordCallHandler.html
+  name: RecordCallHandler
+  nameWithType: RecordCallHandler
+  fullName: NSubstitute.Routing.Handlers.RecordCallHandler
+- uid: NSubstitute.Routing.Handlers.RecordCallSpecificationHandler
+  commentId: T:NSubstitute.Routing.Handlers.RecordCallSpecificationHandler
+  href: NSubstitute.Routing.Handlers.RecordCallSpecificationHandler.html
+  name: RecordCallSpecificationHandler
+  nameWithType: RecordCallSpecificationHandler
+  fullName: NSubstitute.Routing.Handlers.RecordCallSpecificationHandler
+- uid: NSubstitute.Routing.Handlers.AutoValueBehaviour
+  commentId: T:NSubstitute.Routing.Handlers.AutoValueBehaviour
+  parent: NSubstitute.Routing.Handlers
+  href: NSubstitute.Routing.Handlers.AutoValueBehaviour.html
+  name: AutoValueBehaviour
+  nameWithType: AutoValueBehaviour
+  fullName: NSubstitute.Routing.Handlers.AutoValueBehaviour
+- uid: NSubstitute.Routing.Handlers.ReturnAutoValue
+  commentId: T:NSubstitute.Routing.Handlers.ReturnAutoValue
+  href: NSubstitute.Routing.Handlers.ReturnAutoValue.html
+  name: ReturnAutoValue
+  nameWithType: ReturnAutoValue
+  fullName: NSubstitute.Routing.Handlers.ReturnAutoValue
+- uid: NSubstitute.Routing.Handlers.ReturnConfiguredResultHandler
+  commentId: T:NSubstitute.Routing.Handlers.ReturnConfiguredResultHandler
+  href: NSubstitute.Routing.Handlers.ReturnConfiguredResultHandler.html
+  name: ReturnConfiguredResultHandler
+  nameWithType: ReturnConfiguredResultHandler
+  fullName: NSubstitute.Routing.Handlers.ReturnConfiguredResultHandler
+- uid: NSubstitute.Routing.Handlers.ReturnDefaultForReturnTypeHandler
+  commentId: T:NSubstitute.Routing.Handlers.ReturnDefaultForReturnTypeHandler
+  href: NSubstitute.Routing.Handlers.ReturnDefaultForReturnTypeHandler.html
+  name: ReturnDefaultForReturnTypeHandler
+  nameWithType: ReturnDefaultForReturnTypeHandler
+  fullName: NSubstitute.Routing.Handlers.ReturnDefaultForReturnTypeHandler
+- uid: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall
+  commentId: T:NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall
+  href: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.html
+  name: ReturnFromAndConfigureDynamicCall
+  nameWithType: ReturnFromAndConfigureDynamicCall
+  fullName: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall
+- uid: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.DynamicStub
+  commentId: T:NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.DynamicStub
+  href: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.html
+  name: ReturnFromAndConfigureDynamicCall.DynamicStub
+  nameWithType: ReturnFromAndConfigureDynamicCall.DynamicStub
+  fullName: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.DynamicStub
+  spec.csharp:
+  - uid: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall
+    name: ReturnFromAndConfigureDynamicCall
+    href: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.html
+  - name: .
+  - uid: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.DynamicStub
+    name: DynamicStub
+    href: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.DynamicStub.html
+  spec.vb:
+  - uid: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall
+    name: ReturnFromAndConfigureDynamicCall
+    href: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.html
+  - name: .
+  - uid: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.DynamicStub
+    name: DynamicStub
+    href: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.DynamicStub.html
+- uid: NSubstitute.Routing.Handlers.ReturnFromBaseIfRequired
+  commentId: T:NSubstitute.Routing.Handlers.ReturnFromBaseIfRequired
+  href: NSubstitute.Routing.Handlers.ReturnFromBaseIfRequired.html
+  name: ReturnFromBaseIfRequired
+  nameWithType: ReturnFromBaseIfRequired
+  fullName: NSubstitute.Routing.Handlers.ReturnFromBaseIfRequired
+- uid: NSubstitute.Routing.Handlers.ReturnFromCustomHandlers
+  commentId: T:NSubstitute.Routing.Handlers.ReturnFromCustomHandlers
+  href: NSubstitute.Routing.Handlers.ReturnFromCustomHandlers.html
+  name: ReturnFromCustomHandlers
+  nameWithType: ReturnFromCustomHandlers
+  fullName: NSubstitute.Routing.Handlers.ReturnFromCustomHandlers
+- uid: NSubstitute.Routing.Handlers.ReturnResultForTypeHandler
+  commentId: T:NSubstitute.Routing.Handlers.ReturnResultForTypeHandler
+  href: NSubstitute.Routing.Handlers.ReturnResultForTypeHandler.html
+  name: ReturnResultForTypeHandler
+  nameWithType: ReturnResultForTypeHandler
+  fullName: NSubstitute.Routing.Handlers.ReturnResultForTypeHandler
+- uid: NSubstitute.Routing.Handlers.SetActionForCallHandler
+  commentId: T:NSubstitute.Routing.Handlers.SetActionForCallHandler
+  href: NSubstitute.Routing.Handlers.SetActionForCallHandler.html
+  name: SetActionForCallHandler
+  nameWithType: SetActionForCallHandler
+  fullName: NSubstitute.Routing.Handlers.SetActionForCallHandler
+- uid: NSubstitute.Routing.Handlers.TrackLastCallHandler
+  commentId: T:NSubstitute.Routing.Handlers.TrackLastCallHandler
+  href: NSubstitute.Routing.Handlers.TrackLastCallHandler.html
+  name: TrackLastCallHandler
+  nameWithType: TrackLastCallHandler
+  fullName: NSubstitute.Routing.Handlers.TrackLastCallHandler
+- uid: NSubstitute.Routing.Handlers
+  commentId: N:NSubstitute.Routing.Handlers
+  href: NSubstitute.html
+  name: NSubstitute.Routing.Handlers
+  nameWithType: NSubstitute.Routing.Handlers
+  fullName: NSubstitute.Routing.Handlers
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Routing
+    name: Routing
+    href: NSubstitute.Routing.html
+  - name: .
+  - uid: NSubstitute.Routing.Handlers
+    name: Handlers
+    href: NSubstitute.Routing.Handlers.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Routing
+    name: Routing
+    href: NSubstitute.Routing.html
+  - name: .
+  - uid: NSubstitute.Routing.Handlers
+    name: Handlers
+    href: NSubstitute.Routing.Handlers.html

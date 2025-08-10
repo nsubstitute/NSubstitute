@@ -1,0 +1,477 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Core.ReflectionExtensions
+  commentId: T:NSubstitute.Core.ReflectionExtensions
+  id: ReflectionExtensions
+  parent: NSubstitute.Core
+  children:
+  - NSubstitute.Core.ReflectionExtensions.GetPropertyFromGetterCallOrNull(System.Reflection.MethodInfo)
+  - NSubstitute.Core.ReflectionExtensions.GetPropertyFromSetterCallOrNull(System.Reflection.MethodInfo)
+  - NSubstitute.Core.ReflectionExtensions.IsParams(System.Reflection.ParameterInfo)
+  langs:
+  - csharp
+  - vb
+  name: ReflectionExtensions
+  nameWithType: ReflectionExtensions
+  fullName: NSubstitute.Core.ReflectionExtensions
+  type: Class
+  source:
+    remote:
+      path: src/NSubstitute/Core/ReflectionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ReflectionExtensions
+    path: ../src/NSubstitute/Core/ReflectionExtensions.cs
+    startLine: 4
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core
+  syntax:
+    content: public static class ReflectionExtensions
+    content.vb: Public Module ReflectionExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: NSubstitute.Core.ReflectionExtensions.GetPropertyFromSetterCallOrNull(System.Reflection.MethodInfo)
+  commentId: M:NSubstitute.Core.ReflectionExtensions.GetPropertyFromSetterCallOrNull(System.Reflection.MethodInfo)
+  id: GetPropertyFromSetterCallOrNull(System.Reflection.MethodInfo)
+  isExtensionMethod: true
+  parent: NSubstitute.Core.ReflectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetPropertyFromSetterCallOrNull(MethodInfo)
+  nameWithType: ReflectionExtensions.GetPropertyFromSetterCallOrNull(MethodInfo)
+  fullName: NSubstitute.Core.ReflectionExtensions.GetPropertyFromSetterCallOrNull(System.Reflection.MethodInfo)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Core/ReflectionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: GetPropertyFromSetterCallOrNull
+    path: ../src/NSubstitute/Core/ReflectionExtensions.cs
+    startLine: 6
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core
+  syntax:
+    content: public static PropertyInfo? GetPropertyFromSetterCallOrNull(this MethodInfo call)
+    parameters:
+    - id: call
+      type: System.Reflection.MethodInfo
+    return:
+      type: System.Reflection.PropertyInfo
+    content.vb: Public Shared Function GetPropertyFromSetterCallOrNull([call] As MethodInfo) As PropertyInfo
+  overload: NSubstitute.Core.ReflectionExtensions.GetPropertyFromSetterCallOrNull*
+- uid: NSubstitute.Core.ReflectionExtensions.GetPropertyFromGetterCallOrNull(System.Reflection.MethodInfo)
+  commentId: M:NSubstitute.Core.ReflectionExtensions.GetPropertyFromGetterCallOrNull(System.Reflection.MethodInfo)
+  id: GetPropertyFromGetterCallOrNull(System.Reflection.MethodInfo)
+  isExtensionMethod: true
+  parent: NSubstitute.Core.ReflectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetPropertyFromGetterCallOrNull(MethodInfo)
+  nameWithType: ReflectionExtensions.GetPropertyFromGetterCallOrNull(MethodInfo)
+  fullName: NSubstitute.Core.ReflectionExtensions.GetPropertyFromGetterCallOrNull(System.Reflection.MethodInfo)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Core/ReflectionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: GetPropertyFromGetterCallOrNull
+    path: ../src/NSubstitute/Core/ReflectionExtensions.cs
+    startLine: 19
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core
+  syntax:
+    content: public static PropertyInfo? GetPropertyFromGetterCallOrNull(this MethodInfo call)
+    parameters:
+    - id: call
+      type: System.Reflection.MethodInfo
+    return:
+      type: System.Reflection.PropertyInfo
+    content.vb: Public Shared Function GetPropertyFromGetterCallOrNull([call] As MethodInfo) As PropertyInfo
+  overload: NSubstitute.Core.ReflectionExtensions.GetPropertyFromGetterCallOrNull*
+- uid: NSubstitute.Core.ReflectionExtensions.IsParams(System.Reflection.ParameterInfo)
+  commentId: M:NSubstitute.Core.ReflectionExtensions.IsParams(System.Reflection.ParameterInfo)
+  id: IsParams(System.Reflection.ParameterInfo)
+  isExtensionMethod: true
+  parent: NSubstitute.Core.ReflectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsParams(ParameterInfo)
+  nameWithType: ReflectionExtensions.IsParams(ParameterInfo)
+  fullName: NSubstitute.Core.ReflectionExtensions.IsParams(System.Reflection.ParameterInfo)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Core/ReflectionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: IsParams
+    path: ../src/NSubstitute/Core/ReflectionExtensions.cs
+    startLine: 25
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core
+  syntax:
+    content: public static bool IsParams(this ParameterInfo parameterInfo)
+    parameters:
+    - id: parameterInfo
+      type: System.Reflection.ParameterInfo
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsParams(parameterInfo As ParameterInfo) As Boolean
+  overload: NSubstitute.Core.ReflectionExtensions.IsParams*
+references:
+- uid: NSubstitute.Core
+  commentId: N:NSubstitute.Core
+  href: NSubstitute.html
+  name: NSubstitute.Core
+  nameWithType: NSubstitute.Core
+  fullName: NSubstitute.Core
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: NSubstitute.Core.ReflectionExtensions.GetPropertyFromSetterCallOrNull*
+  commentId: Overload:NSubstitute.Core.ReflectionExtensions.GetPropertyFromSetterCallOrNull
+  href: NSubstitute.Core.ReflectionExtensions.html#NSubstitute_Core_ReflectionExtensions_GetPropertyFromSetterCallOrNull_System_Reflection_MethodInfo_
+  name: GetPropertyFromSetterCallOrNull
+  nameWithType: ReflectionExtensions.GetPropertyFromSetterCallOrNull
+  fullName: NSubstitute.Core.ReflectionExtensions.GetPropertyFromSetterCallOrNull
+- uid: System.Reflection.MethodInfo
+  commentId: T:System.Reflection.MethodInfo
+  parent: System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.reflection.methodinfo
+  name: MethodInfo
+  nameWithType: MethodInfo
+  fullName: System.Reflection.MethodInfo
+- uid: System.Reflection.PropertyInfo
+  commentId: T:System.Reflection.PropertyInfo
+  parent: System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.reflection.propertyinfo
+  name: PropertyInfo
+  nameWithType: PropertyInfo
+  fullName: System.Reflection.PropertyInfo
+- uid: System.Reflection
+  commentId: N:System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Reflection
+  nameWithType: System.Reflection
+  fullName: System.Reflection
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Reflection
+    name: Reflection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Reflection
+    name: Reflection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection
+- uid: NSubstitute.Core.ReflectionExtensions.GetPropertyFromGetterCallOrNull*
+  commentId: Overload:NSubstitute.Core.ReflectionExtensions.GetPropertyFromGetterCallOrNull
+  href: NSubstitute.Core.ReflectionExtensions.html#NSubstitute_Core_ReflectionExtensions_GetPropertyFromGetterCallOrNull_System_Reflection_MethodInfo_
+  name: GetPropertyFromGetterCallOrNull
+  nameWithType: ReflectionExtensions.GetPropertyFromGetterCallOrNull
+  fullName: NSubstitute.Core.ReflectionExtensions.GetPropertyFromGetterCallOrNull
+- uid: NSubstitute.Core.ReflectionExtensions.IsParams*
+  commentId: Overload:NSubstitute.Core.ReflectionExtensions.IsParams
+  href: NSubstitute.Core.ReflectionExtensions.html#NSubstitute_Core_ReflectionExtensions_IsParams_System_Reflection_ParameterInfo_
+  name: IsParams
+  nameWithType: ReflectionExtensions.IsParams
+  fullName: NSubstitute.Core.ReflectionExtensions.IsParams
+- uid: System.Reflection.ParameterInfo
+  commentId: T:System.Reflection.ParameterInfo
+  parent: System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.reflection.parameterinfo
+  name: ParameterInfo
+  nameWithType: ParameterInfo
+  fullName: System.Reflection.ParameterInfo
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

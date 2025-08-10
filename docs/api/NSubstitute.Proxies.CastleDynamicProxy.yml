@@ -1,0 +1,75 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Proxies.CastleDynamicProxy
+  commentId: N:NSubstitute.Proxies.CastleDynamicProxy
+  id: NSubstitute.Proxies.CastleDynamicProxy
+  children:
+  - NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory
+  - NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor
+  - NSubstitute.Proxies.CastleDynamicProxy.CastleInvocationMapper
+  - NSubstitute.Proxies.CastleDynamicProxy.ProxyIdInterceptor
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Proxies.CastleDynamicProxy
+  nameWithType: NSubstitute.Proxies.CastleDynamicProxy
+  fullName: NSubstitute.Proxies.CastleDynamicProxy
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory
+  commentId: T:NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory
+  href: NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory.html
+  name: CastleDynamicProxyFactory
+  nameWithType: CastleDynamicProxyFactory
+  fullName: NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory
+- uid: NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor
+  commentId: T:NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor
+  href: NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor.html
+  name: CastleForwardingInterceptor
+  nameWithType: CastleForwardingInterceptor
+  fullName: NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor
+- uid: NSubstitute.Proxies.CastleDynamicProxy.CastleInvocationMapper
+  commentId: T:NSubstitute.Proxies.CastleDynamicProxy.CastleInvocationMapper
+  parent: NSubstitute.Proxies.CastleDynamicProxy
+  href: NSubstitute.Proxies.CastleDynamicProxy.CastleInvocationMapper.html
+  name: CastleInvocationMapper
+  nameWithType: CastleInvocationMapper
+  fullName: NSubstitute.Proxies.CastleDynamicProxy.CastleInvocationMapper
+- uid: NSubstitute.Proxies.CastleDynamicProxy.ProxyIdInterceptor
+  commentId: T:NSubstitute.Proxies.CastleDynamicProxy.ProxyIdInterceptor
+  href: NSubstitute.Proxies.CastleDynamicProxy.ProxyIdInterceptor.html
+  name: ProxyIdInterceptor
+  nameWithType: ProxyIdInterceptor
+  fullName: NSubstitute.Proxies.CastleDynamicProxy.ProxyIdInterceptor
+- uid: NSubstitute.Proxies.CastleDynamicProxy
+  commentId: N:NSubstitute.Proxies.CastleDynamicProxy
+  href: NSubstitute.html
+  name: NSubstitute.Proxies.CastleDynamicProxy
+  nameWithType: NSubstitute.Proxies.CastleDynamicProxy
+  fullName: NSubstitute.Proxies.CastleDynamicProxy
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Proxies
+    name: Proxies
+    href: NSubstitute.Proxies.html
+  - name: .
+  - uid: NSubstitute.Proxies.CastleDynamicProxy
+    name: CastleDynamicProxy
+    href: NSubstitute.Proxies.CastleDynamicProxy.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Proxies
+    name: Proxies
+    href: NSubstitute.Proxies.html
+  - name: .
+  - uid: NSubstitute.Proxies.CastleDynamicProxy
+    name: CastleDynamicProxy
+    href: NSubstitute.Proxies.CastleDynamicProxy.html

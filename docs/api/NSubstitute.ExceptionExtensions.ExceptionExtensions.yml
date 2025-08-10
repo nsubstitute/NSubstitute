@@ -1,0 +1,1846 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  commentId: T:NSubstitute.ExceptionExtensions.ExceptionExtensions
+  id: ExceptionExtensions
+  parent: NSubstitute.ExceptionExtensions
+  children:
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.Task,System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.Task,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.ValueTask,System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.ValueTask,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task,System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask,System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``2(System.Threading.Tasks.ValueTask{``0})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.Task)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.Task{``0},System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.ValueTask)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.ValueTask{``0},System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``2(System.Threading.Tasks.ValueTask{``0})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+  - NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+  langs:
+  - csharp
+  - vb
+  name: ExceptionExtensions
+  nameWithType: ExceptionExtensions
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  type: Class
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ExceptionExtensions
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 5
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  syntax:
+    content: public static class ExceptionExtensions
+    content.vb: Public Module ExceptionExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+  id: Throws(System.Object,System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: Throws(object, Exception)
+  nameWithType: ExceptionExtensions.Throws(object, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(object, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Throws
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 13
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call.
+  example: []
+  syntax:
+    content: public static ConfiguredCall Throws(this object value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Object
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function Throws(value As Object, ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws*
+  nameWithType.vb: ExceptionExtensions.Throws(Object, Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(Object, System.Exception)
+  name.vb: Throws(Object, Exception)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+  id: Throws``1(System.Object)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: Throws<TException>(object)
+  nameWithType: ExceptionExtensions.Throws<TException>(object)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws<TException>(object)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Throws
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 22
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception of the given type for this call.
+  example: []
+  syntax:
+    content: 'public static ConfiguredCall Throws<TException>(this object value) where TException : notnull, Exception, new()'
+    parameters:
+    - id: value
+      type: System.Object
+      description: ''
+    typeParameters:
+    - id: TException
+      description: Type of exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function Throws(Of TException As {Exception, New})(value As Object) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws*
+  nameWithType.vb: ExceptionExtensions.Throws(Of TException)(Object)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(Of TException)(Object)
+  name.vb: Throws(Of TException)(Object)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: Throws(object, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.Throws(object, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(object, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Throws
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 34
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall Throws(this object value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Object
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function Throws(value As Object, createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws*
+  nameWithType.vb: ExceptionExtensions.Throws(Object, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(Object, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: Throws(Object, Func(Of CallInfo, Exception))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+  id: ThrowsForAnyArgs(System.Object,System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsForAnyArgs(object, Exception)
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs(object, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(object, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 43
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call made with any arguments.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsForAnyArgs(this object value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Object
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsForAnyArgs(value As Object, ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsForAnyArgs(Object, Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(Object, System.Exception)
+  name.vb: ThrowsForAnyArgs(Object, Exception)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+  id: ThrowsForAnyArgs``1(System.Object)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsForAnyArgs<TException>(object)
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs<TException>(object)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs<TException>(object)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 52
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throws an exception of the given type for this call made with any arguments.
+  example: []
+  syntax:
+    content: 'public static ConfiguredCall ThrowsForAnyArgs<TException>(this object value) where TException : notnull, Exception, new()'
+    parameters:
+    - id: value
+      type: System.Object
+      description: ''
+    typeParameters:
+    - id: TException
+      description: Type of exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsForAnyArgs(Of TException As {Exception, New})(value As Object) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsForAnyArgs(Of TException)(Object)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(Of TException)(Object)
+  name.vb: ThrowsForAnyArgs(Of TException)(Object)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsForAnyArgs(object, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs(object, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(object, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 64
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throws an exception for this call made with any arguments, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsForAnyArgs(this object value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Object
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsForAnyArgs(value As Object, createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsForAnyArgs(Object, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(Object, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsForAnyArgs(Object, Func(Of CallInfo, Exception))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.Task,System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.Task,System.Exception)
+  id: ThrowsAsync(System.Threading.Tasks.Task,System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync(Task, Exception)
+  nameWithType: ExceptionExtensions.ThrowsAsync(Task, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.Task, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 73
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsync(this Task value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(value As Task, ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.Task{``0},System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.Task{``0},System.Exception)
+  id: ThrowsAsync``1(System.Threading.Tasks.Task{``0},System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync<T>(Task<T>, Exception)
+  nameWithType: ExceptionExtensions.ThrowsAsync<T>(Task<T>, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync<T>(System.Threading.Tasks.Task<T>, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 82
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsync<T>(this Task<T> value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(Of T)(value As Task(Of T), ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsync(Of T)(Task(Of T), Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(Of T)(System.Threading.Tasks.Task(Of T), System.Exception)
+  name.vb: ThrowsAsync(Of T)(Task(Of T), Exception)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.Task)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.Task)
+  id: ThrowsAsync``1(System.Threading.Tasks.Task)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync<TException>(Task)
+  nameWithType: ExceptionExtensions.ThrowsAsync<TException>(Task)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync<TException>(System.Threading.Tasks.Task)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 91
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception of the given type for this call.
+  example: []
+  syntax:
+    content: 'public static ConfiguredCall ThrowsAsync<TException>(this Task value) where TException : notnull, Exception, new()'
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task
+      description: ''
+    typeParameters:
+    - id: TException
+      description: Type of exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(Of TException As {Exception, New})(value As Task) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsync(Of TException)(Task)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(Of TException)(System.Threading.Tasks.Task)
+  name.vb: ThrowsAsync(Of TException)(Task)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.Task,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.Task,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: ThrowsAsync(System.Threading.Tasks.Task,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync(Task, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsAsync(Task, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.Task, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 103
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsync(this Task value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(value As Task, createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsync(Task, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.Task, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsAsync(Task, Func(Of CallInfo, Exception))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: ThrowsAsync``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync<T>(Task<T>, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsAsync<T>(Task<T>, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync<T>(System.Threading.Tasks.Task<T>, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 112
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsync<T>(this Task<T> value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(Of T)(value As Task(Of T), createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsync(Of T)(Task(Of T), Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(Of T)(System.Threading.Tasks.Task(Of T), System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsAsync(Of T)(Task(Of T), Func(Of CallInfo, Exception))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task,System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task,System.Exception)
+  id: ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task,System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs(Task, Exception)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs(Task, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 121
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call made with any arguments.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsyncForAnyArgs(this Task value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(value As Task, ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Exception)
+  id: ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs<T>(Task<T>, Exception)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs<T>(Task<T>, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs<T>(System.Threading.Tasks.Task<T>, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 130
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call made with any arguments.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsyncForAnyArgs<T>(this Task<T> value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(Of T)(value As Task(Of T), ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T)(Task(Of T), Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T)(System.Threading.Tasks.Task(Of T), System.Exception)
+  name.vb: ThrowsAsyncForAnyArgs(Of T)(Task(Of T), Exception)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task)
+  id: ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs<TException>(Task)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs<TException>(Task)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs<TException>(System.Threading.Tasks.Task)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 139
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throws an exception of the given type for this call made with any arguments.
+  example: []
+  syntax:
+    content: 'public static ConfiguredCall ThrowsAsyncForAnyArgs<TException>(this Task value) where TException : notnull, Exception, new()'
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task
+      description: ''
+    typeParameters:
+    - id: TException
+      description: Type of exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(Of TException As {Exception, New})(value As Task) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsyncForAnyArgs(Of TException)(Task)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(Of TException)(System.Threading.Tasks.Task)
+  name.vb: ThrowsAsyncForAnyArgs(Of TException)(Task)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs(Task, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs(Task, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 151
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throws an exception for this call made with any arguments, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsyncForAnyArgs(this Task value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(value As Task, createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsyncForAnyArgs(Task, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.Task, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsAsyncForAnyArgs(Task, Func(Of CallInfo, Exception))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.Task{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs<T>(Task<T>, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs<T>(Task<T>, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs<T>(System.Threading.Tasks.Task<T>, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 160
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throws an exception for this call made with any arguments, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsyncForAnyArgs<T>(this Task<T> value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(Of T)(value As Task(Of T), createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T)(Task(Of T), Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T)(System.Threading.Tasks.Task(Of T), System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsAsyncForAnyArgs(Of T)(Task(Of T), Func(Of CallInfo, Exception))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.ValueTask{``0},System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.ValueTask{``0},System.Exception)
+  id: ThrowsAsync``1(System.Threading.Tasks.ValueTask{``0},System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync<T>(ValueTask<T>, Exception)
+  nameWithType: ExceptionExtensions.ThrowsAsync<T>(ValueTask<T>, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync<T>(System.Threading.Tasks.ValueTask<T>, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 169
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsync<T>(this ValueTask<T> value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{T}}
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(Of T)(value As ValueTask(Of T), ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsync(Of T)(ValueTask(Of T), Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(Of T)(System.Threading.Tasks.ValueTask(Of T), System.Exception)
+  name.vb: ThrowsAsync(Of T)(ValueTask(Of T), Exception)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``2(System.Threading.Tasks.ValueTask{``0})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``2(System.Threading.Tasks.ValueTask{``0})
+  id: ThrowsAsync``2(System.Threading.Tasks.ValueTask{``0})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync<TResult, TException>(ValueTask<TResult>)
+  nameWithType: ExceptionExtensions.ThrowsAsync<TResult, TException>(ValueTask<TResult>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync<TResult, TException>(System.Threading.Tasks.ValueTask<TResult>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 183
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception of the given type for this call.
+  example: []
+  syntax:
+    content: 'public static ConfiguredCall ThrowsAsync<TResult, TException>(this ValueTask<TResult> value) where TException : notnull, Exception, new()'
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{TResult}}
+      description: ''
+    typeParameters:
+    - id: TResult
+      description: Type of exception to throw
+    - id: TException
+      description: Type of exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(Of TResult, TException As {Exception, New})(value As ValueTask(Of TResult)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsync(Of TResult, TException)(ValueTask(Of TResult))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(Of TResult, TException)(System.Threading.Tasks.ValueTask(Of TResult))
+  name.vb: ThrowsAsync(Of TResult, TException)(ValueTask(Of TResult))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: ThrowsAsync``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync<T>(ValueTask<T>, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsAsync<T>(ValueTask<T>, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync<T>(System.Threading.Tasks.ValueTask<T>, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 199
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsync<T>(this ValueTask<T> value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{T}}
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(Of T)(value As ValueTask(Of T), createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsync(Of T)(ValueTask(Of T), Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(Of T)(System.Threading.Tasks.ValueTask(Of T), System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsAsync(Of T)(ValueTask(Of T), Func(Of CallInfo, Exception))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``2(System.Threading.Tasks.ValueTask{``0})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``2(System.Threading.Tasks.ValueTask{``0})
+  id: ThrowsAsyncForAnyArgs``2(System.Threading.Tasks.ValueTask{``0})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs<T, TException>(ValueTask<T>)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs<T, TException>(ValueTask<T>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs<T, TException>(System.Threading.Tasks.ValueTask<T>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 213
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throws an exception of the given type for this call made with any arguments.
+  example: []
+  syntax:
+    content: 'public static ConfiguredCall ThrowsAsyncForAnyArgs<T, TException>(this ValueTask<T> value) where TException : notnull, Exception, new()'
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{T}}
+      description: ''
+    typeParameters:
+    - id: T
+      description: ''
+    - id: TException
+      description: Type of exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(Of T, TException As {Exception, New})(value As ValueTask(Of T)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T, TException)(ValueTask(Of T))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T, TException)(System.Threading.Tasks.ValueTask(Of T))
+  name.vb: ThrowsAsyncForAnyArgs(Of T, TException)(ValueTask(Of T))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Exception)
+  id: ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs<T>(ValueTask<T>, Exception)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs<T>(ValueTask<T>, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs<T>(System.Threading.Tasks.ValueTask<T>, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 229
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call made with any arguments.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsyncForAnyArgs<T>(this ValueTask<T> value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{T}}
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(Of T)(value As ValueTask(Of T), ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T)(ValueTask(Of T), Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T)(System.Threading.Tasks.ValueTask(Of T), System.Exception)
+  name.vb: ThrowsAsyncForAnyArgs(Of T)(ValueTask(Of T), Exception)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask{``0},System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs<T>(ValueTask<T>, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs<T>(ValueTask<T>, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs<T>(System.Threading.Tasks.ValueTask<T>, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 242
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throws an exception for this call made with any arguments, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsyncForAnyArgs<T>(this ValueTask<T> value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask{{T}}
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    typeParameters:
+    - id: T
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(Of T)(value As ValueTask(Of T), createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T)(ValueTask(Of T), Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(Of T)(System.Threading.Tasks.ValueTask(Of T), System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsAsyncForAnyArgs(Of T)(ValueTask(Of T), Func(Of CallInfo, Exception))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.ValueTask,System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.ValueTask,System.Exception)
+  id: ThrowsAsync(System.Threading.Tasks.ValueTask,System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync(ValueTask, Exception)
+  nameWithType: ExceptionExtensions.ThrowsAsync(ValueTask, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.ValueTask, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 255
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsync(this ValueTask value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(value As ValueTask, ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.ValueTask)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync``1(System.Threading.Tasks.ValueTask)
+  id: ThrowsAsync``1(System.Threading.Tasks.ValueTask)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync<TException>(ValueTask)
+  nameWithType: ExceptionExtensions.ThrowsAsync<TException>(ValueTask)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync<TException>(System.Threading.Tasks.ValueTask)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 268
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception of the given type for this call.
+  example: []
+  syntax:
+    content: 'public static ConfiguredCall ThrowsAsync<TException>(this ValueTask value) where TException : notnull, Exception, new()'
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask
+      description: ''
+    typeParameters:
+    - id: TException
+      description: Type of exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(Of TException As {Exception, New})(value As ValueTask) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsync(Of TException)(ValueTask)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(Of TException)(System.Threading.Tasks.ValueTask)
+  name.vb: ThrowsAsync(Of TException)(ValueTask)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.ValueTask,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.ValueTask,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: ThrowsAsync(System.Threading.Tasks.ValueTask,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsync(ValueTask, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsAsync(ValueTask, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.ValueTask, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsync
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 284
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsync(this ValueTask value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsync(value As ValueTask, createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsync(ValueTask, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync(System.Threading.Tasks.ValueTask, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsAsync(ValueTask, Func(Of CallInfo, Exception))
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask)
+  id: ThrowsAsyncForAnyArgs``1(System.Threading.Tasks.ValueTask)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs<TException>(ValueTask)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs<TException>(ValueTask)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs<TException>(System.Threading.Tasks.ValueTask)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 297
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throws an exception of the given type for this call made with any arguments.
+  example: []
+  syntax:
+    content: 'public static ConfiguredCall ThrowsAsyncForAnyArgs<TException>(this ValueTask value) where TException : notnull, Exception, new()'
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask
+      description: ''
+    typeParameters:
+    - id: TException
+      description: Type of exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(Of TException As {Exception, New})(value As ValueTask) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsyncForAnyArgs(Of TException)(ValueTask)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(Of TException)(System.Threading.Tasks.ValueTask)
+  name.vb: ThrowsAsyncForAnyArgs(Of TException)(ValueTask)
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask,System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask,System.Exception)
+  id: ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask,System.Exception)
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs(ValueTask, Exception)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs(ValueTask, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 313
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throw an exception for this call made with any arguments.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsyncForAnyArgs(this ValueTask value, Exception ex)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask
+      description: ''
+    - id: ex
+      type: System.Exception
+      description: Exception to throw
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(value As ValueTask, ex As Exception) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  id: ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExtensionMethod: true
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  langs:
+  - csharp
+  - vb
+  name: ThrowsAsyncForAnyArgs(ValueTask, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs(ValueTask, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Extensions/ExceptionExtensions.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ThrowsAsyncForAnyArgs
+    path: ../src/NSubstitute/Extensions/ExceptionExtensions.cs
+    startLine: 326
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.ExceptionExtensions
+  summary: Throws an exception for this call made with any arguments, as generated by the specified function.
+  example: []
+  syntax:
+    content: public static ConfiguredCall ThrowsAsyncForAnyArgs(this ValueTask value, Func<CallInfo, Exception> createException)
+    parameters:
+    - id: value
+      type: System.Threading.Tasks.ValueTask
+      description: ''
+    - id: createException
+      type: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+      description: Func creating exception object
+    return:
+      type: NSubstitute.Core.ConfiguredCall
+      description: ''
+    content.vb: Public Shared Function ThrowsAsyncForAnyArgs(value As ValueTask, createException As Func(Of CallInfo, Exception)) As ConfiguredCall
+  overload: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  nameWithType.vb: ExceptionExtensions.ThrowsAsyncForAnyArgs(ValueTask, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs(System.Threading.Tasks.ValueTask, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsAsyncForAnyArgs(ValueTask, Func(Of CallInfo, Exception))
+references:
+- uid: NSubstitute.ExceptionExtensions
+  commentId: N:NSubstitute.ExceptionExtensions
+  href: NSubstitute.html
+  name: NSubstitute.ExceptionExtensions
+  nameWithType: NSubstitute.ExceptionExtensions
+  fullName: NSubstitute.ExceptionExtensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ExceptionExtensions
+    name: ExceptionExtensions
+    href: NSubstitute.ExceptionExtensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ExceptionExtensions
+    name: ExceptionExtensions
+    href: NSubstitute.ExceptionExtensions.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws*
+  commentId: Overload:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Exception_
+  name: Throws
+  nameWithType: ExceptionExtensions.Throws
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: NSubstitute.Core.ConfiguredCall
+  commentId: T:NSubstitute.Core.ConfiguredCall
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ConfiguredCall.html
+  name: ConfiguredCall
+  nameWithType: ConfiguredCall
+  fullName: NSubstitute.Core.ConfiguredCall
+- uid: NSubstitute.Core
+  commentId: N:NSubstitute.Core
+  href: NSubstitute.html
+  name: NSubstitute.Core
+  nameWithType: NSubstitute.Core
+  fullName: NSubstitute.Core
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+- uid: System.Func{NSubstitute.Core.CallInfo,System.Exception}
+  commentId: T:System.Func{NSubstitute.Core.CallInfo,System.Exception}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<CallInfo, Exception>
+  nameWithType: Func<CallInfo, Exception>
+  fullName: System.Func<NSubstitute.Core.CallInfo, System.Exception>
+  nameWithType.vb: Func(Of CallInfo, Exception)
+  fullName.vb: System.Func(Of NSubstitute.Core.CallInfo, System.Exception)
+  name.vb: Func(Of CallInfo, Exception)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs*
+  commentId: Overload:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Exception_
+  name: ThrowsForAnyArgs
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync*
+  commentId: Overload:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsAsync_System_Threading_Tasks_Task_System_Exception_
+  name: ThrowsAsync
+  nameWithType: ExceptionExtensions.ThrowsAsync
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsync
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: System.Threading.Tasks.Task{{T}}
+  commentId: T:System.Threading.Tasks.Task{``0}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<T>
+  nameWithType: Task<T>
+  fullName: System.Threading.Tasks.Task<T>
+  nameWithType.vb: Task(Of T)
+  fullName.vb: System.Threading.Tasks.Task(Of T)
+  name.vb: Task(Of T)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs*
+  commentId: Overload:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsAsyncForAnyArgs_System_Threading_Tasks_Task_System_Exception_
+  name: ThrowsAsyncForAnyArgs
+  nameWithType: ExceptionExtensions.ThrowsAsyncForAnyArgs
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsAsyncForAnyArgs
+- uid: System.Threading.Tasks.ValueTask{{T}}
+  commentId: T:System.Threading.Tasks.ValueTask{``0}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.ValueTask`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  name: ValueTask<T>
+  nameWithType: ValueTask<T>
+  fullName: System.Threading.Tasks.ValueTask<T>
+  nameWithType.vb: ValueTask(Of T)
+  fullName.vb: System.Threading.Tasks.ValueTask(Of T)
+  name.vb: ValueTask(Of T)
+  spec.csharp:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Threading.Tasks.ValueTask`1
+  commentId: T:System.Threading.Tasks.ValueTask`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  name: ValueTask<TResult>
+  nameWithType: ValueTask<TResult>
+  fullName: System.Threading.Tasks.ValueTask<TResult>
+  nameWithType.vb: ValueTask(Of TResult)
+  fullName.vb: System.Threading.Tasks.ValueTask(Of TResult)
+  name.vb: ValueTask(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks.ValueTask{{TResult}}
+  commentId: T:System.Threading.Tasks.ValueTask{``0}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.ValueTask`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  name: ValueTask<TResult>
+  nameWithType: ValueTask<TResult>
+  fullName: System.Threading.Tasks.ValueTask<TResult>
+  nameWithType.vb: ValueTask(Of TResult)
+  fullName.vb: System.Threading.Tasks.ValueTask(Of TResult)
+  name.vb: ValueTask(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks.ValueTask
+  commentId: T:System.Threading.Tasks.ValueTask
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask
+  name: ValueTask
+  nameWithType: ValueTask
+  fullName: System.Threading.Tasks.ValueTask

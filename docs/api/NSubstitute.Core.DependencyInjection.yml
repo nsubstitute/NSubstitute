@@ -1,0 +1,100 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Core.DependencyInjection
+  commentId: N:NSubstitute.Core.DependencyInjection
+  id: NSubstitute.Core.DependencyInjection
+  children:
+  - NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+  - NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+  - NSubstitute.Core.DependencyInjection.INSubContainer
+  - NSubstitute.Core.DependencyInjection.INSubResolver
+  - NSubstitute.Core.DependencyInjection.NSubContainer
+  - NSubstitute.Core.DependencyInjection.NSubLifetime
+  - NSubstitute.Core.DependencyInjection.NSubstituteDefaultFactory
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Core.DependencyInjection
+  nameWithType: NSubstitute.Core.DependencyInjection
+  fullName: NSubstitute.Core.DependencyInjection
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Core.DependencyInjection.INSubResolver
+  commentId: T:NSubstitute.Core.DependencyInjection.INSubResolver
+  parent: NSubstitute.Core.DependencyInjection
+  href: NSubstitute.Core.DependencyInjection.INSubResolver.html
+  name: INSubResolver
+  nameWithType: INSubResolver
+  fullName: NSubstitute.Core.DependencyInjection.INSubResolver
+- uid: NSubstitute.Core.DependencyInjection.INSubContainer
+  commentId: T:NSubstitute.Core.DependencyInjection.INSubContainer
+  parent: NSubstitute.Core.DependencyInjection
+  href: NSubstitute.Core.DependencyInjection.INSubContainer.html
+  name: INSubContainer
+  nameWithType: INSubContainer
+  fullName: NSubstitute.Core.DependencyInjection.INSubContainer
+- uid: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+  commentId: T:NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+  parent: NSubstitute.Core.DependencyInjection
+  href: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer.html
+  name: IConfigurableNSubContainer
+  nameWithType: IConfigurableNSubContainer
+  fullName: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+- uid: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+  commentId: T:NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+  parent: NSubstitute.Core.DependencyInjection
+  href: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions.html
+  name: ConfigurableNSubContainerExtensions
+  nameWithType: ConfigurableNSubContainerExtensions
+  fullName: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+- uid: NSubstitute.Core.DependencyInjection.NSubContainer
+  commentId: T:NSubstitute.Core.DependencyInjection.NSubContainer
+  href: NSubstitute.Core.DependencyInjection.NSubContainer.html
+  name: NSubContainer
+  nameWithType: NSubContainer
+  fullName: NSubstitute.Core.DependencyInjection.NSubContainer
+- uid: NSubstitute.Core.DependencyInjection.NSubLifetime
+  commentId: T:NSubstitute.Core.DependencyInjection.NSubLifetime
+  parent: NSubstitute.Core.DependencyInjection
+  href: NSubstitute.Core.DependencyInjection.NSubLifetime.html
+  name: NSubLifetime
+  nameWithType: NSubLifetime
+  fullName: NSubstitute.Core.DependencyInjection.NSubLifetime
+- uid: NSubstitute.Core.DependencyInjection.NSubstituteDefaultFactory
+  commentId: T:NSubstitute.Core.DependencyInjection.NSubstituteDefaultFactory
+  href: NSubstitute.Core.DependencyInjection.NSubstituteDefaultFactory.html
+  name: NSubstituteDefaultFactory
+  nameWithType: NSubstituteDefaultFactory
+  fullName: NSubstitute.Core.DependencyInjection.NSubstituteDefaultFactory
+- uid: NSubstitute.Core.DependencyInjection
+  commentId: N:NSubstitute.Core.DependencyInjection
+  href: NSubstitute.html
+  name: NSubstitute.Core.DependencyInjection
+  nameWithType: NSubstitute.Core.DependencyInjection
+  fullName: NSubstitute.Core.DependencyInjection
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.DependencyInjection
+    name: DependencyInjection
+    href: NSubstitute.Core.DependencyInjection.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.DependencyInjection
+    name: DependencyInjection
+    href: NSubstitute.Core.DependencyInjection.html

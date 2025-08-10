@@ -1,0 +1,54 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Callbacks
+  commentId: N:NSubstitute.Callbacks
+  id: NSubstitute.Callbacks
+  children:
+  - NSubstitute.Callbacks.ConfiguredCallback
+  - NSubstitute.Callbacks.EndCallbackChain
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Callbacks
+  nameWithType: NSubstitute.Callbacks
+  fullName: NSubstitute.Callbacks
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Callbacks.ConfiguredCallback
+  commentId: T:NSubstitute.Callbacks.ConfiguredCallback
+  parent: NSubstitute.Callbacks
+  href: NSubstitute.Callbacks.ConfiguredCallback.html
+  name: ConfiguredCallback
+  nameWithType: ConfiguredCallback
+  fullName: NSubstitute.Callbacks.ConfiguredCallback
+- uid: NSubstitute.Callbacks.EndCallbackChain
+  commentId: T:NSubstitute.Callbacks.EndCallbackChain
+  parent: NSubstitute.Callbacks
+  href: NSubstitute.Callbacks.EndCallbackChain.html
+  name: EndCallbackChain
+  nameWithType: EndCallbackChain
+  fullName: NSubstitute.Callbacks.EndCallbackChain
+- uid: NSubstitute.Callbacks
+  commentId: N:NSubstitute.Callbacks
+  href: NSubstitute.html
+  name: NSubstitute.Callbacks
+  nameWithType: NSubstitute.Callbacks
+  fullName: NSubstitute.Callbacks
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Callbacks
+    name: Callbacks
+    href: NSubstitute.Callbacks.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Callbacks
+    name: Callbacks
+    href: NSubstitute.Callbacks.html

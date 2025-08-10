@@ -1,0 +1,4328 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Core.ICallFactory
+  commentId: T:NSubstitute.Core.ICallFactory
+  id: ICallFactory
+  parent: NSubstitute.Core
+  children:
+  - NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo,System.Object[],System.Object,System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification})
+  - NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo,System.Object[],System.Object,System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification},System.Func{System.Object})
+  langs:
+  - csharp
+  - vb
+  name: ICallFactory
+  nameWithType: ICallFactory
+  fullName: NSubstitute.Core.ICallFactory
+  type: Interface
+  source:
+    remote:
+      path: src/NSubstitute/Core/ICallFactory.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: ICallFactory
+    path: ../src/NSubstitute/Core/ICallFactory.cs
+    startLine: 5
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core
+  syntax:
+    content: public interface ICallFactory
+    content.vb: Public Interface ICallFactory
+  extensionMethods:
+  - NSubstitute.Core.ICallFactory.NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(NSubstitute.ClearOptions)
+  - NSubstitute.Core.ICallFactory.NSubstitute.Extensions.ConfigurationExtensions.Configure``1
+  - NSubstitute.Core.ICallFactory.NSubstitute.Extensions.ProtectedExtensions.Protected``1(System.String,System.Object[])
+  - NSubstitute.Core.ICallFactory.NSubstitute.Extensions.ProtectedExtensions.When``1(System.String,System.Object[])
+  - NSubstitute.Core.ICallFactory.NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(NSubstitute.ReceivedExtensions.Quantity)
+  - NSubstitute.Core.ICallFactory.NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(NSubstitute.ReceivedExtensions.Quantity)
+  - NSubstitute.Core.ICallFactory.NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1
+  - NSubstitute.Core.ICallFactory.NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ClearReceivedCalls``1
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.DidNotReceive``1
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReceivedCalls``1
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(System.Int32)
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.Received``1
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.Received``1(System.Int32)
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory[])
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory},System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory}[])
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.Returns``1(NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory[])
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.Returns``1(System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory},System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory}[])
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(System.Action{NSubstitute.Core.ICallFactory})
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.Task})
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.ValueTask{{TResult}}})
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.When``1(System.Action{NSubstitute.Core.ICallFactory})
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.When``1(System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.Task})
+  - NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.When``2(System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.ValueTask{{TResult}}})
+  - System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Exception)
+  - System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Exception)
+  - System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  - System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1
+  - System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1
+  - System.Object.NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Func{NSubstitute.Core.CallInfo,{T}})
+  - System.Object.NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1({T})
+- uid: NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo,System.Object[],System.Object,System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification},System.Func{System.Object})
+  commentId: M:NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo,System.Object[],System.Object,System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification},System.Func{System.Object})
+  id: Create(System.Reflection.MethodInfo,System.Object[],System.Object,System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification},System.Func{System.Object})
+  parent: NSubstitute.Core.ICallFactory
+  langs:
+  - csharp
+  - vb
+  name: Create(MethodInfo, object?[], object, IList<IArgumentSpecification>, Func<object>?)
+  nameWithType: ICallFactory.Create(MethodInfo, object?[], object, IList<IArgumentSpecification>, Func<object>?)
+  fullName: NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo, object?[], object, System.Collections.Generic.IList<NSubstitute.Core.Arguments.IArgumentSpecification>, System.Func<object>?)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Core/ICallFactory.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Create
+    path: ../src/NSubstitute/Core/ICallFactory.cs
+    startLine: 7
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core
+  syntax:
+    content: ICall Create(MethodInfo methodInfo, object?[] arguments, object target, IList<IArgumentSpecification> argumentSpecifications, Func<object>? baseMethod)
+    parameters:
+    - id: methodInfo
+      type: System.Reflection.MethodInfo
+    - id: arguments
+      type: System.Object[]
+    - id: target
+      type: System.Object
+    - id: argumentSpecifications
+      type: System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification}
+    - id: baseMethod
+      type: System.Func{System.Object}
+    return:
+      type: NSubstitute.Core.ICall
+    content.vb: Function Create(methodInfo As MethodInfo, arguments As Object(), target As Object, argumentSpecifications As IList(Of IArgumentSpecification), baseMethod As Func(Of Object)) As ICall
+  overload: NSubstitute.Core.ICallFactory.Create*
+  nameWithType.vb: ICallFactory.Create(MethodInfo, Object(), Object, IList(Of IArgumentSpecification), Func(Of Object))
+  fullName.vb: NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo, Object(), Object, System.Collections.Generic.IList(Of NSubstitute.Core.Arguments.IArgumentSpecification), System.Func(Of Object))
+  name.vb: Create(MethodInfo, Object(), Object, IList(Of IArgumentSpecification), Func(Of Object))
+- uid: NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo,System.Object[],System.Object,System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification})
+  commentId: M:NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo,System.Object[],System.Object,System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification})
+  id: Create(System.Reflection.MethodInfo,System.Object[],System.Object,System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification})
+  parent: NSubstitute.Core.ICallFactory
+  langs:
+  - csharp
+  - vb
+  name: Create(MethodInfo, object?[], object, IList<IArgumentSpecification>)
+  nameWithType: ICallFactory.Create(MethodInfo, object?[], object, IList<IArgumentSpecification>)
+  fullName: NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo, object?[], object, System.Collections.Generic.IList<NSubstitute.Core.Arguments.IArgumentSpecification>)
+  type: Method
+  source:
+    remote:
+      path: src/NSubstitute/Core/ICallFactory.cs
+      branch: copilot/fix-8e5d1cea-abae-4546-925f-dabd0155be9d
+      repo: https://github.com/nsubstitute/NSubstitute
+    id: Create
+    path: ../src/NSubstitute/Core/ICallFactory.cs
+    startLine: 8
+  assemblies:
+  - NSubstitute
+  namespace: NSubstitute.Core
+  syntax:
+    content: ICall Create(MethodInfo methodInfo, object?[] getterArgs, object target, IList<IArgumentSpecification> getArgumentSpecifications)
+    parameters:
+    - id: methodInfo
+      type: System.Reflection.MethodInfo
+    - id: getterArgs
+      type: System.Object[]
+    - id: target
+      type: System.Object
+    - id: getArgumentSpecifications
+      type: System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification}
+    return:
+      type: NSubstitute.Core.ICall
+    content.vb: Function Create(methodInfo As MethodInfo, getterArgs As Object(), target As Object, getArgumentSpecifications As IList(Of IArgumentSpecification)) As ICall
+  overload: NSubstitute.Core.ICallFactory.Create*
+  nameWithType.vb: ICallFactory.Create(MethodInfo, Object(), Object, IList(Of IArgumentSpecification))
+  fullName.vb: NSubstitute.Core.ICallFactory.Create(System.Reflection.MethodInfo, Object(), Object, System.Collections.Generic.IList(Of NSubstitute.Core.Arguments.IArgumentSpecification))
+  name.vb: Create(MethodInfo, Object(), Object, IList(Of IArgumentSpecification))
+references:
+- uid: NSubstitute.Core
+  commentId: N:NSubstitute.Core
+  href: NSubstitute.html
+  name: NSubstitute.Core
+  nameWithType: NSubstitute.Core
+  fullName: NSubstitute.Core
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(NSubstitute.ClearOptions)
+  commentId: M:NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+  parent: NSubstitute.ClearExtensions.ClearExtensions
+  definition: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+  href: NSubstitute.ClearExtensions.ClearExtensions.html#NSubstitute_ClearExtensions_ClearExtensions_ClearSubstitute__1___0_NSubstitute_ClearOptions_
+  name: ClearSubstitute<ICallFactory>(ICallFactory, ClearOptions)
+  nameWithType: ClearExtensions.ClearSubstitute<ICallFactory>(ICallFactory, ClearOptions)
+  fullName: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, NSubstitute.ClearOptions)
+  nameWithType.vb: ClearExtensions.ClearSubstitute(Of ICallFactory)(ICallFactory, ClearOptions)
+  fullName.vb: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, NSubstitute.ClearOptions)
+  name.vb: ClearSubstitute(Of ICallFactory)(ICallFactory, ClearOptions)
+  spec.csharp:
+  - uid: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(NSubstitute.Core.ICallFactory,NSubstitute.ClearOptions)
+    name: ClearSubstitute
+    href: NSubstitute.ClearExtensions.ClearExtensions.html#NSubstitute_ClearExtensions_ClearExtensions_ClearSubstitute__1___0_NSubstitute_ClearOptions_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ClearOptions
+    name: ClearOptions
+    href: NSubstitute.ClearOptions.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(NSubstitute.Core.ICallFactory,NSubstitute.ClearOptions)
+    name: ClearSubstitute
+    href: NSubstitute.ClearExtensions.ClearExtensions.html#NSubstitute_ClearExtensions_ClearExtensions_ClearSubstitute__1___0_NSubstitute_ClearOptions_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ClearOptions
+    name: ClearOptions
+    href: NSubstitute.ClearOptions.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.Extensions.ConfigurationExtensions.Configure``1
+  commentId: M:NSubstitute.Extensions.ConfigurationExtensions.Configure``1(``0)
+  parent: NSubstitute.Extensions.ConfigurationExtensions
+  definition: NSubstitute.Extensions.ConfigurationExtensions.Configure``1(``0)
+  href: NSubstitute.Extensions.ConfigurationExtensions.html#NSubstitute_Extensions_ConfigurationExtensions_Configure__1___0_
+  name: Configure<ICallFactory>(ICallFactory)
+  nameWithType: ConfigurationExtensions.Configure<ICallFactory>(ICallFactory)
+  fullName: NSubstitute.Extensions.ConfigurationExtensions.Configure<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory)
+  nameWithType.vb: ConfigurationExtensions.Configure(Of ICallFactory)(ICallFactory)
+  fullName.vb: NSubstitute.Extensions.ConfigurationExtensions.Configure(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory)
+  name.vb: Configure(Of ICallFactory)(ICallFactory)
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ConfigurationExtensions.Configure``1(NSubstitute.Core.ICallFactory)
+    name: Configure
+    href: NSubstitute.Extensions.ConfigurationExtensions.html#NSubstitute_Extensions_ConfigurationExtensions_Configure__1___0_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ConfigurationExtensions.Configure``1(NSubstitute.Core.ICallFactory)
+    name: Configure
+    href: NSubstitute.Extensions.ConfigurationExtensions.html#NSubstitute_Extensions_ConfigurationExtensions_Configure__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.Extensions.ProtectedExtensions.Protected``1(System.String,System.Object[])
+  commentId: M:NSubstitute.Extensions.ProtectedExtensions.Protected``1(``0,System.String,System.Object[])
+  parent: NSubstitute.Extensions.ProtectedExtensions
+  definition: NSubstitute.Extensions.ProtectedExtensions.Protected``1(``0,System.String,System.Object[])
+  href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_Protected__1___0_System_String_System_Object___
+  name: Protected<ICallFactory>(ICallFactory, string, params object[])
+  nameWithType: ProtectedExtensions.Protected<ICallFactory>(ICallFactory, string, params object[])
+  fullName: NSubstitute.Extensions.ProtectedExtensions.Protected<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, string, params object[])
+  nameWithType.vb: ProtectedExtensions.Protected(Of ICallFactory)(ICallFactory, String, ParamArray Object())
+  fullName.vb: NSubstitute.Extensions.ProtectedExtensions.Protected(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, String, ParamArray Object())
+  name.vb: Protected(Of ICallFactory)(ICallFactory, String, ParamArray Object())
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ProtectedExtensions.Protected``1(NSubstitute.Core.ICallFactory,System.String,System.Object[])
+    name: Protected
+    href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_Protected__1___0_System_String_System_Object___
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ProtectedExtensions.Protected``1(NSubstitute.Core.ICallFactory,System.String,System.Object[])
+    name: Protected
+    href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_Protected__1___0_System_String_System_Object___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.Extensions.ProtectedExtensions.When``1(System.String,System.Object[])
+  commentId: M:NSubstitute.Extensions.ProtectedExtensions.When``1(``0,System.String,System.Object[])
+  parent: NSubstitute.Extensions.ProtectedExtensions
+  definition: NSubstitute.Extensions.ProtectedExtensions.When``1(``0,System.String,System.Object[])
+  href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_When__1___0_System_String_System_Object___
+  name: When<ICallFactory>(ICallFactory, string, params object[])
+  nameWithType: ProtectedExtensions.When<ICallFactory>(ICallFactory, string, params object[])
+  fullName: NSubstitute.Extensions.ProtectedExtensions.When<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, string, params object[])
+  nameWithType.vb: ProtectedExtensions.When(Of ICallFactory)(ICallFactory, String, ParamArray Object())
+  fullName.vb: NSubstitute.Extensions.ProtectedExtensions.When(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, String, ParamArray Object())
+  name.vb: When(Of ICallFactory)(ICallFactory, String, ParamArray Object())
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ProtectedExtensions.When``1(NSubstitute.Core.ICallFactory,System.String,System.Object[])
+    name: When
+    href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_When__1___0_System_String_System_Object___
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ProtectedExtensions.When``1(NSubstitute.Core.ICallFactory,System.String,System.Object[])
+    name: When
+    href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_When__1___0_System_String_System_Object___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(NSubstitute.ReceivedExtensions.Quantity)
+  commentId: M:NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  parent: NSubstitute.ReceivedExtensions.ReceivedExtensions
+  definition: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_ReceivedWithAnyArgs__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  name: ReceivedWithAnyArgs<ICallFactory>(ICallFactory, Quantity)
+  nameWithType: ReceivedExtensions.ReceivedWithAnyArgs<ICallFactory>(ICallFactory, Quantity)
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, NSubstitute.ReceivedExtensions.Quantity)
+  nameWithType.vb: ReceivedExtensions.ReceivedWithAnyArgs(Of ICallFactory)(ICallFactory, Quantity)
+  fullName.vb: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, NSubstitute.ReceivedExtensions.Quantity)
+  name.vb: ReceivedWithAnyArgs(Of ICallFactory)(ICallFactory, Quantity)
+  spec.csharp:
+  - uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(NSubstitute.Core.ICallFactory,NSubstitute.ReceivedExtensions.Quantity)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_ReceivedWithAnyArgs__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ReceivedExtensions.Quantity
+    name: Quantity
+    href: NSubstitute.ReceivedExtensions.Quantity.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(NSubstitute.Core.ICallFactory,NSubstitute.ReceivedExtensions.Quantity)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_ReceivedWithAnyArgs__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ReceivedExtensions.Quantity
+    name: Quantity
+    href: NSubstitute.ReceivedExtensions.Quantity.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(NSubstitute.ReceivedExtensions.Quantity)
+  commentId: M:NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  parent: NSubstitute.ReceivedExtensions.ReceivedExtensions
+  definition: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_Received__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  name: Received<ICallFactory>(ICallFactory, Quantity)
+  nameWithType: ReceivedExtensions.Received<ICallFactory>(ICallFactory, Quantity)
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, NSubstitute.ReceivedExtensions.Quantity)
+  nameWithType.vb: ReceivedExtensions.Received(Of ICallFactory)(ICallFactory, Quantity)
+  fullName.vb: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, NSubstitute.ReceivedExtensions.Quantity)
+  name.vb: Received(Of ICallFactory)(ICallFactory, Quantity)
+  spec.csharp:
+  - uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(NSubstitute.Core.ICallFactory,NSubstitute.ReceivedExtensions.Quantity)
+    name: Received
+    href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_Received__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ReceivedExtensions.Quantity
+    name: Quantity
+    href: NSubstitute.ReceivedExtensions.Quantity.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(NSubstitute.Core.ICallFactory,NSubstitute.ReceivedExtensions.Quantity)
+    name: Received
+    href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_Received__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ReceivedExtensions.Quantity
+    name: Quantity
+    href: NSubstitute.ReceivedExtensions.Quantity.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1
+  commentId: M:NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1(``0)
+  parent: NSubstitute.ReturnsExtensions.ReturnsExtensions
+  definition: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1(``0)
+  href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNullForAnyArgs__1___0_
+  name: ReturnsNullForAnyArgs<ICallFactory>(ICallFactory)
+  nameWithType: ReturnsExtensions.ReturnsNullForAnyArgs<ICallFactory>(ICallFactory)
+  fullName: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory)
+  nameWithType.vb: ReturnsExtensions.ReturnsNullForAnyArgs(Of ICallFactory)(ICallFactory)
+  fullName.vb: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory)
+  name.vb: ReturnsNullForAnyArgs(Of ICallFactory)(ICallFactory)
+  spec.csharp:
+  - uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1(NSubstitute.Core.ICallFactory)
+    name: ReturnsNullForAnyArgs
+    href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNullForAnyArgs__1___0_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1(NSubstitute.Core.ICallFactory)
+    name: ReturnsNullForAnyArgs
+    href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNullForAnyArgs__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1
+  commentId: M:NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1(``0)
+  parent: NSubstitute.ReturnsExtensions.ReturnsExtensions
+  definition: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1(``0)
+  href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNull__1___0_
+  name: ReturnsNull<ICallFactory>(ICallFactory)
+  nameWithType: ReturnsExtensions.ReturnsNull<ICallFactory>(ICallFactory)
+  fullName: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory)
+  nameWithType.vb: ReturnsExtensions.ReturnsNull(Of ICallFactory)(ICallFactory)
+  fullName.vb: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory)
+  name.vb: ReturnsNull(Of ICallFactory)(ICallFactory)
+  spec.csharp:
+  - uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1(NSubstitute.Core.ICallFactory)
+    name: ReturnsNull
+    href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNull__1___0_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1(NSubstitute.Core.ICallFactory)
+    name: ReturnsNull
+    href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNull__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ClearReceivedCalls``1
+  commentId: M:NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(``0)
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ClearReceivedCalls__1___0_
+  name: ClearReceivedCalls<ICallFactory>(ICallFactory)
+  nameWithType: SubstituteExtensions.ClearReceivedCalls<ICallFactory>(ICallFactory)
+  fullName: NSubstitute.SubstituteExtensions.ClearReceivedCalls<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory)
+  nameWithType.vb: SubstituteExtensions.ClearReceivedCalls(Of ICallFactory)(ICallFactory)
+  fullName.vb: NSubstitute.SubstituteExtensions.ClearReceivedCalls(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory)
+  name.vb: ClearReceivedCalls(Of ICallFactory)(ICallFactory)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(NSubstitute.Core.ICallFactory)
+    name: ClearReceivedCalls
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ClearReceivedCalls__1___0_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(NSubstitute.Core.ICallFactory)
+    name: ClearReceivedCalls
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ClearReceivedCalls__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1
+  commentId: M:NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(``0)
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceiveWithAnyArgs__1___0_
+  name: DidNotReceiveWithAnyArgs<ICallFactory>(ICallFactory)
+  nameWithType: SubstituteExtensions.DidNotReceiveWithAnyArgs<ICallFactory>(ICallFactory)
+  fullName: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory)
+  nameWithType.vb: SubstituteExtensions.DidNotReceiveWithAnyArgs(Of ICallFactory)(ICallFactory)
+  fullName.vb: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory)
+  name.vb: DidNotReceiveWithAnyArgs(Of ICallFactory)(ICallFactory)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(NSubstitute.Core.ICallFactory)
+    name: DidNotReceiveWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceiveWithAnyArgs__1___0_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(NSubstitute.Core.ICallFactory)
+    name: DidNotReceiveWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceiveWithAnyArgs__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.DidNotReceive``1
+  commentId: M:NSubstitute.SubstituteExtensions.DidNotReceive``1(``0)
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.DidNotReceive``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceive__1___0_
+  name: DidNotReceive<ICallFactory>(ICallFactory)
+  nameWithType: SubstituteExtensions.DidNotReceive<ICallFactory>(ICallFactory)
+  fullName: NSubstitute.SubstituteExtensions.DidNotReceive<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory)
+  nameWithType.vb: SubstituteExtensions.DidNotReceive(Of ICallFactory)(ICallFactory)
+  fullName.vb: NSubstitute.SubstituteExtensions.DidNotReceive(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory)
+  name.vb: DidNotReceive(Of ICallFactory)(ICallFactory)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.DidNotReceive``1(NSubstitute.Core.ICallFactory)
+    name: DidNotReceive
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceive__1___0_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.DidNotReceive``1(NSubstitute.Core.ICallFactory)
+    name: DidNotReceive
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceive__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReceivedCalls``1
+  commentId: M:NSubstitute.SubstituteExtensions.ReceivedCalls``1(``0)
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.ReceivedCalls``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedCalls__1___0_
+  name: ReceivedCalls<ICallFactory>(ICallFactory)
+  nameWithType: SubstituteExtensions.ReceivedCalls<ICallFactory>(ICallFactory)
+  fullName: NSubstitute.SubstituteExtensions.ReceivedCalls<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory)
+  nameWithType.vb: SubstituteExtensions.ReceivedCalls(Of ICallFactory)(ICallFactory)
+  fullName.vb: NSubstitute.SubstituteExtensions.ReceivedCalls(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory)
+  name.vb: ReceivedCalls(Of ICallFactory)(ICallFactory)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedCalls``1(NSubstitute.Core.ICallFactory)
+    name: ReceivedCalls
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedCalls__1___0_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedCalls``1(NSubstitute.Core.ICallFactory)
+    name: ReceivedCalls
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedCalls__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1
+  commentId: M:NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0)
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_
+  name: ReceivedWithAnyArgs<ICallFactory>(ICallFactory)
+  nameWithType: SubstituteExtensions.ReceivedWithAnyArgs<ICallFactory>(ICallFactory)
+  fullName: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory)
+  nameWithType.vb: SubstituteExtensions.ReceivedWithAnyArgs(Of ICallFactory)(ICallFactory)
+  fullName.vb: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory)
+  name.vb: ReceivedWithAnyArgs(Of ICallFactory)(ICallFactory)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(NSubstitute.Core.ICallFactory)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(NSubstitute.Core.ICallFactory)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(System.Int32)
+  commentId: M:NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0,System.Int32)
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0,System.Int32)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_System_Int32_
+  name: ReceivedWithAnyArgs<ICallFactory>(ICallFactory, int)
+  nameWithType: SubstituteExtensions.ReceivedWithAnyArgs<ICallFactory>(ICallFactory, int)
+  fullName: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, int)
+  nameWithType.vb: SubstituteExtensions.ReceivedWithAnyArgs(Of ICallFactory)(ICallFactory, Integer)
+  fullName.vb: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, Integer)
+  name.vb: ReceivedWithAnyArgs(Of ICallFactory)(ICallFactory, Integer)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(NSubstitute.Core.ICallFactory,System.Int32)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_System_Int32_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(NSubstitute.Core.ICallFactory,System.Int32)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_System_Int32_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.Received``1
+  commentId: M:NSubstitute.SubstituteExtensions.Received``1(``0)
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.Received``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_
+  name: Received<ICallFactory>(ICallFactory)
+  nameWithType: SubstituteExtensions.Received<ICallFactory>(ICallFactory)
+  fullName: NSubstitute.SubstituteExtensions.Received<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory)
+  nameWithType.vb: SubstituteExtensions.Received(Of ICallFactory)(ICallFactory)
+  fullName.vb: NSubstitute.SubstituteExtensions.Received(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory)
+  name.vb: Received(Of ICallFactory)(ICallFactory)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.Received``1(NSubstitute.Core.ICallFactory)
+    name: Received
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.Received``1(NSubstitute.Core.ICallFactory)
+    name: Received
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.Received``1(System.Int32)
+  commentId: M:NSubstitute.SubstituteExtensions.Received``1(``0,System.Int32)
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.Received``1(``0,System.Int32)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_System_Int32_
+  name: Received<ICallFactory>(ICallFactory, int)
+  nameWithType: SubstituteExtensions.Received<ICallFactory>(ICallFactory, int)
+  fullName: NSubstitute.SubstituteExtensions.Received<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, int)
+  nameWithType.vb: SubstituteExtensions.Received(Of ICallFactory)(ICallFactory, Integer)
+  fullName.vb: NSubstitute.SubstituteExtensions.Received(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, Integer)
+  name.vb: Received(Of ICallFactory)(ICallFactory, Integer)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.Received``1(NSubstitute.Core.ICallFactory,System.Int32)
+    name: Received
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_System_Int32_
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.Received``1(NSubstitute.Core.ICallFactory,System.Int32)
+    name: Received
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_System_Int32_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,``0,``0[])
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,``0,``0[])
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0___0___0___
+  name: ReturnsForAnyArgs<ICallFactory>(ICallFactory, ICallFactory, params ICallFactory[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<ICallFactory>(ICallFactory, ICallFactory, params ICallFactory[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, NSubstitute.Core.ICallFactory, params NSubstitute.Core.ICallFactory[])
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of ICallFactory)(ICallFactory, ICallFactory, ParamArray ICallFactory())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, NSubstitute.Core.ICallFactory, ParamArray NSubstitute.Core.ICallFactory())
+  name.vb: ReturnsForAnyArgs(Of ICallFactory)(ICallFactory, ICallFactory, ParamArray ICallFactory())
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory[])
+    name: ReturnsForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0___0___0___
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory[])
+    name: ReturnsForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0___0___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory},System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory}[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  name: ReturnsForAnyArgs<ICallFactory>(ICallFactory, Func<CallInfo, ICallFactory>, params Func<CallInfo, ICallFactory>[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<ICallFactory>(ICallFactory, Func<CallInfo, ICallFactory>, params Func<CallInfo, ICallFactory>[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, System.Func<NSubstitute.Core.CallInfo, NSubstitute.Core.ICallFactory>, params System.Func<NSubstitute.Core.CallInfo, NSubstitute.Core.ICallFactory>[])
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of ICallFactory)(ICallFactory, Func(Of CallInfo, ICallFactory), ParamArray Func(Of CallInfo, ICallFactory)())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, System.Func(Of NSubstitute.Core.CallInfo, NSubstitute.Core.ICallFactory), ParamArray System.Func(Of NSubstitute.Core.CallInfo, NSubstitute.Core.ICallFactory)())
+  name.vb: ReturnsForAnyArgs(Of ICallFactory)(ICallFactory, Func(Of CallInfo, ICallFactory), ParamArray Func(Of CallInfo, ICallFactory)())
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory},System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory}[])
+    name: ReturnsForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory},System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory}[])
+    name: ReturnsForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.Returns``1(NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(``0,``0,``0[])
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.Returns``1(``0,``0,``0[])
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0___0___0___
+  name: Returns<ICallFactory>(ICallFactory, ICallFactory, params ICallFactory[])
+  nameWithType: SubstituteExtensions.Returns<ICallFactory>(ICallFactory, ICallFactory, params ICallFactory[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, NSubstitute.Core.ICallFactory, params NSubstitute.Core.ICallFactory[])
+  nameWithType.vb: SubstituteExtensions.Returns(Of ICallFactory)(ICallFactory, ICallFactory, ParamArray ICallFactory())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, NSubstitute.Core.ICallFactory, ParamArray NSubstitute.Core.ICallFactory())
+  name.vb: Returns(Of ICallFactory)(ICallFactory, ICallFactory, ParamArray ICallFactory())
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.Returns``1(NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory[])
+    name: Returns
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0___0___0___
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.Returns``1(NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory,NSubstitute.Core.ICallFactory[])
+    name: Returns
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0___0___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.Returns``1(System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory},System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory}[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  name: Returns<ICallFactory>(ICallFactory, Func<CallInfo, ICallFactory>, params Func<CallInfo, ICallFactory>[])
+  nameWithType: SubstituteExtensions.Returns<ICallFactory>(ICallFactory, Func<CallInfo, ICallFactory>, params Func<CallInfo, ICallFactory>[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, System.Func<NSubstitute.Core.CallInfo, NSubstitute.Core.ICallFactory>, params System.Func<NSubstitute.Core.CallInfo, NSubstitute.Core.ICallFactory>[])
+  nameWithType.vb: SubstituteExtensions.Returns(Of ICallFactory)(ICallFactory, Func(Of CallInfo, ICallFactory), ParamArray Func(Of CallInfo, ICallFactory)())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, System.Func(Of NSubstitute.Core.CallInfo, NSubstitute.Core.ICallFactory), ParamArray System.Func(Of NSubstitute.Core.CallInfo, NSubstitute.Core.ICallFactory)())
+  name.vb: Returns(Of ICallFactory)(ICallFactory, Func(Of CallInfo, ICallFactory), ParamArray Func(Of CallInfo, ICallFactory)())
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.Returns``1(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory},System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory}[])
+    name: Returns
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.Returns``1(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory},System.Func{NSubstitute.Core.CallInfo,NSubstitute.Core.ICallFactory}[])
+    name: Returns
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(System.Action{NSubstitute.Core.ICallFactory})
+  commentId: M:NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Action{``0})
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Action{``0})
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Action___0__
+  name: WhenForAnyArgs<ICallFactory>(ICallFactory, Action<ICallFactory>)
+  nameWithType: SubstituteExtensions.WhenForAnyArgs<ICallFactory>(ICallFactory, Action<ICallFactory>)
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, System.Action<NSubstitute.Core.ICallFactory>)
+  nameWithType.vb: SubstituteExtensions.WhenForAnyArgs(Of ICallFactory)(ICallFactory, Action(Of ICallFactory))
+  fullName.vb: NSubstitute.SubstituteExtensions.WhenForAnyArgs(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, System.Action(Of NSubstitute.Core.ICallFactory))
+  name.vb: WhenForAnyArgs(Of ICallFactory)(ICallFactory, Action(Of ICallFactory))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(NSubstitute.Core.ICallFactory,System.Action{NSubstitute.Core.ICallFactory})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Action___0__
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(NSubstitute.Core.ICallFactory,System.Action{NSubstitute.Core.ICallFactory})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Action___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.Task})
+  commentId: M:NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Func___0_System_Threading_Tasks_Task__
+  name: WhenForAnyArgs<ICallFactory>(ICallFactory, Func<ICallFactory, Task>)
+  nameWithType: SubstituteExtensions.WhenForAnyArgs<ICallFactory>(ICallFactory, Func<ICallFactory, Task>)
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, System.Func<NSubstitute.Core.ICallFactory, System.Threading.Tasks.Task>)
+  nameWithType.vb: SubstituteExtensions.WhenForAnyArgs(Of ICallFactory)(ICallFactory, Func(Of ICallFactory, Task))
+  fullName.vb: NSubstitute.SubstituteExtensions.WhenForAnyArgs(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, System.Func(Of NSubstitute.Core.ICallFactory, System.Threading.Tasks.Task))
+  name.vb: WhenForAnyArgs(Of ICallFactory)(ICallFactory, Func(Of ICallFactory, Task))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.Task})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Func___0_System_Threading_Tasks_Task__
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.Task})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Func___0_System_Threading_Tasks_Task__
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.ValueTask{{TResult}}})
+  commentId: M:NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  name: WhenForAnyArgs<ICallFactory, TResult>(ICallFactory, Func<ICallFactory, ValueTask<TResult>>)
+  nameWithType: SubstituteExtensions.WhenForAnyArgs<ICallFactory, TResult>(ICallFactory, Func<ICallFactory, ValueTask<TResult>>)
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs<NSubstitute.Core.ICallFactory, TResult>(NSubstitute.Core.ICallFactory, System.Func<NSubstitute.Core.ICallFactory, System.Threading.Tasks.ValueTask<TResult>>)
+  nameWithType.vb: SubstituteExtensions.WhenForAnyArgs(Of ICallFactory, TResult)(ICallFactory, Func(Of ICallFactory, ValueTask(Of TResult)))
+  fullName.vb: NSubstitute.SubstituteExtensions.WhenForAnyArgs(Of NSubstitute.Core.ICallFactory, TResult)(NSubstitute.Core.ICallFactory, System.Func(Of NSubstitute.Core.ICallFactory, System.Threading.Tasks.ValueTask(Of TResult)))
+  name.vb: WhenForAnyArgs(Of ICallFactory, TResult)(ICallFactory, Func(Of ICallFactory, ValueTask(Of TResult)))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.ValueTask{``1}})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.ValueTask{``1}})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.When``1(System.Action{NSubstitute.Core.ICallFactory})
+  commentId: M:NSubstitute.SubstituteExtensions.When``1(``0,System.Action{``0})
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.When``1(``0,System.Action{``0})
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Action___0__
+  name: When<ICallFactory>(ICallFactory, Action<ICallFactory>)
+  nameWithType: SubstituteExtensions.When<ICallFactory>(ICallFactory, Action<ICallFactory>)
+  fullName: NSubstitute.SubstituteExtensions.When<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, System.Action<NSubstitute.Core.ICallFactory>)
+  nameWithType.vb: SubstituteExtensions.When(Of ICallFactory)(ICallFactory, Action(Of ICallFactory))
+  fullName.vb: NSubstitute.SubstituteExtensions.When(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, System.Action(Of NSubstitute.Core.ICallFactory))
+  name.vb: When(Of ICallFactory)(ICallFactory, Action(Of ICallFactory))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.When``1(NSubstitute.Core.ICallFactory,System.Action{NSubstitute.Core.ICallFactory})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Action___0__
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.When``1(NSubstitute.Core.ICallFactory,System.Action{NSubstitute.Core.ICallFactory})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Action___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.When``1(System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.Task})
+  commentId: M:NSubstitute.SubstituteExtensions.When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Func___0_System_Threading_Tasks_Task__
+  name: When<ICallFactory>(ICallFactory, Func<ICallFactory, Task>)
+  nameWithType: SubstituteExtensions.When<ICallFactory>(ICallFactory, Func<ICallFactory, Task>)
+  fullName: NSubstitute.SubstituteExtensions.When<NSubstitute.Core.ICallFactory>(NSubstitute.Core.ICallFactory, System.Func<NSubstitute.Core.ICallFactory, System.Threading.Tasks.Task>)
+  nameWithType.vb: SubstituteExtensions.When(Of ICallFactory)(ICallFactory, Func(Of ICallFactory, Task))
+  fullName.vb: NSubstitute.SubstituteExtensions.When(Of NSubstitute.Core.ICallFactory)(NSubstitute.Core.ICallFactory, System.Func(Of NSubstitute.Core.ICallFactory, System.Threading.Tasks.Task))
+  name.vb: When(Of ICallFactory)(ICallFactory, Func(Of ICallFactory, Task))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.When``1(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.Task})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Func___0_System_Threading_Tasks_Task__
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.When``1(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.Task})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Func___0_System_Threading_Tasks_Task__
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: )
+  - name: )
+- uid: NSubstitute.Core.ICallFactory.NSubstitute.SubstituteExtensions.When``2(System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.ValueTask{{TResult}}})
+  commentId: M:NSubstitute.SubstituteExtensions.When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  parent: NSubstitute.SubstituteExtensions
+  definition: NSubstitute.SubstituteExtensions.When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  name: When<ICallFactory, TResult>(ICallFactory, Func<ICallFactory, ValueTask<TResult>>)
+  nameWithType: SubstituteExtensions.When<ICallFactory, TResult>(ICallFactory, Func<ICallFactory, ValueTask<TResult>>)
+  fullName: NSubstitute.SubstituteExtensions.When<NSubstitute.Core.ICallFactory, TResult>(NSubstitute.Core.ICallFactory, System.Func<NSubstitute.Core.ICallFactory, System.Threading.Tasks.ValueTask<TResult>>)
+  nameWithType.vb: SubstituteExtensions.When(Of ICallFactory, TResult)(ICallFactory, Func(Of ICallFactory, ValueTask(Of TResult)))
+  fullName.vb: NSubstitute.SubstituteExtensions.When(Of NSubstitute.Core.ICallFactory, TResult)(NSubstitute.Core.ICallFactory, System.Func(Of NSubstitute.Core.ICallFactory, System.Threading.Tasks.ValueTask(Of TResult)))
+  name.vb: When(Of ICallFactory, TResult)(ICallFactory, Func(Of ICallFactory, ValueTask(Of TResult)))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.When``2(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.ValueTask{``1}})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.When``2(NSubstitute.Core.ICallFactory,System.Func{NSubstitute.Core.ICallFactory,System.Threading.Tasks.ValueTask{``1}})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    href: NSubstitute.Core.ICallFactory.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: )
+  - name: )
+- uid: System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  definition: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Exception_
+  name: Throws(object, Exception)
+  nameWithType: ExceptionExtensions.Throws(object, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(object, System.Exception)
+  nameWithType.vb: ExceptionExtensions.Throws(Object, Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(Object, System.Exception)
+  name.vb: Throws(Object, Exception)
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Exception_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Exception_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+- uid: System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  definition: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  name: Throws(object, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.Throws(object, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(object, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  nameWithType.vb: ExceptionExtensions.Throws(Object, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(Object, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: Throws(Object, Func(Of CallInfo, Exception))
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  - name: )
+- uid: System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  definition: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Exception_
+  name: ThrowsForAnyArgs(object, Exception)
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs(object, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(object, System.Exception)
+  nameWithType.vb: ExceptionExtensions.ThrowsForAnyArgs(Object, Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(Object, System.Exception)
+  name.vb: ThrowsForAnyArgs(Object, Exception)
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Exception_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Exception_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+- uid: System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  definition: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  name: ThrowsForAnyArgs(object, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs(object, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(object, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  nameWithType.vb: ExceptionExtensions.ThrowsForAnyArgs(Object, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(Object, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsForAnyArgs(Object, Func(Of CallInfo, Exception))
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  - name: )
+- uid: System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  definition: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs__1_System_Object_
+  name: ThrowsForAnyArgs<TException>(object)
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs<TException>(object)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs<TException>(object)
+  nameWithType.vb: ExceptionExtensions.ThrowsForAnyArgs(Of TException)(Object)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(Of TException)(Object)
+  name.vb: ThrowsForAnyArgs(Of TException)(Object)
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs__1_System_Object_
+  - name: <
+  - name: TException
+  - name: '>'
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs__1_System_Object_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TException
+  - name: )
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+  parent: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  definition: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws__1_System_Object_
+  name: Throws<TException>(object)
+  nameWithType: ExceptionExtensions.Throws<TException>(object)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws<TException>(object)
+  nameWithType.vb: ExceptionExtensions.Throws(Of TException)(Object)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(Of TException)(Object)
+  name.vb: Throws(Of TException)(Object)
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws__1_System_Object_
+  - name: <
+  - name: TException
+  - name: '>'
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws__1_System_Object_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TException
+  - name: )
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Func{NSubstitute.Core.CallInfo,{T}})
+  commentId: M:NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,System.Func{NSubstitute.Core.CallInfo,``0})
+  parent: NSubstitute.Extensions.ReturnsForAllExtensions
+  definition: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,System.Func{NSubstitute.Core.CallInfo,``0})
+  href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object_System_Func_NSubstitute_Core_CallInfo___0__
+  name: ReturnsForAll<T>(object, Func<CallInfo, T>)
+  nameWithType: ReturnsForAllExtensions.ReturnsForAll<T>(object, Func<CallInfo, T>)
+  fullName: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll<T>(object, System.Func<NSubstitute.Core.CallInfo, T>)
+  nameWithType.vb: ReturnsForAllExtensions.ReturnsForAll(Of T)(Object, Func(Of CallInfo, T))
+  fullName.vb: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll(Of T)(Object, System.Func(Of NSubstitute.Core.CallInfo, T))
+  name.vb: ReturnsForAll(Of T)(Object, Func(Of CallInfo, T))
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,System.Func{NSubstitute.Core.CallInfo,``0})
+    name: ReturnsForAll
+    href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object_System_Func_NSubstitute_Core_CallInfo___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,System.Func{NSubstitute.Core.CallInfo,``0})
+    name: ReturnsForAll
+    href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object_System_Func_NSubstitute_Core_CallInfo___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Object.NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1({T})
+  commentId: M:NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,``0)
+  parent: NSubstitute.Extensions.ReturnsForAllExtensions
+  definition: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,``0)
+  href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object___0_
+  name: ReturnsForAll<T>(object, T)
+  nameWithType: ReturnsForAllExtensions.ReturnsForAll<T>(object, T)
+  fullName: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll<T>(object, T)
+  nameWithType.vb: ReturnsForAllExtensions.ReturnsForAll(Of T)(Object, T)
+  fullName.vb: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll(Of T)(Object, T)
+  name.vb: ReturnsForAll(Of T)(Object, T)
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,``0)
+    name: ReturnsForAll
+    href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,``0)
+    name: ReturnsForAll
+    href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+  commentId: M:NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+  href: NSubstitute.ClearExtensions.ClearExtensions.html#NSubstitute_ClearExtensions_ClearExtensions_ClearSubstitute__1___0_NSubstitute_ClearOptions_
+  name: ClearSubstitute<T>(T, ClearOptions)
+  nameWithType: ClearExtensions.ClearSubstitute<T>(T, ClearOptions)
+  fullName: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute<T>(T, NSubstitute.ClearOptions)
+  nameWithType.vb: ClearExtensions.ClearSubstitute(Of T)(T, ClearOptions)
+  fullName.vb: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute(Of T)(T, NSubstitute.ClearOptions)
+  name.vb: ClearSubstitute(Of T)(T, ClearOptions)
+  spec.csharp:
+  - uid: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+    name: ClearSubstitute
+    href: NSubstitute.ClearExtensions.ClearExtensions.html#NSubstitute_ClearExtensions_ClearExtensions_ClearSubstitute__1___0_NSubstitute_ClearOptions_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ClearOptions
+    name: ClearOptions
+    href: NSubstitute.ClearOptions.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ClearExtensions.ClearExtensions.ClearSubstitute``1(``0,NSubstitute.ClearOptions)
+    name: ClearSubstitute
+    href: NSubstitute.ClearExtensions.ClearExtensions.html#NSubstitute_ClearExtensions_ClearExtensions_ClearSubstitute__1___0_NSubstitute_ClearOptions_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ClearOptions
+    name: ClearOptions
+    href: NSubstitute.ClearOptions.html
+  - name: )
+- uid: NSubstitute.ClearExtensions.ClearExtensions
+  commentId: T:NSubstitute.ClearExtensions.ClearExtensions
+  parent: NSubstitute.ClearExtensions
+  href: NSubstitute.ClearExtensions.ClearExtensions.html
+  name: ClearExtensions
+  nameWithType: ClearExtensions
+  fullName: NSubstitute.ClearExtensions.ClearExtensions
+- uid: NSubstitute.Extensions.ConfigurationExtensions.Configure``1(``0)
+  commentId: M:NSubstitute.Extensions.ConfigurationExtensions.Configure``1(``0)
+  href: NSubstitute.Extensions.ConfigurationExtensions.html#NSubstitute_Extensions_ConfigurationExtensions_Configure__1___0_
+  name: Configure<T>(T)
+  nameWithType: ConfigurationExtensions.Configure<T>(T)
+  fullName: NSubstitute.Extensions.ConfigurationExtensions.Configure<T>(T)
+  nameWithType.vb: ConfigurationExtensions.Configure(Of T)(T)
+  fullName.vb: NSubstitute.Extensions.ConfigurationExtensions.Configure(Of T)(T)
+  name.vb: Configure(Of T)(T)
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ConfigurationExtensions.Configure``1(``0)
+    name: Configure
+    href: NSubstitute.Extensions.ConfigurationExtensions.html#NSubstitute_Extensions_ConfigurationExtensions_Configure__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ConfigurationExtensions.Configure``1(``0)
+    name: Configure
+    href: NSubstitute.Extensions.ConfigurationExtensions.html#NSubstitute_Extensions_ConfigurationExtensions_Configure__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: NSubstitute.Extensions.ConfigurationExtensions
+  commentId: T:NSubstitute.Extensions.ConfigurationExtensions
+  parent: NSubstitute.Extensions
+  href: NSubstitute.Extensions.ConfigurationExtensions.html
+  name: ConfigurationExtensions
+  nameWithType: ConfigurationExtensions
+  fullName: NSubstitute.Extensions.ConfigurationExtensions
+- uid: NSubstitute.Extensions.ProtectedExtensions.Protected``1(``0,System.String,System.Object[])
+  commentId: M:NSubstitute.Extensions.ProtectedExtensions.Protected``1(``0,System.String,System.Object[])
+  isExternal: true
+  href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_Protected__1___0_System_String_System_Object___
+  name: Protected<T>(T, string, params object[])
+  nameWithType: ProtectedExtensions.Protected<T>(T, string, params object[])
+  fullName: NSubstitute.Extensions.ProtectedExtensions.Protected<T>(T, string, params object[])
+  nameWithType.vb: ProtectedExtensions.Protected(Of T)(T, String, ParamArray Object())
+  fullName.vb: NSubstitute.Extensions.ProtectedExtensions.Protected(Of T)(T, String, ParamArray Object())
+  name.vb: Protected(Of T)(T, String, ParamArray Object())
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ProtectedExtensions.Protected``1(``0,System.String,System.Object[])
+    name: Protected
+    href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_Protected__1___0_System_String_System_Object___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ProtectedExtensions.Protected``1(``0,System.String,System.Object[])
+    name: Protected
+    href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_Protected__1___0_System_String_System_Object___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.Extensions.ProtectedExtensions
+  commentId: T:NSubstitute.Extensions.ProtectedExtensions
+  parent: NSubstitute.Extensions
+  href: NSubstitute.Extensions.ProtectedExtensions.html
+  name: ProtectedExtensions
+  nameWithType: ProtectedExtensions
+  fullName: NSubstitute.Extensions.ProtectedExtensions
+- uid: NSubstitute.Extensions.ProtectedExtensions.When``1(``0,System.String,System.Object[])
+  commentId: M:NSubstitute.Extensions.ProtectedExtensions.When``1(``0,System.String,System.Object[])
+  isExternal: true
+  href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_When__1___0_System_String_System_Object___
+  name: When<T>(T, string, params object[])
+  nameWithType: ProtectedExtensions.When<T>(T, string, params object[])
+  fullName: NSubstitute.Extensions.ProtectedExtensions.When<T>(T, string, params object[])
+  nameWithType.vb: ProtectedExtensions.When(Of T)(T, String, ParamArray Object())
+  fullName.vb: NSubstitute.Extensions.ProtectedExtensions.When(Of T)(T, String, ParamArray Object())
+  name.vb: When(Of T)(T, String, ParamArray Object())
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ProtectedExtensions.When``1(``0,System.String,System.Object[])
+    name: When
+    href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_When__1___0_System_String_System_Object___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ProtectedExtensions.When``1(``0,System.String,System.Object[])
+    name: When
+    href: NSubstitute.Extensions.ProtectedExtensions.html#NSubstitute_Extensions_ProtectedExtensions_When__1___0_System_String_System_Object___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  commentId: M:NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_ReceivedWithAnyArgs__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  name: ReceivedWithAnyArgs<T>(T, Quantity)
+  nameWithType: ReceivedExtensions.ReceivedWithAnyArgs<T>(T, Quantity)
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs<T>(T, NSubstitute.ReceivedExtensions.Quantity)
+  nameWithType.vb: ReceivedExtensions.ReceivedWithAnyArgs(Of T)(T, Quantity)
+  fullName.vb: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs(Of T)(T, NSubstitute.ReceivedExtensions.Quantity)
+  name.vb: ReceivedWithAnyArgs(Of T)(T, Quantity)
+  spec.csharp:
+  - uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_ReceivedWithAnyArgs__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ReceivedExtensions.Quantity
+    name: Quantity
+    href: NSubstitute.ReceivedExtensions.Quantity.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.ReceivedWithAnyArgs``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_ReceivedWithAnyArgs__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ReceivedExtensions.Quantity
+    name: Quantity
+    href: NSubstitute.ReceivedExtensions.Quantity.html
+  - name: )
+- uid: NSubstitute.ReceivedExtensions.ReceivedExtensions
+  commentId: T:NSubstitute.ReceivedExtensions.ReceivedExtensions
+  parent: NSubstitute.ReceivedExtensions
+  href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html
+  name: ReceivedExtensions
+  nameWithType: ReceivedExtensions
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions
+- uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  commentId: M:NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+  href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_Received__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  name: Received<T>(T, Quantity)
+  nameWithType: ReceivedExtensions.Received<T>(T, Quantity)
+  fullName: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received<T>(T, NSubstitute.ReceivedExtensions.Quantity)
+  nameWithType.vb: ReceivedExtensions.Received(Of T)(T, Quantity)
+  fullName.vb: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received(Of T)(T, NSubstitute.ReceivedExtensions.Quantity)
+  name.vb: Received(Of T)(T, Quantity)
+  spec.csharp:
+  - uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+    name: Received
+    href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_Received__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ReceivedExtensions.Quantity
+    name: Quantity
+    href: NSubstitute.ReceivedExtensions.Quantity.html
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ReceivedExtensions.ReceivedExtensions.Received``1(``0,NSubstitute.ReceivedExtensions.Quantity)
+    name: Received
+    href: NSubstitute.ReceivedExtensions.ReceivedExtensions.html#NSubstitute_ReceivedExtensions_ReceivedExtensions_Received__1___0_NSubstitute_ReceivedExtensions_Quantity_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: NSubstitute.ReceivedExtensions.Quantity
+    name: Quantity
+    href: NSubstitute.ReceivedExtensions.Quantity.html
+  - name: )
+- uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1(``0)
+  commentId: M:NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1(``0)
+  href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNullForAnyArgs__1___0_
+  name: ReturnsNullForAnyArgs<T>(T)
+  nameWithType: ReturnsExtensions.ReturnsNullForAnyArgs<T>(T)
+  fullName: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs<T>(T)
+  nameWithType.vb: ReturnsExtensions.ReturnsNullForAnyArgs(Of T)(T)
+  fullName.vb: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs(Of T)(T)
+  name.vb: ReturnsNullForAnyArgs(Of T)(T)
+  spec.csharp:
+  - uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1(``0)
+    name: ReturnsNullForAnyArgs
+    href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNullForAnyArgs__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNullForAnyArgs``1(``0)
+    name: ReturnsNullForAnyArgs
+    href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNullForAnyArgs__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: NSubstitute.ReturnsExtensions.ReturnsExtensions
+  commentId: T:NSubstitute.ReturnsExtensions.ReturnsExtensions
+  parent: NSubstitute.ReturnsExtensions
+  href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html
+  name: ReturnsExtensions
+  nameWithType: ReturnsExtensions
+  fullName: NSubstitute.ReturnsExtensions.ReturnsExtensions
+- uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1(``0)
+  commentId: M:NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1(``0)
+  href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNull__1___0_
+  name: ReturnsNull<T>(T)
+  nameWithType: ReturnsExtensions.ReturnsNull<T>(T)
+  fullName: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull<T>(T)
+  nameWithType.vb: ReturnsExtensions.ReturnsNull(Of T)(T)
+  fullName.vb: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull(Of T)(T)
+  name.vb: ReturnsNull(Of T)(T)
+  spec.csharp:
+  - uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1(``0)
+    name: ReturnsNull
+    href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNull__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ReturnsExtensions.ReturnsExtensions.ReturnsNull``1(``0)
+    name: ReturnsNull
+    href: NSubstitute.ReturnsExtensions.ReturnsExtensions.html#NSubstitute_ReturnsExtensions_ReturnsExtensions_ReturnsNull__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ClearReceivedCalls__1___0_
+  name: ClearReceivedCalls<T>(T)
+  nameWithType: SubstituteExtensions.ClearReceivedCalls<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.ClearReceivedCalls<T>(T)
+  nameWithType.vb: SubstituteExtensions.ClearReceivedCalls(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.ClearReceivedCalls(Of T)(T)
+  name.vb: ClearReceivedCalls(Of T)(T)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(``0)
+    name: ClearReceivedCalls
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ClearReceivedCalls__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ClearReceivedCalls``1(``0)
+    name: ClearReceivedCalls
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ClearReceivedCalls__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: NSubstitute.SubstituteExtensions
+  commentId: T:NSubstitute.SubstituteExtensions
+  parent: NSubstitute
+  href: NSubstitute.SubstituteExtensions.html
+  name: SubstituteExtensions
+  nameWithType: SubstituteExtensions
+  fullName: NSubstitute.SubstituteExtensions
+- uid: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceiveWithAnyArgs__1___0_
+  name: DidNotReceiveWithAnyArgs<T>(T)
+  nameWithType: SubstituteExtensions.DidNotReceiveWithAnyArgs<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs<T>(T)
+  nameWithType.vb: SubstituteExtensions.DidNotReceiveWithAnyArgs(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs(Of T)(T)
+  name.vb: DidNotReceiveWithAnyArgs(Of T)(T)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(``0)
+    name: DidNotReceiveWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceiveWithAnyArgs__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.DidNotReceiveWithAnyArgs``1(``0)
+    name: DidNotReceiveWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceiveWithAnyArgs__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.DidNotReceive``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.DidNotReceive``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceive__1___0_
+  name: DidNotReceive<T>(T)
+  nameWithType: SubstituteExtensions.DidNotReceive<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.DidNotReceive<T>(T)
+  nameWithType.vb: SubstituteExtensions.DidNotReceive(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.DidNotReceive(Of T)(T)
+  name.vb: DidNotReceive(Of T)(T)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.DidNotReceive``1(``0)
+    name: DidNotReceive
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceive__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.DidNotReceive``1(``0)
+    name: DidNotReceive
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_DidNotReceive__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.ReceivedCalls``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.ReceivedCalls``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedCalls__1___0_
+  name: ReceivedCalls<T>(T)
+  nameWithType: SubstituteExtensions.ReceivedCalls<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.ReceivedCalls<T>(T)
+  nameWithType.vb: SubstituteExtensions.ReceivedCalls(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.ReceivedCalls(Of T)(T)
+  name.vb: ReceivedCalls(Of T)(T)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedCalls``1(``0)
+    name: ReceivedCalls
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedCalls__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedCalls``1(``0)
+    name: ReceivedCalls
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedCalls__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_
+  name: ReceivedWithAnyArgs<T>(T)
+  nameWithType: SubstituteExtensions.ReceivedWithAnyArgs<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs<T>(T)
+  nameWithType.vb: SubstituteExtensions.ReceivedWithAnyArgs(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs(Of T)(T)
+  name.vb: ReceivedWithAnyArgs(Of T)(T)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0,System.Int32)
+  commentId: M:NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0,System.Int32)
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_System_Int32_
+  name: ReceivedWithAnyArgs<T>(T, int)
+  nameWithType: SubstituteExtensions.ReceivedWithAnyArgs<T>(T, int)
+  fullName: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs<T>(T, int)
+  nameWithType.vb: SubstituteExtensions.ReceivedWithAnyArgs(Of T)(T, Integer)
+  fullName.vb: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs(Of T)(T, Integer)
+  name.vb: ReceivedWithAnyArgs(Of T)(T, Integer)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0,System.Int32)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_System_Int32_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReceivedWithAnyArgs``1(``0,System.Int32)
+    name: ReceivedWithAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReceivedWithAnyArgs__1___0_System_Int32_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.Received``1(``0)
+  commentId: M:NSubstitute.SubstituteExtensions.Received``1(``0)
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_
+  name: Received<T>(T)
+  nameWithType: SubstituteExtensions.Received<T>(T)
+  fullName: NSubstitute.SubstituteExtensions.Received<T>(T)
+  nameWithType.vb: SubstituteExtensions.Received(Of T)(T)
+  fullName.vb: NSubstitute.SubstituteExtensions.Received(Of T)(T)
+  name.vb: Received(Of T)(T)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.Received``1(``0)
+    name: Received
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.Received``1(``0)
+    name: Received
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.Received``1(``0,System.Int32)
+  commentId: M:NSubstitute.SubstituteExtensions.Received``1(``0,System.Int32)
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_System_Int32_
+  name: Received<T>(T, int)
+  nameWithType: SubstituteExtensions.Received<T>(T, int)
+  fullName: NSubstitute.SubstituteExtensions.Received<T>(T, int)
+  nameWithType.vb: SubstituteExtensions.Received(Of T)(T, Integer)
+  fullName.vb: NSubstitute.SubstituteExtensions.Received(Of T)(T, Integer)
+  name.vb: Received(Of T)(T, Integer)
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.Received``1(``0,System.Int32)
+    name: Received
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_System_Int32_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.Received``1(``0,System.Int32)
+    name: Received
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Received__1___0_System_Int32_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,``0,``0[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,``0,``0[])
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0___0___0___
+  name: ReturnsForAnyArgs<T>(T, T, params T[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<T>(T, T, params T[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<T>(T, T, params T[])
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of T)(T, T, ParamArray T())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of T)(T, T, ParamArray T())
+  name.vb: ReturnsForAnyArgs(Of T)(T, T, ParamArray T())
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,``0,``0[])
+    name: ReturnsForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0___0___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,``0,``0[])
+    name: ReturnsForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0___0___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  commentId: M:NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  name: ReturnsForAnyArgs<T>(T, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  nameWithType: SubstituteExtensions.ReturnsForAnyArgs<T>(T, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  fullName: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs<T>(T, System.Func<NSubstitute.Core.CallInfo, T>, params System.Func<NSubstitute.Core.CallInfo, T>[])
+  nameWithType.vb: SubstituteExtensions.ReturnsForAnyArgs(Of T)(T, Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  fullName.vb: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs(Of T)(T, System.Func(Of NSubstitute.Core.CallInfo, T), ParamArray System.Func(Of NSubstitute.Core.CallInfo, T)())
+  name.vb: ReturnsForAnyArgs(Of T)(T, Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+    name: ReturnsForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.ReturnsForAnyArgs``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+    name: ReturnsForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_ReturnsForAnyArgs__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.Returns``1(``0,``0,``0[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(``0,``0,``0[])
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0___0___0___
+  name: Returns<T>(T, T, params T[])
+  nameWithType: SubstituteExtensions.Returns<T>(T, T, params T[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<T>(T, T, params T[])
+  nameWithType.vb: SubstituteExtensions.Returns(Of T)(T, T, ParamArray T())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of T)(T, T, ParamArray T())
+  name.vb: Returns(Of T)(T, T, ParamArray T())
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.Returns``1(``0,``0,``0[])
+    name: Returns
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0___0___0___
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - name: T
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.Returns``1(``0,``0,``0[])
+    name: Returns
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0___0___0___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - name: T
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  commentId: M:NSubstitute.SubstituteExtensions.Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  name: Returns<T>(T, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  nameWithType: SubstituteExtensions.Returns<T>(T, Func<CallInfo, T>, params Func<CallInfo, T>[])
+  fullName: NSubstitute.SubstituteExtensions.Returns<T>(T, System.Func<NSubstitute.Core.CallInfo, T>, params System.Func<NSubstitute.Core.CallInfo, T>[])
+  nameWithType.vb: SubstituteExtensions.Returns(Of T)(T, Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  fullName.vb: NSubstitute.SubstituteExtensions.Returns(Of T)(T, System.Func(Of NSubstitute.Core.CallInfo, T), ParamArray System.Func(Of NSubstitute.Core.CallInfo, T)())
+  name.vb: Returns(Of T)(T, Func(Of CallInfo, T), ParamArray Func(Of CallInfo, T)())
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+    name: Returns
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.Returns``1(``0,System.Func{NSubstitute.Core.CallInfo,``0},System.Func{NSubstitute.Core.CallInfo,``0}[])
+    name: Returns
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_Returns__1___0_System_Func_NSubstitute_Core_CallInfo___0__System_Func_NSubstitute_Core_CallInfo___0____
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Action{``0})
+  commentId: M:NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Action{``0})
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Action___0__
+  name: WhenForAnyArgs<T>(T, Action<T>)
+  nameWithType: SubstituteExtensions.WhenForAnyArgs<T>(T, Action<T>)
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs<T>(T, System.Action<T>)
+  nameWithType.vb: SubstituteExtensions.WhenForAnyArgs(Of T)(T, Action(Of T))
+  fullName.vb: NSubstitute.SubstituteExtensions.WhenForAnyArgs(Of T)(T, System.Action(Of T))
+  name.vb: WhenForAnyArgs(Of T)(T, Action(Of T))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Action{``0})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Action___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Action{``0})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Action___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  commentId: M:NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Func___0_System_Threading_Tasks_Task__
+  name: WhenForAnyArgs<T>(T, Func<T, Task>)
+  nameWithType: SubstituteExtensions.WhenForAnyArgs<T>(T, Func<T, Task>)
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs<T>(T, System.Func<T, System.Threading.Tasks.Task>)
+  nameWithType.vb: SubstituteExtensions.WhenForAnyArgs(Of T)(T, Func(Of T, Task))
+  fullName.vb: NSubstitute.SubstituteExtensions.WhenForAnyArgs(Of T)(T, System.Func(Of T, System.Threading.Tasks.Task))
+  name.vb: WhenForAnyArgs(Of T)(T, Func(Of T, Task))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Func___0_System_Threading_Tasks_Task__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__1___0_System_Func___0_System_Threading_Tasks_Task__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  commentId: M:NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  name: WhenForAnyArgs<TSubstitute, TResult>(TSubstitute, Func<TSubstitute, ValueTask<TResult>>)
+  nameWithType: SubstituteExtensions.WhenForAnyArgs<TSubstitute, TResult>(TSubstitute, Func<TSubstitute, ValueTask<TResult>>)
+  fullName: NSubstitute.SubstituteExtensions.WhenForAnyArgs<TSubstitute, TResult>(TSubstitute, System.Func<TSubstitute, System.Threading.Tasks.ValueTask<TResult>>)
+  nameWithType.vb: SubstituteExtensions.WhenForAnyArgs(Of TSubstitute, TResult)(TSubstitute, Func(Of TSubstitute, ValueTask(Of TResult)))
+  fullName.vb: NSubstitute.SubstituteExtensions.WhenForAnyArgs(Of TSubstitute, TResult)(TSubstitute, System.Func(Of TSubstitute, System.Threading.Tasks.ValueTask(Of TResult)))
+  name.vb: WhenForAnyArgs(Of TSubstitute, TResult)(TSubstitute, Func(Of TSubstitute, ValueTask(Of TResult)))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  - name: <
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.WhenForAnyArgs``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+    name: WhenForAnyArgs
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_WhenForAnyArgs__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.When``1(``0,System.Action{``0})
+  commentId: M:NSubstitute.SubstituteExtensions.When``1(``0,System.Action{``0})
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Action___0__
+  name: When<T>(T, Action<T>)
+  nameWithType: SubstituteExtensions.When<T>(T, Action<T>)
+  fullName: NSubstitute.SubstituteExtensions.When<T>(T, System.Action<T>)
+  nameWithType.vb: SubstituteExtensions.When(Of T)(T, Action(Of T))
+  fullName.vb: NSubstitute.SubstituteExtensions.When(Of T)(T, System.Action(Of T))
+  name.vb: When(Of T)(T, Action(Of T))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.When``1(``0,System.Action{``0})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Action___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.When``1(``0,System.Action{``0})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Action___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  commentId: M:NSubstitute.SubstituteExtensions.When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Func___0_System_Threading_Tasks_Task__
+  name: When<T>(T, Func<T, Task>)
+  nameWithType: SubstituteExtensions.When<T>(T, Func<T, Task>)
+  fullName: NSubstitute.SubstituteExtensions.When<T>(T, System.Func<T, System.Threading.Tasks.Task>)
+  nameWithType.vb: SubstituteExtensions.When(Of T)(T, Func(Of T, Task))
+  fullName.vb: NSubstitute.SubstituteExtensions.When(Of T)(T, System.Func(Of T, System.Threading.Tasks.Task))
+  name.vb: When(Of T)(T, Func(Of T, Task))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Func___0_System_Threading_Tasks_Task__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.When``1(``0,System.Func{``0,System.Threading.Tasks.Task})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__1___0_System_Func___0_System_Threading_Tasks_Task__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: )
+  - name: )
+- uid: NSubstitute.SubstituteExtensions.When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  commentId: M:NSubstitute.SubstituteExtensions.When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+  isExternal: true
+  href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  name: When<TSubstitute, TResult>(TSubstitute, Func<TSubstitute, ValueTask<TResult>>)
+  nameWithType: SubstituteExtensions.When<TSubstitute, TResult>(TSubstitute, Func<TSubstitute, ValueTask<TResult>>)
+  fullName: NSubstitute.SubstituteExtensions.When<TSubstitute, TResult>(TSubstitute, System.Func<TSubstitute, System.Threading.Tasks.ValueTask<TResult>>)
+  nameWithType.vb: SubstituteExtensions.When(Of TSubstitute, TResult)(TSubstitute, Func(Of TSubstitute, ValueTask(Of TResult)))
+  fullName.vb: NSubstitute.SubstituteExtensions.When(Of TSubstitute, TResult)(TSubstitute, System.Func(Of TSubstitute, System.Threading.Tasks.ValueTask(Of TResult)))
+  name.vb: When(Of TSubstitute, TResult)(TSubstitute, Func(Of TSubstitute, ValueTask(Of TResult)))
+  spec.csharp:
+  - uid: NSubstitute.SubstituteExtensions.When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  - name: <
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  - name: (
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.SubstituteExtensions.When``2(``0,System.Func{``0,System.Threading.Tasks.ValueTask{``1}})
+    name: When
+    href: NSubstitute.SubstituteExtensions.html#NSubstitute_SubstituteExtensions_When__2___0_System_Func___0_System_Threading_Tasks_ValueTask___1___
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: (
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TSubstitute
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.ValueTask`1
+    name: ValueTask
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+  - name: )
+  - name: )
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+  isExternal: true
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Exception_
+  name: Throws(object, Exception)
+  nameWithType: ExceptionExtensions.Throws(object, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(object, System.Exception)
+  nameWithType.vb: ExceptionExtensions.Throws(Object, Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(Object, System.Exception)
+  name.vb: Throws(Object, Exception)
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Exception_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Exception)
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Exception_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions
+  commentId: T:NSubstitute.ExceptionExtensions.ExceptionExtensions
+  parent: NSubstitute.ExceptionExtensions
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html
+  name: ExceptionExtensions
+  nameWithType: ExceptionExtensions
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExternal: true
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  name: Throws(object, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.Throws(object, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(object, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  nameWithType.vb: ExceptionExtensions.Throws(Object, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(Object, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: Throws(Object, Func(Of CallInfo, Exception))
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  - name: )
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+  isExternal: true
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Exception_
+  name: ThrowsForAnyArgs(object, Exception)
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs(object, Exception)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(object, System.Exception)
+  nameWithType.vb: ExceptionExtensions.ThrowsForAnyArgs(Object, Exception)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(Object, System.Exception)
+  name.vb: ThrowsForAnyArgs(Object, Exception)
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Exception_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Exception)
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Exception_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+  isExternal: true
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  name: ThrowsForAnyArgs(object, Func<CallInfo, Exception>)
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs(object, Func<CallInfo, Exception>)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(object, System.Func<NSubstitute.Core.CallInfo, System.Exception>)
+  nameWithType.vb: ExceptionExtensions.ThrowsForAnyArgs(Object, Func(Of CallInfo, Exception))
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(Object, System.Func(Of NSubstitute.Core.CallInfo, System.Exception))
+  name.vb: ThrowsForAnyArgs(Object, Func(Of CallInfo, Exception))
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(System.Object,System.Func{NSubstitute.Core.CallInfo,System.Exception})
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs_System_Object_System_Func_NSubstitute_Core_CallInfo_System_Exception__
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  - name: )
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+  isExternal: true
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs__1_System_Object_
+  name: ThrowsForAnyArgs<TException>(object)
+  nameWithType: ExceptionExtensions.ThrowsForAnyArgs<TException>(object)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs<TException>(object)
+  nameWithType.vb: ExceptionExtensions.ThrowsForAnyArgs(Of TException)(Object)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs(Of TException)(Object)
+  name.vb: ThrowsForAnyArgs(Of TException)(Object)
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs__1_System_Object_
+  - name: <
+  - name: TException
+  - name: '>'
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.ThrowsForAnyArgs``1(System.Object)
+    name: ThrowsForAnyArgs
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_ThrowsForAnyArgs__1_System_Object_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TException
+  - name: )
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+  commentId: M:NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+  isExternal: true
+  href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws__1_System_Object_
+  name: Throws<TException>(object)
+  nameWithType: ExceptionExtensions.Throws<TException>(object)
+  fullName: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws<TException>(object)
+  nameWithType.vb: ExceptionExtensions.Throws(Of TException)(Object)
+  fullName.vb: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws(Of TException)(Object)
+  name.vb: Throws(Of TException)(Object)
+  spec.csharp:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws__1_System_Object_
+  - name: <
+  - name: TException
+  - name: '>'
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions.Throws``1(System.Object)
+    name: Throws
+    href: NSubstitute.ExceptionExtensions.ExceptionExtensions.html#NSubstitute_ExceptionExtensions_ExceptionExtensions_Throws__1_System_Object_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TException
+  - name: )
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,System.Func{NSubstitute.Core.CallInfo,``0})
+  commentId: M:NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,System.Func{NSubstitute.Core.CallInfo,``0})
+  isExternal: true
+  href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object_System_Func_NSubstitute_Core_CallInfo___0__
+  name: ReturnsForAll<T>(object, Func<CallInfo, T>)
+  nameWithType: ReturnsForAllExtensions.ReturnsForAll<T>(object, Func<CallInfo, T>)
+  fullName: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll<T>(object, System.Func<NSubstitute.Core.CallInfo, T>)
+  nameWithType.vb: ReturnsForAllExtensions.ReturnsForAll(Of T)(Object, Func(Of CallInfo, T))
+  fullName.vb: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll(Of T)(Object, System.Func(Of NSubstitute.Core.CallInfo, T))
+  name.vb: ReturnsForAll(Of T)(Object, Func(Of CallInfo, T))
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,System.Func{NSubstitute.Core.CallInfo,``0})
+    name: ReturnsForAll
+    href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object_System_Func_NSubstitute_Core_CallInfo___0__
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,System.Func{NSubstitute.Core.CallInfo,``0})
+    name: ReturnsForAll
+    href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object_System_Func_NSubstitute_Core_CallInfo___0__
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    href: NSubstitute.Core.CallInfo.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: NSubstitute.Extensions.ReturnsForAllExtensions
+  commentId: T:NSubstitute.Extensions.ReturnsForAllExtensions
+  parent: NSubstitute.Extensions
+  href: NSubstitute.Extensions.ReturnsForAllExtensions.html
+  name: ReturnsForAllExtensions
+  nameWithType: ReturnsForAllExtensions
+  fullName: NSubstitute.Extensions.ReturnsForAllExtensions
+- uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,``0)
+  commentId: M:NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,``0)
+  isExternal: true
+  href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object___0_
+  name: ReturnsForAll<T>(object, T)
+  nameWithType: ReturnsForAllExtensions.ReturnsForAll<T>(object, T)
+  fullName: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll<T>(object, T)
+  nameWithType.vb: ReturnsForAllExtensions.ReturnsForAll(Of T)(Object, T)
+  fullName.vb: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll(Of T)(Object, T)
+  name.vb: ReturnsForAll(Of T)(Object, T)
+  spec.csharp:
+  - uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,``0)
+    name: ReturnsForAll
+    href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: NSubstitute.Extensions.ReturnsForAllExtensions.ReturnsForAll``1(System.Object,``0)
+    name: ReturnsForAll
+    href: NSubstitute.Extensions.ReturnsForAllExtensions.html#NSubstitute_Extensions_ReturnsForAllExtensions_ReturnsForAll__1_System_Object___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.ClearExtensions
+  commentId: N:NSubstitute.ClearExtensions
+  href: NSubstitute.html
+  name: NSubstitute.ClearExtensions
+  nameWithType: NSubstitute.ClearExtensions
+  fullName: NSubstitute.ClearExtensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ClearExtensions
+    name: ClearExtensions
+    href: NSubstitute.ClearExtensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ClearExtensions
+    name: ClearExtensions
+    href: NSubstitute.ClearExtensions.html
+- uid: NSubstitute.Extensions
+  commentId: N:NSubstitute.Extensions
+  href: NSubstitute.html
+  name: NSubstitute.Extensions
+  nameWithType: NSubstitute.Extensions
+  fullName: NSubstitute.Extensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Extensions
+    name: Extensions
+    href: NSubstitute.Extensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Extensions
+    name: Extensions
+    href: NSubstitute.Extensions.html
+- uid: NSubstitute.ReceivedExtensions
+  commentId: N:NSubstitute.ReceivedExtensions
+  href: NSubstitute.html
+  name: NSubstitute.ReceivedExtensions
+  nameWithType: NSubstitute.ReceivedExtensions
+  fullName: NSubstitute.ReceivedExtensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ReceivedExtensions
+    name: ReceivedExtensions
+    href: NSubstitute.ReceivedExtensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ReceivedExtensions
+    name: ReceivedExtensions
+    href: NSubstitute.ReceivedExtensions.html
+- uid: NSubstitute.ReturnsExtensions
+  commentId: N:NSubstitute.ReturnsExtensions
+  href: NSubstitute.html
+  name: NSubstitute.ReturnsExtensions
+  nameWithType: NSubstitute.ReturnsExtensions
+  fullName: NSubstitute.ReturnsExtensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ReturnsExtensions
+    name: ReturnsExtensions
+    href: NSubstitute.ReturnsExtensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ReturnsExtensions
+    name: ReturnsExtensions
+    href: NSubstitute.ReturnsExtensions.html
+- uid: NSubstitute
+  commentId: N:NSubstitute
+  href: NSubstitute.html
+  name: NSubstitute
+  nameWithType: NSubstitute
+  fullName: NSubstitute
+- uid: NSubstitute.ExceptionExtensions
+  commentId: N:NSubstitute.ExceptionExtensions
+  href: NSubstitute.html
+  name: NSubstitute.ExceptionExtensions
+  nameWithType: NSubstitute.ExceptionExtensions
+  fullName: NSubstitute.ExceptionExtensions
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ExceptionExtensions
+    name: ExceptionExtensions
+    href: NSubstitute.ExceptionExtensions.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.ExceptionExtensions
+    name: ExceptionExtensions
+    href: NSubstitute.ExceptionExtensions.html
+- uid: NSubstitute.Core.ICallFactory.Create*
+  commentId: Overload:NSubstitute.Core.ICallFactory.Create
+  href: NSubstitute.Core.ICallFactory.html#NSubstitute_Core_ICallFactory_Create_System_Reflection_MethodInfo_System_Object___System_Object_System_Collections_Generic_IList_NSubstitute_Core_Arguments_IArgumentSpecification__System_Func_System_Object__
+  name: Create
+  nameWithType: ICallFactory.Create
+  fullName: NSubstitute.Core.ICallFactory.Create
+- uid: System.Reflection.MethodInfo
+  commentId: T:System.Reflection.MethodInfo
+  parent: System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.reflection.methodinfo
+  name: MethodInfo
+  nameWithType: MethodInfo
+  fullName: System.Reflection.MethodInfo
+- uid: System.Object[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object[]
+  nameWithType: object[]
+  fullName: object[]
+  nameWithType.vb: Object()
+  fullName.vb: Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification}
+  commentId: T:System.Collections.Generic.IList{NSubstitute.Core.Arguments.IArgumentSpecification}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  name: IList<IArgumentSpecification>
+  nameWithType: IList<IArgumentSpecification>
+  fullName: System.Collections.Generic.IList<NSubstitute.Core.Arguments.IArgumentSpecification>
+  nameWithType.vb: IList(Of IArgumentSpecification)
+  fullName.vb: System.Collections.Generic.IList(Of NSubstitute.Core.Arguments.IArgumentSpecification)
+  name.vb: IList(Of IArgumentSpecification)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: <
+  - uid: NSubstitute.Core.Arguments.IArgumentSpecification
+    name: IArgumentSpecification
+    href: NSubstitute.Core.Arguments.IArgumentSpecification.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: NSubstitute.Core.Arguments.IArgumentSpecification
+    name: IArgumentSpecification
+    href: NSubstitute.Core.Arguments.IArgumentSpecification.html
+  - name: )
+- uid: System.Func{System.Object}
+  commentId: T:System.Func{System.Object}
+  parent: System
+  definition: System.Func`1
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<object>
+  nameWithType: Func<object>
+  fullName: System.Func<object>
+  nameWithType.vb: Func(Of Object)
+  fullName.vb: System.Func(Of Object)
+  name.vb: Func(Of Object)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: NSubstitute.Core.ICall
+  commentId: T:NSubstitute.Core.ICall
+  parent: NSubstitute.Core
+  href: NSubstitute.Core.ICall.html
+  name: ICall
+  nameWithType: ICall
+  fullName: NSubstitute.Core.ICall
+- uid: System.Reflection
+  commentId: N:System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Reflection
+  nameWithType: System.Reflection
+  fullName: System.Reflection
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Reflection
+    name: Reflection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Reflection
+    name: Reflection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.IList`1
+  commentId: T:System.Collections.Generic.IList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  name: IList<T>
+  nameWithType: IList<T>
+  fullName: System.Collections.Generic.IList<T>
+  nameWithType.vb: IList(Of T)
+  fullName.vb: System.Collections.Generic.IList(Of T)
+  name.vb: IList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )

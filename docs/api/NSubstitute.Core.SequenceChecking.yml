@@ -1,0 +1,37 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Core.SequenceChecking
+  commentId: N:NSubstitute.Core.SequenceChecking
+  id: NSubstitute.Core.SequenceChecking
+  children:
+  - NSubstitute.Core.SequenceChecking.InstanceTracker
+  - NSubstitute.Core.SequenceChecking.SequenceFormatter
+  - NSubstitute.Core.SequenceChecking.SequenceInOrderAssertion
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Core.SequenceChecking
+  nameWithType: NSubstitute.Core.SequenceChecking
+  fullName: NSubstitute.Core.SequenceChecking
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Core.SequenceChecking.InstanceTracker
+  commentId: T:NSubstitute.Core.SequenceChecking.InstanceTracker
+  href: NSubstitute.Core.SequenceChecking.InstanceTracker.html
+  name: InstanceTracker
+  nameWithType: InstanceTracker
+  fullName: NSubstitute.Core.SequenceChecking.InstanceTracker
+- uid: NSubstitute.Core.SequenceChecking.SequenceFormatter
+  commentId: T:NSubstitute.Core.SequenceChecking.SequenceFormatter
+  href: NSubstitute.Core.SequenceChecking.SequenceFormatter.html
+  name: SequenceFormatter
+  nameWithType: SequenceFormatter
+  fullName: NSubstitute.Core.SequenceChecking.SequenceFormatter
+- uid: NSubstitute.Core.SequenceChecking.SequenceInOrderAssertion
+  commentId: T:NSubstitute.Core.SequenceChecking.SequenceInOrderAssertion
+  href: NSubstitute.Core.SequenceChecking.SequenceInOrderAssertion.html
+  name: SequenceInOrderAssertion
+  nameWithType: SequenceInOrderAssertion
+  fullName: NSubstitute.Core.SequenceChecking.SequenceInOrderAssertion

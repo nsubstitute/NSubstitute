@@ -1,0 +1,108 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Core.Events
+  commentId: N:NSubstitute.Core.Events
+  id: NSubstitute.Core.Events
+  children:
+  - NSubstitute.Core.Events.DelegateEventWrapper`1
+  - NSubstitute.Core.Events.EventHandlerWrapper`1
+  - NSubstitute.Core.Events.RaiseEventWrapper
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Core.Events
+  nameWithType: NSubstitute.Core.Events
+  fullName: NSubstitute.Core.Events
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Core.Events.DelegateEventWrapper`1
+  commentId: T:NSubstitute.Core.Events.DelegateEventWrapper`1
+  parent: NSubstitute.Core.Events
+  href: NSubstitute.Core.Events.DelegateEventWrapper-1.html
+  name: DelegateEventWrapper<T>
+  nameWithType: DelegateEventWrapper<T>
+  fullName: NSubstitute.Core.Events.DelegateEventWrapper<T>
+  nameWithType.vb: DelegateEventWrapper(Of T)
+  fullName.vb: NSubstitute.Core.Events.DelegateEventWrapper(Of T)
+  name.vb: DelegateEventWrapper(Of T)
+  spec.csharp:
+  - uid: NSubstitute.Core.Events.DelegateEventWrapper`1
+    name: DelegateEventWrapper
+    href: NSubstitute.Core.Events.DelegateEventWrapper-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Events.DelegateEventWrapper`1
+    name: DelegateEventWrapper
+    href: NSubstitute.Core.Events.DelegateEventWrapper-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+  commentId: T:NSubstitute.Core.Events.EventHandlerWrapper`1
+  parent: NSubstitute.Core.Events
+  href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  name: EventHandlerWrapper<TEventArgs>
+  nameWithType: EventHandlerWrapper<TEventArgs>
+  fullName: NSubstitute.Core.Events.EventHandlerWrapper<TEventArgs>
+  nameWithType.vb: EventHandlerWrapper(Of TEventArgs)
+  fullName.vb: NSubstitute.Core.Events.EventHandlerWrapper(Of TEventArgs)
+  name.vb: EventHandlerWrapper(Of TEventArgs)
+  spec.csharp:
+  - uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+    name: EventHandlerWrapper
+    href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  spec.vb:
+  - uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+    name: EventHandlerWrapper
+    href: NSubstitute.Core.Events.EventHandlerWrapper-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+- uid: NSubstitute.Core.Events.RaiseEventWrapper
+  commentId: T:NSubstitute.Core.Events.RaiseEventWrapper
+  parent: NSubstitute.Core.Events
+  href: NSubstitute.Core.Events.RaiseEventWrapper.html
+  name: RaiseEventWrapper
+  nameWithType: RaiseEventWrapper
+  fullName: NSubstitute.Core.Events.RaiseEventWrapper
+- uid: NSubstitute.Core.Events
+  commentId: N:NSubstitute.Core.Events
+  href: NSubstitute.html
+  name: NSubstitute.Core.Events
+  nameWithType: NSubstitute.Core.Events
+  fullName: NSubstitute.Core.Events
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.Events
+    name: Events
+    href: NSubstitute.Core.Events.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Core
+    name: Core
+    href: NSubstitute.Core.html
+  - name: .
+  - uid: NSubstitute.Core.Events
+    name: Events
+    href: NSubstitute.Core.Events.html

@@ -1,0 +1,708 @@
+### YamlMime:TableOfContent
+items:
+- uid: NSubstitute
+  name: NSubstitute
+  type: Namespace
+  items:
+  - uid: NSubstitute.Arg
+    name: Arg
+    type: Class
+  - uid: NSubstitute.Arg.AnyType
+    name: Arg.AnyType
+    type: Interface
+  - uid: NSubstitute.Arg.Compat
+    name: Arg.Compat
+    type: Class
+  - uid: NSubstitute.Callback
+    name: Callback
+    type: Class
+  - uid: NSubstitute.ClearOptions
+    name: ClearOptions
+    type: Enum
+  - uid: NSubstitute.Raise
+    name: Raise
+    type: Class
+  - uid: NSubstitute.Received
+    name: Received
+    type: Class
+  - uid: NSubstitute.Substitute
+    name: Substitute
+    type: Class
+  - uid: NSubstitute.SubstituteExtensions
+    name: SubstituteExtensions
+    type: Class
+- uid: NSubstitute.Callbacks
+  name: NSubstitute.Callbacks
+  type: Namespace
+  items:
+  - uid: NSubstitute.Callbacks.ConfiguredCallback
+    name: ConfiguredCallback
+    type: Class
+  - uid: NSubstitute.Callbacks.EndCallbackChain
+    name: EndCallbackChain
+    type: Class
+- uid: NSubstitute.ClearExtensions
+  name: NSubstitute.ClearExtensions
+  type: Namespace
+  items:
+  - uid: NSubstitute.ClearExtensions.ClearExtensions
+    name: ClearExtensions
+    type: Class
+- uid: NSubstitute.Compatibility
+  name: NSubstitute.Compatibility
+  type: Namespace
+  items:
+  - uid: NSubstitute.Compatibility.CompatArg
+    name: CompatArg
+    type: Class
+- uid: NSubstitute.Core
+  name: NSubstitute.Core
+  type: Namespace
+  items:
+  - uid: NSubstitute.Core.Argument
+    name: Argument
+    type: Class
+  - uid: NSubstitute.Core.ArgumentSpecificationDequeue
+    name: ArgumentSpecificationDequeue
+    type: Class
+  - uid: NSubstitute.Core.Call
+    name: Call
+    type: Class
+  - uid: NSubstitute.Core.CallActions
+    name: CallActions
+    type: Class
+  - uid: NSubstitute.Core.CallBaseConfiguration
+    name: CallBaseConfiguration
+    type: Class
+  - uid: NSubstitute.Core.CallCollection
+    name: CallCollection
+    type: Class
+  - uid: NSubstitute.Core.CallFactory
+    name: CallFactory
+    type: Class
+  - uid: NSubstitute.Core.CallFormatter
+    name: CallFormatter
+    type: Class
+  - uid: NSubstitute.Core.CallHandlerFactory
+    name: CallHandlerFactory
+    type: Delegate
+  - uid: NSubstitute.Core.CallInfo
+    name: CallInfo
+    type: Class
+  - uid: NSubstitute.Core.CallInfoFactory
+    name: CallInfoFactory
+    type: Class
+  - uid: NSubstitute.Core.CallResults
+    name: CallResults
+    type: Class
+  - uid: NSubstitute.Core.CallRouter
+    name: CallRouter
+    type: Class
+  - uid: NSubstitute.Core.CallRouterFactory
+    name: CallRouterFactory
+    type: Class
+  - uid: NSubstitute.Core.CallRouterResolver
+    name: CallRouterResolver
+    type: Class
+  - uid: NSubstitute.Core.CallSpecAndTarget
+    name: CallSpecAndTarget
+    type: Class
+  - uid: NSubstitute.Core.CallSpecification
+    name: CallSpecification
+    type: Class
+  - uid: NSubstitute.Core.CallSpecificationFactory
+    name: CallSpecificationFactory
+    type: Class
+  - uid: NSubstitute.Core.ConfigureCall
+    name: ConfigureCall
+    type: Class
+  - uid: NSubstitute.Core.ConfiguredCall
+    name: ConfiguredCall
+    type: Class
+  - uid: NSubstitute.Core.CustomHandlers
+    name: CustomHandlers
+    type: Class
+  - uid: NSubstitute.Core.DefaultForType
+    name: DefaultForType
+    type: Class
+  - uid: NSubstitute.Core.EventCallFormatter
+    name: EventCallFormatter
+    type: Class
+  - uid: NSubstitute.Core.EventHandlerRegistry
+    name: EventHandlerRegistry
+    type: Class
+  - uid: NSubstitute.Core.GetCallSpec
+    name: GetCallSpec
+    type: Class
+  - uid: NSubstitute.Core.IArgumentSpecificationDequeue
+    name: IArgumentSpecificationDequeue
+    type: Interface
+  - uid: NSubstitute.Core.ICall
+    name: ICall
+    type: Interface
+  - uid: NSubstitute.Core.ICallActions
+    name: ICallActions
+    type: Interface
+  - uid: NSubstitute.Core.ICallBaseConfiguration
+    name: ICallBaseConfiguration
+    type: Interface
+  - uid: NSubstitute.Core.ICallCollection
+    name: ICallCollection
+    type: Interface
+  - uid: NSubstitute.Core.ICallFactory
+    name: ICallFactory
+    type: Interface
+  - uid: NSubstitute.Core.ICallHandler
+    name: ICallHandler
+    type: Interface
+  - uid: NSubstitute.Core.ICallInfoFactory
+    name: ICallInfoFactory
+    type: Interface
+  - uid: NSubstitute.Core.ICallResults
+    name: ICallResults
+    type: Interface
+  - uid: NSubstitute.Core.ICallRouter
+    name: ICallRouter
+    type: Interface
+  - uid: NSubstitute.Core.ICallRouterFactory
+    name: ICallRouterFactory
+    type: Interface
+  - uid: NSubstitute.Core.ICallRouterProvider
+    name: ICallRouterProvider
+    type: Interface
+  - uid: NSubstitute.Core.ICallRouterResolver
+    name: ICallRouterResolver
+    type: Interface
+  - uid: NSubstitute.Core.ICallSpecification
+    name: ICallSpecification
+    type: Interface
+  - uid: NSubstitute.Core.ICallSpecificationFactory
+    name: ICallSpecificationFactory
+    type: Interface
+  - uid: NSubstitute.Core.IConfigureCall
+    name: IConfigureCall
+    type: Interface
+  - uid: NSubstitute.Core.ICustomHandlers
+    name: ICustomHandlers
+    type: Interface
+  - uid: NSubstitute.Core.IDefaultForType
+    name: IDefaultForType
+    type: Interface
+  - uid: NSubstitute.Core.IDescribeNonMatches
+    name: IDescribeNonMatches
+    type: Interface
+  - uid: NSubstitute.Core.IDescribeSpecification
+    name: IDescribeSpecification
+    type: Interface
+  - uid: NSubstitute.Core.IEventHandlerRegistry
+    name: IEventHandlerRegistry
+    type: Interface
+  - uid: NSubstitute.Core.IGetCallSpec
+    name: IGetCallSpec
+    type: Interface
+  - uid: NSubstitute.Core.IMethodInfoFormatter
+    name: IMethodInfoFormatter
+    type: Interface
+  - uid: NSubstitute.Core.IParameterInfo
+    name: IParameterInfo
+    type: Interface
+  - uid: NSubstitute.Core.IPendingSpecification
+    name: IPendingSpecification
+    type: Interface
+  - uid: NSubstitute.Core.IPropertyHelper
+    name: IPropertyHelper
+    type: Interface
+  - uid: NSubstitute.Core.IProxyFactory
+    name: IProxyFactory
+    type: Interface
+  - uid: NSubstitute.Core.IQuery
+    name: IQuery
+    type: Interface
+  - uid: NSubstitute.Core.IQueryResults
+    name: IQueryResults
+    type: Interface
+  - uid: NSubstitute.Core.IReceivedCallsExceptionThrower
+    name: IReceivedCallsExceptionThrower
+    type: Interface
+  - uid: NSubstitute.Core.IResultsForType
+    name: IResultsForType
+    type: Interface
+  - uid: NSubstitute.Core.IReturn
+    name: IReturn
+    type: Interface
+  - uid: NSubstitute.Core.ISubstituteFactory
+    name: ISubstituteFactory
+    type: Interface
+  - uid: NSubstitute.Core.ISubstituteState
+    name: ISubstituteState
+    type: Interface
+  - uid: NSubstitute.Core.ISubstituteStateFactory
+    name: ISubstituteStateFactory
+    type: Interface
+  - uid: NSubstitute.Core.ISubstitutionContext
+    name: ISubstitutionContext
+    type: Interface
+  - uid: NSubstitute.Core.IThreadLocalContext
+    name: IThreadLocalContext
+    type: Interface
+  - uid: NSubstitute.Core.MatchArgs
+    name: MatchArgs
+    type: Class
+  - uid: NSubstitute.Core.Maybe
+    name: Maybe
+    type: Class
+  - uid: NSubstitute.Core.Maybe`1
+    name: Maybe<T>
+    type: Struct
+  - uid: NSubstitute.Core.MethodFormatter
+    name: MethodFormatter
+    type: Class
+  - uid: NSubstitute.Core.PendingSpecificationInfo
+    name: PendingSpecificationInfo
+    type: Class
+  - uid: NSubstitute.Core.PropertyCallFormatter
+    name: PropertyCallFormatter
+    type: Class
+  - uid: NSubstitute.Core.PropertyHelper
+    name: PropertyHelper
+    type: Class
+  - uid: NSubstitute.Core.Query
+    name: Query
+    type: Class
+  - uid: NSubstitute.Core.ReceivedCallsExceptionThrower
+    name: ReceivedCallsExceptionThrower
+    type: Class
+  - uid: NSubstitute.Core.ReflectionExtensions
+    name: ReflectionExtensions
+    type: Class
+  - uid: NSubstitute.Core.ResultsForType
+    name: ResultsForType
+    type: Class
+  - uid: NSubstitute.Core.ReturnMultipleFuncsValues`1
+    name: ReturnMultipleFuncsValues<T>
+    type: Class
+  - uid: NSubstitute.Core.ReturnMultipleValues`1
+    name: ReturnMultipleValues<T>
+    type: Class
+  - uid: NSubstitute.Core.ReturnValue
+    name: ReturnValue
+    type: Class
+  - uid: NSubstitute.Core.ReturnValueFromFunc`1
+    name: ReturnValueFromFunc<T>
+    type: Class
+  - uid: NSubstitute.Core.RouteAction
+    name: RouteAction
+    type: Class
+  - uid: NSubstitute.Core.RouteFactoryCacheWrapper
+    name: RouteFactoryCacheWrapper
+    type: Class
+  - uid: NSubstitute.Core.SequenceNumberGenerator
+    name: SequenceNumberGenerator
+    type: Class
+  - uid: NSubstitute.Core.SubstituteFactory
+    name: SubstituteFactory
+    type: Class
+  - uid: NSubstitute.Core.SubstituteState
+    name: SubstituteState
+    type: Class
+  - uid: NSubstitute.Core.SubstituteStateFactory
+    name: SubstituteStateFactory
+    type: Class
+  - uid: NSubstitute.Core.SubstitutionContext
+    name: SubstitutionContext
+    type: Class
+  - uid: NSubstitute.Core.ThreadLocalContext
+    name: ThreadLocalContext
+    type: Class
+  - uid: NSubstitute.Core.WhenCalled`1
+    name: WhenCalled<T>
+    type: Class
+- uid: NSubstitute.Core.Arguments
+  name: NSubstitute.Core.Arguments
+  type: Namespace
+  items:
+  - uid: NSubstitute.Core.Arguments.AnyArgumentMatcher
+    name: AnyArgumentMatcher
+    type: Class
+  - uid: NSubstitute.Core.Arguments.ArgumentFormatter
+    name: ArgumentFormatter
+    type: Class
+  - uid: NSubstitute.Core.Arguments.ArgumentMatchInfo
+    name: ArgumentMatchInfo
+    type: Class
+  - uid: NSubstitute.Core.Arguments.ArgumentMatcher
+    name: ArgumentMatcher
+    type: Class
+  - uid: NSubstitute.Core.Arguments.ArgumentSpecification
+    name: ArgumentSpecification
+    type: Class
+  - uid: NSubstitute.Core.Arguments.ArgumentSpecificationCompatibilityTester
+    name: ArgumentSpecificationCompatibilityTester
+    type: Class
+  - uid: NSubstitute.Core.Arguments.ArgumentSpecificationFactory
+    name: ArgumentSpecificationFactory
+    type: Class
+  - uid: NSubstitute.Core.Arguments.ArgumentSpecificationsFactory
+    name: ArgumentSpecificationsFactory
+    type: Class
+  - uid: NSubstitute.Core.Arguments.ArrayContentsArgumentMatcher
+    name: ArrayContentsArgumentMatcher
+    type: Class
+  - uid: NSubstitute.Core.Arguments.DefaultChecker
+    name: DefaultChecker
+    type: Class
+  - uid: NSubstitute.Core.Arguments.EqualsArgumentMatcher
+    name: EqualsArgumentMatcher
+    type: Class
+  - uid: NSubstitute.Core.Arguments.ExpressionArgumentMatcher`1
+    name: ExpressionArgumentMatcher<T>
+    type: Class
+  - uid: NSubstitute.Core.Arguments.IArgumentFormatter
+    name: IArgumentFormatter
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.IArgumentMatcher
+    name: IArgumentMatcher
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.IArgumentMatcher`1
+    name: IArgumentMatcher<T>
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.IArgumentSpecification
+    name: IArgumentSpecification
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.IArgumentSpecificationCompatibilityTester
+    name: IArgumentSpecificationCompatibilityTester
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.IArgumentSpecificationFactory
+    name: IArgumentSpecificationFactory
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.IArgumentSpecificationsFactory
+    name: IArgumentSpecificationsFactory
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.IDefaultChecker
+    name: IDefaultChecker
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.ISuppliedArgumentSpecifications
+    name: ISuppliedArgumentSpecifications
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.ISuppliedArgumentSpecificationsFactory
+    name: ISuppliedArgumentSpecificationsFactory
+    type: Interface
+  - uid: NSubstitute.Core.Arguments.SuppliedArgumentSpecifications
+    name: SuppliedArgumentSpecifications
+    type: Class
+  - uid: NSubstitute.Core.Arguments.SuppliedArgumentSpecificationsFactory
+    name: SuppliedArgumentSpecificationsFactory
+    type: Class
+- uid: NSubstitute.Core.DependencyInjection
+  name: NSubstitute.Core.DependencyInjection
+  type: Namespace
+  items:
+  - uid: NSubstitute.Core.DependencyInjection.ConfigurableNSubContainerExtensions
+    name: ConfigurableNSubContainerExtensions
+    type: Class
+  - uid: NSubstitute.Core.DependencyInjection.IConfigurableNSubContainer
+    name: IConfigurableNSubContainer
+    type: Interface
+  - uid: NSubstitute.Core.DependencyInjection.INSubContainer
+    name: INSubContainer
+    type: Interface
+  - uid: NSubstitute.Core.DependencyInjection.INSubResolver
+    name: INSubResolver
+    type: Interface
+  - uid: NSubstitute.Core.DependencyInjection.NSubContainer
+    name: NSubContainer
+    type: Class
+  - uid: NSubstitute.Core.DependencyInjection.NSubLifetime
+    name: NSubLifetime
+    type: Enum
+  - uid: NSubstitute.Core.DependencyInjection.NSubstituteDefaultFactory
+    name: NSubstituteDefaultFactory
+    type: Class
+- uid: NSubstitute.Core.Events
+  name: NSubstitute.Core.Events
+  type: Namespace
+  items:
+  - uid: NSubstitute.Core.Events.DelegateEventWrapper`1
+    name: DelegateEventWrapper<T>
+    type: Class
+  - uid: NSubstitute.Core.Events.EventHandlerWrapper`1
+    name: EventHandlerWrapper<TEventArgs>
+    type: Class
+  - uid: NSubstitute.Core.Events.RaiseEventWrapper
+    name: RaiseEventWrapper
+    type: Class
+- uid: NSubstitute.Core.SequenceChecking
+  name: NSubstitute.Core.SequenceChecking
+  type: Namespace
+  items:
+  - uid: NSubstitute.Core.SequenceChecking.InstanceTracker
+    name: InstanceTracker
+    type: Class
+  - uid: NSubstitute.Core.SequenceChecking.SequenceFormatter
+    name: SequenceFormatter
+    type: Class
+  - uid: NSubstitute.Core.SequenceChecking.SequenceInOrderAssertion
+    name: SequenceInOrderAssertion
+    type: Class
+- uid: NSubstitute.ExceptionExtensions
+  name: NSubstitute.ExceptionExtensions
+  type: Namespace
+  items:
+  - uid: NSubstitute.ExceptionExtensions.ExceptionExtensions
+    name: ExceptionExtensions
+    type: Class
+- uid: NSubstitute.Exceptions
+  name: NSubstitute.Exceptions
+  type: Namespace
+  items:
+  - uid: NSubstitute.Exceptions.AmbiguousArgumentsException
+    name: AmbiguousArgumentsException
+    type: Class
+  - uid: NSubstitute.Exceptions.ArgumentIsNotOutOrRefException
+    name: ArgumentIsNotOutOrRefException
+    type: Class
+  - uid: NSubstitute.Exceptions.ArgumentNotFoundException
+    name: ArgumentNotFoundException
+    type: Class
+  - uid: NSubstitute.Exceptions.ArgumentSetWithIncompatibleValueException
+    name: ArgumentSetWithIncompatibleValueException
+    type: Class
+  - uid: NSubstitute.Exceptions.CallSequenceNotFoundException
+    name: CallSequenceNotFoundException
+    type: Class
+  - uid: NSubstitute.Exceptions.CanNotForwardCallsToAbstractClassException
+    name: CanNotForwardCallsToAbstractClassException
+    type: Class
+  - uid: NSubstitute.Exceptions.CanNotForwardCallsToClassNotImplementingInterfaceException
+    name: CanNotForwardCallsToClassNotImplementingInterfaceException
+    type: Class
+  - uid: NSubstitute.Exceptions.CanNotPartiallySubForInterfaceOrDelegateException
+    name: CanNotPartiallySubForInterfaceOrDelegateException
+    type: Class
+  - uid: NSubstitute.Exceptions.CannotCreateEventArgsException
+    name: CannotCreateEventArgsException
+    type: Class
+  - uid: NSubstitute.Exceptions.CannotReturnNullForValueType
+    name: CannotReturnNullForValueType
+    type: Class
+  - uid: NSubstitute.Exceptions.CouldNotConfigureCallBaseException
+    name: CouldNotConfigureCallBaseException
+    type: Class
+  - uid: NSubstitute.Exceptions.CouldNotRaiseEventException
+    name: CouldNotRaiseEventException
+    type: Class
+  - uid: NSubstitute.Exceptions.CouldNotSetReturnDueToMissingInfoAboutLastCallException
+    name: CouldNotSetReturnDueToMissingInfoAboutLastCallException
+    type: Class
+  - uid: NSubstitute.Exceptions.CouldNotSetReturnDueToNoLastCallException
+    name: CouldNotSetReturnDueToNoLastCallException
+    type: Class
+  - uid: NSubstitute.Exceptions.CouldNotSetReturnDueToTypeMismatchException
+    name: CouldNotSetReturnDueToTypeMismatchException
+    type: Class
+  - uid: NSubstitute.Exceptions.CouldNotSetReturnException
+    name: CouldNotSetReturnException
+    type: Class
+  - uid: NSubstitute.Exceptions.MissingSequenceNumberException
+    name: MissingSequenceNumberException
+    type: Class
+  - uid: NSubstitute.Exceptions.NotASubstituteException
+    name: NotASubstituteException
+    type: Class
+  - uid: NSubstitute.Exceptions.NotRunningAQueryException
+    name: NotRunningAQueryException
+    type: Class
+  - uid: NSubstitute.Exceptions.NullSubstituteReferenceException
+    name: NullSubstituteReferenceException
+    type: Class
+  - uid: NSubstitute.Exceptions.ProtectedMethodNotFoundException
+    name: ProtectedMethodNotFoundException
+    type: Class
+  - uid: NSubstitute.Exceptions.ProtectedMethodNotVirtualException
+    name: ProtectedMethodNotVirtualException
+    type: Class
+  - uid: NSubstitute.Exceptions.ReceivedCallsException
+    name: ReceivedCallsException
+    type: Class
+  - uid: NSubstitute.Exceptions.RedundantArgumentMatcherException
+    name: RedundantArgumentMatcherException
+    type: Class
+  - uid: NSubstitute.Exceptions.SubstituteException
+    name: SubstituteException
+    type: Class
+  - uid: NSubstitute.Exceptions.SubstituteInternalException
+    name: SubstituteInternalException
+    type: Class
+  - uid: NSubstitute.Exceptions.TypeForwardingException
+    name: TypeForwardingException
+    type: Class
+  - uid: NSubstitute.Exceptions.UnexpectedArgumentMatcherException
+    name: UnexpectedArgumentMatcherException
+    type: Class
+- uid: NSubstitute.Extensions
+  name: NSubstitute.Extensions
+  type: Namespace
+  items:
+  - uid: NSubstitute.Extensions.ConfigurationExtensions
+    name: ConfigurationExtensions
+    type: Class
+  - uid: NSubstitute.Extensions.ProtectedExtensions
+    name: ProtectedExtensions
+    type: Class
+  - uid: NSubstitute.Extensions.ReturnsForAllExtensions
+    name: ReturnsForAllExtensions
+    type: Class
+- uid: NSubstitute.Proxies.CastleDynamicProxy
+  name: NSubstitute.Proxies.CastleDynamicProxy
+  type: Namespace
+  items:
+  - uid: NSubstitute.Proxies.CastleDynamicProxy.CastleDynamicProxyFactory
+    name: CastleDynamicProxyFactory
+    type: Class
+  - uid: NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor
+    name: CastleForwardingInterceptor
+    type: Class
+  - uid: NSubstitute.Proxies.CastleDynamicProxy.CastleInvocationMapper
+    name: CastleInvocationMapper
+    type: Class
+  - uid: NSubstitute.Proxies.CastleDynamicProxy.ProxyIdInterceptor
+    name: ProxyIdInterceptor
+    type: Class
+- uid: NSubstitute.ReceivedExtensions
+  name: NSubstitute.ReceivedExtensions
+  type: Namespace
+  items:
+  - uid: NSubstitute.ReceivedExtensions.Quantity
+    name: Quantity
+    type: Class
+  - uid: NSubstitute.ReceivedExtensions.ReceivedExtensions
+    name: ReceivedExtensions
+    type: Class
+- uid: NSubstitute.ReturnsExtensions
+  name: NSubstitute.ReturnsExtensions
+  type: Namespace
+  items:
+  - uid: NSubstitute.ReturnsExtensions.ReturnsExtensions
+    name: ReturnsExtensions
+    type: Class
+- uid: NSubstitute.Routing
+  name: NSubstitute.Routing
+  type: Namespace
+  items:
+  - uid: NSubstitute.Routing.IRoute
+    name: IRoute
+    type: Interface
+  - uid: NSubstitute.Routing.IRouteFactory
+    name: IRouteFactory
+    type: Interface
+  - uid: NSubstitute.Routing.Route
+    name: Route
+    type: Class
+  - uid: NSubstitute.Routing.RouteFactory
+    name: RouteFactory
+    type: Class
+- uid: NSubstitute.Routing.AutoValues
+  name: NSubstitute.Routing.AutoValues
+  type: Namespace
+  items:
+  - uid: NSubstitute.Routing.AutoValues.AutoArrayProvider
+    name: AutoArrayProvider
+    type: Class
+  - uid: NSubstitute.Routing.AutoValues.AutoObservableProvider
+    name: AutoObservableProvider
+    type: Class
+  - uid: NSubstitute.Routing.AutoValues.AutoQueryableProvider
+    name: AutoQueryableProvider
+    type: Class
+  - uid: NSubstitute.Routing.AutoValues.AutoStringProvider
+    name: AutoStringProvider
+    type: Class
+  - uid: NSubstitute.Routing.AutoValues.AutoSubstituteProvider
+    name: AutoSubstituteProvider
+    type: Class
+  - uid: NSubstitute.Routing.AutoValues.AutoTaskProvider
+    name: AutoTaskProvider
+    type: Class
+  - uid: NSubstitute.Routing.AutoValues.AutoValueProvidersFactory
+    name: AutoValueProvidersFactory
+    type: Class
+  - uid: NSubstitute.Routing.AutoValues.IAutoValueProvider
+    name: IAutoValueProvider
+    type: Interface
+  - uid: NSubstitute.Routing.AutoValues.IAutoValueProvidersFactory
+    name: IAutoValueProvidersFactory
+    type: Interface
+- uid: NSubstitute.Routing.Handlers
+  name: NSubstitute.Routing.Handlers
+  type: Namespace
+  items:
+  - uid: NSubstitute.Routing.Handlers.AddCallToQueryResultHandler
+    name: AddCallToQueryResultHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.AutoValueBehaviour
+    name: AutoValueBehaviour
+    type: Enum
+  - uid: NSubstitute.Routing.Handlers.CallBaseForCallHandler
+    name: CallBaseForCallHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.CheckReceivedCallsHandler
+    name: CheckReceivedCallsHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ClearLastCallRouterHandler
+    name: ClearLastCallRouterHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ClearUnusedCallSpecHandler
+    name: ClearUnusedCallSpecHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.DoActionsCallHandler
+    name: DoActionsCallHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.DoNotCallBaseForCallHandler
+    name: DoNotCallBaseForCallHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.EventSubscriptionHandler
+    name: EventSubscriptionHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.PropertySetterHandler
+    name: PropertySetterHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.RaiseEventHandler
+    name: RaiseEventHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.RecordCallHandler
+    name: RecordCallHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.RecordCallSpecificationHandler
+    name: RecordCallSpecificationHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ReturnAutoValue
+    name: ReturnAutoValue
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ReturnConfiguredResultHandler
+    name: ReturnConfiguredResultHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ReturnDefaultForReturnTypeHandler
+    name: ReturnDefaultForReturnTypeHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall
+    name: ReturnFromAndConfigureDynamicCall
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ReturnFromAndConfigureDynamicCall.DynamicStub
+    name: ReturnFromAndConfigureDynamicCall.DynamicStub
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ReturnFromBaseIfRequired
+    name: ReturnFromBaseIfRequired
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ReturnFromCustomHandlers
+    name: ReturnFromCustomHandlers
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.ReturnResultForTypeHandler
+    name: ReturnResultForTypeHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.SetActionForCallHandler
+    name: SetActionForCallHandler
+    type: Class
+  - uid: NSubstitute.Routing.Handlers.TrackLastCallHandler
+    name: TrackLastCallHandler
+    type: Class
+memberLayout: SamePage

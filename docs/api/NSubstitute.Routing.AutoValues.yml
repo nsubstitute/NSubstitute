@@ -1,0 +1,111 @@
+### YamlMime:ManagedReference
+items:
+- uid: NSubstitute.Routing.AutoValues
+  commentId: N:NSubstitute.Routing.AutoValues
+  id: NSubstitute.Routing.AutoValues
+  children:
+  - NSubstitute.Routing.AutoValues.AutoArrayProvider
+  - NSubstitute.Routing.AutoValues.AutoObservableProvider
+  - NSubstitute.Routing.AutoValues.AutoQueryableProvider
+  - NSubstitute.Routing.AutoValues.AutoStringProvider
+  - NSubstitute.Routing.AutoValues.AutoSubstituteProvider
+  - NSubstitute.Routing.AutoValues.AutoTaskProvider
+  - NSubstitute.Routing.AutoValues.AutoValueProvidersFactory
+  - NSubstitute.Routing.AutoValues.IAutoValueProvider
+  - NSubstitute.Routing.AutoValues.IAutoValueProvidersFactory
+  langs:
+  - csharp
+  - vb
+  name: NSubstitute.Routing.AutoValues
+  nameWithType: NSubstitute.Routing.AutoValues
+  fullName: NSubstitute.Routing.AutoValues
+  type: Namespace
+  assemblies:
+  - NSubstitute
+references:
+- uid: NSubstitute.Routing.AutoValues.AutoArrayProvider
+  commentId: T:NSubstitute.Routing.AutoValues.AutoArrayProvider
+  href: NSubstitute.Routing.AutoValues.AutoArrayProvider.html
+  name: AutoArrayProvider
+  nameWithType: AutoArrayProvider
+  fullName: NSubstitute.Routing.AutoValues.AutoArrayProvider
+- uid: NSubstitute.Routing.AutoValues.AutoObservableProvider
+  commentId: T:NSubstitute.Routing.AutoValues.AutoObservableProvider
+  href: NSubstitute.Routing.AutoValues.AutoObservableProvider.html
+  name: AutoObservableProvider
+  nameWithType: AutoObservableProvider
+  fullName: NSubstitute.Routing.AutoValues.AutoObservableProvider
+- uid: NSubstitute.Routing.AutoValues.AutoQueryableProvider
+  commentId: T:NSubstitute.Routing.AutoValues.AutoQueryableProvider
+  href: NSubstitute.Routing.AutoValues.AutoQueryableProvider.html
+  name: AutoQueryableProvider
+  nameWithType: AutoQueryableProvider
+  fullName: NSubstitute.Routing.AutoValues.AutoQueryableProvider
+- uid: NSubstitute.Routing.AutoValues.AutoStringProvider
+  commentId: T:NSubstitute.Routing.AutoValues.AutoStringProvider
+  href: NSubstitute.Routing.AutoValues.AutoStringProvider.html
+  name: AutoStringProvider
+  nameWithType: AutoStringProvider
+  fullName: NSubstitute.Routing.AutoValues.AutoStringProvider
+- uid: NSubstitute.Routing.AutoValues.AutoSubstituteProvider
+  commentId: T:NSubstitute.Routing.AutoValues.AutoSubstituteProvider
+  href: NSubstitute.Routing.AutoValues.AutoSubstituteProvider.html
+  name: AutoSubstituteProvider
+  nameWithType: AutoSubstituteProvider
+  fullName: NSubstitute.Routing.AutoValues.AutoSubstituteProvider
+- uid: NSubstitute.Routing.AutoValues.AutoTaskProvider
+  commentId: T:NSubstitute.Routing.AutoValues.AutoTaskProvider
+  href: NSubstitute.Routing.AutoValues.AutoTaskProvider.html
+  name: AutoTaskProvider
+  nameWithType: AutoTaskProvider
+  fullName: NSubstitute.Routing.AutoValues.AutoTaskProvider
+- uid: NSubstitute.Routing.AutoValues.AutoValueProvidersFactory
+  commentId: T:NSubstitute.Routing.AutoValues.AutoValueProvidersFactory
+  href: NSubstitute.Routing.AutoValues.AutoValueProvidersFactory.html
+  name: AutoValueProvidersFactory
+  nameWithType: AutoValueProvidersFactory
+  fullName: NSubstitute.Routing.AutoValues.AutoValueProvidersFactory
+- uid: NSubstitute.Routing.AutoValues.IAutoValueProvider
+  commentId: T:NSubstitute.Routing.AutoValues.IAutoValueProvider
+  parent: NSubstitute.Routing.AutoValues
+  href: NSubstitute.Routing.AutoValues.IAutoValueProvider.html
+  name: IAutoValueProvider
+  nameWithType: IAutoValueProvider
+  fullName: NSubstitute.Routing.AutoValues.IAutoValueProvider
+- uid: NSubstitute.Routing.AutoValues.IAutoValueProvidersFactory
+  commentId: T:NSubstitute.Routing.AutoValues.IAutoValueProvidersFactory
+  parent: NSubstitute.Routing.AutoValues
+  href: NSubstitute.Routing.AutoValues.IAutoValueProvidersFactory.html
+  name: IAutoValueProvidersFactory
+  nameWithType: IAutoValueProvidersFactory
+  fullName: NSubstitute.Routing.AutoValues.IAutoValueProvidersFactory
+- uid: NSubstitute.Routing.AutoValues
+  commentId: N:NSubstitute.Routing.AutoValues
+  href: NSubstitute.html
+  name: NSubstitute.Routing.AutoValues
+  nameWithType: NSubstitute.Routing.AutoValues
+  fullName: NSubstitute.Routing.AutoValues
+  spec.csharp:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Routing
+    name: Routing
+    href: NSubstitute.Routing.html
+  - name: .
+  - uid: NSubstitute.Routing.AutoValues
+    name: AutoValues
+    href: NSubstitute.Routing.AutoValues.html
+  spec.vb:
+  - uid: NSubstitute
+    name: NSubstitute
+    href: NSubstitute.html
+  - name: .
+  - uid: NSubstitute.Routing
+    name: Routing
+    href: NSubstitute.Routing.html
+  - name: .
+  - uid: NSubstitute.Routing.AutoValues
+    name: AutoValues
+    href: NSubstitute.Routing.AutoValues.html
