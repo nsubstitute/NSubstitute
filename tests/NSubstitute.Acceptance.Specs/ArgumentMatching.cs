@@ -866,6 +866,26 @@ public class ArgumentMatching
         Assert.That(outArg, Is.EqualTo(4));
     }
 
+    [Test]
+    public void Any_on_struct_with_default_constructor_should_work()
+    {
+        var something = Substitute.For<IWithStructWithDefaultConstructor>();
+        Assert.DoesNotThrow(() => something.MethodWithStruct(Arg.Any<StructWithDefaultConstructor>()));
+    }
+
+    public struct StructWithDefaultConstructor
+    {
+        public int Value { get; set; }
+        public StructWithDefaultConstructor() {
+            Value = 42;
+        }
+    }
+
+    public interface IWithStructWithDefaultConstructor
+    {
+        void MethodWithStruct(StructWithDefaultConstructor arg);
+    }
+
     [SetUp]
     public void SetUp()
     {
