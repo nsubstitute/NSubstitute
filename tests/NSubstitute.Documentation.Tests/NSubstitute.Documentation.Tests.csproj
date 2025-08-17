@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFrameworks>net9.0;net8.0;net462</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <EnableNUnitRunner>true</EnableNUnitRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
     <PackageReference Include="NUnit" Version="4.3.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
   </ItemGroup>
@@ -17,9 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\NSubstitute\NSubstitute.csproj" />
 
-    <ProjectReference Include="..\NSubstitute.Documentation.Tests.Generator\NSubstitute.Documentation.Tests.Generator.csproj"
-                      OutputItemType="Analyzer"
-                      ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\NSubstitute.Documentation.Tests.Generator\NSubstitute.Documentation.Tests.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
