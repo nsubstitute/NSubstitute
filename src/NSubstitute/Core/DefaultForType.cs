@@ -46,6 +46,15 @@ public class DefaultForType : IDefaultForType
             return BoxedDouble;
         }
 
-        return Activator.CreateInstance(returnType)!;
+        // Need to have a special case for Nullable<T> to return null.
+        if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Nullable<>))
+        {
+            return null!;
+        }
+#if NET5_0_OR_GREATER
+        return System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(returnType);
+#else
+        return System.Runtime.Serialization.FormatterServices.GetUninitializedObject(returnType);
+#endif
     }
 }
