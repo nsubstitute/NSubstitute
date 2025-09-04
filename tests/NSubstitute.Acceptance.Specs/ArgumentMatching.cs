@@ -876,7 +876,8 @@ public class ArgumentMatching
     public struct StructWithDefaultConstructor
     {
         public int Value { get; set; }
-        public StructWithDefaultConstructor() {
+        public StructWithDefaultConstructor()
+        {
             Value = 42;
         }
     }
