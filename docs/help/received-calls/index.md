@@ -31,7 +31,7 @@ public void Should_execute_command() {
 }
 ```
 
-In this case `command` did receive a call to `Execute()`, and so will complete successfully. If `Execute()` has not been received NSubstitute will throw a `ReceivedCallsException` and let you know what call was expected and with which arguments, as well as listing actual calls to that method and which the arguments differed.
+In this case `command` did receive a call to `Execute()`, and so will complete successfully. If `Execute()` has not been received NSubstitute will throw a `ReceivedCallsException` and let you know what call was expected and with which arguments, as well as listing actual calls to that method and which of the arguments differed.
 
 ## Check a call was not received
 NSubstitute can also make sure a call was not received using the `DidNotReceive()` extension method.
