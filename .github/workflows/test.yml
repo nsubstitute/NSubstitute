@@ -10,10 +10,6 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macOS-latest]
-        framework: [net9.0, net8.0]
-        include:
-          - os: windows-latest
-            framework: net462
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -30,8 +26,15 @@ jobs:
       - name: Build
         run: dotnet build
 
-      - name: Test
-        run: dotnet test -f ${{ matrix.framework }} --no-build --no-restore
+      - name: .NET Framework Tests
+        if: matrix.os == 'windows-latest'
+        run: dotnet test -f net462 --no-build --no-restore
+
+      - name: .NET 8 Tests
+        run: dotnet test -f net8.0 --no-build --no-restore
+
+      - name: .NET 9 Tests
+        run: dotnet test -f net9.0 --no-build --no-restore
 
   format-verify:
     runs-on: ubuntu-latest
