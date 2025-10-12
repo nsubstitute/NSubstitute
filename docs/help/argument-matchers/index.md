@@ -67,6 +67,7 @@ formatter.DidNotReceive().Format(Arg.Any<int>());
 ```
 
 ## Conditionally matching an argument
+
 An argument of type `T` can be conditionally matched using `Arg.Is<T>(Predicate<T> condition)`.
 
 ```csharp
@@ -93,6 +94,27 @@ Assert.That(formatter.Format("not matched, too long"), Is.Not.EqualTo("matched")
 // our condition. NSubstitute will assume it does not match and swallow the exception.
 Assert.That(formatter.Format(null), Is.Not.EqualTo("matched"));
 ```
+
+_[Since v6.0; .NET6 and above]_ An argument of type `T` can also be conditionally matched using `ArgMatchers.Matching`.
+
+```csharp
+#if NET6_0_OR_GREATER
+
+// With `using static NSubstitute.ArgMatchers`
+calculator.Add(1, -10);
+
+//Received call with first arg 1 and second arg less than 0:
+calculator.Received().Add(1, Arg.Is(Matching<int>(x => x < 0)));
+//Received call with first arg 1 and second arg of -2, -5, or -10:
+calculator
+    .Received()
+    .Add(1, Arg.Is(Matching<int>(x => new[] {-2,-5,-10}.Contains(x))));
+//Did not receive call with first arg greater than 10:
+calculator.DidNotReceive().Add(Arg.Is(Matching<int>(x => x > 10)), -10);
+
+#endif
+```
+
 
 ## Matching a specific argument
 An argument of type `T` can be matched using `Arg.Is<T>(T value)`.
@@ -126,6 +148,49 @@ Assert.That(memoryValue, Is.EqualTo(42));
 ```
 
 See [Setting out and ref args](/help/setting-out-and-ref-arguments/) for more information on working with `out` and `ref`.
+
+## Custom argument matchers
+
+_[Since v6.0]_
+
+Custom argument matching logic can be provided by implementing the  `IArgumentMatcher<T>` interface in the `NSubstitute.Core.Arguments` namespace. Ideally custom matchers should also implement `NSubstitute.Core.IDescribeSpecification`, which explains what conditions an argument needs to meet to match the required condition, and `NSubstitute.Core.IDescribeNonMatches`, which provides an explanation about why a specific argument does not match.
+
+Custom argument matchers can be used via `Arg.Is(IArgumentMatcher<T>)`.
+
+For example:
+
+```csharp
+class GreaterThanMatcher<T>(T value) :
+    IDescribeNonMatches, IDescribeSpecification, IArgumentMatcher<T>
+    where T : IComparable<T> {
+
+    public string DescribeFor(object argument) => $"{argument} ≯ {value}";
+    public string DescribeSpecification() => $">{value}";
+    public bool IsSatisfiedBy(T argument) => argument.CompareTo(value) > 0;
+}
+
+public static IArgumentMatcher<T> GreaterThan<T>(T value) where T : IComparable<T> =>
+    new GreaterThanMatcher<T>(value);
+
+[Test]
+public void AddGreaterThan() {
+    calculator.Add(1, 20);
+    calculator.Received().Add(1, Arg.Is(GreaterThan(10)));
+}
+```
+
+If the `GreaterThan` matcher fails, we get a message like:
+
+```
+  NSubstitute.Exceptions.ReceivedCallsException : Expected to receive a call matching:
+  	Add(1, >10)
+  Actually received no matching calls.
+  Received 1 non-matching call (non-matching arguments indicated with '*' characters):
+      Add(1, *2*)
+          arg[1]: 2 ≯ 10
+```
+
+The `Add(1, >10)` part of the message uses `IDescribeSpecification`, while the `arg[1]: 2 ≯ 10` line is build from `IDescribeNonMatchers`.
 
 ## How NOT to use argument matchers
 
