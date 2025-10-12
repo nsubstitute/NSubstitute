@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: |
+            10.0.x
             9.0.x
             8.0.x
 
@@ -28,13 +29,16 @@ jobs:
 
       - name: .NET Framework Tests
         if: matrix.os == 'windows-latest'
-        run: dotnet test -f net462 --no-build --no-restore
+        run: dotnet test -f net462 --no-build --no-restore --no-progress
 
       - name: .NET 8 Tests
-        run: dotnet test -f net8.0 --no-build --no-restore
+        run: dotnet test -f net8.0 --no-build --no-restore --no-progress
 
       - name: .NET 9 Tests
-        run: dotnet test -f net9.0 --no-build --no-restore
+        run: dotnet test -f net9.0 --no-build --no-restore --no-progress
+
+      - name: .NET 10 Tests
+        run: dotnet test -f net10.0 --no-build --no-restore --no-progress
 
   format-verify:
     runs-on: ubuntu-latest
@@ -45,7 +49,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
 
       - name: Format
         run: dotnet format --verify-no-changes
