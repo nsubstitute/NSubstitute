@@ -18,7 +18,7 @@ jobs:
         run: dotnet pack src/NSubstitute/NSubstitute.csproj -o bin -p:CI=true
 
       - name: Upload packages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: packages
           path: |
