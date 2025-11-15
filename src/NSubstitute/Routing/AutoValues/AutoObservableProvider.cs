@@ -21,6 +21,7 @@ public class AutoObservableProvider(Lazy<IReadOnlyCollection<IAutoValueProvider>
 
     private static object? GetDefault(Type type)
     {
-        return type.GetTypeInfo().IsValueType ? Activator.CreateInstance(type) : null;
+        var defaultForType = new DefaultForType();
+        return defaultForType.GetDefaultFor(type);
     }
 }
