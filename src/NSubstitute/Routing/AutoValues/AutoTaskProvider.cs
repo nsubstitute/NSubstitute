@@ -1,3 +1,4 @@
+using NSubstitute.Core;
 using System.Reflection;
 
 namespace NSubstitute.Routing.AutoValues;
@@ -32,6 +33,7 @@ public class AutoTaskProvider(Lazy<IReadOnlyCollection<IAutoValueProvider>> auto
 
     private static object? GetDefault(Type type)
     {
-        return type.GetTypeInfo().IsValueType ? Activator.CreateInstance(type) : null;
+        var defaultForType = new DefaultForType();
+        return defaultForType.GetDefaultFor(type);
     }
 }
