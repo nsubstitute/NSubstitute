@@ -10,39 +10,46 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macOS-latest]
-        framework: [net9.0, net8.0]
-        include:
-          - os: windows-latest
-            framework: net462
 
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: |
+            10.0.x
             9.0.x
             8.0.x
 
       - name: Build
         run: dotnet build
 
-      - name: Test
-        run: dotnet test -f ${{ matrix.framework }} --no-build --no-restore
+      - name: .NET Framework Tests
+        if: matrix.os == 'windows-latest'
+        run: dotnet test -f net462 --no-build --no-restore --no-progress
+
+      - name: .NET 8 Tests
+        run: dotnet test -f net8.0 --no-build --no-restore --no-progress
+
+      - name: .NET 9 Tests
+        run: dotnet test -f net9.0 --no-build --no-restore --no-progress
+
+      - name: .NET 10 Tests
+        run: dotnet test -f net10.0 --no-build --no-restore --no-progress
 
   format-verify:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
 
       - name: Format
         run: dotnet format --verify-no-changes
