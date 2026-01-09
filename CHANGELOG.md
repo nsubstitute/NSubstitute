@@ -7,7 +7,7 @@
 * [UPDATE][BREAKING] Mark as obsolete api CompatArg with pre c# 7.0 support
 * [NEW] Added .NET 9 to test matrix
 * [UPDATE] Migrate documentation to docfx platform. https://github.com/dotnet/docfx
-* [UPDATE][BREAKING] Nullability is enabled for public api for .NET Core TFMs
+* [UPDATE][BREAKING] Nullability is enabled for public api for .NET 8+ TFMs
 * [UPDATE] Migrate to slnx format for solution file
 * [UPDATE] Migrate documentation validation from build.fsproj to Roslyn code generator
 * [NEW] Added NuGet Package README file.
