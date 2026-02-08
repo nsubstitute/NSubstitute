@@ -161,14 +161,20 @@ For example:
 
 ```csharp
 class GreaterThanMatcher<T>(T value) :
-    IDescribeNonMatches, IDescribeSpecification, IArgumentMatcher<T>
+    IArgumentMatcher<T>, // Minimum requirement for a matcher
+    IDescribeNonMatches, IDescribeSpecification // Optional interfaces to provide extra info for failing tests
     where T : IComparable<T> {
 
-    public string DescribeFor(object argument) => $"{argument} ≯ {value}";
-    public string DescribeSpecification() => $">{value}";
+    // Implement IArgumentMatcher to provide the matching logic required to satisfy this matcher.
     public bool IsSatisfiedBy(T argument) => argument.CompareTo(value) > 0;
+
+    // Optional: Implement IDescribeNonMatches to describe how argument fails to satisfy this matcher
+    public string DescribeFor(object argument) => $"{argument} ≯ {value}";
+    // Optional: Implement IDescribeSpecification for general description of what is required to satisfy this matcher
+    public string DescribeSpecification() => $">{value}";
 }
 
+// Optional: convenience method that can be used as a static import to easily create instances of your a matcher.
 public static IArgumentMatcher<T> GreaterThan<T>(T value) where T : IComparable<T> =>
     new GreaterThanMatcher<T>(value);
 
