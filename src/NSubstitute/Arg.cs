@@ -54,6 +54,18 @@ public static partial class Arg
     }
 
     /// <summary>
+    /// Match argument that satisfies <paramref name="matcher"/>.
+    /// </summary>
+    public static ref T Is<T>(IArgumentMatcher matcher) =>
+        ref ArgumentMatcher.Enqueue<T>(matcher);
+
+    /// <summary>
+    /// Match argument that satisfies <paramref name="matcher"/>.
+    /// </summary>
+    public static ref T Is<T>(IArgumentMatcher<T> matcher) =>
+        ref ArgumentMatcher.Enqueue(matcher);
+
+    /// <summary>
     /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
     /// </summary>
     public static ref Action Invoke()
