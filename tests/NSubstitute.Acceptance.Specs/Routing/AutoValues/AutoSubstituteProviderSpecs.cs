@@ -1,26 +1,52 @@
 using System;
+using System.Collections.Generic;
 using NSubstitute.Core;
 using NSubstitute.Routing.AutoValues;
-using NSubstitute.Specs.Infrastructure;
-using NSubstitute.Specs.SampleStructures;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs.Routing.AutoValues
 {
-    public class AutoSubstituteProviderSpecs : ConcernFor<AutoSubstituteProvider>
+    public class AutoSubstituteProviderSpecs
     {
-        private ISubstituteFactory _substituteFactory;
+        public interface IFoo
+        {
+            void Goo();
+            string Bar(int aNumber, string aString);
+            event EventHandler Boo;
+        }
+
+        private class TestSubstituteFactory : ISubstituteFactory
+        {
+            private IDictionary<Type, object> stubs = new Dictionary<Type, object>();
+            public void StubCreateFor<T>(object o) => stubs[typeof(T)] = o;
+            public object Create(Type[] typesToProxy, object[] constructorArguments) => stubs[typesToProxy[0]];
+
+            public object CreatePartial(Type[] typesToProxy, object[] constructorArguments)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        private TestSubstituteFactory _substituteFactory;
+
+        private AutoSubstituteProvider sut;
+
+        public AutoSubstituteProviderSpecs()
+        {
+            _substituteFactory = new TestSubstituteFactory();
+            sut = new AutoSubstituteProvider(_substituteFactory);
+        }
 
         [Test]
         public void Can_provide_value_for_interface()
         {
-            Assert.That(sut.CanProvideValueFor(typeof (IFoo)));
+            Assert.That(sut.CanProvideValueFor(typeof(IFoo)));
         }
 
         [Test]
         public void Can_provide_value_for_delegates()
         {
-            Assert.That(sut.CanProvideValueFor(typeof (Func<int>)));
+            Assert.That(sut.CanProvideValueFor(typeof(Func<int>)));
         }
 
         [Test]
@@ -71,19 +97,9 @@ namespace NSubstitute.Specs.Routing.AutoValues
         public void Should_create_substitute_for_type()
         {
             var autoValue = new object();
-            _substituteFactory.stub(x => x.Create(new[] {typeof (IFoo)}, new object[0])).Return(autoValue);
+            _substituteFactory.StubCreateFor<IFoo>(autoValue);
 
-            Assert.That(sut.GetValue(typeof (IFoo)), Is.SameAs(autoValue));
-        }
-
-        public override void Context()
-        {
-            _substituteFactory = mock<ISubstituteFactory>();
-        }
-
-        public override AutoSubstituteProvider CreateSubjectUnderTest()
-        {
-            return new AutoSubstituteProvider(_substituteFactory);
+            Assert.That(sut.GetValue(typeof(IFoo)), Is.SameAs(autoValue));
         }
 
         public class TestClasses
@@ -139,7 +155,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
 
             public class PureVirtualClassWithAPublicStaticMethod
             {
-                public static void StaticMethod() {}
+                public static void StaticMethod() { }
             }
 
             public class PureVirtualClassWithAPublicStaticProperty

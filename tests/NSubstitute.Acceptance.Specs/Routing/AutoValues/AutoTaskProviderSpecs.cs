@@ -1,22 +1,37 @@
 ﻿#if (NET4 || NET45)
+using System;
 using System.Threading.Tasks;
 using NSubstitute.Routing.AutoValues;
-using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace NSubstitute.Specs.Routing.AutoValues
 {
-    public class AutoTaskProviderSpecs : ConcernFor<AutoTaskProvider>
+    public class AutoTaskProviderSpecs
     {
-        private IAutoValueProvider _testValuesProvider;
+        private class TestAutoValueProvider : IAutoValueProvider {
+            private IDictionary<Type, object> stubs = new Dictionary<Type, object>();
+            public void Stub<T>(T value) => stubs[typeof(T)] = value;
+            public bool CanProvideValueFor(Type type) => stubs.ContainsKey(type);
+            public object GetValue(Type type) => stubs[type];
+        }
+
+        private TestAutoValueProvider _testValuesProvider;
+        private AutoTaskProvider sut;
+
+        public AutoTaskProviderSpecs()
+        {
+            _testValuesProvider = new TestAutoValueProvider();
+            sut = new AutoTaskProvider(
+                new Lazy<IReadOnlyCollection<IAutoValueProvider>>( () => new [] { _testValuesProvider })
+            );
+        }
 
         [Test]
         public void Should_create_substitute_with_another_auto_value_provider_if_available()
         {
             const string autoValue = "test";
-            _testValuesProvider.stub(x => x.CanProvideValueFor(typeof(string))).Return(true);
-            _testValuesProvider.stub(x => x.GetValue(typeof(string))).Return(autoValue);
+            _testValuesProvider.Stub(autoValue);
 
             var type = typeof (Task<string>);
             Assert.True(sut.CanProvideValueFor(type));
@@ -64,16 +79,6 @@ namespace NSubstitute.Specs.Routing.AutoValues
 
             Assert.NotNull(task);
             Assert.Null(task.Result);
-        }
-
-        public override void Context()
-        {
-            _testValuesProvider = mock<IAutoValueProvider>();
-        }
-
-        public override AutoTaskProvider CreateSubjectUnderTest()
-        {
-            return new AutoTaskProvider(() => new[] { _testValuesProvider });
         }
 
         public interface IFoo2
