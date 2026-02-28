@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-using System.Reflection;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using NSubstitute.Core;
+using System.Globalization;
+using System.Reflection;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy;
 
@@ -22,7 +22,7 @@ public class ProxyIdInterceptor(Type primaryProxyType) : IInterceptor
 
     private string GenerateId(IInvocation invocation)
     {
-        var proxy = invocation.InvocationTarget;
+        var proxy = invocation.InvocationTarget!;
 
         var shortTypeName = primaryProxyType.GetNonMangledTypeName();
         var proxyHashCode = proxy.GetHashCode();
