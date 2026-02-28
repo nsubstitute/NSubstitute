@@ -13,14 +13,14 @@ public class Call : ICall, /* Performance optimization */ CallCollection.IReceiv
     private readonly IList<IArgumentSpecification> _argumentSpecifications;
     private IParameterInfo[]? _parameterInfosCached;
     private long? _sequenceNumber;
-    private readonly Func<object>? _baseMethod;
+    private readonly Func<object?>? _baseMethod;
 
     public Call(
         MethodInfo methodInfo,
         object?[] arguments,
         object target,
         IList<IArgumentSpecification> argumentSpecifications,
-        Func<object>? baseMethod)
+        Func<object?>? baseMethod)
     {
         _methodInfo = methodInfo;
         _arguments = arguments;

@@ -1,7 +1,7 @@
-using System.Reflection;
 using Castle.DynamicProxy;
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
+using System.Reflection;
 
 namespace NSubstitute.Proxies.CastleDynamicProxy;
 
@@ -120,7 +120,7 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
             VerifyClassIsNotAbstract(typeToProxy);
             VerifyClassImplementsAllInterfaces(typeToProxy, additionalInterfaces);
 
-            var targetObject = Activator.CreateInstance(typeToProxy, constructorArguments);
+            var targetObject = Activator.CreateInstance(typeToProxy, constructorArguments)!;
             typeToProxy = additionalInterfaces.First();
 
             return _proxyGenerator.CreateInterfaceProxyWithTarget(typeToProxy,
