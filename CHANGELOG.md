@@ -1,4 +1,4 @@
-### 6.x (work in progress)
+### 6.0.0 Release Candidate 1 (March 2026)
 
 * [NEW] `ArgMatchers.Matching` predicate matcher as an alternative to `Is(Expression<Predicate<T>>`. (.NET6 and above.)
 * [UPDATE] Improved support for custom argument matchers. `Arg.Is` now accepts arg matchers.
