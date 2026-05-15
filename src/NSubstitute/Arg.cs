@@ -66,6 +66,15 @@ public static partial class Arg
         ref ArgumentMatcher.Enqueue(matcher);
 
     /// <summary>
+    /// Match argument that has the same reference as <paramref name="value"/>.
+    /// </summary>
+    public static ref T Same<T>(T value)
+        where T : class
+    {
+        return ref ArgumentMatcher.Enqueue(new ReferenceArgumentMatcher<T>(value));
+    }
+
+    /// <summary>
     /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
     /// </summary>
     public static ref Action Invoke()
