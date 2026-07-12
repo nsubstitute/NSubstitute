@@ -1,3 +1,7 @@
+### 6.0.0 (July 2026)
+
+No changes from Release Candidate 1.
+
 ### 6.0.0 Release Candidate 1 (March 2026)
 
 * [NEW] `ArgMatchers.Matching` predicate matcher as an alternative to `Is(Expression<Predicate<T>>`. (.NET6 and above.)
