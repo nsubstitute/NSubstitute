@@ -9,7 +9,7 @@ public static class Raise
     /// <summary>
     /// Raise an event for an <c>EventHandler&lt;TEventArgs&gt;</c> event with the provided <paramref name="sender"/> and <paramref name="eventArgs"/>.
     /// </summary>
-    public static EventHandlerWrapper<TEventArgs> EventWith<TEventArgs>(object sender, TEventArgs eventArgs) where TEventArgs : EventArgs
+    public static EventHandlerWrapper<TEventArgs> EventWith<TEventArgs>(object? sender, TEventArgs eventArgs) where TEventArgs : EventArgs
     {
         return new EventHandlerWrapper<TEventArgs>(sender, eventArgs);
     }
@@ -44,7 +44,7 @@ public static class Raise
     /// Raise an event of type <typeparamref name="THandler" /> with the provided arguments. If no arguments are provided
     /// NSubstitute will try to provide reasonable defaults.
     /// </summary>
-    public static DelegateEventWrapper<THandler> Event<THandler>(params object[] arguments)
+    public static DelegateEventWrapper<THandler> Event<THandler>(params object?[] arguments)
     {
         var normalizedArgs = FixParamsArrayAmbiguity(arguments, typeof(THandler));
         return new DelegateEventWrapper<THandler>(normalizedArgs);
