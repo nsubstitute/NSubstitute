@@ -59,11 +59,10 @@ public class CallInfo(Argument[] callArguments, Type[] genericArguments)
     /// </summary>
     /// <typeparam name="T">The type of the argument to retrieve</typeparam>
     /// <returns>The argument passed to the call, or throws if there is not exactly one argument of this type</returns>
-    public T? Arg<T>()
+    public T Arg<T>()
     {
-        T? arg;
-        if (TryGetArg(x => x.IsDeclaredTypeEqualToOrByRefVersionOf(typeof(T)), out arg)) return arg;
-        if (TryGetArg(x => x.IsValueAssignableTo(typeof(T)), out arg)) return arg;
+        if (TryGetArg(x => x.IsDeclaredTypeEqualToOrByRefVersionOf(typeof(T)), out T? arg) || TryGetArg(x => x.IsValueAssignableTo(typeof(T)), out arg))
+            return arg!;
         throw new ArgumentNotFoundException("Can not find an argument of type " + typeof(T).FullName + " to this call.");
     }
 
