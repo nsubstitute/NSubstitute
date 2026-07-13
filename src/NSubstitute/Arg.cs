@@ -1,5 +1,5 @@
-using NSubstitute.Core.Arguments;
 using System.Linq.Expressions;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute;
 
@@ -39,7 +39,7 @@ public static partial class Arg
     /// Match argument that satisfies <paramref name="predicate"/>.
     /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
     /// </summary>
-    public static ref T Is<T>(Expression<Predicate<T?>> predicate)
+    public static ref T Is<T>(Expression<Predicate<T>> predicate)
     {
         return ref ArgumentMatcher.Enqueue<T>(new ExpressionArgumentMatcher<T>(predicate));
     }
@@ -48,7 +48,7 @@ public static partial class Arg
     /// Match argument that satisfies <paramref name="predicate"/>.
     /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
     /// </summary>
-    public static ref T Is<T>(Expression<Predicate<object?>> predicate) where T : AnyType
+    public static ref T Is<T>(Expression<Predicate<object>> predicate) where T : AnyType
     {
         return ref ArgumentMatcher.Enqueue<T>(new ExpressionArgumentMatcher<object>(predicate));
     }
