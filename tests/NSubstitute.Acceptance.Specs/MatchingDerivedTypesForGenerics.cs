@@ -58,6 +58,15 @@ public class MatchingDerivedTypesForGenerics
         Assert.That(_sub.IntCall(new GMParam1()), Is.EqualTo(default(int)));
     }
 
+    [Test]
+    public void Stub_for_derived_type_argument_is_not_used_for_base_type_argument()
+    {
+        _sub.IntCall(Arg.Any<GMParam1>()).Returns(42);
+
+        Assert.That(_sub.IntCall(new GMParam1()), Is.EqualTo(42));
+        Assert.That(_sub.IntCall<IGMParam>(new GMParam1()), Is.EqualTo(default(int)));
+    }
+
     public interface IGenMethod
     {
         void Call<T>(T param) where T : IGMParam;
