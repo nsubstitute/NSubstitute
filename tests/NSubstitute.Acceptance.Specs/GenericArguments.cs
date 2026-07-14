@@ -1,7 +1,7 @@
+using NUnit.Framework;
 using System.Collections;
 using System.Globalization;
 using System.Reflection;
-using NUnit.Framework;
 
 namespace NSubstitute.Acceptance.Specs;
 
@@ -179,6 +179,24 @@ public class GenericArguments
 
         Assert.That(result, Is.True);
     }
+
+    /// <summary>
+    /// See https://github.com/nsubstitute/NSubstitute/issues/974.
+    /// </summary>
+    [Test]
+    public void Returns_works_with_mismatching_generic_return_types()
+    {
+        ISomethingWithGenerics something = Substitute.For<ISomethingWithGenerics>();
+
+        something
+            .SomeFunction(Arg.Any<ICloneable>())
+            .Returns(Substitute.For<ICollection<ICloneable>>());
+
+        something
+            .SomeFunction(Arg.Any<string>())
+            .Returns(Substitute.For<ICollection<string>>());
+    }
+
 
     [Test]
     public void Callback_allows_access_to_method_call()
