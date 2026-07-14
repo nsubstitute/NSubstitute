@@ -8,14 +8,14 @@ public static class ReturnsExtensions
     /// <summary>
     /// Set null as returned value for this call.
     /// </summary>
-    public static ConfiguredCall ReturnsNull<T>(this T? value) where T : class =>
-        value!.Returns(default(T));
+    public static ConfiguredCall ReturnsNull<T>(this T value) where T : class? =>
+        value.Returns(default(T));
 
     /// <summary>
     /// Set null as returned value for this call made with any arguments.
     /// </summary>
-    public static ConfiguredCall ReturnsNullForAnyArgs<T>(this T? value) where T : class =>
-        value!.ReturnsForAnyArgs(default(T));
+    public static ConfiguredCall ReturnsNullForAnyArgs<T>(this T value) where T : class? =>
+        value.ReturnsForAnyArgs(default(T));
 
     /// <summary>
     /// Set null as returned value for this call.
@@ -32,19 +32,19 @@ public static class ReturnsExtensions
     /// <summary>
     /// Set null as returned value for this call.
     /// </summary>
-    public static ConfiguredCall ReturnsNull<T>(this Task<T?> value) where T : class =>
+    public static ConfiguredCall ReturnsNull<T>(this Task<T> value) where T : class? =>
         value.Returns(default(T));
 
     /// <summary>
     /// Set null as returned value for this call.
     /// </summary>
-    public static ConfiguredCall ReturnsNull<T>(this ValueTask<T?> value) where T : class =>
+    public static ConfiguredCall ReturnsNull<T>(this ValueTask<T> value) where T : class? =>
         value.Returns(default(T));
 
     /// <summary>
     /// Set null as returned value for this call made with any arguments.
     /// </summary>
-    public static ConfiguredCall ReturnsNullForAnyArgs<T>(this Task<T?> value) where T : class =>
+    public static ConfiguredCall ReturnsNullForAnyArgs<T>(this Task<T> value) where T : class? =>
         value.ReturnsForAnyArgs(default(T));
 
     /// <summary>
@@ -53,7 +53,7 @@ public static class ReturnsExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static ConfiguredCall ReturnsNullForAnyArgs<T>(this ValueTask<T?> value) where T : class =>
+    public static ConfiguredCall ReturnsNullForAnyArgs<T>(this ValueTask<T> value) where T : class? =>
         value.ReturnsForAnyArgs(default(T));
 
     /// <summary>
