@@ -55,7 +55,7 @@ public static class Raise
     /// whether input array represents all arguments, or the first argument only.
     /// If we find that ambiguity might happen, we wrap user input in an extra array.
     /// </summary>
-    private static object[] FixParamsArrayAmbiguity(object[] arguments, Type delegateType)
+    private static object?[] FixParamsArrayAmbiguity(object?[] arguments, Type delegateType)
     {
         ParameterInfo[] invokeMethodParameters = delegateType.GetInvokeMethod().GetParameters();
         if (invokeMethodParameters.Length != 1)
