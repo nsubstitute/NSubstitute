@@ -11,7 +11,7 @@ public static class ExceptionExtensions
     /// <param name="value"></param>
     /// <param name="ex">Exception to throw</param>
     /// <returns></returns>
-    public static ConfiguredCall Throws(this object value, Exception ex) =>
+    public static ConfiguredCall Throws(this object? value, Exception ex) =>
         value.Returns(_ => throw ex);
 
     /// <summary>
@@ -20,7 +20,7 @@ public static class ExceptionExtensions
     /// <typeparam name="TException">Type of exception to throw</typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static ConfiguredCall Throws<TException>(this object value)
+    public static ConfiguredCall Throws<TException>(this object? value)
         where TException : notnull, Exception, new()
     {
         return value.Returns(_ => throw new TException());
@@ -32,7 +32,7 @@ public static class ExceptionExtensions
     /// <param name="value"></param>
     /// <param name="createException">Func creating exception object</param>
     /// <returns></returns>
-    public static ConfiguredCall Throws(this object value, Func<CallInfo, Exception> createException) =>
+    public static ConfiguredCall Throws(this object? value, Func<CallInfo, Exception> createException) =>
         value.Returns(ci => throw createException(ci));
 
     /// <summary>
@@ -41,7 +41,7 @@ public static class ExceptionExtensions
     /// <param name="value"></param>
     /// <param name="ex">Exception to throw</param>
     /// <returns></returns>
-    public static ConfiguredCall ThrowsForAnyArgs(this object value, Exception ex) =>
+    public static ConfiguredCall ThrowsForAnyArgs(this object? value, Exception ex) =>
         value.ReturnsForAnyArgs(_ => throw ex);
 
     /// <summary>
@@ -50,7 +50,7 @@ public static class ExceptionExtensions
     /// <typeparam name="TException">Type of exception to throw</typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static ConfiguredCall ThrowsForAnyArgs<TException>(this object value)
+    public static ConfiguredCall ThrowsForAnyArgs<TException>(this object? value)
         where TException : notnull, Exception, new()
     {
         return value.ReturnsForAnyArgs(_ => throw new TException());
@@ -62,7 +62,7 @@ public static class ExceptionExtensions
     /// <param name="value"></param>
     /// <param name="createException">Func creating exception object</param>
     /// <returns></returns>
-    public static ConfiguredCall ThrowsForAnyArgs(this object value, Func<CallInfo, Exception> createException) =>
+    public static ConfiguredCall ThrowsForAnyArgs(this object? value, Func<CallInfo, Exception> createException) =>
         value.ReturnsForAnyArgs(ci => throw createException(ci));
 
     /// <summary>
