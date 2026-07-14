@@ -51,7 +51,27 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
         return
                AreEquivalentDefinitions(a, b)
             && TypesAreAllEquivalent(ParameterTypes(a), ParameterTypes(b))
-            && TypesAreAllEquivalent(a.GetGenericArguments(), b.GetGenericArguments());
+            && GenericTypeArgumentsAreCompatible(a.GetGenericArguments(), b.GetGenericArguments());
+    }
+
+
+    private static bool GenericTypeArgumentsAreCompatible(Type[] specificationArguments, Type[] callArguments)
+    {
+        if (specificationArguments.Length != callArguments.Length) return false;
+
+        for (var i = 0; i < specificationArguments.Length; i++)
+        {
+            var specificationArgument = specificationArguments[i];
+            var callArgument = callArguments[i];
+
+            var isCompatible = specificationArgument.IsAssignableFrom(callArgument)
+                || typeof(Arg.AnyType).IsAssignableFrom(specificationArgument)
+                || typeof(Arg.AnyType).IsAssignableFrom(callArgument);
+
+            if (!isCompatible) return false;
+        }
+
+        return true;
     }
 
     private static Type[] ParameterTypes(MethodInfo info)
