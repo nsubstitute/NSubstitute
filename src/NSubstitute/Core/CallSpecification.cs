@@ -59,7 +59,7 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
         return info.GetParameters().Select(p => p.ParameterType).ToArray();
     }
 
-    internal static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
+    internal static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs, AreAssignableInclusionType assignableInclusionType = AreAssignableInclusionType.Include)
     {
         if (aArgs.Length != bArgs.Length) return false;
         for (var i = 0; i < aArgs.Length; i++)
@@ -79,13 +79,23 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
             if (first.IsGenericType && second.IsGenericType
                 && first.GetGenericTypeDefinition() == second.GetGenericTypeDefinition())
             {
+                var genericArgumentsInclusionType = assignableInclusionType switch
+                {
+                    AreAssignableInclusionType.Exclude => AreAssignableInclusionType.Exclude,
+                    AreAssignableInclusionType.ExcludeGenericArguments => AreAssignableInclusionType.Exclude,
+                    _ => AreAssignableInclusionType.Include
+                };
+
                 // both are the same generic type. If their GenericTypeArguments match then they are equivalent
-                if (!TypesAreAllEquivalent(first.GenericTypeArguments, second.GenericTypeArguments))
+                if (!TypesAreAllEquivalent(first.GenericTypeArguments, second.GenericTypeArguments, genericArgumentsInclusionType))
                 {
                     return false;
                 }
                 continue;
             }
+
+            var includeAreAssignable = assignableInclusionType == AreAssignableInclusionType.Include
+                || assignableInclusionType == AreAssignableInclusionType.ExcludeGenericArguments;
 
             var areAssignable = first.IsAssignableFrom(second) || second.IsAssignableFrom(first);
             var areAnyTypeAssignable = typeof(Arg.AnyType).IsAssignableFrom(first) ||
@@ -93,7 +103,7 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
             var areByRefAnyTypeAssignable = first.IsByRef && second.IsByRef &&
                                             (typeof(Arg.AnyType).IsAssignableFrom(first.GetElementType()) ||
                                              typeof(Arg.AnyType).IsAssignableFrom(second.GetElementType()));
-            var areEquivalent = areAssignable || areAnyTypeAssignable || areByRefAnyTypeAssignable;
+            var areEquivalent = (includeAreAssignable && areAssignable) || areAnyTypeAssignable || areByRefAnyTypeAssignable;
             if (!areEquivalent) return false;
         }
         return true;
@@ -102,7 +112,12 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
     private static bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
     {
         return a.IsGenericMethod == b.IsGenericMethod
-               && TypesAreAllEquivalent([a.ReturnType], [b.ReturnType])
+
+               // Exclude the assignable check for generic arguments, generic types generally are not equivalent when a generic argument is not
+               // exactly the same, even though the types themselves may be assignable.
+               // See https://github.com/nsubstitute/NSubstitute/issues/974.
+               && TypesAreAllEquivalent([a.ReturnType], [b.ReturnType], AreAssignableInclusionType.ExcludeGenericArguments)
+
                && a.Name.Equals(b.Name, StringComparison.Ordinal);
     }
 
@@ -174,5 +189,26 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
     private bool HasDifferentNumberOfArguments(ICall call)
     {
         return _argumentSpecifications.Length != call.GetOriginalArguments().Length;
+    }
+
+    /// <summary>
+    /// Specifies whether an assignability check between types should be included for type equivalence checks.
+    /// </summary>
+    internal enum AreAssignableInclusionType
+    {
+        /// <summary>
+        /// Include the check
+        /// </summary>
+        Include,
+
+        /// <summary>
+        /// Exclude the check
+        /// </summary>
+        Exclude,
+
+        /// <summary>
+        /// Exclude the check for generic arguments, but include it for the current type
+        /// </summary>
+        ExcludeGenericArguments,
     }
 }
