@@ -3,6 +3,9 @@ name: Release documentation
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
