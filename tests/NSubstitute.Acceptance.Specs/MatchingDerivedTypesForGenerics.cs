@@ -67,14 +67,29 @@ public class MatchingDerivedTypesForGenerics
         Assert.That(_sub.IntCall<IGMParam>(new GMParam1()), Is.EqualTo(default(int)));
     }
 
+    [Test]
+    public void Stub_for_derived_type_argument_is_not_returned_for_base_type_argument()
+    {
+        _sub.Get<GMParam1>(Arg.Any<string>()).Returns(new Box<GMParam1>());
+
+        var derivedResult = _sub.Get<GMParam1>("x");
+        var baseResult = _sub.Get<IGMParam>("x");
+
+        Assert.That(derivedResult, Is.TypeOf<Box<GMParam1>>());
+        Assert.That(baseResult, Is.Not.Null);
+        Assert.That(baseResult, Is.Not.InstanceOf<Box<GMParam1>>());
+    }
+
     public interface IGenMethod
     {
         void Call<T>(T param) where T : IGMParam;
         int IntCall<T>(T param) where T : IGMParam;
+        Box<T> Get<T>(string key) where T : IGMParam;
     }
     public interface IGMParam { }
     public class GMParam1 : IGMParam { }
     public class GMParam2 : IGMParam { }
+    public class Box<T> where T : IGMParam { }
 }
 
 [TestFixture]
