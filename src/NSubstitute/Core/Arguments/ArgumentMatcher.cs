@@ -37,7 +37,7 @@ public static class ArgumentMatcher
     {
         protected readonly IArgumentMatcher<T> _matcher = matcher;
 
-        public bool IsSatisfiedBy(object? argument) => argument is T typed && _matcher.IsSatisfiedBy(typed);
+        public bool IsSatisfiedBy(object? argument) => _matcher.IsSatisfiedBy((T)argument!);
 
         public override string ToString() =>
             _matcher is IDescribeSpecification describe
