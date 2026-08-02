@@ -2,8 +2,6 @@
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
-#pragma warning disable CS0618 // Type or member is obsolete
-
 namespace NSubstitute.Acceptance.Specs;
 
 [TestFixture]

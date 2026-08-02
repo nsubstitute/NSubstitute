@@ -1,3 +1,11 @@
+### 6.1.0 (August 2026)
+
+* [UPDATE] Revert nullability support from 6.0. This change caused a number of problems for callers (#973, #976), and
+  trying to resolve these (#976) revealed the need for more fundamental changes to NSubstitute to effectively support this.
+  As a result, nullability is again disabled for public API.
+  Huge thanks to @jdb0123, @Romfos, and @Moha-sami for their PRs addressing this, and thanks for all those who raised
+  issues. We also humbly award @zvirja with one unlimited "I told you so" pass to use as he sees fit.
+
 ### 6.0.0 (July 2026)
 
 No changes from Release Candidate 1.

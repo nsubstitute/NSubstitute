@@ -10,18 +10,20 @@ public class EventHandlerWrapper<TEventArgs>(object? sender, EventArgs? eventArg
 
     public EventHandlerWrapper(EventArgs? eventArgs) : this(null, eventArgs) { }
 
-
-    public static implicit operator EventHandler?(EventHandlerWrapper<TEventArgs> wrapper)
+    // Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+    public static implicit operator EventHandler(EventHandlerWrapper<TEventArgs> wrapper)
     {
         RaiseEvent(wrapper);
         return null;
     }
 
-    public static implicit operator EventHandler<TEventArgs>?(EventHandlerWrapper<TEventArgs> wrapper)
+    public static implicit operator EventHandler<TEventArgs>(EventHandlerWrapper<TEventArgs> wrapper)
     {
         RaiseEvent(wrapper);
         return null;
     }
+#nullable restore annotations
 
     protected override object[] WorkOutRequiredArguments(ICall call)
     {

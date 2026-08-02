@@ -1,6 +1,9 @@
 ﻿using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute.ClearExtensions;
 
 public static class ClearExtensions
