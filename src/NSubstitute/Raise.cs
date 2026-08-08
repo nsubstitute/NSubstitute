@@ -1,6 +1,9 @@
+using System.Reflection;
 using NSubstitute.Core;
 using NSubstitute.Core.Events;
-using System.Reflection;
+
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
 
 namespace NSubstitute;
 

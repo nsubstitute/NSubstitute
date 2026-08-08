@@ -1,5 +1,8 @@
 using NSubstitute.Core;
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute;
 
 public static partial class SubstituteExtensions
@@ -10,7 +13,7 @@ public static partial class SubstituteExtensions
     /// <param name="value"></param>
     /// <param name="returnThis">Value to return</param>
     /// <param name="returnThese">Optionally return these values next</param>
-    public static ConfiguredCall Returns<T>(this T value, T? returnThis, params T?[] returnThese) =>
+    public static ConfiguredCall Returns<T>(this T value, T returnThis, params T[] returnThese) =>
         ConfigureReturn(MatchArgs.AsSpecifiedInCall, returnThis, returnThese);
 
     /// <summary>
@@ -28,7 +31,7 @@ public static partial class SubstituteExtensions
     /// <param name="value"></param>
     /// <param name="returnThis">Value to return</param>
     /// <param name="returnThese">Optionally return these values next</param>
-    public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, T returnThis, params T?[] returnThese) =>
+    public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, T returnThis, params T[] returnThese) =>
         ConfigureReturn(MatchArgs.Any, returnThis, returnThese);
 
     /// <summary>
@@ -41,6 +44,7 @@ public static partial class SubstituteExtensions
     public static ConfiguredCall ReturnsForAnyArgs<T>(this T value, Func<CallInfo, T> returnThis, params Func<CallInfo, T>[] returnThese) =>
         ConfigureReturn(MatchArgs.Any, returnThis, returnThese);
 
+#nullable restore
     private static ConfiguredCall ConfigureReturn<T>(MatchArgs matchArgs, T? returnThis, T?[]? returnThese)
     {
         IReturn returnValue;
