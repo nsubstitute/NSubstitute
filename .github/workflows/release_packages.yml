@@ -14,13 +14,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Calculate version
+        id: version
+        shell: bash
+        run: |
+          # Fails if HEAD is not exactly on the tag (e.g. more commits were pushed after tagging).
+          VERSION=$(git describe --tags --exact-match)
+          echo "version=${VERSION#v}" >> "$GITHUB_OUTPUT"
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 10.0.x
 
       - name: Build package
-        run: dotnet pack src/NSubstitute/NSubstitute.csproj -o bin -p:CI=true
+        run: dotnet pack src/NSubstitute/NSubstitute.csproj -o bin -p:CI=true -p:Version=${{ steps.version.outputs.version }}
 
         # Read more: https://devblogs.microsoft.com/dotnet/enhanced-security-is-here-with-the-new-trust-publishing-on-nuget-org/
       - name: NuGet login (OIDC → temp API key)
