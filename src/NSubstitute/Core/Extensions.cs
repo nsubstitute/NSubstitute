@@ -36,7 +36,7 @@ internal static class Extensions
                     aCompatibleInstanceType.GetGenericTypeDefinition() == genericTypeDefinition)
                 {
                     // both are the same generic type. If their GenericTypeArguments match then they are equivalent
-                    var typesAreAllEquivalent = CallSpecification.TypesAreAllEquivalent(aCompatibleInstanceType.GenericTypeArguments, type.GenericTypeArguments);
+                    var typesAreAllEquivalent = CallSpecification.TypesAreAllEquivalent(aCompatibleInstanceType.GenericTypeArguments, type.GenericTypeArguments, allowAssignableTypes: true);
                     if (typesAreAllEquivalent)
                         return true;
                 }

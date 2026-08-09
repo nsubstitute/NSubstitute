@@ -50,8 +50,8 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
     {
         return
                AreEquivalentDefinitions(a, b)
-            && TypesAreAllEquivalent(ParameterTypes(a), ParameterTypes(b))
-            && TypesAreAllEquivalent(a.GetGenericArguments(), b.GetGenericArguments());
+            && TypesAreAllEquivalent(ParameterTypes(a), ParameterTypes(b), allowAssignableTypes: true)
+            && TypesAreAllEquivalent(a.GetGenericArguments(), b.GetGenericArguments(), allowAssignableTypes: true);
     }
 
     private static Type[] ParameterTypes(MethodInfo info)
@@ -59,7 +59,7 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
         return info.GetParameters().Select(p => p.ParameterType).ToArray();
     }
 
-    internal static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs)
+    internal static bool TypesAreAllEquivalent(Type[] aArgs, Type[] bArgs, bool allowAssignableTypes)
     {
         if (aArgs.Length != bArgs.Length) return false;
         for (var i = 0; i < aArgs.Length; i++)
@@ -80,20 +80,21 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
                 && first.GetGenericTypeDefinition() == second.GetGenericTypeDefinition())
             {
                 // both are the same generic type. If their GenericTypeArguments match then they are equivalent
-                if (!TypesAreAllEquivalent(first.GenericTypeArguments, second.GenericTypeArguments))
+                if (!TypesAreAllEquivalent(first.GenericTypeArguments, second.GenericTypeArguments, allowAssignableTypes))
                 {
                     return false;
                 }
                 continue;
             }
 
-            var areAssignable = first.IsAssignableFrom(second) || second.IsAssignableFrom(first);
+            var areIdentical = first == second;
+            var areAssignable = allowAssignableTypes && (first.IsAssignableFrom(second) || second.IsAssignableFrom(first));
             var areAnyTypeAssignable = typeof(Arg.AnyType).IsAssignableFrom(first) ||
                                        typeof(Arg.AnyType).IsAssignableFrom(second);
             var areByRefAnyTypeAssignable = first.IsByRef && second.IsByRef &&
                                             (typeof(Arg.AnyType).IsAssignableFrom(first.GetElementType()) ||
                                              typeof(Arg.AnyType).IsAssignableFrom(second.GetElementType()));
-            var areEquivalent = areAssignable || areAnyTypeAssignable || areByRefAnyTypeAssignable;
+            var areEquivalent = areIdentical || areAssignable || areAnyTypeAssignable || areByRefAnyTypeAssignable;
             if (!areEquivalent) return false;
         }
         return true;
@@ -102,7 +103,7 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
     private static bool AreEquivalentDefinitions(MethodInfo a, MethodInfo b)
     {
         return a.IsGenericMethod == b.IsGenericMethod
-               && TypesAreAllEquivalent([a.ReturnType], [b.ReturnType])
+               && TypesAreAllEquivalent([a.ReturnType], [b.ReturnType], allowAssignableTypes: false)
                && a.Name.Equals(b.Name, StringComparison.Ordinal);
     }
 
