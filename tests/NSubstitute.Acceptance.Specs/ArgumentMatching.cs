@@ -351,6 +351,15 @@ public class ArgumentMatching
     }
 
     [Test]
+    public void Should_match_identical_objects()
+    {
+        var obj = new object();
+        _something.Anything(Arg.Same(obj)).Returns(1);
+        Assert.That(_something.Anything(obj), Is.EqualTo(1));
+        Assert.That(_something.Anything(new object()), Is.EqualTo(0));
+    }
+
+    [Test]
     public void Returns_should_work_with_params()
     {
         _something.WithParams(Arg.Any<int>(), Arg.Is<string>(x => x == "one")).Returns("fred");

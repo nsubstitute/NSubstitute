@@ -2,8 +2,6 @@
 using NSubstitute.Exceptions;
 using NUnit.Framework;
 
-#pragma warning disable CS0618 // Type or member is obsolete
-
 namespace NSubstitute.Acceptance.Specs;
 
 [TestFixture]
@@ -173,6 +171,15 @@ public class ArgumentMatchingCompat
         });
 
         Assert.That(exception.Message, Contains.Substring("42"));
+    }
+
+    [Test]
+    public void Should_match_identical_objects()
+    {
+        var obj = new object();
+        _something.Anything(Arg.Compat.Same(obj)).Returns(1);
+        Assert.That(_something.Anything(obj), Is.EqualTo(1));
+        Assert.That(_something.Anything(new object()), Is.EqualTo(0));
     }
 
     [Test]

@@ -1,6 +1,9 @@
 ﻿using NSubstitute.Core;
 using NSubstitute.Core.SequenceChecking;
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute;
 
 public class Received

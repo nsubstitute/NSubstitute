@@ -5,17 +5,42 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+
+    environment: nuget-push
+    permissions:
+      id-token: write
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+
+      - name: Calculate version
+        id: version
+        shell: bash
+        run: |
+          # Fails if HEAD is not exactly on the tag (e.g. more commits were pushed after tagging).
+          VERSION=$(git describe --tags --exact-match)
+          echo "version=${VERSION#v}" >> "$GITHUB_OUTPUT"
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 10.0.x
 
       - name: Build package
-        run: dotnet pack src/NSubstitute/NSubstitute.csproj -o bin -p:CI=true
+        run: dotnet pack src/NSubstitute/NSubstitute.csproj -o bin -p:CI=true -p:Version=${{ steps.version.outputs.version }}
+
+        # Read more: https://devblogs.microsoft.com/dotnet/enhanced-security-is-here-with-the-new-trust-publishing-on-nuget-org/
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: nugetLogin
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Push packages to NuGet.org
+        run: dotnet nuget push bin/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate
+        env:
+          NUGET_API_KEY: ${{ steps.nugetLogin.outputs.NUGET_API_KEY }}
 
       - name: Upload packages
         uses: actions/upload-artifact@v7

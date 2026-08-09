@@ -1,6 +1,9 @@
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
 
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute;
 
 public static partial class SubstituteExtensions
@@ -11,7 +14,7 @@ public static partial class SubstituteExtensions
     /// <param name="value"></param>
     /// <param name="returnThis">Value to return. Will be wrapped in a Task</param>
     /// <param name="returnThese">Optionally use these values next</param>
-    public static ConfiguredCall Returns<T>(this Task<T> value, T? returnThis, params T[] returnThese)
+    public static ConfiguredCall Returns<T>(this Task<T> value, T returnThis, params T[] returnThese)
     {
         ReThrowOnNSubstituteFault(value);
 
@@ -43,7 +46,7 @@ public static partial class SubstituteExtensions
     /// <param name="value"></param>
     /// <param name="returnThis">Value to return</param>
     /// <param name="returnThese">Optionally return these values next</param>
-    public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, T? returnThis, params T[] returnThese)
+    public static ConfiguredCall ReturnsForAnyArgs<T>(this Task<T> value, T returnThis, params T[] returnThese)
     {
         ReThrowOnNSubstituteFault(value);
 
@@ -69,7 +72,8 @@ public static partial class SubstituteExtensions
         return ConfigureReturn(MatchArgs.Any, wrappedFunc, wrappedReturnThese);
     }
 
-    private static void ReThrowOnNSubstituteFault<T>(Task<T> task)
+#nullable restore
+    private static void ReThrowOnNSubstituteFault<T>(Task<T?> task)
     {
         if (task.IsFaulted && task.Exception!.InnerExceptions.FirstOrDefault() is SubstituteException)
         {

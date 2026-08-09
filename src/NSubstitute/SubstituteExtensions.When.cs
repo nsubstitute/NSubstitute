@@ -1,5 +1,9 @@
 using NSubstitute.Core;
 using NSubstitute.Exceptions;
+
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+
 namespace NSubstitute;
 
 public static partial class SubstituteExtensions
@@ -22,6 +26,7 @@ public static partial class SubstituteExtensions
         return MakeWhenCalled(substitute, substituteCall, MatchArgs.Any);
     }
 
+#nullable restore
     private static WhenCalled<TSubstitute> MakeWhenCalled<TSubstitute>(TSubstitute? substitute,
         Action<TSubstitute> action, MatchArgs matchArgs)
     {

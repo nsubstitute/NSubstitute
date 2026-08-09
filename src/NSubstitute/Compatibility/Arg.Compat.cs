@@ -60,6 +60,13 @@ public static partial class Arg
         public static T Is<T>(IArgumentMatcher<T> matcher) => ArgumentMatcher.Enqueue(matcher);
 
         /// <summary>
+        /// Match argument that has the same reference as <paramref name="value"/>.
+        /// This is provided for compatibility with older compilers --
+        /// if possible use <see cref="Arg.Same{T}(T)" /> instead.
+        /// </summary>
+        public static T Same<T>(T value) where T : class => Arg.Same(value);
+
+        /// <summary>
         /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
         /// This is provided for compatibility with older compilers --
         /// if possible use <see cref="Arg.Invoke" /> instead.

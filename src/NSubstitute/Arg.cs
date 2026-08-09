@@ -1,5 +1,9 @@
-using NSubstitute.Core.Arguments;
 using System.Linq.Expressions;
+using NSubstitute.Core.Arguments;
+
+// Disable nullability for client API, so it does not affect clients.
+#nullable disable annotations
+#pragma warning disable CS0419
 
 namespace NSubstitute;
 
@@ -39,7 +43,7 @@ public static partial class Arg
     /// Match argument that satisfies <paramref name="predicate"/>.
     /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
     /// </summary>
-    public static ref T Is<T>(Expression<Predicate<T?>> predicate)
+    public static ref T Is<T>(Expression<Predicate<T>> predicate)
     {
         return ref ArgumentMatcher.Enqueue<T>(new ExpressionArgumentMatcher<T>(predicate));
     }
@@ -48,7 +52,7 @@ public static partial class Arg
     /// Match argument that satisfies <paramref name="predicate"/>.
     /// If the <paramref name="predicate"/> throws an exception for an argument it will be treated as non-matching.
     /// </summary>
-    public static ref T Is<T>(Expression<Predicate<object?>> predicate) where T : AnyType
+    public static ref T Is<T>(Expression<Predicate<object>> predicate) where T : AnyType
     {
         return ref ArgumentMatcher.Enqueue<T>(new ExpressionArgumentMatcher<object>(predicate));
     }
@@ -64,6 +68,15 @@ public static partial class Arg
     /// </summary>
     public static ref T Is<T>(IArgumentMatcher<T> matcher) =>
         ref ArgumentMatcher.Enqueue(matcher);
+
+    /// <summary>
+    /// Match argument that has the same reference as <paramref name="value"/>.
+    /// </summary>
+    public static ref T Same<T>(T value)
+        where T : class
+    {
+        return ref ArgumentMatcher.Enqueue(new ReferenceArgumentMatcher<T>(value));
+    }
 
     /// <summary>
     /// Invoke any <see cref="Action"/> argument whenever a matching call is made to the substitute.
@@ -132,8 +145,8 @@ public static partial class Arg
         return ref ArgumentMatcher.Enqueue<T>(new AnyArgumentMatcher(typeof(AnyType)), x => useArgument(x!));
     }
 
-    private static Action<object?> InvokeDelegateAction(params object?[] arguments)
+    private static Action<object> InvokeDelegateAction(params object[] arguments)
     {
-        return x => ((Delegate)x!).DynamicInvoke(arguments);
+        return x => ((Delegate)x).DynamicInvoke(arguments);
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace NSubstitute.Core;
+﻿// Disable nullability for entry-point API
+#nullable disable annotations
+
+namespace NSubstitute.Core;
 
 public class ConfiguredCall(Action<Action<CallInfo>> addAction)
 {
