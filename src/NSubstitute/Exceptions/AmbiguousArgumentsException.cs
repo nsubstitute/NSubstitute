@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Reflection;
 using System.Text;
 using NSubstitute.Core;
@@ -44,14 +43,14 @@ public class AmbiguousArgumentsException : SubstituteException
         string? matchedSpecificationsInfo = null;
         if (CallFormatter.Default.CanFormat(method))
         {
-            var argsWithInlinedParamsArray = invocationArguments.ToArray();
+            var argsWithInlinedParamsCollection = invocationArguments.ToArray();
             // If last argument is `params`, we inline the value.
             if (method.GetParameters().Last().IsParams()
-                && argsWithInlinedParamsArray.Last() is IEnumerable paramsArray)
+                && argsWithInlinedParamsCollection.Last() is { } paramsArgument)
             {
-                argsWithInlinedParamsArray = argsWithInlinedParamsArray
-                    .Take(argsWithInlinedParamsArray.Length - 1)
-                    .Concat(paramsArray.Cast<object>())
+                argsWithInlinedParamsCollection = argsWithInlinedParamsCollection
+                    .Take(argsWithInlinedParamsCollection.Length - 1)
+                    .Concat(ParamsSupport.UnwrapArgument(paramsArgument))
                     .ToArray();
             }
 
@@ -61,11 +60,11 @@ public class AmbiguousArgumentsException : SubstituteException
 
             methodArgsWithHighlightedPossibleArgSpecs = CallFormatter.Default.Format(
                 method,
-                FormatMethodArguments(argsWithInlinedParamsArray));
+                FormatMethodArguments(argsWithInlinedParamsCollection));
 
             matchedSpecificationsInfo = CallFormatter.Default.Format(
                 method,
-                PadNonMatchedSpecifications(matchedSpecifications, argsWithInlinedParamsArray));
+                PadNonMatchedSpecifications(matchedSpecifications, argsWithInlinedParamsCollection));
         }
 
         var message = new StringBuilder();

@@ -1,4 +1,5 @@
 using System.Reflection;
+using NSubstitute.Core.Arguments;
 
 namespace NSubstitute.Core;
 
@@ -25,7 +26,7 @@ public static class ReflectionExtensions
 
     public static bool IsParams(this ParameterInfo parameterInfo)
     {
-        return parameterInfo.IsDefined(typeof(ParamArrayAttribute), inherit: false);
+        return ParamsSupport.IsParams(parameterInfo);
     }
 
     private static bool CanBePropertySetterCall(MethodInfo call)

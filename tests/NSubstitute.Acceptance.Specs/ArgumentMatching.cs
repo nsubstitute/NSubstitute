@@ -10,7 +10,7 @@ using static NSubstitute.ArgMatchers;
 namespace NSubstitute.Acceptance.Specs;
 
 [TestFixture]
-public class ArgumentMatching
+public partial class ArgumentMatching
 {
     private ISomething _something;
 
@@ -200,26 +200,6 @@ public class ArgumentMatching
     }
 
     [Test]
-    public void Received_should_compare_elements_for_params_arguments()
-    {
-        const string first = "first";
-        const string second = "second";
-        _something.WithParams(1, first, second);
-
-        _something.Received().WithParams(1, first, second);
-        _something.Received().WithParams(1, Arg.Any<string>(), second);
-        _something.Received().WithParams(1, first, Arg.Any<string>());
-        _something.Received().WithParams(1, [first, second]);
-        _something.Received().WithParams(1, Arg.Any<string[]>());
-        _something.Received().WithParams(1, Arg.Is<string[]>(x => x.Length == 2));
-        _something.DidNotReceive().WithParams(2, first, second);
-        _something.DidNotReceive().WithParams(2, first, Arg.Any<string>());
-        _something.DidNotReceive().WithParams(1, first, first);
-        _something.DidNotReceive().WithParams(1, null);
-        _something.DidNotReceive().WithParams(1, Arg.Is<string[]>(x => x.Length > 3));
-    }
-
-    [Test]
     public void Should_allow_to_specify_any_for_ref_argument()
     {
         _something.MethodWithRefParameter(Arg.Any<int>(), ref Arg.Any<int>()).Returns(42);
@@ -360,14 +340,6 @@ public class ArgumentMatching
     }
 
     [Test]
-    public void Returns_should_work_with_params()
-    {
-        _something.WithParams(Arg.Any<int>(), Arg.Is<string>(x => x == "one")).Returns("fred");
-
-        Assert.That(_something.WithParams(1, "one"), Is.EqualTo("fred"));
-    }
-
-    [Test]
     public void Resolve_setter_arg_matcher_with_more_specific_type_than_member_signature()
     {
         const string value = "some string";
@@ -418,44 +390,6 @@ public class ArgumentMatching
         _something.WithNullableArg(Arg.Any<int?>()).ReturnsForAnyArgs(123);
 
         Assert.That(_something.WithNullableArg(234), Is.EqualTo(123));
-    }
-
-    public interface IMethodsWithParamsArgs
-    {
-        int GetValue(int primary, params int[] others);
-    }
-
-    [Test]
-    public void Should_fail_with_ambiguous_exception_if_params_boundary_is_crossed_scenario_1()
-    {
-        var target = Substitute.For<IMethodsWithParamsArgs>();
-
-        Assert.Throws<AmbiguousArgumentsException>(() =>
-        {
-            target.GetValue(0, Arg.Any<int>()).Returns(42);
-        });
-    }
-
-    [Test]
-    public void Should_fail_with_ambiguous_exception_if_params_boundary_is_crossed_scenario_2()
-    {
-        var target = Substitute.For<IMethodsWithParamsArgs>();
-
-        Assert.Throws<AmbiguousArgumentsException>(() =>
-        {
-            target.GetValue(Arg.Any<int>(), 0).Returns(42);
-        });
-    }
-
-    [Test]
-    public void Should_correctly_use_matchers_crossing_the_params_boundary()
-    {
-        var target = Substitute.For<IMethodsWithParamsArgs>();
-        target.GetValue(Arg.Is(0), Arg.Any<int>()).Returns(42);
-
-        var result = target.GetValue(0, 100);
-
-        Assert.That(result, Is.EqualTo(42));
     }
 
     [Test]
