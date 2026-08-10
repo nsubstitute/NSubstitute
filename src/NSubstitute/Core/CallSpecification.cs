@@ -104,7 +104,7 @@ public class CallSpecification(MethodInfo methodInfo, IEnumerable<IArgumentSpeci
     {
         return a.IsGenericMethod == b.IsGenericMethod
                && TypesAreAllEquivalent([a.ReturnType], [b.ReturnType], allowAssignableTypes: false)
-               && a.Name.Equals(b.Name, StringComparison.Ordinal);
+               && a.GetGenericMethodDefinition().Equals(b.GetGenericMethodDefinition());
     }
 
     private bool IsMatchingArgumentSpecifications(ICall call)
