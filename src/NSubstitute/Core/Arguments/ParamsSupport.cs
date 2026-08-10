@@ -9,24 +9,11 @@ internal static class ParamsSupport
 {
     public static bool IsParams(ParameterInfo parameterInfo)
     {
+        const string paramCollectionAttributeFullName = "System.Runtime.CompilerServices.ParamCollectionAttribute";
+
         return parameterInfo.IsDefined(typeof(ParamArrayAttribute), inherit: false)
-               || HasParamCollectionAttribute(parameterInfo);
-
-        // Needed because attribute is available in .NET 9+ only
-        static bool HasParamCollectionAttribute(ParameterInfo parameterInfo)
-        {
-            const string paramCollectionAttributeFullName = "System.Runtime.CompilerServices.ParamCollectionAttribute";
-
-            foreach (var attributeData in parameterInfo.GetCustomAttributesData())
-            {
-                if (attributeData.AttributeType.FullName == paramCollectionAttributeFullName)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
+               // Needed because attribute is available in .NET 9+ only
+               || parameterInfo.GetCustomAttributesData().Any(x => x.AttributeType.FullName == paramCollectionAttributeFullName);
     }
 
     public static Type GetElementType(Type paramsParameterType)
