@@ -2,7 +2,6 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path="BreakingChanges.md" />
-    <File Path="CHANGELOG.md" />
     <File Path="Directory.Build.props" />
     <File Path="README.md" />
   </Folder>
