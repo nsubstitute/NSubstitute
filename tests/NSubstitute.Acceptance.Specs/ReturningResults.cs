@@ -301,6 +301,26 @@ public class ReturningResults
     }
 
     [Test]
+    public async Task Return_a_wrapped_async_result_for_nullable_value_type()
+    {
+        _something.NullableCountAsync().Returns(3);
+
+        var result = await _something.NullableCountAsync();
+
+        Assert.That(result, Is.EqualTo(3));
+    }
+
+    [Test]
+    public async Task Return_a_wrapped_ValueTask_async_result_for_nullable_value_type()
+    {
+        _something.NullableCountValueTaskAsync().Returns(3);
+
+        var result = await _something.NullableCountValueTaskAsync();
+
+        Assert.That(result, Is.EqualTo(3));
+    }
+
+    [Test]
     public void Return_multiple_async_results_from_funcs()
     {
         _something.CountAsync().Returns(
