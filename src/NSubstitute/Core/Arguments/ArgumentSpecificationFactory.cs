@@ -30,7 +30,7 @@ public class ArgumentSpecificationFactory : IArgumentSpecificationFactory
 
     private IArgumentSpecification CreateSpecFromParamsArg(object? argument, IParameterInfo parameterInfo, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)
     {
-        // Next specification is for the whole params array.
+        // Next specification is for the whole params argument.
         if (suppliedArgumentSpecifications.IsNextFor(argument, parameterInfo.ParameterType))
         {
             return suppliedArgumentSpecifications.Dequeue();
@@ -43,21 +43,16 @@ public class ArgumentSpecificationFactory : IArgumentSpecificationFactory
             throw new AmbiguousArgumentsException();
         }
 
-        // User passed "null" as the params array value.
+        // User passed "null" as the params value.
         if (argument == null)
         {
             return new ArgumentSpecification(parameterInfo.ParameterType, new EqualsArgumentMatcher(null));
         }
 
         // User specified arguments using the native params syntax.
-        var arrayArg = argument as Array;
-        if (arrayArg == null)
-        {
-            throw new SubstituteInternalException($"Expected to get array argument, but got argument of '{argument.GetType().FullName}' type.");
-        }
-
-        var arrayArgumentSpecifications = UnwrapParamsArguments(arrayArg.Cast<object?>(), parameterInfo.ParameterType.GetElementType()!, suppliedArgumentSpecifications);
-        return new ArgumentSpecification(parameterInfo.ParameterType, new ArrayContentsArgumentMatcher(arrayArgumentSpecifications));
+        var elementType = ParamsSupport.GetElementType(parameterInfo.ParameterType);
+        var argumentValueSpecifications = UnwrapParamsArguments(ParamsSupport.UnwrapArgument(argument), elementType, suppliedArgumentSpecifications);
+        return new ArgumentSpecification(parameterInfo.ParameterType, new ParamsContentsArgumentMatcher(argumentValueSpecifications));
     }
 
     private IEnumerable<IArgumentSpecification> UnwrapParamsArguments(IEnumerable<object?> args, Type paramsElementType, ISuppliedArgumentSpecifications suppliedArgumentSpecifications)

@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace NSubstitute.Specs.Arguments
 {
-    public class ArrayContentsArgumentMatcherSpecs : ConcernFor<ArrayContentsArgumentMatcher>
+    public class ParamsContentsArgumentMatcherSpecs : ConcernFor<ParamsContentsArgumentMatcher>
     {
         private IArgumentSpecification[] _argumentSpecifications;
         private string[] _argument;
@@ -109,9 +109,9 @@ namespace NSubstitute.Specs.Arguments
             return new ArgumentFormatter().Format(text, highlight);
         }
 
-        public override ArrayContentsArgumentMatcher CreateSubjectUnderTest()
+        public override ParamsContentsArgumentMatcher CreateSubjectUnderTest()
         {
-            return new ArrayContentsArgumentMatcher(_argumentSpecifications);
+            return new ParamsContentsArgumentMatcher(_argumentSpecifications);
         }
     }
 }

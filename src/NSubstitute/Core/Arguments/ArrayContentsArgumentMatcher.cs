@@ -2,6 +2,7 @@
 
 namespace NSubstitute.Core.Arguments;
 
+[Obsolete("Use ParamsContentsArgumentMatcher instead. This api will be removed in future versions of product.")]
 public class ArrayContentsArgumentMatcher(IEnumerable<IArgumentSpecification> argumentSpecifications) : IArgumentMatcher, IArgumentFormatter
 {
     private readonly IArgumentSpecification[] _argumentSpecifications = argumentSpecifications.ToArray();

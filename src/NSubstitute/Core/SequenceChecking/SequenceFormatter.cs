@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Reflection;
 using NSubstitute.Core.Arguments;
 
@@ -113,7 +112,7 @@ public class SequenceFormatter
             var argsWithParamsExpanded =
                 arguments
                     .SelectMany(a => a.ParamInfo.IsParams()
-                                      ? ((IEnumerable)a.Argument!).Cast<object>()
+                                      ? ParamsSupport.UnwrapArgument(a.Argument!)
                                       : ToEnumerable(a.Argument))
                     .Select(x => ArgumentFormatter.Default.Format(x, false))
                     .ToArray();
