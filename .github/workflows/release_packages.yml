@@ -27,7 +27,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: 10.0.x
+          dotnet-version: 11.0.x
 
       - name: Build package
         run: dotnet pack src/NSubstitute/NSubstitute.csproj -o bin -p:CI=true -p:Version=${{ steps.version.outputs.version }}
