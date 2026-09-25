@@ -39,6 +39,8 @@ public void SubscribeToEventBeforeOpeningConnection() {
 }
 ```
 
+**Note:** `Received.InOrder` does not track calls to property getters; only method calls (and event subscriptions) are checked. This is by design: a getter is often accessed just to reach a nested substitute (e.g. `a.Nested.Call()`), and requiring that access to happen in an exact position in the sequence would make many legitimate tests painful to write. If you need to assert on a property value, use [`Received()`](/help/received-calls/) or [`Returns`](/help/set-return-value/) separately, outside of `Received.InOrder`.
+
 <!--
 ```requiredcode
 public class Controller {
