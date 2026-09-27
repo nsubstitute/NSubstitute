@@ -3,14 +3,15 @@
 public class ArgumentMatchInfo(int index, object? argument, IArgumentSpecification specification)
 {
     private readonly object? _argument = argument;
-    private readonly IArgumentSpecification _specification = specification;
     public int Index { get; } = index;
 
-    public bool IsMatch => _specification.IsSatisfiedBy(_argument);
+    public bool IsMatch => Specification.IsSatisfiedBy(_argument);
+
+    public IArgumentSpecification Specification { get; } = specification;
 
     public string DescribeNonMatch()
     {
-        var describeNonMatch = _specification.DescribeNonMatch(_argument);
+        var describeNonMatch = Specification.DescribeNonMatch(_argument);
         if (string.IsNullOrEmpty(describeNonMatch)) return string.Empty;
         var argIndexPrefix = "arg[" + Index + "]: ";
         return string.Format("{0}{1}", argIndexPrefix, describeNonMatch.Replace("\n", "\n".PadRight(argIndexPrefix.Length + 1)));
@@ -20,7 +21,7 @@ public class ArgumentMatchInfo(int index, object? argument, IArgumentSpecificati
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return other.Index == Index && Equals(other._argument, _argument) && Equals(other._specification, _specification);
+        return other.Index == Index && Equals(other._argument, _argument) && Equals(other.Specification, Specification);
     }
 
     public override bool Equals(object? obj)
@@ -37,7 +38,7 @@ public class ArgumentMatchInfo(int index, object? argument, IArgumentSpecificati
         {
             int result = Index;
             result = (result * 397) ^ (_argument != null ? _argument.GetHashCode() : 0);
-            result = (result * 397) ^ _specification.GetHashCode();
+            result = (result * 397) ^ Specification.GetHashCode();
             return result;
         }
     }
