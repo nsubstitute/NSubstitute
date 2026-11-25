@@ -1,12 +1,13 @@
 using System;
 using NSubstitute.Routing.AutoValues;
-using NSubstitute.Specs.Infrastructure;
 using NUnit.Framework;
 
 namespace NSubstitute.Specs.Routing.AutoValues
 {
-    public class AutoStringProviderSpecs : ConcernFor<AutoStringProvider>
+    public class AutoStringProviderSpecs
     {
+        AutoStringProvider sut = CreateSubjectUnderTest();
+
         [Test]
         public void Can_provide_value_for_string()
         {
@@ -25,7 +26,7 @@ namespace NSubstitute.Specs.Routing.AutoValues
             Assert.That(sut.CanProvideValueFor(typeof(int)), Is.False);
         }
 
-        public override AutoStringProvider CreateSubjectUnderTest()
+        private static AutoStringProvider CreateSubjectUnderTest()
         {
             return new AutoStringProvider();
         }
