@@ -116,4 +116,23 @@ public static class Substitute
         var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
         return (TInterface)substituteFactory.CreatePartial([typeof(TInterface), typeof(TClass)], constructorArguments);
     }
+
+    /// <summary>
+    /// Creates a proxy for a class that implements an interface or class, forwarding methods and properties to an instance of the class, effectively mimicking a real instance.
+    /// The proxy will log calls made to the interface and/or virtual class members and delegate them to an instance of the target if it implements them. Specific members can be substituted 
+    /// by using <see cref="WhenCalled{T}.DoNotCallBase()">When(() => call).DoNotCallBase()</see> or by
+    /// <see cref="SubstituteExtensions.Returns{T}(T,T,T[])">setting a value to return value</see> for that member.
+    /// This extension supports sealed classes and non-virtual members, with some limitations. Since the substituted method is non-virtual, internal calls within the object will invoke the original implementation and will not be logged.
+    /// </summary>
+    /// <typeparam name="T">The interface or class the substitute will implement.</typeparam>
+    /// <param name="target">The target instance providing implementation for (parts of) the interface</param>
+    /// <param name="constructorArguments"></param>
+    /// <returns>An object implementing the selected interface or class. Calls will be forwarded to the actual methods if possible, but allows parts to be selectively 
+    /// overridden via `Returns` and `When..DoNotCallBase`.</returns>
+    public static T ForTypeForwardingTo<T>(object target, params object[] constructorArguments)
+        where T : class
+    {
+        var substituteFactory = SubstitutionContext.Current.SubstituteFactory;
+        return (T)substituteFactory.Create(target, [typeof(T)], constructorArguments);
+    }
 }

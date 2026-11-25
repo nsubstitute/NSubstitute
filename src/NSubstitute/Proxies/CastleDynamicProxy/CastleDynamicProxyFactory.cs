@@ -17,6 +17,15 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
             : GenerateTypeProxy(callRouter, typeToProxy, additionalInterfaces, isPartial, constructorArguments);
     }
 
+    public object GenerateProxy(object targetObject, ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, bool isPartial, object?[]? constructorArguments)
+    {
+        return typeToProxy.IsDelegate()
+            ? !targetObject.GetType().IsDelegate()
+                ? throw new NotSupportedException()
+                : throw new NotImplementedException() // TODO: Technically, there could be a use case for this. Implement if needed.
+            : GenerateTypeProxy(targetObject, callRouter, typeToProxy, additionalInterfaces, isPartial, constructorArguments);
+    }
+
     private object GenerateTypeProxy(ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, bool isPartial, object?[]? constructorArguments)
     {
         VerifyClassHasNotBeenPassedAsAnAdditionalInterface(additionalInterfaces);
@@ -27,6 +36,28 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
         var proxyGenerationOptions = GetOptionsToMixinCallRouterProvider(callRouter);
 
         var proxy = CreateProxyUsingCastleProxyGenerator(
+            typeToProxy,
+            additionalInterfaces,
+            constructorArguments,
+            [proxyIdInterceptor, forwardingInterceptor],
+            proxyGenerationOptions,
+            isPartial);
+
+        forwardingInterceptor.SwitchToFullDispatchMode();
+        return proxy;
+    }
+
+    private object GenerateTypeProxy(object targetObject, ICallRouter callRouter, Type typeToProxy, Type[]? additionalInterfaces, bool isPartial, object?[]? constructorArguments)
+    {
+        VerifyClassHasNotBeenPassedAsAnAdditionalInterface(additionalInterfaces);
+
+        var proxyIdInterceptor = new ProxyIdInterceptor(typeToProxy);
+        var forwardingInterceptor = CreateForwardingInterceptor(callRouter);
+
+        var proxyGenerationOptions = GetOptionsToMixinCallRouterProvider(callRouter);
+
+        var proxy = CreateProxyUsingCastleProxyGenerator(
+            targetObject,
             typeToProxy,
             additionalInterfaces,
             constructorArguments,
@@ -111,6 +142,45 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
             interceptors);
     }
 
+    private object CreateProxyUsingCastleProxyGenerator(object targetObject, Type typeToProxy, Type[]? additionalInterfaces,
+        object?[]? constructorArguments,
+        IInterceptor[] interceptors,
+        ProxyGenerationOptions proxyGenerationOptions,
+        bool isPartial)
+    {
+        if (isPartial)
+            return CreatePartialProxy(targetObject, typeToProxy, additionalInterfaces, constructorArguments, interceptors, proxyGenerationOptions, isPartial);
+
+        // We make a proxy/wrapper for the target object type.
+        // We forward only implementation of the specified base type/interfaces to the target, so we don't want to use its type as typeToProxy.
+        if (typeToProxy.GetTypeInfo().IsInterface)
+        {
+            VerifyNoConstructorArgumentsGivenForInterface(constructorArguments);
+
+            var interfacesArrayLength = additionalInterfaces != null ? additionalInterfaces.Length + 1 : 1;
+            var interfaces = new Type[interfacesArrayLength];
+
+            interfaces[0] = typeToProxy;
+            if (additionalInterfaces != null)
+            {
+                Array.Copy(additionalInterfaces, 0, interfaces, 1, additionalInterfaces.Length);
+            }
+
+            // We need to create a proxy for the object type, so we can intercept the ToString() method.
+            // Therefore, we put the desired primary interface to the secondary list.
+            typeToProxy = typeof(object);
+            additionalInterfaces = interfaces;
+        }
+
+
+        return _proxyGenerator.CreateClassProxyWithTarget(typeToProxy,
+            additionalInterfaces,
+            targetObject,
+            proxyGenerationOptions,
+            constructorArguments,
+            interceptors);
+    }
+
     private object CreatePartialProxy(Type typeToProxy, Type[]? additionalInterfaces, object?[]? constructorArguments, IInterceptor[] interceptors, ProxyGenerationOptions proxyGenerationOptions, bool isPartial)
     {
         if (typeToProxy.GetTypeInfo().IsClass &&
@@ -135,6 +205,16 @@ public class CastleDynamicProxyFactory(ICallFactory callFactory, IArgumentSpecif
                proxyGenerationOptions,
                constructorArguments,
                interceptors);
+    }
+
+    private object CreatePartialProxy(object targetObject, Type typeToProxy, Type[]? additionalInterfaces, object?[]? constructorArguments, IInterceptor[] interceptors, ProxyGenerationOptions proxyGenerationOptions, bool isPartial)
+    {
+        return _proxyGenerator.CreateClassProxyWithTarget(typeToProxy,
+            additionalInterfaces,
+            targetObject,
+            proxyGenerationOptions,
+            constructorArguments,
+            interceptors);
     }
 
     private ProxyGenerationOptions GetOptionsToMixinCallRouterProvider(ICallRouter callRouter)
