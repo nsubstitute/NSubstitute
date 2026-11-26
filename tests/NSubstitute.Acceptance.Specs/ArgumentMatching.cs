@@ -1,4 +1,4 @@
-﻿using NSubstitute.Acceptance.Specs.Infrastructure;
+using NSubstitute.Acceptance.Specs.Infrastructure;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
@@ -27,6 +27,30 @@ public partial class ArgumentMatching
 
         Assert.That(_something.Echo(1), Is.EqualTo("anything"), "First return");
         Assert.That(_something.Echo(2), Is.EqualTo("anything"), "Second return");
+    }
+
+    [Test]
+    public void Return_result_for_argument_implementing_iequatable_without_object_equals_override()
+    {
+        _something.Anything(new EquatableWithoutObjectEqualsOverride(42)).Returns(1);
+
+        Assert.That(_something.Anything(new EquatableWithoutObjectEqualsOverride(42)), Is.EqualTo(1));
+        Assert.That(_something.Anything(new EquatableWithoutObjectEqualsOverride(7)), Is.EqualTo(0));
+    }
+
+    public class EquatableWithoutObjectEqualsOverride : IEquatable<EquatableWithoutObjectEqualsOverride>
+    {
+        private readonly int _id;
+
+        public EquatableWithoutObjectEqualsOverride(int id)
+        {
+            _id = id;
+        }
+
+        public bool Equals(EquatableWithoutObjectEqualsOverride? other)
+        {
+            return other is not null && other._id == _id;
+        }
     }
 
     [Test]

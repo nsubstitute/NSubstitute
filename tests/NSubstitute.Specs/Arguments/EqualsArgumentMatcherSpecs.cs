@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
@@ -51,6 +51,45 @@ namespace NSubstitute.Specs.Arguments
             string x = null;
             List<int> y = null;
             Assert.That(CreateSubjectUnderTest(x).IsSatisfiedBy(y));
+        }
+
+
+        [Test]
+        public void Should_match_when_type_implements_iequatable_without_overriding_object_equals()
+        {
+            var value = new EquatableWithoutObjectEqualsOverride(42);
+            var equalInstance = new EquatableWithoutObjectEqualsOverride(42);
+            Assert.That(CreateSubjectUnderTest(value).IsSatisfiedBy(equalInstance));
+        }
+
+        [Test]
+        public void Should_not_match_when_iequatable_implementations_have_different_values()
+        {
+            var value = new EquatableWithoutObjectEqualsOverride(1);
+            var differentValue = new EquatableWithoutObjectEqualsOverride(2);
+            Assert.False(CreateSubjectUnderTest(value).IsSatisfiedBy(differentValue));
+        }
+
+        [Test]
+        public void Should_not_match_iequatable_implementation_against_another_type()
+        {
+            var value = new EquatableWithoutObjectEqualsOverride(42);
+            Assert.False(CreateSubjectUnderTest(value).IsSatisfiedBy(42));
+        }
+
+        private class EquatableWithoutObjectEqualsOverride : IEquatable<EquatableWithoutObjectEqualsOverride>
+        {
+            private readonly int id;
+
+            public EquatableWithoutObjectEqualsOverride(int id)
+            {
+                this.id = id;
+            }
+
+            public bool Equals(EquatableWithoutObjectEqualsOverride other)
+            {
+                return other != null && other.id == id;
+            }
         }
 
         public IArgumentMatcher CreateSubjectUnderTest(object value)
