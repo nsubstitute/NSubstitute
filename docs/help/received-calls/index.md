@@ -117,6 +117,35 @@ calculator.ReceivedWithAnyArgs().Add(default, default);
 calculator.DidNotReceiveWithAnyArgs().Subtract(default, default);
 ```
 
+## Check that no calls were received at all
+
+`DidNotReceive()` checks a specific call. To check that nothing at all was called on a substitute, check that its `ReceivedCalls()` are empty:
+
+```csharp
+// No calls have been made to the substitute yet.
+Assert.That(calculator.ReceivedCalls(), Is.Empty);
+
+calculator.Add(1, 2);
+
+Assert.That(calculator.ReceivedCalls(), Is.Not.Empty);
+```
+
+## Listing received calls
+
+`ReceivedCalls()` returns the calls a substitute has received, in the order they were made, as a sequence of `ICall`. This is useful to check the exact calls made, or to write a more helpful message when an assertion fails.
+
+```csharp
+calculator.Add(1, 2);
+calculator.Subtract(5, 3);
+
+var calls = calculator.ReceivedCalls().ToArray();
+
+Assert.That(calls.Select(call => call.GetMethodInfo().Name), Is.EqualTo(new[] { "Add", "Subtract" }));
+Assert.That(calls[0].GetArguments(), Is.EqualTo(new object[] { 1, 2 }));
+```
+
+`ICall` is a low-level interface that also lets you do things like call the base implementation, so use it only to inspect calls. To check that a particular call was made, prefer `Received()`. The `ClearReceivedCalls()` extension method [forgets all received calls](/help/clear-received-calls).
+
 ## Checking calls to properties
 
 The same syntax can be used to check calls on properties. Normally we'd want to avoid this, as we're really more interested in testing the required behaviour rather than the precise implementation details (i.e. we would set the property to return a value and check that was used properly, rather than assert that the property getter was called). Still, there are probably times when checking getters and setters were called can come in handy, so here's how you do it:
